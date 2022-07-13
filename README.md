@@ -54,3 +54,6 @@ Use Tab 2 to collect papers and make an initial pass at the information; use Tab
 - Team Performance Metric Lit Review: https://docs.google.com/document/d/1RTvKzkLdporPWTxNDZ-kUYdT8yKGxMl7l1I_Q242_Ow/edit#
 
 This is a slightly messy literature review done by Emily. Much of it has already been integrated into the master spreadsheet, but it is a good starting point for background reading/resources, even though it's not perfectly organized.
+
+- Literature Review folder with a few starter PDF's:
+https://drive.google.com/drive/u/0/folders/1NmZi4Z8ywP-1wzhsEDStMYQS4gj0kD7y
