@@ -3,7 +3,9 @@
 ## Introduction
 The notion of "team performance" is --- no pun intended --- the work horse of management research. Nearly every study of groups or teams includes a measure of "performance," a notion that some groups are simply better or more productive than others. Performance even underlies the reason why we choose to have teams at all. The idea that teams have *synergy* (Larson, 2010) --- namely, that there is some "performance gain" when a group of people works together rather than alone --- has been a strong undercurrent of research on teamwork. After all, if teams do not perform well together, why use teams at all?
 
-But as much as performance has been discussed in the literature, and as much as managers demand new ways to improve it, performance is, in reality, a somewhat elusive concept. The study of teams suffers from a "unit of analysis problem:" that is, because teams are composed of individuals, as well as products of their context, it is not obvious what one is truly measuring when one measures performance. This problem is by no means a new one. As Davis (1969) writes:
+But as much as performance has been discussed in the literature, and as much as managers demand new ways to improve it, performance is, in reality, a somewhat elusive concept. The study of teams suffers from a "unit of analysis problem:" that is, because teams are composed of individuals, as well as products of their context, it is not obvious what one is truly measuring when one measures performance. 
+
+This problem is by no means a new one. As Davis (1969) writes:
 
 "It is commonly observed that “group behavior” is a function of three classes of variables: (a) person variables, such as abilities, personality traits, or motives; (b) environmental variables that reflect the effects of the immediate location and larger organization, community, or social context in which group action takes place; and (c) variables associated with the immediate task or goal that the group is pursuing."
 
