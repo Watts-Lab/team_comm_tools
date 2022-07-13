@@ -41,6 +41,8 @@ In this project, we will produce a unified "map" of all theories relevant to tea
 
 3. Then, we'll pit the measurement against real data, of both teams in the lab and in the field. We'll use datasets of recorded text conversations of people interacting in teams and see how well the features we designed in Steps 1-2 predict performance data. We can use this data to learn weights for the features --- identifying which features have the strongest weight in determining a team's level of success.
 
+4. Future work can even build towards the creation of social computing systems. Can we build a bot that automatically measures peoples' projected team performance, and that makes suggestions and useful corrections as they work? Can that be deployed in a way that is helpful and non-annoying? Are more large-scale changes needed? That is, should we design new systems or ways of working altogether?
+
 In short, our approach brings computer science and management science together. This project will develop an artifact that documents theories of team performance in a commensurable way, and which will then be combined with real-world data to learn develop cutting-edge about what makes a team "perform" well.
 
 ## Documents
