@@ -1,4 +1,4 @@
-# team-perf-metric
+# Mapping Team Performaance Metrics (team-perf-metric)
 
 ## Introduction
 The notion of "team performance" is the work horse (no pun intended) of management research. Nearly every study of groups or teams includes a measure of "performance," or the idea that some groups are simply better or more productive than others. Performance even underlies the reason why we choose to have teams at all. It is because teams have *synergy* (Larson, 2010) --- a "performance gain" from when a group of people collaborate rather than work alone --- that teamwork is so appealing. After all, if teams do not perform well together, why use them at all?
@@ -37,10 +37,18 @@ In this project, we will produce a unified "map" of all theories relevant to tea
 ### Next Steps
 1. A first step, we need to collect as many individual concepts and theory papers about team performance as possible, creating a list of general features that matter in measuring a team's performance. The idea is to have the map represent, to the extent possible, the current "state of the art" in what we know about peformance. Although it doesn't have to be perfectly comprehensive (a key advantage of the map is that it will be easy to add new rows or columns in the future), it should have enough coverage to be considered a useful and trustworthy starting point for this approach. Additionally, it will be important to document the original source of the theories --- were they developed based on artificial teams in the lab (e.g., students or online crowdworkers?) or were they developed based on observing teams at a specific company? Knowing these details will help us to "weight" which features are more important for which contexts, as well as compare which sources of performance insights are more generlizable to other contexts.
 
-2. Next, we will need to *drill down as far as possible into how each concept can be measured*. For instance, team morale could be measured as having "X% message of positive sentiment," or it could be measured as "referring to the team by its team name Y% of the time," an so on. Some measures will be better than others, and the key is to try to document as many options and possibilities as precisely as possible.
+2. Next, we will need to *drill down as far as possible into how each concept can be measured*. For instance, team morale could be measured as having "X% message of positive sentiment," or it could be measured as "referring to the team by its team name Y% of the time," an so on. Some measures will be better than others, and the key is to try to document as many options and possibilities as precisely as possible. Notably, there will be quite a bit of NLP involved here, since most of our observations of team interactions are text chats.
 
-3. Then, we'll pit the measurement against real data, of both teams in the lab and in the field. 
+3. Then, we'll pit the measurement against real data, of both teams in the lab and in the field. We'll use datasets of recorded text conversations of people interacting in teams and see how well the features we designed in Steps 1-2 predict performance data. We can use this data to learn weights for the features --- identifying which features have the strongest weight in determining a team's level of success.
 
-Our approach brings computer science and management science together. Specifically, we hope to develop an artifact that documents theories of team performance in a commensurable way, and which can then be used to learn models of team performance through (for now) text-based team interactions in different contexts.
+In short, our approach brings computer science and management science together. This project will develop an artifact that documents theories of team performance in a commensurable way, and which will then be combined with real-world data to learn develop cutting-edge about what makes a team "perform" well.
 
-This artifact may be thought of as a "feature list" for predicting performance. 
+## Documents
+- This "master sheet" documents all of the team performance metrics that we are collecting so far:
+https://docs.google.com/spreadsheets/d/1JnChOKFXkv944LvnYbzI1qrHLEPfCvEMN5XzP1AxvmA/edit?usp=sharing
+
+Use Tab 2 to collect papers and make an initial pass at the information; use Tab 1 to organize and group key themes together.
+
+- Team Performance Metric Lit Review: https://docs.google.com/document/d/1RTvKzkLdporPWTxNDZ-kUYdT8yKGxMl7l1I_Q242_Ow/edit#
+
+This is a slightly messy literature review done by Emily. Much of it has already been integrated into the master spreadsheet, but it is a good starting point for background reading/resources, even though it's not perfectly organized.
