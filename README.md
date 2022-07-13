@@ -16,12 +16,30 @@ But these models really get us no closer to answering the question, what really 
 ### An Abundance of Theories
 Social science traditionally focuses on studying just one variable at a time --- an approach known as the "one-at-a-time" experiment (Almaatouq et al., 2022, working paper). The literature on team performance is filled with papers that identify the role that a few specific variables play in improving team performance --- for example, having shared mental models (Kraiger and Wenzel, 2009); having discursive diversity (Lix et al., 2021); or being able to share workloads well (Campion, Medsker, and Higgs, 1993). We therefore have access to a large number of *individual theories* about team performance, but do not have a way to compare or unify them. After all, these studies are conducted on a diverse set of populations, doing various different tasks, and during entirely different decades. It's hard to say which of these theories dominates the measure of a team's overall quality, becuase one simply cannot compare apples to oranges.
 
-in fact, many of these theories rely on vague concepts that can't be measured at all. Sure, it makes sense that teams will work better together if they have "shared mental models," but what does that mean? How do you measure that? How does it interact with all of the other variables that might be at play? 
+Making matters worse, many of these theories rely on vague concepts that can't be measured at all. Sure, it makes sense that teams will work better together if they have "shared mental models," but what does that mean? How do you measure that? How does it interact with all of the other variables that might be at play? Other concepts are equally vague --- what does it mean to have good "coordination," "low conflict," "good team spirit?" Answering the question of performance feels like having a conversation with a toddler: you are hopelessly lost in a nested list of "what's that?"
+
+"Performance is a combination of team member inputs and the team process conditions."
+
+"What's the team process?"
+
+"Well, they need to have shared mental models ..."
+
+"What's that?"
+
+"..."
 
 ## Building a "Map" of Team Performance
+
 <img width="896" alt="diagram of our approach" src="https://user-images.githubusercontent.com/28793641/178830357-3443bbec-1504-4ff5-a926-c9d41179e252.png">
 
-In this project, we will produce a unified "map" of all theories relevant to team performance. By "map," we really mean that it will be a detailed list of all the concepts and features relevant to capturing a team's performance (rows), with specific ways that they can be measured computationally (columns).
+In this project, we will produce a unified "map" of all theories relevant to team performance. By "map," we really mean that it will be a detailed matrix of all the concepts and features relevant to capturing a team's performance (rows), with specific ways that they can be measured computationally (columns). The figure above illustrates the transformation --- from self-contained, incomparable theories (left) to a generalizable framework that documents every concept in a measurable and comparable way (right).
+
+### Next Steps
+1. A first step, we need to collect as many individual concepts and theory papers about team performance as possible, creating a list of general features that matter in measuring a team's performance. The idea is to have the map represent, to the extent possible, the current "state of the art" in what we know about peformance. Although it doesn't have to be perfectly comprehensive (a key advantage of the map is that it will be easy to add new rows or columns in the future), it should have enough coverage to be considered a useful and trustworthy starting point for this approach. Additionally, it will be useful to 
+
+2. Next, we will need to *drill down as far as possible into how each concept can be measured*. For instance, team morale could be measured as having "X% message of positive sentiment," or it could be measured as "referring to the team by its team name Y% of the time," an so on. Some measures will be better than others, and the key is to try to document as many options and possibilities as precisely as possible.
+
+3. Then, we'll pit the measurement against real data, of both teams in the lab and in the field. 
 
 Our approach brings computer science and management science together. Specifically, we hope to develop an artifact that documents theories of team performance in a commensurable way, and which can then be used to learn models of team performance through (for now) text-based team interactions in different contexts.
 
