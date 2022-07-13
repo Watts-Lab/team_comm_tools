@@ -1,4 +1,4 @@
-# Mapping Team Performaance Metrics (team-perf-metric)
+# Mapping Team Performance Metrics (team-perf-metric)
 
 ## Introduction
 The notion of "team performance" is the work horse (no pun intended) of management research. Nearly every study of groups or teams includes a measure of "performance," or the idea that some groups are simply better or more productive than others. Performance even underlies the reason why we choose to have teams at all. It is because teams have *synergy* (Larson, 2010) --- a "performance gain" from when a group of people collaborate rather than work alone --- that teamwork is so appealing. After all, if teams do not perform well together, why use them at all?
