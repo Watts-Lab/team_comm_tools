@@ -1,4 +1,4 @@
-# Measuring Team Performance by Mapping Team Processes (team-perf-metric)
+# Measuring Team Performance by Mapping Team Processes
 
 ## Introduction
 
