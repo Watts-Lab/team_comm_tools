@@ -49,7 +49,9 @@ In this project, we will produce a unified "map" of all theories about how team 
 
 In short, our approach brings computer science and management science together. This project will develop an artifact that documents theories of team performance in a commensurable way, and which will then be combined with real-world data to learn develop cutting-edge about what makes a team "perform" well.
 
-## Documents
+## Documents and Handy Links
+- Our Team Email: csslab-team-process-map@wharton.upenn.edu
+
 - This "master sheet" documents all of the team performance metrics that we are collecting so far:
 https://docs.google.com/spreadsheets/d/1JnChOKFXkv944LvnYbzI1qrHLEPfCvEMN5XzP1AxvmA/edit?usp=sharing
 
