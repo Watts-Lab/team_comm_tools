@@ -25,7 +25,7 @@ Making matters worse, many of these theories rely on vague concepts that can't b
 
 Within the management literature, performance is (no pun intended) a work horse metric. Nearly every study of groups or teams includes a measure of "performance," or the idea that some groups are simply better or more productive than others. Performance even underlies the reason why we choose to have teams at all. It is because teams have *synergy* (Larson, 2010) --- a "performance gain" from when a group of people collaborate rather than work alone --- that teamwork is so appealing. After all, if teams do not perform well together, why use them at all?
 
-But as much as performance has been discussed in the literature, and as much as managers demand new ways to improve it, performance is, in reality, a somewhat elusive concept. The study of teams suffers from a "unit of analysis problem:" that is, because teams are composed of individuals, as well as products of their context, it is not obvious what one is truly measuring when one measures performance.
+But as much as performance has been discussed in the literature, and as much as managers demand new ways to improve it, performance is an elusive concept. The study of teams suffers from a "unit of analysis problem:" that is, because teams are composed of individuals, as well as products of their context, it is not obvious what one is truly measuring when one measures performance.
 
 This problem is by no means new. As Davis (1969) writes:
 
