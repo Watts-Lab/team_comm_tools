@@ -2,28 +2,30 @@
 Source for initial code: https://github.com/monologg/GoEmotions-pytorch
 '''
 
-from transformers import BertTokenizer
-from pprint import pprint
+# for importing submodules
+import gitmodules
 
 # for importing paths / specifying a parent directory
 import sys
-import path
 
-cur_directory = path.path(__file__).abspath() 
-sys.path.append(cur_directory.parent.parent) # setting path
+# setting path to the /modules folder
+# note: this depends on which path you are accessing the file in
+sys.path.append("../modules")
 
 # these are from the GoEmotions_pytorch submodule
-from GoEmotions_pytorch.model import BertForMultiLabelClassification
-from GoEmotions_pytorch.multilabel_pipeline import MultiLabelPipeline
+from goemotionspytorch.model import BertForMultiLabelClassification
+from goemotionspytorch.multilabel_pipeline import MultiLabelPipeline
 
-tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-original")
-model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-original")
+# import the import nlp stuff
+# note: had to import fixes from https://github.com/monologg/GoEmotions-pytorch/issues/7 (by 1sherhash)
+from transformers import BertTokenizer
+from pprint import pprint
+import torch
+import numpy as np
 
-goemotions = MultiLabelPipeline(
-    model=model,
-    tokenizer=tokenizer,
-    threshold=0.3
-)
+
+tokenizer = BertTokenizer.from_pretrained("monologg/bert-base-cased-goemotions-ekman")
+model = BertForMultiLabelClassification.from_pretrained("monologg/bert-base-cased-goemotions-ekman")
 
 texts = [
     "Hey that's a thought! Maybe we need [NAME] to be the celebrity vaccine endorsement!",
@@ -32,8 +34,22 @@ texts = [
     "Troll, bro. They know they're saying stupid shit. The motherfucker does nothing but stink up libertarian subs talking shit",
 ]
 
-pprint(goemotions(texts))
+results = []
+for txt in texts:
+    inputs = tokenizer(txt,return_tensors="pt")
+    outputs = model(**inputs)
+    scores =  1 / (1 + torch.exp(-outputs[0]))  # Sigmoid
+    threshold = .3
+    for item in scores:
+        labels = []
+        scores = []
+        for idx, s in enumerate(item):
+            if s > threshold:
+                labels.append(model.config.id2label[idx])
+                scores.append(s)
+        results.append({"labels": labels, "scores": scores})
 
+pprint(results)
 
 # # Output
 #  [{'labels': ['neutral'], 'scores': [0.9750906]},
