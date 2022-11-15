@@ -15,7 +15,7 @@ the features/ folder.
 
 # import our feature files
 from features.basic_features import *
-
+from features.emotion_features import *
 
 if __name__ == "__main__":
 
@@ -31,7 +31,8 @@ if __name__ == "__main__":
 	# in the future, we can also generate per-conversation features -- but may need to format the input data differently
 	output_data['num_words'] = output_data['message'].apply(lambda x: count_words(str(x)))
 	output_data['num_chars'] = output_data['message'].apply(lambda x: count_characters(str(x)))
-	
+	output_data['emotions'] = output_data['message'].apply(lambda x: get_emotions(str(x)))
+
 
 	# generate output file
 	output_data.to_csv(OUTPUT_FILE_PATH)
