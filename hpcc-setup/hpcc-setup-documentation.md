@@ -95,6 +95,8 @@ AttributeError: module 'enum' has no attribute 'IntFlag'
 
 ```
 TODO: not sure how to do this yet
+
+- Need to set up git for HPCC
 ```
 
 
