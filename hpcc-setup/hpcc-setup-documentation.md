@@ -1,5 +1,5 @@
 
-## HPCC Best Practices
+## HPCC Best Practices and Documentation of Set-Up Steps
 
 
 ### Connecting to HPCC
@@ -18,7 +18,8 @@ Logging in off campus:
     - run: `qlogin -now no`
 
 ```
-QUESTION: I am still not sure what exactly the `qlogin` command does. I understand that it opens a long session, but what am I doing in that session exactly?
+QUESTION: I am still not sure what exactly the `qlogin` command does. 
+I understand that it opens a long session, but what am I doing in that session exactly?
 ```
 
 ### Set Up Environment for Development (qlogin)
@@ -28,7 +29,8 @@ QUESTION: I am still not sure what exactly the `qlogin` command does. I understa
     - this will populate files under the `~/hpcc_setup` directory 
 
 ```
-ERROR: I am unable to progress past this step because it was looking for a username/password. I tried both my Penn and my GitHub passwords, but neither worked.
+ERROR: I am unable to progress past this step because it was looking for a username/password. 
+I tried both my Penn and my GitHub passwords, but neither worked.
 ```
 
 
@@ -101,3 +103,6 @@ TODO: not sure how to do this yet
 
 ### Additional qsub job management resources
 https://research-it.wharton.upenn.edu/documentation/job-management/
+
+### Opening Up HPCC Folders Locally
+On Mac: Finder > Go > Connect to Server > enter `hpcc.wharton.upenn.edu` > enter UN and PW. This allows you to open your HPCC folders locally (and do more GUI-style drag and drop).
