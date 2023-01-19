@@ -17,6 +17,7 @@ the features/ folder.
 from features.basic_features import *
 #from features.emotion_features import *
 from features.gini_coefficient import *
+from features.info_exchange_zscore import *
 
 '''
 @param df = the name of the dataframe on which the operation is being applied.
@@ -48,6 +49,12 @@ if __name__ == "__main__":
 	'''
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_words", count_words)
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_chars", count_characters)
+	output_data_chats = create_chat_level_feature(output_data_chats, "info_exchange_wordcount", info_exchange_wordcount")
+	
+	'''
+	Calculate zscore for each message/utterance
+	'''
+	output_data_chats = get_zscore_chats(output_data_chats,"info_exchange_wordcount")
 
 	# TODO -- when generated, these emotion labels don't make sense. Need new ones.
 	# output_data_chats = create_chat_level_feature(output_data_chats, "num_chars", count_characters)
@@ -71,6 +78,7 @@ if __name__ == "__main__":
 	# generate all conversation level features here
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_words"), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_chars"), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, get_zscore_conversation(output_data_chats, "info_exchange_wordcount"), on=['batch_num', 'round_num'])
 
 	# generate output file
 	output_data_conversations.to_csv(OUTPUT_FILE_PATH_CONVERSATION_LEVEL)
