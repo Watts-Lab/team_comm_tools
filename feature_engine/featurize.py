@@ -15,7 +15,6 @@ the features/ folder.
 
 # import our feature files
 from features.basic_features import *
-#from features.emotion_features import *
 from features.gini_coefficient import *
 from features.info_exchange_zscore import *
 
@@ -49,7 +48,7 @@ if __name__ == "__main__":
 	'''
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_words", count_words)
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_chars", count_characters)
-	output_data_chats = create_chat_level_feature(output_data_chats, "info_exchange_wordcount", info_exchange_wordcount")
+	output_data_chats = create_chat_level_feature(output_data_chats, "info_exchange_wordcount", info_exchange_wordcount)
 	
 	'''
 	Calculate zscore for each message/utterance
