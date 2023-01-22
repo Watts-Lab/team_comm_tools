@@ -3,4 +3,4 @@ This is a folder for lexicon-based features. Some of the lexicons are proprietar
 
 List of lexicons in this folder:
 - `liwc_lexicons/`: lexicons associated with the Linguistic Inquiry and Word Count (LIWC)
-- `PositiveWords.csv`: list of words associated with positivity; sourced from [https://gist.github.com/mkulakowski2/4289437](this link).
+- `PositiveWords.csv`: list of words associated with positivity; sourced from (https://gist.github.com/mkulakowski2/4289437)[this link].
