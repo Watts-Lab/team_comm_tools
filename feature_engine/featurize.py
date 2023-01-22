@@ -71,6 +71,14 @@ if __name__ == "__main__":
 	# generate all conversation level features here
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_words"), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_chars"), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, average_message_count(output_data_chats), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, std_message_count(output_data_chats), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, average_word_count(output_data_chats), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, std_word_count(output_data_chats), on=['batch_num', 'round_num'])
 
 	# generate output file
 	output_data_conversations.to_csv(OUTPUT_FILE_PATH_CONVERSATION_LEVEL)
