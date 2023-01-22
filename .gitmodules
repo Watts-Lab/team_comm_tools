@@ -1,3 +1,0 @@
-[submodule "goemotionspytorch"]
-	path = feature_engine/modules/goemotionspytorch
-	url = https://github.com/monologg/GoEmotions-pytorch.git
