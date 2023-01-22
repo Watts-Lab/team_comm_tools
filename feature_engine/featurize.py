@@ -49,8 +49,6 @@ if __name__ == "__main__":
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_words", count_words)
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_chars", count_characters)
 
-	# TODO -- when generated, these emotion labels don't make sense. Need new ones.
-	# output_data_chats = create_chat_level_feature(output_data_chats, "num_chars", count_characters)
 	# generate output file
 	output_data_chats.to_csv(OUTPUT_FILE_PATH_CHAT_LEVEL)
 
