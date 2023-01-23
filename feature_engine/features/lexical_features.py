@@ -9,15 +9,6 @@ Defines features that involve bag-of-words counts from a lexicon.
 """
 
 '''
-function: pad_with_space
-
-Pads each regex with a space, as these occur on the word level 
-(and we don't want to detect partial matches)
-'''
-def pad_with_space(text):
-	return(" " + text + " ")
-
-'''
 function: get_lexicon_list_from_txt
 
 Takes in a .txt file, in which each line is a lexicon term, and reads it into a list.
@@ -27,8 +18,15 @@ Takes in a .txt file, in which each line is a lexicon term, and reads it into a 
 def get_lexicon_list_from_txt(txt_file):
 	with open(txt_file) as lexicon:
 		# return list of each word
-		# replace instances in which "**" occurs, as this breaks python's regex
-		return([pad_with_space(re.sub("\*\*", "\*", line.rstrip())) for line in lexicon])
+
+		'''
+		This list comprehension is a bit complicated, since it embeds some preprocessing.
+		- What we really want to do is return line.rstrip(). However, we have to also do the following:
+		- We want to capture each word, so we have to append the string start (^) and string end ($) characters
+		- We have to replace any cases where "**" occurs, as python throws an error
+		- The escape character, backslash, also breaks python's regex , so we have to remove it
+		'''
+		return(["^" + re.sub("\\\\", "", re.sub("\*", ".\*", re.sub("\*\*", "\*", line.rstrip()))) + "$" for line in lexicon])
 
 '''
 function: get_lexical_value_from_text
@@ -45,7 +43,7 @@ def get_lexical_value_from_text(text, lexicon_list):
 	text = re.sub('[^a-zA-Z ]+', '', text).lower()
 
 	# Finds all matches from the lexicon, and flattens into a single list
-	matches = list(itertools.chain(*[re.findall(regex, text) for regex in lexicon_list]))
+	matches = list(itertools.chain(*[re.findall(regex, word) for word in text.split(' ') for regex in lexicon_list]))
 	return(len(matches))
 
 """
