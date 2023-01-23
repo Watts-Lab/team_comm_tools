@@ -1,0 +1,2 @@
+,batch_num,round_num,gini_coefficient_num_words,gini_coefficient_num_chars,info_exchange_wordcount,zscore_conversation,average_message_count,most_talkative_member_message_count,least_talkative_member_message_count,std_message_count,average_word_count,most_talkative_member_word_count,least_talkative_member_word_count,std_word_count
+0,0,0,0.16725768321513002,0.17637223247232472,812,,6.125,8,1,2.2043990110685496,105.75,140,31,34.48459801128614

@@ -17,6 +17,7 @@ the features/ folder.
 from features.basic_features import *
 from features.gini_coefficient import *
 from features.info_exchange_zscore import *
+from features.lexical_features import *
 
 '''
 @param df = the name of the dataframe on which the operation is being applied.
@@ -34,8 +35,11 @@ def create_chat_level_feature(df, feature_name, function_name):
 if __name__ == "__main__":
 
 	# import the data from the data file
-	INPUT_FILE_PATH = './data/raw_data/jury_conversations_with_outcome_var.csv'
-	OUTPUT_FILE_PATH_CHAT_LEVEL = './output/jury_output_chat_level.csv'
+	# TODO: See GitHub Issue #56 - the LIWC lexicons run way too slowly.
+	# playing with a tiny version for testing, as otherwise it hangs.
+	#INPUT_FILE_PATH = './data/raw_data/jury_conversations_with_outcome_var.csv'
+	INPUT_FILE_PATH = './data/raw_data/juries_tiny_for_testing.csv'
+	OUTPUT_FILE_PATH_CHAT_LEVEL = './output/jury_TINY_output_chat_level.csv'
 
 	conversation_data = pd.read_csv(INPUT_FILE_PATH)
 	output_data_chats = conversation_data
@@ -46,22 +50,22 @@ if __name__ == "__main__":
 	chat-level features take place on the single-utterance level. Each person will make
 	many utterances throughout a conversation.
 	'''
+	# text-based basic features
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_words", count_words)
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_chars", count_characters)
 	output_data_chats = create_chat_level_feature(output_data_chats, "info_exchange_wordcount", info_exchange_wordcount)
-	
-	'''
-	Calculate zscore for each message/utterance
-	'''
+	# info exchang z-score
 	output_data_chats = get_zscore_chats(output_data_chats,"info_exchange_wordcount")
+	# lexical features
+	output_data_chats = pd.concat([output_data_chats, output_data_chats.message.apply(lambda x: pd.Series(liwc_features(str(x))))], axis = 1)
+
 
 	# generate output file
 	output_data_chats.to_csv(OUTPUT_FILE_PATH_CHAT_LEVEL)
 
 
-
 	### CONVERSATION-LEVEL FEATURES --------------------------------------------------------------
-	OUTPUT_FILE_PATH_CONVERSATION_LEVEL = './output/jury_output_conversation_level.csv'
+	OUTPUT_FILE_PATH_CONVERSATION_LEVEL = './output/jury_TINY_output_conversation_level.csv'
 
 	'''
 	conversation-level features take place at the level of the entire conversation; 
@@ -75,9 +79,9 @@ if __name__ == "__main__":
 	# generate all conversation level features here
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_words"), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_chars"), on=['batch_num', 'round_num'])
-
+	# info exchange (TODO - what does this look like at the conversation level? May need to change. See GitHub Issuer #46)
 	output_data_conversations = pd.merge(output_data_conversations, get_zscore_conversation(output_data_chats, "info_exchange_wordcount"), on=['batch_num', 'round_num'])
-
+	# text-based basic features
 	output_data_conversations = pd.merge(output_data_conversations, average_message_count(output_data_chats), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
@@ -86,6 +90,8 @@ if __name__ == "__main__":
 	output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, std_word_count(output_data_chats), on=['batch_num', 'round_num'])
+
+
 
 	# generate output file
 	output_data_conversations.to_csv(OUTPUT_FILE_PATH_CONVERSATION_LEVEL)
