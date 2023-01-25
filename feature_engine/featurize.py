@@ -52,9 +52,11 @@ if __name__ == "__main__":
 	output_data_chats = create_chat_level_feature(output_data_chats, "info_exchange_wordcount", info_exchange_wordcount")
 	
 	'''
-	Calculate zscore for each message/utterance
+	Calculate zscore for each message/utterance: first across the whole dataset, then within the group (batch, round)
 	'''
 	output_data_chats = get_zscore_chats(output_data_chats,"info_exchange_wordcount")
+	output_data_chats = get_zscore_conversation(output_data_chats,"info_exchange_wordcount")
+
 
 	# generate output file
 	output_data_chats.to_csv(OUTPUT_FILE_PATH_CHAT_LEVEL)
@@ -76,8 +78,6 @@ if __name__ == "__main__":
 	# generate all conversation level features here
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_words"), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_chars"), on=['batch_num', 'round_num'])
-
-	output_data_conversations = pd.merge(output_data_conversations, get_zscore_conversation(output_data_chats, "info_exchange_wordcount"), on=['batch_num', 'round_num'])
 
 	output_data_conversations = pd.merge(output_data_conversations, average_message_count(output_data_chats), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
