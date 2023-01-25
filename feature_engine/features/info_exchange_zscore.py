@@ -13,7 +13,7 @@ def info_exchange_wordcount(text):
   return (count_words(text) - first_singular_wordcount)
 
 
-# Get the z-score of each message at the chat level: compute z-score for each message
+# Get the z-score of each message at the chat level: z-score compared across the whole dataset
 '''
 @param chats_data = a dataframe of the chat, in which each row is one message.
 @param on_column = the name of the numeric column on which the z-score is to be calculated. Should be info_exchange_wordcount
@@ -23,7 +23,7 @@ def get_zscore_chats(chats_data, on_column):
   return (chats_data)
 
 
-# Get the z-score of each conversation
+# Get the z-score of each conversation: z-score compared within the conversation (batch, round)
 '''
 @param chats_data = a dataframe of the chat, in which each row is one message.
 @param on_column = the name of the numeric column on which the z-score is to be calculated. Should be info_exchange_wordcount
