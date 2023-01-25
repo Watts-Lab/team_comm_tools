@@ -29,6 +29,8 @@ I understand that it opens a long session, but what am I doing in that session e
     - this will populate files under the `~/hpcc_setup` directory 
 
 ```
+@rivera-lanasm: Hi! I'm still not able to progress to the environment set-up ... it seems most steps after this one do not work because I am not sure which UN/PW it's looking for when I run this svn export github command.
+
 ERROR: I am unable to progress past this step because it was looking for a username/password. 
 I tried both my Penn and my GitHub passwords, but neither worked.
 ```
@@ -42,6 +44,9 @@ I tried both my Penn and my GitHub passwords, but neither worked.
 - line 11: `export ENV_NAME=...`;
     - include desired name for default virtual environment
 
+```
+Note: I got 088838630371 (PennParallelClusterRole)
+```
 
 ### Run env_setup.sh (configuration for qlogin interactive development env.)
     - execute following from home directory: `chmod 755 env_setup.sh`
@@ -50,11 +55,6 @@ I tried both my Penn and my GitHub passwords, but neither worked.
 
 ### Navigating the HPCC file system
 - CSSLab primary shared directory: `/data/projects/CSSLab/`
-
-```
-ERROR: I get 'permission denied' here, when I try to cd into this directory.
-```
-
 
 ### HPCC Jobs/Job Arrays
 
@@ -98,7 +98,6 @@ TODO: not sure how to do this yet
 
 - Need to set up git for HPCC
 ```
-
 
 ### Monitoring active jobs
 - qstat
