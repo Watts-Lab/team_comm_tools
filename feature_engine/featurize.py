@@ -53,9 +53,12 @@ if __name__ == "__main__":
 	# text-based basic features
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_words", count_words)
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_chars", count_characters)
-	output_data_chats = create_chat_level_feature(output_data_chats, "info_exchange_wordcount", info_exchange_wordcount)
-	# info exchang z-score
-	output_data_chats = get_zscore_chats(output_data_chats,"info_exchange_wordcount")
+	output_data_chats = create_chat_level_feature(output_data_chats, "info_exchange_wordcount", get_info_exchange_wordcount)
+	
+	#Info Exchange Feature: get zscore for each message/utterance for the 'info exchange wordcount' feature; first across the whole dataset, then within the group (batch, round)
+	output_data_chats = get_zscore_across_all_chats(output_data_chats,"info_exchange_wordcount")
+	output_data_chats = get_zscore_across_all_conversations(output_data_chats,"info_exchange_wordcount")
+  
 	# lexical features
 	output_data_chats = pd.concat([output_data_chats, output_data_chats.message.apply(lambda x: pd.Series(liwc_features(str(x))))], axis = 1)
 
@@ -79,9 +82,7 @@ if __name__ == "__main__":
 	# generate all conversation level features here
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_words"), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_chars"), on=['batch_num', 'round_num'])
-	# info exchange (TODO - what does this look like at the conversation level? May need to change. See GitHub Issuer #46)
-	output_data_conversations = pd.merge(output_data_conversations, get_zscore_conversation(output_data_chats, "info_exchange_wordcount"), on=['batch_num', 'round_num'])
-	# text-based basic features
+
 	output_data_conversations = pd.merge(output_data_conversations, average_message_count(output_data_chats), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
