@@ -25,10 +25,9 @@ def get_zscore_chats(chats_data, on_column):
 
 # Get the z-score of each conversation
 '''
-@param conversation_data = output from the chats-level features, in which each row is one message.
+@param chats_data = a dataframe of the chat, in which each row is one message.
 @param on_column = the name of the numeric column on which the z-score is to be calculated. Should be info_exchange_wordcount
 '''
-def get_zscore_conversation(conversation_data, on_column):
-  grouped_conversation_data = conversation_data[["batch_num", "round_num", on_column]].groupby(["batch_num", "round_num"]).sum().reset_index()
-  grouped_conversation_data['zscore_conversation'] = stats.zscore(grouped_conversation_data[on_column])
-  return grouped_conversation_data
+def get_zscore_conversation(chats_data, on_column):
+  chats_data['zscore_conversation'] = chats_data[["batch_num", "round_num", on_column]].groupby(["batch_num", "round_num"])[on_column].transform(lambda x : stats.zscore(x))
+  return chats_data
