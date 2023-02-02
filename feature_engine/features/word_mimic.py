@@ -52,15 +52,20 @@ def mimic_words(df, on_column):
   return word_mimic
 
 
-
+######## Compute the word_mimicry
 ## Get number of function words also used in other’s prior turn - simply count the function_words_mimicry
 # FuncWordAcc: Included in the featurize.py
 
 ## Compute the inverse frequency of each content word that also occurred in the other’s immediately preceding turn, then sum them up
 # Step 1: compute the frequency of each content word in the corpus (frequency across the whole dataset)
 # --> ContWordFreq
+'''
+@param df = the dataframe contains column content_words
+@param on_column: which column we want to count word frequency from
+'''
 def compute_frequency(df, on_column):
   return(dict(pd.Series(np.concatenate(df[on_column])).value_counts()))
+
 # Step 2: compute the term frequency of each content mimic word, then sum them up
 # --> ContWordAcc
 def computeTF(content_mimic):
