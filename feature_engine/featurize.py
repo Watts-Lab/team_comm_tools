@@ -19,7 +19,20 @@ from features.gini_coefficient import *
 from features.info_exchange_zscore import *
 from features.lexical_features import *
 
+# new util files for summarizing chat features
+from utils.summarize_chat_level_features import *
+from utils.preprocess import *
 
+'''
+@param df = the name of the dataframe on which the operation is being applied.
+	- assumes that the df is a chat-by-chat setup in which each row is 1 chat.
+	- assumes that the chat is stored in a column called 'message'
+@param feature_name = the name of the column you want the feature to be named
+@param function_name = the name of the function used to create the feature
+'''
+def create_chat_level_feature(df, feature_name, function_name):
+	df[feature_name] = df['message'].apply(lambda x: function_name(str(x)))
+	return(df)
 
 # Main Function
 if __name__ == "__main__":
@@ -47,14 +60,15 @@ if __name__ == "__main__":
 	# text-based basic features
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_words", count_words)
 	output_data_chats = create_chat_level_feature(output_data_chats, "num_chars", count_characters)
-	output_data_chats = create_chat_level_feature(output_data_chats, "info_exchange_wordcount", get_info_exchange_wordcount)
+	output_data_chats = create_chat_level_feature(output_data_chats, "num_messages", count_messages)
 	
 	#Info Exchange Feature: get zscore for each message/utterance for the 'info exchange wordcount' feature; first across the whole dataset, then within the group (batch, round)
+	output_data_chats = create_chat_level_feature(output_data_chats, "info_exchange_wordcount", get_info_exchange_wordcount)
 	output_data_chats = get_zscore_across_all_chats(output_data_chats,"info_exchange_wordcount")
 	output_data_chats = get_zscore_across_all_conversations(output_data_chats,"info_exchange_wordcount")
   
 	# lexical features
-	output_data_chats = pd.concat([output_data_chats, output_data_chats.message.apply(lambda x: pd.Series(liwc_features(str(x))))], axis = 1)
+	#output_data_chats = pd.concat([output_data_chats, output_data_chats.message.apply(lambda x: pd.Series(liwc_features(str(x))))], axis = 1)
 
 
 	# generate output file
@@ -77,14 +91,24 @@ if __name__ == "__main__":
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_words"), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_chars"), on=['batch_num', 'round_num'])
 
-	output_data_conversations = pd.merge(output_data_conversations, average_message_count(output_data_chats), on=['batch_num', 'round_num'])
-	output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
-	output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
-	output_data_conversations = pd.merge(output_data_conversations, std_message_count(output_data_chats), on=['batch_num', 'round_num'])
-	output_data_conversations = pd.merge(output_data_conversations, average_word_count(output_data_chats), on=['batch_num', 'round_num'])
-	output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
-	output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
-	output_data_conversations = pd.merge(output_data_conversations, std_word_count(output_data_chats), on=['batch_num', 'round_num'])
+	# output_data_conversations = pd.merge(output_data_conversations, average_message_count(output_data_chats), on=['batch_num', 'round_num'])
+	# output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
+	# output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
+	# output_data_conversations = pd.merge(output_data_conversations, std_message_count(output_data_chats), on=['batch_num', 'round_num'])
+	# output_data_conversations = pd.merge(output_data_conversations, average_word_count(output_data_chats), on=['batch_num', 'round_num'])
+	# output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
+	# output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
+	# output_data_conversations = pd.merge(output_data_conversations, std_word_count(output_data_chats), on=['batch_num', 'round_num'])
+
+	# Replace the above with the following:
+	output_data_conversations = pd.merge(output_data_conversations, get_average(output_data_chats, "num_messages", "average_message_count"), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, get_max(output_data_chats, "num_messages", "most_talkative_member_message_count"), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, get_min(output_data_chats, "num_messages", "least_talkative_member_message_count"), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, get_stdev(output_data_chats, "num_messages", "std_message_count"), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, get_average(output_data_chats, "num_words", "average_word_count"), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, get_max(output_data_chats, "num_words", "most_talkative_member_word_count"), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, get_min(output_data_chats, "num_words", "least_talkative_member_word_count"), on=['batch_num', 'round_num'])
+	output_data_conversations = pd.merge(output_data_conversations, get_stdev(output_data_chats, "num_words", "std_word_count"), on=['batch_num', 'round_num'])
 
 
 
