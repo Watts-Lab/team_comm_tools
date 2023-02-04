@@ -111,7 +111,5 @@ if __name__ == "__main__":
 	output_data_conversations = pd.merge(output_data_conversations, get_stdev(output_data_chats, "num_words", "std_word_count"), on=['batch_num', 'round_num'])
 
 
-
 	# generate output file
 	output_data_conversations.to_csv(OUTPUT_FILE_PATH_CONVERSATION_LEVEL)
-
