@@ -1,3 +1,3 @@
-,batch_num,round_num,gini_coefficient_num_words,gini_coefficient_num_chars,average_message_count
-0,0,0,0.1613849765258216,0.16651119402985073,6.5
-1,0,2,0.12569549822964088,0.12466281310211946,7.5
+,batch_num,round_num,gini_coefficient_num_words,gini_coefficient_num_chars,average_message_count,most_talkative_member_message_count,least_talkative_member_message_count,std_message_count,average_word_count,most_talkative_member_word_count,least_talkative_member_word_count,std_word_count
+0,0,0,0.1613849765258216,0.16651119402985073,6.5,9,1,2.3979157616563596,106.5,140,30,33.95953474357386
+1,0,2,0.12569549822964088,0.12466281310211946,7.5,12,3,3.685557397915997,109.83333333333333,169,76,28.457082695799222

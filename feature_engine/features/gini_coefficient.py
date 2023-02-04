@@ -2,7 +2,7 @@ import numpy as np
 import csv
 import pandas as pd
 
-from features.basic_features import get_count_dataframe
+from utils.summarize_chat_level_features import get_count_dataframe
 
 # source: https://stackoverflow.com/questions/39512260/calculating-gini-coefficient-in-python-numpy
 def gini_coefficient(x):
