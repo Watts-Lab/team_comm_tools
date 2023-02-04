@@ -45,6 +45,10 @@ if __name__ == "__main__":
 	output_data_chats = conversation_data
 
 
+	### PRE-PROCESSING -----------
+	output_data_chats = create_chat_level_feature(output_data_chats, "message", preprocess_text)
+
+
 	### CHAT-LEVEL FEATURES --------------------------------------------------------------
 	'''
 	chat-level features take place on the single-utterance level. Each person will make
