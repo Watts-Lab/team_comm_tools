@@ -1,0 +1,8 @@
+.DS_Store
+feature_engine/data/.DS_Store
+feature_engine/.DS_Store
+feature_engine/features/lexicons/liwc_lexicons/
+feature_engine/features/lexicons/liwc_lexicons_small_test/
+feature_engine/modules/
+feature_engine/features/__pycache__
+feature_engine/ipython_notebooks/.ipynb_checkpoints/
