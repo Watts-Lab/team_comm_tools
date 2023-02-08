@@ -1,5 +1,8 @@
 import pandas as pd
 
+'''
+TODO: Turn this into a class that mirrors calculate_conversation_level_features.py
+'''
 
 
 '''

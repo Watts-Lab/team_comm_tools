@@ -91,16 +91,6 @@ if __name__ == "__main__":
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_words"), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, get_gini(output_data_chats, "num_chars"), on=['batch_num', 'round_num'])
 
-	# output_data_conversations = pd.merge(output_data_conversations, average_message_count(output_data_chats), on=['batch_num', 'round_num'])
-	# output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
-	# output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_message_count(output_data_chats), on=['batch_num', 'round_num'])
-	# output_data_conversations = pd.merge(output_data_conversations, std_message_count(output_data_chats), on=['batch_num', 'round_num'])
-	# output_data_conversations = pd.merge(output_data_conversations, average_word_count(output_data_chats), on=['batch_num', 'round_num'])
-	# output_data_conversations = pd.merge(output_data_conversations, most_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
-	# output_data_conversations = pd.merge(output_data_conversations, least_talkative_member_word_count(output_data_chats), on=['batch_num', 'round_num'])
-	# output_data_conversations = pd.merge(output_data_conversations, std_word_count(output_data_chats), on=['batch_num', 'round_num'])
-
-	# Replace the above with the following:
 	output_data_conversations = pd.merge(output_data_conversations, get_average(output_data_chats, "num_messages", "average_message_count"), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, get_max(output_data_chats, "num_messages", "most_talkative_member_message_count"), on=['batch_num', 'round_num'])
 	output_data_conversations = pd.merge(output_data_conversations, get_min(output_data_chats, "num_messages", "least_talkative_member_message_count"), on=['batch_num', 'round_num'])
