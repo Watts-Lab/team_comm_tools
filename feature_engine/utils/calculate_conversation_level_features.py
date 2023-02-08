@@ -1,6 +1,6 @@
 from feature_engine.features.gini_coefficient import *
 from feature_engine.features.basic_features import *
-
+from feature_engine.utils.summarize_chat_level_features import *
 
 class ConversationLevelFeaturesCalculator:
     def __init__(self, chat_level_data):
@@ -35,14 +35,14 @@ class ConversationLevelFeaturesCalculator:
         # Message mean and std
         self.conversation_level_data = pd.merge(
             left=self.conversation_level_data,
-            right=average_message_count(self.chat_level_data),
+            right=get_average(self.chat_level_data, 'num_messages', 'average_message_count'),
             on=['batch_num', 'round_num'],
             how="inner"
         )
 
         self.conversation_level_data = pd.merge(
             left=self.conversation_level_data,
-            right=std_message_count(self.chat_level_data),
+            right=get_stdev(self.chat_level_data, 'num_messages', 'average_message_count'),
             on=['batch_num', 'round_num'],
             how="inner"
         )
@@ -50,14 +50,14 @@ class ConversationLevelFeaturesCalculator:
         # Word mean and std
         self.conversation_level_data = pd.merge(
             left=self.conversation_level_data,
-            right=average_word_count(self.chat_level_data),
+            right=get_average(self.chat_level_data, 'num_words', 'average_word_count'),
             on=['batch_num', 'round_num'],
             how="inner"
         )
 
         self.conversation_level_data = pd.merge(
             left=self.conversation_level_data,
-            right=std_word_count(self.chat_level_data),
+            right=get_stdev(self.chat_level_data, 'num_words', 'std_word_count'),
             on=['batch_num', 'round_num'],
             how="inner"
         )
@@ -66,14 +66,14 @@ class ConversationLevelFeaturesCalculator:
         # Message level talkative_member_features
         self.conversation_level_data = pd.merge(
             left=self.conversation_level_data,
-            right=most_talkative_member_message_count(self.chat_level_data),
+            right=get_max(self.chat_level_data, 'num_messages', 'max_messages'),
             on=['batch_num', 'round_num'],
             how="inner"
         )
 
         self.conversation_level_data = pd.merge(
             left=self.conversation_level_data,
-            right=least_talkative_member_message_count(self.chat_level_data),
+            right=get_min(self.chat_level_data, 'num_messages', 'min_messages'),
             on=['batch_num', 'round_num'],
             how="inner"
         )
@@ -81,14 +81,14 @@ class ConversationLevelFeaturesCalculator:
         # Word level talkative_member_features
         self.conversation_level_data = pd.merge(
             left=self.conversation_level_data,
-            right=most_talkative_member_word_count(self.chat_level_data),
+            right=get_max(self.chat_level_data, 'num_words', 'max_words'),
             on=['batch_num', 'round_num'],
             how="inner"
         )
 
         self.conversation_level_data = pd.merge(
             left=self.conversation_level_data,
-            right=least_talkative_member_word_count(self.chat_level_data),
+            right=get_min(self.chat_level_data, 'num_words', 'min_words'),
             on=['batch_num', 'round_num'],
             how="inner"
         )
