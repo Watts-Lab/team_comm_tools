@@ -1,5 +1,11 @@
 import csv
 import pandas as pd
+import datetime as dt
+import pyspark.pandas as ps
+import dask.dataframe as dd
+from dask.distributed import Client, LocalCluster
+import multiprocessing
+from pandarallel import pandarallel
 
 """
 file: featurize.py
@@ -27,7 +33,37 @@ from features.lexical_features import *
 @param function_name = the name of the function used to create the feature
 '''
 def create_chat_level_feature(df, feature_name, function_name):
-	df[feature_name] = df['message'].apply(lambda x: function_name(str(x)))
+	"""
+		The aim here is to try out different parallelization methods and retain those that give the fastest results.
+		The caveat is that these methods are dependant on the local system of a user (#cores, CPU speed, latency etc.), 
+		and hence may produce different results for different users.
+	"""
+	# Using Pandas apply method (no parallelization)
+	# df[feature_name] = df['message'].apply(lambda x: function_name(str(x)))
+
+	# Using Dask
+	# cluster = LocalCluster()
+	# client = Client(cluster)
+	# print(f"Started cluster at {cluster.dashboard_link}")
+	# dask_df = dd.from_pandas(df, npartitions=multiprocessing.cpu_count())
+	# dask_df[feature_name] = dask_df['message'].apply(lambda x: function_name(str(x))).compute()
+	# return dask_df.compute()
+
+	# Using pyspark
+	# spark_df = ps.DataFrame(df)
+	# spark_df[feature_name] = spark_df['message'].apply(lambda x: function_name(str(x)))
+	# print(type(spark_df.to_pandas()))
+	# return spark_df.to_pandas()
+
+	# Using multiprocessing (base python package)
+	# with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+	# 	results = pool.map(function_name, df['message'])
+	# df[feature_name] = results
+
+	# Using pandas parallel (on my system, this has the best performance up until now).
+	pandarallel.initialize(progress_bar=True)
+	df['message'] = df['message'].astype(str)
+	df[feature_name] = df['message'].parallel_apply(function_name)
 	return(df)
 
 
@@ -37,12 +73,13 @@ if __name__ == "__main__":
 	# import the data from the data file
 	# TODO: See GitHub Issue #56 - the LIWC lexicons run way too slowly.
 	# playing with a tiny version for testing, as otherwise it hangs.
-	#INPUT_FILE_PATH = './data/raw_data/jury_conversations_with_outcome_var.csv'
-	INPUT_FILE_PATH = './data/raw_data/juries_tiny_for_testing.csv'
-	OUTPUT_FILE_PATH_CHAT_LEVEL = './output/jury_TINY_output_chat_level.csv'
+	INPUT_FILE_PATH = 'feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv'
+	# INPUT_FILE_PATH = './data/raw_data/juries_tiny_for_testing.csv'
+	OUTPUT_FILE_PATH_CHAT_LEVEL = 'feature_engine/output/jury_TINY_output_chat_level.csv'
 
-	conversation_data = pd.read_csv(INPUT_FILE_PATH)
+	conversation_data = pd.read_csv(INPUT_FILE_PATH).iloc[:100, :]
 	output_data_chats = conversation_data
+	print("Read in the data", dt.datetime.now())
 
 
 	### CHAT-LEVEL FEATURES --------------------------------------------------------------
@@ -62,13 +99,11 @@ if __name__ == "__main__":
 	# lexical features
 	output_data_chats = pd.concat([output_data_chats, output_data_chats.message.apply(lambda x: pd.Series(liwc_features(str(x))))], axis = 1)
 
-
 	# generate output file
 	output_data_chats.to_csv(OUTPUT_FILE_PATH_CHAT_LEVEL)
 
-
 	### CONVERSATION-LEVEL FEATURES --------------------------------------------------------------
-	OUTPUT_FILE_PATH_CONVERSATION_LEVEL = './output/jury_TINY_output_conversation_level.csv'
+	OUTPUT_FILE_PATH_CONVERSATION_LEVEL = 'feature_engine/output/jury_TINY_output_conversation_level.csv'
 
 	'''
 	conversation-level features take place at the level of the entire conversation; 
