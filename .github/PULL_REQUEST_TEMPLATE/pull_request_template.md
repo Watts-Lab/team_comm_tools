@@ -1,4 +1,4 @@
-# Pull Request Template
+_Pull Request Template_:
 If you are merging in a feature or other major change, use this template to check your pull request!
 
 # Basic Info
