@@ -67,7 +67,7 @@ if __name__ == "__main__":
 	output_data_chats.to_csv(OUTPUT_FILE_PATH_CHAT_LEVEL)
 
 
-	### CONVERSATION-LEVEL FEATURES --------------------------------------------------------------
+	### CONVERSATION-LEVEL FEATURES -------------------------------------------------------------
 	OUTPUT_FILE_PATH_CONVERSATION_LEVEL = './output/jury_TINY_output_conversation_level.csv'
 
 	'''
