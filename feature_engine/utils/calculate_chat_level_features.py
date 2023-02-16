@@ -1,17 +1,46 @@
-import pandas as pd
+from features.basic_features import *
+from features.info_exchange_zscore import *
+from features.lexical_features import *
 
-'''
-TODO: Turn this into a class that mirrors calculate_conversation_level_features.py
-'''
+class ChatLevelFeaturesCalculator:
+	def __init__(self, chat_data):
+		self.chat_data = chat_data
+		
+	
+	def calculate_chat_level_features(self):
+		# Text-Based Basic Features
+		self.text_based_featurs()
 
+		# Info Exchange Feature
+		self.info_exchange_feature()
+		
+		# lexical features
+		self.lexical_features()
 
-'''
-@param df = the name of the dataframe on which the operation is being applied.
-	- assumes that the df is a chat-by-chat setup in which each row is 1 chat.
-	- assumes that the chat is stored in a column called 'message'
-@param feature_name = the name of the column you want the feature to be named
-@param function_name = the name of the function used to create the feature
-'''
-def create_chat_level_feature(df, feature_name, function_name):
-	df[feature_name] = df['message'].apply(lambda x: function_name(str(x)))
-	return(df)
+		# Return the input dataset with the chat level features appended (as columns)
+		return self.chat_data
+		
+
+	def text_based_featurs(self):
+		# Count Words
+		self.chat_data["num_words"] = self.chat_data["message"].apply(count_words)
+		
+		# Count Characters
+		self.chat_data["num_chars"] = self.chat_data["message"].apply(count_characters)
+		
+		# Count Messages		
+		self.chat_data["num_messages"] = self.chat_data["message"].apply(count_messages)
+		
+
+	def info_exchange_feature(self):
+		# Get Modified Wordcount: Total word count - first_singular pronouns
+		self.chat_data["info_exchange_wordcount"] = self.chat_data["message"].apply(get_info_exchange_wordcount)
+		
+		# Get the z-score of each message across all chats
+		self.chat_data = get_zscore_across_all_chats(self.chat_data, "info_exchange_wordcount")
+		
+		# Get the z-score within each conversation
+		self.chat_data = get_zscore_across_all_conversations(self.chat_data, "info_exchange_wordcount")
+
+	def lexical_features(self):
+		self.chat_data = pd.concat([self.chat_data, self.chat_data["message"].apply(lambda x: pd.Series(liwc_features(str(x))))], axis = 1)
