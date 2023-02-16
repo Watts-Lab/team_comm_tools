@@ -35,7 +35,7 @@ class ChatLevelFeaturesCalculator:
 							new columns for each chat level feature.
 		"""
 		# Text-Based Basic Features
-		self.text_based_featurs()
+		self.text_based_features()
 
 		# Info Exchange Feature
 		self.info_exchange_feature()
@@ -46,7 +46,7 @@ class ChatLevelFeaturesCalculator:
 		# Return the input dataset with the chat level features appended (as columns)
 		return self.chat_data
 		
-	def text_based_featurs(self) -> None:
+	def text_based_features(self) -> None:
 		"""
 			This function is used to implement the common text based featuers.
 		"""
