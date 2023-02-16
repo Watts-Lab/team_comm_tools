@@ -75,7 +75,7 @@ class ConversationLevelFeaturesCalculator:
 
         self.conv_data = pd.merge(
             left=self.conv_data,
-            right=get_stdev(self.chat_data, 'num_messages', 'average_message_count'),
+            right=get_stdev(self.chat_data, 'num_messages', 'std_message_count'),
             on=['batch_num', 'round_num'],
             how="inner"
         )
