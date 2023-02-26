@@ -12,9 +12,9 @@ from feature_builder import FeatureBuilder
 if __name__ == "__main__":
 	# Instantiating the Feature Generating Class
 	feature_builder = FeatureBuilder(
-		input_file_path = "feature_engine/data/raw_data/juries_tiny_for_testing.csv",
-		output_file_path_chat_level = "feature_engine/output/jury_TINY_output_chat_level.csv",
-		output_file_path_conv_level = "feature_engine/output/jury_TINY_output_conversation_level.csv"
+		input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
+		output_file_path_chat_level = "../feature_engine/output/jury_TINY_output_chat_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/jury_TINY_output_conversation_level.csv"
 	)
 	# Calling the "engine"/"driver" function of the FeatureBuilder class 
 	# that creates the features, and writes them in output.
