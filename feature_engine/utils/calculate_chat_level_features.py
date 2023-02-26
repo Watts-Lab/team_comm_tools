@@ -41,7 +41,7 @@ class ChatLevelFeaturesCalculator:
 		self.info_exchange_feature()
 		
 		# lexical features
-		self.lexical_features()
+		# self.lexical_features() # TODO - commenting this out to speed things up; also, these are not currently being summarized
 
 		# Return the input dataset with the chat level features appended (as columns)
 		return self.chat_data

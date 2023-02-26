@@ -37,6 +37,9 @@ class ConversationLevelFeaturesCalculator:
         # Get summary statistics by aggregating chat level features
         self.get_conversation_level_summary_statistics_features()
         self.get_talkative_member_features()
+
+        # TODO - currently, lexical features are not being summarized!
+
         return self.conv_data
 
     def get_gini_features(self) -> None:
@@ -94,6 +97,33 @@ class ConversationLevelFeaturesCalculator:
             on=['batch_num', 'round_num'],
             how="inner"
         )
+        # Info Exchange (Z-Scores)
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_average(self.chat_data, 'info_exchange_zscore_chats', 'average_info_exchange_zscore_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_stdev(self.chat_data, 'info_exchange_zscore_chats', 'std_info_exchange_zscore_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_average(self.chat_data, 'info_exchange_zscore_conversation', 'average_info_exchange_zscore_conversation'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_stdev(self.chat_data, 'info_exchange_zscore_conversation', 'std_info_exchange_zscore_conversation'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
 
     def get_talkative_member_features(self) -> None:
         """
@@ -127,6 +157,35 @@ class ConversationLevelFeaturesCalculator:
         self.conv_data = pd.merge(
             left=self.conv_data,
             right=get_min(self.chat_data, 'num_words', 'min_words'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        # Min and Max for Information Exchange
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_max(self.chat_data, 'info_exchange_zscore_chats', 'max_info_exchange_zscore_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_min(self.chat_data, 'info_exchange_zscore_chats', 'min_info_exchange_zscore_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_max(self.chat_data, 'info_exchange_zscore_conversation', 'max_info_exchange_zscore_conversation'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_min(self.chat_data, 'info_exchange_zscore_conversation', 'min_info_exchange_zscore_conversation'),
             on=['batch_num', 'round_num'],
             how="inner"
         )

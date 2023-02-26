@@ -19,7 +19,7 @@ def get_info_exchange_wordcount(text):
 @param on_column = the name of the numeric column on which the z-score is to be calculated. Should be info_exchange_wordcount
 '''
 def get_zscore_across_all_chats(chats_data, on_column):
-  chats_data['zscore_chats'] = stats.zscore(chats_data[on_column])
+  chats_data['info_exchange_zscore_chats'] = stats.zscore(chats_data[on_column])
   return (chats_data)
 
 # Get the z-score within each conversation: z-score compared within the conversation (batch, round)
@@ -28,5 +28,5 @@ def get_zscore_across_all_chats(chats_data, on_column):
 @param on_column = the name of the numeric column on which the z-score is to be calculated. Should be info_exchange_wordcount
 '''
 def get_zscore_across_all_conversations(chats_data, on_column):
-  chats_data['zscore_conversation'] = chats_data[["batch_num", "round_num", on_column]].groupby(["batch_num", "round_num"])[on_column].transform(lambda x : stats.zscore(x))
+  chats_data['info_exchange_zscore_conversation'] = chats_data[["batch_num", "round_num", on_column]].groupby(["batch_num", "round_num"])[on_column].transform(lambda x : stats.zscore(x))
   return chats_data
