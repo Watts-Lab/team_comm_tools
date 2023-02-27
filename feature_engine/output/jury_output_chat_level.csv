@@ -1,4 +1,4 @@
-batch_num,round_num,speaker_hash,speaker_nickname,timestamp,message,majority_pct,num_flipped,flipped_pct,num_votes,num_words,num_chars,num_messages,info_exchange_wordcount,zscore_chats,zscore_conversation
+batch_num,round_num,speaker_hash,speaker_nickname,timestamp,message,majority_pct,num_flipped,flipped_pct,num_votes,num_words,num_chars,num_messages,info_exchange_wordcount,info_exchange_zscore_chats,info_exchange_zscore_conversation
 0,0,5e7e1e0031f4e454e196c30b,niceRhino,2020-04-20T18:27:20.125Z,hello ,1.0,1,0.3333333333333333,3,1,6,1,1,-1.2338655081563121,-1.2105760401190264
 0,0,5e31d6e4e31c5304c46f1413,culturedCow,2020-04-20T18:27:23.764Z,hi,1.0,1,0.3333333333333333,3,1,2,1,1,-1.2338655081563121,-1.2105760401190264
 0,0,5e7e4f4c31f4e454e196c9c4,spryBison,2020-04-20T18:27:27.724Z,hello,1.0,1,0.3333333333333333,3,1,5,1,1,-1.2338655081563121,-1.2105760401190264
