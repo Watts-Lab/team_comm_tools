@@ -15,6 +15,7 @@ The steps needed to add a feature would be to:
 from features.basic_features import *
 from features.info_exchange_zscore import *
 from features.lexical_features import *
+from features.other_LIWC_features import *
 
 class ChatLevelFeaturesCalculator:
 	def __init__(self, chat_data: pd.DataFrame) -> None:
@@ -78,3 +79,22 @@ class ChatLevelFeaturesCalculator:
 			This is a driver function that calls relevant functions in features/lexical_features.py to implement the lexical features.
 		"""
 		self.chat_data = pd.concat([self.chat_data, self.chat_data["message"].apply(lambda x: pd.Series(liwc_features(str(x))))], axis = 1)
+		
+	def other_lexical_features(self) -> None:
+		"""
+			This function extract the number of questions, classify whether the message contains clarification questions,
+			calculate the word type-to-token ratio, and the proportion of first person pronouns from the chats
+			(see features/other_LIWC_features.py to learn more about how these features are calculated)
+		"""
+		# Get the number of questions in each message
+		self.chat_data["Qnum"] = self.chat_data["message"].apply(num_question)
+		
+		# Classify whether the message contains clarification questions
+		self.chat_data["NTRI"] = self.chat_data["message"].apply(classify_NTRI)
+		
+		# Calculate the word type-to-token ratio
+		self.chat_data["word_TTR"] = self.chat_data["message"].apply(get_word_TTR)
+		
+		# Calculate the proportion of first person pronouns from the chats
+		self.chat_data["first_pronouns_proportion"] = self.chat_data["message"].apply(get_proportion_first_pronouns)
+		
