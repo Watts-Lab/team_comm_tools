@@ -20,7 +20,7 @@ def classify_NTRI(text):
   
 
 ## Calculate the word type-to-token ration
-def word_TTR(text):
+def get_word_TTR(text):
   # remove punctuations
   new_text = re.sub(r"[^a-zA-Z0-9 ]+", '',text)
   # calculate the number of unique words
@@ -31,6 +31,6 @@ def word_TTR(text):
 
 ## Proportion of first person pronouns
 first_pronouns = ["i",'me','mine','myself','my','we','our','ours','ourselves','lets']
-def proportion_first_pronouns(text):
+def get_proportion_first_pronouns(text):
   num_first_prononouns = len([x for x in text.split() if x in first_pronouns])
   return num_first_prononouns/count_words(text)
