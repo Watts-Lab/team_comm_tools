@@ -7,7 +7,7 @@ from features.basic_features import *
 
 ## Get the number of question marks in one message
 def num_question(text):
-  return Counter(text)["?"]
+  return len([x for x in text if x in ["?"]])
 
 
 ## Classify whether the message contains clarification questions
