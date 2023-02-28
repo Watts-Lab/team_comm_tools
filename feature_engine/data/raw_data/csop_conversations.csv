@@ -1,4 +1,4 @@
-game_id,round_id,round_index,task_index,complexity,type,social_perceptiveness,skill,speaker_name,message,normalized_score,zscore_score,zscore_round_duration,zscore_efficiency
+batch_num,round_num,round_index,task_index,complexity,type,social_perceptiveness,skill,speaker_nickname,message,normalized_score,zscore_score,zscore_round_duration,zscore_efficiency
 C48peJSzquNCHsKSv,e7uDqY9mpTEZH5Q2b,1,4,High,HH,30.33333333333333,1051.6666666666667,eQuK9PirA9WSa8DrP,"well, there's nothing I can do about Blue moving all the people",99.10846953937592,0.9114541208037592,0.3826248833780999,-0.4371535930349132
 C48peJSzquNCHsKSv,e7uDqY9mpTEZH5Q2b,1,4,High,HH,30.33333333333333,1051.6666666666667,cRJk4WEXcXPYQxkCJ,my point,99.10846953937592,0.9114541208037592,0.3826248833780999,-0.4371535930349132
 C48peJSzquNCHsKSv,e7uDqY9mpTEZH5Q2b,1,4,High,HH,30.33333333333333,1051.6666666666667,c24Dw7YjjjdNbABLE,"Now that all of the pieces have been placed in the high score rooms, resolve conflicts, then reassess for maximum score.",99.10846953937592,0.9114541208037592,0.3826248833780999,-0.4371535930349132

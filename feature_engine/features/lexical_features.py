@@ -40,6 +40,7 @@ we are searching for inside the text.
 def get_lexical_value_from_text(text, lexicon_list):
 
 	# preprocess to remove special characters
+	# TODO -- remove any feature-level preprocessing, as we are combining them into preprocess.py
 	text = re.sub('[^a-zA-Z ]+', '', text).lower()
 
 	# Finds all matches from the lexicon, and flattens into a single list
