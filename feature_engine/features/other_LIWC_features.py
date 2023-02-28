@@ -12,7 +12,7 @@ def num_question(text):
 
 ## Classify whether the message contains clarification questions
 NTRI_list = ("what?","sorry","excuse me","huh?","who?","pardon?","say again?","say it again?","what's that","what is that")
-def NTRI(text):
+def classify_NTRI(text):
   if len([x for x in NTRI_list if x in text]) > 0:
     return 1
   else:
