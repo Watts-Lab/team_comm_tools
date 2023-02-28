@@ -14,20 +14,6 @@ for x in ["able am are aren’t be been being can can’t cannot could couldn’
   function_word_reference += x.lower().split()
 
 
-
-######## Aggregate data by per turn
-'''
-@param df = original dataframe of the chat, in which each row is one message.
-'''
-def newdf_perturn(df):
-  # Merge subsequent rows if their "speaker_hash" are the same as the preceding rows
-  newdf = df.dropna(subset=['message']).groupby((df.speaker_hash != df.speaker_hash.shift(1)).cumsum()).agg({'batch_num':min, 'round_num':min, 'speaker_hash':"first", 
-                                                                                                         'speaker_nickname': "first","timestamp":"first", "message":'. '.join}).reset_index(drop=True)
-  # Replace "'" with "’" to be consistent with the function word reference
-  newdf['message'] = newdf['message'].transform(lambda x:x.replace("'","’"))
-  return newdf
-
-
 ######## Differentiate the function words and content words
 
 ## Get the function words in a given message: if they are in the function_word_reference
@@ -42,7 +28,7 @@ def content_word(text):
 
 ######## Find words that are also used in other's previous turn
 '''
-@param df = the result of newdf_perturn(), in which each row represents one turn
+@param df = chat level data, in which each row represents one turn
 @param on_column: which column we want to find mimic words in.
 '''
 def mimic_words(df, on_column):
