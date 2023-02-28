@@ -124,6 +124,69 @@ class ConversationLevelFeaturesCalculator:
             on=['batch_num', 'round_num'],
             how="inner"
         )
+	
+	# Number of questions
+	self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_average(self.chat_data, 'Qnum', 'average_Qnum_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_stdev(self.chat_data, 'Qnum', 'std_Qnum_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+	
+	# Proportion of clarification questions
+	self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_average(self.chat_data, 'NTRI', 'average_NTRI_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_stdev(self.chat_data, 'NTRI', 'std_NTRI_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+	
+	# Word type-to-token ratio
+	self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_average(self.chat_data, 'word_TTR', 'average_word_TTR_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_stdev(self.chat_data, 'NTRI', 'std_word_TTR_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+	
+	
+	# Proportion of first person pronouns
+	self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_average(self.chat_data, 'first_pronouns_proportion', 'average_first_pronouns_proportion_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_stdev(self.chat_data, 'first_pronouns_proportion', 'std_first_pronouns_proportion_chats'),
+            on=['batch_num', 'round_num'],
+            how="inner"
+        )
+	
+	
 
     def get_talkative_member_features(self) -> None:
         """
