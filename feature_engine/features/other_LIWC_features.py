@@ -26,11 +26,17 @@ def get_word_TTR(text):
   # calculate the number of unique words
   num_unique_words = len(set(new_text.split()))
   # calculate the word type-to-token ratio
-  return num_unique_words/count_words(new_text)   
+  if count_words(new_text) == 0:
+    return 0
+  else:
+    return num_unique_words/count_words(new_text)   
 
 
 ## Proportion of first person pronouns
 first_pronouns = ["i",'me','mine','myself','my','we','our','ours','ourselves','lets']
 def get_proportion_first_pronouns(text):
   num_first_prononouns = len([x for x in text.split() if x in first_pronouns])
-  return num_first_prononouns/count_words(text)
+  if count_words(text) == 0:
+    return 0
+  else:
+    return num_first_prononouns/count_words(text)
