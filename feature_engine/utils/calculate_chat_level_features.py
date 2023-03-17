@@ -86,8 +86,8 @@ class ChatLevelFeaturesCalculator:
 			calculate the word type-to-token ratio, and the proportion of first person pronouns from the chats
 			(see features/other_LIWC_features.py to learn more about how these features are calculated)
 		"""
-		# Get the number of questions in each message
-		self.chat_data["Qnum"] = self.chat_data["message"].apply(num_question)
+		# Get the number of questions in each message (TODO)
+		# self.chat_data["Qnum"] = self.chat_data["message"].apply(num_question)
 		
 		# Classify whether the message contains clarification questions
 		self.chat_data["NTRI"] = self.chat_data["message"].apply(classify_NTRI)
@@ -98,3 +98,24 @@ class ChatLevelFeaturesCalculator:
 		# Calculate the proportion of first person pronouns from the chats
 		self.chat_data["first_pronouns_proportion"] = self.chat_data["message"].apply(get_proportion_first_pronouns)
 		
+	def calculate_word_mimicry(self) -> None:
+		"""
+			This function calculate the number of function words that also used in other’s prior turn,
+			and the sum of inverse frequency of each content word that also occurred in the other’s immediately prior turn.
+			(see features/word_mimicry.py to learn more about how these features are calculated)
+			
+			Note: this function takes the dataset WITHOUT any punctuations as input
+		"""
+		# Extract function words / content words from a message
+		self.chat_data["function_words"] = self.chat_data["message"].apply(function_word)
+		self.chat_data["content_words"] = self.chat_data["message"].apply(content_word)
+		
+		# Extract the function words / content words that also appears in the immediate previous turn
+		self.chat_data["function_word_mimicry"] = mimic_words(self.chat_data, "function_words")
+		self.chat_data["content_word_mimicry"] = mimic_words(self.chat_data, "content_words")
+		
+		# Compute the number of function words that also appears in the immediate previous turn
+		self.chat_data["FuncWordAcc"] = self.chat_data["function_word_mimicry"].apply(Function_mimicry_score)
+		
+		# Compute the sum of inverse frequency of each content word that also occurred in the other’s immediately prior turn.
+		self.chat_data["ContWordAcc"] = Content_mimicry_score(self.chat_data, "content_words","content_word_mimicry")
