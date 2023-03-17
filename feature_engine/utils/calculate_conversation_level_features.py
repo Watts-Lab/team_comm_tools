@@ -128,14 +128,14 @@ class ConversationLevelFeaturesCalculator:
 	   # Number of questions
 		self.conv_data = pd.merge(
 			left=self.conv_data,
-			right=get_average(self.chat_data, 'num_questions', 'average_num_questions'),
+			right=get_average(self.chat_data, 'num_question_naive', 'average_num_question_naive'),
 			on=['batch_num', 'round_num'],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
-			right=get_stdev(self.chat_data, 'num_questions', 'std_num_questions'),
+			right=get_stdev(self.chat_data, 'num_question_naive', 'std_num_question_naive'),
 			on=['batch_num', 'round_num'],
 			how="inner"
 		)
