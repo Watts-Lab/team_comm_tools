@@ -165,7 +165,7 @@ class ConversationLevelFeaturesCalculator:
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
-			right=get_stdev(self.chat_data, 'NTRI', 'std_word_TTR'),
+			right=get_stdev(self.chat_data, 'word_TTR', 'std_word_TTR'),
 			on=['batch_num', 'round_num'],
 			how="inner"
 		)
