@@ -94,7 +94,7 @@ class ChatLevelFeaturesCalculator:
 			(see features/other_LIWC_features.py to learn more about how these features are calculated)
 		"""
 		# Get the number of questions in each message
-		self.chat_data["Qnum"] = self.chat_data["message"].apply(num_question)
+		self.chat_data["num_questions"] = self.chat_data["message"].apply(num_question)
 		
 		# Classify whether the message contains clarification questions
 		self.chat_data["NTRI"] = self.chat_data["message"].apply(classify_NTRI)
@@ -113,6 +113,7 @@ class ChatLevelFeaturesCalculator:
 			
 			Note: this function takes the dataset WITHOUT any punctuations as input
 		"""
+
 		# Extract function words / content words from a message
 		self.chat_data["function_words"] = self.chat_data["message"].apply(function_word)
 		self.chat_data["content_words"] = self.chat_data["message"].apply(content_word)
@@ -122,7 +123,10 @@ class ChatLevelFeaturesCalculator:
 		self.chat_data["content_word_mimicry"] = mimic_words(self.chat_data, "content_words")
 		
 		# Compute the number of function words that also appears in the immediate previous turn
-		self.chat_data["FuncWordAcc"] = self.chat_data["function_word_mimicry"].apply(Function_mimicry_score)
+		self.chat_data["function_word_accommodation"] = self.chat_data["function_word_mimicry"].apply(Function_mimicry_score)
 		
 		# Compute the sum of inverse frequency of each content word that also occurred in the other’s immediately prior turn.
-		self.chat_data["ContWordAcc"] = Content_mimicry_score(self.chat_data, "content_words","content_word_mimicry")
+		self.chat_data["content_word_accommodation"] = Content_mimicry_score(self.chat_data, "content_words","content_word_mimicry")
+
+		# Drop the function / content word columns -- we dont' need them in the output
+		self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
