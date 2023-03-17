@@ -86,8 +86,8 @@ class ChatLevelFeaturesCalculator:
 			calculate the word type-to-token ratio, and the proportion of first person pronouns from the chats
 			(see features/other_LIWC_features.py to learn more about how these features are calculated)
 		"""
-		# Get the number of questions in each message (TODO)
-		# self.chat_data["Qnum"] = self.chat_data["message"].apply(num_question)
+		# Get the number of questions in each message
+		self.chat_data["Qnum"] = self.chat_data["message"].apply(num_question)
 		
 		# Classify whether the message contains clarification questions
 		self.chat_data["NTRI"] = self.chat_data["message"].apply(classify_NTRI)
