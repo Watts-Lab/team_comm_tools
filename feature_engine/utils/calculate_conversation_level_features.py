@@ -128,14 +128,14 @@ class ConversationLevelFeaturesCalculator:
 	   # Number of questions
 		self.conv_data = pd.merge(
 			left=self.conv_data,
-			right=get_average(self.chat_data, 'Qnum', 'average_Qnum'),
+			right=get_average(self.chat_data, 'num_questions', 'average_num_questions'),
 			on=['batch_num', 'round_num'],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
-			right=get_stdev(self.chat_data, 'Qnum', 'std_Qnum'),
+			right=get_stdev(self.chat_data, 'num_questions', 'std_num_questions'),
 			on=['batch_num', 'round_num'],
 			how="inner"
 		)
@@ -189,14 +189,14 @@ class ConversationLevelFeaturesCalculator:
 	   # Function word mimicry
 		self.conv_data = pd.merge(
 			left=self.conv_data,
-			right=get_average(self.chat_data, 'FuncWordAcc', 'average_FuncWordAcc'),
+			right=get_average(self.chat_data, 'function_word_accommodation', 'average_function_word_accommodation'),
 			on=['batch_num', 'round_num'],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
-			right=get_stdev(self.chat_data, 'FuncWordAcc', 'std_FuncWordAcc'),
+			right=get_stdev(self.chat_data, 'function_word_accommodation', 'std_function_word_accommodation'),
 			on=['batch_num', 'round_num'],
 			how="inner"
 		)
@@ -204,14 +204,14 @@ class ConversationLevelFeaturesCalculator:
 	   # Content word mimicry
 		self.conv_data = pd.merge(
 			left=self.conv_data,
-			right=get_average(self.chat_data, 'ContWordAcc', 'average_ContWordAcc'),
+			right=get_average(self.chat_data, 'content_word_accommodation', 'average_content_word_accommodation'),
 			on=['batch_num', 'round_num'],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
-			right=get_stdev(self.chat_data, 'ContWordAcc', 'std_ContWordAcc'),
+			right=get_stdev(self.chat_data, 'content_word_accommodation', 'std_content_word_accommodation'),
 			on=['batch_num', 'round_num'],
 			how="inner"
 		)

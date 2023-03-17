@@ -59,7 +59,7 @@ def mimic_words(df, on_column):
 '''
 def Function_mimicry_score(function_mimic_words):
   return len(function_mimic_words)
-# OUTPUT column: FuncWordAcc 
+# OUTPUT column: function_word_accommodation 
 
 ## Content word mimicry: Compute the inverse frequency of each content word that also occurred in the other’s immediately preceding turn, then sum them up
 # Step 1: compute the frequency of each content word across the whole dataset)
@@ -92,4 +92,4 @@ def Content_mimicry_score(df, column_count_frequency, column_count_mimic):
   ContWordFreq = compute_frequency(df, column_count_frequency)
   # Compute the content_mimicry_score
   return df[column_count_mimic].apply(lambda x:computeTF(x, ContWordFreq))
-# OUTPUT column: ContWordAcc
+# OUTPUT column: content_word_accommodation

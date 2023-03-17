@@ -7,14 +7,13 @@ import re
 from features.basic_features import *
 
 
-
 ## Get the number of question marks in one message (TODO)
 def num_question(text):
   return len([x for x in text if x in ["?"]])
 
 
 ## Classify whether the message contains clarification questions
-NTRI_list = ("what?","sorry","excuse me","huh?","who?","pardon?","say again?","say it again?","what's that","what is that")
+NTRI_list = ["what?","sorry","excuse me","huh?","who?","pardon?","say again?","say it again?","what's that","what is that"]
 def classify_NTRI(text):
   if len([x for x in NTRI_list if x in text]) > 0:
     return 1
@@ -22,7 +21,7 @@ def classify_NTRI(text):
     return 0
   
 
-## Calculate the word type-to-token ration
+## Calculate the word type-to-token ratio
 def get_word_TTR(text):
   # remove punctuations
   new_text = re.sub(r"[^a-zA-Z0-9 ]+", '',text)
