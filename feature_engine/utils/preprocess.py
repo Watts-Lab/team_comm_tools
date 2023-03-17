@@ -1,5 +1,9 @@
 import re
 
+def preprocess_text_lowercase_but_retain_punctuation(text):
+  	# Only turns the text lowercase
+	return(text.lower())
+
 def preprocess_text(text):
   	# For each individual message: preprocess to remove anything that is not an alphabet or number from the string
 	return(re.sub(r"[^a-zA-Z0-9 ]+", '',text).lower())
