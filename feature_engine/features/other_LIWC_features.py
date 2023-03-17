@@ -1,11 +1,14 @@
-from collections import Counter
 import re
+
+'''
+    This function takes the dataset WITH all punctuations as input
+'''
 
 from features.basic_features import *
 
 
 
-## Get the number of question marks in one message
+## Get the number of question marks in one message (TODO)
 def num_question(text):
   return len([x for x in text if x in ["?"]])
 
