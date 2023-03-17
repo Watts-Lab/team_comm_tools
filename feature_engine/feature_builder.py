@@ -50,10 +50,13 @@ class FeatureBuilder:
 
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path)
+
+
+    def set_self_conv_data(self) -> None:
         # Deriving the base conversation level dataframe.
-        # This is simply the unique rows across "batch_num", and "round_num".
-        # Assume that "batch_num", and "round_num" together form a primary key for this table.
-        self.conv_data = self.chat_data.groupby(["batch_num", "round_num"]).sum(numeric_only = True).reset_index().iloc[: , :2]
+        # Set Conversation Data around `conversation_num` once preprocessing completes.
+        self.conv_data = self.chat_data.groupby(["conversation_num"]).sum(numeric_only = True).reset_index().iloc[: , :1]
+
 
     def featurize(self, col: str="message") -> None:
         """
@@ -66,11 +69,16 @@ class FeatureBuilder:
         """
         # Step 1. Preprocess the relevant column (the column that has the text used to create the features).
         self.preprocess_chat_data(col=col)
-        # Step 2. Create chat level features.
+        # Step 2. Set Conversation Data Object.
+        self.set_self_conv_data()
+        # Step 3. Create chat level features.
+        print("Generating Chat Level Features ...")
         self.chat_level_features()
-        # Step 3. Create conversation level features.
+        # Step 4. Create conversation level features.
+        print("Generating Conversation Level Features ...")
         self.conv_level_features()
-        # Step 4. Write the feartures into the files defined in the output paths.
+        # Step 5. Write the feartures into the files defined in the output paths.
+        print("All Done!")
         self.save_features()
 
     def preprocess_chat_data(self, col: str="message") -> None:
@@ -81,6 +89,10 @@ class FeatureBuilder:
             @param col (str): (Default value: "message")
                               This is used to identify the columns to preprocess.
         """
+       
+        # create the appropriate grouping variables and assert the columns are present
+        self.chat_data = preprocess_conversation_columns(self.chat_data)
+
         # create new column that retains punctuation
         self.chat_data["message_lower_with_punc"] = self.chat_data[col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
     
