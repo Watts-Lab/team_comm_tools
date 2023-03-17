@@ -81,10 +81,13 @@ class FeatureBuilder:
             @param col (str): (Default value: "message")
                               This is used to identify the columns to preprocess.
         """
+        # create new column that retains punctuation
+        self.chat_data["message_lower_with_punc"] = self.chat_data[col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
+    
         # Preprocessing the text in `col` and then overwriting the column `col`.
         # TODO: We should probably use classes to abstract preprocessing module as well?
         self.chat_data[col] = self.chat_data[col].astype(str).apply(preprocess_text)
-    
+
     def chat_level_features(self) -> None:
         """
             This function instantiates and uses the ChatLevelFeaturesCalculator to create the chat level features 

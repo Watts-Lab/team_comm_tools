@@ -15,6 +15,8 @@ The steps needed to add a feature would be to:
 from features.basic_features import *
 from features.info_exchange_zscore import *
 from features.lexical_features import *
+from features.other_LIWC_features import *
+from features.word_mimicry import *
 
 class ChatLevelFeaturesCalculator:
 	def __init__(self, chat_data: pd.DataFrame) -> None:
@@ -42,6 +44,12 @@ class ChatLevelFeaturesCalculator:
 		
 		# lexical features
 		# self.lexical_features() # TODO - commenting this out to speed things up; also, these are not currently being summarized
+
+		# Other lexical features
+		self.other_lexical_features()
+
+		# Word Mimicry
+		self.calculate_word_mimicry()
 
 		# Return the input dataset with the chat level features appended (as columns)
 		return self.chat_data
@@ -78,3 +86,47 @@ class ChatLevelFeaturesCalculator:
 			This is a driver function that calls relevant functions in features/lexical_features.py to implement the lexical features.
 		"""
 		self.chat_data = pd.concat([self.chat_data, self.chat_data["message"].apply(lambda x: pd.Series(liwc_features(str(x))))], axis = 1)
+		
+	def other_lexical_features(self) -> None:
+		"""
+			This function extract the number of questions, classify whether the message contains clarification questions,
+			calculate the word type-to-token ratio, and the proportion of first person pronouns from the chats
+			(see features/other_LIWC_features.py to learn more about how these features are calculated)
+		"""
+		# Get the number of questions in each message
+		self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(num_question_naive)
+		
+		# Classify whether the message contains clarification questions
+		self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(classify_NTRI)
+		
+		# Calculate the word type-to-token ratio
+		self.chat_data["word_TTR"] = self.chat_data["message"].apply(get_word_TTR)
+		
+		# Calculate the proportion of first person pronouns from the chats
+		self.chat_data["first_pronouns_proportion"] = self.chat_data["message"].apply(get_proportion_first_pronouns)
+		
+	def calculate_word_mimicry(self) -> None:
+		"""
+			This function calculate the number of function words that also used in other’s prior turn,
+			and the sum of inverse frequency of each content word that also occurred in the other’s immediately prior turn.
+			(see features/word_mimicry.py to learn more about how these features are calculated)
+			
+			Note: this function takes the dataset WITHOUT any punctuations as input
+		"""
+
+		# Extract function words / content words from a message
+		self.chat_data["function_words"] = self.chat_data["message"].apply(function_word)
+		self.chat_data["content_words"] = self.chat_data["message"].apply(content_word)
+		
+		# Extract the function words / content words that also appears in the immediate previous turn
+		self.chat_data["function_word_mimicry"] = mimic_words(self.chat_data, "function_words")
+		self.chat_data["content_word_mimicry"] = mimic_words(self.chat_data, "content_words")
+		
+		# Compute the number of function words that also appears in the immediate previous turn
+		self.chat_data["function_word_accommodation"] = self.chat_data["function_word_mimicry"].apply(Function_mimicry_score)
+		
+		# Compute the sum of inverse frequency of each content word that also occurred in the other’s immediately prior turn.
+		self.chat_data["content_word_accommodation"] = Content_mimicry_score(self.chat_data, "content_words","content_word_mimicry")
+
+		# Drop the function / content word columns -- we dont' need them in the output
+		self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
