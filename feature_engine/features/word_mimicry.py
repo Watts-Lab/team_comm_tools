@@ -83,7 +83,7 @@ This function happens on the individual level.
 '''
 def computeTF(column_mimc, frequency_dict):
   tfdict = {}
-  wf = pd.Series(column_mimc).value_counts()
+  wf = pd.Series(column_mimc, dtype = 'str').value_counts()
   for i in wf.index:
     tfdict[i] = wf[i]/frequency_dict[i]
   return sum(tfdict.values())
