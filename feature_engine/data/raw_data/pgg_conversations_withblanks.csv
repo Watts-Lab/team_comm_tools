@@ -1,4 +1,4 @@
-gameId,treatmentName,rewardExists,punishmentCost,punishmentMagnitude,total_costs,total_penalties,total_rewards,multiplier,punishmentExists,rewardExists,playerCount,numRounds,message,timestamp,playerID,score
+conversation_num,treatmentName,rewardExists,punishmentCost,punishmentMagnitude,total_costs,total_penalties,total_rewards,multiplier,punishmentExists,rewardExists,playerCount,numRounds,message,timestamp,speaker_nickname,score
 MnarujjeewXn9m7sz,4_T,True,3.0,9.0,1419,27,4230,5.6,True,True,6,15,,0,NULL_SPEAKER,1.2586309523809525
 u5ha44udM2BMXBZnj,1_C,True,2.0,4.0,3280,0,6560,4.6,False,True,6,35,,0,NULL_SPEAKER,1.1433747412008282
 gSojrSFyc4ASdFmCt,8_C,False,2.0,7.0,0,0,0,1.0,False,False,3,10,,0,NULL_SPEAKER,1.0033333333333334

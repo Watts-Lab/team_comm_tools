@@ -51,14 +51,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_gini(self.chat_data, "num_words"),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 		# Gini for #Characters
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_gini(self.chat_data, "num_chars"),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
@@ -72,14 +72,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'num_messages', 'average_message_count'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'num_messages', 'std_message_count'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
@@ -87,41 +87,41 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'num_words', 'average_word_count'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'num_words', 'std_word_count'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 		# Info Exchange (Z-Scores)
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'info_exchange_zscore_chats', 'average_info_exchange_zscore_chats'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'info_exchange_zscore_chats', 'std_info_exchange_zscore_chats'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'info_exchange_zscore_conversation', 'average_info_exchange_zscore_conversation'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'info_exchange_zscore_conversation', 'std_info_exchange_zscore_conversation'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 	
@@ -129,14 +129,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'num_question_naive', 'average_num_question_naive'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'num_question_naive', 'std_num_question_naive'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 	
@@ -144,14 +144,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'NTRI', 'average_NTRI'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'NTRI', 'std_NTRI'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 	
@@ -159,14 +159,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'word_TTR', 'average_word_TTR'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'word_TTR', 'std_word_TTR'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 	
@@ -175,14 +175,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'first_pronouns_proportion', 'average_first_pronouns_proportion'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'first_pronouns_proportion', 'std_first_pronouns_proportion'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 	
@@ -190,14 +190,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'function_word_accommodation', 'average_function_word_accommodation'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'function_word_accommodation', 'std_function_word_accommodation'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 	
@@ -205,14 +205,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_average(self.chat_data, 'content_word_accommodation', 'average_content_word_accommodation'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_stdev(self.chat_data, 'content_word_accommodation', 'std_content_word_accommodation'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 	
@@ -227,14 +227,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_max(self.chat_data, 'num_messages', 'max_messages'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_min(self.chat_data, 'num_messages', 'min_messages'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
@@ -242,14 +242,14 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_max(self.chat_data, 'num_words', 'max_words'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_min(self.chat_data, 'num_words', 'min_words'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
@@ -257,27 +257,27 @@ class ConversationLevelFeaturesCalculator:
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_max(self.chat_data, 'info_exchange_zscore_chats', 'max_info_exchange_zscore_chats'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_min(self.chat_data, 'info_exchange_zscore_chats', 'min_info_exchange_zscore_chats'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_max(self.chat_data, 'info_exchange_zscore_conversation', 'max_info_exchange_zscore_conversation'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
 
 		self.conv_data = pd.merge(
 			left=self.conv_data,
 			right=get_min(self.chat_data, 'info_exchange_zscore_conversation', 'min_info_exchange_zscore_conversation'),
-			on=['batch_num', 'round_num'],
+			on=["conversation_num"],
 			how="inner"
 		)
