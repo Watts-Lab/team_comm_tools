@@ -45,6 +45,12 @@ class ChatLevelFeaturesCalculator:
 		# lexical features
 		# self.lexical_features() # TODO - commenting this out to speed things up; also, these are not currently being summarized
 
+		# Other lexical features
+		self.other_lexical_features()
+
+		# Word Mimicry
+		self.calculate_word_mimicry()
+
 		# Return the input dataset with the chat level features appended (as columns)
 		return self.chat_data
 		
