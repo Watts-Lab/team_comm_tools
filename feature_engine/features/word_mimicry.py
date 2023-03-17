@@ -22,7 +22,6 @@ for x in ["able am are aren't be been being can can't cannot could couldn't did 
          "about after against at before by down for from in into near of off on out over than to until up with without just no not really too very"]:
   function_word_reference += re.sub(r"[^a-zA-Z0-9 ]+", '', x).lower().split()
 
-function_word_reference
 
 
 ####### Extract the function words & non-functions words from a message
