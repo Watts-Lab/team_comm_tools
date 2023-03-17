@@ -1,21 +1,21 @@
 import re
 
 '''
-    This function takes the dataset WITH all punctuations as input
+  num_question and get_word_TTR require the dataset WITH all punctuations as input
 '''
 
 from features.basic_features import *
 
 
 ## Get the number of question marks in one message (TODO)
-def num_question(text):
+def num_question_naive(text):
   return len([x for x in text if x in ["?"]])
 
 
 ## Classify whether the message contains clarification questions
-NTRI_list = ["what?","sorry","excuse me","huh?","who?","pardon?","say again?","say it again?","what's that","what is that"]
+NTRI_regex = "what\??|sorry|excuse me|huh\??|who\??|pardon\??|say.*again\??|what'?s that|what is that"
 def classify_NTRI(text):
-  if len([x for x in NTRI_list if x in text]) > 0:
+  if re.match(NTRI_regex, text):
     return 1
   else:
     return 0

@@ -94,10 +94,10 @@ class ChatLevelFeaturesCalculator:
 			(see features/other_LIWC_features.py to learn more about how these features are calculated)
 		"""
 		# Get the number of questions in each message
-		self.chat_data["num_questions"] = self.chat_data["message"].apply(num_question)
+		self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(num_question_naive)
 		
 		# Classify whether the message contains clarification questions
-		self.chat_data["NTRI"] = self.chat_data["message"].apply(classify_NTRI)
+		self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(classify_NTRI)
 		
 		# Calculate the word type-to-token ratio
 		self.chat_data["word_TTR"] = self.chat_data["message"].apply(get_word_TTR)
