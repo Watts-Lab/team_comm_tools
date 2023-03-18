@@ -50,7 +50,7 @@ class FeatureBuilder:
         self.output_file_path_conv_level = output_file_path_conv_level
 
         # Reading chat level data (this is available in the input file path directly).
-        self.chat_data = pd.read_csv(self.input_file_path)
+        self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
 
 
     def set_self_conv_data(self) -> None:
@@ -68,7 +68,7 @@ class FeatureBuilder:
         """
 
         # Here, drop the message and speaker nickname (which do not matter at conversation level)
-        orig_data = preprocess_conversation_columns(pd.read_csv(self.input_file_path)).drop(columns=['message', 'speaker_nickname'])
+        orig_data = preprocess_conversation_columns(pd.read_csv(self.input_file_path, encoding='mac_roman')).drop(columns=['message', 'speaker_nickname'])
         orig_conv_data = orig_data.groupby(["conversation_num"]).nth(0).reset_index() # get 1st item (all conv items are the same)
         final_conv_output = pd.merge(
             left= self.conv_data,
