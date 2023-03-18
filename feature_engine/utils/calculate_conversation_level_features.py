@@ -68,6 +68,14 @@ class ConversationLevelFeaturesCalculator:
 			chat level features to conversation level features.
 			Specifically, it looks at the mean and standard deviations at message and word level.
 		"""
+		# Total Number of Messages
+		self.conv_data = pd.merge(
+			left=self.conv_data,
+			right=get_sum(self.chat_data, 'num_messages', 'total_message_count'),
+			on=["conversation_num"],
+			how="inner"
+		)
+
 		# Message mean and std
 		self.conv_data = pd.merge(
 			left=self.conv_data,
