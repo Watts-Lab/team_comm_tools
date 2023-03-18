@@ -45,6 +45,7 @@ class FeatureBuilder:
         """
         #  Defining input and output paths.
         self.input_file_path = input_file_path
+        print("Initializing Featurization for " + self.input_file_path + " ...")
         self.output_file_path_chat_level = output_file_path_chat_level
         self.output_file_path_conv_level = output_file_path_conv_level
 
@@ -53,10 +54,30 @@ class FeatureBuilder:
 
 
     def set_self_conv_data(self) -> None:
-        # Deriving the base conversation level dataframe.
-        # Set Conversation Data around `conversation_num` once preprocessing completes.
-        self.conv_data = self.chat_data.groupby(["conversation_num"]).sum(numeric_only = True).reset_index().iloc[: , :1]
+        """
+        Deriving the base conversation level dataframe.
+        Set Conversation Data around `conversation_num` once preprocessing completes.
+        """        
+        self.conv_data = self.chat_data.groupby(["conversation_num"]).nth(0).reset_index().iloc[: , :1]
 
+
+    def merge_conv_data_with_original(self) -> None:
+        """
+        The conversation data loses the additional columns that would otherwise be part of the data
+        Critically, for example, the DV's are lost! Let's merge them back in.
+        """
+
+        # Here, drop the message and speaker nickname (which do not matter at conversation level)
+        orig_data = preprocess_conversation_columns(pd.read_csv(self.input_file_path)).drop(columns=['message', 'speaker_nickname'])
+        orig_conv_data = orig_data.groupby(["conversation_num"]).nth(0).reset_index() # get 1st item (all conv items are the same)
+        final_conv_output = pd.merge(
+            left= self.conv_data,
+            right = orig_conv_data,
+            on=['conversation_num'],
+            how="left"
+        ).drop_duplicates()
+
+        self.conv_data = final_conv_output
 
     def featurize(self, col: str="message") -> None:
         """
@@ -77,6 +98,7 @@ class FeatureBuilder:
         # Step 4. Create conversation level features.
         print("Generating Conversation Level Features ...")
         self.conv_level_features()
+        self.merge_conv_data_with_original()
         # Step 5. Write the feartures into the files defined in the output paths.
         print("All Done!")
         self.save_features()
@@ -92,6 +114,7 @@ class FeatureBuilder:
        
         # create the appropriate grouping variables and assert the columns are present
         self.chat_data = preprocess_conversation_columns(self.chat_data)
+        assert_key_columns_present(self.chat_data)
 
         # create new column that retains punctuation
         self.chat_data["message_lower_with_punc"] = self.chat_data[col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
