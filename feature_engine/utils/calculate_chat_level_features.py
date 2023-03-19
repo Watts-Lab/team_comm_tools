@@ -18,6 +18,17 @@ from features.lexical_features import *
 from features.other_LIWC_features import *
 from features.word_mimicry import *
 
+##NEWLY ADDED BY PRIYA##
+from features.readability import*
+from features.cosine_similarity import*
+from features.entropy import*
+from features.hedge import*
+from features.hedge_2 import*
+from features.positivity_zscore import*
+from features.sentiment_analysis import*
+from features.temporal_features import*
+from features.tf_idf import*
+
 class ChatLevelFeaturesCalculator:
 	def __init__(self, chat_data: pd.DataFrame) -> None:
 		"""
@@ -50,6 +61,18 @@ class ChatLevelFeaturesCalculator:
 
 		# Word Mimicry
 		self.calculate_word_mimicry()
+
+		##NEWLY ADDED BY PRIYA##
+
+		self.calculate_readability()
+		self.calculate_cosine_similarity()
+		self.calculate_entropy()
+		self.calculate_hedge1()
+		self.calculate_hedge2()
+		self.calculate_positivity_zscore()
+		self.calculate_sentiment_analysis()
+		self.calculate_temporal_features()
+		self.calculate_tf_idf()
 
 		# Return the input dataset with the chat level features appended (as columns)
 		return self.chat_data
@@ -130,3 +153,39 @@ class ChatLevelFeaturesCalculator:
 
 		# Drop the function / content word columns -- we dont' need them in the output
 		self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
+
+	##NEWLY ADDED BY PRIYA##
+	def calculate_readability(self) -> None:
+    	self.chat_data['dale_chall_score'] = self.chat_data["message"].apply(dale_chall_helper)
+    	self.chat_data['dale_chall_classification'] = self.chat_data['dale_chall_score'].apply(classify_text)
+
+	def calculate_cosine_similarity(self) -> None:
+		self.chat_data['cosine_similarity'] = ngram_cosine_similarity(self.chat_data,"message",3)
+	
+	def calculate_entropy(self) -> None:
+		#how to add the path for liwc_lexicons, which are not public?
+		pos_words =  create_sets(filepath) 
+		neg_words =  create_sets(filepath)   
+
+		self.chat_data['entropy_tag'] = ngram_dialog_act_entropy(self.chat_data,"message",3,pos_words,neg_words,"positive","negative")
+
+	def calculate_hedge1(self) -> None:
+		self.chat_data['is_hedged1'] = is_hedged_sentence_1(self.chat_data,"message")
+		
+	def calculate_hedge2(self) -> None:
+		self.chat_data['is_hedged2'] = is_hedged_sentence2(self.chat_data,"message")
+		
+	def calculate_positivity_zscore(self) -> None:
+		self.chat_data['positivity_zscore'] = chat_pos_zscore(self.chat_data,"message")
+
+	def calculate_sentiment_analysis(self) -> None:
+		self.chat_data['polarity_score'] = get_avg_polarity_score(self.chat_data,"message")
+		self.chat_data['subjectivity_score'] = get_avg_subjectivity_score(self.chat_data,"message")
+		
+	def calculate_temporal_features(self) -> None:
+		self.chat_data = mean_msg_duration(self.chat_data,"timestamp")
+		self.chat_data = std_msg_duration(self.chat_data,"timestamp")
+
+	def calculate_tf_idf(self) -> None:
+		df = get_tfidf(self.chat_data,"message")
+		self.chat_data = pd.concat([self.chat_data, df], axis=0)
