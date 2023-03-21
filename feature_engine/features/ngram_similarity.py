@@ -33,12 +33,3 @@ def ngram_cosine_similarity(df,on_column,n):
 
     # Compute the cosine similarities and write them to the file
     return cosine_similarity(ngram_vectors)
-
-#Test for cosine similarity
-data = {
-    "name": ["I am sort of","I guess I am crazy"]
-}
-
-df = pd.DataFrame(data)
-
-ngram_cosine_similarity(df,"name",2)
