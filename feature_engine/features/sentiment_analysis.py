@@ -82,9 +82,3 @@ def get_highest_subjectivity_individual_score(df,on_column):
 
 def get_subjectivity_score2(string):
     return TextBlob(string).sentiment.subjectivity
-
-'''
-test = "I feel like he had a pizza"
-test2 = "I feel he is nice"
-get_subjectivity_score2(test)
-'''

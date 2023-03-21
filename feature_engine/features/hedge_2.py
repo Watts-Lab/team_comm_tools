@@ -188,18 +188,3 @@ def is_hedged_sentence2(df,on_column):
     else:
         return False
 """
-
-'''
-#Testing
-# create a DataFrame with text data
-df = pd.DataFrame({'text': ["Im not actually sure if that is true, maybe we can skip that for now?",
-                            "Ill take the fifth.",
-                            "My name is Priya",
-                            "The efficacy of the new drug has not been confirmed, and there mifght be potential side effects on the liver"]})
-
-is_hedged_sentence2(df,'text')
-print(df['booster_output'])
-print(df['DM_output'])
-print(df['hedge_output'])
-print(df['is_hedged_sentence2'])
-'''
