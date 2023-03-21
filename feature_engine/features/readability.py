@@ -48,7 +48,13 @@ def dale_chall_helper(text):
     sentences = len(text.split("."))
     avg_sentence_length = words/sentences
     difficult_words = count_difficult_words(text)
-    pdw = difficult_words/words*100
+    
+    #get the percentage of difficult words(odw)
+    if words == 0:
+        pdw = 0
+    else :
+        pdw = difficult_words/words*100
+        
     raw_score = (0.1579*pdw) + (0.0496*avg_sentence_length)
     if pdw > 5:
         raw_score += 3.6365
@@ -65,14 +71,3 @@ def classify_text(score):
 def get_dale_chall_score_and_classfication(df,on_column):
     df['dale_chall_score'] = df[on_column].apply(dale_chall_helper)
     df['dale_chall_classification'] = df['dale_chall_score'].apply(classify_text)
-
-data = {
-    "name": ["Society is intrinsically impossible,” says Debord; however, according to Sargeant[1] , it is not so much society that is intrinsically impossible, but rather the absurdity, and some would say the collapse, of society. Presemantic narrative holds that culture is dead. If one examines cultural discourse, one is faced with a choice: either accept dialectic postsemioticist theory or conclude that narrativity may be used to oppress the underprivileged, but only if the premise of subtextual capitalism is valid. In a sense, the example of Derridaist reading which is a central theme of Pynchon’s The Crying of Lot 49 is also evident in V, although in a more self-falsifying sense. The subject is contextualised into a cultural discourse that includes truth as a reality. “Narrativity is part of the genre of sexuality,” says Baudrillard. But Bataille’s model of material subcultural theory states that academe is capable of significance. The subject is interpolated into a cultural discourse that includes reality as a paradox. Thus, deconstructivist feminism holds that sexual identity has objective value. If cultural discourse holds, we have to choose between presemantic narrative and neopatriarchial deappropriation. But Lacan’s critique of cultural discourse implies that the task of the reader is significant form. Bataille uses the term ‘presemantic narrative’ to denote the economy, and subsequent paradigm, of textual class. However, the premise of Sontagist camp states that art is capable of deconstruction, but only if narrativity is interchangeable with reality; otherwise, reality comes from the masses. A number of discourses concerning not deconstruction, but predeconstruction exist. Therefore, the subject is contextualised into a cultural discourse that includes culture as a whole. Many discourses concerning presemantic narrative may be discovered. However, Derrida’s model of cultural discourse suggests that consciousness serves to entrench the status quo. The subject is interpolated into a subtextual capitalism that includes reality as a totality."
-    ,"Hi I am Priya"]
-}
-
-df = pd.DataFrame(data)
-
-get_dale_chall_score_and_classfication(df,'name')
-print(df['dale_chall_score'])
-print(df['dale_chall_classification'])
