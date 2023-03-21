@@ -48,7 +48,10 @@ def dale_chall_helper(text):
     sentences = len(text.split("."))
     avg_sentence_length = words/sentences
     difficult_words = count_difficult_words(text)
-    pdw = difficult_words/words*100
+
+    if(words > 0): pdw = difficult_words/words*100
+    else: pdw = 0
+
     raw_score = (0.1579*pdw) + (0.0496*avg_sentence_length)
     if pdw > 5:
         raw_score += 3.6365

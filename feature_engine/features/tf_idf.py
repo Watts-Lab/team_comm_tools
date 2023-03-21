@@ -11,9 +11,11 @@ def get_tfidf(df,on_column):
     # Create a pandas data frame with the feature names as columns and the TF-IDF values as rows
     return pd.DataFrame(tfidf_matrix.toarray(), columns=feature_names)
 
+'''
     # create a DataFrame with text data
 df = pd.DataFrame({'text': ['This is the first document.',
                             'This is the second document.',
                             'And this is the third one.',
                             'Is this the first document?']})
 get_tfidf(df,'text')
+'''

@@ -65,11 +65,12 @@ class ChatLevelFeaturesCalculator:
         ##NEWLY ADDED BY PRIYA##
 
 
-        '''
         self.calculate_readability()
+        self.calculate_hedge1()
+
+        '''
         self.calculate_cosine_similarity()
         self.calculate_entropy()
-        self.calculate_hedge1()
         self.calculate_hedge2()
         self.calculate_positivity_zscore()
         self.calculate_sentiment_analysis()

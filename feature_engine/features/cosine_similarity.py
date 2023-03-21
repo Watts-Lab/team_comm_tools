@@ -42,11 +42,13 @@ def ngram_cosine_similarity(df,on_column,n):
     # Create a new column in the input dataframe with the cosine similarity matrix
     return pd.Series(cosine_sim_matrix.tolist())
     
-    #Test for cosine similarity
-    data = {
-        "name": ["I am sort of","I guess I am crazy"]
-    }
+''' 
+#Test for cosine similarity
+data = {
+    "name": ["I am sort of","I guess I am crazy"]
+}
 
-    df = pd.DataFrame(data)
+df = pd.DataFrame(data)
 
-    ngram_cosine_similarity(df,"name",2)
+ngram_cosine_similarity(df,"name",2)
+'''
