@@ -19,5 +19,5 @@ def get_gini(conversation_data, on_column):
 	grouped_conversation_data = get_count_dataframe(conversation_data, on_column)
 
 	# for all speakers per {batch, round}: apply Gini
-	gini_calculated = grouped_conversation_data.groupby(["batch_num", "round_num"]).apply(lambda df : gini_coefficient(np.asarray(df[on_column]))).reset_index().rename(columns={0: "gini_coefficient_" + on_column})
+	gini_calculated = grouped_conversation_data.groupby(["conversation_num"]).apply(lambda df : gini_coefficient(np.asarray(df[on_column]))).reset_index().rename(columns={0: "gini_coefficient_" + on_column})
 	return(gini_calculated)
