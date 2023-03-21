@@ -50,6 +50,7 @@ class FeatureBuilder:
 
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path)
+        self.input_columns = self.chat_data.columns
         # Deriving the base conversation level dataframe.
         # This is simply the unique rows across "batch_num", and "round_num".
         # Assume that "batch_num", and "round_num" together form a primary key for this table.
@@ -105,7 +106,8 @@ class FeatureBuilder:
         # Instantiating.
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
-            conv_data = self.conv_data
+            conv_data = self.conv_data,
+            input_columns = self.input_columns
         )
         # Calling the driver inside this class to create the features.
         self.conv_data = conv_feature_builder.calculate_conversation_level_features()
