@@ -59,15 +59,3 @@ def create_sets(filepath):
         set = set(file.read().split())
     return set       
      
-        
-#Test for entropy
-data = {
-    "name": ["you are a bad person","You are a happy, joyful, lovely person"]
-}
-
-df = pd.DataFrame(data)
-
-set1 = ["happy", "joyful", "lovely"]
-set2 = ["bad"]
-
-print(ngram_dialog_act_entropy(df,'name',1,set1,set2,'positive','negative'))
