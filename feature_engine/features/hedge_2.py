@@ -1,3 +1,4 @@
+"""
 import pandas as pd
 import numpy as np
 import requests
@@ -9,6 +10,7 @@ from features.ngram_similarity import *
 from nltk import ngrams
 from nltk import jaccard_distance
 
+# TODO - need to change this local path!
 MODELS_DIR = '/Users/priyadcosta/Desktop/Positivity/Random/stanford-corenlp-4.5.2'
 
 def jaccard_distance(set1, set2):
@@ -185,7 +187,9 @@ def is_hedged_sentence2(df,on_column):
         return True
     else:
         return False
+"""
 
+'''
 #Testing
 # create a DataFrame with text data
 df = pd.DataFrame({'text': ["Im not actually sure if that is true, maybe we can skip that for now?",
@@ -198,3 +202,4 @@ print(df['booster_output'])
 print(df['DM_output'])
 print(df['hedge_output'])
 print(df['is_hedged_sentence2'])
+'''

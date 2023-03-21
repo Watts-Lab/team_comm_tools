@@ -64,6 +64,8 @@ class ChatLevelFeaturesCalculator:
 
         ##NEWLY ADDED BY PRIYA##
 
+
+        '''
         self.calculate_readability()
         self.calculate_cosine_similarity()
         self.calculate_entropy()
@@ -73,6 +75,7 @@ class ChatLevelFeaturesCalculator:
         self.calculate_sentiment_analysis()
         self.calculate_temporal_features()
         self.calculate_tf_idf()
+        '''
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data

@@ -8,7 +8,7 @@ def is_hedged_sentence_1(df,on_column):
     return df[on_column].apply(lambda x: bool(re.search(pattern, x, re.IGNORECASE)))
 
 
-
+'''
 #Testing
 # create a DataFrame with text data
 df = pd.DataFrame({'text': ["Im not actually sure if that is true, maybe we can skip that for now?",
@@ -17,3 +17,4 @@ df = pd.DataFrame({'text': ["Im not actually sure if that is true, maybe we can 
                             "The efficacy of the new drug has not been confirmed, and there mifght be potential side effects on the liver"]})
 
 print(is_hedged_sentence_1(df,'text'))
+'''

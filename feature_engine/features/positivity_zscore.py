@@ -14,14 +14,20 @@ from nltk.corpus import stopwords
 def chat_pos_zscore(df,on_column):
 
     #get the list of positive words
-    with open("positive_affect.txt", "r") as f1:
-        poswordslist = f1.read().split()
+    with open("./features/lexicons/liwc_lexicons/positive_affect", "r") as f1:
+        poswordslist = [line.rstrip() for line in f1]
 
-    with open("nltk_english_stopwords.txt", "r") as f2:
-        stop_words = f2.read().split()
+    with open("./features/lexicons/nltk_english_stopwords.txt", "r") as f2:
+        stop_words = [line.rstrip() for line in f2]
 
-    df['stop_words'] = len([word for word in df[on_column].split() if word.lower() in stopwords])
-    df['total_pos_words'] = len([word for word in df[on_column].split() if word.lower() in poswordslist])
+
+    print(poswordslist)
+    print(stop_words)
+    
+    # TODO - Emily working here!!
+
+    num_stop_words = df[on_column].apply(lambda x: len([word for word in x.split() if word.lower() in stopwords]))
+    df['total_pos_words'] = df[on_column].apply(lambda x: len([word for word in x.split() if word.lower() in poswordslist]))
 
     #Trying to group real positive words by each chat
     df['pos_words_counts'] = df['total_pos_words']-df['stop_words']
