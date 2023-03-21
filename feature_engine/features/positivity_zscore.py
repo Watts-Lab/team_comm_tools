@@ -26,13 +26,3 @@ def chat_pos_zscore(df,on_column):
     #Trying to group real positive words by each chat
     df['pos_words_counts'] = df['total_pos_words']-df['stop_words']
     return stats.zscore(df['pos_words_counts'])
-
-#Test for positivity z-score
-data = {
-    "name": ["you are a bad person","You are a happy, joyful, lovely person"]
-}
-
-df = pd.DataFrame(data)
-
-chat_pos_zscore(df,'name')
-print(df['chat_pos_zscore'])
