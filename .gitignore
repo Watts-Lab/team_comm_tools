@@ -4,9 +4,11 @@ feature_engine/.DS_Store
 feature_engine/features/lexicons/liwc_lexicons/
 feature_engine/features/lexicons/liwc_lexicons_small_test/
 feature_engine/modules/
-feature_engine/features/__pycache__
+feature_engine/__pycache__/
+feature_engine/features/__pycache__/
 feature_engine/ipython_notebooks/.ipynb_checkpoints/
 team_process_map/
 feature_engine/utils/__pycache__/
 .idea/
 feature_engine/features/lexicons_dict.pkl
+*.py[cod]
