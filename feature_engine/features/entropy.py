@@ -54,7 +54,7 @@ def ngram_dialog_act_entropy(df,on_column,n,set1,set2,set1_label,set2_label):
         print(set2_entropy)
         return "neutral"
         
- def create_sets(filepath):    
+def create_sets(filepath):
     with open(filepath, 'r') as file:
         set = set(file.read().split())
     return set       
@@ -70,5 +70,4 @@ df = pd.DataFrame(data)
 set1 = ["happy", "joyful", "lovely"]
 set2 = ["bad"]
 
-ngram_dialog_act_entropy(df,'name',1,set1,set2,'positive','negative')
-print(df['entropy'])
+print(ngram_dialog_act_entropy(df,'name',1,set1,set2,'positive','negative'))

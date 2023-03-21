@@ -181,11 +181,12 @@ def is_hedged_sentence2(df,on_column):
     #run hedge check
     hedge_check(df,on_column,hedge_words)
 
-        if df['booster_output'] is True or df['DM_output'] is True or df['hedge_output'] is True:
-            return True
-        else:
-            return False
-  #Testing
+    if df['booster_output'] is True or df['DM_output'] is True or df['hedge_output'] is True:
+        return True
+    else:
+        return False
+
+#Testing
 # create a DataFrame with text data
 df = pd.DataFrame({'text': ["Im not actually sure if that is true, maybe we can skip that for now?",
                             "Ill take the fifth.",

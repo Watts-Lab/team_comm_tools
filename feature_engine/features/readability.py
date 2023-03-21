@@ -31,7 +31,7 @@ def count_difficult_words(text):
     words = text.split()
 
     #get the list of dale-chall words
-    with open('dale_chall.txt', 'r') as file:
+    with open('./features/lexicons/dale_chall.txt', 'r') as file:
         word_list = [line.strip() for line in file]
 
     for word in words:
