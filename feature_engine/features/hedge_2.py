@@ -5,7 +5,7 @@ import sklearn
 import nltk
 import stanfordnlp
 from itertools import combinations
-import ngram_similarity_functions as nsf
+from features.ngram_similarity import *
 from nltk import ngrams
 from nltk import jaccard_distance
 
