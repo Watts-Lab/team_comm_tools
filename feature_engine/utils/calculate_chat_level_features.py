@@ -25,8 +25,7 @@ from features.entropy import*
 from features.hedge import*
 from features.hedge_2 import*
 from features.positivity_zscore import*
-from features.sentiment_analysis import*
-from features.temporal_features import*
+from features.textblob_sentiment_analysis import*
 from features.tf_idf import*
 
 class ChatLevelFeaturesCalculator:
@@ -67,13 +66,12 @@ class ChatLevelFeaturesCalculator:
         self.calculate_hedge1()
         # self.calculate_tf_idf() # --- columns are blank, and overwhelming
         self.calculate_cosine_similarity()
+        self.calculate_textblob_sentiment_analysis()
 
         '''
         self.calculate_entropy()
         self.calculate_hedge2()
-        self.calculate_positivity_zscore()
-        self.calculate_sentiment_analysis()
-        self.calculate_temporal_features()
+        self.calculate_positivity_zscore() 
         '''
 
         # Return the input dataset with the chat level features appended (as columns)
@@ -183,13 +181,9 @@ class ChatLevelFeaturesCalculator:
     def calculate_positivity_zscore(self) -> None:
         self.chat_data['positivity_zscore'] = chat_pos_zscore(self.chat_data,"message")
 
-    def calculate_sentiment_analysis(self) -> None:
-        self.chat_data['polarity_score'] = get_avg_polarity_score(self.chat_data,"message")
-        self.chat_data['subjectivity_score'] = get_avg_subjectivity_score(self.chat_data,"message")
-        
-    def calculate_temporal_features(self) -> None:
-        self.chat_data = mean_msg_duration(self.chat_data,"timestamp")
-        self.chat_data = std_msg_duration(self.chat_data,"timestamp")
+    def calculate_textblob_sentiment_analysis(self) -> None:
+        self.chat_data['textblob_polarity'] = self.chat_data['message'].apply(lambda x: get_polarity_score(x))
+        self.chat_data['textblob_subjectivity'] = self.chat_data['message'].apply(lambda x: get_subjectivity_score(x))
 
     def calculate_tf_idf(self) -> None:
         df = get_tfidf(self.chat_data,"message")

@@ -1,22 +1,28 @@
+import numpy as np
 import pandas as pd
 import utils.summarize_chat_level_features as summary
 
-def mean_msg_duration(df,on_column):
+def time_to_datetime(df, on_column):
+    # TODO - this assume that the time can be converted correctly to datetime!
+    # what if it is a Unix time?
+    return(pd.to_datetime(df[on_column]))
 
+def get_time_diffs(df, on_column):
     #convert timestamp column to datetime type (in minutes)
-    df[on_column] = pd.to_datetime(df[on_column])
 
+    """
+    TODO -- this group needs to happen at the *conversation* level; otherwise, we get the difference across all conversations, which throws off our feature.
+    """
+    datetimes = time_to_datetime(df, on_column)
+    return(datetimes.diff().dt.total_seconds()/60)
+
+def get_mean_msg_duration(df,on_column):
     # calculate difference between consecutive timestamps
-    df['time_diff'] = df[on_column].diff().dt.total_seconds()/60
-    
-    return summary.get_average(df, 'time_diff', 'avg_time')
+    mean_msg_duration_calculated = df.groupby(["conversation_num"]).apply(lambda df : np.mean(np.asarray(df['time_diffs']))).reset_index().rename(columns={0: "mean_msg_duration"})
+    return(mean_msg_duration_calculated)
 
-def stddev_msg_duration(df,on_column):
-
-    #convert timestamp column to datetime type (in minutes)
-    df[on_column] = pd.to_datetime(df[on_column])
-
+def get_stddev_msg_duration(df,on_column):
     # calculate difference between consecutive timestamps
-    df['time_diff'] = df[on_column].diff().dt.total_seconds()/60
-
-    return summary.get_stdev(df, 'time_diff', 'std_dev_time')
+    df['time_diffs'] = get_time_diffs(df,on_column)
+    mean_msg_duration_calculated = df.groupby(["conversation_num"]).apply(lambda df : np.std(np.asarray(df['time_diffs']))).reset_index().rename(columns={0: "stdev_msg_duration"})
+    return(mean_msg_duration_calculated)
