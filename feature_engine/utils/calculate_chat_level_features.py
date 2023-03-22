@@ -160,7 +160,7 @@ class ChatLevelFeaturesCalculator:
 
     ##NEWLY ADDED BY PRIYA##
     def calculate_readability(self) -> None:
-        self.chat_data['dale_chall_score'] = self.chat_data["message"].apply(dale_chall_helper)
+        self.chat_data['dale_chall_score'] = self.chat_data["message_lower_with_punc"].apply(dale_chall_helper)
         self.chat_data['dale_chall_classification'] = self.chat_data['dale_chall_score'].apply(classify_text)
 
     def calculate_cosine_similarity(self) -> None:
@@ -169,7 +169,7 @@ class ChatLevelFeaturesCalculator:
     def calculate_entropy(self) -> None:
         #how to add the path for liwc_lexicons, which are not public?
         pos_words =  create_sets(filepath) 
-        neg_words =  create_sets(filepath)   
+        neg_words =  create_sets(filepath)
 
         self.chat_data['entropy_tag'] = ngram_dialog_act_entropy(self.chat_data,"message",3,pos_words,neg_words,"positive","negative")
 
