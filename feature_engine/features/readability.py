@@ -2,15 +2,12 @@ import pandas as pd
 import re
 import nltk
 
+from basic_features import count_words
+
 # Define the function to calculate the Dale-Chall score
 def count_syllables(word):
     # count the number of syllables in a word
     return(sum(list(map(word.lower().count, "aeiou"))))
-
-def count_words(text):
-    # count the number of words in a text
-    words = text.split()
-    return len(words)
 
 def count_difficult_words(text):
     # count the number of difficult words in a text
