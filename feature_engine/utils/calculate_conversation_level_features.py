@@ -26,7 +26,10 @@ class ConversationLevelFeaturesCalculator:
         self.chat_data = chat_data
         self.conv_data = conv_data
         # Denotes the columns that can be summarized from the chat level, onto the conversation level.
-        self.columns_to_summarize = [column for column in self.chat_data.columns if column not in input_columns]
+        self.input_columns = list(input_columns)
+        self.input_columns.append('conversation_num')
+        self.columns_to_summarize = [column for column in self.chat_data.columns \
+                                     if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
 
     def calculate_conversation_level_features(self) -> pd.DataFrame:
         """
@@ -55,14 +58,14 @@ class ConversationLevelFeaturesCalculator:
         self.conv_data = pd.merge(
             left=self.conv_data,
             right=get_gini(self.chat_data, "num_words"),
-            on=['batch_num', 'round_num'],
+            on=['conversation_num'],
             how="inner"
         )
         # Gini for #Characters
         self.conv_data = pd.merge(
             left=self.conv_data,
             right=get_gini(self.chat_data, "num_chars"),
-            on=['batch_num', 'round_num'],
+            on=['conversation_num'],
             how="inner"
         )
 
@@ -78,7 +81,7 @@ class ConversationLevelFeaturesCalculator:
             self.conv_data = pd.merge(
                 left=self.conv_data,
                 right=get_average(self.chat_data, column, 'average_'+column),
-                on=['batch_num', 'round_num'],
+                on=['conversation_num'],
                 how="inner"
             )
 
@@ -86,7 +89,7 @@ class ConversationLevelFeaturesCalculator:
             self.conv_data = pd.merge(
                 left=self.conv_data,
                 right=get_stdev(self.chat_data, column, 'stdev_'+column),
-                on=['batch_num', 'round_num'],
+                on=['conversation_num'],
                 how="inner"
             )
 
@@ -94,7 +97,7 @@ class ConversationLevelFeaturesCalculator:
             self.conv_data = pd.merge(
                 left=self.conv_data,
                 right=get_min(self.chat_data, column, 'min_'+column),
-                on=['batch_num', 'round_num'],
+                on=['conversation_num'],
                 how="inner"
             )
 
@@ -102,7 +105,7 @@ class ConversationLevelFeaturesCalculator:
             self.conv_data = pd.merge(
                 left=self.conv_data,
                 right=get_max(self.chat_data, column, 'max_'+column),
-                on=['batch_num', 'round_num'],
+                on=['conversation_num'],
                 how="inner"
             )
 
@@ -116,14 +119,14 @@ class ConversationLevelFeaturesCalculator:
         self.conv_data = pd.merge(
             left=self.conv_data,
             right=get_max(self.chat_data, 'num_messages', 'max_messages'),
-            on=['batch_num', 'round_num'],
+            on=['conversation_num'],
             how="inner"
         )
 
         self.conv_data = pd.merge(
             left=self.conv_data,
             right=get_min(self.chat_data, 'num_messages', 'min_messages'),
-            on=['batch_num', 'round_num'],
+            on=['conversation_num'],
             how="inner"
         )
 
@@ -131,13 +134,13 @@ class ConversationLevelFeaturesCalculator:
         self.conv_data = pd.merge(
             left=self.conv_data,
             right=get_max(self.chat_data, 'num_words', 'max_words'),
-            on=['batch_num', 'round_num'],
+            on=['conversation_num'],
             how="inner"
         )
 
         self.conv_data = pd.merge(
             left=self.conv_data,
             right=get_min(self.chat_data, 'num_words', 'min_words'),
-            on=['batch_num', 'round_num'],
+            on=['conversation_num'],
             how="inner"
         )

@@ -96,14 +96,15 @@ class FeatureBuilder:
         # Step 1. Preprocess the relevant column (the column that has the text used to create the features).
         self.preprocess_chat_data(col=col)
         # Step 2. Set Conversation Data Object.
-        self.set_self_conv_data()
+        # TODO This will throw an error with downstream tasks
+        # self.set_self_conv_data()
         # Step 3. Create chat level features.
         print("Generating Chat Level Features ...")
         self.chat_level_features()
         # Step 4. Create conversation level features.
         print("Generating Conversation Level Features ...")
         self.conv_level_features()
-        self.merge_conv_data_with_original()
+        # self.merge_conv_data_with_original()
         # Step 5. Write the feartures into the files defined in the output paths.
         print("All Done!")
         self.save_features()
@@ -146,6 +147,7 @@ class FeatureBuilder:
             conversation level features and add them into the `self.conv_data` dataframe.
         """
         # Instantiating.
+        self.conv_data = preprocess_conversation_columns(self.conv_data)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             conv_data = self.conv_data,
