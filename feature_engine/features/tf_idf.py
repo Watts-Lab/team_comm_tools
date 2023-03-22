@@ -1,3 +1,5 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 def get_tfidf(df,on_column):
     # Create a TfidfVectorizer object with desired parameters
     vectorizer = TfidfVectorizer(stop_words='english')

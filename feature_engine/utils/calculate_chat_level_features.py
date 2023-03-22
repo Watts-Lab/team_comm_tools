@@ -63,10 +63,9 @@ class ChatLevelFeaturesCalculator:
         self.calculate_word_mimicry()
 
         ##NEWLY ADDED BY PRIYA##
-
-
         self.calculate_readability()
         self.calculate_hedge1()
+        self.calculate_tf_idf()
 
         '''
         self.calculate_cosine_similarity()
@@ -75,7 +74,6 @@ class ChatLevelFeaturesCalculator:
         self.calculate_positivity_zscore()
         self.calculate_sentiment_analysis()
         self.calculate_temporal_features()
-        self.calculate_tf_idf()
         '''
 
         # Return the input dataset with the chat level features appended (as columns)
