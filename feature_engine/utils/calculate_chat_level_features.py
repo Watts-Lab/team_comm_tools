@@ -20,7 +20,7 @@ from features.word_mimicry import *
 
 ##NEWLY ADDED BY PRIYA##
 from features.readability import*
-from features.cosine_similarity import*
+from features.ngram_cosine_similarity import*
 from features.entropy import*
 from features.hedge import*
 from features.hedge_2 import*
@@ -65,10 +65,10 @@ class ChatLevelFeaturesCalculator:
         ##NEWLY ADDED BY PRIYA##
         self.calculate_readability()
         self.calculate_hedge1()
-        self.calculate_tf_idf()
+        # self.calculate_tf_idf() # --- columns are blank, and overwhelming
+        self.calculate_cosine_similarity()
 
         '''
-        self.calculate_cosine_similarity()
         self.calculate_entropy()
         self.calculate_hedge2()
         self.calculate_positivity_zscore()
@@ -162,7 +162,10 @@ class ChatLevelFeaturesCalculator:
         self.chat_data['dale_chall_classification'] = self.chat_data['dale_chall_score'].apply(classify_text)
 
     def calculate_cosine_similarity(self) -> None:
-        self.chat_data['cosine_similarity'] = ngram_cosine_similarity(self.chat_data,"message",3)
+        n = 3
+        self.chat_data[ str(n) + '_gram_cosine_similarity'] = ngram_cosine_similarity(self.chat_data,"message",n)
+        # Drop extraneous columns
+        self.chat_data = self.chat_data.drop(columns=["text", "ngrams"])
     
     def calculate_entropy(self) -> None:
         #how to add the path for liwc_lexicons, which are not public?

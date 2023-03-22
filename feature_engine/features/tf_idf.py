@@ -1,3 +1,4 @@
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 def get_tfidf(df,on_column):
