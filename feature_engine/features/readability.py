@@ -2,7 +2,7 @@ import pandas as pd
 import re
 import nltk
 
-from basic_features import count_words
+from features.basic_features import count_words
 
 '''
 Because of the need to split up sentences, this function requires the version of pre-process
@@ -24,7 +24,7 @@ def count_difficult_words(text):
     with open('./features/lexicons/dale_chall.txt', 'r') as file:
         easy_word_list = [line.strip() for line in file]
 
-    remaining_words = words - easy_word_list
+    remaining_words = [i for i in words if not i in easy_word_list]
 
     for word in remaining_words:
         # words with more than 3 syllables are difficult
