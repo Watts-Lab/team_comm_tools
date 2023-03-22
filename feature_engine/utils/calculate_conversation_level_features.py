@@ -36,7 +36,7 @@ class ConversationLevelFeaturesCalculator:
         # Get gini based features
         self.get_gini_features()
         # Get temporal based features
-        #self.get_temporal_features() --- TODO; under construction !!
+        self.get_temporal_features()
         # Get summary statistics by aggregating chat level features
         self.get_conversation_level_summary_statistics_features()
         self.get_talkative_member_features()
