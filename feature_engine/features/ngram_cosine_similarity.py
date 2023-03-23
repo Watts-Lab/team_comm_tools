@@ -39,6 +39,15 @@ def ngram_cosine_similarity(df,on_column,n):
     # Compute the cosine similarities and average them out
     # get the matrix
     cosine_sim_matrix = np.matrix(cosine_similarity(ngram_vectors))
+    
+    # get the lower triangle indices (excluding the diagonal)
+    lower_indices = np.tril_indices(cosine_sim_matrix.shape[0], -1)
 
-    # Create a new column in the input dataframe with the "average pairwise cosine similarity of these vectors"
-    return(np.matrix.mean(cosine_sim_matrix, axis=1))
+    # get the values of the lower triangle (excluding the diagonal)
+    lower_triangle = cosine_sim_matrix[lower_indices]
+
+    # calculate the average of the lower triangle
+    average = np.mean(lower_triangle)
+    
+    return average
+
