@@ -55,7 +55,7 @@ class FeatureBuilder:
         # Deriving the base conversation level dataframe.
         # This is simply the unique rows across "batch_num", and "round_num".
         # Assume that "batch_num", and "round_num" together form a primary key for this table.
-        self.conv_data = self.chat_data.groupby(["batch_num", "round_num"]).sum(numeric_only = True).reset_index().iloc[: , :2]
+        self.conv_data = self.chat_data.groupby(['conversation_num']).sum(numeric_only = True).reset_index().iloc[: , :2]
 
 
     def set_self_conv_data(self) -> None:
