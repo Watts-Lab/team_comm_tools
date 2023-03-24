@@ -66,11 +66,12 @@ class ChatLevelFeaturesCalculator:
         self.calculate_hedge1()
         # self.calculate_tf_idf() # --- columns are blank, and overwhelming
         self.calculate_cosine_similarity()
+        self.calculate_hedge2()
         self.calculate_textblob_sentiment_analysis()
 
         '''
         self.calculate_entropy()
-        self.calculate_hedge2()
+        
         self.calculate_positivity_zscore() 
         '''
 
@@ -173,10 +174,12 @@ class ChatLevelFeaturesCalculator:
         self.chat_data['entropy_tag'] = ngram_dialog_act_entropy(self.chat_data,"message",3,pos_words,neg_words,"positive","negative")
 
     def calculate_hedge1(self) -> None:
-        self.chat_data['is_hedged1'] = is_hedged_sentence_1(self.chat_data,"message")
+        self.chat_data['hedge_naive'] = is_hedged_sentence_1(self.chat_data,"message")
         
     def calculate_hedge2(self) -> None:
-        self.chat_data['is_hedged2'] = is_hedged_sentence2(self.chat_data,"message")
+        self.chat_data['hedge_complex'] = is_hedged_sentence2(self.chat_data,"message")
+        # Drop extraneous columns
+        self.chat_data = self.chat_data.drop(columns=["DM_output", "booster_ouptut"])
         
     def calculate_positivity_zscore(self) -> None:
         self.chat_data['positivity_zscore'] = chat_pos_zscore(self.chat_data,"message")

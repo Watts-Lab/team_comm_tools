@@ -12,6 +12,8 @@ def time_to_datetime(df, on_column):
 def get_time_diffs(df, on_column):
     #convert timestamp column to datetime type (in minutes)
     df_datetime = time_to_datetime(df, on_column)[["conversation_num", "datetime"]]
+
+    # TODO - issue wtih setting something on a slice of a dataframe
     df_datetime['time_diffs'] = df_datetime.groupby(["conversation_num"]).diff()
     df_datetime = df_datetime.dropna() # the first person's time is always NA, as no message precedes them
     df_datetime['time_diffs'] = df_datetime['time_diffs'].apply(lambda x: x.total_seconds()/60)

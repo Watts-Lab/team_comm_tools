@@ -8,4 +8,4 @@ def is_hedged_sentence_1(df,on_column):
         hedge_words = f1.read().split()
     
     pattern = "|".join(hedge_words)
-    return df[on_column].apply(lambda x: bool(re.search(pattern, x, re.IGNORECASE)))
+    return df[on_column].apply(lambda x: int(bool(re.search(pattern, x, re.IGNORECASE))))

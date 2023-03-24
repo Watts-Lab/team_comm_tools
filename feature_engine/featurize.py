@@ -29,13 +29,13 @@ if __name__ == "__main__":
 	# # FULL DATASETS BELOW
 
 	# #Juries
-	# jury_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/jury_output_chat_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/jury_output_conversation_level.csv"
-	# )
+	jury_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
+		output_file_path_chat_level = "../feature_engine/output/jury_output_chat_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/jury_output_conversation_level.csv"
+	)
 
-	# jury_feature_builder.featurize(col="message")
+	jury_feature_builder.featurize(col="message")
 
 	# #CSOP
 	# csop_feature_builder = FeatureBuilder(
@@ -65,9 +65,9 @@ if __name__ == "__main__":
 	# gurcay_estimation_feature_builder.featurize(col="message")
 
 	# Estimation (Becker)
-	becker_estimation_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/beckerestimation_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/beckerestimation_output_conversation_level.csv"
-	)
-	becker_estimation_feature_builder.featurize(col="message")
+	# becker_estimation_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/beckerestimation_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/beckerestimation_output_conversation_level.csv"
+	# )
+	# becker_estimation_feature_builder.featurize(col="message")

@@ -5,12 +5,12 @@ import sklearn
 import nltk
 import stanfordnlp
 from itertools import combinations
-from features.ngram_similarity import *
+from features.ngram_cosine_similarity import *
 from nltk import ngrams
 from nltk import jaccard_distance
 
 # TODO - need to change this local path!
-MODELS_DIR = '/Users/priyadcosta/Desktop/Positivity/Random/stanford-corenlp-4.5.2'
+MODELS_DIR = '../feature_engine/modules/stanford-corenlp-4.5.2'
 
 def jaccard_distance(set1, set2):
     return len(set1.intersection(set2)) / float(len(set1.union(set2)))
@@ -183,6 +183,6 @@ def is_hedged_sentence2(df,on_column):
     hedge_check(df,on_column,hedge_words)
 
     if df['booster_output'] is True or df['DM_output'] is True or df['hedge_output'] is True:
-        return True
+        return 1
     else:
-        return False
+        return 0
