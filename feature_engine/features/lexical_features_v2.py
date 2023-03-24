@@ -21,7 +21,7 @@ def liwc_features(chat_df: pd.DataFrame) -> pd.DataFrame:
 		(pd.DataFrame): Dataframe of the lexical features stacked as columns.
 	"""
 	# Load the preprocessed lexical regular expressions
-	with open("feature_engine/features/lexicons_dict.pkl", "rb") as lexicons_pickle_file:
+	with open("../feature_engine/features/lexicons_dict.pkl", "rb") as lexicons_pickle_file:
 		lexicons_dict = pickle.load(lexicons_pickle_file)
 	
 	# Return the lexical features stacked as columns

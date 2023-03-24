@@ -43,9 +43,6 @@ class ConversationLevelFeaturesCalculator:
         self.get_gini_features()
         # Get summary statistics by aggregating chat level features
         self.get_conversation_level_summary_statistics_features()
-        self.get_talkative_member_features()
-
-        # TODO - currently, lexical features are not being summarized!
 
         return self.conv_data
 
@@ -108,39 +105,3 @@ class ConversationLevelFeaturesCalculator:
                 on=['conversation_num'],
                 how="inner"
             )
-
-    def get_talkative_member_features(self) -> None:
-        """
-            This function is used to aggregate the summary statistics from 
-            chat level features to conversation level features.
-            Specifically, it looks at the maximum and minimum messages and words sent out in the conversation.
-        """
-        # Message level talkative_member_features
-        self.conv_data = pd.merge(
-            left=self.conv_data,
-            right=get_max(self.chat_data, 'num_messages', 'max_messages'),
-            on=['conversation_num'],
-            how="inner"
-        )
-
-        self.conv_data = pd.merge(
-            left=self.conv_data,
-            right=get_min(self.chat_data, 'num_messages', 'min_messages'),
-            on=['conversation_num'],
-            how="inner"
-        )
-
-        # Word level talkative_member_features
-        self.conv_data = pd.merge(
-            left=self.conv_data,
-            right=get_max(self.chat_data, 'num_words', 'max_words'),
-            on=['conversation_num'],
-            how="inner"
-        )
-
-        self.conv_data = pd.merge(
-            left=self.conv_data,
-            right=get_min(self.chat_data, 'num_words', 'min_words'),
-            on=['conversation_num'],
-            how="inner"
-        )
