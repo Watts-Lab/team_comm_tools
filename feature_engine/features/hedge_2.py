@@ -1,4 +1,3 @@
-"""
 import pandas as pd
 import numpy as np
 import requests
@@ -187,4 +186,3 @@ def is_hedged_sentence2(df,on_column):
         return True
     else:
         return False
-"""
