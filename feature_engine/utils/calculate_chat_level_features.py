@@ -14,7 +14,7 @@ The steps needed to add a feature would be to:
 # Importing modules from features
 from features.basic_features import *
 from features.info_exchange_zscore import *
-from features.lexical_features import *
+from features.lexical_features_v2 import *
 from features.other_LIWC_features import *
 from features.word_mimicry import *
 
@@ -43,7 +43,7 @@ class ChatLevelFeaturesCalculator:
 		self.info_exchange_feature()
 		
 		# lexical features
-		# self.lexical_features() # TODO - commenting this out to speed things up; also, these are not currently being summarized
+		self.lexical_features()
 
 		# Other lexical features
 		self.other_lexical_features()
@@ -85,7 +85,7 @@ class ChatLevelFeaturesCalculator:
 		"""
 			This is a driver function that calls relevant functions in features/lexical_features.py to implement the lexical features.
 		"""
-		self.chat_data = pd.concat([self.chat_data, self.chat_data["message"].apply(lambda x: pd.Series(liwc_features(str(x))))], axis = 1)
+		self.chat_data = pd.concat([self.chat_data, liwc_features(self.chat_data)], axis = 1)
 		
 	def other_lexical_features(self) -> None:
 		"""
