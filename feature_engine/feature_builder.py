@@ -46,10 +46,15 @@ class FeatureBuilder:
 
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
+        # Preprocess chat data
+        self.preprocess_chat_data(col="message")
+
         self.input_columns = self.chat_data.columns
+        
         # Deriving the base conversation level dataframe.
-        # This is simply the unique rows across "batch_num", and "round_num".
-        # Assume that "batch_num", and "round_num" together form a primary key for this table.
+        # This is the number of unique conversations (and, in conversations with multiple levels, the number of
+        # unique rows across "batch_num", and "round_num".)
+        # Assume that "conversation_num" is the primary key for this table.
         self.conv_data = self.chat_data.groupby(['conversation_num']).sum(numeric_only = True).reset_index().iloc[: , :2]
 
 
@@ -62,11 +67,6 @@ class FeatureBuilder:
 
 
     def merge_conv_data_with_original(self) -> None:
-        """
-        The conversation data loses the additional columns that would otherwise be part of the data
-        Critically, for example, the DV's are lost! Let's merge them back in.
-        """
-
         # Here, drop the message and speaker nickname (which do not matter at conversation level)
         orig_data = preprocess_conversation_columns(pd.read_csv(self.input_file_path, encoding='mac_roman')).drop(columns=['message', 'speaker_nickname'])
         orig_conv_data = orig_data.groupby(["conversation_num"]).nth(0).reset_index() # get 1st item (all conv items are the same)
@@ -88,19 +88,16 @@ class FeatureBuilder:
                               This is a parameter passed onto the preprocessing modules 
                               so as to identify the columns to preprocess.
         """
-        # Step 1. Preprocess the relevant column (the column that has the text used to create the features).
-        self.preprocess_chat_data(col=col)
-        # Step 2. Set Conversation Data Object.
-        # TODO This will throw an error with downstream tasks
-        # self.set_self_conv_data()
-        # Step 3. Create chat level features.
+        # Step 1. Set Conversation Data Object.
+        self.set_self_conv_data()
+        # Step 2. Create chat level features.
         print("Generating Chat Level Features ...")
         self.chat_level_features()
-        # Step 4. Create conversation level features.
+        # Step 3. Create conversation level features.
         print("Generating Conversation Level Features ...")
         self.conv_level_features()
-        # self.merge_conv_data_with_original()
-        # Step 5. Write the feartures into the files defined in the output paths.
+        self.merge_conv_data_with_original()
+        # Step 4. Write the feartures into the files defined in the output paths.
         print("All Done!")
         self.save_features()
 

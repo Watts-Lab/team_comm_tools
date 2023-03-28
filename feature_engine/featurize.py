@@ -29,40 +29,40 @@ if __name__ == "__main__":
 	# # FULL DATASETS BELOW
 
 	# Juries
-	# jury_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/jury_output_chat_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/jury_output_conversation_level.csv"
-	# )
+	jury_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
+		output_file_path_chat_level = "../feature_engine/output/jury_output_chat_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/jury_output_conversation_level.csv"
+	)
 
-	# jury_feature_builder.featurize(col="message")
+	jury_feature_builder.featurize(col="message")
 
 	# #CSOP
-	# csop_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/csop_output_chat_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/csop_output_conversation_level.csv"
-	# )
+	csop_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/csop_output_chat_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/csop_output_conversation_level.csv"
+	)
 
-	# csop_feature_builder.featurize(col="message")
+	csop_feature_builder.featurize(col="message")
 
 	# #PGG
-	# pgg_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/pgg_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/pgg_output_chat_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/pgg_output_conversation_level.csv"
-	# )
+	pgg_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/pgg_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/pgg_output_chat_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/pgg_output_conversation_level.csv"
+	)
 
-	# pgg_feature_builder.featurize(col="message")
+	pgg_feature_builder.featurize(col="message")
 
 	# # Estimation (Gurcay)
-	# gurcay_estimation_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/gurcay2015estimation_output_chat_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/gurcay2015estimation_output_conversation_level.csv"
-	# )
+	gurcay_estimation_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
+		output_file_path_chat_level = "../feature_engine/output/gurcay2015estimation_output_chat_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/gurcay2015estimation_output_conversation_level.csv"
+	)
 
-	# gurcay_estimation_feature_builder.featurize(col="message")
+	gurcay_estimation_feature_builder.featurize(col="message")
 
 	# Estimation (Becker)
 	becker_estimation_feature_builder = FeatureBuilder(
