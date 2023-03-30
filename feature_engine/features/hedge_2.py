@@ -162,6 +162,7 @@ def hedge_check(df,on_column,hedge_words):
 def is_hedged_sentence2(df,on_column):
     
     #get the lists of discourse markers
+    # TODO - discourse markers are the wrong path (?)
     dm_path = 'https://raw.githubusercontent.com/hedging-lrec/resources/master/booster_words.txt'
     discourse_markers = requests.get(dm_path).text.strip().split('\n')
 
@@ -171,6 +172,7 @@ def is_hedged_sentence2(df,on_column):
 
     #create a list of hedge words
     hedge_path = 'https://raw.githubusercontent.com/hedging-lrec/resources/master/hedge_words.txt'
+    # TODO - remove anything that starts with '#'
     hedge_words = requests.get(hedge_path).text.strip().split('\n')
     
     #run discourse marker check

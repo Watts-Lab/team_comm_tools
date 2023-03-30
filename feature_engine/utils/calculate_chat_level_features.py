@@ -179,7 +179,7 @@ class ChatLevelFeaturesCalculator:
     def calculate_hedge2(self) -> None:
         self.chat_data['hedge_complex'] = is_hedged_sentence2(self.chat_data,"message")
         # Drop extraneous columns
-        self.chat_data = self.chat_data.drop(columns=["DM_output", "booster_ouptut"])
+        self.chat_data = self.chat_data.drop(columns=["DM_output", "booster_output", "hedge_output"])
         
     def calculate_positivity_zscore(self) -> None:
         self.chat_data['positivity_zscore'] = chat_pos_zscore(self.chat_data,"message")
