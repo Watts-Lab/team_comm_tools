@@ -36,18 +36,26 @@ def ngram_cosine_similarity(df,on_column,n):
     # Transform the ngrams into vectors
     ngram_vectors = vectors.transform(df['text'].apply(lambda x: ' '.join(x)))
 
-    # Compute the cosine similarities and average them out
-    # get the matrix
-    cosine_sim_matrix = np.matrix(cosine_similarity(ngram_vectors))
-    
-    # get the lower triangle indices (excluding the diagonal)
-    lower_indices = np.tril_indices(cosine_sim_matrix.shape[0], -1)
+    # Create an empty list to store the cosine similarities
+    cosine_similarities = []
 
-    # get the values of the lower triangle (excluding the diagonal)
-    lower_triangle = cosine_sim_matrix[lower_indices]
+    # Loop through each row of the ngram_vectors matrix
+    for i in range(ngram_vectors.shape[0]):
+        # Get the i-th row of the ngram_vectors matrix
+        vector_i = ngram_vectors.getrow(i)
 
-    # calculate the average of the lower triangle
-    average = np.mean(lower_triangle)
-    
-    return average
+        # Compute the cosine similarities between the i-th row and all other rows
+        cosine_similarities_i = cosine_similarity(vector_i, ngram_vectors)[0]
+
+        # Exclude the diagonal value (cosine similarity of a row with itself)
+        cosine_similarities_i = cosine_similarities_i[np.arange(cosine_similarities_i.shape[0]) != i]
+
+        # Compute the average cosine similarity for the i-th row
+        average_i = np.mean(cosine_similarities_i)
+
+        # Append the average cosine similarity to the list
+        cosine_similarities.append(average_i)
+
+    # Add the cosine similarities to the dataframe
+    df['cosine_similarity'] = cosine_similarities
 
