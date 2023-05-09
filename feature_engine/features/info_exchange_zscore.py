@@ -5,10 +5,15 @@ import scipy.stats as stats
 # source: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.zscore.html
 from features.basic_features import *
 
+# Get the list of first singular pronouns
+first_singular_words_path = './features/lexicons/first_singular_pronouns.csv/'
+first_singular_words_list = list(pd.read_csv(first_singular_words_path)['First_singular'])
+
+
 # Get the wordcount used to calculate z-scores: total word count minus first_singular pronouns
 def get_info_exchange_wordcount(text):
   # Count the first singular pronouns in the text.
-  first_singular_wordcount = len([x for x in text.split() if x.lower() in ["i", "me", "my", "myself", "mine"]])
+  first_singular_wordcount = len([x for x in text.split() if x.lower() in first_singular_words_list])
   # count_words() function was defined in basic_features.py
   return (count_words(text) - first_singular_wordcount)
 
