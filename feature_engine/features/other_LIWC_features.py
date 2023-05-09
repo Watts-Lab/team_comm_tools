@@ -35,9 +35,12 @@ def get_word_TTR(text):
 
 
 ## Proportion of first person pronouns
-first_pronouns = ["i",'me','mine','myself','my','we','our','ours','ourselves','lets']
+# Get the list of first singular pronouns
+first_singular_words_path = './features/lexicons/first_singular_pronouns.csv/'
+first_singular_words_list = list(pd.read_csv(first_singular_words_path)['First_singular'])
+
 def get_proportion_first_pronouns(text):
-  num_first_prononouns = len([x for x in text.split() if x in first_pronouns])
+  num_first_prononouns = len([x for x in text.split() if x in first_singular_words_list])
   if count_words(text) == 0:
     return 0
   else:
