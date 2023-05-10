@@ -63,17 +63,13 @@ class ChatLevelFeaturesCalculator:
 
         ##NEWLY ADDED BY PRIYA##
         self.calculate_readability()
-        self.calculate_hedge1()
+        #self.calculate_hedge1() # --- currently broken
         # self.calculate_tf_idf() # --- columns are blank, and overwhelming
         self.calculate_cosine_similarity()
         self.calculate_hedge2()
         self.calculate_textblob_sentiment_analysis()
-
-        '''
         self.calculate_entropy()
-        
-        self.calculate_positivity_zscore() 
-        '''
+        self.calculate_positivity_zscore()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data

@@ -21,11 +21,9 @@ def chat_pos_zscore(df,on_column):
         stop_words = [line.rstrip() for line in f2]
 
 
-    print(poswordslist)
-    print(stop_words)
+    # print(poswordslist)
+    # print(stop_words)
     
-    # TODO - Emily working here!!
-
     num_stop_words = df[on_column].apply(lambda x: len([word for word in x.split() if word.lower() in stopwords]))
     df['total_pos_words'] = df[on_column].apply(lambda x: len([word for word in x.split() if word.lower() in poswordslist]))
 

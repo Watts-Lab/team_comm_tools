@@ -39,19 +39,19 @@ def ngram_dialog_act_entropy(df,on_column,n,set1,set2,set1_label,set2_label):
 
     #return the result
     if set1_entropy > set2_entropy:
-        print("case1")
-        print(set1_entropy)
-        print(set2_entropy)
+        # print("case1")
+        # print(set1_entropy)
+        # print(set2_entropy)
         return set1_label
     elif set1_entropy < set2_entropy:
-        print("case2")
-        print(set1_entropy)
-        print(set2_entropy)
+        # print("case2")
+        # print(set1_entropy)
+        # print(set2_entropy)
         return set2_label
     else:
-        print("case3")
-        print(set1_entropy)
-        print(set2_entropy)
+        # print("case3")
+        # print(set1_entropy)
+        # print(set2_entropy)
         return "neutral"
         
 def create_sets(filepath):
