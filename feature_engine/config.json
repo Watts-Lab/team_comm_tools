@@ -1,0 +1,7 @@
+{
+    "juries_conv_cols_to_ignore": [
+        "conversation_num", "batch_num", "round_num", 
+        "speaker_hash", "timestamp", "majority_pct", 
+        "num_flipped", "flipped_pct", "num_votes"
+    ]
+}
