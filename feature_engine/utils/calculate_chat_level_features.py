@@ -14,7 +14,7 @@ The steps needed to add a feature would be to:
 # Importing modules from features
 from features.basic_features import *
 from features.info_exchange_zscore import *
-from features.lexical_features import *
+from features.lexical_features_v2 import *
 from features.other_LIWC_features import *
 from features.word_mimicry import *
 
