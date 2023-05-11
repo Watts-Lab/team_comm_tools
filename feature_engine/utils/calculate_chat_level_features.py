@@ -19,6 +19,10 @@ from features.other_LIWC_features import *
 from features.word_mimicry import *
 from features.hedge import *
 from features.textblob_sentiment_analysis import *
+from features.readability import *
+
+# Importing utils
+from utils.preload_word_lists import get_dale_chall_easy_words
 
 class ChatLevelFeaturesCalculator:
     def __init__(self, chat_data: pd.DataFrame) -> None:
@@ -29,6 +33,7 @@ class ChatLevelFeaturesCalculator:
             @param chat_data (pd.DataFrame): This is a pandas dataframe of the chat level features read in from the input dataset.
         """
         self.chat_data = chat_data
+        self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
         
     def calculate_chat_level_features(self) -> pd.DataFrame:
         """
@@ -58,6 +63,9 @@ class ChatLevelFeaturesCalculator:
 
         # TextBlob Sentiment features
         self.calculate_textblob_sentiment()
+
+        # Dale-Chall readability features
+        self.get_dale_chall_score_and_classfication()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
@@ -110,6 +118,14 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["textblob_subjectivity"] = self.chat_data["message"].apply(get_subjectivity_score)
         self.chat_data["textblob_polarity"] = self.chat_data["message"].apply(get_polarity_score)
 
+
+    def get_dale_chall_score_and_classfication(self) -> None:
+        """
+        This function helps to calculate the readability of a text according to its Dale-Chall score.
+        """
+
+        self.chat_data['dale_chall_score'] = self.chat_data['message'].apply(lambda x: dale_chall_helper(x, easy_words = self.easy_dale_chall_words))
+        self.chat_data['dale_chall_classification'] = self.chat_data['dale_chall_score'].apply(classify_text_dalechall)
 
     def other_lexical_features(self) -> None:
         """
