@@ -20,9 +20,11 @@ from features.word_mimicry import *
 from features.hedge import *
 from features.textblob_sentiment_analysis import *
 from features.readability import *
+from features.positivity_zscore import *
 
 # Importing utils
 from utils.preload_word_lists import get_dale_chall_easy_words
+from utils.zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
 
 class ChatLevelFeaturesCalculator:
     def __init__(self, chat_data: pd.DataFrame) -> None:
@@ -46,9 +48,6 @@ class ChatLevelFeaturesCalculator:
         # Text-Based Basic Features
         self.text_based_features()
 
-        # Info Exchange Feature
-        self.info_exchange_feature()
-        
         # lexical features
         self.lexical_features()
 
@@ -63,9 +62,12 @@ class ChatLevelFeaturesCalculator:
 
         # TextBlob Sentiment features
         self.calculate_textblob_sentiment()
+
+        # Info Exchange Feature
+        self.info_exchange()
         
-         # Positivity Z-Score
-        self.calculate_textblob_sentiment()
+        # Positivity Z-Score
+        self.positivity_zscore()
 
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
@@ -86,7 +88,7 @@ class ChatLevelFeaturesCalculator:
         # Count Messages        
         self.chat_data["num_messages"] = self.chat_data["message"].apply(count_messages)
         
-    def info_exchange_feature(self) -> None:
+    def info_exchange(self) -> None:
         """
             This function helps in extracting the different types of z-scores from the chats 
             (see features/info_exchange_zscore.py to learn more about how these features are calculated).
@@ -95,10 +97,23 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["info_exchange_wordcount"] = self.chat_data["message"].apply(get_info_exchange_wordcount)
         
         # Get the z-score of each message across all chats
-        self.chat_data = get_zscore_across_all_chats(self.chat_data, "info_exchange_wordcount")
-        
+        self.chat_data["info_exchange_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "info_exchange_wordcount")
+
         # Get the z-score within each conversation
-        self.chat_data = get_zscore_across_all_conversations(self.chat_data, "info_exchange_wordcount")
+        self.chat_data["info_exchange_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "info_exchange_wordcount")
+
+    def positivity_zscore(self) -> None:
+        """
+            This function calculates the z-score of a message's positivity
+            Please see features/positivity_zscore.py to learn more about how these features are calculated.
+        """
+        self.chat_data["positivity_wordcount"] = get_positivity_wordcount(self.chat_data)
+        
+        # Get the z-score of each message across all chats
+        self.chat_data["positivity_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "positivity_wordcount")
+
+        # Get the z-score within each conversation
+        self.chat_data["positivity_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "positivity_wordcount")
 
     def lexical_features(self) -> None:
         """
@@ -172,11 +187,4 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["content_word_accommodation"] = Content_mimicry_score(self.chat_data, "content_words","content_word_mimicry")
 
         # Drop the function / content word columns -- we dont' need them in the output
-        self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry']
-                                          
-   def info_exchange_feature(self) -> None:
-        """
-            see features/positivity_zscore.py to learn more about how these features are calculated.
-        """
-        self.chat_data["positivity_zscore"] = self.chat_data["message_lower_with_punc"].apply(chat_pos_zscore(chat_data,"message_lower_with_punc"))
-                                             
+        self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
