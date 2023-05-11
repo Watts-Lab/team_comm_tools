@@ -58,6 +58,9 @@ class ChatLevelFeaturesCalculator:
 
         # TextBlob Sentiment features
         self.calculate_textblob_sentiment()
+        
+         # Positivity Z-Score
+        self.calculate_textblob_sentiment()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
@@ -153,4 +156,11 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["content_word_accommodation"] = Content_mimicry_score(self.chat_data, "content_words","content_word_mimicry")
 
         # Drop the function / content word columns -- we dont' need them in the output
-        self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
+        self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry']
+                                          
+   def info_exchange_feature(self) -> None:
+        """
+            see features/positivity_zscore.py to learn more about how these features are calculated.
+        """
+        self.chat_data["positivity_zscore"] = self.chat_data["message_lower_with_punc"].apply(chat_pos_zscore(chat_data,"message_lower_with_punc"))
+                                             
