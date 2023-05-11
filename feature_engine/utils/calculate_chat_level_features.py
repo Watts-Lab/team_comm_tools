@@ -18,6 +18,7 @@ from features.lexical_features_v2 import *
 from features.other_LIWC_features import *
 from features.word_mimicry import *
 from features.hedge import *
+from features.textblob_sentiment_analysis import *
 
 class ChatLevelFeaturesCalculator:
     def __init__(self, chat_data: pd.DataFrame) -> None:
@@ -54,6 +55,9 @@ class ChatLevelFeaturesCalculator:
 
         # Hedge Features
         self.calculate_hedge_features()
+
+        # TextBlob Sentiment features
+        self.calculate_textblob_sentiment()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
@@ -97,6 +101,14 @@ class ChatLevelFeaturesCalculator:
         """
         # Naive hedge (contains the word or not)
         self.chat_data["hedge_naive"] = self.chat_data["hedge_words"].apply(is_hedged_sentence_1)
+
+
+    def calculate_textblob_sentiment(self) -> None:
+        """
+        This function helps to calculate features related to using TextBlob to return subjectivity and polarity.
+        """
+        self.chat_data["textblob_subjectivity"] = self.chat_data["message"].apply(get_subjectivity_score)
+        self.chat_data["textblob_polarity"] = self.chat_data["message"].apply(get_polarity_score)
 
 
     def other_lexical_features(self) -> None:
