@@ -10,8 +10,6 @@ function: get_info_exchange_wordcount
 
 Get the wordcount used to calculate z-scores: total word count minus first_singular pronouns
 '''
-def get_info_exchange_wordcount(text):
-  # Count the first singular pronouns in the text.
-  first_singular_wordcount = len([x for x in text.split() if x.lower() in ["i", "me", "my", "myself", "mine"]])
+def get_info_exchange_wordcount(df):
   # count_words() function was defined in basic_features.py
-  return (count_words(text) - first_singular_wordcount)
+  return (df["num_words"] - df["first_person"])

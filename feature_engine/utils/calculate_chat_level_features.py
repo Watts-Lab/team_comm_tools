@@ -21,9 +21,10 @@ from features.hedge import *
 from features.textblob_sentiment_analysis import *
 from features.readability import *
 from features.positivity_zscore import *
+from features.question_num import *
 
 # Importing utils
-from utils.preload_word_lists import get_dale_chall_easy_words
+from utils.preload_word_lists import *
 from utils.zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
 
 class ChatLevelFeaturesCalculator:
@@ -36,6 +37,8 @@ class ChatLevelFeaturesCalculator:
         """
         self.chat_data = chat_data
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
+        self.function_words = get_function_words() # load function words exactly once
+        self.question_words = get_question_words() # load question words exactly once
         
     def calculate_chat_level_features(self) -> pd.DataFrame:
         """
@@ -94,7 +97,7 @@ class ChatLevelFeaturesCalculator:
             (see features/info_exchange_zscore.py to learn more about how these features are calculated).
         """
         # Get Modified Wordcount: Total word count - first_singular pronouns
-        self.chat_data["info_exchange_wordcount"] = self.chat_data["message"].apply(get_info_exchange_wordcount)
+        self.chat_data["info_exchange_wordcount"] = get_info_exchange_wordcount(self.chat_data)
         
         # Get the z-score of each message across all chats
         self.chat_data["info_exchange_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "info_exchange_wordcount")
@@ -141,7 +144,6 @@ class ChatLevelFeaturesCalculator:
         """
         This function helps to calculate the readability of a text according to its Dale-Chall score.
         """
-
         self.chat_data['dale_chall_score'] = self.chat_data['message'].apply(lambda x: dale_chall_helper(x, easy_words = self.easy_dale_chall_words))
         self.chat_data['dale_chall_classification'] = self.chat_data['dale_chall_score'].apply(classify_text_dalechall)
 
@@ -152,7 +154,7 @@ class ChatLevelFeaturesCalculator:
             (see features/other_LIWC_features.py to learn more about how these features are calculated)
         """
         # Get the number of questions in each message
-        self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(num_question_naive)
+        self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(lambda x: calculate_num_question_naive(x, question_words = self.question_words))
         
         # Classify whether the message contains clarification questions
         self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(classify_NTRI)
@@ -161,7 +163,7 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["word_TTR"] = self.chat_data["message"].apply(get_word_TTR)
         
         # Calculate the proportion of first person pronouns from the chats
-        self.chat_data["first_pronouns_proportion"] = self.chat_data["message"].apply(get_proportion_first_pronouns)
+        self.chat_data["first_pronouns_proportion"] = get_proportion_first_pronouns(self.chat_data)
         
     def calculate_word_mimicry(self) -> None:
         """
@@ -173,18 +175,18 @@ class ChatLevelFeaturesCalculator:
         """
 
         # Extract function words / content words from a message
-        self.chat_data["function_words"] = self.chat_data["message"].apply(function_word)
-        self.chat_data["content_words"] = self.chat_data["message"].apply(content_word)
+        self.chat_data["function_words"] = self.chat_data["message"].apply(lambda x: get_function_words_in_message(x, function_word_reference = self.function_words))
+        self.chat_data["content_words"] = self.chat_data["message"].apply(lambda x: get_content_words_in_message(x, function_word_reference = self.function_words))
         
         # Extract the function words / content words that also appears in the immediate previous turn
         self.chat_data["function_word_mimicry"] = mimic_words(self.chat_data, "function_words")
         self.chat_data["content_word_mimicry"] = mimic_words(self.chat_data, "content_words")
         
         # Compute the number of function words that also appears in the immediate previous turn
-        self.chat_data["function_word_accommodation"] = self.chat_data["function_word_mimicry"].apply(Function_mimicry_score)
+        self.chat_data["function_word_accommodation"] = self.chat_data["function_word_mimicry"].apply(function_mimicry_score)
         
         # Compute the sum of inverse frequency of each content word that also occurred in the other’s immediately prior turn.
         self.chat_data["content_word_accommodation"] = Content_mimicry_score(self.chat_data, "content_words","content_word_mimicry")
 
-        # Drop the function / content word columns -- we dont' need them in the output
+        # Drop the function / content word columns -- we don't need them in the output
         self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
