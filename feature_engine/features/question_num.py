@@ -15,7 +15,7 @@ import re
 This function takes each message as input, and return the number of questions in this message
 @param text: each message
 '''
-def calculate_num_question_naive(text, **question_words):
+def calculate_num_question_naive(text, question_words):
     # step 1: tokenize sentence
     sentences = sent_tokenize(text)
     num_q = 0
