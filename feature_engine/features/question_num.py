@@ -9,18 +9,13 @@ import re
     This function uses the dataset WITH all the punctuations.
 '''
 
-
 ############ Method 1:
 # Look for a question mark at the end of a sentence, or look for the first words that indicate a question
-
-question_words_path = './features/lexicons/Qwords.csv/'
-question_words = list(pd.read_csv(question_words_path)['Q_words'])
-
 '''
 This function takes each message as input, and return the number of questions in this message
 @param text: each message
 '''
-def calculate_num_question_naive(text):
+def calculate_num_question_naive(text, **question_words):
     # step 1: tokenize sentence
     sentences = sent_tokenize(text)
     num_q = 0
@@ -31,14 +26,6 @@ def calculate_num_question_naive(text):
             if sentence.endswith("?") or word_tokenize(sentence)[0] in question_words:
                 num_q += 1
     return num_q
-
-
-
-
-
-
-
-
 
 ############ Method 2:
 # Use a pre-trained model to classify whether a sentence is a quesion or not.
