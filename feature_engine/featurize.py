@@ -18,12 +18,21 @@ if __name__ == "__main__":
 	# Defines one class for each dataset.
 
 	# Tiny Juries --- this is our default, test set.
-	# feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/jury_TINY_output_chat_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/jury_TINY_output_conversation_level.csv"
+	feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
+		output_file_path_chat_level = "../feature_engine/output/jury_TINY_output_chat_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/jury_TINY_output_conversation_level.csv"
+	)
+	feature_builder.featurize(col="message")
+
+	# A tiny dataset built specifically for testing function and content word mimicry
+	# mimicry_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/test_mimicry.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/test_mimicry_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/test_mimicry_output_conversation_level.csv"
 	# )
-	# feature_builder.featurize(col="message")
+
+	# mimicry_feature_builder.featurize(col="message")
 
 	# # FULL DATASETS BELOW
 
@@ -65,13 +74,13 @@ if __name__ == "__main__":
 
 
 	# PGG (Small)
-	pgg_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/pgg_conversations_withblanks.csv",
-		output_file_path_chat_level = "../feature_engine/output/pgg_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/pgg_output_conversation_level.csv"
-	)
+	# pgg_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/pgg_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/pgg_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/pgg_output_conversation_level.csv"
+	# )
 
-	pgg_feature_builder.featurize(col="message")
+	# pgg_feature_builder.featurize(col="message")
 
 	# Estimation (Gurcay)
 	# gurcay_estimation_feature_builder = FeatureBuilder(

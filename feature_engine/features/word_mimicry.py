@@ -5,6 +5,7 @@ import re
 
 '''
     To compute word mimicry, we use the dataset that removed all the punctuations
+    This is a *chat-level* feature in which order matters.
 '''
 
 ####### Extract the function words & non-functions words from a message
@@ -29,7 +30,10 @@ def get_content_words_in_message(text, function_word_reference):
 def mimic_words(df, on_column):
   word_mimic = [[]]
   for i in range(1, len(df)):
-    word_mimic.append([x for x in df.loc[i, on_column] if x in df.loc[(i-1),on_column]])
+    if df.loc[i, "conversation_num"] == df.loc[i-1, "conversation_num"]: # only do this if they're in the same conversation
+      word_mimic.append([x for x in df.loc[i, on_column] if x in df.loc[(i-1),on_column]])
+    else:
+      word_mimic.append([])
   return word_mimic
 # OUTPUT: function_word_mimicry, content_word_mimicry
 
