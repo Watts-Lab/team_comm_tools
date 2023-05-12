@@ -155,14 +155,13 @@ def is_true_hedged_term(node_tuple,tree,tokens,hedge_words):
             return False
     return True
 
-
 def hedge_check_helper(sentence,hedge_words):
 
     #creates a parsed sentence. Eg. Priya ate a Pizza will yield an output of [('nsubj', 1, 0), ('ROOT', 0, 2), ('det', 4, 3), ('obj', 2, 4)]
     # ('nsubj', 1, 0) - Priya is the subject of the word "ate"
     # ('ROOT', 0, 2) - "ate is the root of the sentence"
     # ('det', 4, 3) - "a" is the determiner of the pizza
-    # ('obj', 2, 4) - Pizza is the object of the verb "ate
+    # ('obj', 2, 4) - Pizza is the object of the verb "ate"
 
     #creates a tree using the dependencies described above. The root is the root of the tree. We use 0 as we do not know how long the sentence is 
     doc = nlp(sentence)
@@ -183,19 +182,7 @@ def hedge_check_helper(sentence,hedge_words):
 def hedge_check(df,on_column,hedge_words):
     df['hedge_output'] = df[on_column].apply(lambda x: hedge_check_helper(x,hedge_words))
 
-def is_hedged_sentence2(df,on_column):
-    
-    #get the lists of discourse markers
-    dm_path = 'https://raw.githubusercontent.com/hedging-lrec/resources/master/discourse_markers.txt'
-    discourse_markers = requests.get(dm_path).text.strip().split('\n')
-
-    #create a list of booster words
-    booster_path = 'https://raw.githubusercontent.com/hedging-lrec/resources/master/booster_words.txt'
-    booster_words = requests.get(booster_path).text.strip().split('\n')
-
-    #create a list of hedge words
-    hedge_path = 'https://raw.githubusercontent.com/hedging-lrec/resources/master/hedge_words.txt'
-    hedge_words = requests.get(hedge_path).text.strip().split('\n')
+def is_hedged_sentence2(df,on_column, discourse_markers, booster_words, hedge_words):
 
     #run discourse marker check
     discourse_markers_check(df, on_column, 0.75, 1, discourse_markers)
