@@ -38,9 +38,7 @@ class ChatLevelFeaturesCalculator:
         self.chat_data = chat_data
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
         self.function_words = get_function_words() # load function words exactly once
-        print(self.function_words)
         self.question_words = get_question_words() # load question words exactly once
-        print(self.question_words)
         
     def calculate_chat_level_features(self) -> pd.DataFrame:
         """
