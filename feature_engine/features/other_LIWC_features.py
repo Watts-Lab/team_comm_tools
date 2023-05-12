@@ -13,10 +13,7 @@ def num_question_naive(text):
 ## Classify whether the message contains clarification questions
 NTRI_regex = "what\?+|sorry|excuse me|huh\??|who\?+|pardon\?+|say.*again\??|what'?s that|what is that"
 def classify_NTRI(text):
-  if re.match(NTRI_regex, text):
-    return 1
-  else:
-    return 0
+  return 1 if re.match(NTRI_regex, text) else 0
   
 ## Calculate the word type-to-token ratio
 def get_word_TTR(text):
