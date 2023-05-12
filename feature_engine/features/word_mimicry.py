@@ -7,22 +7,14 @@ import re
     To compute word mimicry, we use the dataset that removed all the punctuations
 '''
 
-
-
-## Create function words reference
-# Get the list of function words
-function_words_path = './features/lexicons/function_words.csv/'
-function_word_reference = list(pd.read_csv(function_words_path)['function_words'])
-function_word_reference = re.sub(r"[^a-zA-Z0-9 ]+", '', function_word_reference).lower().split()
-
 ####### Extract the function words & non-functions words from a message
 ## Get the function words in a given message
-def function_word(text):
+def get_function_words_in_message(text, function_word_reference):
    return [x for x in text.split() if x in function_word_reference]
 # OUTPUT column: function_words
 
 ## Get the non-function words in a given message
-def content_word(text):
+def get_content_words_in_message(text, function_word_reference):
   return [x for x in text.split() if x not in function_word_reference]
 # OUTPUT column: content_words
 
@@ -41,16 +33,13 @@ def mimic_words(df, on_column):
   return word_mimic
 # OUTPUT: function_word_mimicry, content_word_mimicry
 
-
-
-
 ####### Compute the number of mimic words
 
 ## Function word mimicry: simply count the number of mimic words by using len()
 '''
 @param function_mimic_words: input is each entry under `function_word_mimicry` column.
 '''
-def Function_mimicry_score(function_mimic_words):
+def function_mimicry_score(function_mimic_words):
   return len(function_mimic_words)
 # OUTPUT column: function_word_accommodation 
 
