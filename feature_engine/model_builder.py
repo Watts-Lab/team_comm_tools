@@ -51,6 +51,7 @@ class ModelBuilder():
         ax[1].axis("off")
     
     def define_model(self):
+        # TODO -- we should make it possible here to select whether you want to regress on the raw or the std target
         self.X, self.y = self.conv.drop(["target_raw", "target_std"], axis=1), self.conv["target_std"]
         self.baseline_model = XGBRegressor(random_state=42)
     
@@ -76,6 +77,9 @@ class ModelBuilder():
     def optimize_model(self):
         optimization_function = partial(self.optimize)
         study = optuna.create_study(direction="minimize")
+        # TODO - curerntly optimization runs with 15 trials. Can we create a more intelligent stopping criterion?
+        # Also TODO -- seems like for the most part, optimized models actually *underperform* baseline models
+        # possible we need a 
         study.optimize(optimization_function, n_trials=15)
         self.optimized_model = XGBRegressor(**study.best_params, random_state=42, objective="reg:squarederror")
     
