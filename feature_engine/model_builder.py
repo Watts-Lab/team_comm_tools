@@ -4,12 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
-from sklearn.linear_model import LassoCV
-from sklearn.cluster import KMeans
-from sklearn.manifold import TSNE
 from sklearn.metrics import mean_absolute_error, mean_squared_error, make_scorer
 from sklearn.model_selection import cross_val_score, cross_val_predict
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LassoCV, LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 from xgboost import XGBRegressor
 import shap
 import optuna
@@ -118,19 +117,23 @@ class ModelBuilder():
             self.baseline_model = XGBRegressor(random_state=42)
         elif model_type == 'lasso':
             self.baseline_model = LassoCV(alphas = [0.01, 0.05, .1, 0.25, 0.5, 0.75, 1])
-    
+        elif model_type == 'linear':
+            self.baseline_model = LinearRegression()
+        elif model_type == 'rf':
+            self.baseline_model = RandomForestRegressor(random_state=42)
+
     def evaluate_model(self, model):
         self.model_metrics(model)
         self.model_diagnostics(model)
 
-    def model_metrics(self, model):
-        
+    def model_metrics(self, model, folds=5):
+        self.folds = folds
         # TODO - can we specify how many folds to do CV on?
         # TODO - can we also do a version where we can calculate (1) define a train and test set, and (2) calculate out-of-sample prediction error on the test set?
 
-        r2 = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring="r2").mean().round(4)
-        mae = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_absolute_error, greater_is_better=False)).mean().round(4)
-        mse = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_squared_error, greater_is_better=False)).mean().round(4)
+        r2 = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring="r2", cv=folds).mean().round(4)
+        mae = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_absolute_error, greater_is_better=False), cv=folds).mean().round(4)
+        mse = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_squared_error, greater_is_better=False), cv=folds).mean().round(4)
         rmse = np.sqrt(mse).round(4)
         print("Model Metrics")
         print(f"R2: {r2}\tMAE: {mae}\tMSE: {mse}\tRMSE: {rmse}")
@@ -138,16 +141,18 @@ class ModelBuilder():
     def model_diagnostics(self, model):
         model = model.fit(self.X, self.y)
 
-        if self.model_type == 'xgb':
+        if self.model_type in ['xgb', 'rf']:
             explainer = shap.TreeExplainer(model)
-            shap_values = explainer.shap_values(self.X)
-            shap.summary_plot(shap_values, self.X, feature_names=self.X.columns, plot_type="bar")
-            shap.summary_plot(shap_values, self.X, feature_names=self.X.columns)
-
         # [NEW] Add different kinds of diagnostics for different types of models
-        if self.model_type == 'lasso':
-            self.print_lasso_coefs(model)
-            self.plot_lasso_residuals(model)
+        elif self.model_type in ['lasso', 'linear']:
+            if self.model_type == 'lasso':
+                self.print_lasso_coefs(model)
+                self.plot_lasso_residuals(model)
+            explainer = shap.LinearExplainer(model, self.X)
+            
+        shap_values = explainer.shap_values(self.X)
+        shap.summary_plot(shap_values, self.X, feature_names=self.X.columns, plot_type="bar")
+        shap.summary_plot(shap_values, self.X, feature_names=self.X.columns)
 
     # [NEW] method for Lasso
     def print_lasso_coefs(self, model):
@@ -207,13 +212,13 @@ class ModelBuilder():
         plt.title('Residual Plot')
         plt.show()
 
-    def optimize_model(self):
+    def optimize_model(self, n_trials=15):
         optimization_function = partial(self.optimize)
         study = optuna.create_study(direction="minimize")
         # TODO - curerntly optimization runs with 15 trials. Can we create a more intelligent stopping criterion?
         # Also TODO -- seems like for the most part, optimized models actually *underperform* baseline models
         # possible we need more iterations? 
-        study.optimize(optimization_function, n_trials=15)
+        study.optimize(optimization_function, n_trials=n_trials)
         self.optimized_model = XGBRegressor(**study.best_params, random_state=42, objective="reg:squarederror")
     
     def optimize(self, trial):
@@ -234,22 +239,33 @@ class ModelBuilder():
         max_features = trial.suggest_uniform("max_features", 0.01, 1.0)
         max_samples = trial.suggest_uniform("max_samples", 0.01, 1.0)
         learning_rate = trial.suggest_uniform("learning_rate", 0.001, 0.01)
-        gamma = trial.suggest_uniform("gamma", 0.001, 0.02)
+        if self.model_type == 'xgb': gamma = trial.suggest_uniform("gamma", 0.001, 0.02)
 
         # Define Model
-        model = XGBRegressor(
-            n_estimators=n_estimators,
-            max_depth=max_depth,
-            max_features=max_features,
-            criterion=criterion,
-            max_samples=max_samples,
-            learning_rate=learning_rate,
-            gamma=gamma,
-            random_state=42, 
-            objective="reg:squarederror"
-        )
+        if self.model_type == 'xgb':
+            model = XGBRegressor(
+                n_estimators=n_estimators,
+                max_depth=max_depth,
+                max_features=max_features,
+                criterion=criterion,
+                max_samples=max_samples,
+                learning_rate=learning_rate,
+                gamma=gamma,
+                random_state=42, 
+                objective="reg:squarederror"
+            )
+        elif self.model_type == 'rf':
+            model = RandomForestRegressor(
+                n_estimators=n_estimators,
+                max_depth=max_depth,
+                max_features=max_features,
+                criterion=criterion,
+                max_samples=max_samples,
+                learning_rate=learning_rate,
+                random_state=42
+            )
         
-        mse = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_squared_error, greater_is_better=False)).mean().round(4)
+        mse = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_squared_error, greater_is_better=False, cv=self.folds)).mean().round(4)
 
         # Return MSE
         return mse
