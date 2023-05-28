@@ -22,6 +22,7 @@ from features.textblob_sentiment_analysis import *
 from features.readability import *
 from features.positivity_zscore import *
 from features.question_num import *
+from features.temporal_features import *
 
 # Importing utils
 from utils.preload_word_lists import *
@@ -74,6 +75,9 @@ class ChatLevelFeaturesCalculator:
 
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
+        
+         # Tempora; features
+        self.get_temporal_features()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
@@ -189,4 +193,14 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["content_word_accommodation"] = Content_mimicry_score(self.chat_data, "content_words","content_word_mimicry")
 
         # Drop the function / content word columns -- we don't need them in the output
-        self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
+        self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry']
+                                             
+    def get_temporal_features(self) -> None:
+        self.chat_data["mean_msg_duration"] =  mean_msg_duration(self.chat_data,"timestamp") 
+        self.chat_data["stddec_msg_duration"] =  stddev_msg_duration(self.chat_data,"timestamp") 
+       
+
+
+                 
+        
+        
