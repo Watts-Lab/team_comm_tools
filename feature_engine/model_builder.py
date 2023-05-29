@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
-from sklearn.metrics import mean_absolute_error, mean_squared_error, make_scorer
-from sklearn.model_selection import cross_val_score, cross_val_predict
+from sklearn.metrics import mean_absolute_error, mean_squared_error, make_scorer, r2_score
+from sklearn.model_selection import cross_val_score, cross_val_predict, train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LassoCV, LinearRegression
 from sklearn.ensemble import RandomForestRegressor
@@ -17,31 +17,53 @@ from functools import partial
 # Note -- running this class requires Python 3.9 or earlier (not compatible with more recent Python)
 
 class ModelBuilder():
-    def __init__(self, config_path="config.json", output_dir="output/", dataset_names=["juries"]):
+    def __init__(self, config_path="config.json", output_dir="output/", dataset_names=["csop"], test_dataset_names=None):
         with open(config_path, "rb") as json_file:
             self.config = json.load(json_file)
             self.dataset_names = dataset_names
             self.conv = None
             self.convs_complete = [] # list version of conv_complete 
 
+            self.test_dataset_names = test_dataset_names
+            self.test_conv = None
+            self.test_convs_complete = [] # list version of conv_complete 
+
+            self.output_dir = output_dir
+
+        self.create_datasets(is_test_datasets=False)
+        if self.test_dataset_names != None:
+            self.create_datasets(is_test_datasets=True)
+        self.X, self.y = None, None
+        self.baseline_model = None
+        self.optimized_model = None
+
+    def create_datasets(self, is_test_datasets=False):
         '''
         [NEW] for the datasets, accept a *list* of datasets, so that it is possible to concatenate them and build
         a model for both of them
         '''
+        if is_test_datasets:
+            dataset_names = self.test_dataset_names
+        else:
+            dataset_names = self.dataset_names
+        
+        convs_complete = []
+        conv = None
+        conv_complete = None
         if(not isinstance(dataset_names, list)):
             raise TypeError("Please provide the dataset names as a list!")
 
         if(len(dataset_names)==1): # only 1 dataset, so proceed as before
             try:
-                self.conv_complete = pd.read_csv(output_dir + self.config[self.dataset_names[0]]["filename"])
+                conv_complete = pd.read_csv(self.output_dir + self.config[dataset_names[0]]["filename"])
             except KeyError:
                 print("Are you sure that your dataset name is correct?")
-            self.conv = self.conv_complete.drop(self.config[self.dataset_names[0]]["cols_to_ignore"], axis=1).dropna()
+            conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1).dropna()
         else: # multiple datasets to concatenate together
             for dataset_name in dataset_names:
                 try:
-                    full_dataset = pd.read_csv(output_dir + self.config[dataset_name]["filename"]).dropna()
-                    self.convs_complete.append(full_dataset)
+                    full_dataset = pd.read_csv(self.output_dir + self.config[dataset_name]["filename"]).dropna()
+                    convs_complete.append(full_dataset)
                 except KeyError:
                     print("Are you sure that your dataset name is correct?")
                 df_extra_columns_dropped = full_dataset.drop(self.config[dataset_name]["cols_to_ignore"], axis=1).dropna()
@@ -50,15 +72,18 @@ class ModelBuilder():
                 df_extra_columns_dropped = df_extra_columns_dropped.assign(dataset_name = dataset_name)
 
                 # merge with self.conv
-                if self.conv is None:
-                    self.conv = df_extra_columns_dropped
+                if conv is None:
+                    conv = df_extra_columns_dropped
                 else:
-                    self.conv = pd.concat([self.conv, df_extra_columns_dropped])
+                    conv = pd.concat([conv, df_extra_columns_dropped])
+        
+        if is_test_datasets:
+            self.test_conv = conv
+            self.test_convs_complete = convs_complete
+        else:
+            self.conv = conv
+            self.convs_complete = convs_complete
 
-        self.X, self.y = None, None
-        self.baseline_model = None
-        self.optimized_model = None
-    
     def select_target(self, target):
         if(len(self.dataset_names)==1):
             self.conv["target_raw"] = target
@@ -74,6 +99,26 @@ class ModelBuilder():
                 target_std = pd.concat([target_std, raw_dataset[t]])
             self.conv["target_raw"] = target_raw
             self.conv["target_std"] = target_std
+        self.select_test_target(target=target)
+    
+    def select_test_target(self, target):
+        if self.test_dataset_names:
+            if(len(self.test_dataset_names)==1):
+                self.test_conv["target_raw"] = target
+                scaler = StandardScaler()
+                self.test_conv["target_std"] = scaler.fit_transform(self.test_conv[["target_raw"]])
+            else: # concatenate all targets together
+                target_raw = pd.Series([])
+                target_std = pd.Series([])
+                for i, t in enumerate(target):
+                    raw_dataset = self.test_convs_complete[i]
+                    target_raw = pd.concat([target_raw, raw_dataset[t]])
+                    raw_dataset[t] = (raw_dataset[t] - raw_dataset[t].mean()) / raw_dataset[t].std()
+                    target_std = pd.concat([target_std, raw_dataset[t]])
+                self.test_conv["target_raw"] = target_raw
+                self.test_conv["target_std"] = target_std
+        else:
+            pass
 
     def viz_target(self):
         fig, ax = plt.subplots(1, 2, figsize=(15, 4))
@@ -95,24 +140,9 @@ class ModelBuilder():
         ax[1].set(title="Feature Correlations with Standardized Target")
         ax[1].axis("off")
     
-    '''
-    [NEW]/TODO let's make it possible to define different types of models, e.g., linear, RF, XGB
-    I started initial work here for defining different kinds of models
-    Model types = ['xgb', 'lasso']
-    '''
+    
     def define_model(self, model_type = "xgb"):
         self.model_type = model_type
-
-        # TODO -- we should make it possible here to select whether you want to regress on the raw or the std target
-        self.X, self.y = self.conv.drop(["target_raw", "target_std"], axis=1), self.conv["target_std"]
-
-        # TODO -- this could be a good place to add in additional task features, beyond dummies
-        
-        # [NEW] Get dummies of categorical variable (task)
-        self.X = pd.get_dummies(self.X)
-        # [NEW] Apply Normalization to all columns --- otherwise, columns with largest values pop out
-        self.X = pd.DataFrame(StandardScaler().fit_transform(self.X),columns = self.X.columns)
-        
         if model_type == 'xgb':
             self.baseline_model = XGBRegressor(random_state=42)
         elif model_type == 'lasso':
@@ -122,25 +152,67 @@ class ModelBuilder():
         elif model_type == 'rf':
             self.baseline_model = RandomForestRegressor(random_state=42)
 
-    def evaluate_model(self, model):
-        self.model_metrics(model)
+    def define_dataset_for_model(self, is_test=False):
+        # TODO -- we should make it possible here to select whether you want to regress on the raw or the std target
+        if is_test:
+            X, y = self.test_conv.drop(["target_raw", "target_std"], axis=1), self.test_conv["target_std"]
+        else:
+            X, y = self.conv.drop(["target_raw", "target_std"], axis=1), self.conv["target_std"]
+        X = pd.get_dummies(X)
+        X = pd.DataFrame(StandardScaler().fit_transform(X),columns = X.columns)
+        return X, y
+
+    def evaluate_model(self, model, val_size=0.1, test_size=0.1):
+        print('Creating Holdout Sets', end='...')
+        if self.test_dataset_names == None:
+            self.create_holdout_sets(val_size=val_size, test_size=test_size)
+        else:
+            self.create_holdout_sets(val_size=val_size)
+        print('Done')
+        print('Training Model', end='...')
+        model = model.fit(self.X_train, self.y_train)
+        print('Done')
+        self.summarize_model_metrics(model)
         self.model_diagnostics(model)
+        
 
-    def model_metrics(self, model, folds=5):
-        self.folds = folds
-        # TODO - can we specify how many folds to do CV on?
-        # TODO - can we also do a version where we can calculate (1) define a train and test set, and (2) calculate out-of-sample prediction error on the test set?
+    def create_holdout_sets(self, val_size=0.1, test_size=None):
+        self.X, self.y = self.define_dataset_for_model()
+        if test_size:
+            X_train_val, X_test, y_train_val, y_test = train_test_split(self.X, self.y, random_state=42, test_size=test_size)
+            X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, random_state=42, test_size=val_size)
+            self.X_train, self.y_train = X_train, y_train
+            self.X_val, self.y_val = X_val, y_val
+            self.X_test, self.y_test = X_test, y_test
+        else:
+            X_train, X_val, y_train, y_val = train_test_split(self.X, self.y, random_state=42, test_size=val_size)
+            self.X_train, self.y_train = X_train, y_train
+            self.X_val, self.y_val = X_val, y_val
+            self.X_test, self.y_test = self.define_dataset_for_model(is_test=True)
 
-        r2 = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring="r2", cv=folds).mean().round(4)
-        mae = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_absolute_error, greater_is_better=False), cv=folds).mean().round(4)
-        mse = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_squared_error, greater_is_better=False), cv=folds).mean().round(4)
+    def summarize_model_metrics(self, model):
+        train_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_train, self.y_train))
+        val_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_val, self.y_val))
+        test_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_test, self.y_test))
+        print("MODEL METRICS")
+        print('Train Set:', end='\t')
+        print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(train_metrics['r2'], train_metrics['mae'], train_metrics['mse'], train_metrics['rmse']))
+        
+        print('Validation Set:', end='\t')
+        print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(val_metrics['r2'], val_metrics['mae'], val_metrics['mse'], val_metrics['rmse']))
+
+        print('Test Set:', end='\t')
+        print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(test_metrics['r2'], test_metrics['mae'], test_metrics['mse'], test_metrics['rmse']))
+
+    def calculate_model_metrics(self, model, dataset):
+        X, y = dataset
+        r2 = r2_score(y_true=y, y_pred=model.predict(X)).round(4)
+        mae = mean_absolute_error(y_true=y, y_pred=model.predict(X)).round(4)
+        mse = mean_squared_error(y_true=y, y_pred=model.predict(X)).round(4)
         rmse = np.sqrt(mse).round(4)
-        print("Model Metrics")
-        print(f"R2: {r2}\tMAE: {mae}\tMSE: {mse}\tRMSE: {rmse}")
+        return {'r2': r2, 'mae': mae, 'mse': mse, 'rmse': rmse}
 
     def model_diagnostics(self, model):
-        model = model.fit(self.X, self.y)
-
         if self.model_type in ['xgb', 'rf']:
             explainer = shap.TreeExplainer(model)
         # [NEW] Add different kinds of diagnostics for different types of models
@@ -148,11 +220,11 @@ class ModelBuilder():
             if self.model_type == 'lasso':
                 self.print_lasso_coefs(model)
                 self.plot_lasso_residuals(model)
-            explainer = shap.LinearExplainer(model, self.X)
+            explainer = shap.LinearExplainer(model, self.X_val)
             
-        shap_values = explainer.shap_values(self.X)
-        shap.summary_plot(shap_values, self.X, feature_names=self.X.columns, plot_type="bar")
-        shap.summary_plot(shap_values, self.X, feature_names=self.X.columns)
+        shap_values = explainer.shap_values(self.X_val)
+        shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns, plot_type="bar")
+        shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns)
 
     # [NEW] method for Lasso
     def print_lasso_coefs(self, model):
