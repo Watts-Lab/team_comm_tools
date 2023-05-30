@@ -96,9 +96,7 @@ class ModelBuilder():
         ax[1].axis("off")
     
     '''
-    [NEW]/TODO let's make it possible to define different types of models, e.g., linear, RF, XGB
-    I started initial work here for defining different kinds of models
-    Model types = ['xgb', 'lasso']
+    Model types = ['xgb', 'lasso', 'linear', 'rf']
     '''
     def define_model(self, model_type = "xgb"):
         self.model_type = model_type
@@ -128,8 +126,7 @@ class ModelBuilder():
 
     def model_metrics(self, model, folds=5):
         self.folds = folds
-        # TODO - can we specify how many folds to do CV on?
-        # TODO - can we also do a version where we can calculate (1) define a train and test set, and (2) calculate out-of-sample prediction error on the test set?
+        # TODO - can we do a version where we can calculate (1) define a train and test set, and (2) calculate out-of-sample prediction error on the test set?
 
         r2 = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring="r2", cv=folds).mean().round(4)
         mae = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_absolute_error, greater_is_better=False), cv=folds).mean().round(4)
@@ -192,13 +189,11 @@ class ModelBuilder():
 
         plt.show()
 
-    # [NEW] method for Lasso
     def get_nonzero_lasso_coefs(self, coefficients, MIN_THRESH):
         nonzero_coefficients = coefficients[abs(coefficients) > MIN_THRESH]
         nonzero_indices = np.where(abs(coefficients) > MIN_THRESH)[0]
         return(nonzero_coefficients,nonzero_indices)
 
-    # [NEW] method for Lasso
     def plot_lasso_residuals(self, model):
    
         predicted_values = model.predict(self.X)
@@ -215,7 +210,7 @@ class ModelBuilder():
     def optimize_model(self, n_trials=15):
         optimization_function = partial(self.optimize)
         study = optuna.create_study(direction="minimize")
-        # TODO - curerntly optimization runs with 15 trials. Can we create a more intelligent stopping criterion?
+        # TODO - curerntly optimization runs with a fixed number of trials. Can we create a more intelligent stopping criterion?
         # Also TODO -- seems like for the most part, optimized models actually *underperform* baseline models
         # possible we need more iterations? 
         study.optimize(optimization_function, n_trials=n_trials)
@@ -254,7 +249,7 @@ class ModelBuilder():
                 random_state=42, 
                 objective="reg:squarederror"
             )
-        elif self.model_type == 'rf':
+        elif self.model_type == 'rf': # TODO -- despite 'rf', this fails with error
             model = RandomForestRegressor(
                 n_estimators=n_estimators,
                 max_depth=max_depth,
@@ -264,6 +259,8 @@ class ModelBuilder():
                 learning_rate=learning_rate,
                 random_state=42
             )
+
+        # TODO -- throw an error if user provides a model type (e.g., linear) that cannot be optimized
         
         mse = -1*cross_val_score(estimator=model, X=self.X, y=self.y, scoring=make_scorer(mean_squared_error, greater_is_better=False, cv=self.folds)).mean().round(4)
 
