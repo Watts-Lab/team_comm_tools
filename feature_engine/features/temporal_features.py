@@ -1,22 +1,21 @@
 import pandas as pd
+import numpy as np
 
-def mean_conv_msg_duration(df,on_column):
-
-
-    #convert timestamp column to datetime type (in minutes)
-    df[on_column] = pd.to_datetime(df[on_column])
-
-    # calculate difference between consecutive timestamps
-    df['time_diff'] = df[on_column].diff().dt.total_seconds()/60
-    return  df['time_diff'].mean() 
-
-def stddev_conv_msg_duration(df,on_column):
-
+def get_time_diff(df,on_column):
+    # Replace instances of NULL_TIME
+    df[on_column] = df[on_column].replace('NULL_TIME', None)
 
     #convert timestamp column to datetime type (in minutes)
-    df[on_column] = pd.to_datetime(df[on_column])
+    if(isinstance(df[on_column][0], str)): # String datetime, e.g., '2023-02-20 09:00:00'
+        df[on_column] = pd.to_datetime(df[on_column])
+    elif(isinstance(df[on_column][0], np.int64)): # Int Unix dateime, e.g., '1677262112288'
+        df[on_column] = pd.to_datetime(df[on_column], unit='ms')
 
-    # calculate difference between consecutive timestamps
-    df['time_diff'] = df[on_column].diff().dt.total_seconds()/60
+    # set and zero time_diff column
+    df["time_diff"] = np.zeros(len(df))
 
-    return  df['time_diff'].std()
+    for i in range(1, len(df)):
+        if df.loc[i, "conversation_num"] == df.loc[i-1, "conversation_num"]: # only do this if they're in the same conversation
+            df.loc[i, "time_diff"] = (df.loc[i, on_column] - df.loc[(i-1), on_column]) / pd.Timedelta(seconds=1)
+
+    return df['time_diff']
