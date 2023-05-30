@@ -193,14 +193,13 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["content_word_accommodation"] = Content_mimicry_score(self.chat_data, "content_words","content_word_mimicry")
 
         # Drop the function / content word columns -- we don't need them in the output
-        self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry']
-                                             
+        self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
+
     def get_temporal_features(self) -> None:
-        self.chat_data["mean_msg_duration"] =  mean_msg_duration(self.chat_data,"timestamp") 
-        self.chat_data["stddec_msg_duration"] =  stddev_msg_duration(self.chat_data,"timestamp") 
-       
+        """
+        Calculates features relevant to the timestamps of each chat.
 
-
-                 
-        
-        
+        - time diff: The difference between messages sent.
+        """
+        if {'timestamp'}.issubset(self.chat_data.columns):
+            self.chat_data["time_diff"] =  get_time_diff(self.chat_data,"timestamp") 
