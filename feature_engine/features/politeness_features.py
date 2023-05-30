@@ -1,4 +1,3 @@
-
 import convokit
 import spacy
 import pandas as pd
@@ -10,11 +9,17 @@ from convokit import TextParser
 
 from convokit import PolitenessStrategies
 
-ps = PolitenessStrategies()
-# full_jury_data = pd.read_csv('../../data/raw_data/jury_conversations_with_outcome_var.csv')
-spacy_nlp = spacy.load("en_core_web_sm", disable=["ner"])
+'''
+function: politeness_features
+(Chat-level function)
 
-# full_jury_data.head()
+This gets the politeness annotations of each message, with some fields 
+including HASHEDGE, Factuality, Deference, Gratitude, Apologizing, etc.
+
+'''
+
+ps = PolitenessStrategies()
+spacy_nlp = spacy.load("en_core_web_sm", disable=["ner"])
 
 def get_politeness_strategies(text):
     if pd.isnull(text):
