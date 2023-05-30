@@ -17,7 +17,7 @@ from functools import partial
 # Note -- running this class requires Python 3.9 or earlier (not compatible with more recent Python)
 
 class ModelBuilder():
-    def __init__(self, config_path="config.json", output_dir="output/", dataset_names=["csop"], test_dataset_names=None):
+    def __init__(self, config_path="config.json", output_dir="output/", task_map_path = 'utils/task_map.csv', dataset_names=["csop"], test_dataset_names=None):
         with open(config_path, "rb") as json_file:
             self.config = json.load(json_file)
             self.dataset_names = dataset_names
@@ -29,10 +29,13 @@ class ModelBuilder():
             self.test_convs_complete = [] # list version of conv_complete 
 
             self.output_dir = output_dir
+            self.task_maps = pd.read_csv(task_map_path)
+            self.task_maps = self.task_maps[self.task_maps['task'].isin(self.config['task_names'])]
 
-        self.create_datasets(is_test_datasets=False)
-        if self.test_dataset_names != None:
+        if self.test_dataset_names != None: 
             self.create_datasets(is_test_datasets=True)
+        self.create_datasets(is_test_datasets=False)
+        
         self.X, self.y = None, None
         self.baseline_model = None
         self.optimized_model = None
@@ -60,6 +63,7 @@ class ModelBuilder():
                 print("Are you sure that your dataset name is correct?")
                 
             conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1).dropna()
+            conv['dataset_name'] = dataset_names[0]
 
         else: # multiple datasets to concatenate together
             for dataset_name in dataset_names:
@@ -90,6 +94,18 @@ class ModelBuilder():
             self.convs_complete = convs_complete
             # When we have a single dataset, we have only self.conv_complete
             self.conv_complete = conv_complete
+        
+        self.integrate_task_level_features(is_test_datasets=is_test_datasets)
+
+    def integrate_task_level_features(self, is_test_datasets=False):
+        if is_test_datasets: 
+            self.test_conv['task_name'] = self.test_conv['dataset_name'].map(self.config['task_mapping_keys'])
+            self.test_conv = pd.merge(left=self.test_conv, right=self.task_maps, left_on=['task_name'], right_on=['task'], how='left')
+            self.test_conv.drop(['dataset_name', 'task_name', 'task'], axis=1, inplace=True)
+        else:
+            self.conv['task_name'] = self.conv['dataset_name'].map(self.config['task_mapping_keys'])
+            self.conv = pd.merge(left=self.conv, right=self.task_maps, left_on=['task_name'], right_on=['task'], how='left')
+            self.conv.drop(['dataset_name', 'task_name', 'task'], axis=1, inplace=True)
 
     def set_target(self, target, is_test):
         if(not is_test):
