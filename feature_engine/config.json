@@ -47,5 +47,13 @@
             "conversation_num", "treatmentName", "punishmentCost", "punishmentMagnitude", "total_costs", "total_penalties", 
             "total_rewards", "multiplier", "punishmentExists", "rewardExists", "playerCount", "numRounds", "timestamp", "score"
         ]
-    }
+    },
+    "task_mapping_keys": {
+        "juries": "Mock jury", 
+        "csop": "Room assignment task",
+        "csopII": "Room assignment task",
+        "dat": "Divergent Association Task",
+        "becker": "Estimating Factual Quantities"
+    },
+    "task_names": ["Mock jury", "Room assignment task", "Room assignment task", "Divergent Association Task", "Estimating Factual Quantities"] 
 }
