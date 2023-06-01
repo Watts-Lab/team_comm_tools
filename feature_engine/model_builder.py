@@ -125,15 +125,22 @@ class ModelBuilder():
             conversation_clean["target_raw"] = conversation_complete[target]
             conversation_clean["target_std"] = (conversation_clean["target_raw"] - conversation_clean["target_raw"].mean()) / conversation_clean["target_raw"].std()
         else: # concatenate all targets together
-            target_raw = pd.Series([])
-            target_std = pd.Series([])
-            for i, t in enumerate(target):
-                raw_dataset = conversation_complete_list[i]
-                target_raw = pd.concat([target_raw, raw_dataset[t]])
-                raw_dataset[t] = (raw_dataset[t] - raw_dataset[t].mean()) / raw_dataset[t].std()
-                target_std = pd.concat([target_std, raw_dataset[t]])
-            conversation_clean["target_raw"] = target_raw
-            conversation_clean["target_std"] = target_std
+            target_raw_list, target_std_list = [], []
+            for target_idx, target_name in enumerate(target):
+                target_raw_list.extend(conversation_complete_list[target_idx][target_name].to_list())
+                scaler = StandardScaler()
+                target_std_list.extend(list(scaler.fit_transform(conversation_complete_list[target_idx][target_name].to_numpy().reshape(-1, 1))))
+            conversation_clean["target_raw"] = target_raw_list
+            conversation_clean["target_std"] = target_std_list
+            # target_raw = pd.Series([])
+            # target_std = pd.Series([])
+            # for i, t in enumerate(target):
+            #     raw_dataset = conversation_complete_list[i]
+            #     target_raw = pd.concat([target_raw, raw_dataset[t]])
+            #     raw_dataset[t] = (raw_dataset[t] - raw_dataset[t].mean()) / raw_dataset[t].std()
+            #     target_std = pd.concat([target_std, raw_dataset[t]])
+            # conversation_clean["target_raw"] = target_raw
+            # conversation_clean["target_std"] = target_std
 
         # set everything
         if(not is_test):
