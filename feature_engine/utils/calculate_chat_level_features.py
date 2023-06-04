@@ -12,6 +12,7 @@ The steps needed to add a feature would be to:
 """
 
 # Importing modules from features
+from features.politeness_features import *
 from features.basic_features import *
 from features.info_exchange_zscore import *
 from features.lexical_features_v2 import *
@@ -74,6 +75,9 @@ class ChatLevelFeaturesCalculator:
 
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
+
+        # Politeness (ConvoKit)
+        self.calculate_politeness_sentiment()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
@@ -190,3 +194,17 @@ class ChatLevelFeaturesCalculator:
 
         # Drop the function / content word columns -- we don't need them in the output
         self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
+
+
+    def calculate_politeness_sentiment(self) -> None:
+        """
+            This function calls the Politeness module from Convokit and includes all outputted features.
+        """
+        transformed_df = self.chat_data['message'].apply(get_politeness_strategies).apply(pd.Series)
+        transformed_df = transformed_df.rename(columns=lambda x: re.sub('^feature_politeness_==()','',x)[:-2].lower())
+
+        # Concatenate the transformed dataframe with the original dataframe
+        self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
+
+
+
