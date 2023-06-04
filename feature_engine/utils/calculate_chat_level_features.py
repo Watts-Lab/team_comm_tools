@@ -76,6 +76,7 @@ class ChatLevelFeaturesCalculator:
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
 
+        # Politeness (ConvoKit)
         self.calculate_politeness_sentiment()
 
         # Return the input dataset with the chat level features appended (as columns)
@@ -196,9 +197,11 @@ class ChatLevelFeaturesCalculator:
 
 
     def calculate_politeness_sentiment(self) -> None:
-        
+        """
+            This function calls the Politeness module from Convokit and includes all outputted features.
+        """
         transformed_df = self.chat_data['message'].apply(get_politeness_strategies).apply(pd.Series)
-        transformed_df = transformed_df.rename(columns=lambda x: re.sub('^feature_politeness_==()','',x)[:-2])
+        transformed_df = transformed_df.rename(columns=lambda x: re.sub('^feature_politeness_==()','',x)[:-2].lower())
 
         # Concatenate the transformed dataframe with the original dataframe
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
