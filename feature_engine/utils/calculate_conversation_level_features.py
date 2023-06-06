@@ -9,6 +9,7 @@ The intention behind this class is to use these modules and define any and all c
 from features.gini_coefficient import *
 from features.basic_features import *
 from utils.summarize_chat_level_features import *
+from features.discursive_diversity import *
 
 class ConversationLevelFeaturesCalculator:
     def __init__(self, chat_data: pd.DataFrame, conv_data: pd.DataFrame, input_columns:list) -> None:
@@ -43,6 +44,8 @@ class ConversationLevelFeaturesCalculator:
         self.get_gini_features()
         # Get summary statistics by aggregating chat level features
         self.get_conversation_level_summary_statistics_features()
+
+        self.get_discursive_diversity()
 
         return self.conv_data
 
@@ -105,3 +108,16 @@ class ConversationLevelFeaturesCalculator:
                 on=['conversation_num'],
                 how="inner"
             )
+    
+    def get_discursive_diversity(self) -> None:
+        """
+            This function is used to calculate the discursive diversity for each conversation 
+            based on the word embeddings (word2vec) and chat level information.
+        """
+        # Gini for #Words
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_DD(self.chat_data),
+            on=['conversation_num'],
+            how="inner"
+        )
