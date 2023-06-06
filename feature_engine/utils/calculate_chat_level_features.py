@@ -23,6 +23,7 @@ from features.textblob_sentiment_analysis import *
 from features.readability import *
 from features.positivity_zscore import *
 from features.question_num import *
+from features.get_message_vectors import *
 
 # Importing utils
 from utils.preload_word_lists import *
@@ -78,6 +79,9 @@ class ChatLevelFeaturesCalculator:
 
         # Politeness (ConvoKit)
         self.calculate_politeness_sentiment()
+
+        #Message Vectors
+        self.get_message_vectors()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
@@ -205,6 +209,12 @@ class ChatLevelFeaturesCalculator:
 
         # Concatenate the transformed dataframe with the original dataframe
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
+
+    def get_message_vectors(self) -> None:
+        """
+            This function gets the Word2Vec embedding vectors for each input.
+        """
+        self.chat_data['mean_vec'] = self.chat_data['message'].apply(get_message_vector)
 
 
 
