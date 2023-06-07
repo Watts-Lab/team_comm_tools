@@ -12,6 +12,7 @@ The steps needed to add a feature would be to:
 """
 
 # Importing modules from features
+from features.politeness_features import *
 from features.basic_features import *
 from features.info_exchange_zscore import *
 from features.lexical_features_v2 import *
@@ -78,6 +79,9 @@ class ChatLevelFeaturesCalculator:
         
          # Tempora; features
         self.get_temporal_features()
+
+        # Politeness (ConvoKit)
+        self.calculate_politeness_sentiment()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
@@ -203,3 +207,13 @@ class ChatLevelFeaturesCalculator:
         """
         if {'timestamp'}.issubset(self.chat_data.columns):
             self.chat_data["time_diff"] =  get_time_diff(self.chat_data,"timestamp") 
+
+    def calculate_politeness_sentiment(self) -> None:
+        """
+            This function calls the Politeness module from Convokit and includes all outputted features.
+        """
+        transformed_df = self.chat_data['message'].apply(get_politeness_strategies).apply(pd.Series)
+        transformed_df = transformed_df.rename(columns=lambda x: re.sub('^feature_politeness_==()','',x)[:-2].lower())
+
+        # Concatenate the transformed dataframe with the original dataframe
+        self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
