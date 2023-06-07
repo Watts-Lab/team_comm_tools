@@ -55,8 +55,7 @@ class FeatureBuilder:
         # This is the number of unique conversations (and, in conversations with multiple levels, the number of
         # unique rows across "batch_num", and "round_num".)
         # Assume that "conversation_num" is the primary key for this table.
-        self.conv_data = self.chat_data.groupby('conversation_num').nth(0).reset_index()[['conversation_num']]
-
+        self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
 
     def set_self_conv_data(self) -> None:
         """
@@ -64,8 +63,7 @@ class FeatureBuilder:
         Set Conversation Data around `conversation_num` once preprocessing completes.
         We need to select the first TWO columns, as column 1 is the 'index' and column 2 is 'conversation_num'
         """        
-        self.conv_data = self.chat_data.groupby('conversation_num').nth(0).reset_index()[['conversation_num']]
-
+        self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
 
     def merge_conv_data_with_original(self) -> None:
         # Here, drop the message and speaker nickname (which do not matter at conversation level)
