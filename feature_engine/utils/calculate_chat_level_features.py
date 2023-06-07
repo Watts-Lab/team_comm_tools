@@ -162,8 +162,11 @@ class ChatLevelFeaturesCalculator:
             (see features/other_LIWC_features.py to learn more about how these features are calculated)
         """
         # Get the number of questions in each message
+        # naive: Number of Question Marks
         self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(lambda x: calculate_num_question_naive(x, question_words = self.question_words))
-        
+        # nltk: Using POS-tagging; commented out because Convokit/Politeness has a similar feature, and it's not clear this has an advantage?
+        #self.chat_data["num_question_nltk"] = self.chat_data["message_lower_with_punc"].apply(lambda x: calculate_num_question_nltk(x))
+
         # Classify whether the message contains clarification questions
         self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(classify_NTRI)
         
