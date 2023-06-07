@@ -23,6 +23,7 @@ from features.textblob_sentiment_analysis import *
 from features.readability import *
 from features.positivity_zscore import *
 from features.question_num import *
+from features.temporal_features import *
 
 # Importing utils
 from utils.preload_word_lists import *
@@ -75,6 +76,9 @@ class ChatLevelFeaturesCalculator:
 
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
+        
+         # Tempora; features
+        self.get_temporal_features()
 
         # Politeness (ConvoKit)
         self.calculate_politeness_sentiment()
@@ -195,6 +199,14 @@ class ChatLevelFeaturesCalculator:
         # Drop the function / content word columns -- we don't need them in the output
         self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
 
+    def get_temporal_features(self) -> None:
+        """
+        Calculates features relevant to the timestamps of each chat.
+
+        - time diff: The difference between messages sent.
+        """
+        if {'timestamp'}.issubset(self.chat_data.columns):
+            self.chat_data["time_diff"] =  get_time_diff(self.chat_data,"timestamp") 
 
     def calculate_politeness_sentiment(self) -> None:
         """
@@ -205,6 +217,3 @@ class ChatLevelFeaturesCalculator:
 
         # Concatenate the transformed dataframe with the original dataframe
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
-
-
-
