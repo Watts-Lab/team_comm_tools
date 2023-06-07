@@ -24,6 +24,7 @@ from features.readability import *
 from features.positivity_zscore import *
 from features.question_num import *
 from features.get_message_vectors import *
+from features.temporal_features import *
 
 # Importing utils
 from utils.preload_word_lists import *
@@ -76,6 +77,9 @@ class ChatLevelFeaturesCalculator:
 
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
+        
+         # Tempora; features
+        self.get_temporal_features()
 
         # Politeness (ConvoKit)
         self.calculate_politeness_sentiment()
@@ -162,8 +166,11 @@ class ChatLevelFeaturesCalculator:
             (see features/other_LIWC_features.py to learn more about how these features are calculated)
         """
         # Get the number of questions in each message
+        # naive: Number of Question Marks
         self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(lambda x: calculate_num_question_naive(x, question_words = self.question_words))
-        
+        # nltk: Using POS-tagging; commented out because Convokit/Politeness has a similar feature, and it's not clear this has an advantage?
+        #self.chat_data["num_question_nltk"] = self.chat_data["message_lower_with_punc"].apply(lambda x: calculate_num_question_nltk(x))
+
         # Classify whether the message contains clarification questions
         self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(classify_NTRI)
         
@@ -199,6 +206,14 @@ class ChatLevelFeaturesCalculator:
         # Drop the function / content word columns -- we don't need them in the output
         self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
 
+    def get_temporal_features(self) -> None:
+        """
+        Calculates features relevant to the timestamps of each chat.
+
+        - time diff: The difference between messages sent.
+        """
+        if {'timestamp'}.issubset(self.chat_data.columns):
+            self.chat_data["time_diff"] =  get_time_diff(self.chat_data,"timestamp") 
 
     def calculate_politeness_sentiment(self) -> None:
         """
@@ -215,6 +230,3 @@ class ChatLevelFeaturesCalculator:
             This function gets the Word2Vec embedding vectors for each input.
         """
         self.chat_data['mean_vec'] = self.chat_data['message'].apply(get_message_vector)
-
-
-
