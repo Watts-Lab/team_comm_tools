@@ -88,6 +88,10 @@ class ModelBuilder():
         convs_complete = []
         conv = None
         conv_complete = None
+
+        # List to store whether timestamp is present
+        has_timestamp = []
+
         # Exception to handle the case when the dataset names are not encapsulated in a list
         if(not isinstance(dataset_names, list)):
             raise TypeError("Please provide the dataset names as a list!")
@@ -115,15 +119,23 @@ class ModelBuilder():
                 # Handling the case when the dataset names is not found in the config files
                 except KeyError:
                     print("Are you sure that your dataset name is correct?")
+                
                 # Remove redundant columns from the current dataset
                 df_extra_columns_dropped = full_dataset.drop(self.config[dataset_name]["cols_to_ignore"], axis=1).dropna()
                 
+                # check if timestamp is present
+                has_timestamp.append("timestamp" in self.config[dataset_name]["cols_to_ignore"])
+
                 # Add a column with the dataset name --- This is helpful for adding in task related featured in the pipeline later on.
                 df_extra_columns_dropped = df_extra_columns_dropped.assign(dataset_name = dataset_name)
 
                 # merge with self.conv
                 if conv is None: conv = df_extra_columns_dropped
                 else: conv = pd.concat([conv, df_extra_columns_dropped])
+
+        # Remove timestamp if not present in all datasets being concatenated
+        if(not all(has_timestamp)):
+            conv = conv.drop(columns=[col for col in conv.columns if 'time_diff' in col.lower()])
 
         # Handle / store test dataset
         if is_test_datasets: 
@@ -141,6 +153,7 @@ class ModelBuilder():
             self.convs_complete = convs_complete
             # When we have a single dataset, we have only self.conv_complete
             self.conv_complete = conv_complete
+        
         # Calling this function to add in task related features to the combined datasets created above.
         self.integrate_task_level_features(is_test_datasets=is_test_datasets)
 
@@ -284,8 +297,14 @@ class ModelBuilder():
             list: Return the list of features (`X`) and targets (`y`) formated as - `[X, y]`
         """
         if is_test:
+            # Make sure both self and test have timestamp; otherwise, drop time-related columns
+            if (len([col for col in self.conv.columns if 'time_diff' in col.lower()]) == 0): # train set has no timestamp
+                if(len([col for col in self.test_conv.columns if 'time_diff' in col.lower()]) > 0): # but test set has timestamp
+                    self.test_conv = self.test_conv.drop(columns=[col for col in self.test_conv.columns if 'time_diff' in col.lower()])
+
             if fit_on_raw: X, y = self.test_conv.drop(["target_raw", "target_std"], axis=1), self.test_conv["target_raw"]
             else: X, y = self.test_conv.drop(["target_raw", "target_std"], axis=1), self.test_conv["target_std"]
+
         else:
             if fit_on_raw: X, y = self.conv.drop(["target_raw", "target_std"], axis=1), self.conv["target_raw"]
             else: X, y = self.conv.drop(["target_raw", "target_std"], axis=1), self.conv["target_std"]
