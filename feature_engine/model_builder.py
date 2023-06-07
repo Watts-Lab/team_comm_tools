@@ -195,7 +195,7 @@ class ModelBuilder():
             for target_idx, target_name in enumerate(target):
                 target_raw_list.extend(conversation_complete_list[target_idx][target_name].to_list())
                 scaler = StandardScaler()
-                target_std_list.extend(list(scaler.fit_transform(conversation_complete_list[target_idx][target_name].to_numpy().reshape(-1, 1))))
+                target_std_list.extend(scaler.fit_transform(conversation_complete_list[target_idx][target_name].to_numpy().reshape(-1, 1)).flatten())
             # Add in the combined raw and standardized targets
             conversation_clean["target_raw"] = target_raw_list
             conversation_clean["target_std"] = target_std_list
@@ -292,7 +292,7 @@ class ModelBuilder():
         # TODO - This might be redundant now that the dataset names are replaced by task level features
         # Get one hot encodings of any object column
         X = pd.get_dummies(X)
-        # Feature normalization - not relevant for tree based models like XGB or RF. But will casue significant differences in the case of linear models (Linear, Lasso, etc.)
+        # Feature normalization - not relevant for tree based models like XGB or RF. But will cause significant differences in the case of linear models (Linear, Lasso, etc.)
         X = pd.DataFrame(StandardScaler().fit_transform(X),columns = X.columns)
         return X, y
 
@@ -406,7 +406,6 @@ class ModelBuilder():
         shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns, plot_type="bar")
         shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns)
 
-    # [NEW] method for Lasso
     def print_lasso_coefs(self, model):
 
         coefficients = model.coef_
