@@ -14,6 +14,7 @@ The intention behind this class is to use these modules and:
 
 # 3rd Party Imports
 import pandas as pd
+import re
 
 # Imports from feature files and classes
 from utils.summarize_chat_level_features import *
@@ -43,6 +44,9 @@ class FeatureBuilder:
         print("Initializing Featurization for " + self.input_file_path + " ...")
         self.output_file_path_chat_level = output_file_path_chat_level
         self.output_file_path_conv_level = output_file_path_conv_level
+
+        # Set word embedding path
+        self.word_embedding_path = re.sub('../feature_engine/data/raw_data', './embeddings/')
 
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
