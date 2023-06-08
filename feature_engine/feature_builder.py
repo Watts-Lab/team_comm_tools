@@ -46,7 +46,7 @@ class FeatureBuilder:
         self.output_file_path_conv_level = output_file_path_conv_level
 
         # Set word embedding path
-        self.word_embedding_path = re.sub('../feature_engine/data/raw_data', './embeddings/')
+        self.word_embedding_path = re.sub('../feature_engine/data/raw_data', './embeddings/', self.input_file_path)
 
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
@@ -54,6 +54,8 @@ class FeatureBuilder:
         self.preprocess_chat_data(col="message")
 
         self.input_columns = self.chat_data.columns
+
+        self.vect_data = pd.read_csv(self.word_embedding_path, encoding='mac_roman')
         
         # Deriving the base conversation level dataframe.
         # This is the number of unique conversations (and, in conversations with multiple levels, the number of
@@ -98,8 +100,8 @@ class FeatureBuilder:
         # Step 1. Set Conversation Data Object.
         self.set_self_conv_data()
         # Step 2. Create chat level features.
-        print("Generating Chat Level Features ...")
-        self.chat_level_features()
+        # print("Generating Chat Level Features ...")
+        # self.chat_level_features()
         # Step 3. Create conversation level features.
         print("Generating Conversation Level Features ...")
         self.conv_level_features()
@@ -150,6 +152,7 @@ class FeatureBuilder:
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             conv_data = self.conv_data,
+            vect_data= self.vect_data,
             input_columns = self.input_columns
         )
         # Calling the driver inside this class to create the features.
