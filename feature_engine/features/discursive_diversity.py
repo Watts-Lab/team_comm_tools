@@ -24,29 +24,26 @@ def get_cosine_similarity(vecs):
         return np.nan
 
 
-def get_DD(conversation_data):
+def get_DD(conversation_data, embeddings):
 
-    #convert to float 
+    # Convert embeddings string to float arrays
+    embeddings['message_embedding'] = [val[1:-1] for val in embeddings['message_embedding']]
+    embeddings['message_embedding'] = [ [float(e) for e in embedding.split(',')] for embedding in embeddings['message_embedding']]
+    embeddings['message_embedding'] = [np.array(e) for e in embeddings['message_embedding']]
 
-    # vec_arrays = []
-    # for index, r in vector_data.iterrows():
-    #     if (pd.isnull(r.iloc[1])):
-    #         vec_arrays.append(np.nan)
-    #     else:
-    #         vec_arrays.append(np.array(r, dtype="float64"))
-    
-    # conversation_data['mean_vec'] = vec_arrays
 
-    # get user average vector per conversation
-    user_centroid_per_conv = pd.DataFrame(conversation_data.groupby(['conversation_num','speaker_nickname']).apply(lambda x: np.mean(x['mean_vec'].to_frame().dropna()))).reset_index().rename(columns={0:'day_mean_vec'})
+    # Concatenate onto conversation data
+    df = pd.concat([conversation_data[['conversation_num', 'speaker_nickname']],embeddings['message_embedding']], axis=1)
 
-    # For each team(conversation) get all unique pairwise combinations of members' centroids:
-    user_pairs = pd.DataFrame(user_centroid_per_conv.groupby(['conversation_num'])['day_mean_vec'].\
+    # Get mean embedding per speaker per conversation
+    user_centroid_per_conv = pd.DataFrame(df.groupby(['conversation_num','speaker_nickname'])['message_embedding'].apply(np.mean)).reset_index().rename(columns={'message_embedding':'mean_embedding'})
+
+    # For each team(conversation) get all unique pairwise combinations of members' means:
+    user_pairs = pd.DataFrame(user_centroid_per_conv.groupby(['conversation_num'])['mean_embedding'].\
     apply(get_unique_pairwise_combos)).reset_index().\
-    rename(columns={'day_mean_vec':'user_pairs_per_conv'})
+    rename(columns={'mean_embedding':'user_pairs_per_conv'})
 
-    # get cosine distances between each pair for every conversation, average all the distances to get DD per conversation
-
+    # Get cosine distances between each pair for every conversation, average all the distances to get DD per conversation
     cos_dists_mean_widay_btwu = []
 
     for lst in user_pairs.user_pairs_per_conv:
@@ -60,7 +57,7 @@ def get_DD(conversation_data):
                     cos_d = 1 - get_cosine_similarity([tpl[0], tpl[1]])
                     cos_dists.append(cos_d)
                 except ValueError as e:
-                    #np.nan in tuple
+                    # Occurs when np.nan in tuple
                     pass
 
             # Compute mean of cos dists
