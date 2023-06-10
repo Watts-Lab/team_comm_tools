@@ -27,10 +27,10 @@ def get_cosine_similarity(vecs):
 def get_DD(conversation_data, embeddings):
 
     # Convert embeddings string to float arrays
-    embeddings['message_embedding'] = [val[1:-1] for val in embeddings['message_embedding']]
-    embeddings['message_embedding'] = [ [float(e) for e in embedding.split(',')] for embedding in embeddings['message_embedding']]
-    embeddings['message_embedding'] = [np.array(e) for e in embeddings['message_embedding']]
-
+    if isinstance(embeddings['message_embedding'][0], str):
+        embeddings['message_embedding'] = [val[1:-1] for val in embeddings['message_embedding']]
+        embeddings['message_embedding'] = [ [float(e) for e in embedding.split(',')] for embedding in embeddings['message_embedding']]
+        embeddings['message_embedding'] = [np.array(e) for e in embeddings['message_embedding']]
 
     # Concatenate onto conversation data
     df = pd.concat([conversation_data[['conversation_num', 'speaker_nickname']],embeddings['message_embedding']], axis=1)
