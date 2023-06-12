@@ -3,7 +3,6 @@ import numpy as np
 import itertools
 from sklearn.metrics.pairwise import cosine_similarity
 
-
 #from given code 
 def get_unique_pairwise_combos(lst):
     '''Computes all unique pairwise combinations of the elements in a list.
@@ -24,19 +23,10 @@ def get_cosine_similarity(vecs):
         return np.nan
 
 
-def get_DD(conversation_data, embeddings):
-
-    # Convert embeddings string to float arrays
-    if isinstance(embeddings['message_embedding'][0], str):
-        embeddings['message_embedding'] = [val[1:-1] for val in embeddings['message_embedding']]
-        embeddings['message_embedding'] = [ [float(e) for e in embedding.split(',')] for embedding in embeddings['message_embedding']]
-        embeddings['message_embedding'] = [np.array(e) for e in embeddings['message_embedding']]
-
-    # Concatenate onto conversation data
-    df = pd.concat([conversation_data[['conversation_num', 'speaker_nickname']],embeddings['message_embedding']], axis=1)
-
+def get_DD(chat_data):
+    
     # Get mean embedding per speaker per conversation
-    user_centroid_per_conv = pd.DataFrame(df.groupby(['conversation_num','speaker_nickname'])['message_embedding'].apply(np.mean)).reset_index().rename(columns={'message_embedding':'mean_embedding'})
+    user_centroid_per_conv = pd.DataFrame(chat_data.groupby(['conversation_num','speaker_nickname'])['message_embedding'].apply(np.mean)).reset_index().rename(columns={'message_embedding':'mean_embedding'})
 
     # For each team(conversation) get all unique pairwise combinations of members' means:
     user_pairs = pd.DataFrame(user_centroid_per_conv.groupby(['conversation_num'])['mean_embedding'].\
@@ -66,6 +56,8 @@ def get_DD(conversation_data, embeddings):
             cos_dists_mean_widay_btwu.append(np.nan)
 
     user_pairs['discursive_diversity'] =  cos_dists_mean_widay_btwu
+
+    ## split into chunks 
 
     return user_pairs[['conversation_num', 'discursive_diversity']]
 
