@@ -23,7 +23,6 @@ from features.textblob_sentiment_analysis import *
 from features.readability import *
 from features.positivity_zscore import *
 from features.question_num import *
-from features.get_message_vectors import *
 from features.temporal_features import *
 
 # Importing utils
