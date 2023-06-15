@@ -100,8 +100,8 @@ class FeatureBuilder:
         # Step 1. Set Conversation Data Object.
         self.set_self_conv_data()
         # Step 2. Create chat level features.
-        # print("Generating Chat Level Features ...")
-        # self.chat_level_features()
+        print("Generating Chat Level Features ...")
+        self.chat_level_features()
         # Step 3. Create conversation level features.
         print("Generating Conversation Level Features ...")
         self.conv_level_features()

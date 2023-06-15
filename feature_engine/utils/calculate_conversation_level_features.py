@@ -43,11 +43,10 @@ class ConversationLevelFeaturesCalculator:
 							new columns for each conv level feature.
         """
         # Get gini based features
-        # self.get_gini_features()
+        self.get_gini_features()
         # Get summary statistics by aggregating chat level features
-        # self.get_conversation_level_summary_statistics_features()
-
-        # self.get_discursive_diversity()
+        self.get_conversation_level_summary_statistics_features()
+        # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
         self.get_discursive_diversity_features()
 
         return self.conv_data
@@ -124,16 +123,3 @@ class ConversationLevelFeaturesCalculator:
             on=['conversation_num'],
             how="inner"
         )
-
-    # def get_variance_dd(self) -> None:
-    #     """
-    #         This function is used to calculate the discursive diversity for each conversation 
-    #         based on the word embeddings (word2vec) and chat level information.
-    #     """
-    #     # Gini for #Words
-    #     self.conv_data = pd.merge(
-    #         left=self.conv_data,
-    #         right=get_variance_in_DD(self.chat_data, self.vect_data),
-    #         on=['conversation_num'],
-    #         how="inner"
-    #     )
