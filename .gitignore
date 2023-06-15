@@ -6,6 +6,7 @@ feature_engine/features/lexicons/liwc_lexicons/
 feature_engine/features/lexicons/liwc_lexicons_small_test/
 feature_engine/modules/
 feature_engine/embeddings/*
+feature_engine/data/GoogleNews-vectors-negative300.bin
 feature_engine/__pycache__/
 feature_engine/features/__pycache__/
 feature_engine/ipython_notebooks/.ipynb_checkpoints/
