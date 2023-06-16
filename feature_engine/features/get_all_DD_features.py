@@ -7,6 +7,11 @@ from .variance_in_DD import *
 from .within_person_discursive_range import *
 from utils.assign_chunk_nums import *
 
+'''
+This is an "umbrella" feature called at the conversation level which returns four discursive metrics: discursive diversity, variance in discursive diversity, incongruent modulation, and within person discursive range. 
+
+'''
+
 def conv_to_float_arr(df):
     if isinstance(df['message_embedding'][0], str):
             df['message_embedding'] = [val[1:-1] for val in df['message_embedding']]
