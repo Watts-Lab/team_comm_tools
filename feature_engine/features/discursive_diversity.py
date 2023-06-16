@@ -3,7 +3,12 @@ import numpy as np
 import itertools
 from sklearn.metrics.pairwise import cosine_similarity
 
-#from given code 
+'''
+This is a conversation level feature, which computes degree of divergence amongst the meanings conveyed by speakers in a given conversation. 
+
+'''
+
+# From given code: https://pubsonline.informs.org/doi/suppl/10.1287/mnsc.2021.4274
 def get_unique_pairwise_combos(lst):
     '''Computes all unique pairwise combinations of the elements in a list.
     input: array or list
