@@ -14,12 +14,11 @@ def assign_chunk_nums(chat_data, num_chunks):
 
     # Calculate the total number of rows per conversation
     conversation_lengths = chat_data.groupby('conversation_num').size()
-    # num_conversations = chat_data['conversation_num'].nunique()
 
     chunks = conversation_lengths.apply(lambda x: reduce_chunks(x, num_chunks))
 
     # Calculate the chunk size based on the total number of conversations
-    chunk_size = np.ceil(conversation_lengths / (chunks + 1)) # I found that using 10 in the bottom actually only generates 9 groups, so here I use 11 ... (weird)
+    chunk_size = np.ceil(conversation_lengths / (chunks + 1)) 
     
     for i, group in chat_data.groupby('conversation_num'): # for each group
         chunk_num = 0

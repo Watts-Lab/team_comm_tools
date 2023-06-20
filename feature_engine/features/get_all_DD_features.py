@@ -30,7 +30,7 @@ def get_DD_features(chat_data, vect_data):
     disc_div = get_DD(chats)
     disc_div = disc_div.replace(np.nan, 0)
 
-    num_chunks = 3
+    num_chunks = 3 # TODO - this is where we will more intelligently assign chunks; currently chose 3 based on EDA
 
     # Split into chunks 
     chats_chunked = assign_chunk_nums(chats, num_chunks)
