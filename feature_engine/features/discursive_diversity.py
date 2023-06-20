@@ -62,7 +62,5 @@ def get_DD(chat_data):
 
     user_pairs['discursive_diversity'] =  cos_dists_mean_widay_btwu
 
-    ## split into chunks 
-
     return user_pairs[['conversation_num', 'discursive_diversity']]
 
