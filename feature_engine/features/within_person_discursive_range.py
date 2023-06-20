@@ -53,10 +53,10 @@ def get_within_person_disc_range(chat_data, num_chunks):
     range_df = range_df.set_index('conversation_num')
 
     # variance within person discursive range 
-    var_disc_range = range_df.groupby('conversation_num').apply(lambda x: np.nanmean(np.nanvar(x, axis=0))).to_frame().rename(columns={0:'incongruent_modulation'})
+    var_disc_range = range_df.groupby('conversation_num').apply(lambda x: np.nanvar(x, axis=0).sum()).to_frame().rename(columns={0:'incongruent_modulation'})
     
     # average within person discursive range 
-    avg_disc_range = range_df.groupby('conversation_num').apply(lambda x: np.nanmean(np.nanmean(x, axis=0))).to_frame().rename(columns={0:'within_person_disc_range'})
+    avg_disc_range = range_df.groupby('conversation_num').apply(lambda x: np.nanmean(x, axis=0).sum()).to_frame().rename(columns={0:'within_person_disc_range'})
 
     return pd.merge(
                 left=var_disc_range,
