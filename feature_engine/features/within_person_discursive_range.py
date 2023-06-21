@@ -45,12 +45,20 @@ def get_within_person_disc_range(chat_data, num_chunks):
                 value = 1 - get_cosine_similarity(tpl)[0]
             inter_chunk_range[index].append(value)
 
+
+    # EMILY ADDED THIS PRINT STATEMENT FOR TESTING
+    print(inter_chunk_range)
+
     index = []
     for i in range(num_chunks - 1):
         index.append("c" + str(i) + "_c" + str(i + 1))
     range_df = pd.DataFrame(inter_chunk_range, index=index).T
     range_df['conversation_num'] = mean_vec_speaker_chunks.reset_index()['conversation_num']
     range_df = range_df.set_index('conversation_num')
+
+    # EMILY ADDED THIS PRINT STATEMENT FOR TESTING
+    print(range_df)
+
 
     # variance within person discursive range 
     var_disc_range = range_df.groupby('conversation_num').apply(lambda x: np.nanvar(x, axis=0).sum()).to_frame().rename(columns={0:'incongruent_modulation'})
