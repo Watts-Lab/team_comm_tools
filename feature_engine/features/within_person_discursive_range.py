@@ -25,11 +25,13 @@ def get_within_person_disc_range(chat_data, num_chunks):
     #collapse multi-index
     mean_vec_speaker_chunks.columns = ["_c".join(col).strip() for col in mean_vec_speaker_chunks.columns.values]
 
+    actual_num_chunks = len(mean_vec_speaker_chunks[2:].columns) # omit the first two, which is conversation_num and speaker_nickname
+
     #each element in inter_chunk_range is a list of cosine distances BETWEEN each pair of consecutive chunks
-    inter_chunk_range = [ [] for i in range(num_chunks - 1)]
+    inter_chunk_range = [ [] for i in range(actual_num_chunks - 1)]
 
     for conv_idx, row in mean_vec_speaker_chunks.iterrows():
-        for index in range(num_chunks - 1):
+        for index in range(actual_num_chunks - 1):
             tpl = [row['mean_chunk_vec_c' + str(index)], row['mean_chunk_vec_c'+ str(index+1)]]
             value = 0
             if (pd.isnull(tpl)).all():
@@ -46,7 +48,7 @@ def get_within_person_disc_range(chat_data, num_chunks):
             inter_chunk_range[index].append(value)
 
     index = []
-    for i in range(num_chunks - 1):
+    for i in range(actual_num_chunks - 1):
         index.append("c" + str(i) + "_c" + str(i + 1))
     range_df = pd.DataFrame(inter_chunk_range, index=index).T
     range_df['conversation_num'] = mean_vec_speaker_chunks.reset_index()['conversation_num']

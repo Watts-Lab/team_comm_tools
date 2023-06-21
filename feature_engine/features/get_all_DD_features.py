@@ -37,9 +37,11 @@ def get_DD_features(chat_data, vect_data):
 
     # Get variance in discursive diversity 
     var_disc_div = get_variance_in_DD(chats_chunked)
+    var_disc_div = var_disc_div.replace(np.nan, 0)
 
     # Get within-person discursive range metrics
     modulation_metrics = get_within_person_disc_range(chats_chunked, num_chunks)
+    modulation_metrics = modulation_metrics.replace(np.nan, 0)
 
     dd_features = [disc_div, var_disc_div, modulation_metrics]
     return reduce(lambda x, y: pd.merge(x, y, on = 'conversation_num'), dd_features)
