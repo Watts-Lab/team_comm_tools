@@ -213,6 +213,10 @@ class ModelBuilder():
             conversation_clean["target_raw"] = target_raw_list
             conversation_clean["target_std"] = target_std_list
 
+            ### TODO -- Standard Features with new Scaler here ###
+            
+
+
         # Set everything in global variables of the class
         if(not is_test):
             self.conv = conversation_clean
@@ -311,6 +315,9 @@ class ModelBuilder():
         # TODO - This might be redundant now that the dataset names are replaced by task level features
         # Get one hot encodings of any object column
         X = pd.get_dummies(X)
+
+        # TODO --- THIS STANDARDIZES *ACROSS*
+
         # Feature normalization - not relevant for tree based models like XGB or RF. But will cause significant differences in the case of linear models (Linear, Lasso, etc.)
         X = pd.DataFrame(StandardScaler().fit_transform(X),columns = X.columns)
         return X, y
