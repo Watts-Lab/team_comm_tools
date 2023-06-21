@@ -18,7 +18,7 @@ def assign_chunk_nums(chat_data, num_chunks):
     chunks = conversation_lengths.apply(lambda x: reduce_chunks(x, num_chunks))
 
     # Calculate the chunk size based on the total number of conversations
-    chunk_size = np.ceil(conversation_lengths / (chunks + 1)) 
+    chunk_size = np.ceil(conversation_lengths / chunks) 
     
     for i, group in chat_data.groupby('conversation_num'): # for each group
         chunk_num = 0
