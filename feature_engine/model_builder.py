@@ -25,7 +25,7 @@ class ModelBuilder():
             task_map_path: str='utils/task_map.csv', 
             dataset_names: list=["csop"], 
             test_dataset_names: list=None,
-            standardize_within = True
+            standardize_within = False
         ) -> None:
         """Initializes the various objects and variables used throughout the `ModelBuilder` class.
 
@@ -37,7 +37,7 @@ class ModelBuilder():
             test_dataset_names (list, optional): A list of `strings` that allow users to designate one of the datasets as the test dataset. 
                                                  Ideally this value would be set to `["csopII"]` when `dataset_names` is set to `["csop"]`. Otherwise it is wise to keep it None.
                                                  Defaults to `None`.
-            standardize_within (bool, optional): A boolean that determines whether features are standardized *within* tasks /individual datasets (if True), or *across* tasks (if False). Defaults to True.
+            standardize_within (bool, optional): A boolean that determines whether features are standardized *within* tasks /individual datasets (if True), or *across* tasks (if False). Defaults to False.
 
         
         Returns:
