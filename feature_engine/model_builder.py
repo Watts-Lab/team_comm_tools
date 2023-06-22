@@ -109,6 +109,10 @@ class ModelBuilder():
                 print("Are you sure that your dataset name is correct?")
             # Dropping redundant columns as specified in the config file    
             conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1).dropna()
+            # TODO - Uncomment this if we want to standardize a single dataset when standardize_within flag is set to True
+            # # Standardizing Features if standardize_within flag is set to True
+            # if self.standardize_within:
+            #     conv = pd.DataFrame(StandardScaler().fit_transform(conv),columns = conv.columns)
             # We store the dataset name to make it easy to join task related features later on in the pipeline.
             conv['dataset_name'] = dataset_names[0]
 
