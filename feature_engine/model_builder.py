@@ -24,7 +24,8 @@ class ModelBuilder():
             output_dir: str="output/", 
             task_map_path: str='utils/task_map.csv', 
             dataset_names: list=["csop"], 
-            test_dataset_names: list=None
+            test_dataset_names: list=None,
+            standardize_within = True
         ) -> None:
         """Initializes the various objects and variables used throughout the `ModelBuilder` class.
 
@@ -36,6 +37,8 @@ class ModelBuilder():
             test_dataset_names (list, optional): A list of `strings` that allow users to designate one of the datasets as the test dataset. 
                                                  Ideally this value would be set to `["csopII"]` when `dataset_names` is set to `["csop"]`. Otherwise it is wise to keep it None.
                                                  Defaults to `None`.
+            standardize_within (bool, optional): A boolean that determines whether features are standardized *within* tasks /individual datasets (if True), or *across* tasks (if False). Defaults to True.
+
         
         Returns:
             (None)
@@ -54,6 +57,7 @@ class ModelBuilder():
             self.output_dir = output_dir
             self.task_maps = pd.read_csv(task_map_path)
             self.task_maps = self.task_maps[self.task_maps['task'].isin(self.config['task_names'])]
+            self.standardize_within = standardize_within
         # If the user has specified a test set(s), then we need to build it seperately
         if self.test_dataset_names != None: 
             self.create_datasets(is_test_datasets=True)
@@ -126,12 +130,23 @@ class ModelBuilder():
                 # check if timestamp is present
                 has_timestamp.append("timestamp" in self.config[dataset_name]["cols_to_ignore"])
 
+                #Standard Features WIHIN each task
+                if self.standardize_within:
+                    df_extra_columns_dropped = pd.DataFrame(StandardScaler().fit_transform(df_extra_columns_dropped),columns = df_extra_columns_dropped.columns)
+
                 # Add a column with the dataset name --- This is helpful for adding in task related featured in the pipeline later on.
                 df_extra_columns_dropped = df_extra_columns_dropped.assign(dataset_name = dataset_name)
-
+  
                 # merge with self.conv
                 if conv is None: conv = df_extra_columns_dropped
                 else: conv = pd.concat([conv, df_extra_columns_dropped])
+        
+        #Standard Features ACROSS each task
+        if not self.standardize_within:
+            # standardize only numeric cols
+            numeric = conv[conv.select_dtypes(include='number').columns]
+            scaled_numeric = pd.DataFrame(StandardScaler().fit_transform(numeric), columns=numeric.columns)
+            conv[numeric.columns] = scaled_numeric.values
 
         # Remove timestamp if not present in all datasets being concatenated
         if(not all(has_timestamp)):
@@ -145,6 +160,7 @@ class ModelBuilder():
             self.test_conv_complete = conv_complete
             # When we have a single dataset, we have only self.conv_complete
             self.test_convs_complete = convs_complete
+        
         # Handle / store training dataset
         else:
             # This is the dataset that is used for model training
@@ -212,10 +228,6 @@ class ModelBuilder():
             # Add in the combined raw and standardized targets
             conversation_clean["target_raw"] = target_raw_list
             conversation_clean["target_std"] = target_std_list
-
-            ### TODO -- Standard Features with new Scaler here ###
-            
-
 
         # Set everything in global variables of the class
         if(not is_test):
@@ -316,10 +328,6 @@ class ModelBuilder():
         # Get one hot encodings of any object column
         X = pd.get_dummies(X)
 
-        # TODO --- THIS STANDARDIZES *ACROSS*
-
-        # Feature normalization - not relevant for tree based models like XGB or RF. But will cause significant differences in the case of linear models (Linear, Lasso, etc.)
-        X = pd.DataFrame(StandardScaler().fit_transform(X),columns = X.columns)
         return X, y
 
     def evaluate_model(self, model, val_size: float=0.1, test_size: float=0.1) -> None:
