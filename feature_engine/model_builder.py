@@ -109,11 +109,7 @@ class ModelBuilder():
                 print("Are you sure that your dataset name is correct?")
             # Dropping redundant columns as specified in the config file    
             conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1).dropna()
-            # TODO - Uncomment this if we want to standardize a single dataset when standardize_within flag is set to True
-            # Standardizing Features if standardize_within flag is set to True
-            # Emily reply - if we only have a single dataset, then standardize within and standardize across are actually the same,
-            # correct? Therefore, is the correct design decision that we just standardize across the board?
-            # if self.standardize_within:
+            # Standardizing Features
             conv = pd.DataFrame(StandardScaler().fit_transform(conv),columns = conv.columns)
             # We store the dataset name to make it easy to join task related features later on in the pipeline.
             conv['dataset_name'] = dataset_names[0]
