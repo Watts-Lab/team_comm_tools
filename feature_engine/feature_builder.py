@@ -51,7 +51,7 @@ class FeatureBuilder:
 
         # Set bert sentiment path
         self.bert_sentiment_path = re.sub('../feature_engine/data/raw_data', './sentiment_bert/', self.input_file_path)
-        self.bert_data = pd.read_csv(self.bert_sentiment_path, encoding='mac_roman').drop('Unnamed: 0', axis=1)
+        self.bert_sentiment_data = pd.read_csv(self.bert_sentiment_path, encoding='mac_roman').drop('Unnamed: 0', axis=1)
 
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
@@ -143,7 +143,7 @@ class FeatureBuilder:
         # Instantiating.
         chat_feature_builder = ChatLevelFeaturesCalculator(
             chat_data = self.chat_data,
-            bert_data = self.bert_data
+            bert_sentiment_data = self.bert_sentiment_data
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features()

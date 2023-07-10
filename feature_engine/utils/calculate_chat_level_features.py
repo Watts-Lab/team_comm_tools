@@ -30,7 +30,7 @@ from utils.preload_word_lists import *
 from utils.zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
 
 class ChatLevelFeaturesCalculator:
-    def __init__(self, chat_data: pd.DataFrame, bert_data: pd.DataFrame) -> None:
+    def __init__(self, chat_data: pd.DataFrame, bert_sentiment_data: pd.DataFrame) -> None:
         """
             This function is used to initialize variables and objects that can be used by all functions of this class.
 
@@ -38,7 +38,7 @@ class ChatLevelFeaturesCalculator:
             @param chat_data (pd.DataFrame): This is a pandas dataframe of the chat level features read in from the input dataset.
         """
         self.chat_data = chat_data
-        self.bert_data = bert_data
+        self.bert_sentiment_data = bert_sentiment_data # Load BERT 
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
         self.function_words = get_function_words() # load function words exactly once
         self.question_words = get_question_words() # load question words exactly once
@@ -52,7 +52,7 @@ class ChatLevelFeaturesCalculator:
                             new columns for each chat level feature.
         """
 
-        # Concat sentiment BERT markers
+        # Concat sentiment BERT markers (done through preprocessing)
         self.concat_bert_features()
         
         # Text-Based Basic Features
@@ -93,10 +93,8 @@ class ChatLevelFeaturesCalculator:
         
     def concat_bert_features(self) -> None:
         # concat bert features
-        self.chat_data = pd.concat([self.chat_data, self.bert_data], axis = 1)
+        self.chat_data = pd.concat([self.chat_data, self.bert_sentiment_data], axis = 1)
 
-    
-    
     def text_based_features(self) -> None:
         """
             This function is used to implement the common text based featuers.
