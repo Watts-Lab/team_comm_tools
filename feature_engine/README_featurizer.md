@@ -16,6 +16,6 @@ Some features are computationally inefficient to run every time, so we do some o
 The following do not have to be re-run (the outputs are already saved to this directory):
 - `features/positivity_bert_analysis.ipynb` --> generates `sentiment_bert/*`
 
-# Run the main featurizer (do this every time you want to refresh/generate new features).
+# Run the main featurizer [Do this every time you want to refresh/generate new features.]
 
 In the terminal, run `python3 featurize.py`.
