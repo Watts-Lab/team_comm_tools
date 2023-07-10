@@ -14,7 +14,7 @@ Some features are computationally inefficient to run every time, so the featuriz
 - `features/preprocess_lexicons.ipynb` --> generates `features/lexicons_dict.pkl`
 
 ## Run once _per dataset_ (generates dataset-specific pre-processing / embeddings)
-The following needs to be run upon initiatlizing the directory:
+The following needs to be run upon initializing the directory:
 - `features/process_sent_vectors.ipynb` --> generates `embeddings/*`
 
 The following does not have to be run upon initialization (the outputs are already saved); however, as new datasets are added, this script needs to be re-run for each new dataset.
