@@ -108,9 +108,9 @@ class FeatureBuilder:
         print("Generating Chat Level Features ...")
         self.chat_level_features()
         # Step 3. Create conversation level features.
-        # print("Generating Conversation Level Features ...")
-        # self.conv_level_features()
-        # self.merge_conv_data_with_original()
+        print("Generating Conversation Level Features ...")
+        self.conv_level_features()
+        self.smerge_conv_data_with_original()
         # Step 4. Write the feartures into the files defined in the output paths.
         print("All Done!")
         self.save_features()
