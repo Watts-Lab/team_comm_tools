@@ -21,7 +21,6 @@ from features.word_mimicry import *
 from features.hedge import *
 from features.textblob_sentiment_analysis import *
 from features.readability import *
-from features.positivity_zscore import *
 from features.question_num import *
 from features.temporal_features import *
 
@@ -124,16 +123,13 @@ class ChatLevelFeaturesCalculator:
 
     def positivity_zscore(self) -> None:
         """
-            This function calculates the z-score of a message's positivity
-            Please see features/positivity_zscore.py to learn more about how these features are calculated.
+            This function calculates the z-score of a message's positivity (As measured by BERT)
         """
-        self.chat_data["positivity_wordcount"] = get_positivity_wordcount(self.chat_data)
-        
         # Get the z-score of each message across all chats
-        self.chat_data["positivity_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "positivity_wordcount")
+        self.chat_data["positivity_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "positive_bert")
 
         # Get the z-score within each conversation
-        self.chat_data["positivity_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "positivity_wordcount")
+        self.chat_data["positivity_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "positive_bert")
 
     def lexical_features(self) -> None:
         """
