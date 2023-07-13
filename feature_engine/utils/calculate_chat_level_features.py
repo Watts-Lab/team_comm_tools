@@ -16,7 +16,7 @@ from features.politeness_features import *
 from features.basic_features import *
 from features.info_exchange_zscore import *
 from features.lexical_features_v2 import *
-from features.other_LIWC_features import *
+from features.other_lexical_features import *
 from features.word_mimicry import *
 from features.hedge import *
 from features.textblob_sentiment_analysis import *
