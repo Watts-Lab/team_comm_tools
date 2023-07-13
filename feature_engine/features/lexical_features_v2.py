@@ -8,6 +8,15 @@ import pickle
 import re
 import pandas as pd
 
+# Store the LIWC features as a RATE per 100 words, per best practice (cite: https://www.mikeyeomans.info/papers/PGCR_yeomans.pdf, p. 42)
+# len(re.findall(regex, chat)) is the raw count
+# Formula: count / chat length * (chat length / 100) -> count / 100
+def get_liwc_rate(regex, chat):
+	if(len(chat) > 0):
+		return (len(re.findall(regex, chat))/(len(chat)))*(len(chat)/100)
+	else:
+		return 0
+
 def liwc_features(chat_df: pd.DataFrame) -> pd.DataFrame:
 	"""
 		This function takes in the chat level input dataframe and computes the lexicon feautres for the 'message' column.
@@ -27,11 +36,7 @@ def liwc_features(chat_df: pd.DataFrame) -> pd.DataFrame:
 	# Return the lexical features stacked as columns
 	return pd.concat(
 		# Finding the # of occurrences of lexicons of each type for all the messages.
-		# Store the LIWC features as a RATE per 100 words, per best practice (cite: https://www.mikeyeomans.info/papers/PGCR_yeomans.pdf, p. 42)
-		# len(re.findall(regex, chat)) is the raw count
-		# Formula: count / chat length * (chat length / 100) -> count / 100
-
-		[pd.DataFrame(chat_df["message"].apply(lambda chat: (len(re.findall(regex, chat))/(len(chat)))*(len(chat)/100) ))\
+		[pd.DataFrame(chat_df["message"].apply(lambda chat: get_liwc_rate(regex, chat)))\
 			  							.rename({"message": lexicon_type}, axis=1)\
 			for lexicon_type, regex in lexicons_dict.items()], 
 		axis=1
