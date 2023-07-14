@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
 	# ntri_feature_builder.featurize(col="message")
 
-	# # FULL DATASETS BELOW
+	# FULL DATASETS BELOW
 
 	# Juries
 	jury_feature_builder = FeatureBuilder(

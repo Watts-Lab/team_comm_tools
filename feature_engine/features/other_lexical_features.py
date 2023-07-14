@@ -29,4 +29,4 @@ def get_word_TTR(text):
 
 ## Proportion of first person pronouns
 def get_proportion_first_pronouns(df):
-  return(df.apply(lambda row: row["first_person"] / row["num_words"] if row["num_words"] > 0 else 0, axis=1))
+  return(df.apply(lambda row: row["first_person_raw"] / row["num_words"] if row["num_words"] > 0 else 0, axis=1))
