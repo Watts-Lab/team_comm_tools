@@ -41,6 +41,7 @@ class ChatLevelFeaturesCalculator:
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
         self.function_words = get_function_words() # load function words exactly once
         self.question_words = get_question_words() # load question words exactly once
+        self.first_person = get_first_person_words() # load first person words exactly once
         
     def calculate_chat_level_features(self) -> pd.DataFrame:
         """
@@ -57,6 +58,9 @@ class ChatLevelFeaturesCalculator:
         # Text-Based Basic Features
         self.text_based_features()
 
+        # "Basic" Info Exchange Feature -- z-scores of content minus first pronouns
+        self.info_exchange()
+
         # lexical features
         self.lexical_features()
 
@@ -71,9 +75,6 @@ class ChatLevelFeaturesCalculator:
 
         # TextBlob Sentiment features
         self.calculate_textblob_sentiment()
-
-        # Info Exchange Feature
-        self.info_exchange()
         
         # Positivity Z-Score
         self.positivity_zscore()
@@ -113,13 +114,16 @@ class ChatLevelFeaturesCalculator:
             (see features/info_exchange_zscore.py to learn more about how these features are calculated).
         """
         # Get Modified Wordcount: Total word count - first_singular pronouns
-        self.chat_data["info_exchange_wordcount"] = get_info_exchange_wordcount(self.chat_data)
+        self.chat_data["info_exchange_wordcount"] = get_info_exchange_wordcount(self.chat_data, self.first_person)
         
         # Get the z-score of each message across all chats
         self.chat_data["info_exchange_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "info_exchange_wordcount")
 
         # Get the z-score within each conversation
         self.chat_data["info_exchange_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "info_exchange_wordcount")
+
+        # Drop the info exchange wordcount --- it's a linear combination of 2 columns and therefore useless
+        self.chat_data = self.chat_data.drop(columns=['info_exchange_wordcount'])
 
     def positivity_zscore(self) -> None:
         """
@@ -180,6 +184,10 @@ class ChatLevelFeaturesCalculator:
         
         # Calculate the proportion of first person pronouns from the chats
         self.chat_data["first_pronouns_proportion"] = get_proportion_first_pronouns(self.chat_data)
+
+        # drop the raw number of first pronouns -- unnecessary given this is proportional to other first-pronoun columns
+        self.chat_data = self.chat_data.drop(columns=['first_person_raw'])
+
         
     def calculate_word_mimicry(self) -> None:
         """
