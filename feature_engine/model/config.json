@@ -53,7 +53,8 @@
         "csop": "Room assignment task",
         "csopII": "Room assignment task",
         "dat": "Divergent Association Task",
-        "becker": "Estimating Factual Quantities"
+        "becker": "Estimating Factual Quantities",
+        "gurcay": "Estimating Factual Quantities"
     },
     "task_names": ["Mock jury", "Room assignment task", "Room assignment task", "Divergent Association Task", "Estimating Factual Quantities"] 
 }

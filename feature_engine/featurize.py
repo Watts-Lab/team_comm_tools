@@ -18,30 +18,30 @@ if __name__ == "__main__":
 	# Defines one class for each dataset.
 	
 	# Tiny juries (first 50%)
-	feature_builder_first_50pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_50/jury_TINY_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_50/jury_TINY_output_conversation_level.csv",
-		analyze_first_pct = 0.5
-	)
-	feature_builder_first_50pct.featurize(col="message")
-
-	# Tiny juries (first 80%)
-	feature_builder_first_80pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_80/jury_TINY_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_80/jury_TINY_output_conversation_level.csv",
-		analyze_first_pct = 0.8
-	)
-	feature_builder_first_80pct.featurize(col="message")
-
-	# # Tiny Juries --- this is our default, test set.
-	# feature_builder = FeatureBuilder(
+	# feature_builder_first_50pct = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/jury_TINY_output_chat_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/jury_TINY_output_conversation_level.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_50/jury_TINY_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_50/jury_TINY_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.5
 	# )
-	# feature_builder.featurize(col="message")
+	# feature_builder_first_50pct.featurize(col="message")
+
+	# # Tiny juries (first 80%)
+	# feature_builder_first_80pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_80/jury_TINY_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_80/jury_TINY_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.8
+	# )
+	# feature_builder_first_80pct.featurize(col="message")
+
+	# Tiny Juries --- this is our default, test set.
+	feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
+		output_file_path_chat_level = "../feature_engine/output/jury_TINY_output_chat_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/jury_TINY_output_conversation_level.csv",
+	)
+	feature_builder.featurize(col="message")
 
 	#####
 
@@ -66,21 +66,21 @@ if __name__ == "__main__":
 	# FULL DATASETS BELOW
 
 	# Juries
-	jury_feature_builder_first50pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_50/jury_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_50/jury_output_conversation_level.csv",
-		analyze_first_pct = 0.5
-	)
-	jury_feature_builder_first50pct.featurize(col="message")
+	# jury_feature_builder_first50pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_50/jury_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_50/jury_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.5
+	# )
+	# jury_feature_builder_first50pct.featurize(col="message")
 
-	jury_feature_builder_first80pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_80/jury_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_80/jury_output_conversation_level.csv",
-		analyze_first_pct = 0.8
-	)
-	jury_feature_builder_first80pct.featurize(col="message")
+	# jury_feature_builder_first80pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_80/jury_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_80/jury_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.8
+	# )
+	# jury_feature_builder_first80pct.featurize(col="message")
 
 
 	# jury_feature_builder = FeatureBuilder(
@@ -94,21 +94,21 @@ if __name__ == "__main__":
 
 
 	# CSOP (Abdullah)
-	csop_feature_builder_first50pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_50/csop_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_50/csop_output_conversation_level.csv",
-		analyze_first_pct = 0.5
-	)
-	csop_feature_builder_first50pct.featurize(col="message")
+	# csop_feature_builder_first50pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_50/csop_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_50/csop_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.5
+	# )
+	# csop_feature_builder_first50pct.featurize(col="message")
 
-	csop_feature_builder_first80pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_80/csop_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_80/csop_output_conversation_level.csv",
-		analyze_first_pct = 0.8
-	)
-	csop_feature_builder_first80pct.featurize(col="message")
+	# csop_feature_builder_first80pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_80/csop_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_80/csop_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.8
+	# )
+	# csop_feature_builder_first80pct.featurize(col="message")
 
 	# csop_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
@@ -121,21 +121,21 @@ if __name__ == "__main__":
 	
 
 	# CSOP II (Nak Won Rim)
-	csopII_feature_builder_first50pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_50/csopII_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_50/csopII_output_conversation_level.csv",
-		analyze_first_pct = 0.5
-	)
-	csopII_feature_builder_first50pct.featurize(col="message")
+	# csopII_feature_builder_first50pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_50/csopII_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_50/csopII_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.5
+	# )
+	# csopII_feature_builder_first50pct.featurize(col="message")
 
-	csopII_feature_builder_first80pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_80/csopII_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_80/csopII_output_conversation_level.csv",
-	analyze_first_pct = 0.8
-	)
-	csopII_feature_builder_first80pct.featurize(col="message")	
+	# csopII_feature_builder_first80pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_80/csopII_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_80/csopII_output_conversation_level.csv",
+	# analyze_first_pct = 0.8
+	# )
+	# csopII_feature_builder_first80pct.featurize(col="message")	
 
 
 	# csopII_feature_builder = FeatureBuilder(
@@ -149,21 +149,21 @@ if __name__ == "__main__":
 	
 
 	# DAT - Divergent Association Task
-	dat_feature_builder_first50pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/DAT_conversations_withblanks.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_50/DAT_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_50/DAT_output_conversation_level.csv",
-		analyze_first_pct = 0.5
-	)
-	dat_feature_builder_first50pct.featurize(col="message")
+	# dat_feature_builder_first50pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/DAT_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_50/DAT_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_50/DAT_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.5
+	# )
+	# dat_feature_builder_first50pct.featurize(col="message")
 
-	dat_feature_builder_first80pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/DAT_conversations_withblanks.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_80/DAT_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_80/DAT_output_conversation_level.csv",
-		analyze_first_pct = 0.8
-	)
-	dat_feature_builder_first80pct.featurize(col="message")
+	# dat_feature_builder_first80pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/DAT_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_80/DAT_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_80/DAT_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.8
+	# )
+	# dat_feature_builder_first80pct.featurize(col="message")
 
 	# dat_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/DAT_conversations_withblanks.csv",
@@ -184,6 +184,20 @@ if __name__ == "__main__":
 	
 
 	# Estimation (Gurcay)
+	# gurcay_estimation_feature_builder_first50pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_50/gurcay2015estimation_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_50/gurcay2015estimation_output_conversation_level.csv"
+	# )
+	# gurcay_estimation_feature_builder_first50pct.featurize(col="message")	
+
+	# gurcay_estimation_feature_builder_first80pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_80/gurcay2015estimation_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_80/gurcay2015estimation_output_conversation_level.csv"
+	# )
+	# gurcay_estimation_feature_builder_first80pct.featurize(col="message")
+
 	# gurcay_estimation_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/gurcay2015estimation_output_chat_level.csv",
@@ -194,21 +208,21 @@ if __name__ == "__main__":
 	
 
 	# Estimation (Becker)
-	becker_estimation_feature_builder_first50pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_50/beckerestimation_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_50/beckerestimation_output_conversation_level.csv",
-		analyze_first_pct = 0.5
-	)
-	becker_estimation_feature_builder_first50pct.featurize(col="message")
+	# becker_estimation_feature_builder_first50pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_50/beckerestimation_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_50/beckerestimation_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.5
+	# )
+	# becker_estimation_feature_builder_first50pct.featurize(col="message")
 
-	becker_estimation_feature_builder_first80pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_80/beckerestimation_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_80/beckerestimation_output_conversation_level.csv",
-		analyze_first_pct = 0.8
-	)
-	becker_estimation_feature_builder_first80pct.featurize(col="message")
+	# becker_estimation_feature_builder_first80pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_80/beckerestimation_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_80/beckerestimation_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.8
+	# )
+	# becker_estimation_feature_builder_first80pct.featurize(col="message")
 
 	# becker_estimation_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
