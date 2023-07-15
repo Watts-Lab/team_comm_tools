@@ -366,18 +366,31 @@ class ModelBuilder():
         """
         # Calls the `define_dataset_for_model()` function to get the `X`s and the `y`s
         self.X, self.y = self.define_dataset_for_model()
+        
         # If we need to split out a test set
-        if test_size:
+        if self.test_dataset_names == None:
             # Spit train-val and test set in a `(1-test_size)-test_size` split
-            X_train_val, X_test, y_train_val, y_test = train_test_split(self.X, self.y, random_state=42, test_size=test_size)
+            X_train_val = self.X
+            y_train_val = self.y
+            
+            # Split test set only if specified
+            if test_size: 
+                X_train_val, X_test, y_train_val, y_test = train_test_split(self.X, self.y, random_state=42, test_size=test_size)
+                self.has_test_set = True
+
             # Spit train and val set in a `(1-val_size)-val_size` split (here split sizes refers to the percentages after the split done above)
             X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, random_state=42, test_size=val_size)
+           
             # Set the train val and test sets in global variables to be used by all classes
             self.X_train, self.y_train = X_train, y_train
             self.X_val, self.y_val = X_val, y_val
-            self.X_test, self.y_test = X_test, y_test
+            
+            # Set these to none if test_size is not specified
+            if test_size: self.X_test, self.y_test = X_test, y_test
+            else: self.has_test_set = False
         # If we have a designated test set
         else:
+            self.has_test_set = True
             # Spit train and val set in a `(1-val_size)-val_size` split (here split sizes refers to the percentages after the split done above)
             X_train, X_val, y_train, y_val = train_test_split(self.X, self.y, random_state=42, test_size=val_size)
             # Set the train val and test sets in global variables to be used by all classes
@@ -394,7 +407,9 @@ class ModelBuilder():
         """
         train_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_train, self.y_train))
         val_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_val, self.y_val))
-        test_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_test, self.y_test))
+        
+        if(self.has_test_set): test_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_test, self.y_test))
+        
         print("MODEL METRICS")
         print('Train Set:', end='\t')
         print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(train_metrics['r2'], train_metrics['mae'], train_metrics['mse'], train_metrics['rmse']))
@@ -402,8 +417,9 @@ class ModelBuilder():
         print('Validation Set:', end='\t')
         print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(val_metrics['r2'], val_metrics['mae'], val_metrics['mse'], val_metrics['rmse']))
 
-        print('Test Set:', end='\t')
-        print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(test_metrics['r2'], test_metrics['mae'], test_metrics['mse'], test_metrics['rmse']))
+        if(self.has_test_set):
+            print('Test Set:', end='\t')
+            print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(test_metrics['r2'], test_metrics['mae'], test_metrics['mse'], test_metrics['rmse']))
 
     def calculate_model_metrics(self, model, dataset: list) -> dict:
         """Returns a dictionary with the model metrics to be printed out by the summarize_model_metrics() function.
