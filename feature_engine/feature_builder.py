@@ -27,7 +27,8 @@ class FeatureBuilder:
             self, 
             input_file_path: str, 
             output_file_path_chat_level: str, 
-            output_file_path_conv_level: str
+            output_file_path_conv_level: str,
+            analyze_first_pct: float=1.0
         ) -> None:
         """
             This function is used to define variables used throughout the class.
@@ -38,12 +39,19 @@ class FeatureBuilder:
                                                       (assumes that the '.csv' suffix is added)
             @param output_file_path_conv_level (str): Path where the output csv file is to be generated 
                                                       (assumes that the '.csv' suffix is added)
+            @param analyze_first_pct (float): Analyze the first X% of the data.
+                This parameter is useful because the earlier stages of the conversation may be more predictive than
+                the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data
+                and compare the performance with using the full dataset.
         """
         #  Defining input and output paths.
         self.input_file_path = input_file_path
         print("Initializing Featurization for " + self.input_file_path + " ...")
         self.output_file_path_chat_level = output_file_path_chat_level
         self.output_file_path_conv_level = output_file_path_conv_level
+
+        # Set first pct of conversation you want to analyze
+        self.first_pct = analyze_first_pct
 
         # Set word embedding path
         self.word_embedding_path = re.sub('../feature_engine/data/raw_data', './embeddings/', self.input_file_path)
@@ -59,8 +67,6 @@ class FeatureBuilder:
         self.preprocess_chat_data(col="message")
 
         self.input_columns = self.chat_data.columns
-
-        
         
         # Deriving the base conversation level dataframe.
         # This is the number of unique conversations (and, in conversations with multiple levels, the number of
@@ -107,6 +113,11 @@ class FeatureBuilder:
         # Step 2. Create chat level features.
         print("Generating Chat Level Features ...")
         self.chat_level_features()
+        # Step 2a. Truncate Conversation (e.g., analyze first X%)
+        # TODO - the current implementation first runs the chat level features on ALL chats,
+        # and then truncates afterwards. This could be made more efficient by running the chat-level
+        # features *once*, then producing different summaries in sequence (e.g., 50%, 80%) depending on the user's specifications.
+        self.get_first_pct_of_chat()
         # Step 3. Create conversation level features.
         print("Generating Conversation Level Features ...")
         self.conv_level_features()
@@ -147,6 +158,18 @@ class FeatureBuilder:
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features()
+    
+    def get_first_pct_of_chat(self) -> None:
+        """
+            This function truncates each conversation to the first X% of rows.
+        """
+        chat_grouped = self.chat_data.groupby('conversation_num')
+        num_rows_to_retain = pd.DataFrame(np.ceil(chat_grouped.size() * self.first_pct)).reset_index()
+        chat_truncated = pd.DataFrame()
+        for conversation_num, num_rows in num_rows_to_retain.itertuples(index=False):
+            chat_truncated = pd.concat([chat_truncated,chat_grouped.get_group(conversation_num).head(int(num_rows))], ignore_index = True)
+
+        self.chat_data = chat_truncated
 
     def conv_level_features(self) -> None:
         """
