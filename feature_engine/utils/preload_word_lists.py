@@ -31,3 +31,12 @@ def get_question_words():
     with open('./features/lexicons/question_words.txt', 'r') as file:
         question_word_list = [line.strip() for line in file]
     return question_word_list
+
+"""
+Returns a list of first-person pronouns.
+"""
+def get_first_person_words():
+    #get the list of dale-chall words
+    with open('./features/lexicons/other_lexicons/first_person.txt', 'r') as file:
+        question_word_list = [line.strip() for line in file]
+    return question_word_list
