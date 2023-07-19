@@ -27,6 +27,7 @@ class FeatureBuilder:
             self, 
             input_file_path: str, 
             output_file_path_chat_level: str, 
+            output_file_path_user_level: str,
             output_file_path_conv_level: str,
             analyze_first_pct: float=1.0
         ) -> None:
@@ -49,6 +50,9 @@ class FeatureBuilder:
         print("Initializing Featurization for " + self.input_file_path + " ...")
         self.output_file_path_chat_level = output_file_path_chat_level
         self.output_file_path_conv_level = output_file_path_conv_level
+
+        # USER LEVEL FUNCTIONALITY 
+        # self.output_file_path_user_level = output_file_path_user_level
 
         # Set first pct of conversation you want to analyze
         self.first_pct = analyze_first_pct
@@ -73,6 +77,9 @@ class FeatureBuilder:
         # unique rows across "batch_num", and "round_num".)
         # Assume that "conversation_num" is the primary key for this table.
         self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
+
+        # USER LEVEL FUNCTIONALITY 
+        # self.user_data = self.chat_data[['conversation_num', 'speaker_nickname']].drop_duplicates()
 
     def set_self_conv_data(self) -> None:
         """
