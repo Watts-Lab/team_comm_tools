@@ -34,7 +34,7 @@ class UserLevelFeaturesCalculator:
         self.columns_to_summarize = [column for column in self.chat_data.columns \
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
 
-    def calculate_conversation_level_features(self) -> pd.DataFrame:
+    def calculate_user_level_features(self) -> pd.DataFrame:
         """
 			This is the main driver function for this class.
 
@@ -47,9 +47,9 @@ class UserLevelFeaturesCalculator:
         self.get_user_level_summary_statistics_features()
 
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
-        self.get_centroids()
+        # self.get_centroids()
 
-        return self.conv_data
+        return self.user_data
 
     def get_user_level_summary_statistics_features(self) -> None:
         """
@@ -60,10 +60,10 @@ class UserLevelFeaturesCalculator:
         # For each summarizable feature
         for column in self.columns_to_summarize:
             # Average/Mean of feature across the Conversation
-            self.conv_data = pd.merge(
-                left=self.conv_data,
+            self.user_data = pd.merge(
+                left=self.user_data,
                 right=get_count_dataframe(self.chat_data, column),
-                on=['conversation_num'],
+                on=['conversation_num', 'speaker_nickname'],
                 how="inner"
             )
 
@@ -76,9 +76,6 @@ class UserLevelFeaturesCalculator:
 
 
 
-
-
-
 # FEATURES FOR USER LEVEL
 
 # 1. Semantic modulation
@@ -88,6 +85,8 @@ class UserLevelFeaturesCalculator:
 
 # 2. Summarize chat level features for speakers (get count dataframe)
 # words, characters, LIWC, ConvoKit, BERT
+# GETTING CENTROIDS FOR CONVERSATION --> discursive diversity (per conversation)
+# --> may have to store this information in separate file for readability?
 
 # 3. Inputs for a model
 # Currently, all the inputs are in the conversational-level output. All chat level features are aggregated into min, average, max, and stdev across all speakers in a given conversation. For example, MAX positivity represents the speaker with the highest positivity score across all chats in its conversation.
