@@ -8,12 +8,13 @@ The intention behind this class is to use these modules and define any and all c
 # Importing modules from features
 from features.gini_coefficient import *
 from features.basic_features import *
-from utils.summarize_chat_level_features import *
+# from utils.summarize_chat_level_features import *
+from utils.summarize_user_level_features import *
 from features.get_all_DD_features import *
 
 
 class ConversationLevelFeaturesCalculator:
-    def __init__(self, chat_data: pd.DataFrame, conv_data: pd.DataFrame, vect_data: pd.DataFrame, input_columns:list) -> None:
+    def __init__(self, chat_data: pd.DataFrame, user_data: pd.DataFrame, conv_data: pd.DataFrame, vect_data: pd.DataFrame, input_columns:list) -> None:
         """
             This function is used to initialize variables and objects that can be used by all functions of this class.
 
@@ -26,6 +27,7 @@ class ConversationLevelFeaturesCalculator:
         """
         # Initializing variables
         self.chat_data = chat_data
+        self.user_data = user_data
         self.conv_data = conv_data
         self.vect_data = vect_data
         # Denotes the columns that can be summarized from the chat level, onto the conversation level.
@@ -59,7 +61,7 @@ class ConversationLevelFeaturesCalculator:
         # Gini for #Words
         self.conv_data = pd.merge(
             left=self.conv_data,
-            right=get_gini(self.chat_data, "num_words"),
+            right=get_gini(self.user_data.copy(), "num_words"),
             on=['conversation_num'],
             how="inner"
         )
@@ -67,7 +69,7 @@ class ConversationLevelFeaturesCalculator:
         # Gini for #Characters
         self.conv_data = pd.merge(
             left=self.conv_data,
-            right=get_gini(self.chat_data, "num_chars"),
+            right=get_gini(self.user_data.copy(), "num_chars"),
             on=['conversation_num'],
             how="inner"
         )
@@ -78,12 +80,13 @@ class ConversationLevelFeaturesCalculator:
             chat level features to conversation level features.
             Specifically, it looks at the mean and standard deviations at message and word level.
         """
+
         # For each summarizable feature
         for column in self.columns_to_summarize:
             # Average/Mean of feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_average(self.chat_data, column, 'average_'+column),
+                right=get_average(self.user_data.copy(), column, 'average_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -91,7 +94,7 @@ class ConversationLevelFeaturesCalculator:
             # Standard Deviation of feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_stdev(self.chat_data, column, 'stdev_'+column),
+                right=get_stdev(self.user_data.copy(), column, 'stdev_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -99,7 +102,7 @@ class ConversationLevelFeaturesCalculator:
             # Minima for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_min(self.chat_data, column, 'min_'+column),
+                right=get_min(self.user_data.copy(), column, 'min_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -107,7 +110,7 @@ class ConversationLevelFeaturesCalculator:
             # Maxima for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_max(self.chat_data, column, 'max_'+column),
+                right=get_max(self.user_data.copy(), column, 'max_'+column),
                 on=['conversation_num'],
                 how="inner"
             )

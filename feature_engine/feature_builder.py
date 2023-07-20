@@ -19,6 +19,7 @@ import re
 # Imports from feature files and classes
 from utils.summarize_chat_level_features import *
 from utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
+from utils.calculate_user_level_features import UserLevelFeaturesCalculator
 from utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
 from utils.preprocess import *
 
@@ -52,7 +53,7 @@ class FeatureBuilder:
         self.output_file_path_conv_level = output_file_path_conv_level
 
         # USER LEVEL FUNCTIONALITY 
-        # self.output_file_path_user_level = output_file_path_user_level
+        self.output_file_path_user_level = output_file_path_user_level
 
         # Set first pct of conversation you want to analyze
         self.first_pct = analyze_first_pct
@@ -79,7 +80,7 @@ class FeatureBuilder:
         self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
 
         # USER LEVEL FUNCTIONALITY 
-        # self.user_data = self.chat_data[['conversation_num', 'speaker_nickname']].drop_duplicates()
+        self.user_data = self.chat_data[['conversation_num', 'speaker_nickname']].drop_duplicates()
 
     def set_self_conv_data(self) -> None:
         """
@@ -120,6 +121,9 @@ class FeatureBuilder:
         # Step 2. Create chat level features.
         print("Generating Chat Level Features ...")
         self.chat_level_features()
+
+        print("Generating User Level Features ...")
+        self.user_level_features()
         # Step 2a. Truncate Conversation (e.g., analyze first X%)
         # TODO - the current implementation first runs the chat level features on ALL chats,
         # and then truncates afterwards. This could be made more efficient by running the chat-level
@@ -178,6 +182,24 @@ class FeatureBuilder:
 
         self.chat_data = chat_truncated
 
+    def user_level_features(self) -> None:
+        """
+            This function instantiates and uses the UserLevelFeaturesCalculator to create the 
+            user level features and add them into the `self.user_data` dataframe.
+        """
+        # Instantiating.
+        self.user_data = preprocess_conversation_columns(self.user_data)
+        user_feature_builder = UserLevelFeaturesCalculator(
+            chat_data = self.chat_data, 
+            user_data = self.user_data,
+            vect_data= self.vect_data,
+            input_columns = self.input_columns
+        )
+        # Calling the driver inside this class to create the features.
+        self.user_data = user_feature_builder.calculate_user_level_features()
+
+    
+    
     def conv_level_features(self) -> None:
         """
             This function instantiates and uses the ConversationLevelFeaturesCalculator to create the 
@@ -187,6 +209,7 @@ class FeatureBuilder:
         self.conv_data = preprocess_conversation_columns(self.conv_data)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
+            user_data= self.user_data,
             conv_data = self.conv_data,
             vect_data= self.vect_data,
             input_columns = self.input_columns
@@ -201,4 +224,5 @@ class FeatureBuilder:
         # TODO: For now this function is very trivial. We will finilize the output formats (with date-time info etc) 
         # and control the output mechanism through this function.
         self.chat_data.to_csv(self.output_file_path_chat_level, index=False)
+        self.user_data.to_csv(self.output_file_path_user_level, index=False)
         self.conv_data.to_csv(self.output_file_path_conv_level, index=False)
