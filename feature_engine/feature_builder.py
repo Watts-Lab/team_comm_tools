@@ -54,11 +54,14 @@ class FeatureBuilder:
         self.first_pct = analyze_first_pct
 
         # Set word embedding path
-        self.word_embedding_path = re.sub('../feature_engine/data/raw_data', './embeddings/', self.input_file_path)
+        self.word_embedding_path = re.sub('../feature_engine/data/raw_data', './embeddings', self.input_file_path)
         self.vect_data = pd.read_csv(self.word_embedding_path, encoding='mac_roman')
 
         # Set bert sentiment path
         self.bert_sentiment_path = re.sub('../feature_engine/data/raw_data', './sentiment_bert/', self.input_file_path)
+        # CENSORED DATA
+        # self.bert_sentiment_path = './sentiment_bert/jury_censored_conversations_with_outcome_var.csv'
+        
         self.bert_sentiment_data = pd.read_csv(self.bert_sentiment_path, encoding='mac_roman').drop('Unnamed: 0', axis=1)
 
         # Reading chat level data (this is available in the input file path directly).
