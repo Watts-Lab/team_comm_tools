@@ -2,13 +2,15 @@ import numpy as np
 import csv
 import pandas as pd
 
-from utils.summarize_chat_level_features import get_count_dataframe
+from utils.summarize_user_level_features import get_count_dataframe
 
 # source: https://stackoverflow.com/questions/39512260/calculating-gini-coefficient-in-python-numpy
 def gini_coefficient(x):
     diffsum = 0
     for i, xi in enumerate(x[:-1], 1):
         diffsum += np.sum(np.abs(xi - x[i:]))
+    if ((len(x)**2 * np.mean(x)) == 0):
+        return np.nan
     return diffsum / (len(x)**2 * np.mean(x))
 
 '''
