@@ -7,7 +7,7 @@ The intention behind this class is to use these modules and define any and all u
 """
 
 # Importing modules from features
-from utils.summarize_chat_level_features import get_count_dataframe
+from utils.summarize_user_level_features import get_count_dataframe
 from features.user_centroids import *
 
 
