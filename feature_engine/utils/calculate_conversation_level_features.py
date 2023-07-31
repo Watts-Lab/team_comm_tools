@@ -8,8 +8,8 @@ The intention behind this class is to use these modules and define any and all c
 # Importing modules from features
 from features.gini_coefficient import *
 from features.basic_features import *
-from utils.summarize_chat_level_features import *
-from utils.summarize_user_level_features import *
+# from utils.summarize_chat_level_features import *
+from utils.summarize_features import *
 from features.get_all_DD_features import *
 
 
@@ -46,10 +46,15 @@ class ConversationLevelFeaturesCalculator:
         """
         # Get gini based features
         self.get_gini_features()
-        # Get summary statistics by aggregating chat level features
-        self.get_conversation_level_aggregates()
+        System.out.println("Generated gini features.")
 
+        # Get summary statistics by aggregating chat level features, pass in CHAT LEVEL FEATURES
+        self.get_conversation_level_aggregates()
+        System.out.println("Generated chat aggregates.")
+
+        # Get summary statistics by aggregating user level features, pass in USER LEVEL FEATURES 
         self.get_user_level_aggregates()
+        System.out.println("Generated user aggregates.")
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
         self.get_discursive_diversity_features()
 
@@ -83,7 +88,7 @@ class ConversationLevelFeaturesCalculator:
             # Average/Mean of feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_average(self.chat_data, column, 'average_'+column),
+                right=get_average(self.chat_data.copy(), column, 'average_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -91,7 +96,7 @@ class ConversationLevelFeaturesCalculator:
             # Standard Deviation of feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_stdev(self.chat_data, column, 'stdev_'+column),
+                right=get_stdev(self.chat_data.copy(), column, 'stdev_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -99,7 +104,7 @@ class ConversationLevelFeaturesCalculator:
             # Minima for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_min(self.chat_data, column, 'min_'+column),
+                right=get_min(self.chat_data.copy(), column, 'min_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -107,7 +112,7 @@ class ConversationLevelFeaturesCalculator:
             # Maxima for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_max(self.chat_data, column, 'max_'+column),
+                right=get_max(self.chat_data.copy(), column, 'max_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -115,7 +120,7 @@ class ConversationLevelFeaturesCalculator:
             # Sum for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_sum(self.chat_data, column, 'sum_'+column),
+                right=get_sum(self.chat_data.copy(), column, 'sum_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -132,7 +137,7 @@ class ConversationLevelFeaturesCalculator:
             # Average/Mean of feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_average_user(self.user_data.copy(), column, 'average_user_'+column),
+                right=get_average(self.user_data.copy(), column, 'average_user_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -140,7 +145,7 @@ class ConversationLevelFeaturesCalculator:
             # Standard Deviation of feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_stdev_user(self.user_data.copy(), column, 'stdev_user_'+column),
+                right=get_stdev(self.user_data.copy(), column, 'stdev_user_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -148,7 +153,7 @@ class ConversationLevelFeaturesCalculator:
             # Minima for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_min_user(self.user_data.copy(), column, 'min_user_'+column),
+                right=get_min(self.user_data.copy(), column, 'min_user_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -156,7 +161,7 @@ class ConversationLevelFeaturesCalculator:
             # Maxima for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_max_user(self.user_data.copy(), column, 'max_user_'+column),
+                right=get_max(self.user_data.copy(), column, 'max_user_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -164,7 +169,7 @@ class ConversationLevelFeaturesCalculator:
             # Sum for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_max_user(self.user_data.copy(), column, 'sum_user_'+column),
+                right=get_max(self.user_data.copy(), column, 'sum_user_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
