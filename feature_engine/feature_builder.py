@@ -15,9 +15,10 @@ The intention behind this class is to use these modules and:
 # 3rd Party Imports
 import pandas as pd
 import re
+import numpy as np
 
 # Imports from feature files and classes
-from utils.summarize_chat_level_features import *
+# from utils.summarize_chat_level_features import *
 from utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
 from utils.calculate_user_level_features import UserLevelFeaturesCalculator
 from utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator

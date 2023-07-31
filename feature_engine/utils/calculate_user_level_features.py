@@ -7,7 +7,8 @@ The intention behind this class is to use these modules and define any and all u
 """
 
 # Importing modules from features
-from utils.summarize_user_level_features import get_count_dataframe
+from utils.summarize_features import get_user_count_dataframe
+from features.get_user_network import *
 from features.user_centroids import *
 
 
@@ -45,9 +46,12 @@ class UserLevelFeaturesCalculator:
 
         # Get total counts by aggregating chat level features
         self.get_user_level_summary_statistics_features()
-
+        
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
         # self.get_centroids()
+
+        # Get list of other users in a given conversation
+        self.get_user_network()
 
         return self.user_data
 
@@ -62,7 +66,7 @@ class UserLevelFeaturesCalculator:
             # Average/Mean of feature across the Conversation
             self.user_data = pd.merge(
                 left=self.user_data,
-                right=get_count_dataframe(self.chat_data, column),
+                right=get_user_count_dataframe(self.chat_data, column),
                 on=['conversation_num', 'speaker_nickname'],
                 how="inner"
             )
@@ -74,6 +78,18 @@ class UserLevelFeaturesCalculator:
         """
         self.user_data['mean_embedding'] = get_user_centroids(self.chat_data, self.vect_data)
 
+    def get_user_network(self) -> None:
+        '''
+        This function gets the user_list per user per conversation.
+
+        '''
+
+        self.user_data = pd.merge(
+                left=self.user_data,
+                right=get_user_network(self.user_data),
+                on=['conversation_num', 'speaker_nickname'],
+                how="inner"
+            )
 
 
 # FEATURES FOR USER LEVEL
