@@ -30,7 +30,7 @@ Returns: grouped dataframe; [conversation_num, average_of_input_column]
 @param column_to_summarize = the column being aggregated
 @param new_column_name = the desired name of the new summary column
 '''
-def get_average(input_data, column_to_summarize, new_column_name, user=False):
+def get_average(input_data, column_to_summarize, new_column_name):
 	# grouped_conversation_data = get_count_dataframe(chat_level_data, column_to_summarize)
 	input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform(lambda x: np.mean(x))
 	return(input_data[["conversation_num", new_column_name]].drop_duplicates())
