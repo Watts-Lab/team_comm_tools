@@ -67,6 +67,7 @@ class ModelBuilder():
         # Defining placeholders for the features, targets and the baseline model
         self.X, self.y = None, None
         self.baseline_model = None
+
         # TODO - Will work on model optimization in a subsequent PR
         # self.optimized_model = None
 
@@ -284,23 +285,24 @@ class ModelBuilder():
         ax[1].axis("off")
 
     
-    def define_model(self, model_type: str="xgb") -> None:
+    def define_model(self, model_type: str="xgb", random_state: int=42) -> None:
         """Instantiates a model based on the keyword specified by the user.
 
         Args:
             model_type (str, optional): A string keyword that allows us to define a model object of the type desired by the user. 
                                         Current model types supported are: `['xgb', 'lasso', 'linear', 'rf']`
                                         Defaults to "xgb".
+            random_state (int, optional): A number used to set the random seed.
         """
         self.model_type = model_type
         if model_type == 'xgb':
-            self.baseline_model = XGBRegressor(random_state=42)
+            self.baseline_model = XGBRegressor(random_state=random_state)
         elif model_type == 'lasso':
             self.baseline_model = LassoCV(alphas = [0.01, 0.05, .1, 0.25, 0.5, 0.75, 1])
         elif model_type == 'linear':
             self.baseline_model = LinearRegression()
         elif model_type == 'rf':
-            self.baseline_model = RandomForestRegressor(random_state=42)
+            self.baseline_model = RandomForestRegressor(random_state=random_state)
 
     def define_dataset_for_model(self, is_test: bool=False, fit_on_raw: bool=False) -> list:
         """This function stores the features and targets defined in the various global variables into the standard notations - `X`, and `y`. 
@@ -332,7 +334,7 @@ class ModelBuilder():
 
         return X, y
 
-    def evaluate_model(self, model, val_size: float=0.1, test_size: float=0.1) -> None:
+    def evaluate_model(self, model, val_size: float=0.1, test_size: float=0.1, random_state: int=42, visualize_model:bool = True) -> None:
         """This is a driver function that calls a bunch of different functions for the following tasks:
            - Train-Val-Test splits
            - Model Training
@@ -343,26 +345,33 @@ class ModelBuilder():
             model (sklearn/xgboost model): This is the model object defined by `define_model()` function
             val_size (float, optional): This controls the validation data size. Defaults to 0.1.
             test_size (float, optional): This control the test data size (used when there was no explicit dataset designated for testing). Defaults to 0.1.
+            random_state (int, optional): This controls the random seed for randomization. Defaults to 42, but user can provide it.
+            visualize_model (bool, optional): This controls whether we want to print the visualization of the model's SHAP values or not
         """
         print('Checking Holdout Sets', end='...')
         if self.test_dataset_names == None:
             print('Creating Holdout Sets...')
-            self.create_holdout_sets(val_size=val_size, test_size=test_size)
+            self.create_holdout_sets(val_size=val_size, test_size=test_size, random_state=random_state)
         else:
-            self.create_holdout_sets(val_size=val_size)
+            self.create_holdout_sets(val_size=val_size, random_state=random_state)
         print('Done')
         print('Training Model', end='...')
         model = model.fit(self.X_train, self.y_train)
         print('Done')
-        self.summarize_model_metrics(model)
-        self.model_diagnostics(model)
 
-    def create_holdout_sets(self, val_size: float=0.1, test_size: float=None) -> None:
+        # Calculates SHAP values
+        self.model_diagnostics(model, visualize_model=visualize_model)
+
+        # Returns the model metrics as a saveable variable
+        return(self.summarize_model_metrics(model))
+
+    def create_holdout_sets(self, val_size: float=0.1, test_size: float=None, random_state: int=42) -> None:
         """This function splits the data into train-val-test sets if no test set is designated, and splits into train-val only if we already have a designated test set.
 
         Args:
             val_size (float, optional): This controls the percentage of rows out of the train set that need to be held out for validation. Defaults to 0.1.
             test_size (float, optional): This controls the percentage of rows out of the entire dataset that need to be held out for testing. Defaults to None.
+            random state (int, optional): an argument passed in that seeds randomization. Defaults to 42.
         """
         # Calls the `define_dataset_for_model()` function to get the `X`s and the `y`s
         self.X, self.y = self.define_dataset_for_model()
@@ -375,11 +384,11 @@ class ModelBuilder():
             
             # Split test set only if specified
             if test_size: 
-                X_train_val, X_test, y_train_val, y_test = train_test_split(self.X, self.y, random_state=42, test_size=test_size)
+                X_train_val, X_test, y_train_val, y_test = train_test_split(self.X, self.y, random_state=random_state, test_size=test_size)
                 self.has_test_set = True
 
             # Spit train and val set in a `(1-val_size)-val_size` split (here split sizes refers to the percentages after the split done above)
-            X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, random_state=42, test_size=val_size)
+            X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, random_state=random_state, test_size=val_size)
            
             # Set the train val and test sets in global variables to be used by all classes
             self.X_train, self.y_train = X_train, y_train
@@ -392,7 +401,7 @@ class ModelBuilder():
         else:
             self.has_test_set = True
             # Spit train and val set in a `(1-val_size)-val_size` split (here split sizes refers to the percentages after the split done above)
-            X_train, X_val, y_train, y_val = train_test_split(self.X, self.y, random_state=42, test_size=val_size)
+            X_train, X_val, y_train, y_val = train_test_split(self.X, self.y, random_state=random_state, test_size=val_size)
             # Set the train val and test sets in global variables to be used by all classes
             self.X_train, self.y_train = X_train, y_train
             self.X_val, self.y_val = X_val, y_val
@@ -421,6 +430,12 @@ class ModelBuilder():
             print('Test Set:', end='\t')
             print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(test_metrics['r2'], test_metrics['mae'], test_metrics['mse'], test_metrics['rmse']))
 
+        # return these values to the user as a dictionary, so they can be analyzed as part of CV
+        if(self.has_test_set):
+            return({"train": train_metrics, "val": val_metrics, "test": test_metrics})
+        else:
+            return({"train": train_metrics, "val": val_metrics})
+
     def calculate_model_metrics(self, model, dataset: list) -> dict:
         """Returns a dictionary with the model metrics to be printed out by the summarize_model_metrics() function.
 
@@ -438,11 +453,12 @@ class ModelBuilder():
         rmse = np.sqrt(mse).round(4)
         return {'r2': r2, 'mae': mae, 'mse': mse, 'rmse': rmse}
 
-    def model_diagnostics(self, model) -> None:
+    def model_diagnostics(self, model, visualize_model:bool = True) -> None:
         """Plots the feature importances and the SHAP summary scores for the top features for the fitted model.
 
         Args:
             model (sklearn/xgboost model): Fitted model
+            visualize_model: Visualize the shapley values for the models using SHAP
         """
         # Model diagnostics for tree based models
         if self.model_type in ['xgb', 'rf']:
@@ -455,8 +471,32 @@ class ModelBuilder():
             explainer = shap.LinearExplainer(model, self.X_val)
             
         shap_values = explainer.shap_values(self.X_val)
-        shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns, plot_type="bar")
-        shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns)
+
+        # how does the shap value correlate with the feature value?
+        # positive correlation suggests that higher levels of the feature tend to boost performance
+        # negative correlation suggests that higher levels of the feature tend to decrease performance
+        shap_feature_correlation = []
+        for feature_name in self.X_val.columns:
+            feature_values = self.X_val[feature_name]
+            feature_index = self.X_val.columns.get_loc(feature_name)  # Get the index of the feature
+            shapley_values = shap_values[:, feature_index]
+            correlation_coefficient = np.corrcoef(feature_values, shapley_values)[0, 1]
+            shap_feature_correlation.append(correlation_coefficient)
+
+        shap_mean_abs = np.mean(np.abs(shap_values), axis = 0)
+        shap_df = pd.DataFrame({
+            'feature': self.X.columns,
+            'shap': shap_mean_abs,
+            'correlation_btw_shap_and_feature_value': shap_feature_correlation
+        })
+
+        # Object that summarizes SHAP values for the model
+        self.shap_summary = shap_df
+
+
+        if visualize_model:
+            shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns, plot_type="bar")
+            shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns)
 
     def print_lasso_coefs(self, model):
 
