@@ -363,7 +363,7 @@ class ModelBuilder():
         self.model_diagnostics(model, visualize_model=visualize_model)
 
         # Returns the model metrics as a saveable variable
-        return(self.summarize_model_metrics(model))
+        return(self.summarize_model_metrics(model, visualize_model = visualize_model))
 
     def create_holdout_sets(self, val_size: float=0.1, test_size: float=None, random_state: int=42) -> None:
         """This function splits the data into train-val-test sets if no test set is designated, and splits into train-val only if we already have a designated test set.
@@ -408,27 +408,29 @@ class ModelBuilder():
             # Set the test set by preprocessing the `test_conv` global variable in the `define_dataset_for_model()` function.
             self.X_test, self.y_test = self.define_dataset_for_model(is_test=True)
 
-    def summarize_model_metrics(self, model) -> None:
+    def summarize_model_metrics(self, model, visualize_model:bool = True) -> None:
         """Prints out model metrics for each of the datasets - train, val and test
 
         Args:
             model (sklearn/xgboost model): The fitted model.
+            visualize_model: Print all the verbose model details. (Defaults to True)
         """
         train_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_train, self.y_train))
         val_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_val, self.y_val))
         
         if(self.has_test_set): test_metrics = self.calculate_model_metrics(model=model, dataset=(self.X_test, self.y_test))
         
-        print("MODEL METRICS")
-        print('Train Set:', end='\t')
-        print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(train_metrics['r2'], train_metrics['mae'], train_metrics['mse'], train_metrics['rmse']))
-        
-        print('Validation Set:', end='\t')
-        print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(val_metrics['r2'], val_metrics['mae'], val_metrics['mse'], val_metrics['rmse']))
+        if visualize_model:
+            print("MODEL METRICS")
+            print('Train Set:', end='\t')
+            print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(train_metrics['r2'], train_metrics['mae'], train_metrics['mse'], train_metrics['rmse']))
+            
+            print('Validation Set:', end='\t')
+            print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(val_metrics['r2'], val_metrics['mae'], val_metrics['mse'], val_metrics['rmse']))
 
-        if(self.has_test_set):
-            print('Test Set:', end='\t')
-            print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(test_metrics['r2'], test_metrics['mae'], test_metrics['mse'], test_metrics['rmse']))
+            if(self.has_test_set):
+                print('Test Set:', end='\t')
+                print('R2: {}\tMAE: {}\tMSE: {}\tRMSE: {}'.format(test_metrics['r2'], test_metrics['mae'], test_metrics['mse'], test_metrics['rmse']))
 
         # return these values to the user as a dictionary, so they can be analyzed as part of CV
         if(self.has_test_set):
