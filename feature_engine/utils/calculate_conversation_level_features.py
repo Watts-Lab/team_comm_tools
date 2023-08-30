@@ -75,7 +75,7 @@ class ConversationLevelFeaturesCalculator:
             (In essence, these all represent _counts_ of something, for which it makes sense to get a "total")
         """
 
-        for column in in self.summable_columns:
+        for column in self.summable_columns:
             
             self.conv_data = pd.merge(
                 left=self.conv_data,
@@ -128,7 +128,7 @@ class ConversationLevelFeaturesCalculator:
             )
 
         # Do this only for the columns that make sense (e.g., countable things)
-        for column in in self.summable_columns:
+        for column in self.summable_columns:
             # Sum for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
@@ -144,8 +144,8 @@ class ConversationLevelFeaturesCalculator:
             Specifically, it looks at the mean and standard deviations at message and word level.
         """
 
-        # For each summarizable feature
-        for column in self.columns_to_summarize:
+        # TODO -- currently, user-level features only has the summable columns.
+        for column in self.summable_columns:
             
             # Average/Mean of User-Level Feature
             self.conv_data = pd.merge(
