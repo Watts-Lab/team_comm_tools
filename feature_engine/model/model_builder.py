@@ -176,6 +176,18 @@ class ModelBuilder():
         # Calling this function to add in task related features to the combined datasets created above.
         self.integrate_task_level_features(is_test_datasets=is_test_datasets)
 
+    def get_sample_weighting(self, df) -> None:
+        """
+        Since we have an imbalance in the number of samples we have from different tasks, we need to inversely
+        weight the data based on the task.
+
+        @param df: the dataframe for which we are performing the inverse weighting.
+        """
+        task_proportions = df['task_name'].value_counts()/len(df['task_name'])
+        df['inverse_task_weight'] = df['task_name'].apply(lambda task: 1 / task_proportions[task])
+        return(df)
+
+
     def integrate_task_level_features(self, is_test_datasets: bool=False) -> None:
         """This function takes in the datasets created by `create_datasets()` function and adds in the task related features to it.
 
@@ -191,6 +203,8 @@ class ModelBuilder():
             self.test_conv.drop(['dataset_name', 'task_name', 'task'], axis=1, inplace=True)
         else:
             self.conv['task_name'] = self.conv['dataset_name'].map(self.config['task_mapping_keys'])
+            # Training dataset needs to be inversely weighted
+            self.conv = self.get_sample_weighting(self.conv)
             self.conv = pd.merge(left=self.conv, right=self.task_maps, left_on=['task_name'], right_on=['task'], how='left')
             self.conv.drop(['dataset_name', 'task_name', 'task'], axis=1, inplace=True)
 
@@ -328,6 +342,7 @@ class ModelBuilder():
         else:
             if fit_on_raw: X, y = self.conv.drop(["target_raw", "target_std"], axis=1), self.conv["target_raw"]
             else: X, y = self.conv.drop(["target_raw", "target_std"], axis=1), self.conv["target_std"]
+
         # TODO - This might be redundant now that the dataset names are replaced by task level features
         # Get one hot encodings of any object column
         X = pd.get_dummies(X)
@@ -356,7 +371,10 @@ class ModelBuilder():
             self.create_holdout_sets(val_size=val_size, random_state=random_state)
         print('Done')
         print('Training Model', end='...')
-        model = model.fit(self.X_train, self.y_train)
+
+        # in cases where we have multiple datasets, we weight the loss function inversely based on 
+        # the sample size of the dataset!
+        model = model.fit(self.X_train, self.y_train, self.sample_weight)
         print('Done')
 
         # Calculates SHAP values
@@ -395,8 +413,13 @@ class ModelBuilder():
             self.X_val, self.y_val = X_val, y_val
             
             # Set self.has_test_set to False if test_size is not specified
-            if test_size: self.X_test, self.y_test = X_test, y_test
-            else: self.has_test_set = False
+            if test_size: 
+                self.X_test, self.y_test = X_test, y_test
+                # drop the task weights
+                self.X_test = self.X_test.drop(["inverse_task_weight"], axis = 1)
+            else: 
+                self.has_test_set = False
+
         # If we have a designated test set
         else:
             self.has_test_set = True
@@ -405,8 +428,14 @@ class ModelBuilder():
             # Set the train val and test sets in global variables to be used by all classes
             self.X_train, self.y_train = X_train, y_train
             self.X_val, self.y_val = X_val, y_val
+
             # Set the test set by preprocessing the `test_conv` global variable in the `define_dataset_for_model()` function.
             self.X_test, self.y_test = self.define_dataset_for_model(is_test=True)
+
+        # assign weighting and remove weights from the X's
+        self.X = self.X.drop(["inverse_task_weight"], axis = 1)
+        self.X_train, self.sample_weight = self.X_train.drop(["inverse_task_weight"], axis = 1), self.X_train["inverse_task_weight"]
+        self.X_val = self.X_val.drop(["inverse_task_weight"], axis = 1)
 
     def summarize_model_metrics(self, model, visualize_model:bool = True) -> None:
         """Prints out model metrics for each of the datasets - train, val and test
