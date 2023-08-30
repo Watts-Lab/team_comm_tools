@@ -35,6 +35,7 @@ class ConversationLevelFeaturesCalculator:
         self.input_columns.append('conversation_num')
         self.columns_to_summarize = [column for column in self.chat_data.columns \
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
+        self.summable_columns = ["num_words", "num_chars", "num_messages", "function_word_accommodation"]
 
     def calculate_conversation_level_features(self) -> pd.DataFrame:
         """
@@ -44,7 +45,7 @@ class ConversationLevelFeaturesCalculator:
 			(pd.DataFrame): The conversation level dataset given to this class during initialization along with 
 							new columns for each conv level feature.
         """
-        # Get gini based features
+        # Get gini based features by aggregating user-level totals, pass in USER LEVEL FEATURES
         self.get_gini_features()
         print("Generated gini features.")
 
@@ -63,14 +64,22 @@ class ConversationLevelFeaturesCalculator:
 
     def get_gini_features(self) -> None:
         """
-            This function is used to calculate the gini index for each feature in the conversation.
+            This function is used to calculate the gini index for features in the conversation.
+
+            Note that Gini matters only when "amount" is involved. Thus, we should only calculate this for:
+            - word count (e.g., total number of words)
+            - character count
+            - message count
+            - function_word_accommodation
+
+            (In essence, these all represent _counts_ of something, for which it makes sense to get a "total")
         """
 
-        for column in self.columns_to_summarize:
+        for column in in self.summable_columns:
             
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_gini(self.chat_data, column),
+                right=get_gini(self.user_data.copy(), column), # this applies to the summed columns in user_data, which matches the above
                 on=['conversation_num'],
                 how="inner"
             )
@@ -79,7 +88,8 @@ class ConversationLevelFeaturesCalculator:
         """
             This function is used to aggregate the summary statistics from 
             chat level features to conversation level features.
-            Specifically, it looks at the mean and standard deviations at message and word level.
+
+            Specifically, it looks at 4 aggregation functions: Max, Min, Mean, Standard Deviation.
         """
 
         # For each summarizable feature
@@ -117,6 +127,8 @@ class ConversationLevelFeaturesCalculator:
                 how="inner"
             )
 
+        # Do this only for the columns that make sense (e.g., countable things)
+        for column in in self.summable_columns:
             # Sum for the feature across the Conversation
             self.conv_data = pd.merge(
                 left=self.conv_data,
@@ -134,7 +146,8 @@ class ConversationLevelFeaturesCalculator:
 
         # For each summarizable feature
         for column in self.columns_to_summarize:
-            # Average/Mean of feature across the Conversation
+            
+            # Average/Mean of User-Level Feature
             self.conv_data = pd.merge(
                 left=self.conv_data,
                 right=get_average(self.user_data.copy(), column, 'average_user_'+column),
@@ -142,7 +155,7 @@ class ConversationLevelFeaturesCalculator:
                 how="inner"
             )
 
-            # Standard Deviation of feature across users in the Conversation
+            # Standard Deviation of User-Level Feature
             self.conv_data = pd.merge(
                 left=self.conv_data,
                 right=get_stdev(self.user_data.copy(), column, 'stdev_user_'+column),
@@ -150,7 +163,7 @@ class ConversationLevelFeaturesCalculator:
                 how="inner"
             )
 
-            # Minima for the feature across users in the Conversation
+            # Minima of User-Level Feature
             self.conv_data = pd.merge(
                 left=self.conv_data,
                 right=get_min(self.user_data.copy(), column, 'min_user_'+column),
@@ -158,7 +171,7 @@ class ConversationLevelFeaturesCalculator:
                 how="inner"
             )
 
-            # Maxima for the feature across users in the Conversation
+            # Maxima of User-Level Feature
             self.conv_data = pd.merge(
                 left=self.conv_data,
                 right=get_max(self.user_data.copy(), column, 'max_user_'+column),
@@ -166,13 +179,15 @@ class ConversationLevelFeaturesCalculator:
                 how="inner"
             )
 
-            # Sum for the feature across users in the Conversation
-            self.conv_data = pd.merge(
-                left=self.conv_data,
-                right=get_max(self.user_data.copy(), column, 'sum_user_'+column),
-                on=['conversation_num'],
-                how="inner"
-            )
+            # Sum of User-Level Feature --- commented out because this is redundant;
+            # the user level feature currently only looks at summable features, so this sum of sums is equivalent
+            # to ther conversation-level sum
+            # self.conv_data = pd.merge(
+            #     left=self.conv_data,
+            #     right=get_max(self.user_data.copy(), column, 'sum_user_'+column),
+            #     on=['conversation_num'],
+            #     how="inner"
+            # )
     
     def get_discursive_diversity_features(self) -> None:
         """
@@ -185,5 +200,3 @@ class ConversationLevelFeaturesCalculator:
             on=['conversation_num'],
             how="inner"
         )
-    
-
