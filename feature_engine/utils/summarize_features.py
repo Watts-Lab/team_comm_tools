@@ -6,14 +6,16 @@ These functions are for the purpose of calculating aggregates of various user le
 '''
 
 '''
-function: get_count_dataframe
+function: get_user_sum_dataframe
 
 Returns a dataframe that gets the total number of X per individual, where X could be # words, etc.
+
+In other words, this dataframe first groups by the user and SUMS all of a feature, and returns the sum.
 
 @param chat_level_data = a dataframe in which each row is one chat.
 @param on_column = the name of the numeric column, X, which is summed per individual
 '''
-def get_user_count_dataframe(chat_level_data, on_column, speaker_id = "speaker_nickname"):
+def get_user_sum_dataframe(chat_level_data, on_column, speaker_id = "speaker_nickname"):
 	grouped_conversation_data = chat_level_data[["conversation_num", speaker_id, on_column]].groupby(["conversation_num", speaker_id]).sum().reset_index() 
     # gets this dataframe:
 	# Batch# Round# Speaker  Total Number of Words

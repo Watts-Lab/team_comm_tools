@@ -34,6 +34,7 @@ class UserLevelFeaturesCalculator:
         self.input_columns.append('conversation_num')
         self.columns_to_summarize = [column for column in self.chat_data.columns \
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
+        self.summable_columns = ["num_words", "num_chars", "num_messages", "function_word_accommodation"]
 
     def calculate_user_level_features(self) -> pd.DataFrame:
         """
@@ -44,8 +45,8 @@ class UserLevelFeaturesCalculator:
 							new columns for each conv level feature.
         """
 
-        # Get total counts by aggregating chat level features
-        self.get_user_level_summary_statistics_features()
+        # Get total counts for featues that require user-level counts
+        self.get_user_level_summed_features()
         
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
         # self.get_centroids()
@@ -55,18 +56,40 @@ class UserLevelFeaturesCalculator:
 
         return self.user_data
 
+
     def get_user_level_summary_statistics_features(self) -> None:
         """
             This function is used to aggregate the summary statistics from 
-            chat level features to conversation level features.
-            Specifically, it looks at the mean and standard deviations at message and word level.
+            chat level features to user level features.
+            
+            There are many possible ways to aggregate user level features, e.g.:
+            - Mean of all chats by a given user;
+            - Max of all chats by a given user;
+            - Weighted mean (e.g., looking at different time points?)
+            ... and so on.
+
+            This is an open question, so we are putting a TODO here.
+        """
+        pass
+
+    def get_user_level_summed_features(self) -> None:
+        """
+            This function is used to aggregate the summary statistics from 
+            chat level features that need to be SUMMED together. Featuers for which this makes sense are:
+
+            - word count (e.g., total number of words)
+            - character count
+            - message count
+            - function_word_accommodation
+
+            (In essence, these all represent _counts_ of something, for which it makes sense to get a "total")
         """
         # For each summarizable feature
-        for column in self.columns_to_summarize:
+        for column in self.summable_columns:
             # Average/Mean of feature across the Conversation
             self.user_data = pd.merge(
                 left=self.user_data,
-                right=get_user_count_dataframe(self.chat_data, column),
+                right=get_user_sum_dataframe(self.chat_data, column),
                 on=['conversation_num', 'speaker_nickname'],
                 how="inner"
             )
