@@ -35,7 +35,7 @@ class ConversationLevelFeaturesCalculator:
         self.input_columns.append('conversation_num')
         self.columns_to_summarize = [column for column in self.chat_data.columns \
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
-        self.summable_columns = ["num_words", "num_chars", "num_messages", "function_word_accommodation"]
+        self.summable_columns = ["num_words", "num_chars", "num_messages"]
 
     def calculate_conversation_level_features(self) -> pd.DataFrame:
         """
@@ -144,8 +144,8 @@ class ConversationLevelFeaturesCalculator:
             Specifically, it looks at the mean and standard deviations at message and word level.
         """
 
-        # Summable Columns were created using self.get_user_level_summed_features()
-        for column in self.summable_columns:
+        # Sum Columns were created using self.get_user_level_summed_features()
+        for column in self.columns_to_summarize:
             
             # Average/Mean of User-Level Feature
             self.conv_data = pd.merge(
@@ -179,7 +179,7 @@ class ConversationLevelFeaturesCalculator:
                 how="inner"
             )
 
-        # Averaged Columns were created using self.get_user_level_averaged_features()
+        # Average Columns were created using self.get_user_level_averaged_features()
         for column in self.columns_to_summarize:
             
             # Average/Mean of User-Level Feature
