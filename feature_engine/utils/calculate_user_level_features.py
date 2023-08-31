@@ -7,7 +7,7 @@ The intention behind this class is to use these modules and define any and all u
 """
 
 # Importing modules from features
-from utils.summarize_features import get_user_sum_dataframe
+from utils.summarize_features import get_user_sum_dataframe, get_user_average_dataframe
 from features.get_user_network import *
 from features.user_centroids import *
 
@@ -45,7 +45,10 @@ class UserLevelFeaturesCalculator:
 							new columns for each conv level feature.
         """
 
-        # Get total counts for featues that require user-level counts
+        # Get average features for all features
+        self.get_user_level_averaged_features()
+        
+        # Get total counts for features that require user-level counts
         self.get_user_level_summed_features()
         
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
@@ -121,7 +124,6 @@ class UserLevelFeaturesCalculator:
         This function gets the user_list per user per conversation.
 
         '''
-
         self.user_data = pd.merge(
                 left=self.user_data,
                 right=get_user_network(self.user_data),
