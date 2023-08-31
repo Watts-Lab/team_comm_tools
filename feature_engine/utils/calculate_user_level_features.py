@@ -34,7 +34,6 @@ class UserLevelFeaturesCalculator:
         self.input_columns.append('conversation_num')
         self.columns_to_summarize = [column for column in self.chat_data.columns \
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
-        self.summable_columns = ["num_words", "num_chars", "num_messages", "function_word_accommodation"]
 
     def calculate_user_level_features(self) -> pd.DataFrame:
         """
@@ -48,7 +47,7 @@ class UserLevelFeaturesCalculator:
         # Get average features for all features
         self.get_user_level_averaged_features()
         
-        # Get total counts for features that require user-level counts
+        # Get total counts for all features
         self.get_user_level_summed_features()
         
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
@@ -87,8 +86,8 @@ class UserLevelFeaturesCalculator:
 
             (In essence, these all represent _counts_ of something, for which it makes sense to get a "total")
         """
-        # For each "summable" feature
-        for column in self.summable_columns:
+        # For each summarizable feature
+        for column in self.columns_to_summarize:
             # Sum of feature across the Conversation
             self.user_data = pd.merge(
                 left=self.user_data,
