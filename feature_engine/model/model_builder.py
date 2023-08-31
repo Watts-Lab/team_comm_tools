@@ -179,16 +179,12 @@ class ModelBuilder():
         self.integrate_task_level_features(is_test_datasets=is_test_datasets)
 
     # drop columns that have close to 0 correlation with the target
-    def get_columns_with_low_signal(self, df, CORR_THRESH=0.1) -> None:
-        # List of columns to exclude from correlation calculation
-        columns_to_exclude = ["target_std", "target_raw"]
-
+    def get_columns_with_low_signal(self, df, target, CORR_THRESH=0.1) -> None:
         # Calculate correlations
         correlation_list = []
         for column in df.columns:
-            if column not in columns_to_exclude:
-                correlation = np.corrcoef(df[column], df["target_std"])[0][1]
-                correlation_list.append((column, correlation))
+            correlation = np.corrcoef(df[column], target)[0][1]
+            correlation_list.append((column, correlation))
 
         # Sort the list based on correlation values
         correlation_list.sort(key=lambda x: abs(x[1]), reverse=True)
@@ -217,7 +213,6 @@ class ModelBuilder():
         task_proportions = df['task_name'].value_counts()/len(df['task_name'])
         df['inverse_task_weight'] = df['task_name'].apply(lambda task: 1 / task_proportions[task])
         return(df)
-
 
     def integrate_task_level_features(self, is_test_datasets: bool=False) -> None:
         """This function takes in the datasets created by `create_datasets()` function and adds in the task related features to it.
@@ -294,13 +289,6 @@ class ModelBuilder():
             target (list): A list of strings that are the column names to be used as targets in the final models
         """
         self.set_target(target, is_test = False)
-        # Cleans up dataframe once target is set.
-        self.clean_up_columns()
-
-    def clean_up_columns(self) -> None:
-        # Clean up CONV: (1) Drop anything that is invariant; and (2) Preemptively remove anything with a low correlation with the target
-        self.conv = self.drop_invariant_columns(self.conv)
-        self.conv = self.conv.drop(self.get_columns_with_low_signal(self.conv, self.low_corr_thresh), axis = 1)
 
     def select_test_target(self, target: list):
         """This function calls the `set_target()` above for the test set.
@@ -387,6 +375,60 @@ class ModelBuilder():
 
         return X, y
 
+    def clean_up_columns(self) -> None:
+        '''
+        Clean up columns: (1) Drop anything that is invariant; and (2) Preemptively remove anything with a low correlation with the target
+        '''
+
+        # Determine the drops based on the training set
+        self.X_train = self.drop_invariant_columns(self.X_train)
+        self.X_train = self.X_train.drop(self.get_columns_with_low_signal(self.X_train, self.y_train, self.low_corr_thresh), axis = 1)
+
+        # Set the test and val sets to have the same columns as the training set
+        self.X_val = self.X_val[self.X_val.columns.intersection(self.X_train.columns)]
+
+        if self.has_test_set:
+            self.X_test = self.X_test[self.X_test.columns.intersection(self.X_train.columns)]
+
+    def get_split_datasets(self, model, val_size: float=0.1, test_size: float=0.1, random_state: int=42) -> None:
+        """
+        This function takes the entire dataset and splits it into train/test/val.
+
+        Before returning, it also uses the training set to filter down the features
+        into a smaller set, using clean_up_column.
+        """
+        print('Checking Holdout Sets', end='...')
+        if self.test_dataset_names == None:
+            print('Creating Holdout Sets...')
+            self.create_holdout_sets(val_size=val_size, test_size=test_size, random_state=random_state)
+        else:
+            self.create_holdout_sets(val_size=val_size, random_state=random_state)
+
+        # Clean up columns based on correlations in the TRAINING set
+        print("Cleaning Up Columns...")
+        self.clean_up_columns()
+
+        print('Done')
+
+    def train_simple_model(self, model, feature_subset=None) -> None:
+        """
+        This function trains the model and returns the metrics without SHAP diagnostics.
+
+        feature_subset (default = None) is a parameter that allows the user to specify
+        a model that is trained on a far smaller number of features. An example use case
+        is creating baselines using only one feature at a time.
+        """
+        if feature_subset: # filter down to only the feature subset
+            self.X_train = self.X_train[feature_subset]
+            self.X_val = self.X_val[feature_subset]
+            if self.has_test_set:
+                self.X_test = self.X_test[feature_subset]
+
+        model = model.fit(self.X_train, self.y_train, self.sample_weight)
+
+        return(self.summarize_model_metrics(model, visualize_model = False))
+
+
     def evaluate_model(self, model, val_size: float=0.1, test_size: float=0.1, random_state: int=42, visualize_model:bool = True) -> None:
         """This is a driver function that calls a bunch of different functions for the following tasks:
            - Train-Val-Test splits
@@ -401,13 +443,7 @@ class ModelBuilder():
             random_state (int, optional): This controls the random seed for randomization. Defaults to 42, but user can provide it.
             visualize_model (bool, optional): This controls whether we want to print the visualization of the model's SHAP values or not
         """
-        print('Checking Holdout Sets', end='...')
-        if self.test_dataset_names == None:
-            print('Creating Holdout Sets...')
-            self.create_holdout_sets(val_size=val_size, test_size=test_size, random_state=random_state)
-        else:
-            self.create_holdout_sets(val_size=val_size, random_state=random_state)
-        print('Done')
+        self.get_split_datasets(model, val_size, test_size, random_state)
         print('Training Model', end='...')
 
         # in cases where we have multiple datasets, we weight the loss function inversely based on 
@@ -554,7 +590,7 @@ class ModelBuilder():
 
         shap_mean_abs = np.mean(np.abs(shap_values), axis = 0)
         shap_df = pd.DataFrame({
-            'feature': self.X.columns,
+            'feature': self.X_val.columns,
             'shap': shap_mean_abs,
             'correlation_btw_shap_and_feature_value': shap_feature_correlation
         })
@@ -564,8 +600,8 @@ class ModelBuilder():
 
 
         if visualize_model:
-            shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns, plot_type="bar")
-            shap.summary_plot(shap_values, self.X_val, feature_names=self.X.columns)
+            shap.summary_plot(shap_values, self.X_val, feature_names=self.X_val.columns, plot_type="bar")
+            shap.summary_plot(shap_values, self.X_val, feature_names=self.X_val.columns)
 
     def print_lasso_coefs(self, model):
 

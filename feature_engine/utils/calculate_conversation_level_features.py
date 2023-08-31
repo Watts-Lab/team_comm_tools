@@ -79,7 +79,7 @@ class ConversationLevelFeaturesCalculator:
             
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_gini(self.user_data.copy(), column), # this applies to the summed columns in user_data, which matches the above
+                right=get_gini(self.user_data.copy(), "sum_"+column), # this applies to the summed columns in user_data, which matches the above
                 on=['conversation_num'],
                 how="inner"
             )
@@ -93,7 +93,7 @@ class ConversationLevelFeaturesCalculator:
         """
 
         # For each summarizable feature
-        for column in self.columns_to_summarize.remove("num_messages"): # Note: num_messages is always 1, so doesn't make sense at this level
+        for column in self.columns_to_summarize:
             
             # Average/Mean of feature across the Conversation
             self.conv_data = pd.merge(
@@ -144,13 +144,13 @@ class ConversationLevelFeaturesCalculator:
             Specifically, it looks at the mean and standard deviations at message and word level.
         """
 
-        # TODO -- currently, user-level features only has the summable columns.
+        # Summable Columns were created using self.get_user_level_summed_features()
         for column in self.summable_columns:
             
             # Average/Mean of User-Level Feature
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_average(self.user_data.copy(), column, 'average_user_'+column),
+                right=get_average(self.user_data.copy(), "sum_"+column, 'average_user_sum_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -158,7 +158,7 @@ class ConversationLevelFeaturesCalculator:
             # Standard Deviation of User-Level Feature
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_stdev(self.user_data.copy(), column, 'stdev_user_'+column),
+                right=get_stdev(self.user_data.copy(), "sum_"+column, 'stdev_user_sum_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -166,7 +166,7 @@ class ConversationLevelFeaturesCalculator:
             # Minima of User-Level Feature
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_min(self.user_data.copy(), column, 'min_user_'+column),
+                right=get_min(self.user_data.copy(), "sum_"+column, 'min_user_sum_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
@@ -174,20 +174,46 @@ class ConversationLevelFeaturesCalculator:
             # Maxima of User-Level Feature
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_max(self.user_data.copy(), column, 'max_user_'+column),
+                right=get_max(self.user_data.copy(), "sum_"+column, 'max_user_sum_'+column),
                 on=['conversation_num'],
                 how="inner"
             )
 
-            # Sum of User-Level Feature --- commented out because this is redundant;
-            # the user level feature currently only looks at summable features, so this sum of sums is equivalent
-            # to ther conversation-level sum
-            # self.conv_data = pd.merge(
-            #     left=self.conv_data,
-            #     right=get_max(self.user_data.copy(), column, 'sum_user_'+column),
-            #     on=['conversation_num'],
-            #     how="inner"
-            # )
+        # Averaged Columns were created using self.get_user_level_averaged_features()
+        for column in self.columns_to_summarize:
+            
+            # Average/Mean of User-Level Feature
+            self.conv_data = pd.merge(
+                left=self.conv_data,
+                right=get_average(self.user_data.copy(), "average_"+column, 'average_user_avg_'+column),
+                on=['conversation_num'],
+                how="inner"
+            )
+
+            # Standard Deviation of User-Level Feature
+            self.conv_data = pd.merge(
+                left=self.conv_data,
+                right=get_stdev(self.user_data.copy(), "average_"+column, 'stdev_user_avg_'+column),
+                on=['conversation_num'],
+                how="inner"
+            )
+
+            # Minima of User-Level Feature
+            self.conv_data = pd.merge(
+                left=self.conv_data,
+                right=get_min(self.user_data.copy(), "average_"+column, 'min_user_avg_'+column),
+                on=['conversation_num'],
+                how="inner"
+            )
+
+            # Maxima of User-Level Feature
+            self.conv_data = pd.merge(
+                left=self.conv_data,
+                right=get_max(self.user_data.copy(), "average_"+column, 'max_user_avg_'+column),
+                on=['conversation_num'],
+                how="inner"
+            )
+
     
     def get_discursive_diversity_features(self) -> None:
         """
