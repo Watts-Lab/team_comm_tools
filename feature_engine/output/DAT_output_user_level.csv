@@ -1,0 +1,1698 @@
+conversation_num,speaker_nickname,num_words,num_chars,num_messages,function_word_accommodation,user_list
+ws9E8sedkKAbhM2SG,YASn2g9HwNs56zz98,138,745,9,8,"['dxvWpZx3EAkq8bA5G' 'TsTXueKfzedWg6nau' 'HEJoTpEwFWqo6qJea'
+ 'KoAfktxY4HoB2Rydm' 'yasSRaKs7Z4EgxYN3' 'rrsbn66ewKTFkfmPz']"
+ws9E8sedkKAbhM2SG,dxvWpZx3EAkq8bA5G,16,82,4,0,"['YASn2g9HwNs56zz98' 'TsTXueKfzedWg6nau' 'HEJoTpEwFWqo6qJea'
+ 'KoAfktxY4HoB2Rydm' 'yasSRaKs7Z4EgxYN3' 'rrsbn66ewKTFkfmPz']"
+ws9E8sedkKAbhM2SG,TsTXueKfzedWg6nau,18,87,7,0,"['YASn2g9HwNs56zz98' 'dxvWpZx3EAkq8bA5G' 'HEJoTpEwFWqo6qJea'
+ 'KoAfktxY4HoB2Rydm' 'yasSRaKs7Z4EgxYN3' 'rrsbn66ewKTFkfmPz']"
+ws9E8sedkKAbhM2SG,HEJoTpEwFWqo6qJea,17,78,4,0,"['YASn2g9HwNs56zz98' 'dxvWpZx3EAkq8bA5G' 'TsTXueKfzedWg6nau'
+ 'KoAfktxY4HoB2Rydm' 'yasSRaKs7Z4EgxYN3' 'rrsbn66ewKTFkfmPz']"
+ws9E8sedkKAbhM2SG,KoAfktxY4HoB2Rydm,21,103,6,1,"['YASn2g9HwNs56zz98' 'dxvWpZx3EAkq8bA5G' 'TsTXueKfzedWg6nau'
+ 'HEJoTpEwFWqo6qJea' 'yasSRaKs7Z4EgxYN3' 'rrsbn66ewKTFkfmPz']"
+ws9E8sedkKAbhM2SG,yasSRaKs7Z4EgxYN3,58,304,10,5,"['YASn2g9HwNs56zz98' 'dxvWpZx3EAkq8bA5G' 'TsTXueKfzedWg6nau'
+ 'HEJoTpEwFWqo6qJea' 'KoAfktxY4HoB2Rydm' 'rrsbn66ewKTFkfmPz']"
+ws9E8sedkKAbhM2SG,rrsbn66ewKTFkfmPz,22,109,6,0,"['YASn2g9HwNs56zz98' 'dxvWpZx3EAkq8bA5G' 'TsTXueKfzedWg6nau'
+ 'HEJoTpEwFWqo6qJea' 'KoAfktxY4HoB2Rydm' 'yasSRaKs7Z4EgxYN3']"
+SbqSAwmXavcFYKv7S,WfwHmwyEvppRhChYd,20,105,4,0,"['iMtgwWtqwDmSqtffp' 'BLbonxbMaGk7e9GaJ' 'z5cygFr5itoJ6LG4Y'
+ 'PCRmfpCZ9Ei8PJuEf' '4WycFFrfASeyGmmb7']"
+SbqSAwmXavcFYKv7S,iMtgwWtqwDmSqtffp,10,46,3,0,"['WfwHmwyEvppRhChYd' 'BLbonxbMaGk7e9GaJ' 'z5cygFr5itoJ6LG4Y'
+ 'PCRmfpCZ9Ei8PJuEf' '4WycFFrfASeyGmmb7']"
+SbqSAwmXavcFYKv7S,BLbonxbMaGk7e9GaJ,4,13,2,0,"['WfwHmwyEvppRhChYd' 'iMtgwWtqwDmSqtffp' 'z5cygFr5itoJ6LG4Y'
+ 'PCRmfpCZ9Ei8PJuEf' '4WycFFrfASeyGmmb7']"
+SbqSAwmXavcFYKv7S,z5cygFr5itoJ6LG4Y,20,114,3,3,"['WfwHmwyEvppRhChYd' 'iMtgwWtqwDmSqtffp' 'BLbonxbMaGk7e9GaJ'
+ 'PCRmfpCZ9Ei8PJuEf' '4WycFFrfASeyGmmb7']"
+SbqSAwmXavcFYKv7S,PCRmfpCZ9Ei8PJuEf,5,15,2,2,"['WfwHmwyEvppRhChYd' 'iMtgwWtqwDmSqtffp' 'BLbonxbMaGk7e9GaJ'
+ 'z5cygFr5itoJ6LG4Y' '4WycFFrfASeyGmmb7']"
+SbqSAwmXavcFYKv7S,4WycFFrfASeyGmmb7,4,17,1,0,"['WfwHmwyEvppRhChYd' 'iMtgwWtqwDmSqtffp' 'BLbonxbMaGk7e9GaJ'
+ 'z5cygFr5itoJ6LG4Y' 'PCRmfpCZ9Ei8PJuEf']"
+SLZGqyCMXq5z3LFQ9,Nn2Hj4yd9Pu6EprH3,35,197,5,0,"['ofZdPZQ6vDTqE2kCB' 'KA57BjPiFXkkGWnMi' 'HYRNB964o8PfMiDSm'
+ 'rkYWKA4tdkosvhLQm' 'pcS5h3iSJkdFaAdbB']"
+SLZGqyCMXq5z3LFQ9,ofZdPZQ6vDTqE2kCB,9,38,3,0,"['Nn2Hj4yd9Pu6EprH3' 'KA57BjPiFXkkGWnMi' 'HYRNB964o8PfMiDSm'
+ 'rkYWKA4tdkosvhLQm' 'pcS5h3iSJkdFaAdbB']"
+SLZGqyCMXq5z3LFQ9,KA57BjPiFXkkGWnMi,37,184,6,0,"['Nn2Hj4yd9Pu6EprH3' 'ofZdPZQ6vDTqE2kCB' 'HYRNB964o8PfMiDSm'
+ 'rkYWKA4tdkosvhLQm' 'pcS5h3iSJkdFaAdbB']"
+SLZGqyCMXq5z3LFQ9,HYRNB964o8PfMiDSm,27,176,4,0,"['Nn2Hj4yd9Pu6EprH3' 'ofZdPZQ6vDTqE2kCB' 'KA57BjPiFXkkGWnMi'
+ 'rkYWKA4tdkosvhLQm' 'pcS5h3iSJkdFaAdbB']"
+SLZGqyCMXq5z3LFQ9,rkYWKA4tdkosvhLQm,2,8,2,0,"['Nn2Hj4yd9Pu6EprH3' 'ofZdPZQ6vDTqE2kCB' 'KA57BjPiFXkkGWnMi'
+ 'HYRNB964o8PfMiDSm' 'pcS5h3iSJkdFaAdbB']"
+SLZGqyCMXq5z3LFQ9,pcS5h3iSJkdFaAdbB,14,73,1,0,"['Nn2Hj4yd9Pu6EprH3' 'ofZdPZQ6vDTqE2kCB' 'KA57BjPiFXkkGWnMi'
+ 'HYRNB964o8PfMiDSm' 'rkYWKA4tdkosvhLQm']"
+QGC5hmv4rDf7moy9R,FBcrHhExMa3QtGkWr,22,126,8,0,"['vTxZJ2dt39QKbtcjp' 'ywxA6v9fznSLNbaAG' 'BPnBhq2rWYWcrA5jp'
+ 'QTBa7Tbnc2iru3Dkc' 'zRqcjDJbyG7zwdJA5']"
+QGC5hmv4rDf7moy9R,vTxZJ2dt39QKbtcjp,29,153,6,1,"['FBcrHhExMa3QtGkWr' 'ywxA6v9fznSLNbaAG' 'BPnBhq2rWYWcrA5jp'
+ 'QTBa7Tbnc2iru3Dkc' 'zRqcjDJbyG7zwdJA5']"
+QGC5hmv4rDf7moy9R,ywxA6v9fznSLNbaAG,17,71,5,1,"['FBcrHhExMa3QtGkWr' 'vTxZJ2dt39QKbtcjp' 'BPnBhq2rWYWcrA5jp'
+ 'QTBa7Tbnc2iru3Dkc' 'zRqcjDJbyG7zwdJA5']"
+QGC5hmv4rDf7moy9R,BPnBhq2rWYWcrA5jp,31,153,6,2,"['FBcrHhExMa3QtGkWr' 'vTxZJ2dt39QKbtcjp' 'ywxA6v9fznSLNbaAG'
+ 'QTBa7Tbnc2iru3Dkc' 'zRqcjDJbyG7zwdJA5']"
+QGC5hmv4rDf7moy9R,QTBa7Tbnc2iru3Dkc,25,133,5,4,"['FBcrHhExMa3QtGkWr' 'vTxZJ2dt39QKbtcjp' 'ywxA6v9fznSLNbaAG'
+ 'BPnBhq2rWYWcrA5jp' 'zRqcjDJbyG7zwdJA5']"
+QGC5hmv4rDf7moy9R,zRqcjDJbyG7zwdJA5,10,53,2,0,"['FBcrHhExMa3QtGkWr' 'vTxZJ2dt39QKbtcjp' 'ywxA6v9fznSLNbaAG'
+ 'BPnBhq2rWYWcrA5jp' 'QTBa7Tbnc2iru3Dkc']"
+b4ZK7xMAgrTmkCNpx,fJg2uHbF5i5XNRJwy,13,64,4,0,"['a6oCsRGvFSHWfBirj' 't7apMA6uCFXwHMxuH' '8Pqozk9mZg5DXSk9F'
+ 'vhgyrNJAS5JBfBp7v' 'qkwH2knSYRXX6mQgW']"
+b4ZK7xMAgrTmkCNpx,a6oCsRGvFSHWfBirj,3,12,1,0,"['fJg2uHbF5i5XNRJwy' 't7apMA6uCFXwHMxuH' '8Pqozk9mZg5DXSk9F'
+ 'vhgyrNJAS5JBfBp7v' 'qkwH2knSYRXX6mQgW']"
+b4ZK7xMAgrTmkCNpx,t7apMA6uCFXwHMxuH,3,12,2,0,"['fJg2uHbF5i5XNRJwy' 'a6oCsRGvFSHWfBirj' '8Pqozk9mZg5DXSk9F'
+ 'vhgyrNJAS5JBfBp7v' 'qkwH2knSYRXX6mQgW']"
+b4ZK7xMAgrTmkCNpx,8Pqozk9mZg5DXSk9F,7,43,2,0,"['fJg2uHbF5i5XNRJwy' 'a6oCsRGvFSHWfBirj' 't7apMA6uCFXwHMxuH'
+ 'vhgyrNJAS5JBfBp7v' 'qkwH2knSYRXX6mQgW']"
+b4ZK7xMAgrTmkCNpx,vhgyrNJAS5JBfBp7v,6,30,3,0,"['fJg2uHbF5i5XNRJwy' 'a6oCsRGvFSHWfBirj' 't7apMA6uCFXwHMxuH'
+ '8Pqozk9mZg5DXSk9F' 'qkwH2knSYRXX6mQgW']"
+b4ZK7xMAgrTmkCNpx,qkwH2knSYRXX6mQgW,1,4,1,0,"['fJg2uHbF5i5XNRJwy' 'a6oCsRGvFSHWfBirj' 't7apMA6uCFXwHMxuH'
+ '8Pqozk9mZg5DXSk9F' 'vhgyrNJAS5JBfBp7v']"
+sLQcznRfd5AvmsqfL,pNWAoWf7dT8j5rtPR,1,8,1,0,[]
+zJqThPEmqi2mqo5Ko,Ef9Fyg7RH493dEDrs,123,633,14,6,['oymQs4h5QDBKdn384' 'ubGo84dbs9xHvWMyz' 'r5DTu7S6ce54k4e2K']
+zJqThPEmqi2mqo5Ko,oymQs4h5QDBKdn384,7,24,6,0,['Ef9Fyg7RH493dEDrs' 'ubGo84dbs9xHvWMyz' 'r5DTu7S6ce54k4e2K']
+zJqThPEmqi2mqo5Ko,ubGo84dbs9xHvWMyz,41,200,9,2,['Ef9Fyg7RH493dEDrs' 'oymQs4h5QDBKdn384' 'r5DTu7S6ce54k4e2K']
+zJqThPEmqi2mqo5Ko,r5DTu7S6ce54k4e2K,36,175,3,3,['Ef9Fyg7RH493dEDrs' 'oymQs4h5QDBKdn384' 'ubGo84dbs9xHvWMyz']
+BNnRvQfWtRnnbkEjN,MixLio7fX4Jibe6ZE,75,420,9,8,['NdKvGvPYKyf5xePBg' 'diw2BXqio3ngQBpca']
+BNnRvQfWtRnnbkEjN,NdKvGvPYKyf5xePBg,21,114,4,2,['MixLio7fX4Jibe6ZE' 'diw2BXqio3ngQBpca']
+BNnRvQfWtRnnbkEjN,diw2BXqio3ngQBpca,32,160,3,1,['MixLio7fX4Jibe6ZE' 'NdKvGvPYKyf5xePBg']
+bem3fXPmwk5cwEsK6,CkSDe6ZWifq6tSYt9,3,14,1,0,['ZAiLg6Sk9zxZDE5Zw']
+bem3fXPmwk5cwEsK6,ZAiLg6Sk9zxZDE5Zw,6,23,1,0,['CkSDe6ZWifq6tSYt9']
+9GmtxgdxbBpF8XcQH,NULL_SPEAKER,1,3,1,0,[]
+JgS3r8KDfX5cT8zPb,kqKx89GnCw2xHSMKB,19,96,7,0,['QWnTkhNkavq2c6pNR' 'M2ySdqu5gFBe5g4uB' 'qcyyWDp6Yaeg2fpdw']
+JgS3r8KDfX5cT8zPb,QWnTkhNkavq2c6pNR,17,88,5,0,['kqKx89GnCw2xHSMKB' 'M2ySdqu5gFBe5g4uB' 'qcyyWDp6Yaeg2fpdw']
+JgS3r8KDfX5cT8zPb,M2ySdqu5gFBe5g4uB,6,26,2,0,['kqKx89GnCw2xHSMKB' 'QWnTkhNkavq2c6pNR' 'qcyyWDp6Yaeg2fpdw']
+JgS3r8KDfX5cT8zPb,qcyyWDp6Yaeg2fpdw,37,192,6,1,['kqKx89GnCw2xHSMKB' 'QWnTkhNkavq2c6pNR' 'M2ySdqu5gFBe5g4uB']
+rviucQ2JEDbQrSxRc,p5uhs9xmNaHxoTzEB,31,150,5,2,['kog4YNGYG339dZB82' 'v9kLPwsciysjLbg8C' '9m9RanaSe5EQ99Bf7']
+rviucQ2JEDbQrSxRc,kog4YNGYG339dZB82,6,28,2,2,['p5uhs9xmNaHxoTzEB' 'v9kLPwsciysjLbg8C' '9m9RanaSe5EQ99Bf7']
+rviucQ2JEDbQrSxRc,v9kLPwsciysjLbg8C,14,58,2,0,['p5uhs9xmNaHxoTzEB' 'kog4YNGYG339dZB82' '9m9RanaSe5EQ99Bf7']
+rviucQ2JEDbQrSxRc,9m9RanaSe5EQ99Bf7,12,54,3,1,['p5uhs9xmNaHxoTzEB' 'kog4YNGYG339dZB82' 'v9kLPwsciysjLbg8C']
+moaSeaFbcvBfXWCuJ,KRz6Pr9ZD9wm2JkmY,32,159,8,0,['WnZzZ5va3Fx6nEyYz']
+moaSeaFbcvBfXWCuJ,WnZzZ5va3Fx6nEyYz,32,151,4,0,['KRz6Pr9ZD9wm2JkmY']
+QuS5dzsyyoittxiRg,sXp4GuvELuZENsHEN,1,9,1,0,['3ge9FoLaFoxpxR32J']
+QuS5dzsyyoittxiRg,3ge9FoLaFoxpxR32J,8,43,1,0,['sXp4GuvELuZENsHEN']
+Z39o9pvD36CtYgE3X,XQqAx6AhsE7DquR5e,15,81,2,0,[]
+S3ecDgnvKHXPzBSrT,6xCMFhXotjBKM4oNC,87,438,10,5,['uxhR4d7Hui8cEGuAA']
+S3ecDgnvKHXPzBSrT,uxhR4d7Hui8cEGuAA,58,293,9,4,['6xCMFhXotjBKM4oNC']
+ogiXxKXkPDi5np6Yo,BuKXdxwEGxiKsH3B7,24,99,3,0,['YSWdcqdxwfMDZEmCH']
+ogiXxKXkPDi5np6Yo,YSWdcqdxwfMDZEmCH,4,20,3,0,['BuKXdxwEGxiKsH3B7']
+nXJw5sisCusjSBcRj,DqAnJk6sfkSac6Fti,7,27,3,0,"['tkmipFDJZyx65Rcut' 'yie27qm6sNQaAQ4DK' 'YPoHfR2CFm4P2FH8m'
+ 'BkztwM9QKYXdAwgm7']"
+nXJw5sisCusjSBcRj,tkmipFDJZyx65Rcut,39,184,7,2,"['DqAnJk6sfkSac6Fti' 'yie27qm6sNQaAQ4DK' 'YPoHfR2CFm4P2FH8m'
+ 'BkztwM9QKYXdAwgm7']"
+nXJw5sisCusjSBcRj,yie27qm6sNQaAQ4DK,19,96,4,0,"['DqAnJk6sfkSac6Fti' 'tkmipFDJZyx65Rcut' 'YPoHfR2CFm4P2FH8m'
+ 'BkztwM9QKYXdAwgm7']"
+nXJw5sisCusjSBcRj,YPoHfR2CFm4P2FH8m,9,40,4,0,"['DqAnJk6sfkSac6Fti' 'tkmipFDJZyx65Rcut' 'yie27qm6sNQaAQ4DK'
+ 'BkztwM9QKYXdAwgm7']"
+nXJw5sisCusjSBcRj,BkztwM9QKYXdAwgm7,15,60,4,1,"['DqAnJk6sfkSac6Fti' 'tkmipFDJZyx65Rcut' 'yie27qm6sNQaAQ4DK'
+ 'YPoHfR2CFm4P2FH8m']"
+obCdv8nkzHJyzMbgG,q4hFPEZiHa5gpTnBW,19,83,4,0,['iso4zZ9s5yHvJ9LWJ' 'sSAzi27Gaq75qEkir' 'aYBCb2HW3dFoKSCWc']
+obCdv8nkzHJyzMbgG,iso4zZ9s5yHvJ9LWJ,1,4,1,0,['q4hFPEZiHa5gpTnBW' 'sSAzi27Gaq75qEkir' 'aYBCb2HW3dFoKSCWc']
+obCdv8nkzHJyzMbgG,sSAzi27Gaq75qEkir,10,40,2,0,['q4hFPEZiHa5gpTnBW' 'iso4zZ9s5yHvJ9LWJ' 'aYBCb2HW3dFoKSCWc']
+obCdv8nkzHJyzMbgG,aYBCb2HW3dFoKSCWc,20,83,4,0,['q4hFPEZiHa5gpTnBW' 'iso4zZ9s5yHvJ9LWJ' 'sSAzi27Gaq75qEkir']
+agpmsRhabGm6F47Ss,ReSmktkycHtpwDcep,15,62,6,1,"['FMDaj8RcREMSDvDvT' 'WkgiYW2WGaa6NHDbR' 'uz9Gr4K9KpHC7HyLM'
+ 'bYGZLD6274czZ7CmM']"
+agpmsRhabGm6F47Ss,FMDaj8RcREMSDvDvT,27,116,3,0,"['ReSmktkycHtpwDcep' 'WkgiYW2WGaa6NHDbR' 'uz9Gr4K9KpHC7HyLM'
+ 'bYGZLD6274czZ7CmM']"
+agpmsRhabGm6F47Ss,WkgiYW2WGaa6NHDbR,19,90,2,0,"['ReSmktkycHtpwDcep' 'FMDaj8RcREMSDvDvT' 'uz9Gr4K9KpHC7HyLM'
+ 'bYGZLD6274czZ7CmM']"
+agpmsRhabGm6F47Ss,uz9Gr4K9KpHC7HyLM,1,3,1,0,"['ReSmktkycHtpwDcep' 'FMDaj8RcREMSDvDvT' 'WkgiYW2WGaa6NHDbR'
+ 'bYGZLD6274czZ7CmM']"
+agpmsRhabGm6F47Ss,bYGZLD6274czZ7CmM,2,10,1,0,"['ReSmktkycHtpwDcep' 'FMDaj8RcREMSDvDvT' 'WkgiYW2WGaa6NHDbR'
+ 'uz9Gr4K9KpHC7HyLM']"
+c7LASqZeZtMKhLfDd,rE6QXAAX4aAZq4wLX,36,185,6,1,"['QZDXaikDDgbXqgmBa' 'dAxXzS5zfhmW8cjM9' 'hHnCz8kGypMjq3qow'
+ 'dMxt43BoAKYd8FWyq']"
+c7LASqZeZtMKhLfDd,QZDXaikDDgbXqgmBa,4,14,3,0,"['rE6QXAAX4aAZq4wLX' 'dAxXzS5zfhmW8cjM9' 'hHnCz8kGypMjq3qow'
+ 'dMxt43BoAKYd8FWyq']"
+c7LASqZeZtMKhLfDd,dAxXzS5zfhmW8cjM9,13,61,4,0,"['rE6QXAAX4aAZq4wLX' 'QZDXaikDDgbXqgmBa' 'hHnCz8kGypMjq3qow'
+ 'dMxt43BoAKYd8FWyq']"
+c7LASqZeZtMKhLfDd,hHnCz8kGypMjq3qow,7,34,3,0,"['rE6QXAAX4aAZq4wLX' 'QZDXaikDDgbXqgmBa' 'dAxXzS5zfhmW8cjM9'
+ 'dMxt43BoAKYd8FWyq']"
+c7LASqZeZtMKhLfDd,dMxt43BoAKYd8FWyq,3,14,2,0,"['rE6QXAAX4aAZq4wLX' 'QZDXaikDDgbXqgmBa' 'dAxXzS5zfhmW8cjM9'
+ 'hHnCz8kGypMjq3qow']"
+XR9AQYJn5mZFpRG3a,zsSEZEbGh6rpJYfRQ,42,210,4,0,['YHzCXd2z7iMK952xY' 'AinZm64FAHM49xgTj' 'sZzkBHA4hzK98ar58']
+XR9AQYJn5mZFpRG3a,YHzCXd2z7iMK952xY,6,29,2,0,['zsSEZEbGh6rpJYfRQ' 'AinZm64FAHM49xgTj' 'sZzkBHA4hzK98ar58']
+XR9AQYJn5mZFpRG3a,AinZm64FAHM49xgTj,31,146,4,3,['zsSEZEbGh6rpJYfRQ' 'YHzCXd2z7iMK952xY' 'sZzkBHA4hzK98ar58']
+XR9AQYJn5mZFpRG3a,sZzkBHA4hzK98ar58,2,11,1,0,['zsSEZEbGh6rpJYfRQ' 'YHzCXd2z7iMK952xY' 'AinZm64FAHM49xgTj']
+cvwzXXHwE4ugt3z5m,BHtTzv4FBzsDAxwjy,43,220,9,0,"['EwnxreJhmPLSnDDGL' 'koHjbNm5oEx7wpMK2' 'ZkvgPKiuPQyEKnHom'
+ 'eWyXcFPxDn8Ktn6bA' '8aj5ZG87H4WvBxxRj' 'mxKZf2a6ZmuKs46wB'
+ 'NrWxAz7yccgEDW6qP' 'xrhZgzXWcKAun7o3L']"
+cvwzXXHwE4ugt3z5m,EwnxreJhmPLSnDDGL,9,33,4,0,"['BHtTzv4FBzsDAxwjy' 'koHjbNm5oEx7wpMK2' 'ZkvgPKiuPQyEKnHom'
+ 'eWyXcFPxDn8Ktn6bA' '8aj5ZG87H4WvBxxRj' 'mxKZf2a6ZmuKs46wB'
+ 'NrWxAz7yccgEDW6qP' 'xrhZgzXWcKAun7o3L']"
+cvwzXXHwE4ugt3z5m,koHjbNm5oEx7wpMK2,32,151,9,4,"['BHtTzv4FBzsDAxwjy' 'EwnxreJhmPLSnDDGL' 'ZkvgPKiuPQyEKnHom'
+ 'eWyXcFPxDn8Ktn6bA' '8aj5ZG87H4WvBxxRj' 'mxKZf2a6ZmuKs46wB'
+ 'NrWxAz7yccgEDW6qP' 'xrhZgzXWcKAun7o3L']"
+cvwzXXHwE4ugt3z5m,ZkvgPKiuPQyEKnHom,37,179,12,0,"['BHtTzv4FBzsDAxwjy' 'EwnxreJhmPLSnDDGL' 'koHjbNm5oEx7wpMK2'
+ 'eWyXcFPxDn8Ktn6bA' '8aj5ZG87H4WvBxxRj' 'mxKZf2a6ZmuKs46wB'
+ 'NrWxAz7yccgEDW6qP' 'xrhZgzXWcKAun7o3L']"
+cvwzXXHwE4ugt3z5m,eWyXcFPxDn8Ktn6bA,44,225,11,1,"['BHtTzv4FBzsDAxwjy' 'EwnxreJhmPLSnDDGL' 'koHjbNm5oEx7wpMK2'
+ 'ZkvgPKiuPQyEKnHom' '8aj5ZG87H4WvBxxRj' 'mxKZf2a6ZmuKs46wB'
+ 'NrWxAz7yccgEDW6qP' 'xrhZgzXWcKAun7o3L']"
+cvwzXXHwE4ugt3z5m,8aj5ZG87H4WvBxxRj,1,5,1,0,"['BHtTzv4FBzsDAxwjy' 'EwnxreJhmPLSnDDGL' 'koHjbNm5oEx7wpMK2'
+ 'ZkvgPKiuPQyEKnHom' 'eWyXcFPxDn8Ktn6bA' 'mxKZf2a6ZmuKs46wB'
+ 'NrWxAz7yccgEDW6qP' 'xrhZgzXWcKAun7o3L']"
+cvwzXXHwE4ugt3z5m,mxKZf2a6ZmuKs46wB,16,72,2,0,"['BHtTzv4FBzsDAxwjy' 'EwnxreJhmPLSnDDGL' 'koHjbNm5oEx7wpMK2'
+ 'ZkvgPKiuPQyEKnHom' 'eWyXcFPxDn8Ktn6bA' '8aj5ZG87H4WvBxxRj'
+ 'NrWxAz7yccgEDW6qP' 'xrhZgzXWcKAun7o3L']"
+cvwzXXHwE4ugt3z5m,NrWxAz7yccgEDW6qP,8,41,3,0,"['BHtTzv4FBzsDAxwjy' 'EwnxreJhmPLSnDDGL' 'koHjbNm5oEx7wpMK2'
+ 'ZkvgPKiuPQyEKnHom' 'eWyXcFPxDn8Ktn6bA' '8aj5ZG87H4WvBxxRj'
+ 'mxKZf2a6ZmuKs46wB' 'xrhZgzXWcKAun7o3L']"
+cvwzXXHwE4ugt3z5m,xrhZgzXWcKAun7o3L,2,6,1,0,"['BHtTzv4FBzsDAxwjy' 'EwnxreJhmPLSnDDGL' 'koHjbNm5oEx7wpMK2'
+ 'ZkvgPKiuPQyEKnHom' 'eWyXcFPxDn8Ktn6bA' '8aj5ZG87H4WvBxxRj'
+ 'mxKZf2a6ZmuKs46wB' 'NrWxAz7yccgEDW6qP']"
+HmGaFpDzCxiAquTku,6jFnwugCWqoKxsHTH,6,30,1,0,"['9tEt5w498W7vztDnL' 'wPWq46rXZELoAhqjZ' 'o5trHeLZozmHJwW5K'
+ 'ezEtkRZ97TTjN9ax7' 'txg7apmroas2FTjbB' 'bEB9x4NbtMDTyJiiE'
+ 'ZQ8xruXz9kt6uQZhu' 'AnSSXRtXFGKJbzNgt']"
+HmGaFpDzCxiAquTku,9tEt5w498W7vztDnL,13,63,2,1,"['6jFnwugCWqoKxsHTH' 'wPWq46rXZELoAhqjZ' 'o5trHeLZozmHJwW5K'
+ 'ezEtkRZ97TTjN9ax7' 'txg7apmroas2FTjbB' 'bEB9x4NbtMDTyJiiE'
+ 'ZQ8xruXz9kt6uQZhu' 'AnSSXRtXFGKJbzNgt']"
+HmGaFpDzCxiAquTku,wPWq46rXZELoAhqjZ,4,14,1,0,"['6jFnwugCWqoKxsHTH' '9tEt5w498W7vztDnL' 'o5trHeLZozmHJwW5K'
+ 'ezEtkRZ97TTjN9ax7' 'txg7apmroas2FTjbB' 'bEB9x4NbtMDTyJiiE'
+ 'ZQ8xruXz9kt6uQZhu' 'AnSSXRtXFGKJbzNgt']"
+HmGaFpDzCxiAquTku,o5trHeLZozmHJwW5K,2,4,1,0,"['6jFnwugCWqoKxsHTH' '9tEt5w498W7vztDnL' 'wPWq46rXZELoAhqjZ'
+ 'ezEtkRZ97TTjN9ax7' 'txg7apmroas2FTjbB' 'bEB9x4NbtMDTyJiiE'
+ 'ZQ8xruXz9kt6uQZhu' 'AnSSXRtXFGKJbzNgt']"
+HmGaFpDzCxiAquTku,ezEtkRZ97TTjN9ax7,4,16,1,0,"['6jFnwugCWqoKxsHTH' '9tEt5w498W7vztDnL' 'wPWq46rXZELoAhqjZ'
+ 'o5trHeLZozmHJwW5K' 'txg7apmroas2FTjbB' 'bEB9x4NbtMDTyJiiE'
+ 'ZQ8xruXz9kt6uQZhu' 'AnSSXRtXFGKJbzNgt']"
+HmGaFpDzCxiAquTku,txg7apmroas2FTjbB,4,17,1,0,"['6jFnwugCWqoKxsHTH' '9tEt5w498W7vztDnL' 'wPWq46rXZELoAhqjZ'
+ 'o5trHeLZozmHJwW5K' 'ezEtkRZ97TTjN9ax7' 'bEB9x4NbtMDTyJiiE'
+ 'ZQ8xruXz9kt6uQZhu' 'AnSSXRtXFGKJbzNgt']"
+HmGaFpDzCxiAquTku,bEB9x4NbtMDTyJiiE,6,24,1,0,"['6jFnwugCWqoKxsHTH' '9tEt5w498W7vztDnL' 'wPWq46rXZELoAhqjZ'
+ 'o5trHeLZozmHJwW5K' 'ezEtkRZ97TTjN9ax7' 'txg7apmroas2FTjbB'
+ 'ZQ8xruXz9kt6uQZhu' 'AnSSXRtXFGKJbzNgt']"
+HmGaFpDzCxiAquTku,ZQ8xruXz9kt6uQZhu,2,10,1,0,"['6jFnwugCWqoKxsHTH' '9tEt5w498W7vztDnL' 'wPWq46rXZELoAhqjZ'
+ 'o5trHeLZozmHJwW5K' 'ezEtkRZ97TTjN9ax7' 'txg7apmroas2FTjbB'
+ 'bEB9x4NbtMDTyJiiE' 'AnSSXRtXFGKJbzNgt']"
+HmGaFpDzCxiAquTku,AnSSXRtXFGKJbzNgt,1,4,1,0,"['6jFnwugCWqoKxsHTH' '9tEt5w498W7vztDnL' 'wPWq46rXZELoAhqjZ'
+ 'o5trHeLZozmHJwW5K' 'ezEtkRZ97TTjN9ax7' 'txg7apmroas2FTjbB'
+ 'bEB9x4NbtMDTyJiiE' 'ZQ8xruXz9kt6uQZhu']"
+ySzdLnRZC78AKHAvG,mZuELqnbhavvcnAEC,11,62,2,0,"['WaMiTPvsCwzn7aa5M' 'FFo34cWBdkiFowr6W' 'iyFdKZ6P44MCf7o3w'
+ 'Z5CHcXkC24Xux3epg' 'Xs8L2QyzDws9obQ4q' 'SM3456Xzz6XkkZNi2'
+ '8rm5R49yvq2TxrLP9' 'btL6qHCLDtjEEqFcs']"
+ySzdLnRZC78AKHAvG,WaMiTPvsCwzn7aa5M,16,77,4,0,"['mZuELqnbhavvcnAEC' 'FFo34cWBdkiFowr6W' 'iyFdKZ6P44MCf7o3w'
+ 'Z5CHcXkC24Xux3epg' 'Xs8L2QyzDws9obQ4q' 'SM3456Xzz6XkkZNi2'
+ '8rm5R49yvq2TxrLP9' 'btL6qHCLDtjEEqFcs']"
+ySzdLnRZC78AKHAvG,FFo34cWBdkiFowr6W,12,60,4,0,"['mZuELqnbhavvcnAEC' 'WaMiTPvsCwzn7aa5M' 'iyFdKZ6P44MCf7o3w'
+ 'Z5CHcXkC24Xux3epg' 'Xs8L2QyzDws9obQ4q' 'SM3456Xzz6XkkZNi2'
+ '8rm5R49yvq2TxrLP9' 'btL6qHCLDtjEEqFcs']"
+ySzdLnRZC78AKHAvG,iyFdKZ6P44MCf7o3w,6,31,1,0,"['mZuELqnbhavvcnAEC' 'WaMiTPvsCwzn7aa5M' 'FFo34cWBdkiFowr6W'
+ 'Z5CHcXkC24Xux3epg' 'Xs8L2QyzDws9obQ4q' 'SM3456Xzz6XkkZNi2'
+ '8rm5R49yvq2TxrLP9' 'btL6qHCLDtjEEqFcs']"
+ySzdLnRZC78AKHAvG,Z5CHcXkC24Xux3epg,4,18,2,0,"['mZuELqnbhavvcnAEC' 'WaMiTPvsCwzn7aa5M' 'FFo34cWBdkiFowr6W'
+ 'iyFdKZ6P44MCf7o3w' 'Xs8L2QyzDws9obQ4q' 'SM3456Xzz6XkkZNi2'
+ '8rm5R49yvq2TxrLP9' 'btL6qHCLDtjEEqFcs']"
+ySzdLnRZC78AKHAvG,Xs8L2QyzDws9obQ4q,3,10,2,0,"['mZuELqnbhavvcnAEC' 'WaMiTPvsCwzn7aa5M' 'FFo34cWBdkiFowr6W'
+ 'iyFdKZ6P44MCf7o3w' 'Z5CHcXkC24Xux3epg' 'SM3456Xzz6XkkZNi2'
+ '8rm5R49yvq2TxrLP9' 'btL6qHCLDtjEEqFcs']"
+ySzdLnRZC78AKHAvG,SM3456Xzz6XkkZNi2,3,11,2,0,"['mZuELqnbhavvcnAEC' 'WaMiTPvsCwzn7aa5M' 'FFo34cWBdkiFowr6W'
+ 'iyFdKZ6P44MCf7o3w' 'Z5CHcXkC24Xux3epg' 'Xs8L2QyzDws9obQ4q'
+ '8rm5R49yvq2TxrLP9' 'btL6qHCLDtjEEqFcs']"
+ySzdLnRZC78AKHAvG,8rm5R49yvq2TxrLP9,5,19,2,0,"['mZuELqnbhavvcnAEC' 'WaMiTPvsCwzn7aa5M' 'FFo34cWBdkiFowr6W'
+ 'iyFdKZ6P44MCf7o3w' 'Z5CHcXkC24Xux3epg' 'Xs8L2QyzDws9obQ4q'
+ 'SM3456Xzz6XkkZNi2' 'btL6qHCLDtjEEqFcs']"
+ySzdLnRZC78AKHAvG,btL6qHCLDtjEEqFcs,1,4,1,0,"['mZuELqnbhavvcnAEC' 'WaMiTPvsCwzn7aa5M' 'FFo34cWBdkiFowr6W'
+ 'iyFdKZ6P44MCf7o3w' 'Z5CHcXkC24Xux3epg' 'Xs8L2QyzDws9obQ4q'
+ 'SM3456Xzz6XkkZNi2' '8rm5R49yvq2TxrLP9']"
+ZNehAQNEM7BqZWXf2,ygnqQ4okmBhqcX7jT,56,261,10,0,"['NR4H42fusJtwswAF3' 'tBbZLTYQnrFQjNFxv' '3LdRWoLcuySEbyExn'
+ 'REPPed4Bx8GH333Et' 'H8fozs7ARc5GDEsAs' '96bD3zMuA3ZaoLewq'
+ 'tf6wvyMcctA58cuok']"
+ZNehAQNEM7BqZWXf2,NR4H42fusJtwswAF3,6,26,2,0,"['ygnqQ4okmBhqcX7jT' 'tBbZLTYQnrFQjNFxv' '3LdRWoLcuySEbyExn'
+ 'REPPed4Bx8GH333Et' 'H8fozs7ARc5GDEsAs' '96bD3zMuA3ZaoLewq'
+ 'tf6wvyMcctA58cuok']"
+ZNehAQNEM7BqZWXf2,tBbZLTYQnrFQjNFxv,6,29,2,0,"['ygnqQ4okmBhqcX7jT' 'NR4H42fusJtwswAF3' '3LdRWoLcuySEbyExn'
+ 'REPPed4Bx8GH333Et' 'H8fozs7ARc5GDEsAs' '96bD3zMuA3ZaoLewq'
+ 'tf6wvyMcctA58cuok']"
+ZNehAQNEM7BqZWXf2,3LdRWoLcuySEbyExn,8,35,3,0,"['ygnqQ4okmBhqcX7jT' 'NR4H42fusJtwswAF3' 'tBbZLTYQnrFQjNFxv'
+ 'REPPed4Bx8GH333Et' 'H8fozs7ARc5GDEsAs' '96bD3zMuA3ZaoLewq'
+ 'tf6wvyMcctA58cuok']"
+ZNehAQNEM7BqZWXf2,REPPed4Bx8GH333Et,33,165,10,1,"['ygnqQ4okmBhqcX7jT' 'NR4H42fusJtwswAF3' 'tBbZLTYQnrFQjNFxv'
+ '3LdRWoLcuySEbyExn' 'H8fozs7ARc5GDEsAs' '96bD3zMuA3ZaoLewq'
+ 'tf6wvyMcctA58cuok']"
+ZNehAQNEM7BqZWXf2,H8fozs7ARc5GDEsAs,19,92,5,0,"['ygnqQ4okmBhqcX7jT' 'NR4H42fusJtwswAF3' 'tBbZLTYQnrFQjNFxv'
+ '3LdRWoLcuySEbyExn' 'REPPed4Bx8GH333Et' '96bD3zMuA3ZaoLewq'
+ 'tf6wvyMcctA58cuok']"
+ZNehAQNEM7BqZWXf2,96bD3zMuA3ZaoLewq,2,9,1,0,"['ygnqQ4okmBhqcX7jT' 'NR4H42fusJtwswAF3' 'tBbZLTYQnrFQjNFxv'
+ '3LdRWoLcuySEbyExn' 'REPPed4Bx8GH333Et' 'H8fozs7ARc5GDEsAs'
+ 'tf6wvyMcctA58cuok']"
+ZNehAQNEM7BqZWXf2,tf6wvyMcctA58cuok,3,14,2,0,"['ygnqQ4okmBhqcX7jT' 'NR4H42fusJtwswAF3' 'tBbZLTYQnrFQjNFxv'
+ '3LdRWoLcuySEbyExn' 'REPPed4Bx8GH333Et' 'H8fozs7ARc5GDEsAs'
+ '96bD3zMuA3ZaoLewq']"
+Qybkc49KvS9XMFxDe,ujAhfHQ4hrjfuswnv,40,214,5,0,"['d57qZN7pdaBQCZcfM' 'pJbHpfq7gnEhSWTWf' 'vxKCmfyoocH3cM9oZ'
+ 'x2Yht5QYGbhcKN5c4' 'ZxWCsMGDJCeE5sxsm']"
+Qybkc49KvS9XMFxDe,d57qZN7pdaBQCZcfM,3,15,2,1,"['ujAhfHQ4hrjfuswnv' 'pJbHpfq7gnEhSWTWf' 'vxKCmfyoocH3cM9oZ'
+ 'x2Yht5QYGbhcKN5c4' 'ZxWCsMGDJCeE5sxsm']"
+Qybkc49KvS9XMFxDe,pJbHpfq7gnEhSWTWf,12,50,3,0,"['ujAhfHQ4hrjfuswnv' 'd57qZN7pdaBQCZcfM' 'vxKCmfyoocH3cM9oZ'
+ 'x2Yht5QYGbhcKN5c4' 'ZxWCsMGDJCeE5sxsm']"
+Qybkc49KvS9XMFxDe,vxKCmfyoocH3cM9oZ,4,11,2,1,"['ujAhfHQ4hrjfuswnv' 'd57qZN7pdaBQCZcfM' 'pJbHpfq7gnEhSWTWf'
+ 'x2Yht5QYGbhcKN5c4' 'ZxWCsMGDJCeE5sxsm']"
+Qybkc49KvS9XMFxDe,x2Yht5QYGbhcKN5c4,2,10,1,0,"['ujAhfHQ4hrjfuswnv' 'd57qZN7pdaBQCZcfM' 'pJbHpfq7gnEhSWTWf'
+ 'vxKCmfyoocH3cM9oZ' 'ZxWCsMGDJCeE5sxsm']"
+Qybkc49KvS9XMFxDe,ZxWCsMGDJCeE5sxsm,3,13,1,0,"['ujAhfHQ4hrjfuswnv' 'd57qZN7pdaBQCZcfM' 'pJbHpfq7gnEhSWTWf'
+ 'vxKCmfyoocH3cM9oZ' 'x2Yht5QYGbhcKN5c4']"
+3sc3cRwHFHbgEXCXR,eyhNoEawWDgc4NHhB,88,443,10,2,"['NFAhtDyNwMty9sr8d' 'dcauYQ5j7nvYT8Gbw' 'D2jj3gRj3PNaG8ZCn'
+ '6wRvHeWWk4pcXbhAR' 'PQHaEWMMcSoCbjjLg' 'EN3g9xtiRNMKbGbYe']"
+3sc3cRwHFHbgEXCXR,NFAhtDyNwMty9sr8d,12,63,3,1,"['eyhNoEawWDgc4NHhB' 'dcauYQ5j7nvYT8Gbw' 'D2jj3gRj3PNaG8ZCn'
+ '6wRvHeWWk4pcXbhAR' 'PQHaEWMMcSoCbjjLg' 'EN3g9xtiRNMKbGbYe']"
+3sc3cRwHFHbgEXCXR,dcauYQ5j7nvYT8Gbw,1,3,1,0,"['eyhNoEawWDgc4NHhB' 'NFAhtDyNwMty9sr8d' 'D2jj3gRj3PNaG8ZCn'
+ '6wRvHeWWk4pcXbhAR' 'PQHaEWMMcSoCbjjLg' 'EN3g9xtiRNMKbGbYe']"
+3sc3cRwHFHbgEXCXR,D2jj3gRj3PNaG8ZCn,5,17,2,0,"['eyhNoEawWDgc4NHhB' 'NFAhtDyNwMty9sr8d' 'dcauYQ5j7nvYT8Gbw'
+ '6wRvHeWWk4pcXbhAR' 'PQHaEWMMcSoCbjjLg' 'EN3g9xtiRNMKbGbYe']"
+3sc3cRwHFHbgEXCXR,6wRvHeWWk4pcXbhAR,29,139,4,1,"['eyhNoEawWDgc4NHhB' 'NFAhtDyNwMty9sr8d' 'dcauYQ5j7nvYT8Gbw'
+ 'D2jj3gRj3PNaG8ZCn' 'PQHaEWMMcSoCbjjLg' 'EN3g9xtiRNMKbGbYe']"
+3sc3cRwHFHbgEXCXR,PQHaEWMMcSoCbjjLg,12,52,1,1,"['eyhNoEawWDgc4NHhB' 'NFAhtDyNwMty9sr8d' 'dcauYQ5j7nvYT8Gbw'
+ 'D2jj3gRj3PNaG8ZCn' '6wRvHeWWk4pcXbhAR' 'EN3g9xtiRNMKbGbYe']"
+3sc3cRwHFHbgEXCXR,EN3g9xtiRNMKbGbYe,11,51,2,0,"['eyhNoEawWDgc4NHhB' 'NFAhtDyNwMty9sr8d' 'dcauYQ5j7nvYT8Gbw'
+ 'D2jj3gRj3PNaG8ZCn' '6wRvHeWWk4pcXbhAR' 'PQHaEWMMcSoCbjjLg']"
+qoiKwAgMWEdb7XAZ7,khMuHDtkp9pkSv92M,27,138,5,2,"['vRe8F9cPvccEBJQW4' 'usBYSba2kKBXG5R47' 'yz2vJ6TXqd58j2qp9'
+ 'p9M2PoAJex2LuYQgt' 'FT9SM9zsMhTHrmP5N' '9fBQme7uE8m9NGhJ9'
+ 'MXMmbMHwdC3mCEP2e' 'ZTDHGj79dpKDbHCsb' 'A2ARPDGz7tzzsjmno']"
+qoiKwAgMWEdb7XAZ7,vRe8F9cPvccEBJQW4,31,169,2,1,"['khMuHDtkp9pkSv92M' 'usBYSba2kKBXG5R47' 'yz2vJ6TXqd58j2qp9'
+ 'p9M2PoAJex2LuYQgt' 'FT9SM9zsMhTHrmP5N' '9fBQme7uE8m9NGhJ9'
+ 'MXMmbMHwdC3mCEP2e' 'ZTDHGj79dpKDbHCsb' 'A2ARPDGz7tzzsjmno']"
+qoiKwAgMWEdb7XAZ7,usBYSba2kKBXG5R47,8,35,3,0,"['khMuHDtkp9pkSv92M' 'vRe8F9cPvccEBJQW4' 'yz2vJ6TXqd58j2qp9'
+ 'p9M2PoAJex2LuYQgt' 'FT9SM9zsMhTHrmP5N' '9fBQme7uE8m9NGhJ9'
+ 'MXMmbMHwdC3mCEP2e' 'ZTDHGj79dpKDbHCsb' 'A2ARPDGz7tzzsjmno']"
+qoiKwAgMWEdb7XAZ7,yz2vJ6TXqd58j2qp9,34,190,3,1,"['khMuHDtkp9pkSv92M' 'vRe8F9cPvccEBJQW4' 'usBYSba2kKBXG5R47'
+ 'p9M2PoAJex2LuYQgt' 'FT9SM9zsMhTHrmP5N' '9fBQme7uE8m9NGhJ9'
+ 'MXMmbMHwdC3mCEP2e' 'ZTDHGj79dpKDbHCsb' 'A2ARPDGz7tzzsjmno']"
+qoiKwAgMWEdb7XAZ7,p9M2PoAJex2LuYQgt,18,92,3,1,"['khMuHDtkp9pkSv92M' 'vRe8F9cPvccEBJQW4' 'usBYSba2kKBXG5R47'
+ 'yz2vJ6TXqd58j2qp9' 'FT9SM9zsMhTHrmP5N' '9fBQme7uE8m9NGhJ9'
+ 'MXMmbMHwdC3mCEP2e' 'ZTDHGj79dpKDbHCsb' 'A2ARPDGz7tzzsjmno']"
+qoiKwAgMWEdb7XAZ7,FT9SM9zsMhTHrmP5N,14,75,2,0,"['khMuHDtkp9pkSv92M' 'vRe8F9cPvccEBJQW4' 'usBYSba2kKBXG5R47'
+ 'yz2vJ6TXqd58j2qp9' 'p9M2PoAJex2LuYQgt' '9fBQme7uE8m9NGhJ9'
+ 'MXMmbMHwdC3mCEP2e' 'ZTDHGj79dpKDbHCsb' 'A2ARPDGz7tzzsjmno']"
+qoiKwAgMWEdb7XAZ7,9fBQme7uE8m9NGhJ9,11,54,3,0,"['khMuHDtkp9pkSv92M' 'vRe8F9cPvccEBJQW4' 'usBYSba2kKBXG5R47'
+ 'yz2vJ6TXqd58j2qp9' 'p9M2PoAJex2LuYQgt' 'FT9SM9zsMhTHrmP5N'
+ 'MXMmbMHwdC3mCEP2e' 'ZTDHGj79dpKDbHCsb' 'A2ARPDGz7tzzsjmno']"
+qoiKwAgMWEdb7XAZ7,MXMmbMHwdC3mCEP2e,12,54,1,1,"['khMuHDtkp9pkSv92M' 'vRe8F9cPvccEBJQW4' 'usBYSba2kKBXG5R47'
+ 'yz2vJ6TXqd58j2qp9' 'p9M2PoAJex2LuYQgt' 'FT9SM9zsMhTHrmP5N'
+ '9fBQme7uE8m9NGhJ9' 'ZTDHGj79dpKDbHCsb' 'A2ARPDGz7tzzsjmno']"
+qoiKwAgMWEdb7XAZ7,ZTDHGj79dpKDbHCsb,5,24,2,0,"['khMuHDtkp9pkSv92M' 'vRe8F9cPvccEBJQW4' 'usBYSba2kKBXG5R47'
+ 'yz2vJ6TXqd58j2qp9' 'p9M2PoAJex2LuYQgt' 'FT9SM9zsMhTHrmP5N'
+ '9fBQme7uE8m9NGhJ9' 'MXMmbMHwdC3mCEP2e' 'A2ARPDGz7tzzsjmno']"
+qoiKwAgMWEdb7XAZ7,A2ARPDGz7tzzsjmno,3,14,1,0,"['khMuHDtkp9pkSv92M' 'vRe8F9cPvccEBJQW4' 'usBYSba2kKBXG5R47'
+ 'yz2vJ6TXqd58j2qp9' 'p9M2PoAJex2LuYQgt' 'FT9SM9zsMhTHrmP5N'
+ '9fBQme7uE8m9NGhJ9' 'MXMmbMHwdC3mCEP2e' 'ZTDHGj79dpKDbHCsb']"
+QmzHkAjCaecFQQKqR,2vsyemS4Ahb4yLAms,32,143,9,2,"['ng9CApAB6DsumuDJf' 'zsTa2S6wPPfaGiZMc' 'uTEA7kypvbtxTCMhS'
+ 'SsNrwdLmisYRJYMxL' '8QrFxLM896JvMGSPD' 'NTJbm9gSABKmy9Bn7'
+ 'ZhfPY3MrMAL89uwMB' 'GH9aww3ioAq5Hf4A4']"
+QmzHkAjCaecFQQKqR,ng9CApAB6DsumuDJf,33,165,6,0,"['2vsyemS4Ahb4yLAms' 'zsTa2S6wPPfaGiZMc' 'uTEA7kypvbtxTCMhS'
+ 'SsNrwdLmisYRJYMxL' '8QrFxLM896JvMGSPD' 'NTJbm9gSABKmy9Bn7'
+ 'ZhfPY3MrMAL89uwMB' 'GH9aww3ioAq5Hf4A4']"
+QmzHkAjCaecFQQKqR,zsTa2S6wPPfaGiZMc,12,67,3,1,"['2vsyemS4Ahb4yLAms' 'ng9CApAB6DsumuDJf' 'uTEA7kypvbtxTCMhS'
+ 'SsNrwdLmisYRJYMxL' '8QrFxLM896JvMGSPD' 'NTJbm9gSABKmy9Bn7'
+ 'ZhfPY3MrMAL89uwMB' 'GH9aww3ioAq5Hf4A4']"
+QmzHkAjCaecFQQKqR,uTEA7kypvbtxTCMhS,41,211,5,3,"['2vsyemS4Ahb4yLAms' 'ng9CApAB6DsumuDJf' 'zsTa2S6wPPfaGiZMc'
+ 'SsNrwdLmisYRJYMxL' '8QrFxLM896JvMGSPD' 'NTJbm9gSABKmy9Bn7'
+ 'ZhfPY3MrMAL89uwMB' 'GH9aww3ioAq5Hf4A4']"
+QmzHkAjCaecFQQKqR,SsNrwdLmisYRJYMxL,15,64,4,0,"['2vsyemS4Ahb4yLAms' 'ng9CApAB6DsumuDJf' 'zsTa2S6wPPfaGiZMc'
+ 'uTEA7kypvbtxTCMhS' '8QrFxLM896JvMGSPD' 'NTJbm9gSABKmy9Bn7'
+ 'ZhfPY3MrMAL89uwMB' 'GH9aww3ioAq5Hf4A4']"
+QmzHkAjCaecFQQKqR,8QrFxLM896JvMGSPD,29,177,2,0,"['2vsyemS4Ahb4yLAms' 'ng9CApAB6DsumuDJf' 'zsTa2S6wPPfaGiZMc'
+ 'uTEA7kypvbtxTCMhS' 'SsNrwdLmisYRJYMxL' 'NTJbm9gSABKmy9Bn7'
+ 'ZhfPY3MrMAL89uwMB' 'GH9aww3ioAq5Hf4A4']"
+QmzHkAjCaecFQQKqR,NTJbm9gSABKmy9Bn7,4,16,1,0,"['2vsyemS4Ahb4yLAms' 'ng9CApAB6DsumuDJf' 'zsTa2S6wPPfaGiZMc'
+ 'uTEA7kypvbtxTCMhS' 'SsNrwdLmisYRJYMxL' '8QrFxLM896JvMGSPD'
+ 'ZhfPY3MrMAL89uwMB' 'GH9aww3ioAq5Hf4A4']"
+QmzHkAjCaecFQQKqR,ZhfPY3MrMAL89uwMB,2,8,1,0,"['2vsyemS4Ahb4yLAms' 'ng9CApAB6DsumuDJf' 'zsTa2S6wPPfaGiZMc'
+ 'uTEA7kypvbtxTCMhS' 'SsNrwdLmisYRJYMxL' '8QrFxLM896JvMGSPD'
+ 'NTJbm9gSABKmy9Bn7' 'GH9aww3ioAq5Hf4A4']"
+QmzHkAjCaecFQQKqR,GH9aww3ioAq5Hf4A4,5,26,1,0,"['2vsyemS4Ahb4yLAms' 'ng9CApAB6DsumuDJf' 'zsTa2S6wPPfaGiZMc'
+ 'uTEA7kypvbtxTCMhS' 'SsNrwdLmisYRJYMxL' '8QrFxLM896JvMGSPD'
+ 'NTJbm9gSABKmy9Bn7' 'ZhfPY3MrMAL89uwMB']"
+6LZjk7eYWRqt2MS5e,sJcLPrAHDbtGCitmD,57,279,15,1,"['LdqZBpgvPJN6u5xpy' 'KAF7fXijTq8bRXGNq' 'uWr3vQYJvAGn2GJuF'
+ 'Z7XC2dW6kASh8oYfy' 'bmRpMTDoSoFB4jF9L' 'eaeujDyuMFMMtwqDK'
+ 'rxNm3cqPLTPrHp5bM']"
+6LZjk7eYWRqt2MS5e,LdqZBpgvPJN6u5xpy,13,62,7,2,"['sJcLPrAHDbtGCitmD' 'KAF7fXijTq8bRXGNq' 'uWr3vQYJvAGn2GJuF'
+ 'Z7XC2dW6kASh8oYfy' 'bmRpMTDoSoFB4jF9L' 'eaeujDyuMFMMtwqDK'
+ 'rxNm3cqPLTPrHp5bM']"
+6LZjk7eYWRqt2MS5e,KAF7fXijTq8bRXGNq,34,165,6,1,"['sJcLPrAHDbtGCitmD' 'LdqZBpgvPJN6u5xpy' 'uWr3vQYJvAGn2GJuF'
+ 'Z7XC2dW6kASh8oYfy' 'bmRpMTDoSoFB4jF9L' 'eaeujDyuMFMMtwqDK'
+ 'rxNm3cqPLTPrHp5bM']"
+6LZjk7eYWRqt2MS5e,uWr3vQYJvAGn2GJuF,24,130,3,0,"['sJcLPrAHDbtGCitmD' 'LdqZBpgvPJN6u5xpy' 'KAF7fXijTq8bRXGNq'
+ 'Z7XC2dW6kASh8oYfy' 'bmRpMTDoSoFB4jF9L' 'eaeujDyuMFMMtwqDK'
+ 'rxNm3cqPLTPrHp5bM']"
+6LZjk7eYWRqt2MS5e,Z7XC2dW6kASh8oYfy,1,6,1,0,"['sJcLPrAHDbtGCitmD' 'LdqZBpgvPJN6u5xpy' 'KAF7fXijTq8bRXGNq'
+ 'uWr3vQYJvAGn2GJuF' 'bmRpMTDoSoFB4jF9L' 'eaeujDyuMFMMtwqDK'
+ 'rxNm3cqPLTPrHp5bM']"
+6LZjk7eYWRqt2MS5e,bmRpMTDoSoFB4jF9L,5,26,1,0,"['sJcLPrAHDbtGCitmD' 'LdqZBpgvPJN6u5xpy' 'KAF7fXijTq8bRXGNq'
+ 'uWr3vQYJvAGn2GJuF' 'Z7XC2dW6kASh8oYfy' 'eaeujDyuMFMMtwqDK'
+ 'rxNm3cqPLTPrHp5bM']"
+6LZjk7eYWRqt2MS5e,eaeujDyuMFMMtwqDK,2,10,1,0,"['sJcLPrAHDbtGCitmD' 'LdqZBpgvPJN6u5xpy' 'KAF7fXijTq8bRXGNq'
+ 'uWr3vQYJvAGn2GJuF' 'Z7XC2dW6kASh8oYfy' 'bmRpMTDoSoFB4jF9L'
+ 'rxNm3cqPLTPrHp5bM']"
+6LZjk7eYWRqt2MS5e,rxNm3cqPLTPrHp5bM,1,4,1,0,"['sJcLPrAHDbtGCitmD' 'LdqZBpgvPJN6u5xpy' 'KAF7fXijTq8bRXGNq'
+ 'uWr3vQYJvAGn2GJuF' 'Z7XC2dW6kASh8oYfy' 'bmRpMTDoSoFB4jF9L'
+ 'eaeujDyuMFMMtwqDK']"
+vGbR9w6eMCutPXYXx,nGakNCx48ETJN7e9p,31,146,6,0,"['eW5HCwNPPncHJknsk' 'TiAQDz6T4RaFqSgju' 'znK22HWBYatHMijEh'
+ 'kWZbJPPK6XZ3wSumd' 'cN3tPvteMbG2vBxif' 'PwJAMHf2rigCSRgJE'
+ 'baDf7ocgdh2Pq9xQy' 'LuQF46Wj2dNimM83k']"
+vGbR9w6eMCutPXYXx,eW5HCwNPPncHJknsk,21,106,5,2,"['nGakNCx48ETJN7e9p' 'TiAQDz6T4RaFqSgju' 'znK22HWBYatHMijEh'
+ 'kWZbJPPK6XZ3wSumd' 'cN3tPvteMbG2vBxif' 'PwJAMHf2rigCSRgJE'
+ 'baDf7ocgdh2Pq9xQy' 'LuQF46Wj2dNimM83k']"
+vGbR9w6eMCutPXYXx,TiAQDz6T4RaFqSgju,36,167,12,3,"['nGakNCx48ETJN7e9p' 'eW5HCwNPPncHJknsk' 'znK22HWBYatHMijEh'
+ 'kWZbJPPK6XZ3wSumd' 'cN3tPvteMbG2vBxif' 'PwJAMHf2rigCSRgJE'
+ 'baDf7ocgdh2Pq9xQy' 'LuQF46Wj2dNimM83k']"
+vGbR9w6eMCutPXYXx,znK22HWBYatHMijEh,8,49,2,0,"['nGakNCx48ETJN7e9p' 'eW5HCwNPPncHJknsk' 'TiAQDz6T4RaFqSgju'
+ 'kWZbJPPK6XZ3wSumd' 'cN3tPvteMbG2vBxif' 'PwJAMHf2rigCSRgJE'
+ 'baDf7ocgdh2Pq9xQy' 'LuQF46Wj2dNimM83k']"
+vGbR9w6eMCutPXYXx,kWZbJPPK6XZ3wSumd,31,140,8,1,"['nGakNCx48ETJN7e9p' 'eW5HCwNPPncHJknsk' 'TiAQDz6T4RaFqSgju'
+ 'znK22HWBYatHMijEh' 'cN3tPvteMbG2vBxif' 'PwJAMHf2rigCSRgJE'
+ 'baDf7ocgdh2Pq9xQy' 'LuQF46Wj2dNimM83k']"
+vGbR9w6eMCutPXYXx,cN3tPvteMbG2vBxif,1,3,1,0,"['nGakNCx48ETJN7e9p' 'eW5HCwNPPncHJknsk' 'TiAQDz6T4RaFqSgju'
+ 'znK22HWBYatHMijEh' 'kWZbJPPK6XZ3wSumd' 'PwJAMHf2rigCSRgJE'
+ 'baDf7ocgdh2Pq9xQy' 'LuQF46Wj2dNimM83k']"
+vGbR9w6eMCutPXYXx,PwJAMHf2rigCSRgJE,3,10,2,0,"['nGakNCx48ETJN7e9p' 'eW5HCwNPPncHJknsk' 'TiAQDz6T4RaFqSgju'
+ 'znK22HWBYatHMijEh' 'kWZbJPPK6XZ3wSumd' 'cN3tPvteMbG2vBxif'
+ 'baDf7ocgdh2Pq9xQy' 'LuQF46Wj2dNimM83k']"
+vGbR9w6eMCutPXYXx,baDf7ocgdh2Pq9xQy,40,184,5,1,"['nGakNCx48ETJN7e9p' 'eW5HCwNPPncHJknsk' 'TiAQDz6T4RaFqSgju'
+ 'znK22HWBYatHMijEh' 'kWZbJPPK6XZ3wSumd' 'cN3tPvteMbG2vBxif'
+ 'PwJAMHf2rigCSRgJE' 'LuQF46Wj2dNimM83k']"
+vGbR9w6eMCutPXYXx,LuQF46Wj2dNimM83k,21,104,6,1,"['nGakNCx48ETJN7e9p' 'eW5HCwNPPncHJknsk' 'TiAQDz6T4RaFqSgju'
+ 'znK22HWBYatHMijEh' 'kWZbJPPK6XZ3wSumd' 'cN3tPvteMbG2vBxif'
+ 'PwJAMHf2rigCSRgJE' 'baDf7ocgdh2Pq9xQy']"
+JNQQycjx3d4cePkkg,TaMAWDev8z2wgZAYm,11,45,3,0,"['BRkBRdwJaLYdApQ3C' 'GM5qtubx2A8B23Rc8' 'F5PbGzZwkAqXqsifB'
+ 'ovBY8HRQHR5S6qYjj']"
+JNQQycjx3d4cePkkg,BRkBRdwJaLYdApQ3C,5,17,4,0,"['TaMAWDev8z2wgZAYm' 'GM5qtubx2A8B23Rc8' 'F5PbGzZwkAqXqsifB'
+ 'ovBY8HRQHR5S6qYjj']"
+JNQQycjx3d4cePkkg,GM5qtubx2A8B23Rc8,4,14,2,0,"['TaMAWDev8z2wgZAYm' 'BRkBRdwJaLYdApQ3C' 'F5PbGzZwkAqXqsifB'
+ 'ovBY8HRQHR5S6qYjj']"
+JNQQycjx3d4cePkkg,F5PbGzZwkAqXqsifB,7,29,3,0,"['TaMAWDev8z2wgZAYm' 'BRkBRdwJaLYdApQ3C' 'GM5qtubx2A8B23Rc8'
+ 'ovBY8HRQHR5S6qYjj']"
+JNQQycjx3d4cePkkg,ovBY8HRQHR5S6qYjj,5,21,2,0,"['TaMAWDev8z2wgZAYm' 'BRkBRdwJaLYdApQ3C' 'GM5qtubx2A8B23Rc8'
+ 'F5PbGzZwkAqXqsifB']"
+YJeaNvFNA5GCWzjpQ,icXibg9a2f75ucfX8,27,122,8,1,"['uKLm64edtWXaJjo3J' 'KDgibfRTqnhe5tJZd' 'YXcx3sDQwqsacfky5'
+ 'TWEiJQ5gkyx3WyQnN' 'NDMHR3xuGkngynMyv' 'TqA5fZBhEJHdrWf7M']"
+YJeaNvFNA5GCWzjpQ,uKLm64edtWXaJjo3J,4,14,4,0,"['icXibg9a2f75ucfX8' 'KDgibfRTqnhe5tJZd' 'YXcx3sDQwqsacfky5'
+ 'TWEiJQ5gkyx3WyQnN' 'NDMHR3xuGkngynMyv' 'TqA5fZBhEJHdrWf7M']"
+YJeaNvFNA5GCWzjpQ,KDgibfRTqnhe5tJZd,33,143,8,0,"['icXibg9a2f75ucfX8' 'uKLm64edtWXaJjo3J' 'YXcx3sDQwqsacfky5'
+ 'TWEiJQ5gkyx3WyQnN' 'NDMHR3xuGkngynMyv' 'TqA5fZBhEJHdrWf7M']"
+YJeaNvFNA5GCWzjpQ,YXcx3sDQwqsacfky5,32,155,7,1,"['icXibg9a2f75ucfX8' 'uKLm64edtWXaJjo3J' 'KDgibfRTqnhe5tJZd'
+ 'TWEiJQ5gkyx3WyQnN' 'NDMHR3xuGkngynMyv' 'TqA5fZBhEJHdrWf7M']"
+YJeaNvFNA5GCWzjpQ,TWEiJQ5gkyx3WyQnN,2,8,2,0,"['icXibg9a2f75ucfX8' 'uKLm64edtWXaJjo3J' 'KDgibfRTqnhe5tJZd'
+ 'YXcx3sDQwqsacfky5' 'NDMHR3xuGkngynMyv' 'TqA5fZBhEJHdrWf7M']"
+YJeaNvFNA5GCWzjpQ,NDMHR3xuGkngynMyv,19,89,4,0,"['icXibg9a2f75ucfX8' 'uKLm64edtWXaJjo3J' 'KDgibfRTqnhe5tJZd'
+ 'YXcx3sDQwqsacfky5' 'TWEiJQ5gkyx3WyQnN' 'TqA5fZBhEJHdrWf7M']"
+YJeaNvFNA5GCWzjpQ,TqA5fZBhEJHdrWf7M,24,100,5,0,"['icXibg9a2f75ucfX8' 'uKLm64edtWXaJjo3J' 'KDgibfRTqnhe5tJZd'
+ 'YXcx3sDQwqsacfky5' 'TWEiJQ5gkyx3WyQnN' 'NDMHR3xuGkngynMyv']"
+Nns2cmb6GzYEQLdgr,TMwaEgx4TMpdFWuub,22,118,4,0,"['a8e92ASTdnb7XrTzr' 'qxajTmZN35r5kTkX6' '3opse45b2N6Q2TrSR'
+ 'Q378CEDDJjamRd4bt' 'grXN88LPd76MMFpwo' 'Jf6Xw3HQ35PkN8deC']"
+Nns2cmb6GzYEQLdgr,a8e92ASTdnb7XrTzr,36,165,7,0,"['TMwaEgx4TMpdFWuub' 'qxajTmZN35r5kTkX6' '3opse45b2N6Q2TrSR'
+ 'Q378CEDDJjamRd4bt' 'grXN88LPd76MMFpwo' 'Jf6Xw3HQ35PkN8deC']"
+Nns2cmb6GzYEQLdgr,qxajTmZN35r5kTkX6,13,58,2,0,"['TMwaEgx4TMpdFWuub' 'a8e92ASTdnb7XrTzr' '3opse45b2N6Q2TrSR'
+ 'Q378CEDDJjamRd4bt' 'grXN88LPd76MMFpwo' 'Jf6Xw3HQ35PkN8deC']"
+Nns2cmb6GzYEQLdgr,3opse45b2N6Q2TrSR,7,30,2,0,"['TMwaEgx4TMpdFWuub' 'a8e92ASTdnb7XrTzr' 'qxajTmZN35r5kTkX6'
+ 'Q378CEDDJjamRd4bt' 'grXN88LPd76MMFpwo' 'Jf6Xw3HQ35PkN8deC']"
+Nns2cmb6GzYEQLdgr,Q378CEDDJjamRd4bt,12,55,4,0,"['TMwaEgx4TMpdFWuub' 'a8e92ASTdnb7XrTzr' 'qxajTmZN35r5kTkX6'
+ '3opse45b2N6Q2TrSR' 'grXN88LPd76MMFpwo' 'Jf6Xw3HQ35PkN8deC']"
+Nns2cmb6GzYEQLdgr,grXN88LPd76MMFpwo,2,10,1,0,"['TMwaEgx4TMpdFWuub' 'a8e92ASTdnb7XrTzr' 'qxajTmZN35r5kTkX6'
+ '3opse45b2N6Q2TrSR' 'Q378CEDDJjamRd4bt' 'Jf6Xw3HQ35PkN8deC']"
+Nns2cmb6GzYEQLdgr,Jf6Xw3HQ35PkN8deC,8,38,2,0,"['TMwaEgx4TMpdFWuub' 'a8e92ASTdnb7XrTzr' 'qxajTmZN35r5kTkX6'
+ '3opse45b2N6Q2TrSR' 'Q378CEDDJjamRd4bt' 'grXN88LPd76MMFpwo']"
+kTPt9MEjkwCvnEJY9,NULL_SPEAKER,1,3,1,0,[]
+8cFm4TDpa3eAGayzj,TiXhcyqcXfGmiRvAa,59,301,7,1,"['X8qQk9qzDd8wQwwdA' '9vEyLHrhkBvRAJPTC' 'ysmwbgvB9KxfWn3u4'
+ 'RughJXurZrBPAewhg' 'aZipa9TjDit2Z37uA' 'L8dR3zj7YQ8YMrkQZ'
+ 'i3KKkGw7PxPuNC6gE' 'Che4fLuYeoxEEfhDc']"
+8cFm4TDpa3eAGayzj,X8qQk9qzDd8wQwwdA,46,228,5,5,"['TiXhcyqcXfGmiRvAa' '9vEyLHrhkBvRAJPTC' 'ysmwbgvB9KxfWn3u4'
+ 'RughJXurZrBPAewhg' 'aZipa9TjDit2Z37uA' 'L8dR3zj7YQ8YMrkQZ'
+ 'i3KKkGw7PxPuNC6gE' 'Che4fLuYeoxEEfhDc']"
+8cFm4TDpa3eAGayzj,9vEyLHrhkBvRAJPTC,17,83,6,1,"['TiXhcyqcXfGmiRvAa' 'X8qQk9qzDd8wQwwdA' 'ysmwbgvB9KxfWn3u4'
+ 'RughJXurZrBPAewhg' 'aZipa9TjDit2Z37uA' 'L8dR3zj7YQ8YMrkQZ'
+ 'i3KKkGw7PxPuNC6gE' 'Che4fLuYeoxEEfhDc']"
+8cFm4TDpa3eAGayzj,ysmwbgvB9KxfWn3u4,60,273,6,9,"['TiXhcyqcXfGmiRvAa' 'X8qQk9qzDd8wQwwdA' '9vEyLHrhkBvRAJPTC'
+ 'RughJXurZrBPAewhg' 'aZipa9TjDit2Z37uA' 'L8dR3zj7YQ8YMrkQZ'
+ 'i3KKkGw7PxPuNC6gE' 'Che4fLuYeoxEEfhDc']"
+8cFm4TDpa3eAGayzj,RughJXurZrBPAewhg,19,94,4,2,"['TiXhcyqcXfGmiRvAa' 'X8qQk9qzDd8wQwwdA' '9vEyLHrhkBvRAJPTC'
+ 'ysmwbgvB9KxfWn3u4' 'aZipa9TjDit2Z37uA' 'L8dR3zj7YQ8YMrkQZ'
+ 'i3KKkGw7PxPuNC6gE' 'Che4fLuYeoxEEfhDc']"
+8cFm4TDpa3eAGayzj,aZipa9TjDit2Z37uA,12,66,3,2,"['TiXhcyqcXfGmiRvAa' 'X8qQk9qzDd8wQwwdA' '9vEyLHrhkBvRAJPTC'
+ 'ysmwbgvB9KxfWn3u4' 'RughJXurZrBPAewhg' 'L8dR3zj7YQ8YMrkQZ'
+ 'i3KKkGw7PxPuNC6gE' 'Che4fLuYeoxEEfhDc']"
+8cFm4TDpa3eAGayzj,L8dR3zj7YQ8YMrkQZ,17,86,5,0,"['TiXhcyqcXfGmiRvAa' 'X8qQk9qzDd8wQwwdA' '9vEyLHrhkBvRAJPTC'
+ 'ysmwbgvB9KxfWn3u4' 'RughJXurZrBPAewhg' 'aZipa9TjDit2Z37uA'
+ 'i3KKkGw7PxPuNC6gE' 'Che4fLuYeoxEEfhDc']"
+8cFm4TDpa3eAGayzj,i3KKkGw7PxPuNC6gE,40,213,7,4,"['TiXhcyqcXfGmiRvAa' 'X8qQk9qzDd8wQwwdA' '9vEyLHrhkBvRAJPTC'
+ 'ysmwbgvB9KxfWn3u4' 'RughJXurZrBPAewhg' 'aZipa9TjDit2Z37uA'
+ 'L8dR3zj7YQ8YMrkQZ' 'Che4fLuYeoxEEfhDc']"
+8cFm4TDpa3eAGayzj,Che4fLuYeoxEEfhDc,15,64,3,1,"['TiXhcyqcXfGmiRvAa' 'X8qQk9qzDd8wQwwdA' '9vEyLHrhkBvRAJPTC'
+ 'ysmwbgvB9KxfWn3u4' 'RughJXurZrBPAewhg' 'aZipa9TjDit2Z37uA'
+ 'L8dR3zj7YQ8YMrkQZ' 'i3KKkGw7PxPuNC6gE']"
+knReqNMjWD3SE3boD,52pu4KcSPNLrL5cP6,2,10,1,0,"['Gfsm8xWkdmbHydrEa' 'MZe7wk46ajStBNaH6' 'kMwZhnEL4KNyeRJFw'
+ 'Yx9fevQaMnBZwmA4g' 'XiqorTAT6kRofzA4b' 'f2Kd2wTeEff9zQTsA'
+ 'QqBZJ5JXPNvZpG5WE' '89vCGz8QBMXkC6xzZ']"
+knReqNMjWD3SE3boD,Gfsm8xWkdmbHydrEa,7,28,2,0,"['52pu4KcSPNLrL5cP6' 'MZe7wk46ajStBNaH6' 'kMwZhnEL4KNyeRJFw'
+ 'Yx9fevQaMnBZwmA4g' 'XiqorTAT6kRofzA4b' 'f2Kd2wTeEff9zQTsA'
+ 'QqBZJ5JXPNvZpG5WE' '89vCGz8QBMXkC6xzZ']"
+knReqNMjWD3SE3boD,MZe7wk46ajStBNaH6,4,14,1,0,"['52pu4KcSPNLrL5cP6' 'Gfsm8xWkdmbHydrEa' 'kMwZhnEL4KNyeRJFw'
+ 'Yx9fevQaMnBZwmA4g' 'XiqorTAT6kRofzA4b' 'f2Kd2wTeEff9zQTsA'
+ 'QqBZJ5JXPNvZpG5WE' '89vCGz8QBMXkC6xzZ']"
+knReqNMjWD3SE3boD,kMwZhnEL4KNyeRJFw,1,3,1,0,"['52pu4KcSPNLrL5cP6' 'Gfsm8xWkdmbHydrEa' 'MZe7wk46ajStBNaH6'
+ 'Yx9fevQaMnBZwmA4g' 'XiqorTAT6kRofzA4b' 'f2Kd2wTeEff9zQTsA'
+ 'QqBZJ5JXPNvZpG5WE' '89vCGz8QBMXkC6xzZ']"
+knReqNMjWD3SE3boD,Yx9fevQaMnBZwmA4g,1,4,1,0,"['52pu4KcSPNLrL5cP6' 'Gfsm8xWkdmbHydrEa' 'MZe7wk46ajStBNaH6'
+ 'kMwZhnEL4KNyeRJFw' 'XiqorTAT6kRofzA4b' 'f2Kd2wTeEff9zQTsA'
+ 'QqBZJ5JXPNvZpG5WE' '89vCGz8QBMXkC6xzZ']"
+knReqNMjWD3SE3boD,XiqorTAT6kRofzA4b,1,4,1,0,"['52pu4KcSPNLrL5cP6' 'Gfsm8xWkdmbHydrEa' 'MZe7wk46ajStBNaH6'
+ 'kMwZhnEL4KNyeRJFw' 'Yx9fevQaMnBZwmA4g' 'f2Kd2wTeEff9zQTsA'
+ 'QqBZJ5JXPNvZpG5WE' '89vCGz8QBMXkC6xzZ']"
+knReqNMjWD3SE3boD,f2Kd2wTeEff9zQTsA,3,11,2,0,"['52pu4KcSPNLrL5cP6' 'Gfsm8xWkdmbHydrEa' 'MZe7wk46ajStBNaH6'
+ 'kMwZhnEL4KNyeRJFw' 'Yx9fevQaMnBZwmA4g' 'XiqorTAT6kRofzA4b'
+ 'QqBZJ5JXPNvZpG5WE' '89vCGz8QBMXkC6xzZ']"
+knReqNMjWD3SE3boD,QqBZJ5JXPNvZpG5WE,3,10,1,0,"['52pu4KcSPNLrL5cP6' 'Gfsm8xWkdmbHydrEa' 'MZe7wk46ajStBNaH6'
+ 'kMwZhnEL4KNyeRJFw' 'Yx9fevQaMnBZwmA4g' 'XiqorTAT6kRofzA4b'
+ 'f2Kd2wTeEff9zQTsA' '89vCGz8QBMXkC6xzZ']"
+knReqNMjWD3SE3boD,89vCGz8QBMXkC6xzZ,1,4,1,0,"['52pu4KcSPNLrL5cP6' 'Gfsm8xWkdmbHydrEa' 'MZe7wk46ajStBNaH6'
+ 'kMwZhnEL4KNyeRJFw' 'Yx9fevQaMnBZwmA4g' 'XiqorTAT6kRofzA4b'
+ 'f2Kd2wTeEff9zQTsA' 'QqBZJ5JXPNvZpG5WE']"
+kBGSQKtjY6Qy8qLhN,j3ds6KuCKywCKNiQz,35,167,7,4,"['t4BS7HmfmfuK2W3s8' 'YHgLGvx7WB7fpk9kf' 'tki5tdY4qjaQ5Yw5y'
+ 'Kz5X9DE2xrr5GEsTz' 'ivh52SEM4wjwtdy23' '8imEHb4P4qz3A2NLh'
+ '8M3fCfXRiuG8WzGkj' 'ji44GsRRnqMzrEarG']"
+kBGSQKtjY6Qy8qLhN,t4BS7HmfmfuK2W3s8,10,41,4,1,"['j3ds6KuCKywCKNiQz' 'YHgLGvx7WB7fpk9kf' 'tki5tdY4qjaQ5Yw5y'
+ 'Kz5X9DE2xrr5GEsTz' 'ivh52SEM4wjwtdy23' '8imEHb4P4qz3A2NLh'
+ '8M3fCfXRiuG8WzGkj' 'ji44GsRRnqMzrEarG']"
+kBGSQKtjY6Qy8qLhN,YHgLGvx7WB7fpk9kf,9,37,3,0,"['j3ds6KuCKywCKNiQz' 't4BS7HmfmfuK2W3s8' 'tki5tdY4qjaQ5Yw5y'
+ 'Kz5X9DE2xrr5GEsTz' 'ivh52SEM4wjwtdy23' '8imEHb4P4qz3A2NLh'
+ '8M3fCfXRiuG8WzGkj' 'ji44GsRRnqMzrEarG']"
+kBGSQKtjY6Qy8qLhN,tki5tdY4qjaQ5Yw5y,34,160,8,2,"['j3ds6KuCKywCKNiQz' 't4BS7HmfmfuK2W3s8' 'YHgLGvx7WB7fpk9kf'
+ 'Kz5X9DE2xrr5GEsTz' 'ivh52SEM4wjwtdy23' '8imEHb4P4qz3A2NLh'
+ '8M3fCfXRiuG8WzGkj' 'ji44GsRRnqMzrEarG']"
+kBGSQKtjY6Qy8qLhN,Kz5X9DE2xrr5GEsTz,27,137,8,3,"['j3ds6KuCKywCKNiQz' 't4BS7HmfmfuK2W3s8' 'YHgLGvx7WB7fpk9kf'
+ 'tki5tdY4qjaQ5Yw5y' 'ivh52SEM4wjwtdy23' '8imEHb4P4qz3A2NLh'
+ '8M3fCfXRiuG8WzGkj' 'ji44GsRRnqMzrEarG']"
+kBGSQKtjY6Qy8qLhN,ivh52SEM4wjwtdy23,15,69,5,0,"['j3ds6KuCKywCKNiQz' 't4BS7HmfmfuK2W3s8' 'YHgLGvx7WB7fpk9kf'
+ 'tki5tdY4qjaQ5Yw5y' 'Kz5X9DE2xrr5GEsTz' '8imEHb4P4qz3A2NLh'
+ '8M3fCfXRiuG8WzGkj' 'ji44GsRRnqMzrEarG']"
+kBGSQKtjY6Qy8qLhN,8imEHb4P4qz3A2NLh,3,15,1,0,"['j3ds6KuCKywCKNiQz' 't4BS7HmfmfuK2W3s8' 'YHgLGvx7WB7fpk9kf'
+ 'tki5tdY4qjaQ5Yw5y' 'Kz5X9DE2xrr5GEsTz' 'ivh52SEM4wjwtdy23'
+ '8M3fCfXRiuG8WzGkj' 'ji44GsRRnqMzrEarG']"
+kBGSQKtjY6Qy8qLhN,8M3fCfXRiuG8WzGkj,2,10,1,0,"['j3ds6KuCKywCKNiQz' 't4BS7HmfmfuK2W3s8' 'YHgLGvx7WB7fpk9kf'
+ 'tki5tdY4qjaQ5Yw5y' 'Kz5X9DE2xrr5GEsTz' 'ivh52SEM4wjwtdy23'
+ '8imEHb4P4qz3A2NLh' 'ji44GsRRnqMzrEarG']"
+kBGSQKtjY6Qy8qLhN,ji44GsRRnqMzrEarG,2,11,1,0,"['j3ds6KuCKywCKNiQz' 't4BS7HmfmfuK2W3s8' 'YHgLGvx7WB7fpk9kf'
+ 'tki5tdY4qjaQ5Yw5y' 'Kz5X9DE2xrr5GEsTz' 'ivh52SEM4wjwtdy23'
+ '8imEHb4P4qz3A2NLh' '8M3fCfXRiuG8WzGkj']"
+B67YBq785JeTQhysK,6SsbEC5aDvTHZLG9g,28,119,6,0,"['453Ri6Y2Gt2w8cs4k' 'ojaNBHYtYDHv5gDbP' 'Sbud5gYPqDbCFkiY5'
+ 'GX8af2WWA5QioY67g' 'WoeqcJbtdvKnfBpnN' 'f2XuGpMC6AHoonZBA'
+ 'BxRrRtvpssguEXtHx' '3w49pcyYvKzDbYCD6']"
+B67YBq785JeTQhysK,453Ri6Y2Gt2w8cs4k,17,91,5,1,"['6SsbEC5aDvTHZLG9g' 'ojaNBHYtYDHv5gDbP' 'Sbud5gYPqDbCFkiY5'
+ 'GX8af2WWA5QioY67g' 'WoeqcJbtdvKnfBpnN' 'f2XuGpMC6AHoonZBA'
+ 'BxRrRtvpssguEXtHx' '3w49pcyYvKzDbYCD6']"
+B67YBq785JeTQhysK,ojaNBHYtYDHv5gDbP,40,219,7,1,"['6SsbEC5aDvTHZLG9g' '453Ri6Y2Gt2w8cs4k' 'Sbud5gYPqDbCFkiY5'
+ 'GX8af2WWA5QioY67g' 'WoeqcJbtdvKnfBpnN' 'f2XuGpMC6AHoonZBA'
+ 'BxRrRtvpssguEXtHx' '3w49pcyYvKzDbYCD6']"
+B67YBq785JeTQhysK,Sbud5gYPqDbCFkiY5,22,121,4,0,"['6SsbEC5aDvTHZLG9g' '453Ri6Y2Gt2w8cs4k' 'ojaNBHYtYDHv5gDbP'
+ 'GX8af2WWA5QioY67g' 'WoeqcJbtdvKnfBpnN' 'f2XuGpMC6AHoonZBA'
+ 'BxRrRtvpssguEXtHx' '3w49pcyYvKzDbYCD6']"
+B67YBq785JeTQhysK,GX8af2WWA5QioY67g,10,56,2,1,"['6SsbEC5aDvTHZLG9g' '453Ri6Y2Gt2w8cs4k' 'ojaNBHYtYDHv5gDbP'
+ 'Sbud5gYPqDbCFkiY5' 'WoeqcJbtdvKnfBpnN' 'f2XuGpMC6AHoonZBA'
+ 'BxRrRtvpssguEXtHx' '3w49pcyYvKzDbYCD6']"
+B67YBq785JeTQhysK,WoeqcJbtdvKnfBpnN,26,104,11,1,"['6SsbEC5aDvTHZLG9g' '453Ri6Y2Gt2w8cs4k' 'ojaNBHYtYDHv5gDbP'
+ 'Sbud5gYPqDbCFkiY5' 'GX8af2WWA5QioY67g' 'f2XuGpMC6AHoonZBA'
+ 'BxRrRtvpssguEXtHx' '3w49pcyYvKzDbYCD6']"
+B67YBq785JeTQhysK,f2XuGpMC6AHoonZBA,31,169,6,4,"['6SsbEC5aDvTHZLG9g' '453Ri6Y2Gt2w8cs4k' 'ojaNBHYtYDHv5gDbP'
+ 'Sbud5gYPqDbCFkiY5' 'GX8af2WWA5QioY67g' 'WoeqcJbtdvKnfBpnN'
+ 'BxRrRtvpssguEXtHx' '3w49pcyYvKzDbYCD6']"
+B67YBq785JeTQhysK,BxRrRtvpssguEXtHx,23,110,4,1,"['6SsbEC5aDvTHZLG9g' '453Ri6Y2Gt2w8cs4k' 'ojaNBHYtYDHv5gDbP'
+ 'Sbud5gYPqDbCFkiY5' 'GX8af2WWA5QioY67g' 'WoeqcJbtdvKnfBpnN'
+ 'f2XuGpMC6AHoonZBA' '3w49pcyYvKzDbYCD6']"
+B67YBq785JeTQhysK,3w49pcyYvKzDbYCD6,2,7,1,0,"['6SsbEC5aDvTHZLG9g' '453Ri6Y2Gt2w8cs4k' 'ojaNBHYtYDHv5gDbP'
+ 'Sbud5gYPqDbCFkiY5' 'GX8af2WWA5QioY67g' 'WoeqcJbtdvKnfBpnN'
+ 'f2XuGpMC6AHoonZBA' 'BxRrRtvpssguEXtHx']"
+D5PLKC5zFgN4BnkD3,Fp4GdjnTRrq2mfnYo,67,335,14,0,"['zJCqBhqFyPYsHhjGn' 'BM7iwWTnSM2xcD8MY' 'zxbzf7QtK58cnAz2p'
+ 'm29NaghbtK4NzQvop' 'X8yvjaWPigHmaFWAY' '44ReKTv3GmHdNAeJD'
+ 'd8RLotmugsd6QXrMD']"
+D5PLKC5zFgN4BnkD3,zJCqBhqFyPYsHhjGn,17,80,4,0,"['Fp4GdjnTRrq2mfnYo' 'BM7iwWTnSM2xcD8MY' 'zxbzf7QtK58cnAz2p'
+ 'm29NaghbtK4NzQvop' 'X8yvjaWPigHmaFWAY' '44ReKTv3GmHdNAeJD'
+ 'd8RLotmugsd6QXrMD']"
+D5PLKC5zFgN4BnkD3,BM7iwWTnSM2xcD8MY,24,112,4,0,"['Fp4GdjnTRrq2mfnYo' 'zJCqBhqFyPYsHhjGn' 'zxbzf7QtK58cnAz2p'
+ 'm29NaghbtK4NzQvop' 'X8yvjaWPigHmaFWAY' '44ReKTv3GmHdNAeJD'
+ 'd8RLotmugsd6QXrMD']"
+D5PLKC5zFgN4BnkD3,zxbzf7QtK58cnAz2p,9,53,4,0,"['Fp4GdjnTRrq2mfnYo' 'zJCqBhqFyPYsHhjGn' 'BM7iwWTnSM2xcD8MY'
+ 'm29NaghbtK4NzQvop' 'X8yvjaWPigHmaFWAY' '44ReKTv3GmHdNAeJD'
+ 'd8RLotmugsd6QXrMD']"
+D5PLKC5zFgN4BnkD3,m29NaghbtK4NzQvop,6,31,2,1,"['Fp4GdjnTRrq2mfnYo' 'zJCqBhqFyPYsHhjGn' 'BM7iwWTnSM2xcD8MY'
+ 'zxbzf7QtK58cnAz2p' 'X8yvjaWPigHmaFWAY' '44ReKTv3GmHdNAeJD'
+ 'd8RLotmugsd6QXrMD']"
+D5PLKC5zFgN4BnkD3,X8yvjaWPigHmaFWAY,15,81,2,1,"['Fp4GdjnTRrq2mfnYo' 'zJCqBhqFyPYsHhjGn' 'BM7iwWTnSM2xcD8MY'
+ 'zxbzf7QtK58cnAz2p' 'm29NaghbtK4NzQvop' '44ReKTv3GmHdNAeJD'
+ 'd8RLotmugsd6QXrMD']"
+D5PLKC5zFgN4BnkD3,44ReKTv3GmHdNAeJD,10,47,2,0,"['Fp4GdjnTRrq2mfnYo' 'zJCqBhqFyPYsHhjGn' 'BM7iwWTnSM2xcD8MY'
+ 'zxbzf7QtK58cnAz2p' 'm29NaghbtK4NzQvop' 'X8yvjaWPigHmaFWAY'
+ 'd8RLotmugsd6QXrMD']"
+D5PLKC5zFgN4BnkD3,d8RLotmugsd6QXrMD,4,16,1,0,"['Fp4GdjnTRrq2mfnYo' 'zJCqBhqFyPYsHhjGn' 'BM7iwWTnSM2xcD8MY'
+ 'zxbzf7QtK58cnAz2p' 'm29NaghbtK4NzQvop' 'X8yvjaWPigHmaFWAY'
+ '44ReKTv3GmHdNAeJD']"
+GrJpx35cB9duLwqyH,kticwXZrhRf2hzeTH,113,568,9,2,"['9syPJ8MCueRWdEJT2' '2WobNrfpf9E3bc2yi' 'zgqS6Gh5yjjhDPZnH'
+ 'u5CqF2gKqEYntMgao' 's8dgnPQwg3JeqjQ7k']"
+GrJpx35cB9duLwqyH,9syPJ8MCueRWdEJT2,35,153,8,0,"['kticwXZrhRf2hzeTH' '2WobNrfpf9E3bc2yi' 'zgqS6Gh5yjjhDPZnH'
+ 'u5CqF2gKqEYntMgao' 's8dgnPQwg3JeqjQ7k']"
+GrJpx35cB9duLwqyH,2WobNrfpf9E3bc2yi,35,170,5,1,"['kticwXZrhRf2hzeTH' '9syPJ8MCueRWdEJT2' 'zgqS6Gh5yjjhDPZnH'
+ 'u5CqF2gKqEYntMgao' 's8dgnPQwg3JeqjQ7k']"
+GrJpx35cB9duLwqyH,zgqS6Gh5yjjhDPZnH,27,115,5,0,"['kticwXZrhRf2hzeTH' '9syPJ8MCueRWdEJT2' '2WobNrfpf9E3bc2yi'
+ 'u5CqF2gKqEYntMgao' 's8dgnPQwg3JeqjQ7k']"
+GrJpx35cB9duLwqyH,u5CqF2gKqEYntMgao,12,58,2,1,"['kticwXZrhRf2hzeTH' '9syPJ8MCueRWdEJT2' '2WobNrfpf9E3bc2yi'
+ 'zgqS6Gh5yjjhDPZnH' 's8dgnPQwg3JeqjQ7k']"
+GrJpx35cB9duLwqyH,s8dgnPQwg3JeqjQ7k,5,19,2,0,"['kticwXZrhRf2hzeTH' '9syPJ8MCueRWdEJT2' '2WobNrfpf9E3bc2yi'
+ 'zgqS6Gh5yjjhDPZnH' 'u5CqF2gKqEYntMgao']"
+vzovJj4vMqkHQnjKW,NULL_SPEAKER,1,3,1,0,[]
+9mCsL2sbQHJBBLRyX,NULL_SPEAKER,1,3,1,0,[]
+WpBBsqs5JosM92R4p,NULL_SPEAKER,1,3,1,0,[]
+5cdj8seuPNBXusw49,oQyQXK8NMhX6Zpri5,49,243,7,1,['WBHZBpf4r4KJd8g7s']
+5cdj8seuPNBXusw49,WBHZBpf4r4KJd8g7s,6,27,3,0,['oQyQXK8NMhX6Zpri5']
+PDMtJoGhSA8v3XXNY,sseKxm4AMbZDmhmQX,18,90,1,0,['jTkqMXBZ9G36EkD9b']
+PDMtJoGhSA8v3XXNY,jTkqMXBZ9G36EkD9b,6,28,1,0,['sseKxm4AMbZDmhmQX']
+uzk57zDkd7s62P7i5,Xzgoh9tcsqotXrhfk,10,51,2,2,[]
+kr75gzkTTbY9XWkgf,ErKvudAWrRSJCcKWk,6,31,2,0,['uawSHAv9wELdAFvDG']
+kr75gzkTTbY9XWkgf,uawSHAv9wELdAFvDG,2,6,2,0,['ErKvudAWrRSJCcKWk']
+HcXvJikLb3NKL2hhf,NULL_SPEAKER,1,3,1,0,[]
+WLvAnxZx22p6BzCDS,5hi2nPtbLEMpjtMxq,45,199,12,0,"['JeHpkyL49AdAE4WcB' 'rDrCwQHr6ceapo6ai' 'XqQZqJJjRbmCYpYqS'
+ 'ZZ6PjPv9x9rYhX3MM' 'arHPeZ5u7ro9qbfHf' 'qwRYMibucpmG6KkDz'
+ 'AcYt38uowRF3S2X6h']"
+WLvAnxZx22p6BzCDS,JeHpkyL49AdAE4WcB,7,28,4,1,"['5hi2nPtbLEMpjtMxq' 'rDrCwQHr6ceapo6ai' 'XqQZqJJjRbmCYpYqS'
+ 'ZZ6PjPv9x9rYhX3MM' 'arHPeZ5u7ro9qbfHf' 'qwRYMibucpmG6KkDz'
+ 'AcYt38uowRF3S2X6h']"
+WLvAnxZx22p6BzCDS,rDrCwQHr6ceapo6ai,16,84,4,0,"['5hi2nPtbLEMpjtMxq' 'JeHpkyL49AdAE4WcB' 'XqQZqJJjRbmCYpYqS'
+ 'ZZ6PjPv9x9rYhX3MM' 'arHPeZ5u7ro9qbfHf' 'qwRYMibucpmG6KkDz'
+ 'AcYt38uowRF3S2X6h']"
+WLvAnxZx22p6BzCDS,XqQZqJJjRbmCYpYqS,6,24,2,0,"['5hi2nPtbLEMpjtMxq' 'JeHpkyL49AdAE4WcB' 'rDrCwQHr6ceapo6ai'
+ 'ZZ6PjPv9x9rYhX3MM' 'arHPeZ5u7ro9qbfHf' 'qwRYMibucpmG6KkDz'
+ 'AcYt38uowRF3S2X6h']"
+WLvAnxZx22p6BzCDS,ZZ6PjPv9x9rYhX3MM,21,86,7,0,"['5hi2nPtbLEMpjtMxq' 'JeHpkyL49AdAE4WcB' 'rDrCwQHr6ceapo6ai'
+ 'XqQZqJJjRbmCYpYqS' 'arHPeZ5u7ro9qbfHf' 'qwRYMibucpmG6KkDz'
+ 'AcYt38uowRF3S2X6h']"
+WLvAnxZx22p6BzCDS,arHPeZ5u7ro9qbfHf,8,35,3,0,"['5hi2nPtbLEMpjtMxq' 'JeHpkyL49AdAE4WcB' 'rDrCwQHr6ceapo6ai'
+ 'XqQZqJJjRbmCYpYqS' 'ZZ6PjPv9x9rYhX3MM' 'qwRYMibucpmG6KkDz'
+ 'AcYt38uowRF3S2X6h']"
+WLvAnxZx22p6BzCDS,qwRYMibucpmG6KkDz,6,26,2,0,"['5hi2nPtbLEMpjtMxq' 'JeHpkyL49AdAE4WcB' 'rDrCwQHr6ceapo6ai'
+ 'XqQZqJJjRbmCYpYqS' 'ZZ6PjPv9x9rYhX3MM' 'arHPeZ5u7ro9qbfHf'
+ 'AcYt38uowRF3S2X6h']"
+WLvAnxZx22p6BzCDS,AcYt38uowRF3S2X6h,3,12,1,0,"['5hi2nPtbLEMpjtMxq' 'JeHpkyL49AdAE4WcB' 'rDrCwQHr6ceapo6ai'
+ 'XqQZqJJjRbmCYpYqS' 'ZZ6PjPv9x9rYhX3MM' 'arHPeZ5u7ro9qbfHf'
+ 'qwRYMibucpmG6KkDz']"
+6buzmFoogcGdHGsWX,T4W4H7SHgDoGM4aR9,26,137,6,0,"['PoYtLT2Rqvr4iMYag' '65kYst5cEbwxTuhvm' 'wW3PSQW8DvkWEknTQ'
+ 'qbyv3ssY5NzvMCMgg' 'KBrJe3LhburajdwLZ' 'fEDLad4SDcwWc7yAT']"
+6buzmFoogcGdHGsWX,PoYtLT2Rqvr4iMYag,19,86,5,0,"['T4W4H7SHgDoGM4aR9' '65kYst5cEbwxTuhvm' 'wW3PSQW8DvkWEknTQ'
+ 'qbyv3ssY5NzvMCMgg' 'KBrJe3LhburajdwLZ' 'fEDLad4SDcwWc7yAT']"
+6buzmFoogcGdHGsWX,65kYst5cEbwxTuhvm,14,71,2,0,"['T4W4H7SHgDoGM4aR9' 'PoYtLT2Rqvr4iMYag' 'wW3PSQW8DvkWEknTQ'
+ 'qbyv3ssY5NzvMCMgg' 'KBrJe3LhburajdwLZ' 'fEDLad4SDcwWc7yAT']"
+6buzmFoogcGdHGsWX,wW3PSQW8DvkWEknTQ,4,20,3,0,"['T4W4H7SHgDoGM4aR9' 'PoYtLT2Rqvr4iMYag' '65kYst5cEbwxTuhvm'
+ 'qbyv3ssY5NzvMCMgg' 'KBrJe3LhburajdwLZ' 'fEDLad4SDcwWc7yAT']"
+6buzmFoogcGdHGsWX,qbyv3ssY5NzvMCMgg,4,15,2,0,"['T4W4H7SHgDoGM4aR9' 'PoYtLT2Rqvr4iMYag' '65kYst5cEbwxTuhvm'
+ 'wW3PSQW8DvkWEknTQ' 'KBrJe3LhburajdwLZ' 'fEDLad4SDcwWc7yAT']"
+6buzmFoogcGdHGsWX,KBrJe3LhburajdwLZ,6,33,1,0,"['T4W4H7SHgDoGM4aR9' 'PoYtLT2Rqvr4iMYag' '65kYst5cEbwxTuhvm'
+ 'wW3PSQW8DvkWEknTQ' 'qbyv3ssY5NzvMCMgg' 'fEDLad4SDcwWc7yAT']"
+6buzmFoogcGdHGsWX,fEDLad4SDcwWc7yAT,13,74,2,0,"['T4W4H7SHgDoGM4aR9' 'PoYtLT2Rqvr4iMYag' '65kYst5cEbwxTuhvm'
+ 'wW3PSQW8DvkWEknTQ' 'qbyv3ssY5NzvMCMgg' 'KBrJe3LhburajdwLZ']"
+ACXP2z4n86gCqSZbq,yzENjyYpdDNcwkp7R,51,260,12,0,"['yAFBpF8iYj7mBTZwW' 'KWRXmaHJ26tbDaZwZ' 'Z6w2e8DerG7MnP2wK'
+ '5jjQHf5sfN54SeWQo' 'BKDoHmqhchMXpZhxA' 'eh7huC4TfFMCjkGYS'
+ 'wTy7PWuZxjFNZX2ro']"
+ACXP2z4n86gCqSZbq,yAFBpF8iYj7mBTZwW,17,85,7,4,"['yzENjyYpdDNcwkp7R' 'KWRXmaHJ26tbDaZwZ' 'Z6w2e8DerG7MnP2wK'
+ '5jjQHf5sfN54SeWQo' 'BKDoHmqhchMXpZhxA' 'eh7huC4TfFMCjkGYS'
+ 'wTy7PWuZxjFNZX2ro']"
+ACXP2z4n86gCqSZbq,KWRXmaHJ26tbDaZwZ,35,183,7,4,"['yzENjyYpdDNcwkp7R' 'yAFBpF8iYj7mBTZwW' 'Z6w2e8DerG7MnP2wK'
+ '5jjQHf5sfN54SeWQo' 'BKDoHmqhchMXpZhxA' 'eh7huC4TfFMCjkGYS'
+ 'wTy7PWuZxjFNZX2ro']"
+ACXP2z4n86gCqSZbq,Z6w2e8DerG7MnP2wK,72,325,13,0,"['yzENjyYpdDNcwkp7R' 'yAFBpF8iYj7mBTZwW' 'KWRXmaHJ26tbDaZwZ'
+ '5jjQHf5sfN54SeWQo' 'BKDoHmqhchMXpZhxA' 'eh7huC4TfFMCjkGYS'
+ 'wTy7PWuZxjFNZX2ro']"
+ACXP2z4n86gCqSZbq,5jjQHf5sfN54SeWQo,30,156,8,2,"['yzENjyYpdDNcwkp7R' 'yAFBpF8iYj7mBTZwW' 'KWRXmaHJ26tbDaZwZ'
+ 'Z6w2e8DerG7MnP2wK' 'BKDoHmqhchMXpZhxA' 'eh7huC4TfFMCjkGYS'
+ 'wTy7PWuZxjFNZX2ro']"
+ACXP2z4n86gCqSZbq,BKDoHmqhchMXpZhxA,29,152,7,0,"['yzENjyYpdDNcwkp7R' 'yAFBpF8iYj7mBTZwW' 'KWRXmaHJ26tbDaZwZ'
+ 'Z6w2e8DerG7MnP2wK' '5jjQHf5sfN54SeWQo' 'eh7huC4TfFMCjkGYS'
+ 'wTy7PWuZxjFNZX2ro']"
+ACXP2z4n86gCqSZbq,eh7huC4TfFMCjkGYS,8,31,1,0,"['yzENjyYpdDNcwkp7R' 'yAFBpF8iYj7mBTZwW' 'KWRXmaHJ26tbDaZwZ'
+ 'Z6w2e8DerG7MnP2wK' '5jjQHf5sfN54SeWQo' 'BKDoHmqhchMXpZhxA'
+ 'wTy7PWuZxjFNZX2ro']"
+ACXP2z4n86gCqSZbq,wTy7PWuZxjFNZX2ro,14,76,5,0,"['yzENjyYpdDNcwkp7R' 'yAFBpF8iYj7mBTZwW' 'KWRXmaHJ26tbDaZwZ'
+ 'Z6w2e8DerG7MnP2wK' '5jjQHf5sfN54SeWQo' 'BKDoHmqhchMXpZhxA'
+ 'eh7huC4TfFMCjkGYS']"
+DPhEqT4ATSsWAHfTp,W9CgFBPz94bWic3Cm,6,24,2,0,"['GeM8ZKtzBoayZx28i' 'LSYA9wRHsAH2enHWP' 'xy5TAXiATBCxh88wk'
+ 'CKcq2uyaxnyptH8KK' 'b3yd8KoNcjvpFQvsD' 'uRQgSWwEJspjqhRL3']"
+DPhEqT4ATSsWAHfTp,GeM8ZKtzBoayZx28i,13,68,2,0,"['W9CgFBPz94bWic3Cm' 'LSYA9wRHsAH2enHWP' 'xy5TAXiATBCxh88wk'
+ 'CKcq2uyaxnyptH8KK' 'b3yd8KoNcjvpFQvsD' 'uRQgSWwEJspjqhRL3']"
+DPhEqT4ATSsWAHfTp,LSYA9wRHsAH2enHWP,2,10,1,0,"['W9CgFBPz94bWic3Cm' 'GeM8ZKtzBoayZx28i' 'xy5TAXiATBCxh88wk'
+ 'CKcq2uyaxnyptH8KK' 'b3yd8KoNcjvpFQvsD' 'uRQgSWwEJspjqhRL3']"
+DPhEqT4ATSsWAHfTp,xy5TAXiATBCxh88wk,6,28,1,0,"['W9CgFBPz94bWic3Cm' 'GeM8ZKtzBoayZx28i' 'LSYA9wRHsAH2enHWP'
+ 'CKcq2uyaxnyptH8KK' 'b3yd8KoNcjvpFQvsD' 'uRQgSWwEJspjqhRL3']"
+DPhEqT4ATSsWAHfTp,CKcq2uyaxnyptH8KK,15,70,3,0,"['W9CgFBPz94bWic3Cm' 'GeM8ZKtzBoayZx28i' 'LSYA9wRHsAH2enHWP'
+ 'xy5TAXiATBCxh88wk' 'b3yd8KoNcjvpFQvsD' 'uRQgSWwEJspjqhRL3']"
+DPhEqT4ATSsWAHfTp,b3yd8KoNcjvpFQvsD,3,13,2,0,"['W9CgFBPz94bWic3Cm' 'GeM8ZKtzBoayZx28i' 'LSYA9wRHsAH2enHWP'
+ 'xy5TAXiATBCxh88wk' 'CKcq2uyaxnyptH8KK' 'uRQgSWwEJspjqhRL3']"
+DPhEqT4ATSsWAHfTp,uRQgSWwEJspjqhRL3,4,15,1,1,"['W9CgFBPz94bWic3Cm' 'GeM8ZKtzBoayZx28i' 'LSYA9wRHsAH2enHWP'
+ 'xy5TAXiATBCxh88wk' 'CKcq2uyaxnyptH8KK' 'b3yd8KoNcjvpFQvsD']"
+YPbWQRmgmqP4KDZJb,NULL_SPEAKER,1,3,1,0,[]
+bGRY3pzYxjHKwt2mp,orJzxyre8XdbcJLBe,16,86,1,0,"['HrC8ve4GSp3m3uMMT' '6CSAkNF42Z7BcWJDo' 'ETr3Rijok8j76wa8i'
+ 's7YEredmaFZJXBtWB' 'ccmx67v3zoWWS2A8c' 'PN5ryRiL6fJd5jF65'
+ 'YaZMPfcdEvTsqK4oM' '2kTh2HucMTBfK8SPp']"
+bGRY3pzYxjHKwt2mp,HrC8ve4GSp3m3uMMT,10,56,2,1,"['orJzxyre8XdbcJLBe' '6CSAkNF42Z7BcWJDo' 'ETr3Rijok8j76wa8i'
+ 's7YEredmaFZJXBtWB' 'ccmx67v3zoWWS2A8c' 'PN5ryRiL6fJd5jF65'
+ 'YaZMPfcdEvTsqK4oM' '2kTh2HucMTBfK8SPp']"
+bGRY3pzYxjHKwt2mp,6CSAkNF42Z7BcWJDo,12,68,2,0,"['orJzxyre8XdbcJLBe' 'HrC8ve4GSp3m3uMMT' 'ETr3Rijok8j76wa8i'
+ 's7YEredmaFZJXBtWB' 'ccmx67v3zoWWS2A8c' 'PN5ryRiL6fJd5jF65'
+ 'YaZMPfcdEvTsqK4oM' '2kTh2HucMTBfK8SPp']"
+bGRY3pzYxjHKwt2mp,ETr3Rijok8j76wa8i,24,103,3,1,"['orJzxyre8XdbcJLBe' 'HrC8ve4GSp3m3uMMT' '6CSAkNF42Z7BcWJDo'
+ 's7YEredmaFZJXBtWB' 'ccmx67v3zoWWS2A8c' 'PN5ryRiL6fJd5jF65'
+ 'YaZMPfcdEvTsqK4oM' '2kTh2HucMTBfK8SPp']"
+bGRY3pzYxjHKwt2mp,s7YEredmaFZJXBtWB,27,159,4,4,"['orJzxyre8XdbcJLBe' 'HrC8ve4GSp3m3uMMT' '6CSAkNF42Z7BcWJDo'
+ 'ETr3Rijok8j76wa8i' 'ccmx67v3zoWWS2A8c' 'PN5ryRiL6fJd5jF65'
+ 'YaZMPfcdEvTsqK4oM' '2kTh2HucMTBfK8SPp']"
+bGRY3pzYxjHKwt2mp,ccmx67v3zoWWS2A8c,2,12,1,0,"['orJzxyre8XdbcJLBe' 'HrC8ve4GSp3m3uMMT' '6CSAkNF42Z7BcWJDo'
+ 'ETr3Rijok8j76wa8i' 's7YEredmaFZJXBtWB' 'PN5ryRiL6fJd5jF65'
+ 'YaZMPfcdEvTsqK4oM' '2kTh2HucMTBfK8SPp']"
+bGRY3pzYxjHKwt2mp,PN5ryRiL6fJd5jF65,2,6,1,0,"['orJzxyre8XdbcJLBe' 'HrC8ve4GSp3m3uMMT' '6CSAkNF42Z7BcWJDo'
+ 'ETr3Rijok8j76wa8i' 's7YEredmaFZJXBtWB' 'ccmx67v3zoWWS2A8c'
+ 'YaZMPfcdEvTsqK4oM' '2kTh2HucMTBfK8SPp']"
+bGRY3pzYxjHKwt2mp,YaZMPfcdEvTsqK4oM,2,6,1,2,"['orJzxyre8XdbcJLBe' 'HrC8ve4GSp3m3uMMT' '6CSAkNF42Z7BcWJDo'
+ 'ETr3Rijok8j76wa8i' 's7YEredmaFZJXBtWB' 'ccmx67v3zoWWS2A8c'
+ 'PN5ryRiL6fJd5jF65' '2kTh2HucMTBfK8SPp']"
+bGRY3pzYxjHKwt2mp,2kTh2HucMTBfK8SPp,1,4,1,0,"['orJzxyre8XdbcJLBe' 'HrC8ve4GSp3m3uMMT' '6CSAkNF42Z7BcWJDo'
+ 'ETr3Rijok8j76wa8i' 's7YEredmaFZJXBtWB' 'ccmx67v3zoWWS2A8c'
+ 'PN5ryRiL6fJd5jF65' 'YaZMPfcdEvTsqK4oM']"
+T8i9kG8c62bB9Ewcd,6ksosnfQAtjqrSmn6,22,108,3,0,"['DKi4qhHK6N4j2rjwA' 'vTGjQZvcEEmEiY222' '8ZD7keKryEXynjRXW'
+ 'ifSvP7XiTQzqoYPuv' 'sWkfXbsmn3XDbFQob' 'JWm8gKwXab8w7gwhY'
+ 'Kkh8gfDxXr2LzPSev' 'ihgKEN3oukcm8me6k']"
+T8i9kG8c62bB9Ewcd,DKi4qhHK6N4j2rjwA,24,125,7,0,"['6ksosnfQAtjqrSmn6' 'vTGjQZvcEEmEiY222' '8ZD7keKryEXynjRXW'
+ 'ifSvP7XiTQzqoYPuv' 'sWkfXbsmn3XDbFQob' 'JWm8gKwXab8w7gwhY'
+ 'Kkh8gfDxXr2LzPSev' 'ihgKEN3oukcm8me6k']"
+T8i9kG8c62bB9Ewcd,vTGjQZvcEEmEiY222,6,29,5,0,"['6ksosnfQAtjqrSmn6' 'DKi4qhHK6N4j2rjwA' '8ZD7keKryEXynjRXW'
+ 'ifSvP7XiTQzqoYPuv' 'sWkfXbsmn3XDbFQob' 'JWm8gKwXab8w7gwhY'
+ 'Kkh8gfDxXr2LzPSev' 'ihgKEN3oukcm8me6k']"
+T8i9kG8c62bB9Ewcd,8ZD7keKryEXynjRXW,5,25,3,0,"['6ksosnfQAtjqrSmn6' 'DKi4qhHK6N4j2rjwA' 'vTGjQZvcEEmEiY222'
+ 'ifSvP7XiTQzqoYPuv' 'sWkfXbsmn3XDbFQob' 'JWm8gKwXab8w7gwhY'
+ 'Kkh8gfDxXr2LzPSev' 'ihgKEN3oukcm8me6k']"
+T8i9kG8c62bB9Ewcd,ifSvP7XiTQzqoYPuv,1,4,1,0,"['6ksosnfQAtjqrSmn6' 'DKi4qhHK6N4j2rjwA' 'vTGjQZvcEEmEiY222'
+ '8ZD7keKryEXynjRXW' 'sWkfXbsmn3XDbFQob' 'JWm8gKwXab8w7gwhY'
+ 'Kkh8gfDxXr2LzPSev' 'ihgKEN3oukcm8me6k']"
+T8i9kG8c62bB9Ewcd,sWkfXbsmn3XDbFQob,17,73,4,0,"['6ksosnfQAtjqrSmn6' 'DKi4qhHK6N4j2rjwA' 'vTGjQZvcEEmEiY222'
+ '8ZD7keKryEXynjRXW' 'ifSvP7XiTQzqoYPuv' 'JWm8gKwXab8w7gwhY'
+ 'Kkh8gfDxXr2LzPSev' 'ihgKEN3oukcm8me6k']"
+T8i9kG8c62bB9Ewcd,JWm8gKwXab8w7gwhY,2,8,2,0,"['6ksosnfQAtjqrSmn6' 'DKi4qhHK6N4j2rjwA' 'vTGjQZvcEEmEiY222'
+ '8ZD7keKryEXynjRXW' 'ifSvP7XiTQzqoYPuv' 'sWkfXbsmn3XDbFQob'
+ 'Kkh8gfDxXr2LzPSev' 'ihgKEN3oukcm8me6k']"
+T8i9kG8c62bB9Ewcd,Kkh8gfDxXr2LzPSev,3,15,1,0,"['6ksosnfQAtjqrSmn6' 'DKi4qhHK6N4j2rjwA' 'vTGjQZvcEEmEiY222'
+ '8ZD7keKryEXynjRXW' 'ifSvP7XiTQzqoYPuv' 'sWkfXbsmn3XDbFQob'
+ 'JWm8gKwXab8w7gwhY' 'ihgKEN3oukcm8me6k']"
+T8i9kG8c62bB9Ewcd,ihgKEN3oukcm8me6k,3,16,1,0,"['6ksosnfQAtjqrSmn6' 'DKi4qhHK6N4j2rjwA' 'vTGjQZvcEEmEiY222'
+ '8ZD7keKryEXynjRXW' 'ifSvP7XiTQzqoYPuv' 'sWkfXbsmn3XDbFQob'
+ 'JWm8gKwXab8w7gwhY' 'Kkh8gfDxXr2LzPSev']"
+JgpMhYqSjp3ayAb4z,wW2ffbhBsWZADTho9,36,221,10,0,"['J46pTBmhNXtS8yQXg' 'wFnHbdRwErGEbDzRi' 'fCb8Xm4qAAaQfYrWm'
+ 'Jwaz8CLqGGkMpjARz' 'dASNgYq8dpL7eCfLq' 'jjoYzQ5pJoubeoA7B'
+ 'awJ4sKmGh46skYvAD' 'B6qCz7sFikQy5eEso']"
+JgpMhYqSjp3ayAb4z,J46pTBmhNXtS8yQXg,16,82,5,0,"['wW2ffbhBsWZADTho9' 'wFnHbdRwErGEbDzRi' 'fCb8Xm4qAAaQfYrWm'
+ 'Jwaz8CLqGGkMpjARz' 'dASNgYq8dpL7eCfLq' 'jjoYzQ5pJoubeoA7B'
+ 'awJ4sKmGh46skYvAD' 'B6qCz7sFikQy5eEso']"
+JgpMhYqSjp3ayAb4z,wFnHbdRwErGEbDzRi,69,344,14,1,"['wW2ffbhBsWZADTho9' 'J46pTBmhNXtS8yQXg' 'fCb8Xm4qAAaQfYrWm'
+ 'Jwaz8CLqGGkMpjARz' 'dASNgYq8dpL7eCfLq' 'jjoYzQ5pJoubeoA7B'
+ 'awJ4sKmGh46skYvAD' 'B6qCz7sFikQy5eEso']"
+JgpMhYqSjp3ayAb4z,fCb8Xm4qAAaQfYrWm,26,142,5,0,"['wW2ffbhBsWZADTho9' 'J46pTBmhNXtS8yQXg' 'wFnHbdRwErGEbDzRi'
+ 'Jwaz8CLqGGkMpjARz' 'dASNgYq8dpL7eCfLq' 'jjoYzQ5pJoubeoA7B'
+ 'awJ4sKmGh46skYvAD' 'B6qCz7sFikQy5eEso']"
+JgpMhYqSjp3ayAb4z,Jwaz8CLqGGkMpjARz,8,30,3,0,"['wW2ffbhBsWZADTho9' 'J46pTBmhNXtS8yQXg' 'wFnHbdRwErGEbDzRi'
+ 'fCb8Xm4qAAaQfYrWm' 'dASNgYq8dpL7eCfLq' 'jjoYzQ5pJoubeoA7B'
+ 'awJ4sKmGh46skYvAD' 'B6qCz7sFikQy5eEso']"
+JgpMhYqSjp3ayAb4z,dASNgYq8dpL7eCfLq,2,7,1,0,"['wW2ffbhBsWZADTho9' 'J46pTBmhNXtS8yQXg' 'wFnHbdRwErGEbDzRi'
+ 'fCb8Xm4qAAaQfYrWm' 'Jwaz8CLqGGkMpjARz' 'jjoYzQ5pJoubeoA7B'
+ 'awJ4sKmGh46skYvAD' 'B6qCz7sFikQy5eEso']"
+JgpMhYqSjp3ayAb4z,jjoYzQ5pJoubeoA7B,9,34,3,0,"['wW2ffbhBsWZADTho9' 'J46pTBmhNXtS8yQXg' 'wFnHbdRwErGEbDzRi'
+ 'fCb8Xm4qAAaQfYrWm' 'Jwaz8CLqGGkMpjARz' 'dASNgYq8dpL7eCfLq'
+ 'awJ4sKmGh46skYvAD' 'B6qCz7sFikQy5eEso']"
+JgpMhYqSjp3ayAb4z,awJ4sKmGh46skYvAD,10,46,4,0,"['wW2ffbhBsWZADTho9' 'J46pTBmhNXtS8yQXg' 'wFnHbdRwErGEbDzRi'
+ 'fCb8Xm4qAAaQfYrWm' 'Jwaz8CLqGGkMpjARz' 'dASNgYq8dpL7eCfLq'
+ 'jjoYzQ5pJoubeoA7B' 'B6qCz7sFikQy5eEso']"
+JgpMhYqSjp3ayAb4z,B6qCz7sFikQy5eEso,7,26,2,0,"['wW2ffbhBsWZADTho9' 'J46pTBmhNXtS8yQXg' 'wFnHbdRwErGEbDzRi'
+ 'fCb8Xm4qAAaQfYrWm' 'Jwaz8CLqGGkMpjARz' 'dASNgYq8dpL7eCfLq'
+ 'jjoYzQ5pJoubeoA7B' 'awJ4sKmGh46skYvAD']"
+Et5CkMKmZXdxG2aKn,HfrfXCmJZQLHz2kYr,1,3,1,0,"['M7FfkByNcRAJkutD8' 'g2qZ8R6othQ4fG2Yz' 'kq5svX4f8xxzCKMu2'
+ 'Y7XDbFdaTMzSH3Kho' 'dra4PGzZH24ziybhs' 'GJR943gxmkFFYkd4f'
+ 'mQfKriPJTouJPuGKd' 'h3d2JcQ53ZqvHCwRn']"
+Et5CkMKmZXdxG2aKn,M7FfkByNcRAJkutD8,48,243,10,1,"['HfrfXCmJZQLHz2kYr' 'g2qZ8R6othQ4fG2Yz' 'kq5svX4f8xxzCKMu2'
+ 'Y7XDbFdaTMzSH3Kho' 'dra4PGzZH24ziybhs' 'GJR943gxmkFFYkd4f'
+ 'mQfKriPJTouJPuGKd' 'h3d2JcQ53ZqvHCwRn']"
+Et5CkMKmZXdxG2aKn,g2qZ8R6othQ4fG2Yz,18,86,5,4,"['HfrfXCmJZQLHz2kYr' 'M7FfkByNcRAJkutD8' 'kq5svX4f8xxzCKMu2'
+ 'Y7XDbFdaTMzSH3Kho' 'dra4PGzZH24ziybhs' 'GJR943gxmkFFYkd4f'
+ 'mQfKriPJTouJPuGKd' 'h3d2JcQ53ZqvHCwRn']"
+Et5CkMKmZXdxG2aKn,kq5svX4f8xxzCKMu2,25,138,4,2,"['HfrfXCmJZQLHz2kYr' 'M7FfkByNcRAJkutD8' 'g2qZ8R6othQ4fG2Yz'
+ 'Y7XDbFdaTMzSH3Kho' 'dra4PGzZH24ziybhs' 'GJR943gxmkFFYkd4f'
+ 'mQfKriPJTouJPuGKd' 'h3d2JcQ53ZqvHCwRn']"
+Et5CkMKmZXdxG2aKn,Y7XDbFdaTMzSH3Kho,13,74,2,0,"['HfrfXCmJZQLHz2kYr' 'M7FfkByNcRAJkutD8' 'g2qZ8R6othQ4fG2Yz'
+ 'kq5svX4f8xxzCKMu2' 'dra4PGzZH24ziybhs' 'GJR943gxmkFFYkd4f'
+ 'mQfKriPJTouJPuGKd' 'h3d2JcQ53ZqvHCwRn']"
+Et5CkMKmZXdxG2aKn,dra4PGzZH24ziybhs,2,6,1,1,"['HfrfXCmJZQLHz2kYr' 'M7FfkByNcRAJkutD8' 'g2qZ8R6othQ4fG2Yz'
+ 'kq5svX4f8xxzCKMu2' 'Y7XDbFdaTMzSH3Kho' 'GJR943gxmkFFYkd4f'
+ 'mQfKriPJTouJPuGKd' 'h3d2JcQ53ZqvHCwRn']"
+Et5CkMKmZXdxG2aKn,GJR943gxmkFFYkd4f,2,10,1,0,"['HfrfXCmJZQLHz2kYr' 'M7FfkByNcRAJkutD8' 'g2qZ8R6othQ4fG2Yz'
+ 'kq5svX4f8xxzCKMu2' 'Y7XDbFdaTMzSH3Kho' 'dra4PGzZH24ziybhs'
+ 'mQfKriPJTouJPuGKd' 'h3d2JcQ53ZqvHCwRn']"
+Et5CkMKmZXdxG2aKn,mQfKriPJTouJPuGKd,3,12,1,0,"['HfrfXCmJZQLHz2kYr' 'M7FfkByNcRAJkutD8' 'g2qZ8R6othQ4fG2Yz'
+ 'kq5svX4f8xxzCKMu2' 'Y7XDbFdaTMzSH3Kho' 'dra4PGzZH24ziybhs'
+ 'GJR943gxmkFFYkd4f' 'h3d2JcQ53ZqvHCwRn']"
+Et5CkMKmZXdxG2aKn,h3d2JcQ53ZqvHCwRn,1,2,1,0,"['HfrfXCmJZQLHz2kYr' 'M7FfkByNcRAJkutD8' 'g2qZ8R6othQ4fG2Yz'
+ 'kq5svX4f8xxzCKMu2' 'Y7XDbFdaTMzSH3Kho' 'dra4PGzZH24ziybhs'
+ 'GJR943gxmkFFYkd4f' 'mQfKriPJTouJPuGKd']"
+YBb6z45XkgSqbBnG6,pHnWS2cF4mrpjJMjh,21,117,7,0,"['N8qQesdF2CZSMG5NA' 'PzQsFQ9uuHffs3igm' 'pC2cDQL6JC85HKzbo'
+ 'FkkegEHfSuy8hwuHr' '6w8FiCWh8CuwkvSa3' 'B8bGuCXNHBED94t2d'
+ '8pxqZuah49ZsZdznP']"
+YBb6z45XkgSqbBnG6,N8qQesdF2CZSMG5NA,33,160,7,0,"['pHnWS2cF4mrpjJMjh' 'PzQsFQ9uuHffs3igm' 'pC2cDQL6JC85HKzbo'
+ 'FkkegEHfSuy8hwuHr' '6w8FiCWh8CuwkvSa3' 'B8bGuCXNHBED94t2d'
+ '8pxqZuah49ZsZdznP']"
+YBb6z45XkgSqbBnG6,PzQsFQ9uuHffs3igm,6,39,3,0,"['pHnWS2cF4mrpjJMjh' 'N8qQesdF2CZSMG5NA' 'pC2cDQL6JC85HKzbo'
+ 'FkkegEHfSuy8hwuHr' '6w8FiCWh8CuwkvSa3' 'B8bGuCXNHBED94t2d'
+ '8pxqZuah49ZsZdznP']"
+YBb6z45XkgSqbBnG6,pC2cDQL6JC85HKzbo,10,46,4,0,"['pHnWS2cF4mrpjJMjh' 'N8qQesdF2CZSMG5NA' 'PzQsFQ9uuHffs3igm'
+ 'FkkegEHfSuy8hwuHr' '6w8FiCWh8CuwkvSa3' 'B8bGuCXNHBED94t2d'
+ '8pxqZuah49ZsZdznP']"
+YBb6z45XkgSqbBnG6,FkkegEHfSuy8hwuHr,8,38,3,0,"['pHnWS2cF4mrpjJMjh' 'N8qQesdF2CZSMG5NA' 'PzQsFQ9uuHffs3igm'
+ 'pC2cDQL6JC85HKzbo' '6w8FiCWh8CuwkvSa3' 'B8bGuCXNHBED94t2d'
+ '8pxqZuah49ZsZdznP']"
+YBb6z45XkgSqbBnG6,6w8FiCWh8CuwkvSa3,13,72,2,0,"['pHnWS2cF4mrpjJMjh' 'N8qQesdF2CZSMG5NA' 'PzQsFQ9uuHffs3igm'
+ 'pC2cDQL6JC85HKzbo' 'FkkegEHfSuy8hwuHr' 'B8bGuCXNHBED94t2d'
+ '8pxqZuah49ZsZdznP']"
+YBb6z45XkgSqbBnG6,B8bGuCXNHBED94t2d,10,46,5,0,"['pHnWS2cF4mrpjJMjh' 'N8qQesdF2CZSMG5NA' 'PzQsFQ9uuHffs3igm'
+ 'pC2cDQL6JC85HKzbo' 'FkkegEHfSuy8hwuHr' '6w8FiCWh8CuwkvSa3'
+ '8pxqZuah49ZsZdznP']"
+YBb6z45XkgSqbBnG6,8pxqZuah49ZsZdznP,5,28,1,0,"['pHnWS2cF4mrpjJMjh' 'N8qQesdF2CZSMG5NA' 'PzQsFQ9uuHffs3igm'
+ 'pC2cDQL6JC85HKzbo' 'FkkegEHfSuy8hwuHr' '6w8FiCWh8CuwkvSa3'
+ 'B8bGuCXNHBED94t2d']"
+s464QErKs6FkLbBke,NULL_SPEAKER,1,3,1,0,[]
+sF8fAJRHQW8RqHWYS,NULL_SPEAKER,1,3,1,0,[]
+ooEnEDw7pFSpyT5ro,NULL_SPEAKER,1,3,1,0,[]
+eTJMf4X9FPNS97sSJ,NULL_SPEAKER,1,3,1,0,[]
+o6wyouZZA6hLr29Kq,NULL_SPEAKER,1,3,1,0,[]
+SfHhtwQcYueSc6GhW,YDioxXtpsoCockQiW,34,159,8,1,['TTqtaeQyqFgzPPWy2' '6sMWiGPh6SEETneXY']
+SfHhtwQcYueSc6GhW,TTqtaeQyqFgzPPWy2,24,138,4,0,['YDioxXtpsoCockQiW' '6sMWiGPh6SEETneXY']
+SfHhtwQcYueSc6GhW,6sMWiGPh6SEETneXY,4,20,3,0,['YDioxXtpsoCockQiW' 'TTqtaeQyqFgzPPWy2']
+j93FakLxwahpkxpuY,KaBkH4nKNBthTeuPW,50,253,9,1,['669BmdsRc4dML3Pik']
+j93FakLxwahpkxpuY,669BmdsRc4dML3Pik,57,319,8,0,['KaBkH4nKNBthTeuPW']
+zueyzxGXb4vMKgwRt,3XYFXgtsEoEAHZYS4,63,312,8,4,['eLJmdF3kofALaWc9T' 'Xg7hn8pynTopq7hz4']
+zueyzxGXb4vMKgwRt,eLJmdF3kofALaWc9T,26,129,4,0,['3XYFXgtsEoEAHZYS4' 'Xg7hn8pynTopq7hz4']
+zueyzxGXb4vMKgwRt,Xg7hn8pynTopq7hz4,18,86,4,0,['3XYFXgtsEoEAHZYS4' 'eLJmdF3kofALaWc9T']
+dQyQ37xZxmEnpQSJQ,DmHtpY2NQxxyR7gWe,19,85,3,1,['DFLspEvPG697ShTFh' 'f5XH4sNqwsXeewPRa']
+dQyQ37xZxmEnpQSJQ,DFLspEvPG697ShTFh,6,22,2,0,['DmHtpY2NQxxyR7gWe' 'f5XH4sNqwsXeewPRa']
+dQyQ37xZxmEnpQSJQ,f5XH4sNqwsXeewPRa,6,24,1,0,['DmHtpY2NQxxyR7gWe' 'DFLspEvPG697ShTFh']
+rMrXMqyTkSQZWn7WT,NULL_SPEAKER,1,3,1,0,[]
+Fs7Rss7J4NJTyC4rf,u5M7aE52uS4mGLHwu,17,77,4,0,['de7y6Gzb8JF2Qfj5k' 'DetkDbqKRE4JStogM']
+Fs7Rss7J4NJTyC4rf,de7y6Gzb8JF2Qfj5k,35,163,8,1,['u5M7aE52uS4mGLHwu' 'DetkDbqKRE4JStogM']
+Fs7Rss7J4NJTyC4rf,DetkDbqKRE4JStogM,7,28,3,0,['u5M7aE52uS4mGLHwu' 'de7y6Gzb8JF2Qfj5k']
+Kkf5Tq7ZA9cLm34ph,cnwijCPGQC77Q6vn7,29,138,5,3,['KZRYPja8495fkr4nx']
+Kkf5Tq7ZA9cLm34ph,KZRYPja8495fkr4nx,15,77,3,0,['cnwijCPGQC77Q6vn7']
+z2cvW6zEDnQQaQP4b,owxLogxPSQhXA88Ak,15,62,2,1,['LeDYG52fd2gGk2LQh']
+z2cvW6zEDnQQaQP4b,LeDYG52fd2gGk2LQh,12,48,2,3,['owxLogxPSQhXA88Ak']
+8JzGmnmmysjYPSedw,Ptoh4d87M2AsYnssW,18,79,3,0,['ip5x4hiTdjJ4jn8o5']
+8JzGmnmmysjYPSedw,ip5x4hiTdjJ4jn8o5,8,42,1,0,['Ptoh4d87M2AsYnssW']
+zkcXviSyKGiSc7xyM,tKmHuhiEtPwMSuB3G,4,15,2,0,['Nhi9x6P9Akuni9qzE']
+zkcXviSyKGiSc7xyM,Nhi9x6P9Akuni9qzE,6,23,2,0,['tKmHuhiEtPwMSuB3G']
+PRFJpkf3j9GPESuk6,ikaXBmpgQpcwMZYEu,24,117,5,2,['ChbneZEaqxQYmLT6j']
+PRFJpkf3j9GPESuk6,ChbneZEaqxQYmLT6j,9,44,3,0,['ikaXBmpgQpcwMZYEu']
+wERdq8un4kyzBnAq6,TMz6ojB9KSYgTymqk,20,107,4,0,"['kdroQruJQem6bmLuy' '66Ho4pCmCzgwaLCPT' 'uJ4Zs6ZnDTxSJXodf'
+ '5zNPFuK6pPntuSHis' 'QGgWF525kXc6q75hH']"
+wERdq8un4kyzBnAq6,kdroQruJQem6bmLuy,2,6,2,0,"['TMz6ojB9KSYgTymqk' '66Ho4pCmCzgwaLCPT' 'uJ4Zs6ZnDTxSJXodf'
+ '5zNPFuK6pPntuSHis' 'QGgWF525kXc6q75hH']"
+wERdq8un4kyzBnAq6,66Ho4pCmCzgwaLCPT,16,74,6,0,"['TMz6ojB9KSYgTymqk' 'kdroQruJQem6bmLuy' 'uJ4Zs6ZnDTxSJXodf'
+ '5zNPFuK6pPntuSHis' 'QGgWF525kXc6q75hH']"
+wERdq8un4kyzBnAq6,uJ4Zs6ZnDTxSJXodf,7,29,4,0,"['TMz6ojB9KSYgTymqk' 'kdroQruJQem6bmLuy' '66Ho4pCmCzgwaLCPT'
+ '5zNPFuK6pPntuSHis' 'QGgWF525kXc6q75hH']"
+wERdq8un4kyzBnAq6,5zNPFuK6pPntuSHis,10,42,5,0,"['TMz6ojB9KSYgTymqk' 'kdroQruJQem6bmLuy' '66Ho4pCmCzgwaLCPT'
+ 'uJ4Zs6ZnDTxSJXodf' 'QGgWF525kXc6q75hH']"
+wERdq8un4kyzBnAq6,QGgWF525kXc6q75hH,12,66,2,0,"['TMz6ojB9KSYgTymqk' 'kdroQruJQem6bmLuy' '66Ho4pCmCzgwaLCPT'
+ 'uJ4Zs6ZnDTxSJXodf' '5zNPFuK6pPntuSHis']"
+7Yp7xgzRSYzkEQuve,QAxiqeKncvTFnSpLA,11,64,4,0,"['sgQ6Yri6Fg3xTKPjw' '4gi3kegtrhyrdCiDy' '66hK99veBSoTtyLqT'
+ 'o8tgyrMefrKy2pg66' 'f8fjr4vCw949aZpvW']"
+7Yp7xgzRSYzkEQuve,sgQ6Yri6Fg3xTKPjw,8,35,3,0,"['QAxiqeKncvTFnSpLA' '4gi3kegtrhyrdCiDy' '66hK99veBSoTtyLqT'
+ 'o8tgyrMefrKy2pg66' 'f8fjr4vCw949aZpvW']"
+7Yp7xgzRSYzkEQuve,4gi3kegtrhyrdCiDy,5,23,2,0,"['QAxiqeKncvTFnSpLA' 'sgQ6Yri6Fg3xTKPjw' '66hK99veBSoTtyLqT'
+ 'o8tgyrMefrKy2pg66' 'f8fjr4vCw949aZpvW']"
+7Yp7xgzRSYzkEQuve,66hK99veBSoTtyLqT,6,31,2,1,"['QAxiqeKncvTFnSpLA' 'sgQ6Yri6Fg3xTKPjw' '4gi3kegtrhyrdCiDy'
+ 'o8tgyrMefrKy2pg66' 'f8fjr4vCw949aZpvW']"
+7Yp7xgzRSYzkEQuve,o8tgyrMefrKy2pg66,17,81,2,0,"['QAxiqeKncvTFnSpLA' 'sgQ6Yri6Fg3xTKPjw' '4gi3kegtrhyrdCiDy'
+ '66hK99veBSoTtyLqT' 'f8fjr4vCw949aZpvW']"
+7Yp7xgzRSYzkEQuve,f8fjr4vCw949aZpvW,4,21,1,0,"['QAxiqeKncvTFnSpLA' 'sgQ6Yri6Fg3xTKPjw' '4gi3kegtrhyrdCiDy'
+ '66hK99veBSoTtyLqT' 'o8tgyrMefrKy2pg66']"
+WqYCrrsqxkwzWvaeR,g8YhEoL3KQcEAvn2Q,2,8,1,0,['4MF5rZsNipP5tNpYE']
+WqYCrrsqxkwzWvaeR,4MF5rZsNipP5tNpYE,2,6,1,0,['g8YhEoL3KQcEAvn2Q']
+gxQM2AuwkgzYvinAJ,gvxKfDkJKddavrLHK,8,29,3,0,"['GmZyXcL6zP6NLwdk8' '2WymTq6d8cQPgEfxv' 'pQLS7dsfdLRgRwksp'
+ 'gTrR4GWEhkRfKmZz7' 'gLJDjczzcKbXmC6RQ']"
+gxQM2AuwkgzYvinAJ,GmZyXcL6zP6NLwdk8,41,195,4,0,"['gvxKfDkJKddavrLHK' '2WymTq6d8cQPgEfxv' 'pQLS7dsfdLRgRwksp'
+ 'gTrR4GWEhkRfKmZz7' 'gLJDjczzcKbXmC6RQ']"
+gxQM2AuwkgzYvinAJ,2WymTq6d8cQPgEfxv,3,15,3,0,"['gvxKfDkJKddavrLHK' 'GmZyXcL6zP6NLwdk8' 'pQLS7dsfdLRgRwksp'
+ 'gTrR4GWEhkRfKmZz7' 'gLJDjczzcKbXmC6RQ']"
+gxQM2AuwkgzYvinAJ,pQLS7dsfdLRgRwksp,4,17,2,0,"['gvxKfDkJKddavrLHK' 'GmZyXcL6zP6NLwdk8' '2WymTq6d8cQPgEfxv'
+ 'gTrR4GWEhkRfKmZz7' 'gLJDjczzcKbXmC6RQ']"
+gxQM2AuwkgzYvinAJ,gTrR4GWEhkRfKmZz7,7,35,2,0,"['gvxKfDkJKddavrLHK' 'GmZyXcL6zP6NLwdk8' '2WymTq6d8cQPgEfxv'
+ 'pQLS7dsfdLRgRwksp' 'gLJDjczzcKbXmC6RQ']"
+gxQM2AuwkgzYvinAJ,gLJDjczzcKbXmC6RQ,7,28,1,1,"['gvxKfDkJKddavrLHK' 'GmZyXcL6zP6NLwdk8' '2WymTq6d8cQPgEfxv'
+ 'pQLS7dsfdLRgRwksp' 'gTrR4GWEhkRfKmZz7']"
+tfcLn4xzp8LEQsiZY,Mf3wvWJEevK5p3uLc,20,97,3,1,"['jni2B9yHPLZ5MJHKK' 'tZBvEqA5jDKSdvugv' 'GY3WYaEewrLs5jZQT'
+ 'tsPWEZi2Aa6WLzCF2' 'TzF6G7Ye9CAj6r4G7']"
+tfcLn4xzp8LEQsiZY,jni2B9yHPLZ5MJHKK,7,32,4,0,"['Mf3wvWJEevK5p3uLc' 'tZBvEqA5jDKSdvugv' 'GY3WYaEewrLs5jZQT'
+ 'tsPWEZi2Aa6WLzCF2' 'TzF6G7Ye9CAj6r4G7']"
+tfcLn4xzp8LEQsiZY,tZBvEqA5jDKSdvugv,9,50,3,0,"['Mf3wvWJEevK5p3uLc' 'jni2B9yHPLZ5MJHKK' 'GY3WYaEewrLs5jZQT'
+ 'tsPWEZi2Aa6WLzCF2' 'TzF6G7Ye9CAj6r4G7']"
+tfcLn4xzp8LEQsiZY,GY3WYaEewrLs5jZQT,7,39,1,0,"['Mf3wvWJEevK5p3uLc' 'jni2B9yHPLZ5MJHKK' 'tZBvEqA5jDKSdvugv'
+ 'tsPWEZi2Aa6WLzCF2' 'TzF6G7Ye9CAj6r4G7']"
+tfcLn4xzp8LEQsiZY,tsPWEZi2Aa6WLzCF2,12,62,3,0,"['Mf3wvWJEevK5p3uLc' 'jni2B9yHPLZ5MJHKK' 'tZBvEqA5jDKSdvugv'
+ 'GY3WYaEewrLs5jZQT' 'TzF6G7Ye9CAj6r4G7']"
+tfcLn4xzp8LEQsiZY,TzF6G7Ye9CAj6r4G7,4,16,1,0,"['Mf3wvWJEevK5p3uLc' 'jni2B9yHPLZ5MJHKK' 'tZBvEqA5jDKSdvugv'
+ 'GY3WYaEewrLs5jZQT' 'tsPWEZi2Aa6WLzCF2']"
+WjifjqQ3MmkivChTN,9g68iMiDTDFo7NQJA,2,17,2,0,['nxKAhJpmSZyQWfDSH' 'ZPZkzNWXdN7aB3xj2']
+WjifjqQ3MmkivChTN,nxKAhJpmSZyQWfDSH,19,91,2,2,['9g68iMiDTDFo7NQJA' 'ZPZkzNWXdN7aB3xj2']
+WjifjqQ3MmkivChTN,ZPZkzNWXdN7aB3xj2,4,22,1,1,['9g68iMiDTDFo7NQJA' 'nxKAhJpmSZyQWfDSH']
+abufZQHe7WBh28KbH,NULL_SPEAKER,1,3,1,0,[]
+w8baBqLdDfDzAdAzj,NULL_SPEAKER,1,3,1,0,[]
+bugkb9g5icmHSrjTA,NULL_SPEAKER,1,3,1,0,[]
+EXdthbLDfjpYXg55n,NULL_SPEAKER,1,3,1,0,[]
+vAoDBqWR6v6QRS8EY,NULL_SPEAKER,1,3,1,0,[]
+exQQfe7aeMBkLvaj5,NULL_SPEAKER,1,3,1,0,[]
+rYRPXZJKMC3sytywt,NULL_SPEAKER,1,3,1,0,[]
+w7dRpHoRrsWZ6HNek,NULL_SPEAKER,1,3,1,0,[]
+Q4cYyrvChBAfrYyFk,NULL_SPEAKER,1,3,1,0,[]
+LAebN9PeFpMuCiYGp,NULL_SPEAKER,1,3,1,0,[]
+JQmvWbW2JcZWNdz5Q,ZnY2bJLbp5GPfix22,9,52,2,0,['APPYv6Mq3t5aapJ8E']
+JQmvWbW2JcZWNdz5Q,APPYv6Mq3t5aapJ8E,3,15,1,0,['ZnY2bJLbp5GPfix22']
+uBNRSuhS3vCFXZT4t,NULL_SPEAKER,1,3,1,0,[]
+ZW5fpXwsMumJ87rra,NULL_SPEAKER,1,3,1,0,[]
+zDHimXtC6vz69YAmS,xe2rfbCpwjY2zE5ZH,20,92,3,0,['rW6qBz5KBpYxDkPtP']
+zDHimXtC6vz69YAmS,rW6qBz5KBpYxDkPtP,1,3,1,0,['xe2rfbCpwjY2zE5ZH']
+whLnzpdu9jsPb65xW,Ldy24kfBaHYENxb4M,11,59,3,0,['bu7Tp7jZYqSv8Fcnf']
+whLnzpdu9jsPb65xW,bu7Tp7jZYqSv8Fcnf,2,8,2,0,['Ldy24kfBaHYENxb4M']
+oJZtcFCGBtkMQKbrH,NULL_SPEAKER,1,3,1,0,[]
+twxx6sZynJ9S2tsmq,NULL_SPEAKER,1,3,1,0,[]
+eFYa2FZWeBrAxoeYX,NULL_SPEAKER,1,3,1,0,[]
+D6qWdnmBtDRaBexBt,NULL_SPEAKER,1,3,1,0,[]
+sZv2PykYtxe9nZETf,m6cD5xv7ie5GTHeDR,12,55,2,0,"['h75CeFWchxQvRJuDi' 'kMkJakgkCGCgfxRC5' 'MWgWoKr6PnJu47kpi'
+ 'cwqEf3AcmWqLgffEF' 'GdT3yTBxJDWqvoGRG' 'YoMQZspAaemK3wRWW'
+ 'WuxmuJiHt6gCq5Rcv']"
+sZv2PykYtxe9nZETf,h75CeFWchxQvRJuDi,37,187,7,4,"['m6cD5xv7ie5GTHeDR' 'kMkJakgkCGCgfxRC5' 'MWgWoKr6PnJu47kpi'
+ 'cwqEf3AcmWqLgffEF' 'GdT3yTBxJDWqvoGRG' 'YoMQZspAaemK3wRWW'
+ 'WuxmuJiHt6gCq5Rcv']"
+sZv2PykYtxe9nZETf,kMkJakgkCGCgfxRC5,37,183,8,2,"['m6cD5xv7ie5GTHeDR' 'h75CeFWchxQvRJuDi' 'MWgWoKr6PnJu47kpi'
+ 'cwqEf3AcmWqLgffEF' 'GdT3yTBxJDWqvoGRG' 'YoMQZspAaemK3wRWW'
+ 'WuxmuJiHt6gCq5Rcv']"
+sZv2PykYtxe9nZETf,MWgWoKr6PnJu47kpi,31,158,5,5,"['m6cD5xv7ie5GTHeDR' 'h75CeFWchxQvRJuDi' 'kMkJakgkCGCgfxRC5'
+ 'cwqEf3AcmWqLgffEF' 'GdT3yTBxJDWqvoGRG' 'YoMQZspAaemK3wRWW'
+ 'WuxmuJiHt6gCq5Rcv']"
+sZv2PykYtxe9nZETf,cwqEf3AcmWqLgffEF,13,59,4,1,"['m6cD5xv7ie5GTHeDR' 'h75CeFWchxQvRJuDi' 'kMkJakgkCGCgfxRC5'
+ 'MWgWoKr6PnJu47kpi' 'GdT3yTBxJDWqvoGRG' 'YoMQZspAaemK3wRWW'
+ 'WuxmuJiHt6gCq5Rcv']"
+sZv2PykYtxe9nZETf,GdT3yTBxJDWqvoGRG,8,40,1,0,"['m6cD5xv7ie5GTHeDR' 'h75CeFWchxQvRJuDi' 'kMkJakgkCGCgfxRC5'
+ 'MWgWoKr6PnJu47kpi' 'cwqEf3AcmWqLgffEF' 'YoMQZspAaemK3wRWW'
+ 'WuxmuJiHt6gCq5Rcv']"
+sZv2PykYtxe9nZETf,YoMQZspAaemK3wRWW,3,11,1,0,"['m6cD5xv7ie5GTHeDR' 'h75CeFWchxQvRJuDi' 'kMkJakgkCGCgfxRC5'
+ 'MWgWoKr6PnJu47kpi' 'cwqEf3AcmWqLgffEF' 'GdT3yTBxJDWqvoGRG'
+ 'WuxmuJiHt6gCq5Rcv']"
+sZv2PykYtxe9nZETf,WuxmuJiHt6gCq5Rcv,5,24,1,1,"['m6cD5xv7ie5GTHeDR' 'h75CeFWchxQvRJuDi' 'kMkJakgkCGCgfxRC5'
+ 'MWgWoKr6PnJu47kpi' 'cwqEf3AcmWqLgffEF' 'GdT3yTBxJDWqvoGRG'
+ 'YoMQZspAaemK3wRWW']"
+P4sfYSiy9qjWfiWAZ,LEBPXWNAgFi6z7DuR,6,29,4,0,"['Lh3MJxEnSFvFskRzH' '28v3k847KuXCPZ4kk' 'RHcjpJn86Xia2ADiS'
+ 'akusb3EiXtSDxGu6H' '5G33ikua9p8drw4FX' 'yZz3P4Kr5BTYd5rAM'
+ 'Z7pMuDwhBtvBX4P6D']"
+P4sfYSiy9qjWfiWAZ,Lh3MJxEnSFvFskRzH,53,248,12,2,"['LEBPXWNAgFi6z7DuR' '28v3k847KuXCPZ4kk' 'RHcjpJn86Xia2ADiS'
+ 'akusb3EiXtSDxGu6H' '5G33ikua9p8drw4FX' 'yZz3P4Kr5BTYd5rAM'
+ 'Z7pMuDwhBtvBX4P6D']"
+P4sfYSiy9qjWfiWAZ,28v3k847KuXCPZ4kk,67,330,11,0,"['LEBPXWNAgFi6z7DuR' 'Lh3MJxEnSFvFskRzH' 'RHcjpJn86Xia2ADiS'
+ 'akusb3EiXtSDxGu6H' '5G33ikua9p8drw4FX' 'yZz3P4Kr5BTYd5rAM'
+ 'Z7pMuDwhBtvBX4P6D']"
+P4sfYSiy9qjWfiWAZ,RHcjpJn86Xia2ADiS,30,137,7,0,"['LEBPXWNAgFi6z7DuR' 'Lh3MJxEnSFvFskRzH' '28v3k847KuXCPZ4kk'
+ 'akusb3EiXtSDxGu6H' '5G33ikua9p8drw4FX' 'yZz3P4Kr5BTYd5rAM'
+ 'Z7pMuDwhBtvBX4P6D']"
+P4sfYSiy9qjWfiWAZ,akusb3EiXtSDxGu6H,14,62,5,1,"['LEBPXWNAgFi6z7DuR' 'Lh3MJxEnSFvFskRzH' '28v3k847KuXCPZ4kk'
+ 'RHcjpJn86Xia2ADiS' '5G33ikua9p8drw4FX' 'yZz3P4Kr5BTYd5rAM'
+ 'Z7pMuDwhBtvBX4P6D']"
+P4sfYSiy9qjWfiWAZ,5G33ikua9p8drw4FX,44,224,13,1,"['LEBPXWNAgFi6z7DuR' 'Lh3MJxEnSFvFskRzH' '28v3k847KuXCPZ4kk'
+ 'RHcjpJn86Xia2ADiS' 'akusb3EiXtSDxGu6H' 'yZz3P4Kr5BTYd5rAM'
+ 'Z7pMuDwhBtvBX4P6D']"
+P4sfYSiy9qjWfiWAZ,yZz3P4Kr5BTYd5rAM,12,49,7,0,"['LEBPXWNAgFi6z7DuR' 'Lh3MJxEnSFvFskRzH' '28v3k847KuXCPZ4kk'
+ 'RHcjpJn86Xia2ADiS' 'akusb3EiXtSDxGu6H' '5G33ikua9p8drw4FX'
+ 'Z7pMuDwhBtvBX4P6D']"
+P4sfYSiy9qjWfiWAZ,Z7pMuDwhBtvBX4P6D,39,192,8,0,"['LEBPXWNAgFi6z7DuR' 'Lh3MJxEnSFvFskRzH' '28v3k847KuXCPZ4kk'
+ 'RHcjpJn86Xia2ADiS' 'akusb3EiXtSDxGu6H' '5G33ikua9p8drw4FX'
+ 'yZz3P4Kr5BTYd5rAM']"
+jKR3Ku3ACDs6wghBX,3aKRE4Kkzbn9KvaMh,14,73,3,0,"['oprDqfRETJfvCAHR6' 'WqaQjrfysJErdCiqS' 'rNNfoT5HZvHYdxbd9'
+ '87eeBgSqSnirXzu9p' '9WviWYDu2k93Ssrab' 'NcdFmCXSWT4gPgAmy'
+ 'u7CHNZPM848yYuNjD']"
+jKR3Ku3ACDs6wghBX,oprDqfRETJfvCAHR6,11,48,4,0,"['3aKRE4Kkzbn9KvaMh' 'WqaQjrfysJErdCiqS' 'rNNfoT5HZvHYdxbd9'
+ '87eeBgSqSnirXzu9p' '9WviWYDu2k93Ssrab' 'NcdFmCXSWT4gPgAmy'
+ 'u7CHNZPM848yYuNjD']"
+jKR3Ku3ACDs6wghBX,WqaQjrfysJErdCiqS,9,34,3,0,"['3aKRE4Kkzbn9KvaMh' 'oprDqfRETJfvCAHR6' 'rNNfoT5HZvHYdxbd9'
+ '87eeBgSqSnirXzu9p' '9WviWYDu2k93Ssrab' 'NcdFmCXSWT4gPgAmy'
+ 'u7CHNZPM848yYuNjD']"
+jKR3Ku3ACDs6wghBX,rNNfoT5HZvHYdxbd9,4,16,3,0,"['3aKRE4Kkzbn9KvaMh' 'oprDqfRETJfvCAHR6' 'WqaQjrfysJErdCiqS'
+ '87eeBgSqSnirXzu9p' '9WviWYDu2k93Ssrab' 'NcdFmCXSWT4gPgAmy'
+ 'u7CHNZPM848yYuNjD']"
+jKR3Ku3ACDs6wghBX,87eeBgSqSnirXzu9p,2,6,2,0,"['3aKRE4Kkzbn9KvaMh' 'oprDqfRETJfvCAHR6' 'WqaQjrfysJErdCiqS'
+ 'rNNfoT5HZvHYdxbd9' '9WviWYDu2k93Ssrab' 'NcdFmCXSWT4gPgAmy'
+ 'u7CHNZPM848yYuNjD']"
+jKR3Ku3ACDs6wghBX,9WviWYDu2k93Ssrab,2,10,1,0,"['3aKRE4Kkzbn9KvaMh' 'oprDqfRETJfvCAHR6' 'WqaQjrfysJErdCiqS'
+ 'rNNfoT5HZvHYdxbd9' '87eeBgSqSnirXzu9p' 'NcdFmCXSWT4gPgAmy'
+ 'u7CHNZPM848yYuNjD']"
+jKR3Ku3ACDs6wghBX,NcdFmCXSWT4gPgAmy,2,9,1,0,"['3aKRE4Kkzbn9KvaMh' 'oprDqfRETJfvCAHR6' 'WqaQjrfysJErdCiqS'
+ 'rNNfoT5HZvHYdxbd9' '87eeBgSqSnirXzu9p' '9WviWYDu2k93Ssrab'
+ 'u7CHNZPM848yYuNjD']"
+jKR3Ku3ACDs6wghBX,u7CHNZPM848yYuNjD,9,44,4,0,"['3aKRE4Kkzbn9KvaMh' 'oprDqfRETJfvCAHR6' 'WqaQjrfysJErdCiqS'
+ 'rNNfoT5HZvHYdxbd9' '87eeBgSqSnirXzu9p' '9WviWYDu2k93Ssrab'
+ 'NcdFmCXSWT4gPgAmy']"
+HiQrsG3K8d7W8vSmY,2k2qKtvYBxEEuBJK8,18,102,3,0,"['CLLK7tmywbZrbaxeC' 'mSzXFQj3XLr6wZiY5' 'zRZxK5zpFLFMaWx3A'
+ '67pBY9CWC8yMXfrnx' 'Xo2iFAgSneiGhyTfw' 'sJes7vEpe8mnx73ji']"
+HiQrsG3K8d7W8vSmY,CLLK7tmywbZrbaxeC,6,27,1,0,"['2k2qKtvYBxEEuBJK8' 'mSzXFQj3XLr6wZiY5' 'zRZxK5zpFLFMaWx3A'
+ '67pBY9CWC8yMXfrnx' 'Xo2iFAgSneiGhyTfw' 'sJes7vEpe8mnx73ji']"
+HiQrsG3K8d7W8vSmY,mSzXFQj3XLr6wZiY5,2,7,1,0,"['2k2qKtvYBxEEuBJK8' 'CLLK7tmywbZrbaxeC' 'zRZxK5zpFLFMaWx3A'
+ '67pBY9CWC8yMXfrnx' 'Xo2iFAgSneiGhyTfw' 'sJes7vEpe8mnx73ji']"
+HiQrsG3K8d7W8vSmY,zRZxK5zpFLFMaWx3A,2,7,1,0,"['2k2qKtvYBxEEuBJK8' 'CLLK7tmywbZrbaxeC' 'mSzXFQj3XLr6wZiY5'
+ '67pBY9CWC8yMXfrnx' 'Xo2iFAgSneiGhyTfw' 'sJes7vEpe8mnx73ji']"
+HiQrsG3K8d7W8vSmY,67pBY9CWC8yMXfrnx,13,64,3,0,"['2k2qKtvYBxEEuBJK8' 'CLLK7tmywbZrbaxeC' 'mSzXFQj3XLr6wZiY5'
+ 'zRZxK5zpFLFMaWx3A' 'Xo2iFAgSneiGhyTfw' 'sJes7vEpe8mnx73ji']"
+HiQrsG3K8d7W8vSmY,Xo2iFAgSneiGhyTfw,7,28,2,0,"['2k2qKtvYBxEEuBJK8' 'CLLK7tmywbZrbaxeC' 'mSzXFQj3XLr6wZiY5'
+ 'zRZxK5zpFLFMaWx3A' '67pBY9CWC8yMXfrnx' 'sJes7vEpe8mnx73ji']"
+HiQrsG3K8d7W8vSmY,sJes7vEpe8mnx73ji,2,7,1,0,"['2k2qKtvYBxEEuBJK8' 'CLLK7tmywbZrbaxeC' 'mSzXFQj3XLr6wZiY5'
+ 'zRZxK5zpFLFMaWx3A' '67pBY9CWC8yMXfrnx' 'Xo2iFAgSneiGhyTfw']"
+EakNPZzgjgCGngNuo,NULL_SPEAKER,1,3,1,0,[]
+XKz2DdvRbwCujskLK,4T8ZdQpLo7Ksq9Q9d,22,111,5,0,"['ekXediCK47MYPY2az' 'q44tDdaBaefXnoKJd' 'pAaagG96Axi4AqXC6'
+ 'TKDn4KtyRSfrPoeuk' 'SRDxTvK86Wny3jDj2' 'oEQoDARsiCTTG7sF8'
+ 'Erp2aDHjdkWPf3Xr5']"
+XKz2DdvRbwCujskLK,ekXediCK47MYPY2az,17,83,4,1,"['4T8ZdQpLo7Ksq9Q9d' 'q44tDdaBaefXnoKJd' 'pAaagG96Axi4AqXC6'
+ 'TKDn4KtyRSfrPoeuk' 'SRDxTvK86Wny3jDj2' 'oEQoDARsiCTTG7sF8'
+ 'Erp2aDHjdkWPf3Xr5']"
+XKz2DdvRbwCujskLK,q44tDdaBaefXnoKJd,3,12,2,1,"['4T8ZdQpLo7Ksq9Q9d' 'ekXediCK47MYPY2az' 'pAaagG96Axi4AqXC6'
+ 'TKDn4KtyRSfrPoeuk' 'SRDxTvK86Wny3jDj2' 'oEQoDARsiCTTG7sF8'
+ 'Erp2aDHjdkWPf3Xr5']"
+XKz2DdvRbwCujskLK,pAaagG96Axi4AqXC6,16,84,3,1,"['4T8ZdQpLo7Ksq9Q9d' 'ekXediCK47MYPY2az' 'q44tDdaBaefXnoKJd'
+ 'TKDn4KtyRSfrPoeuk' 'SRDxTvK86Wny3jDj2' 'oEQoDARsiCTTG7sF8'
+ 'Erp2aDHjdkWPf3Xr5']"
+XKz2DdvRbwCujskLK,TKDn4KtyRSfrPoeuk,7,32,2,0,"['4T8ZdQpLo7Ksq9Q9d' 'ekXediCK47MYPY2az' 'q44tDdaBaefXnoKJd'
+ 'pAaagG96Axi4AqXC6' 'SRDxTvK86Wny3jDj2' 'oEQoDARsiCTTG7sF8'
+ 'Erp2aDHjdkWPf3Xr5']"
+XKz2DdvRbwCujskLK,SRDxTvK86Wny3jDj2,14,60,2,0,"['4T8ZdQpLo7Ksq9Q9d' 'ekXediCK47MYPY2az' 'q44tDdaBaefXnoKJd'
+ 'pAaagG96Axi4AqXC6' 'TKDn4KtyRSfrPoeuk' 'oEQoDARsiCTTG7sF8'
+ 'Erp2aDHjdkWPf3Xr5']"
+XKz2DdvRbwCujskLK,oEQoDARsiCTTG7sF8,20,97,1,1,"['4T8ZdQpLo7Ksq9Q9d' 'ekXediCK47MYPY2az' 'q44tDdaBaefXnoKJd'
+ 'pAaagG96Axi4AqXC6' 'TKDn4KtyRSfrPoeuk' 'SRDxTvK86Wny3jDj2'
+ 'Erp2aDHjdkWPf3Xr5']"
+XKz2DdvRbwCujskLK,Erp2aDHjdkWPf3Xr5,1,2,1,0,"['4T8ZdQpLo7Ksq9Q9d' 'ekXediCK47MYPY2az' 'q44tDdaBaefXnoKJd'
+ 'pAaagG96Axi4AqXC6' 'TKDn4KtyRSfrPoeuk' 'SRDxTvK86Wny3jDj2'
+ 'oEQoDARsiCTTG7sF8']"
+LJqQJnQp6EXEjdP9b,QgBigPrTnzhNoosB8,13,58,2,0,"['ekp7KqX2Z2ZHmJQpR' 'cK9mbS2iTQXvg5kBu' 'niAqKXtX2sSAiy6S4'
+ 'bpuPp7tQCxJ7p8vQY' 'F8GW5AbC7maEKpbHu' 'HeXxRp8wbnEmRSwqZ'
+ 'xCogvaNwekfSa7Hei']"
+LJqQJnQp6EXEjdP9b,ekp7KqX2Z2ZHmJQpR,21,108,3,1,"['QgBigPrTnzhNoosB8' 'cK9mbS2iTQXvg5kBu' 'niAqKXtX2sSAiy6S4'
+ 'bpuPp7tQCxJ7p8vQY' 'F8GW5AbC7maEKpbHu' 'HeXxRp8wbnEmRSwqZ'
+ 'xCogvaNwekfSa7Hei']"
+LJqQJnQp6EXEjdP9b,cK9mbS2iTQXvg5kBu,17,86,2,2,"['QgBigPrTnzhNoosB8' 'ekp7KqX2Z2ZHmJQpR' 'niAqKXtX2sSAiy6S4'
+ 'bpuPp7tQCxJ7p8vQY' 'F8GW5AbC7maEKpbHu' 'HeXxRp8wbnEmRSwqZ'
+ 'xCogvaNwekfSa7Hei']"
+LJqQJnQp6EXEjdP9b,niAqKXtX2sSAiy6S4,19,97,4,1,"['QgBigPrTnzhNoosB8' 'ekp7KqX2Z2ZHmJQpR' 'cK9mbS2iTQXvg5kBu'
+ 'bpuPp7tQCxJ7p8vQY' 'F8GW5AbC7maEKpbHu' 'HeXxRp8wbnEmRSwqZ'
+ 'xCogvaNwekfSa7Hei']"
+LJqQJnQp6EXEjdP9b,bpuPp7tQCxJ7p8vQY,9,48,2,2,"['QgBigPrTnzhNoosB8' 'ekp7KqX2Z2ZHmJQpR' 'cK9mbS2iTQXvg5kBu'
+ 'niAqKXtX2sSAiy6S4' 'F8GW5AbC7maEKpbHu' 'HeXxRp8wbnEmRSwqZ'
+ 'xCogvaNwekfSa7Hei']"
+LJqQJnQp6EXEjdP9b,F8GW5AbC7maEKpbHu,6,32,2,1,"['QgBigPrTnzhNoosB8' 'ekp7KqX2Z2ZHmJQpR' 'cK9mbS2iTQXvg5kBu'
+ 'niAqKXtX2sSAiy6S4' 'bpuPp7tQCxJ7p8vQY' 'HeXxRp8wbnEmRSwqZ'
+ 'xCogvaNwekfSa7Hei']"
+LJqQJnQp6EXEjdP9b,HeXxRp8wbnEmRSwqZ,7,36,2,0,"['QgBigPrTnzhNoosB8' 'ekp7KqX2Z2ZHmJQpR' 'cK9mbS2iTQXvg5kBu'
+ 'niAqKXtX2sSAiy6S4' 'bpuPp7tQCxJ7p8vQY' 'F8GW5AbC7maEKpbHu'
+ 'xCogvaNwekfSa7Hei']"
+LJqQJnQp6EXEjdP9b,xCogvaNwekfSa7Hei,4,16,1,0,"['QgBigPrTnzhNoosB8' 'ekp7KqX2Z2ZHmJQpR' 'cK9mbS2iTQXvg5kBu'
+ 'niAqKXtX2sSAiy6S4' 'bpuPp7tQCxJ7p8vQY' 'F8GW5AbC7maEKpbHu'
+ 'HeXxRp8wbnEmRSwqZ']"
+AR3FJNddX9pPJAcXb,6TYBSn7ih8nCqF8Bm,23,116,4,1,"['RiBWgo9KWkMesowkQ' 'A94FtAfZWexhAAjTB' '6wmnnnedsffSfMfiS'
+ 'WaqHrqrmpBSGyYPMg' 'o7Bawg5pazhBJKRWC']"
+AR3FJNddX9pPJAcXb,RiBWgo9KWkMesowkQ,1,5,1,0,"['6TYBSn7ih8nCqF8Bm' 'A94FtAfZWexhAAjTB' '6wmnnnedsffSfMfiS'
+ 'WaqHrqrmpBSGyYPMg' 'o7Bawg5pazhBJKRWC']"
+AR3FJNddX9pPJAcXb,A94FtAfZWexhAAjTB,22,98,4,0,"['6TYBSn7ih8nCqF8Bm' 'RiBWgo9KWkMesowkQ' '6wmnnnedsffSfMfiS'
+ 'WaqHrqrmpBSGyYPMg' 'o7Bawg5pazhBJKRWC']"
+AR3FJNddX9pPJAcXb,6wmnnnedsffSfMfiS,7,28,2,2,"['6TYBSn7ih8nCqF8Bm' 'RiBWgo9KWkMesowkQ' 'A94FtAfZWexhAAjTB'
+ 'WaqHrqrmpBSGyYPMg' 'o7Bawg5pazhBJKRWC']"
+AR3FJNddX9pPJAcXb,WaqHrqrmpBSGyYPMg,3,14,1,0,"['6TYBSn7ih8nCqF8Bm' 'RiBWgo9KWkMesowkQ' 'A94FtAfZWexhAAjTB'
+ '6wmnnnedsffSfMfiS' 'o7Bawg5pazhBJKRWC']"
+AR3FJNddX9pPJAcXb,o7Bawg5pazhBJKRWC,2,10,1,0,"['6TYBSn7ih8nCqF8Bm' 'RiBWgo9KWkMesowkQ' 'A94FtAfZWexhAAjTB'
+ '6wmnnnedsffSfMfiS' 'WaqHrqrmpBSGyYPMg']"
+JaTuJT4apqmz5Pm3Q,gHaQfeuY5nmmiCHqE,33,144,6,0,"['66YdTLqd332GuPLmD' '3NyQQy2ovFW8ByRpC' 'yK89WRjf4TKLcqkBv'
+ 'FnCRoZAMa55YhwptB' 'QCELauzAtSqxq5jP4' 'yPeWZYyuNHJzKcmWy']"
+JaTuJT4apqmz5Pm3Q,66YdTLqd332GuPLmD,13,52,3,1,"['gHaQfeuY5nmmiCHqE' '3NyQQy2ovFW8ByRpC' 'yK89WRjf4TKLcqkBv'
+ 'FnCRoZAMa55YhwptB' 'QCELauzAtSqxq5jP4' 'yPeWZYyuNHJzKcmWy']"
+JaTuJT4apqmz5Pm3Q,3NyQQy2ovFW8ByRpC,33,180,9,2,"['gHaQfeuY5nmmiCHqE' '66YdTLqd332GuPLmD' 'yK89WRjf4TKLcqkBv'
+ 'FnCRoZAMa55YhwptB' 'QCELauzAtSqxq5jP4' 'yPeWZYyuNHJzKcmWy']"
+JaTuJT4apqmz5Pm3Q,yK89WRjf4TKLcqkBv,4,22,1,0,"['gHaQfeuY5nmmiCHqE' '66YdTLqd332GuPLmD' '3NyQQy2ovFW8ByRpC'
+ 'FnCRoZAMa55YhwptB' 'QCELauzAtSqxq5jP4' 'yPeWZYyuNHJzKcmWy']"
+JaTuJT4apqmz5Pm3Q,FnCRoZAMa55YhwptB,10,55,2,1,"['gHaQfeuY5nmmiCHqE' '66YdTLqd332GuPLmD' '3NyQQy2ovFW8ByRpC'
+ 'yK89WRjf4TKLcqkBv' 'QCELauzAtSqxq5jP4' 'yPeWZYyuNHJzKcmWy']"
+JaTuJT4apqmz5Pm3Q,QCELauzAtSqxq5jP4,7,36,2,0,"['gHaQfeuY5nmmiCHqE' '66YdTLqd332GuPLmD' '3NyQQy2ovFW8ByRpC'
+ 'yK89WRjf4TKLcqkBv' 'FnCRoZAMa55YhwptB' 'yPeWZYyuNHJzKcmWy']"
+JaTuJT4apqmz5Pm3Q,yPeWZYyuNHJzKcmWy,1,6,1,0,"['gHaQfeuY5nmmiCHqE' '66YdTLqd332GuPLmD' '3NyQQy2ovFW8ByRpC'
+ 'yK89WRjf4TKLcqkBv' 'FnCRoZAMa55YhwptB' 'QCELauzAtSqxq5jP4']"
+PoGMvgCdxdBLhmPNh,2S4QgQr42tDzsDZw8,13,70,1,0,['gHK9WnRTxFE2PgZF4' 'iGjvrqyzmYLK4z9aw']
+PoGMvgCdxdBLhmPNh,gHK9WnRTxFE2PgZF4,1,3,1,0,['2S4QgQr42tDzsDZw8' 'iGjvrqyzmYLK4z9aw']
+PoGMvgCdxdBLhmPNh,iGjvrqyzmYLK4z9aw,4,16,1,0,['2S4QgQr42tDzsDZw8' 'gHK9WnRTxFE2PgZF4']
+7YD9ju9FQKn6FS6F5,NULL_SPEAKER,1,3,1,0,[]
+KnBa8arbCpRuEg2Du,NULL_SPEAKER,1,3,1,0,[]
+kB3vX55n37DF7Wav3,NULL_SPEAKER,1,3,1,0,[]
+Hr5DKXgQbtgezp8wJ,NULL_SPEAKER,1,3,1,0,[]
+NXrcGCDhXm7dNLa7M,NULL_SPEAKER,1,3,1,0,[]
+zYXQzqzK6MGhTCaRi,7YdRjgMuCx2jpRrfv,13,57,3,0,"['sYsE8mKSrj5CowFcA' 'uPoW5dAtWG7fce8Dc' 'TSftjCAmAHAxYNJfZ'
+ '5u3h6eHZ6eQdcuuot' 'TkWYHie7Sd68MLxxN' 'dkJjtvAREsmZ7GdBd']"
+zYXQzqzK6MGhTCaRi,sYsE8mKSrj5CowFcA,15,84,3,0,"['7YdRjgMuCx2jpRrfv' 'uPoW5dAtWG7fce8Dc' 'TSftjCAmAHAxYNJfZ'
+ '5u3h6eHZ6eQdcuuot' 'TkWYHie7Sd68MLxxN' 'dkJjtvAREsmZ7GdBd']"
+zYXQzqzK6MGhTCaRi,uPoW5dAtWG7fce8Dc,11,58,1,2,"['7YdRjgMuCx2jpRrfv' 'sYsE8mKSrj5CowFcA' 'TSftjCAmAHAxYNJfZ'
+ '5u3h6eHZ6eQdcuuot' 'TkWYHie7Sd68MLxxN' 'dkJjtvAREsmZ7GdBd']"
+zYXQzqzK6MGhTCaRi,TSftjCAmAHAxYNJfZ,5,28,2,0,"['7YdRjgMuCx2jpRrfv' 'sYsE8mKSrj5CowFcA' 'uPoW5dAtWG7fce8Dc'
+ '5u3h6eHZ6eQdcuuot' 'TkWYHie7Sd68MLxxN' 'dkJjtvAREsmZ7GdBd']"
+zYXQzqzK6MGhTCaRi,5u3h6eHZ6eQdcuuot,5,21,1,0,"['7YdRjgMuCx2jpRrfv' 'sYsE8mKSrj5CowFcA' 'uPoW5dAtWG7fce8Dc'
+ 'TSftjCAmAHAxYNJfZ' 'TkWYHie7Sd68MLxxN' 'dkJjtvAREsmZ7GdBd']"
+zYXQzqzK6MGhTCaRi,TkWYHie7Sd68MLxxN,1,2,1,0,"['7YdRjgMuCx2jpRrfv' 'sYsE8mKSrj5CowFcA' 'uPoW5dAtWG7fce8Dc'
+ 'TSftjCAmAHAxYNJfZ' '5u3h6eHZ6eQdcuuot' 'dkJjtvAREsmZ7GdBd']"
+zYXQzqzK6MGhTCaRi,dkJjtvAREsmZ7GdBd,9,49,2,0,"['7YdRjgMuCx2jpRrfv' 'sYsE8mKSrj5CowFcA' 'uPoW5dAtWG7fce8Dc'
+ 'TSftjCAmAHAxYNJfZ' '5u3h6eHZ6eQdcuuot' 'TkWYHie7Sd68MLxxN']"
+jGmkwH3JjSSPEaKFd,pcLpA4C4ea4vFxYBH,36,182,4,0,"['2qXXxE8qXDiGJbbXc' 'fcHYmnfdbCGe55qxM' '7rMaS7RQYTZTpG6SF'
+ 'zTeKXZoZw7y55oTop' '3f9qXFGuy8vAvq2PZ']"
+jGmkwH3JjSSPEaKFd,2qXXxE8qXDiGJbbXc,27,153,5,1,"['pcLpA4C4ea4vFxYBH' 'fcHYmnfdbCGe55qxM' '7rMaS7RQYTZTpG6SF'
+ 'zTeKXZoZw7y55oTop' '3f9qXFGuy8vAvq2PZ']"
+jGmkwH3JjSSPEaKFd,fcHYmnfdbCGe55qxM,24,112,5,1,"['pcLpA4C4ea4vFxYBH' '2qXXxE8qXDiGJbbXc' '7rMaS7RQYTZTpG6SF'
+ 'zTeKXZoZw7y55oTop' '3f9qXFGuy8vAvq2PZ']"
+jGmkwH3JjSSPEaKFd,7rMaS7RQYTZTpG6SF,19,97,3,2,"['pcLpA4C4ea4vFxYBH' '2qXXxE8qXDiGJbbXc' 'fcHYmnfdbCGe55qxM'
+ 'zTeKXZoZw7y55oTop' '3f9qXFGuy8vAvq2PZ']"
+jGmkwH3JjSSPEaKFd,zTeKXZoZw7y55oTop,25,136,3,1,"['pcLpA4C4ea4vFxYBH' '2qXXxE8qXDiGJbbXc' 'fcHYmnfdbCGe55qxM'
+ '7rMaS7RQYTZTpG6SF' '3f9qXFGuy8vAvq2PZ']"
+jGmkwH3JjSSPEaKFd,3f9qXFGuy8vAvq2PZ,21,121,3,0,"['pcLpA4C4ea4vFxYBH' '2qXXxE8qXDiGJbbXc' 'fcHYmnfdbCGe55qxM'
+ '7rMaS7RQYTZTpG6SF' 'zTeKXZoZw7y55oTop']"
+SsKwMv9szhqPgQHck,MTKwGr7sTTYzCCsjj,48,246,13,1,"['hLhh6kXd8cu5sfnc5' 'pieSifMhv2CWrt6LA' 'HmKPLdLuqyTSd2bpr'
+ 'dN98SpRkWJ6SMJa3d' 'Ajvyj2Ja4mrFHEMFF' 'n55xXHfP5bBnjAeNK']"
+SsKwMv9szhqPgQHck,hLhh6kXd8cu5sfnc5,58,300,10,1,"['MTKwGr7sTTYzCCsjj' 'pieSifMhv2CWrt6LA' 'HmKPLdLuqyTSd2bpr'
+ 'dN98SpRkWJ6SMJa3d' 'Ajvyj2Ja4mrFHEMFF' 'n55xXHfP5bBnjAeNK']"
+SsKwMv9szhqPgQHck,pieSifMhv2CWrt6LA,29,146,2,6,"['MTKwGr7sTTYzCCsjj' 'hLhh6kXd8cu5sfnc5' 'HmKPLdLuqyTSd2bpr'
+ 'dN98SpRkWJ6SMJa3d' 'Ajvyj2Ja4mrFHEMFF' 'n55xXHfP5bBnjAeNK']"
+SsKwMv9szhqPgQHck,HmKPLdLuqyTSd2bpr,48,259,7,0,"['MTKwGr7sTTYzCCsjj' 'hLhh6kXd8cu5sfnc5' 'pieSifMhv2CWrt6LA'
+ 'dN98SpRkWJ6SMJa3d' 'Ajvyj2Ja4mrFHEMFF' 'n55xXHfP5bBnjAeNK']"
+SsKwMv9szhqPgQHck,dN98SpRkWJ6SMJa3d,7,30,1,0,"['MTKwGr7sTTYzCCsjj' 'hLhh6kXd8cu5sfnc5' 'pieSifMhv2CWrt6LA'
+ 'HmKPLdLuqyTSd2bpr' 'Ajvyj2Ja4mrFHEMFF' 'n55xXHfP5bBnjAeNK']"
+SsKwMv9szhqPgQHck,Ajvyj2Ja4mrFHEMFF,2,10,1,0,"['MTKwGr7sTTYzCCsjj' 'hLhh6kXd8cu5sfnc5' 'pieSifMhv2CWrt6LA'
+ 'HmKPLdLuqyTSd2bpr' 'dN98SpRkWJ6SMJa3d' 'n55xXHfP5bBnjAeNK']"
+SsKwMv9szhqPgQHck,n55xXHfP5bBnjAeNK,28,130,5,2,"['MTKwGr7sTTYzCCsjj' 'hLhh6kXd8cu5sfnc5' 'pieSifMhv2CWrt6LA'
+ 'HmKPLdLuqyTSd2bpr' 'dN98SpRkWJ6SMJa3d' 'Ajvyj2Ja4mrFHEMFF']"
+DqkSP8iar8dFw2ipg,ZqRB9dSPYecjni2oL,12,58,3,0,"['s7eSYkHGr9Ge7rkkt' 'td8kwGbYRD5zQvL6o' 'ydYxYdFkzaK6XLnpT'
+ 'FrLJRWh7AZipSFDsN' 'GK9gQacuTn2WS4tvs' 'NCXgF7FKgKDQzH8JQ']"
+DqkSP8iar8dFw2ipg,s7eSYkHGr9Ge7rkkt,7,34,2,0,"['ZqRB9dSPYecjni2oL' 'td8kwGbYRD5zQvL6o' 'ydYxYdFkzaK6XLnpT'
+ 'FrLJRWh7AZipSFDsN' 'GK9gQacuTn2WS4tvs' 'NCXgF7FKgKDQzH8JQ']"
+DqkSP8iar8dFw2ipg,td8kwGbYRD5zQvL6o,2,5,1,0,"['ZqRB9dSPYecjni2oL' 's7eSYkHGr9Ge7rkkt' 'ydYxYdFkzaK6XLnpT'
+ 'FrLJRWh7AZipSFDsN' 'GK9gQacuTn2WS4tvs' 'NCXgF7FKgKDQzH8JQ']"
+DqkSP8iar8dFw2ipg,ydYxYdFkzaK6XLnpT,3,16,2,0,"['ZqRB9dSPYecjni2oL' 's7eSYkHGr9Ge7rkkt' 'td8kwGbYRD5zQvL6o'
+ 'FrLJRWh7AZipSFDsN' 'GK9gQacuTn2WS4tvs' 'NCXgF7FKgKDQzH8JQ']"
+DqkSP8iar8dFw2ipg,FrLJRWh7AZipSFDsN,1,2,1,0,"['ZqRB9dSPYecjni2oL' 's7eSYkHGr9Ge7rkkt' 'td8kwGbYRD5zQvL6o'
+ 'ydYxYdFkzaK6XLnpT' 'GK9gQacuTn2WS4tvs' 'NCXgF7FKgKDQzH8JQ']"
+DqkSP8iar8dFw2ipg,GK9gQacuTn2WS4tvs,1,2,1,0,"['ZqRB9dSPYecjni2oL' 's7eSYkHGr9Ge7rkkt' 'td8kwGbYRD5zQvL6o'
+ 'ydYxYdFkzaK6XLnpT' 'FrLJRWh7AZipSFDsN' 'NCXgF7FKgKDQzH8JQ']"
+DqkSP8iar8dFw2ipg,NCXgF7FKgKDQzH8JQ,1,2,1,0,"['ZqRB9dSPYecjni2oL' 's7eSYkHGr9Ge7rkkt' 'td8kwGbYRD5zQvL6o'
+ 'ydYxYdFkzaK6XLnpT' 'FrLJRWh7AZipSFDsN' 'GK9gQacuTn2WS4tvs']"
+HqyqQ5BYKnyt7CccA,ca5xHpwywzxHWxjry,71,358,12,4,"['y6Ctqj36sAv8AHoRx' 'Auu3fjQu4EZ3nBNkL' '4rSps88SaqFSNb5EZ'
+ 'B5mgtJwhCnRixZeAc' '3nuxtCcm9R9iNQG39' 'rEL32oZ4qX2uHDD2P']"
+HqyqQ5BYKnyt7CccA,y6Ctqj36sAv8AHoRx,17,88,4,0,"['ca5xHpwywzxHWxjry' 'Auu3fjQu4EZ3nBNkL' '4rSps88SaqFSNb5EZ'
+ 'B5mgtJwhCnRixZeAc' '3nuxtCcm9R9iNQG39' 'rEL32oZ4qX2uHDD2P']"
+HqyqQ5BYKnyt7CccA,Auu3fjQu4EZ3nBNkL,26,152,5,0,"['ca5xHpwywzxHWxjry' 'y6Ctqj36sAv8AHoRx' '4rSps88SaqFSNb5EZ'
+ 'B5mgtJwhCnRixZeAc' '3nuxtCcm9R9iNQG39' 'rEL32oZ4qX2uHDD2P']"
+HqyqQ5BYKnyt7CccA,4rSps88SaqFSNb5EZ,1,3,1,0,"['ca5xHpwywzxHWxjry' 'y6Ctqj36sAv8AHoRx' 'Auu3fjQu4EZ3nBNkL'
+ 'B5mgtJwhCnRixZeAc' '3nuxtCcm9R9iNQG39' 'rEL32oZ4qX2uHDD2P']"
+HqyqQ5BYKnyt7CccA,B5mgtJwhCnRixZeAc,3,15,2,0,"['ca5xHpwywzxHWxjry' 'y6Ctqj36sAv8AHoRx' 'Auu3fjQu4EZ3nBNkL'
+ '4rSps88SaqFSNb5EZ' '3nuxtCcm9R9iNQG39' 'rEL32oZ4qX2uHDD2P']"
+HqyqQ5BYKnyt7CccA,3nuxtCcm9R9iNQG39,5,27,2,0,"['ca5xHpwywzxHWxjry' 'y6Ctqj36sAv8AHoRx' 'Auu3fjQu4EZ3nBNkL'
+ '4rSps88SaqFSNb5EZ' 'B5mgtJwhCnRixZeAc' 'rEL32oZ4qX2uHDD2P']"
+HqyqQ5BYKnyt7CccA,rEL32oZ4qX2uHDD2P,4,16,1,0,"['ca5xHpwywzxHWxjry' 'y6Ctqj36sAv8AHoRx' 'Auu3fjQu4EZ3nBNkL'
+ '4rSps88SaqFSNb5EZ' 'B5mgtJwhCnRixZeAc' '3nuxtCcm9R9iNQG39']"
+RpfFZWfJTvioufj3t,axWTA6jC3wsXcyvSG,32,146,5,1,['waeTAa9x9sjr2DEkL']
+RpfFZWfJTvioufj3t,waeTAa9x9sjr2DEkL,33,153,4,3,['axWTA6jC3wsXcyvSG']
+HmYhJqPXuRtuYdsZh,5bRKhzbBZ3e3EvWPq,20,90,3,0,['7dZ2P24JPJjKNc8oi']
+HmYhJqPXuRtuYdsZh,7dZ2P24JPJjKNc8oi,30,153,2,0,['5bRKhzbBZ3e3EvWPq']
+NYtYRaNjoQy6wNQPf,4tdBFQLYuS5Kbtazi,30,170,5,1,['XL8XuMotbTQ9HAu7R']
+NYtYRaNjoQy6wNQPf,XL8XuMotbTQ9HAu7R,25,119,3,1,['4tdBFQLYuS5Kbtazi']
+QqEFwZjpsG7wK4Y5G,fwmnfPKgRgRmC7Y3G,18,95,4,0,['fj2c2fWJNffthNXLb']
+QqEFwZjpsG7wK4Y5G,fj2c2fWJNffthNXLb,32,156,5,0,['fwmnfPKgRgRmC7Y3G']
+emXTH7CRk7jSnMeo5,MLTNvd73pHZbyjKJq,38,191,4,2,['bksseBn9dshnxwpvC']
+emXTH7CRk7jSnMeo5,bksseBn9dshnxwpvC,29,171,3,0,['MLTNvd73pHZbyjKJq']
+Mc8ciTgvHA8nYt5nP,E8eH47e2Q8kyYrX83,6,31,1,0,[]
+6GTRSsuh3kYdDDEbK,gm94xAnZthn7i8NSf,70,357,10,0,"['z7CMm7fPvGEsMrnq3' 'srnaaKLHaxhzCZdYk' 'fR9g7rtqygsWRkP52'
+ 'PgW4ocLb2C398vvep' 's7MwFyL9HMacb2SYp' 'nbzFQGhpwxPu3ypup'
+ '3nKezKhYs7mdAuPKu']"
+6GTRSsuh3kYdDDEbK,z7CMm7fPvGEsMrnq3,30,140,7,1,"['gm94xAnZthn7i8NSf' 'srnaaKLHaxhzCZdYk' 'fR9g7rtqygsWRkP52'
+ 'PgW4ocLb2C398vvep' 's7MwFyL9HMacb2SYp' 'nbzFQGhpwxPu3ypup'
+ '3nKezKhYs7mdAuPKu']"
+6GTRSsuh3kYdDDEbK,srnaaKLHaxhzCZdYk,9,41,7,0,"['gm94xAnZthn7i8NSf' 'z7CMm7fPvGEsMrnq3' 'fR9g7rtqygsWRkP52'
+ 'PgW4ocLb2C398vvep' 's7MwFyL9HMacb2SYp' 'nbzFQGhpwxPu3ypup'
+ '3nKezKhYs7mdAuPKu']"
+6GTRSsuh3kYdDDEbK,fR9g7rtqygsWRkP52,15,79,4,2,"['gm94xAnZthn7i8NSf' 'z7CMm7fPvGEsMrnq3' 'srnaaKLHaxhzCZdYk'
+ 'PgW4ocLb2C398vvep' 's7MwFyL9HMacb2SYp' 'nbzFQGhpwxPu3ypup'
+ '3nKezKhYs7mdAuPKu']"
+6GTRSsuh3kYdDDEbK,PgW4ocLb2C398vvep,17,89,3,1,"['gm94xAnZthn7i8NSf' 'z7CMm7fPvGEsMrnq3' 'srnaaKLHaxhzCZdYk'
+ 'fR9g7rtqygsWRkP52' 's7MwFyL9HMacb2SYp' 'nbzFQGhpwxPu3ypup'
+ '3nKezKhYs7mdAuPKu']"
+6GTRSsuh3kYdDDEbK,s7MwFyL9HMacb2SYp,32,163,9,1,"['gm94xAnZthn7i8NSf' 'z7CMm7fPvGEsMrnq3' 'srnaaKLHaxhzCZdYk'
+ 'fR9g7rtqygsWRkP52' 'PgW4ocLb2C398vvep' 'nbzFQGhpwxPu3ypup'
+ '3nKezKhYs7mdAuPKu']"
+6GTRSsuh3kYdDDEbK,nbzFQGhpwxPu3ypup,10,45,4,1,"['gm94xAnZthn7i8NSf' 'z7CMm7fPvGEsMrnq3' 'srnaaKLHaxhzCZdYk'
+ 'fR9g7rtqygsWRkP52' 'PgW4ocLb2C398vvep' 's7MwFyL9HMacb2SYp'
+ '3nKezKhYs7mdAuPKu']"
+6GTRSsuh3kYdDDEbK,3nKezKhYs7mdAuPKu,11,61,3,1,"['gm94xAnZthn7i8NSf' 'z7CMm7fPvGEsMrnq3' 'srnaaKLHaxhzCZdYk'
+ 'fR9g7rtqygsWRkP52' 'PgW4ocLb2C398vvep' 's7MwFyL9HMacb2SYp'
+ 'nbzFQGhpwxPu3ypup']"
+nfQe9uM7zG4fw2eH7,J8hdk65Q6RvTEnzCC,57,262,9,0,['jtA2aFNvKtywSEeqP' 'uWEv8EJfmtjoPC2Rd']
+nfQe9uM7zG4fw2eH7,jtA2aFNvKtywSEeqP,8,39,3,0,['J8hdk65Q6RvTEnzCC' 'uWEv8EJfmtjoPC2Rd']
+nfQe9uM7zG4fw2eH7,uWEv8EJfmtjoPC2Rd,15,73,5,0,['J8hdk65Q6RvTEnzCC' 'jtA2aFNvKtywSEeqP']
+wnsNvRHoAGybqaGyQ,BBs3XLmnPKQa4zZgv,10,50,4,0,['mbFXLRMWoEkiwcfFH' 'T3ZTT4EJ8YuMmeYJj']
+wnsNvRHoAGybqaGyQ,mbFXLRMWoEkiwcfFH,10,56,2,0,['BBs3XLmnPKQa4zZgv' 'T3ZTT4EJ8YuMmeYJj']
+wnsNvRHoAGybqaGyQ,T3ZTT4EJ8YuMmeYJj,5,15,3,2,['BBs3XLmnPKQa4zZgv' 'mbFXLRMWoEkiwcfFH']
+WZydujiC8K2nwf9rJ,NULL_SPEAKER,1,3,1,0,[]
+Rs3cjtcuvoWfD5jfK,j8gRcSgARa2Dib6Jh,6,31,1,0,['NcfCc9gNBZcxW34JZ' '9rYz3gcWPC2W9RqWq']
+Rs3cjtcuvoWfD5jfK,NcfCc9gNBZcxW34JZ,2,4,1,0,['j8gRcSgARa2Dib6Jh' '9rYz3gcWPC2W9RqWq']
+Rs3cjtcuvoWfD5jfK,9rYz3gcWPC2W9RqWq,1,4,1,0,['j8gRcSgARa2Dib6Jh' 'NcfCc9gNBZcxW34JZ']
+ggfppKrgp7X6HByKN,hMLzsdsRpwvgmDFmc,10,49,2,0,[]
+WQAenvou2Q5yn2NXF,QyMDL6jD2FHdrGr9n,63,324,15,2,"['3NNPePkK6pNxQJMaG' '88SGaY3zdtqM3kF8p' 'KWmxcFpwsGkCknr9F'
+ 'rjeaEWLcJHLnSqpQc' 'ecMtwBH6RqPfYnsPX' '9WorGo8keCFvuEBrk'
+ 'K9WeQn5Aj6GpR4iRr' 'nsxN7h69cv3dPxqQe' '7MqoPENN9q9C5nKtr']"
+WQAenvou2Q5yn2NXF,3NNPePkK6pNxQJMaG,18,113,7,0,"['QyMDL6jD2FHdrGr9n' '88SGaY3zdtqM3kF8p' 'KWmxcFpwsGkCknr9F'
+ 'rjeaEWLcJHLnSqpQc' 'ecMtwBH6RqPfYnsPX' '9WorGo8keCFvuEBrk'
+ 'K9WeQn5Aj6GpR4iRr' 'nsxN7h69cv3dPxqQe' '7MqoPENN9q9C5nKtr']"
+WQAenvou2Q5yn2NXF,88SGaY3zdtqM3kF8p,44,216,9,0,"['QyMDL6jD2FHdrGr9n' '3NNPePkK6pNxQJMaG' 'KWmxcFpwsGkCknr9F'
+ 'rjeaEWLcJHLnSqpQc' 'ecMtwBH6RqPfYnsPX' '9WorGo8keCFvuEBrk'
+ 'K9WeQn5Aj6GpR4iRr' 'nsxN7h69cv3dPxqQe' '7MqoPENN9q9C5nKtr']"
+WQAenvou2Q5yn2NXF,KWmxcFpwsGkCknr9F,17,78,6,1,"['QyMDL6jD2FHdrGr9n' '3NNPePkK6pNxQJMaG' '88SGaY3zdtqM3kF8p'
+ 'rjeaEWLcJHLnSqpQc' 'ecMtwBH6RqPfYnsPX' '9WorGo8keCFvuEBrk'
+ 'K9WeQn5Aj6GpR4iRr' 'nsxN7h69cv3dPxqQe' '7MqoPENN9q9C5nKtr']"
+WQAenvou2Q5yn2NXF,rjeaEWLcJHLnSqpQc,8,39,3,2,"['QyMDL6jD2FHdrGr9n' '3NNPePkK6pNxQJMaG' '88SGaY3zdtqM3kF8p'
+ 'KWmxcFpwsGkCknr9F' 'ecMtwBH6RqPfYnsPX' '9WorGo8keCFvuEBrk'
+ 'K9WeQn5Aj6GpR4iRr' 'nsxN7h69cv3dPxqQe' '7MqoPENN9q9C5nKtr']"
+WQAenvou2Q5yn2NXF,ecMtwBH6RqPfYnsPX,17,84,4,0,"['QyMDL6jD2FHdrGr9n' '3NNPePkK6pNxQJMaG' '88SGaY3zdtqM3kF8p'
+ 'KWmxcFpwsGkCknr9F' 'rjeaEWLcJHLnSqpQc' '9WorGo8keCFvuEBrk'
+ 'K9WeQn5Aj6GpR4iRr' 'nsxN7h69cv3dPxqQe' '7MqoPENN9q9C5nKtr']"
+WQAenvou2Q5yn2NXF,9WorGo8keCFvuEBrk,15,85,4,0,"['QyMDL6jD2FHdrGr9n' '3NNPePkK6pNxQJMaG' '88SGaY3zdtqM3kF8p'
+ 'KWmxcFpwsGkCknr9F' 'rjeaEWLcJHLnSqpQc' 'ecMtwBH6RqPfYnsPX'
+ 'K9WeQn5Aj6GpR4iRr' 'nsxN7h69cv3dPxqQe' '7MqoPENN9q9C5nKtr']"
+WQAenvou2Q5yn2NXF,K9WeQn5Aj6GpR4iRr,2,8,1,0,"['QyMDL6jD2FHdrGr9n' '3NNPePkK6pNxQJMaG' '88SGaY3zdtqM3kF8p'
+ 'KWmxcFpwsGkCknr9F' 'rjeaEWLcJHLnSqpQc' 'ecMtwBH6RqPfYnsPX'
+ '9WorGo8keCFvuEBrk' 'nsxN7h69cv3dPxqQe' '7MqoPENN9q9C5nKtr']"
+WQAenvou2Q5yn2NXF,nsxN7h69cv3dPxqQe,6,25,1,0,"['QyMDL6jD2FHdrGr9n' '3NNPePkK6pNxQJMaG' '88SGaY3zdtqM3kF8p'
+ 'KWmxcFpwsGkCknr9F' 'rjeaEWLcJHLnSqpQc' 'ecMtwBH6RqPfYnsPX'
+ '9WorGo8keCFvuEBrk' 'K9WeQn5Aj6GpR4iRr' '7MqoPENN9q9C5nKtr']"
+WQAenvou2Q5yn2NXF,7MqoPENN9q9C5nKtr,4,16,1,0,"['QyMDL6jD2FHdrGr9n' '3NNPePkK6pNxQJMaG' '88SGaY3zdtqM3kF8p'
+ 'KWmxcFpwsGkCknr9F' 'rjeaEWLcJHLnSqpQc' 'ecMtwBH6RqPfYnsPX'
+ '9WorGo8keCFvuEBrk' 'K9WeQn5Aj6GpR4iRr' 'nsxN7h69cv3dPxqQe']"
+f6z4nF43CjnsLewew,ygFCZFdhR3H4QfCLL,18,98,4,0,"['h3Ew5tYzYGfKjurcx' 'J4ErDKYinEtSwN4QS' 'sSt2cxj92nRYjhmHZ'
+ 'eNSPizDqEyHJShvYe' 'jxC4hZpmxXMAAaguZ' 'uaw9iLLotQF4Nybck'
+ 'qAFFYRuEuz3MrjKxe']"
+f6z4nF43CjnsLewew,h3Ew5tYzYGfKjurcx,23,103,8,0,"['ygFCZFdhR3H4QfCLL' 'J4ErDKYinEtSwN4QS' 'sSt2cxj92nRYjhmHZ'
+ 'eNSPizDqEyHJShvYe' 'jxC4hZpmxXMAAaguZ' 'uaw9iLLotQF4Nybck'
+ 'qAFFYRuEuz3MrjKxe']"
+f6z4nF43CjnsLewew,J4ErDKYinEtSwN4QS,1,2,1,0,"['ygFCZFdhR3H4QfCLL' 'h3Ew5tYzYGfKjurcx' 'sSt2cxj92nRYjhmHZ'
+ 'eNSPizDqEyHJShvYe' 'jxC4hZpmxXMAAaguZ' 'uaw9iLLotQF4Nybck'
+ 'qAFFYRuEuz3MrjKxe']"
+f6z4nF43CjnsLewew,sSt2cxj92nRYjhmHZ,10,52,2,1,"['ygFCZFdhR3H4QfCLL' 'h3Ew5tYzYGfKjurcx' 'J4ErDKYinEtSwN4QS'
+ 'eNSPizDqEyHJShvYe' 'jxC4hZpmxXMAAaguZ' 'uaw9iLLotQF4Nybck'
+ 'qAFFYRuEuz3MrjKxe']"
+f6z4nF43CjnsLewew,eNSPizDqEyHJShvYe,6,38,1,0,"['ygFCZFdhR3H4QfCLL' 'h3Ew5tYzYGfKjurcx' 'J4ErDKYinEtSwN4QS'
+ 'sSt2cxj92nRYjhmHZ' 'jxC4hZpmxXMAAaguZ' 'uaw9iLLotQF4Nybck'
+ 'qAFFYRuEuz3MrjKxe']"
+f6z4nF43CjnsLewew,jxC4hZpmxXMAAaguZ,7,27,1,0,"['ygFCZFdhR3H4QfCLL' 'h3Ew5tYzYGfKjurcx' 'J4ErDKYinEtSwN4QS'
+ 'sSt2cxj92nRYjhmHZ' 'eNSPizDqEyHJShvYe' 'uaw9iLLotQF4Nybck'
+ 'qAFFYRuEuz3MrjKxe']"
+f6z4nF43CjnsLewew,uaw9iLLotQF4Nybck,4,14,1,0,"['ygFCZFdhR3H4QfCLL' 'h3Ew5tYzYGfKjurcx' 'J4ErDKYinEtSwN4QS'
+ 'sSt2cxj92nRYjhmHZ' 'eNSPizDqEyHJShvYe' 'jxC4hZpmxXMAAaguZ'
+ 'qAFFYRuEuz3MrjKxe']"
+f6z4nF43CjnsLewew,qAFFYRuEuz3MrjKxe,2,10,1,0,"['ygFCZFdhR3H4QfCLL' 'h3Ew5tYzYGfKjurcx' 'J4ErDKYinEtSwN4QS'
+ 'sSt2cxj92nRYjhmHZ' 'eNSPizDqEyHJShvYe' 'jxC4hZpmxXMAAaguZ'
+ 'uaw9iLLotQF4Nybck']"
+pJHpw7o6SwFmv4bf7,LQyH75jGgRf5YxMBR,13,60,4,0,"['nWgLi2fhS7BXYmN4h' '9xfgh5uspoq4Yw7qD' 'eyguSCbmu97YYyvuc'
+ 'GZFuTa5qZrQD5xCg3' 'Yev6Wh83zFKbqJXQz']"
+pJHpw7o6SwFmv4bf7,nWgLi2fhS7BXYmN4h,21,101,4,0,"['LQyH75jGgRf5YxMBR' '9xfgh5uspoq4Yw7qD' 'eyguSCbmu97YYyvuc'
+ 'GZFuTa5qZrQD5xCg3' 'Yev6Wh83zFKbqJXQz']"
+pJHpw7o6SwFmv4bf7,9xfgh5uspoq4Yw7qD,10,46,4,0,"['LQyH75jGgRf5YxMBR' 'nWgLi2fhS7BXYmN4h' 'eyguSCbmu97YYyvuc'
+ 'GZFuTa5qZrQD5xCg3' 'Yev6Wh83zFKbqJXQz']"
+pJHpw7o6SwFmv4bf7,eyguSCbmu97YYyvuc,3,12,1,0,"['LQyH75jGgRf5YxMBR' 'nWgLi2fhS7BXYmN4h' '9xfgh5uspoq4Yw7qD'
+ 'GZFuTa5qZrQD5xCg3' 'Yev6Wh83zFKbqJXQz']"
+pJHpw7o6SwFmv4bf7,GZFuTa5qZrQD5xCg3,5,16,1,0,"['LQyH75jGgRf5YxMBR' 'nWgLi2fhS7BXYmN4h' '9xfgh5uspoq4Yw7qD'
+ 'eyguSCbmu97YYyvuc' 'Yev6Wh83zFKbqJXQz']"
+pJHpw7o6SwFmv4bf7,Yev6Wh83zFKbqJXQz,1,4,1,0,"['LQyH75jGgRf5YxMBR' 'nWgLi2fhS7BXYmN4h' '9xfgh5uspoq4Yw7qD'
+ 'eyguSCbmu97YYyvuc' 'GZFuTa5qZrQD5xCg3']"
+QCLXcuNXSjh6zZpfH,NULL_SPEAKER,1,3,1,0,[]
+ys32XECpthALfJAcD,NULL_SPEAKER,1,3,1,0,[]
+FD48fm6SZsCizTXQJ,NULL_SPEAKER,1,3,1,0,[]
+wTHRsYePzwGZHbNGR,NULL_SPEAKER,1,3,1,0,[]
+mRCgZxrXHKaMoPZYN,NULL_SPEAKER,1,3,1,0,[]
+975P7WxadMhR5qDjR,NULL_SPEAKER,1,3,1,0,[]
+GJaSrPjhFgEFTfEzX,NULL_SPEAKER,1,3,1,0,[]
+7m3H6eRNZeSQraH9K,NULL_SPEAKER,1,3,1,0,[]
+ZABxxPpcHSoQfawnc,NULL_SPEAKER,1,3,1,0,[]
+N5tPLcN3omw5zbX7y,NULL_SPEAKER,1,3,1,0,[]
+SW6Aryz7K3zTd4pBB,NULL_SPEAKER,1,3,1,0,[]
+jY3MD8mq5LigRqzX9,NULL_SPEAKER,1,3,1,0,[]
+6Z7bRNEKFA6k8sq5T,gN7gKq9DHCdktJXc4,13,67,3,0,"['SD2pay9Hbb9E7eaP5' 'MMvRBSjAiujkMrpGG' 'yeF4mt3dupEwQ4sqM'
+ 'jLGoj2fwNNvedYtJA' 'Sequ9CEuz23gFZ6NH']"
+6Z7bRNEKFA6k8sq5T,SD2pay9Hbb9E7eaP5,24,110,4,0,"['gN7gKq9DHCdktJXc4' 'MMvRBSjAiujkMrpGG' 'yeF4mt3dupEwQ4sqM'
+ 'jLGoj2fwNNvedYtJA' 'Sequ9CEuz23gFZ6NH']"
+6Z7bRNEKFA6k8sq5T,MMvRBSjAiujkMrpGG,9,42,2,1,"['gN7gKq9DHCdktJXc4' 'SD2pay9Hbb9E7eaP5' 'yeF4mt3dupEwQ4sqM'
+ 'jLGoj2fwNNvedYtJA' 'Sequ9CEuz23gFZ6NH']"
+6Z7bRNEKFA6k8sq5T,yeF4mt3dupEwQ4sqM,24,130,7,0,"['gN7gKq9DHCdktJXc4' 'SD2pay9Hbb9E7eaP5' 'MMvRBSjAiujkMrpGG'
+ 'jLGoj2fwNNvedYtJA' 'Sequ9CEuz23gFZ6NH']"
+6Z7bRNEKFA6k8sq5T,jLGoj2fwNNvedYtJA,25,120,4,1,"['gN7gKq9DHCdktJXc4' 'SD2pay9Hbb9E7eaP5' 'MMvRBSjAiujkMrpGG'
+ 'yeF4mt3dupEwQ4sqM' 'Sequ9CEuz23gFZ6NH']"
+6Z7bRNEKFA6k8sq5T,Sequ9CEuz23gFZ6NH,8,36,2,0,"['gN7gKq9DHCdktJXc4' 'SD2pay9Hbb9E7eaP5' 'MMvRBSjAiujkMrpGG'
+ 'yeF4mt3dupEwQ4sqM' 'jLGoj2fwNNvedYtJA']"
+5ZGrG8rMsp7cT8sAA,cK8XACLdcLDEZoSC8,17,79,2,0,['hj46q8wtE3LjH3gNu']
+5ZGrG8rMsp7cT8sAA,hj46q8wtE3LjH3gNu,15,72,2,3,['cK8XACLdcLDEZoSC8']
+3SAs5zfZw4icWQqYs,MrwHxPnPgwTFw6jKC,27,130,6,1,"['FBFbWfWkrzecNSHEw' '2c2az9Ej4KtaGyivZ' 'J9dnefXSRgGah7H4L'
+ 'tnxYCPYCmhN2gLJYC' 'kgbBaxC7cADH9bayW']"
+3SAs5zfZw4icWQqYs,FBFbWfWkrzecNSHEw,20,95,6,0,"['MrwHxPnPgwTFw6jKC' '2c2az9Ej4KtaGyivZ' 'J9dnefXSRgGah7H4L'
+ 'tnxYCPYCmhN2gLJYC' 'kgbBaxC7cADH9bayW']"
+3SAs5zfZw4icWQqYs,2c2az9Ej4KtaGyivZ,39,194,5,0,"['MrwHxPnPgwTFw6jKC' 'FBFbWfWkrzecNSHEw' 'J9dnefXSRgGah7H4L'
+ 'tnxYCPYCmhN2gLJYC' 'kgbBaxC7cADH9bayW']"
+3SAs5zfZw4icWQqYs,J9dnefXSRgGah7H4L,2,11,1,0,"['MrwHxPnPgwTFw6jKC' 'FBFbWfWkrzecNSHEw' '2c2az9Ej4KtaGyivZ'
+ 'tnxYCPYCmhN2gLJYC' 'kgbBaxC7cADH9bayW']"
+3SAs5zfZw4icWQqYs,tnxYCPYCmhN2gLJYC,1,3,1,0,"['MrwHxPnPgwTFw6jKC' 'FBFbWfWkrzecNSHEw' '2c2az9Ej4KtaGyivZ'
+ 'J9dnefXSRgGah7H4L' 'kgbBaxC7cADH9bayW']"
+3SAs5zfZw4icWQqYs,kgbBaxC7cADH9bayW,1,3,1,0,"['MrwHxPnPgwTFw6jKC' 'FBFbWfWkrzecNSHEw' '2c2az9Ej4KtaGyivZ'
+ 'J9dnefXSRgGah7H4L' 'tnxYCPYCmhN2gLJYC']"
+26vD44sevaT2b8Ppc,hbAMMYnnPo9zjBWh2,7,32,1,0,"['hL9FpgfJryv4BThtn' '8crAngrR5aQfGWJwF' 'AndABvRJbK4my2JN9'
+ 'WoJMFXmqBKuPGsu5L' 'dgJypxgDSp2ja9Z4g']"
+26vD44sevaT2b8Ppc,hL9FpgfJryv4BThtn,4,16,1,1,"['hbAMMYnnPo9zjBWh2' '8crAngrR5aQfGWJwF' 'AndABvRJbK4my2JN9'
+ 'WoJMFXmqBKuPGsu5L' 'dgJypxgDSp2ja9Z4g']"
+26vD44sevaT2b8Ppc,8crAngrR5aQfGWJwF,4,16,1,2,"['hbAMMYnnPo9zjBWh2' 'hL9FpgfJryv4BThtn' 'AndABvRJbK4my2JN9'
+ 'WoJMFXmqBKuPGsu5L' 'dgJypxgDSp2ja9Z4g']"
+26vD44sevaT2b8Ppc,AndABvRJbK4my2JN9,2,7,1,0,"['hbAMMYnnPo9zjBWh2' 'hL9FpgfJryv4BThtn' '8crAngrR5aQfGWJwF'
+ 'WoJMFXmqBKuPGsu5L' 'dgJypxgDSp2ja9Z4g']"
+26vD44sevaT2b8Ppc,WoJMFXmqBKuPGsu5L,13,77,1,0,"['hbAMMYnnPo9zjBWh2' 'hL9FpgfJryv4BThtn' '8crAngrR5aQfGWJwF'
+ 'AndABvRJbK4my2JN9' 'dgJypxgDSp2ja9Z4g']"
+26vD44sevaT2b8Ppc,dgJypxgDSp2ja9Z4g,3,9,1,0,"['hbAMMYnnPo9zjBWh2' 'hL9FpgfJryv4BThtn' '8crAngrR5aQfGWJwF'
+ 'AndABvRJbK4my2JN9' 'WoJMFXmqBKuPGsu5L']"
+hokEKAC7CASuB3FeP,fQdr7ddWmNyrinQPs,47,228,6,3,['kpdg7m9fotK5q4pWE' '7wrxWNExmMpMiefNS']
+hokEKAC7CASuB3FeP,kpdg7m9fotK5q4pWE,22,110,4,1,['fQdr7ddWmNyrinQPs' '7wrxWNExmMpMiefNS']
+hokEKAC7CASuB3FeP,7wrxWNExmMpMiefNS,11,44,4,0,['fQdr7ddWmNyrinQPs' 'kpdg7m9fotK5q4pWE']
+sn37n9NiaQMmczd95,sZ3JusCm8ckBv7C5B,59,274,5,3,['HTEpfm7s8gN2dMjCJ']
+sn37n9NiaQMmczd95,HTEpfm7s8gN2dMjCJ,54,257,6,0,['sZ3JusCm8ckBv7C5B']
+66FK2bhBcq8ih883y,gEaESFzfTNuosjLkR,7,31,2,0,['kBHuKLCie7fo94Xwi']
+66FK2bhBcq8ih883y,kBHuKLCie7fo94Xwi,2,9,2,0,['gEaESFzfTNuosjLkR']
+hEqbiytTuLQW35JD8,P4hxL74vTMDGxa98c,4,20,1,0,[]
+SyNxp3JjGnHzP5nuT,5YfPcJNP5p89smrRr,16,79,5,0,['6TNR2f84KfzANXpqS']
+SyNxp3JjGnHzP5nuT,6TNR2f84KfzANXpqS,12,58,4,0,['5YfPcJNP5p89smrRr']
+pxisBhBq3MZApDrYK,NULL_SPEAKER,1,3,1,0,[]
+MCJpZhMZje6AraJNE,u8Cp7vQsggGizTnLg,27,116,8,0,"['MoeRwqNCsFZNsWJ4h' 'yCSKkMDoDLcMWTn8J' 'rEwkb4GtWd7X3Wz6i'
+ '2wafkdLNrN7qhCDHa' 'dWmTFRYnrLP3HWo3x' 'hi57MZzYhWiFd8dwm'
+ 'gAQPTZS95iDG6Xz9R']"
+MCJpZhMZje6AraJNE,MoeRwqNCsFZNsWJ4h,40,205,11,3,"['u8Cp7vQsggGizTnLg' 'yCSKkMDoDLcMWTn8J' 'rEwkb4GtWd7X3Wz6i'
+ '2wafkdLNrN7qhCDHa' 'dWmTFRYnrLP3HWo3x' 'hi57MZzYhWiFd8dwm'
+ 'gAQPTZS95iDG6Xz9R']"
+MCJpZhMZje6AraJNE,yCSKkMDoDLcMWTn8J,1,5,1,0,"['u8Cp7vQsggGizTnLg' 'MoeRwqNCsFZNsWJ4h' 'rEwkb4GtWd7X3Wz6i'
+ '2wafkdLNrN7qhCDHa' 'dWmTFRYnrLP3HWo3x' 'hi57MZzYhWiFd8dwm'
+ 'gAQPTZS95iDG6Xz9R']"
+MCJpZhMZje6AraJNE,rEwkb4GtWd7X3Wz6i,10,40,3,0,"['u8Cp7vQsggGizTnLg' 'MoeRwqNCsFZNsWJ4h' 'yCSKkMDoDLcMWTn8J'
+ '2wafkdLNrN7qhCDHa' 'dWmTFRYnrLP3HWo3x' 'hi57MZzYhWiFd8dwm'
+ 'gAQPTZS95iDG6Xz9R']"
+MCJpZhMZje6AraJNE,2wafkdLNrN7qhCDHa,10,47,3,0,"['u8Cp7vQsggGizTnLg' 'MoeRwqNCsFZNsWJ4h' 'yCSKkMDoDLcMWTn8J'
+ 'rEwkb4GtWd7X3Wz6i' 'dWmTFRYnrLP3HWo3x' 'hi57MZzYhWiFd8dwm'
+ 'gAQPTZS95iDG6Xz9R']"
+MCJpZhMZje6AraJNE,dWmTFRYnrLP3HWo3x,25,131,5,3,"['u8Cp7vQsggGizTnLg' 'MoeRwqNCsFZNsWJ4h' 'yCSKkMDoDLcMWTn8J'
+ 'rEwkb4GtWd7X3Wz6i' '2wafkdLNrN7qhCDHa' 'hi57MZzYhWiFd8dwm'
+ 'gAQPTZS95iDG6Xz9R']"
+MCJpZhMZje6AraJNE,hi57MZzYhWiFd8dwm,6,27,2,0,"['u8Cp7vQsggGizTnLg' 'MoeRwqNCsFZNsWJ4h' 'yCSKkMDoDLcMWTn8J'
+ 'rEwkb4GtWd7X3Wz6i' '2wafkdLNrN7qhCDHa' 'dWmTFRYnrLP3HWo3x'
+ 'gAQPTZS95iDG6Xz9R']"
+MCJpZhMZje6AraJNE,gAQPTZS95iDG6Xz9R,1,4,1,0,"['u8Cp7vQsggGizTnLg' 'MoeRwqNCsFZNsWJ4h' 'yCSKkMDoDLcMWTn8J'
+ 'rEwkb4GtWd7X3Wz6i' '2wafkdLNrN7qhCDHa' 'dWmTFRYnrLP3HWo3x'
+ 'hi57MZzYhWiFd8dwm']"
+NyZRjkrspfCTqGNtG,LTnCkBYkuauXxmhFH,54,299,11,4,"['8oPqwJ2ZFPnmTY22M' '8SqDbojdpFXc8faYL' 'mT472aKkbWuHCh8yM'
+ 'nZdTRrbdsvjogLB94' 'ynwDGJvG4rQxhyfRn' 'rwZGz547XKmYRfK8M'
+ 'Hpk6W8L6TZQu9YmsJ']"
+NyZRjkrspfCTqGNtG,8oPqwJ2ZFPnmTY22M,9,50,2,0,"['LTnCkBYkuauXxmhFH' '8SqDbojdpFXc8faYL' 'mT472aKkbWuHCh8yM'
+ 'nZdTRrbdsvjogLB94' 'ynwDGJvG4rQxhyfRn' 'rwZGz547XKmYRfK8M'
+ 'Hpk6W8L6TZQu9YmsJ']"
+NyZRjkrspfCTqGNtG,8SqDbojdpFXc8faYL,5,27,2,0,"['LTnCkBYkuauXxmhFH' '8oPqwJ2ZFPnmTY22M' 'mT472aKkbWuHCh8yM'
+ 'nZdTRrbdsvjogLB94' 'ynwDGJvG4rQxhyfRn' 'rwZGz547XKmYRfK8M'
+ 'Hpk6W8L6TZQu9YmsJ']"
+NyZRjkrspfCTqGNtG,mT472aKkbWuHCh8yM,93,500,9,0,"['LTnCkBYkuauXxmhFH' '8oPqwJ2ZFPnmTY22M' '8SqDbojdpFXc8faYL'
+ 'nZdTRrbdsvjogLB94' 'ynwDGJvG4rQxhyfRn' 'rwZGz547XKmYRfK8M'
+ 'Hpk6W8L6TZQu9YmsJ']"
+NyZRjkrspfCTqGNtG,nZdTRrbdsvjogLB94,47,229,7,9,"['LTnCkBYkuauXxmhFH' '8oPqwJ2ZFPnmTY22M' '8SqDbojdpFXc8faYL'
+ 'mT472aKkbWuHCh8yM' 'ynwDGJvG4rQxhyfRn' 'rwZGz547XKmYRfK8M'
+ 'Hpk6W8L6TZQu9YmsJ']"
+NyZRjkrspfCTqGNtG,ynwDGJvG4rQxhyfRn,16,91,2,2,"['LTnCkBYkuauXxmhFH' '8oPqwJ2ZFPnmTY22M' '8SqDbojdpFXc8faYL'
+ 'mT472aKkbWuHCh8yM' 'nZdTRrbdsvjogLB94' 'rwZGz547XKmYRfK8M'
+ 'Hpk6W8L6TZQu9YmsJ']"
+NyZRjkrspfCTqGNtG,rwZGz547XKmYRfK8M,13,73,3,0,"['LTnCkBYkuauXxmhFH' '8oPqwJ2ZFPnmTY22M' '8SqDbojdpFXc8faYL'
+ 'mT472aKkbWuHCh8yM' 'nZdTRrbdsvjogLB94' 'ynwDGJvG4rQxhyfRn'
+ 'Hpk6W8L6TZQu9YmsJ']"
+NyZRjkrspfCTqGNtG,Hpk6W8L6TZQu9YmsJ,10,54,1,0,"['LTnCkBYkuauXxmhFH' '8oPqwJ2ZFPnmTY22M' '8SqDbojdpFXc8faYL'
+ 'mT472aKkbWuHCh8yM' 'nZdTRrbdsvjogLB94' 'ynwDGJvG4rQxhyfRn'
+ 'rwZGz547XKmYRfK8M']"
+6g6qkJsvDRtw8kDgT,6A6Jyy9GJw7wA8zeX,80,399,5,7,"['vxzhASoBmyH54xNJM' 'ndAqxPDme7z46HtZM' '3rpneCGqsLbumNPRu'
+ 'pj6k2mX3kvQpABFkP' 'tbkgRwtA9gMaqvjFj' 'qFoTFFJp6vjWeXeXp']"
+6g6qkJsvDRtw8kDgT,vxzhASoBmyH54xNJM,53,269,11,3,"['6A6Jyy9GJw7wA8zeX' 'ndAqxPDme7z46HtZM' '3rpneCGqsLbumNPRu'
+ 'pj6k2mX3kvQpABFkP' 'tbkgRwtA9gMaqvjFj' 'qFoTFFJp6vjWeXeXp']"
+6g6qkJsvDRtw8kDgT,ndAqxPDme7z46HtZM,22,113,5,1,"['6A6Jyy9GJw7wA8zeX' 'vxzhASoBmyH54xNJM' '3rpneCGqsLbumNPRu'
+ 'pj6k2mX3kvQpABFkP' 'tbkgRwtA9gMaqvjFj' 'qFoTFFJp6vjWeXeXp']"
+6g6qkJsvDRtw8kDgT,3rpneCGqsLbumNPRu,8,39,5,0,"['6A6Jyy9GJw7wA8zeX' 'vxzhASoBmyH54xNJM' 'ndAqxPDme7z46HtZM'
+ 'pj6k2mX3kvQpABFkP' 'tbkgRwtA9gMaqvjFj' 'qFoTFFJp6vjWeXeXp']"
+6g6qkJsvDRtw8kDgT,pj6k2mX3kvQpABFkP,33,168,7,1,"['6A6Jyy9GJw7wA8zeX' 'vxzhASoBmyH54xNJM' 'ndAqxPDme7z46HtZM'
+ '3rpneCGqsLbumNPRu' 'tbkgRwtA9gMaqvjFj' 'qFoTFFJp6vjWeXeXp']"
+6g6qkJsvDRtw8kDgT,tbkgRwtA9gMaqvjFj,6,28,2,1,"['6A6Jyy9GJw7wA8zeX' 'vxzhASoBmyH54xNJM' 'ndAqxPDme7z46HtZM'
+ '3rpneCGqsLbumNPRu' 'pj6k2mX3kvQpABFkP' 'qFoTFFJp6vjWeXeXp']"
+6g6qkJsvDRtw8kDgT,qFoTFFJp6vjWeXeXp,4,17,1,0,"['6A6Jyy9GJw7wA8zeX' 'vxzhASoBmyH54xNJM' 'ndAqxPDme7z46HtZM'
+ '3rpneCGqsLbumNPRu' 'pj6k2mX3kvQpABFkP' 'tbkgRwtA9gMaqvjFj']"
+2ko6zswZxWcjTZyK9,th6whkwWwb6cetJFD,21,118,3,2,"['rzZd8eruMRa7SxRdF' 'MS8Wp2iyGFjH5EpNN' '4pT5WRNrTcwRA87ns'
+ 'muqg3kLb66cZTgz9L']"
+2ko6zswZxWcjTZyK9,rzZd8eruMRa7SxRdF,2,7,2,0,"['th6whkwWwb6cetJFD' 'MS8Wp2iyGFjH5EpNN' '4pT5WRNrTcwRA87ns'
+ 'muqg3kLb66cZTgz9L']"
+2ko6zswZxWcjTZyK9,MS8Wp2iyGFjH5EpNN,9,43,3,0,"['th6whkwWwb6cetJFD' 'rzZd8eruMRa7SxRdF' '4pT5WRNrTcwRA87ns'
+ 'muqg3kLb66cZTgz9L']"
+2ko6zswZxWcjTZyK9,4pT5WRNrTcwRA87ns,19,94,4,0,"['th6whkwWwb6cetJFD' 'rzZd8eruMRa7SxRdF' 'MS8Wp2iyGFjH5EpNN'
+ 'muqg3kLb66cZTgz9L']"
+2ko6zswZxWcjTZyK9,muqg3kLb66cZTgz9L,6,34,2,0,"['th6whkwWwb6cetJFD' 'rzZd8eruMRa7SxRdF' 'MS8Wp2iyGFjH5EpNN'
+ '4pT5WRNrTcwRA87ns']"
+MnLjYjgt7QEpBXQYf,XxQBTGqzP5E3dneWw,7,28,2,0,[]
+PY96P2KfRAg7JLp3M,EPMXBgmfD3bBBispZ,14,85,3,0,['uRFD25LeyNmJsmkpe' 'gnfwbj4e9FfpQ2GpA']
+PY96P2KfRAg7JLp3M,uRFD25LeyNmJsmkpe,7,27,4,0,['EPMXBgmfD3bBBispZ' 'gnfwbj4e9FfpQ2GpA']
+PY96P2KfRAg7JLp3M,gnfwbj4e9FfpQ2GpA,49,243,5,0,['EPMXBgmfD3bBBispZ' 'uRFD25LeyNmJsmkpe']
+mvZzPpo4p5PvgjzSe,NULL_SPEAKER,1,3,1,0,[]
+JM2BBy5Y4sbqAzhBg,N34pLBrg84FGtWRna,19,86,4,1,['9DgQkuk6hdPENLXc3' 'yWPqmJHBiGCoZiEbZ']
+JM2BBy5Y4sbqAzhBg,9DgQkuk6hdPENLXc3,7,23,2,0,['N34pLBrg84FGtWRna' 'yWPqmJHBiGCoZiEbZ']
+JM2BBy5Y4sbqAzhBg,yWPqmJHBiGCoZiEbZ,15,73,1,0,['N34pLBrg84FGtWRna' '9DgQkuk6hdPENLXc3']
+A8mbA3eyvSzcozvZd,SvMJyGCvW9Xn4NYSt,3,11,1,0,"['jt3qQ9qqXSLqhdKho' 'jnwmcaNSj5MtYErQZ' 'bDjcNv5WFMR5kwpuW'
+ 'bd76ztPpizFgb6Tp8']"
+A8mbA3eyvSzcozvZd,jt3qQ9qqXSLqhdKho,3,12,1,0,"['SvMJyGCvW9Xn4NYSt' 'jnwmcaNSj5MtYErQZ' 'bDjcNv5WFMR5kwpuW'
+ 'bd76ztPpizFgb6Tp8']"
+A8mbA3eyvSzcozvZd,jnwmcaNSj5MtYErQZ,2,9,1,0,"['SvMJyGCvW9Xn4NYSt' 'jt3qQ9qqXSLqhdKho' 'bDjcNv5WFMR5kwpuW'
+ 'bd76ztPpizFgb6Tp8']"
+A8mbA3eyvSzcozvZd,bDjcNv5WFMR5kwpuW,1,2,1,0,"['SvMJyGCvW9Xn4NYSt' 'jt3qQ9qqXSLqhdKho' 'jnwmcaNSj5MtYErQZ'
+ 'bd76ztPpizFgb6Tp8']"
+A8mbA3eyvSzcozvZd,bd76ztPpizFgb6Tp8,1,4,1,0,"['SvMJyGCvW9Xn4NYSt' 'jt3qQ9qqXSLqhdKho' 'jnwmcaNSj5MtYErQZ'
+ 'bDjcNv5WFMR5kwpuW']"
+PPhqQPG2AYaAuGq3y,ChRHen9QrNgA3Aygb,10,52,10,0,"['xqms6TWCmWffQCKWw' 'hf6jGfLE9SRPfSpKM' 'o2jeYwyna2oG3DYz5'
+ 'ocMc8M6siymwEZ99S' 'pYoRjLAvpcvzFzn4o' 'gddNXBRA9HrWDLZDk'
+ '38d5MN4ADA6r2TKkf' 'gNZ37rHTzASK5DaCm']"
+PPhqQPG2AYaAuGq3y,xqms6TWCmWffQCKWw,11,48,1,0,"['ChRHen9QrNgA3Aygb' 'hf6jGfLE9SRPfSpKM' 'o2jeYwyna2oG3DYz5'
+ 'ocMc8M6siymwEZ99S' 'pYoRjLAvpcvzFzn4o' 'gddNXBRA9HrWDLZDk'
+ '38d5MN4ADA6r2TKkf' 'gNZ37rHTzASK5DaCm']"
+PPhqQPG2AYaAuGq3y,hf6jGfLE9SRPfSpKM,25,128,2,0,"['ChRHen9QrNgA3Aygb' 'xqms6TWCmWffQCKWw' 'o2jeYwyna2oG3DYz5'
+ 'ocMc8M6siymwEZ99S' 'pYoRjLAvpcvzFzn4o' 'gddNXBRA9HrWDLZDk'
+ '38d5MN4ADA6r2TKkf' 'gNZ37rHTzASK5DaCm']"
+PPhqQPG2AYaAuGq3y,o2jeYwyna2oG3DYz5,7,35,1,0,"['ChRHen9QrNgA3Aygb' 'xqms6TWCmWffQCKWw' 'hf6jGfLE9SRPfSpKM'
+ 'ocMc8M6siymwEZ99S' 'pYoRjLAvpcvzFzn4o' 'gddNXBRA9HrWDLZDk'
+ '38d5MN4ADA6r2TKkf' 'gNZ37rHTzASK5DaCm']"
+PPhqQPG2AYaAuGq3y,ocMc8M6siymwEZ99S,5,16,2,1,"['ChRHen9QrNgA3Aygb' 'xqms6TWCmWffQCKWw' 'hf6jGfLE9SRPfSpKM'
+ 'o2jeYwyna2oG3DYz5' 'pYoRjLAvpcvzFzn4o' 'gddNXBRA9HrWDLZDk'
+ '38d5MN4ADA6r2TKkf' 'gNZ37rHTzASK5DaCm']"
+PPhqQPG2AYaAuGq3y,pYoRjLAvpcvzFzn4o,1,3,1,0,"['ChRHen9QrNgA3Aygb' 'xqms6TWCmWffQCKWw' 'hf6jGfLE9SRPfSpKM'
+ 'o2jeYwyna2oG3DYz5' 'ocMc8M6siymwEZ99S' 'gddNXBRA9HrWDLZDk'
+ '38d5MN4ADA6r2TKkf' 'gNZ37rHTzASK5DaCm']"
+PPhqQPG2AYaAuGq3y,gddNXBRA9HrWDLZDk,4,15,1,0,"['ChRHen9QrNgA3Aygb' 'xqms6TWCmWffQCKWw' 'hf6jGfLE9SRPfSpKM'
+ 'o2jeYwyna2oG3DYz5' 'ocMc8M6siymwEZ99S' 'pYoRjLAvpcvzFzn4o'
+ '38d5MN4ADA6r2TKkf' 'gNZ37rHTzASK5DaCm']"
+PPhqQPG2AYaAuGq3y,38d5MN4ADA6r2TKkf,1,3,1,0,"['ChRHen9QrNgA3Aygb' 'xqms6TWCmWffQCKWw' 'hf6jGfLE9SRPfSpKM'
+ 'o2jeYwyna2oG3DYz5' 'ocMc8M6siymwEZ99S' 'pYoRjLAvpcvzFzn4o'
+ 'gddNXBRA9HrWDLZDk' 'gNZ37rHTzASK5DaCm']"
+PPhqQPG2AYaAuGq3y,gNZ37rHTzASK5DaCm,1,3,1,0,"['ChRHen9QrNgA3Aygb' 'xqms6TWCmWffQCKWw' 'hf6jGfLE9SRPfSpKM'
+ 'o2jeYwyna2oG3DYz5' 'ocMc8M6siymwEZ99S' 'pYoRjLAvpcvzFzn4o'
+ 'gddNXBRA9HrWDLZDk' '38d5MN4ADA6r2TKkf']"
+d2HREMfpEpDLtCsg2,Z82vGzDWGbi2GDWrg,19,92,4,1,"['Liq8GtQNJfapHtevm' '9p9dJ9R72pQcSgThT' 'F4qAwARmtCD6awPpa'
+ 'jZfxTNp5EDJuNfhJm' '7Ht8DbhfeNZWiKmzm' 'PekcoLNe9zi8NfCis'
+ 'kdu3DTYz86d2k8NoF']"
+d2HREMfpEpDLtCsg2,Liq8GtQNJfapHtevm,17,83,5,0,"['Z82vGzDWGbi2GDWrg' '9p9dJ9R72pQcSgThT' 'F4qAwARmtCD6awPpa'
+ 'jZfxTNp5EDJuNfhJm' '7Ht8DbhfeNZWiKmzm' 'PekcoLNe9zi8NfCis'
+ 'kdu3DTYz86d2k8NoF']"
+d2HREMfpEpDLtCsg2,9p9dJ9R72pQcSgThT,17,91,2,0,"['Z82vGzDWGbi2GDWrg' 'Liq8GtQNJfapHtevm' 'F4qAwARmtCD6awPpa'
+ 'jZfxTNp5EDJuNfhJm' '7Ht8DbhfeNZWiKmzm' 'PekcoLNe9zi8NfCis'
+ 'kdu3DTYz86d2k8NoF']"
+d2HREMfpEpDLtCsg2,F4qAwARmtCD6awPpa,12,60,3,0,"['Z82vGzDWGbi2GDWrg' 'Liq8GtQNJfapHtevm' '9p9dJ9R72pQcSgThT'
+ 'jZfxTNp5EDJuNfhJm' '7Ht8DbhfeNZWiKmzm' 'PekcoLNe9zi8NfCis'
+ 'kdu3DTYz86d2k8NoF']"
+d2HREMfpEpDLtCsg2,jZfxTNp5EDJuNfhJm,10,50,2,1,"['Z82vGzDWGbi2GDWrg' 'Liq8GtQNJfapHtevm' '9p9dJ9R72pQcSgThT'
+ 'F4qAwARmtCD6awPpa' '7Ht8DbhfeNZWiKmzm' 'PekcoLNe9zi8NfCis'
+ 'kdu3DTYz86d2k8NoF']"
+d2HREMfpEpDLtCsg2,7Ht8DbhfeNZWiKmzm,4,18,3,0,"['Z82vGzDWGbi2GDWrg' 'Liq8GtQNJfapHtevm' '9p9dJ9R72pQcSgThT'
+ 'F4qAwARmtCD6awPpa' 'jZfxTNp5EDJuNfhJm' 'PekcoLNe9zi8NfCis'
+ 'kdu3DTYz86d2k8NoF']"
+d2HREMfpEpDLtCsg2,PekcoLNe9zi8NfCis,10,46,2,0,"['Z82vGzDWGbi2GDWrg' 'Liq8GtQNJfapHtevm' '9p9dJ9R72pQcSgThT'
+ 'F4qAwARmtCD6awPpa' 'jZfxTNp5EDJuNfhJm' '7Ht8DbhfeNZWiKmzm'
+ 'kdu3DTYz86d2k8NoF']"
+d2HREMfpEpDLtCsg2,kdu3DTYz86d2k8NoF,24,113,3,0,"['Z82vGzDWGbi2GDWrg' 'Liq8GtQNJfapHtevm' '9p9dJ9R72pQcSgThT'
+ 'F4qAwARmtCD6awPpa' 'jZfxTNp5EDJuNfhJm' '7Ht8DbhfeNZWiKmzm'
+ 'PekcoLNe9zi8NfCis']"
+8reZcfhmY5LtaubLT,LCFmspnmwgoshuhvi,10,56,2,0,['tWievCDByECvMu2BN' '5JeJhZ7cfSAypHtbm']
+8reZcfhmY5LtaubLT,tWievCDByECvMu2BN,2,10,1,0,['LCFmspnmwgoshuhvi' '5JeJhZ7cfSAypHtbm']
+8reZcfhmY5LtaubLT,5JeJhZ7cfSAypHtbm,3,13,1,0,['LCFmspnmwgoshuhvi' 'tWievCDByECvMu2BN']
+6inQLZ4Ghs6DFtQYP,NULL_SPEAKER,1,3,1,0,[]
+Ye4opKnNmgSuCBRtD,NULL_SPEAKER,1,3,1,0,[]
+cmfYtorCMyWDJYnMX,NULL_SPEAKER,1,3,1,0,[]
+DE3DNrNo2nSHc7dEa,NULL_SPEAKER,1,3,1,0,[]
+zmqine3Azx2kJaPRc,tBin8nkhY26yEqwhg,10,47,3,2,"['6qJXztC2b8XqPsnaf' 'F6FKAQ7Z4hgrDENtF' 'frxurWM46otH6EEq4'
+ 'FQ2E3acN9X6WREqmn']"
+zmqine3Azx2kJaPRc,6qJXztC2b8XqPsnaf,11,51,4,0,"['tBin8nkhY26yEqwhg' 'F6FKAQ7Z4hgrDENtF' 'frxurWM46otH6EEq4'
+ 'FQ2E3acN9X6WREqmn']"
+zmqine3Azx2kJaPRc,F6FKAQ7Z4hgrDENtF,14,75,3,0,"['tBin8nkhY26yEqwhg' '6qJXztC2b8XqPsnaf' 'frxurWM46otH6EEq4'
+ 'FQ2E3acN9X6WREqmn']"
+zmqine3Azx2kJaPRc,frxurWM46otH6EEq4,2,5,1,0,"['tBin8nkhY26yEqwhg' '6qJXztC2b8XqPsnaf' 'F6FKAQ7Z4hgrDENtF'
+ 'FQ2E3acN9X6WREqmn']"
+zmqine3Azx2kJaPRc,FQ2E3acN9X6WREqmn,2,10,1,0,"['tBin8nkhY26yEqwhg' '6qJXztC2b8XqPsnaf' 'F6FKAQ7Z4hgrDENtF'
+ 'frxurWM46otH6EEq4']"
+dEiQf9cFRnBmjEMTT,XRR28Qvz7eDzrHCbE,21,95,6,1,"['YwQgeS4Ffs5jSdzFY' 'BBwvkMYpDHM3g6fmY' 'zQSshFaSWxkmmh4K9'
+ 'iW9Fn8htHkxqSqc4A']"
+dEiQf9cFRnBmjEMTT,YwQgeS4Ffs5jSdzFY,33,174,7,1,"['XRR28Qvz7eDzrHCbE' 'BBwvkMYpDHM3g6fmY' 'zQSshFaSWxkmmh4K9'
+ 'iW9Fn8htHkxqSqc4A']"
+dEiQf9cFRnBmjEMTT,BBwvkMYpDHM3g6fmY,59,290,10,2,"['XRR28Qvz7eDzrHCbE' 'YwQgeS4Ffs5jSdzFY' 'zQSshFaSWxkmmh4K9'
+ 'iW9Fn8htHkxqSqc4A']"
+dEiQf9cFRnBmjEMTT,zQSshFaSWxkmmh4K9,15,70,4,1,"['XRR28Qvz7eDzrHCbE' 'YwQgeS4Ffs5jSdzFY' 'BBwvkMYpDHM3g6fmY'
+ 'iW9Fn8htHkxqSqc4A']"
+dEiQf9cFRnBmjEMTT,iW9Fn8htHkxqSqc4A,17,79,2,0,"['XRR28Qvz7eDzrHCbE' 'YwQgeS4Ffs5jSdzFY' 'BBwvkMYpDHM3g6fmY'
+ 'zQSshFaSWxkmmh4K9']"
+mBcABpXhx52F6YaXs,ZnchZ9cCkv6WyCYS3,16,66,6,0,"['Xys252CkWLJ8kHy8n' 'Q8979sTeYMnTkuohM' '39DcetpFonPL7b9o6'
+ '5eprwsLCKTXXbkcep' 'aiELuA6SGwR9569N2']"
+mBcABpXhx52F6YaXs,Xys252CkWLJ8kHy8n,11,45,3,0,"['ZnchZ9cCkv6WyCYS3' 'Q8979sTeYMnTkuohM' '39DcetpFonPL7b9o6'
+ '5eprwsLCKTXXbkcep' 'aiELuA6SGwR9569N2']"
+mBcABpXhx52F6YaXs,Q8979sTeYMnTkuohM,16,96,2,2,"['ZnchZ9cCkv6WyCYS3' 'Xys252CkWLJ8kHy8n' '39DcetpFonPL7b9o6'
+ '5eprwsLCKTXXbkcep' 'aiELuA6SGwR9569N2']"
+mBcABpXhx52F6YaXs,39DcetpFonPL7b9o6,27,153,6,0,"['ZnchZ9cCkv6WyCYS3' 'Xys252CkWLJ8kHy8n' 'Q8979sTeYMnTkuohM'
+ '5eprwsLCKTXXbkcep' 'aiELuA6SGwR9569N2']"
+mBcABpXhx52F6YaXs,5eprwsLCKTXXbkcep,3,11,2,0,"['ZnchZ9cCkv6WyCYS3' 'Xys252CkWLJ8kHy8n' 'Q8979sTeYMnTkuohM'
+ '39DcetpFonPL7b9o6' 'aiELuA6SGwR9569N2']"
+mBcABpXhx52F6YaXs,aiELuA6SGwR9569N2,1,3,1,0,"['ZnchZ9cCkv6WyCYS3' 'Xys252CkWLJ8kHy8n' 'Q8979sTeYMnTkuohM'
+ '39DcetpFonPL7b9o6' '5eprwsLCKTXXbkcep']"
+5ZFnnfQKKzsCMYfWK,v8GbWhBFt4QFnJGiK,13,53,3,0,"['6j2Pb2fccaTDiBRPQ' 'RZqfmKkSwq5Tqc36e' '9dyoHidXEYCpJzPbG'
+ 'miwxrzbBqPHaLDjLv' 'FXkEvEL5q7eHJFZXL']"
+5ZFnnfQKKzsCMYfWK,6j2Pb2fccaTDiBRPQ,7,28,4,0,"['v8GbWhBFt4QFnJGiK' 'RZqfmKkSwq5Tqc36e' '9dyoHidXEYCpJzPbG'
+ 'miwxrzbBqPHaLDjLv' 'FXkEvEL5q7eHJFZXL']"
+5ZFnnfQKKzsCMYfWK,RZqfmKkSwq5Tqc36e,51,241,8,0,"['v8GbWhBFt4QFnJGiK' '6j2Pb2fccaTDiBRPQ' '9dyoHidXEYCpJzPbG'
+ 'miwxrzbBqPHaLDjLv' 'FXkEvEL5q7eHJFZXL']"
+5ZFnnfQKKzsCMYfWK,9dyoHidXEYCpJzPbG,5,15,3,0,"['v8GbWhBFt4QFnJGiK' '6j2Pb2fccaTDiBRPQ' 'RZqfmKkSwq5Tqc36e'
+ 'miwxrzbBqPHaLDjLv' 'FXkEvEL5q7eHJFZXL']"
+5ZFnnfQKKzsCMYfWK,miwxrzbBqPHaLDjLv,10,48,4,0,"['v8GbWhBFt4QFnJGiK' '6j2Pb2fccaTDiBRPQ' 'RZqfmKkSwq5Tqc36e'
+ '9dyoHidXEYCpJzPbG' 'FXkEvEL5q7eHJFZXL']"
+5ZFnnfQKKzsCMYfWK,FXkEvEL5q7eHJFZXL,2,9,1,0,"['v8GbWhBFt4QFnJGiK' '6j2Pb2fccaTDiBRPQ' 'RZqfmKkSwq5Tqc36e'
+ '9dyoHidXEYCpJzPbG' 'miwxrzbBqPHaLDjLv']"
+cm7XFjq9wdHfSMbqB,M8ZMFwg6paRrzjR4e,30,131,8,1,"['7os89qgnHnd8EdgHw' '6PoKHtDztApdsWAen' 'HxuMzWY6tYLvch5fu'
+ 'PWaj9FNFPDTAQ6sf7']"
+cm7XFjq9wdHfSMbqB,7os89qgnHnd8EdgHw,19,94,7,1,"['M8ZMFwg6paRrzjR4e' '6PoKHtDztApdsWAen' 'HxuMzWY6tYLvch5fu'
+ 'PWaj9FNFPDTAQ6sf7']"
+cm7XFjq9wdHfSMbqB,6PoKHtDztApdsWAen,8,42,4,1,"['M8ZMFwg6paRrzjR4e' '7os89qgnHnd8EdgHw' 'HxuMzWY6tYLvch5fu'
+ 'PWaj9FNFPDTAQ6sf7']"
+cm7XFjq9wdHfSMbqB,HxuMzWY6tYLvch5fu,14,65,2,0,"['M8ZMFwg6paRrzjR4e' '7os89qgnHnd8EdgHw' '6PoKHtDztApdsWAen'
+ 'PWaj9FNFPDTAQ6sf7']"
+cm7XFjq9wdHfSMbqB,PWaj9FNFPDTAQ6sf7,14,75,1,0,"['M8ZMFwg6paRrzjR4e' '7os89qgnHnd8EdgHw' '6PoKHtDztApdsWAen'
+ 'HxuMzWY6tYLvch5fu']"
+p9cEvJCh5Cujs878k,euYg7HwHfevHy2daA,17,71,3,0,"['HaxNmb7ffQKCXWPZd' 'cm4sQkjaHYLnxAo49' 'h6XtmzsCL7JPbgG3D'
+ 'wiqA9rc4QCPZM46xo' 'G7u82AiGcjnxsHE4z' 'cvARJoThZDz45oron'
+ 'nsDBHFJ4XnSpQYWkL']"
+p9cEvJCh5Cujs878k,HaxNmb7ffQKCXWPZd,8,29,3,0,"['euYg7HwHfevHy2daA' 'cm4sQkjaHYLnxAo49' 'h6XtmzsCL7JPbgG3D'
+ 'wiqA9rc4QCPZM46xo' 'G7u82AiGcjnxsHE4z' 'cvARJoThZDz45oron'
+ 'nsDBHFJ4XnSpQYWkL']"
+p9cEvJCh5Cujs878k,cm4sQkjaHYLnxAo49,14,62,5,0,"['euYg7HwHfevHy2daA' 'HaxNmb7ffQKCXWPZd' 'h6XtmzsCL7JPbgG3D'
+ 'wiqA9rc4QCPZM46xo' 'G7u82AiGcjnxsHE4z' 'cvARJoThZDz45oron'
+ 'nsDBHFJ4XnSpQYWkL']"
+p9cEvJCh5Cujs878k,h6XtmzsCL7JPbgG3D,21,111,5,2,"['euYg7HwHfevHy2daA' 'HaxNmb7ffQKCXWPZd' 'cm4sQkjaHYLnxAo49'
+ 'wiqA9rc4QCPZM46xo' 'G7u82AiGcjnxsHE4z' 'cvARJoThZDz45oron'
+ 'nsDBHFJ4XnSpQYWkL']"
+p9cEvJCh5Cujs878k,wiqA9rc4QCPZM46xo,37,223,7,2,"['euYg7HwHfevHy2daA' 'HaxNmb7ffQKCXWPZd' 'cm4sQkjaHYLnxAo49'
+ 'h6XtmzsCL7JPbgG3D' 'G7u82AiGcjnxsHE4z' 'cvARJoThZDz45oron'
+ 'nsDBHFJ4XnSpQYWkL']"
+p9cEvJCh5Cujs878k,G7u82AiGcjnxsHE4z,30,163,4,0,"['euYg7HwHfevHy2daA' 'HaxNmb7ffQKCXWPZd' 'cm4sQkjaHYLnxAo49'
+ 'h6XtmzsCL7JPbgG3D' 'wiqA9rc4QCPZM46xo' 'cvARJoThZDz45oron'
+ 'nsDBHFJ4XnSpQYWkL']"
+p9cEvJCh5Cujs878k,cvARJoThZDz45oron,29,147,5,0,"['euYg7HwHfevHy2daA' 'HaxNmb7ffQKCXWPZd' 'cm4sQkjaHYLnxAo49'
+ 'h6XtmzsCL7JPbgG3D' 'wiqA9rc4QCPZM46xo' 'G7u82AiGcjnxsHE4z'
+ 'nsDBHFJ4XnSpQYWkL']"
+p9cEvJCh5Cujs878k,nsDBHFJ4XnSpQYWkL,4,18,1,0,"['euYg7HwHfevHy2daA' 'HaxNmb7ffQKCXWPZd' 'cm4sQkjaHYLnxAo49'
+ 'h6XtmzsCL7JPbgG3D' 'wiqA9rc4QCPZM46xo' 'G7u82AiGcjnxsHE4z'
+ 'cvARJoThZDz45oron']"
+PfJGpCGNZKkTsyvWq,GrXTbobn9yjHgjeDB,7,37,1,0,"['xzAs8gMQeBeaFYxqw' 'agfPneCJbgSWueRAj' 'zpXG3LKeBAX3Pgt35'
+ 'xdantXGAN54Xhca6o']"
+PfJGpCGNZKkTsyvWq,xzAs8gMQeBeaFYxqw,15,78,6,0,"['GrXTbobn9yjHgjeDB' 'agfPneCJbgSWueRAj' 'zpXG3LKeBAX3Pgt35'
+ 'xdantXGAN54Xhca6o']"
+PfJGpCGNZKkTsyvWq,agfPneCJbgSWueRAj,9,40,3,0,"['GrXTbobn9yjHgjeDB' 'xzAs8gMQeBeaFYxqw' 'zpXG3LKeBAX3Pgt35'
+ 'xdantXGAN54Xhca6o']"
+PfJGpCGNZKkTsyvWq,zpXG3LKeBAX3Pgt35,13,70,1,0,"['GrXTbobn9yjHgjeDB' 'xzAs8gMQeBeaFYxqw' 'agfPneCJbgSWueRAj'
+ 'xdantXGAN54Xhca6o']"
+PfJGpCGNZKkTsyvWq,xdantXGAN54Xhca6o,6,21,2,0,"['GrXTbobn9yjHgjeDB' 'xzAs8gMQeBeaFYxqw' 'agfPneCJbgSWueRAj'
+ 'zpXG3LKeBAX3Pgt35']"
+tPQbHo3NnfFJNZuWt,SLxSTxMA6QhiqaaMK,73,380,15,0,"['ABpvDW3se4bkDKxrF' 'G7DAvkSbaLhFBWEc7' 'RmqTJaa8LHGywHCiC'
+ 'aaKhJs7NWpkpJZwaq' '9t4sY4oHuvtTgJ4YG' '27CsmuqhNC6uhk2GC'
+ 'Q8CJeq74RZZwZyjiC']"
+tPQbHo3NnfFJNZuWt,ABpvDW3se4bkDKxrF,26,121,7,1,"['SLxSTxMA6QhiqaaMK' 'G7DAvkSbaLhFBWEc7' 'RmqTJaa8LHGywHCiC'
+ 'aaKhJs7NWpkpJZwaq' '9t4sY4oHuvtTgJ4YG' '27CsmuqhNC6uhk2GC'
+ 'Q8CJeq74RZZwZyjiC']"
+tPQbHo3NnfFJNZuWt,G7DAvkSbaLhFBWEc7,12,53,5,0,"['SLxSTxMA6QhiqaaMK' 'ABpvDW3se4bkDKxrF' 'RmqTJaa8LHGywHCiC'
+ 'aaKhJs7NWpkpJZwaq' '9t4sY4oHuvtTgJ4YG' '27CsmuqhNC6uhk2GC'
+ 'Q8CJeq74RZZwZyjiC']"
+tPQbHo3NnfFJNZuWt,RmqTJaa8LHGywHCiC,14,80,4,0,"['SLxSTxMA6QhiqaaMK' 'ABpvDW3se4bkDKxrF' 'G7DAvkSbaLhFBWEc7'
+ 'aaKhJs7NWpkpJZwaq' '9t4sY4oHuvtTgJ4YG' '27CsmuqhNC6uhk2GC'
+ 'Q8CJeq74RZZwZyjiC']"
+tPQbHo3NnfFJNZuWt,aaKhJs7NWpkpJZwaq,34,153,5,0,"['SLxSTxMA6QhiqaaMK' 'ABpvDW3se4bkDKxrF' 'G7DAvkSbaLhFBWEc7'
+ 'RmqTJaa8LHGywHCiC' '9t4sY4oHuvtTgJ4YG' '27CsmuqhNC6uhk2GC'
+ 'Q8CJeq74RZZwZyjiC']"
+tPQbHo3NnfFJNZuWt,9t4sY4oHuvtTgJ4YG,6,31,3,0,"['SLxSTxMA6QhiqaaMK' 'ABpvDW3se4bkDKxrF' 'G7DAvkSbaLhFBWEc7'
+ 'RmqTJaa8LHGywHCiC' 'aaKhJs7NWpkpJZwaq' '27CsmuqhNC6uhk2GC'
+ 'Q8CJeq74RZZwZyjiC']"
+tPQbHo3NnfFJNZuWt,27CsmuqhNC6uhk2GC,3,14,1,0,"['SLxSTxMA6QhiqaaMK' 'ABpvDW3se4bkDKxrF' 'G7DAvkSbaLhFBWEc7'
+ 'RmqTJaa8LHGywHCiC' 'aaKhJs7NWpkpJZwaq' '9t4sY4oHuvtTgJ4YG'
+ 'Q8CJeq74RZZwZyjiC']"
+tPQbHo3NnfFJNZuWt,Q8CJeq74RZZwZyjiC,5,21,1,0,"['SLxSTxMA6QhiqaaMK' 'ABpvDW3se4bkDKxrF' 'G7DAvkSbaLhFBWEc7'
+ 'RmqTJaa8LHGywHCiC' 'aaKhJs7NWpkpJZwaq' '9t4sY4oHuvtTgJ4YG'
+ '27CsmuqhNC6uhk2GC']"
+mFRxZofdN3bEWStYE,FuxmfGdMzCa9ggkyg,2,14,1,0,"['Gng6SM7cEy4TexgiM' '6axcSM23H7Xqst6or' 'FEvxdEvF9JLdfuz4a'
+ 'rH4qw2ATzmoycqXNt' 'Q6FPHs4mzb63Y5wj4' '67ceHfPKqisJgdfva'
+ 'DaZzgMK7iYdc7HNXi']"
+mFRxZofdN3bEWStYE,Gng6SM7cEy4TexgiM,15,77,7,0,"['FuxmfGdMzCa9ggkyg' '6axcSM23H7Xqst6or' 'FEvxdEvF9JLdfuz4a'
+ 'rH4qw2ATzmoycqXNt' 'Q6FPHs4mzb63Y5wj4' '67ceHfPKqisJgdfva'
+ 'DaZzgMK7iYdc7HNXi']"
+mFRxZofdN3bEWStYE,6axcSM23H7Xqst6or,8,30,5,0,"['FuxmfGdMzCa9ggkyg' 'Gng6SM7cEy4TexgiM' 'FEvxdEvF9JLdfuz4a'
+ 'rH4qw2ATzmoycqXNt' 'Q6FPHs4mzb63Y5wj4' '67ceHfPKqisJgdfva'
+ 'DaZzgMK7iYdc7HNXi']"
+mFRxZofdN3bEWStYE,FEvxdEvF9JLdfuz4a,6,23,4,0,"['FuxmfGdMzCa9ggkyg' 'Gng6SM7cEy4TexgiM' '6axcSM23H7Xqst6or'
+ 'rH4qw2ATzmoycqXNt' 'Q6FPHs4mzb63Y5wj4' '67ceHfPKqisJgdfva'
+ 'DaZzgMK7iYdc7HNXi']"
+mFRxZofdN3bEWStYE,rH4qw2ATzmoycqXNt,14,62,4,1,"['FuxmfGdMzCa9ggkyg' 'Gng6SM7cEy4TexgiM' '6axcSM23H7Xqst6or'
+ 'FEvxdEvF9JLdfuz4a' 'Q6FPHs4mzb63Y5wj4' '67ceHfPKqisJgdfva'
+ 'DaZzgMK7iYdc7HNXi']"
+mFRxZofdN3bEWStYE,Q6FPHs4mzb63Y5wj4,12,73,5,0,"['FuxmfGdMzCa9ggkyg' 'Gng6SM7cEy4TexgiM' '6axcSM23H7Xqst6or'
+ 'FEvxdEvF9JLdfuz4a' 'rH4qw2ATzmoycqXNt' '67ceHfPKqisJgdfva'
+ 'DaZzgMK7iYdc7HNXi']"
+mFRxZofdN3bEWStYE,67ceHfPKqisJgdfva,1,3,1,0,"['FuxmfGdMzCa9ggkyg' 'Gng6SM7cEy4TexgiM' '6axcSM23H7Xqst6or'
+ 'FEvxdEvF9JLdfuz4a' 'rH4qw2ATzmoycqXNt' 'Q6FPHs4mzb63Y5wj4'
+ 'DaZzgMK7iYdc7HNXi']"
+mFRxZofdN3bEWStYE,DaZzgMK7iYdc7HNXi,3,15,1,0,"['FuxmfGdMzCa9ggkyg' 'Gng6SM7cEy4TexgiM' '6axcSM23H7Xqst6or'
+ 'FEvxdEvF9JLdfuz4a' 'rH4qw2ATzmoycqXNt' 'Q6FPHs4mzb63Y5wj4'
+ '67ceHfPKqisJgdfva']"
+gzL3WNATeHanMQaFF,BLGbCZ2WhwCSPXgsN,31,158,3,1,"['2GByZtFsBuBZrGRzR' 'G3yYb5LFjCrHeKHNK' 'ddBjcevm2CM8qt5iy'
+ 'Nwxf5nkE4JrGSZHXn' 'mY9oQMSxgvTgtpwjm' 'Ep6RKA5k66ocERgA8']"
+gzL3WNATeHanMQaFF,2GByZtFsBuBZrGRzR,1,6,1,0,"['BLGbCZ2WhwCSPXgsN' 'G3yYb5LFjCrHeKHNK' 'ddBjcevm2CM8qt5iy'
+ 'Nwxf5nkE4JrGSZHXn' 'mY9oQMSxgvTgtpwjm' 'Ep6RKA5k66ocERgA8']"
+gzL3WNATeHanMQaFF,G3yYb5LFjCrHeKHNK,3,11,1,0,"['BLGbCZ2WhwCSPXgsN' '2GByZtFsBuBZrGRzR' 'ddBjcevm2CM8qt5iy'
+ 'Nwxf5nkE4JrGSZHXn' 'mY9oQMSxgvTgtpwjm' 'Ep6RKA5k66ocERgA8']"
+gzL3WNATeHanMQaFF,ddBjcevm2CM8qt5iy,1,3,1,0,"['BLGbCZ2WhwCSPXgsN' '2GByZtFsBuBZrGRzR' 'G3yYb5LFjCrHeKHNK'
+ 'Nwxf5nkE4JrGSZHXn' 'mY9oQMSxgvTgtpwjm' 'Ep6RKA5k66ocERgA8']"
+gzL3WNATeHanMQaFF,Nwxf5nkE4JrGSZHXn,1,3,1,0,"['BLGbCZ2WhwCSPXgsN' '2GByZtFsBuBZrGRzR' 'G3yYb5LFjCrHeKHNK'
+ 'ddBjcevm2CM8qt5iy' 'mY9oQMSxgvTgtpwjm' 'Ep6RKA5k66ocERgA8']"
+gzL3WNATeHanMQaFF,mY9oQMSxgvTgtpwjm,2,10,1,0,"['BLGbCZ2WhwCSPXgsN' '2GByZtFsBuBZrGRzR' 'G3yYb5LFjCrHeKHNK'
+ 'ddBjcevm2CM8qt5iy' 'Nwxf5nkE4JrGSZHXn' 'Ep6RKA5k66ocERgA8']"
+gzL3WNATeHanMQaFF,Ep6RKA5k66ocERgA8,5,26,1,0,"['BLGbCZ2WhwCSPXgsN' '2GByZtFsBuBZrGRzR' 'G3yYb5LFjCrHeKHNK'
+ 'ddBjcevm2CM8qt5iy' 'Nwxf5nkE4JrGSZHXn' 'mY9oQMSxgvTgtpwjm']"
+tXvB8wjXZn8n2hM6Q,ai2P5LDCmmfMSjRTo,23,116,4,0,"['iij5JQSMQNYJQFypt' 'vXg8QzmFFnPS34jAZ' 'YyFLbzpgwMztsPXkL'
+ 'RL5FpSy4zS4iNTx2A' 'KiwYDg5bye8Gk7avM']"
+tXvB8wjXZn8n2hM6Q,iij5JQSMQNYJQFypt,12,52,3,1,"['ai2P5LDCmmfMSjRTo' 'vXg8QzmFFnPS34jAZ' 'YyFLbzpgwMztsPXkL'
+ 'RL5FpSy4zS4iNTx2A' 'KiwYDg5bye8Gk7avM']"
+tXvB8wjXZn8n2hM6Q,vXg8QzmFFnPS34jAZ,5,23,3,0,"['ai2P5LDCmmfMSjRTo' 'iij5JQSMQNYJQFypt' 'YyFLbzpgwMztsPXkL'
+ 'RL5FpSy4zS4iNTx2A' 'KiwYDg5bye8Gk7avM']"
+tXvB8wjXZn8n2hM6Q,YyFLbzpgwMztsPXkL,8,43,3,0,"['ai2P5LDCmmfMSjRTo' 'iij5JQSMQNYJQFypt' 'vXg8QzmFFnPS34jAZ'
+ 'RL5FpSy4zS4iNTx2A' 'KiwYDg5bye8Gk7avM']"
+tXvB8wjXZn8n2hM6Q,RL5FpSy4zS4iNTx2A,7,33,2,0,"['ai2P5LDCmmfMSjRTo' 'iij5JQSMQNYJQFypt' 'vXg8QzmFFnPS34jAZ'
+ 'YyFLbzpgwMztsPXkL' 'KiwYDg5bye8Gk7avM']"
+tXvB8wjXZn8n2hM6Q,KiwYDg5bye8Gk7avM,15,84,3,0,"['ai2P5LDCmmfMSjRTo' 'iij5JQSMQNYJQFypt' 'vXg8QzmFFnPS34jAZ'
+ 'YyFLbzpgwMztsPXkL' 'RL5FpSy4zS4iNTx2A']"
+bKsEzS9DraEMKWbp3,5SSyJMhkWavvYwA8m,35,162,6,1,"['MHSsh5s8XwFNGuDta' 'XMWGPuWMe2H4pD53P' 'CLMNDBE8HZvgNeuEW'
+ 'uzdNZm3AA3yLppooB']"
+bKsEzS9DraEMKWbp3,MHSsh5s8XwFNGuDta,27,138,4,2,"['5SSyJMhkWavvYwA8m' 'XMWGPuWMe2H4pD53P' 'CLMNDBE8HZvgNeuEW'
+ 'uzdNZm3AA3yLppooB']"
+bKsEzS9DraEMKWbp3,XMWGPuWMe2H4pD53P,17,96,5,0,"['5SSyJMhkWavvYwA8m' 'MHSsh5s8XwFNGuDta' 'CLMNDBE8HZvgNeuEW'
+ 'uzdNZm3AA3yLppooB']"
+bKsEzS9DraEMKWbp3,CLMNDBE8HZvgNeuEW,2,9,2,0,"['5SSyJMhkWavvYwA8m' 'MHSsh5s8XwFNGuDta' 'XMWGPuWMe2H4pD53P'
+ 'uzdNZm3AA3yLppooB']"
+bKsEzS9DraEMKWbp3,uzdNZm3AA3yLppooB,13,73,3,0,"['5SSyJMhkWavvYwA8m' 'MHSsh5s8XwFNGuDta' 'XMWGPuWMe2H4pD53P'
+ 'CLMNDBE8HZvgNeuEW']"
+PZh7oopod6b33a9D2,pn34G86rdev49pAcr,12,70,2,1,"['vtqJfzH29skaDEosB' 'mqobokCSz99bQpdqR' 'N8BCvZDKmBxLnixmb'
+ 'xsThxJSWFRBSJ5fiM' 'quDPScrSXeLcLyqht' '57YjpBooewimGRCiz'
+ '7aXPDiSdzEq8di8Qb']"
+PZh7oopod6b33a9D2,vtqJfzH29skaDEosB,23,115,7,1,"['pn34G86rdev49pAcr' 'mqobokCSz99bQpdqR' 'N8BCvZDKmBxLnixmb'
+ 'xsThxJSWFRBSJ5fiM' 'quDPScrSXeLcLyqht' '57YjpBooewimGRCiz'
+ '7aXPDiSdzEq8di8Qb']"
+PZh7oopod6b33a9D2,mqobokCSz99bQpdqR,4,22,2,0,"['pn34G86rdev49pAcr' 'vtqJfzH29skaDEosB' 'N8BCvZDKmBxLnixmb'
+ 'xsThxJSWFRBSJ5fiM' 'quDPScrSXeLcLyqht' '57YjpBooewimGRCiz'
+ '7aXPDiSdzEq8di8Qb']"
+PZh7oopod6b33a9D2,N8BCvZDKmBxLnixmb,8,38,2,0,"['pn34G86rdev49pAcr' 'vtqJfzH29skaDEosB' 'mqobokCSz99bQpdqR'
+ 'xsThxJSWFRBSJ5fiM' 'quDPScrSXeLcLyqht' '57YjpBooewimGRCiz'
+ '7aXPDiSdzEq8di8Qb']"
+PZh7oopod6b33a9D2,xsThxJSWFRBSJ5fiM,11,48,3,0,"['pn34G86rdev49pAcr' 'vtqJfzH29skaDEosB' 'mqobokCSz99bQpdqR'
+ 'N8BCvZDKmBxLnixmb' 'quDPScrSXeLcLyqht' '57YjpBooewimGRCiz'
+ '7aXPDiSdzEq8di8Qb']"
+PZh7oopod6b33a9D2,quDPScrSXeLcLyqht,9,46,2,0,"['pn34G86rdev49pAcr' 'vtqJfzH29skaDEosB' 'mqobokCSz99bQpdqR'
+ 'N8BCvZDKmBxLnixmb' 'xsThxJSWFRBSJ5fiM' '57YjpBooewimGRCiz'
+ '7aXPDiSdzEq8di8Qb']"
+PZh7oopod6b33a9D2,57YjpBooewimGRCiz,10,41,3,0,"['pn34G86rdev49pAcr' 'vtqJfzH29skaDEosB' 'mqobokCSz99bQpdqR'
+ 'N8BCvZDKmBxLnixmb' 'xsThxJSWFRBSJ5fiM' 'quDPScrSXeLcLyqht'
+ '7aXPDiSdzEq8di8Qb']"
+PZh7oopod6b33a9D2,7aXPDiSdzEq8di8Qb,2,10,1,0,"['pn34G86rdev49pAcr' 'vtqJfzH29skaDEosB' 'mqobokCSz99bQpdqR'
+ 'N8BCvZDKmBxLnixmb' 'xsThxJSWFRBSJ5fiM' 'quDPScrSXeLcLyqht'
+ '57YjpBooewimGRCiz']"
+pW4fymuM4WaeqiQg6,TJAtHKJEhDApEEQAo,20,92,10,0,"['hu87xMm52muyXu8NR' 'B2nw8W7PswqYpf78G' 'ZLwEPektnkZ2dmPzY'
+ 'nkP4HXXFdEAdfv6dY' 'BgTQ9cT4abZgBWbYQ' 'rLZnvD54hWSZ7bNsa'
+ 'yfYKzyBJZhk7Xv8tE']"
+pW4fymuM4WaeqiQg6,hu87xMm52muyXu8NR,30,128,8,3,"['TJAtHKJEhDApEEQAo' 'B2nw8W7PswqYpf78G' 'ZLwEPektnkZ2dmPzY'
+ 'nkP4HXXFdEAdfv6dY' 'BgTQ9cT4abZgBWbYQ' 'rLZnvD54hWSZ7bNsa'
+ 'yfYKzyBJZhk7Xv8tE']"
+pW4fymuM4WaeqiQg6,B2nw8W7PswqYpf78G,14,58,3,0,"['TJAtHKJEhDApEEQAo' 'hu87xMm52muyXu8NR' 'ZLwEPektnkZ2dmPzY'
+ 'nkP4HXXFdEAdfv6dY' 'BgTQ9cT4abZgBWbYQ' 'rLZnvD54hWSZ7bNsa'
+ 'yfYKzyBJZhk7Xv8tE']"
+pW4fymuM4WaeqiQg6,ZLwEPektnkZ2dmPzY,23,109,5,1,"['TJAtHKJEhDApEEQAo' 'hu87xMm52muyXu8NR' 'B2nw8W7PswqYpf78G'
+ 'nkP4HXXFdEAdfv6dY' 'BgTQ9cT4abZgBWbYQ' 'rLZnvD54hWSZ7bNsa'
+ 'yfYKzyBJZhk7Xv8tE']"
+pW4fymuM4WaeqiQg6,nkP4HXXFdEAdfv6dY,22,114,4,0,"['TJAtHKJEhDApEEQAo' 'hu87xMm52muyXu8NR' 'B2nw8W7PswqYpf78G'
+ 'ZLwEPektnkZ2dmPzY' 'BgTQ9cT4abZgBWbYQ' 'rLZnvD54hWSZ7bNsa'
+ 'yfYKzyBJZhk7Xv8tE']"
+pW4fymuM4WaeqiQg6,BgTQ9cT4abZgBWbYQ,5,25,2,0,"['TJAtHKJEhDApEEQAo' 'hu87xMm52muyXu8NR' 'B2nw8W7PswqYpf78G'
+ 'ZLwEPektnkZ2dmPzY' 'nkP4HXXFdEAdfv6dY' 'rLZnvD54hWSZ7bNsa'
+ 'yfYKzyBJZhk7Xv8tE']"
+pW4fymuM4WaeqiQg6,rLZnvD54hWSZ7bNsa,1,4,1,0,"['TJAtHKJEhDApEEQAo' 'hu87xMm52muyXu8NR' 'B2nw8W7PswqYpf78G'
+ 'ZLwEPektnkZ2dmPzY' 'nkP4HXXFdEAdfv6dY' 'BgTQ9cT4abZgBWbYQ'
+ 'yfYKzyBJZhk7Xv8tE']"
+pW4fymuM4WaeqiQg6,yfYKzyBJZhk7Xv8tE,1,4,1,0,"['TJAtHKJEhDApEEQAo' 'hu87xMm52muyXu8NR' 'B2nw8W7PswqYpf78G'
+ 'ZLwEPektnkZ2dmPzY' 'nkP4HXXFdEAdfv6dY' 'BgTQ9cT4abZgBWbYQ'
+ 'rLZnvD54hWSZ7bNsa']"
+oFAF7y5aRuACY482b,NULL_SPEAKER,1,3,1,0,[]
+Hep2orJPS8FE6a7tR,xNiuBLwh8tbrZbY5j,11,55,2,0,['HAmYkWtPC9CexPos9']
+Hep2orJPS8FE6a7tR,HAmYkWtPC9CexPos9,8,48,2,0,['xNiuBLwh8tbrZbY5j']
+rzgHCGunBxrZpu9tX,NULL_SPEAKER,1,3,1,0,[]
+7JZe3MJ5sGGCRT7TY,39dKjP5bNPiruhyFg,28,123,3,0,['gXSebKACzfn5Db6sA' 'zsQ3HTQvaK3RbdiuX']
+7JZe3MJ5sGGCRT7TY,gXSebKACzfn5Db6sA,10,39,3,2,['39dKjP5bNPiruhyFg' 'zsQ3HTQvaK3RbdiuX']
+7JZe3MJ5sGGCRT7TY,zsQ3HTQvaK3RbdiuX,6,21,2,0,['39dKjP5bNPiruhyFg' 'gXSebKACzfn5Db6sA']
+3qv5WReGpjmDy6T6F,mha5Hcmf3pd67pJts,14,60,5,0,['kQKhchY8dd54a3ZCf' 'kX2zirpBDfsgWtkaN']
+3qv5WReGpjmDy6T6F,kQKhchY8dd54a3ZCf,9,47,3,1,['mha5Hcmf3pd67pJts' 'kX2zirpBDfsgWtkaN']
+3qv5WReGpjmDy6T6F,kX2zirpBDfsgWtkaN,6,23,1,0,['mha5Hcmf3pd67pJts' 'kQKhchY8dd54a3ZCf']
+Xh2qnLJt2ZC6MvMgy,5tGmByXZc2nGCZoam,20,92,4,2,"['ZRzh6Ah4GYCTKBQLt' 'odi3QM4WiaweN2mxm' 'nqqmuiN9eFNSuwG33'
+ 'tcutcGNauc76iZBaK' 'oWhg6isJ2es2ZsFER' '2eTd4sshdYvFG8bnr'
+ 'FW5ho8zDqTsTRw9vo']"
+Xh2qnLJt2ZC6MvMgy,ZRzh6Ah4GYCTKBQLt,14,64,2,0,"['5tGmByXZc2nGCZoam' 'odi3QM4WiaweN2mxm' 'nqqmuiN9eFNSuwG33'
+ 'tcutcGNauc76iZBaK' 'oWhg6isJ2es2ZsFER' '2eTd4sshdYvFG8bnr'
+ 'FW5ho8zDqTsTRw9vo']"
+Xh2qnLJt2ZC6MvMgy,odi3QM4WiaweN2mxm,11,51,2,0,"['5tGmByXZc2nGCZoam' 'ZRzh6Ah4GYCTKBQLt' 'nqqmuiN9eFNSuwG33'
+ 'tcutcGNauc76iZBaK' 'oWhg6isJ2es2ZsFER' '2eTd4sshdYvFG8bnr'
+ 'FW5ho8zDqTsTRw9vo']"
+Xh2qnLJt2ZC6MvMgy,nqqmuiN9eFNSuwG33,24,120,6,2,"['5tGmByXZc2nGCZoam' 'ZRzh6Ah4GYCTKBQLt' 'odi3QM4WiaweN2mxm'
+ 'tcutcGNauc76iZBaK' 'oWhg6isJ2es2ZsFER' '2eTd4sshdYvFG8bnr'
+ 'FW5ho8zDqTsTRw9vo']"
+Xh2qnLJt2ZC6MvMgy,tcutcGNauc76iZBaK,17,97,3,2,"['5tGmByXZc2nGCZoam' 'ZRzh6Ah4GYCTKBQLt' 'odi3QM4WiaweN2mxm'
+ 'nqqmuiN9eFNSuwG33' 'oWhg6isJ2es2ZsFER' '2eTd4sshdYvFG8bnr'
+ 'FW5ho8zDqTsTRw9vo']"
+Xh2qnLJt2ZC6MvMgy,oWhg6isJ2es2ZsFER,30,131,4,3,"['5tGmByXZc2nGCZoam' 'ZRzh6Ah4GYCTKBQLt' 'odi3QM4WiaweN2mxm'
+ 'nqqmuiN9eFNSuwG33' 'tcutcGNauc76iZBaK' '2eTd4sshdYvFG8bnr'
+ 'FW5ho8zDqTsTRw9vo']"
+Xh2qnLJt2ZC6MvMgy,2eTd4sshdYvFG8bnr,13,65,4,0,"['5tGmByXZc2nGCZoam' 'ZRzh6Ah4GYCTKBQLt' 'odi3QM4WiaweN2mxm'
+ 'nqqmuiN9eFNSuwG33' 'tcutcGNauc76iZBaK' 'oWhg6isJ2es2ZsFER'
+ 'FW5ho8zDqTsTRw9vo']"
+Xh2qnLJt2ZC6MvMgy,FW5ho8zDqTsTRw9vo,15,63,2,0,"['5tGmByXZc2nGCZoam' 'ZRzh6Ah4GYCTKBQLt' 'odi3QM4WiaweN2mxm'
+ 'nqqmuiN9eFNSuwG33' 'tcutcGNauc76iZBaK' 'oWhg6isJ2es2ZsFER'
+ '2eTd4sshdYvFG8bnr']"
+78jNZDZRJmAjDiqyc,qnJEsyAitX9C5ZWia,32,144,7,2,"['hpzYiMjReY6oJ6fKw' 'vzFWPTzTpDxporPgF' 'SPsFH7xj4GwkXSfWz'
+ 'JjPdSWAaTnPLKxh5E']"
+78jNZDZRJmAjDiqyc,hpzYiMjReY6oJ6fKw,18,87,5,1,"['qnJEsyAitX9C5ZWia' 'vzFWPTzTpDxporPgF' 'SPsFH7xj4GwkXSfWz'
+ 'JjPdSWAaTnPLKxh5E']"
+78jNZDZRJmAjDiqyc,vzFWPTzTpDxporPgF,9,43,3,0,"['qnJEsyAitX9C5ZWia' 'hpzYiMjReY6oJ6fKw' 'SPsFH7xj4GwkXSfWz'
+ 'JjPdSWAaTnPLKxh5E']"
+78jNZDZRJmAjDiqyc,SPsFH7xj4GwkXSfWz,2,10,1,0,"['qnJEsyAitX9C5ZWia' 'hpzYiMjReY6oJ6fKw' 'vzFWPTzTpDxporPgF'
+ 'JjPdSWAaTnPLKxh5E']"
+78jNZDZRJmAjDiqyc,JjPdSWAaTnPLKxh5E,8,48,2,1,"['qnJEsyAitX9C5ZWia' 'hpzYiMjReY6oJ6fKw' 'vzFWPTzTpDxporPgF'
+ 'SPsFH7xj4GwkXSfWz']"
