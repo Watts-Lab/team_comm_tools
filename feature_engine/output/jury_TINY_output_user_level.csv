@@ -1,0 +1,24 @@
+conversation_num,speaker_nickname,num_words,num_chars,num_messages,function_word_accommodation,user_list
+0,niceRhino,127,653,8,16,"['culturedCow' 'spryBison' 'youngLion' 'smallGiraffe' 'culturedBear'
+ 'spryOrangutan' 'littleSquirrel']"
+0,culturedCow,140,725,5,12,"['niceRhino' 'spryBison' 'youngLion' 'smallGiraffe' 'culturedBear'
+ 'spryOrangutan' 'littleSquirrel']"
+0,spryBison,88,407,9,10,"['niceRhino' 'culturedCow' 'youngLion' 'smallGiraffe' 'culturedBear'
+ 'spryOrangutan' 'littleSquirrel']"
+0,youngLion,127,627,8,14,"['niceRhino' 'culturedCow' 'spryBison' 'smallGiraffe' 'culturedBear'
+ 'spryOrangutan' 'littleSquirrel']"
+0,smallGiraffe,91,443,8,3,"['niceRhino' 'culturedCow' 'spryBison' 'youngLion' 'culturedBear'
+ 'spryOrangutan' 'littleSquirrel']"
+0,culturedBear,123,598,6,6,"['niceRhino' 'culturedCow' 'spryBison' 'youngLion' 'smallGiraffe'
+ 'spryOrangutan' 'littleSquirrel']"
+0,spryOrangutan,130,657,7,20,"['niceRhino' 'culturedCow' 'spryBison' 'youngLion' 'smallGiraffe'
+ 'culturedBear' 'littleSquirrel']"
+0,littleSquirrel,30,183,1,4,"['niceRhino' 'culturedCow' 'spryBison' 'youngLion' 'smallGiraffe'
+ 'culturedBear' 'spryOrangutan']"
+1,newLion,76,433,12,6,"['likelyRabbit' 'conventionalMonkey' 'littleCow' 'newPanda'
+ 'likelyGorilla']"
+1,likelyRabbit,99,499,9,12,['newLion' 'conventionalMonkey' 'littleCow' 'newPanda' 'likelyGorilla']
+1,conventionalMonkey,169,903,12,10,['newLion' 'likelyRabbit' 'littleCow' 'newPanda' 'likelyGorilla']
+1,littleCow,101,513,4,8,['newLion' 'likelyRabbit' 'conventionalMonkey' 'newPanda' 'likelyGorilla']
+1,newPanda,108,568,5,13,['newLion' 'likelyRabbit' 'conventionalMonkey' 'littleCow' 'likelyGorilla']
+1,likelyGorilla,106,544,3,11,['newLion' 'likelyRabbit' 'conventionalMonkey' 'littleCow' 'newPanda']
