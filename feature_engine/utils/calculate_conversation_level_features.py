@@ -93,7 +93,7 @@ class ConversationLevelFeaturesCalculator:
         """
 
         # For each summarizable feature
-        for column in self.columns_to_summarize:
+        for column in self.columns_to_summarize.remove("num_messages"): # Note: num_messages is always 1, so doesn't make sense at this level
             
             # Average/Mean of feature across the Conversation
             self.conv_data = pd.merge(
