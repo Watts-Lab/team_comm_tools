@@ -23,6 +23,26 @@ def get_user_sum_dataframe(chat_level_data, on_column, speaker_id = "speaker_nic
 	# 0      1      Yuluan   90
 	return(grouped_conversation_data)
 
+
+'''
+function: get_user_average_dataframe
+
+Returns a dataframe that gets the average number of X per individual, where X could be # words, etc.
+
+In other words, this dataframe first groups by the user and AVERAGES all of a feature, and returns the average.
+
+@param chat_level_data = a dataframe in which each row is one chat.
+@param on_column = the name of the numeric column, X, which is summed per individual
+'''
+def get_user_average_dataframe(chat_level_data, on_column, speaker_id = "speaker_nickname"):
+	grouped_conversation_data = chat_level_data[["conversation_num", speaker_id, on_column]].groupby(["conversation_num", speaker_id]).np.mean().reset_index() 
+    # gets this dataframe:
+	# Batch# Round# Speaker  Total Number of Words
+	# 0 	 1      Priya    100
+	# 0      1      Yuluan   90
+	return(grouped_conversation_data)
+
+
 '''
 function: get_average()
 

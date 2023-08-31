@@ -25,7 +25,8 @@ class ModelBuilder():
             task_map_path: str='../utils/task_map.csv', 
             dataset_names: list=["csop"], 
             test_dataset_names: list=None,
-            standardize_within = False
+            standardize_within = False,
+            low_corr_thresh = 0.1
         ) -> None:
         """Initializes the various objects and variables used throughout the `ModelBuilder` class.
 
@@ -38,7 +39,7 @@ class ModelBuilder():
                                                  Ideally this value would be set to `["csopII"]` when `dataset_names` is set to `["csop"]`. Otherwise it is wise to keep it None.
                                                  Defaults to `None`.
             standardize_within (bool, optional): A boolean that determines whether features are standardized *within* tasks /individual datasets (if True), or *across* tasks (if False). Defaults to False.
-
+            low_corr_thresh (float, optional): a threshold for dropping features that have a correlation with the target lower than this level. Defaults to 0.1.
         
         Returns:
             (None)
@@ -58,6 +59,7 @@ class ModelBuilder():
             self.task_maps = pd.read_csv(task_map_path)
             self.task_maps = self.task_maps[self.task_maps['task'].isin(self.config['task_names'])]
             self.standardize_within = standardize_within
+            self.low_corr_thresh = low_corr_thresh
         # If the user has specified a test set(s), then we need to build it seperately
         if self.test_dataset_names != None: 
             self.create_datasets(is_test_datasets=True)
@@ -176,6 +178,35 @@ class ModelBuilder():
         # Calling this function to add in task related features to the combined datasets created above.
         self.integrate_task_level_features(is_test_datasets=is_test_datasets)
 
+    # drop columns that have close to 0 correlation with the target
+    def get_columns_with_low_signal(self, df, CORR_THRESH=0.1) -> None:
+        # List of columns to exclude from correlation calculation
+        columns_to_exclude = ["target_std", "target_raw"]
+
+        # Calculate correlations
+        correlation_list = []
+        for column in df.columns:
+            if column not in columns_to_exclude:
+                correlation = np.corrcoef(df[column], df["target_std"])[0][1]
+                correlation_list.append((column, correlation))
+
+        # Sort the list based on correlation values
+        correlation_list.sort(key=lambda x: abs(x[1]), reverse=True)
+
+        # Filter out columns with absolute correlation < 0.1
+        filtered_correlation_list = [(column, correlation) for column, correlation in correlation_list if abs(correlation) < CORR_THRESH]
+
+        # Sort the filtered list based on correlation values
+        filtered_correlation_list.sort(key=lambda x: abs(x[1]), reverse=True)
+
+        return([col for col, correlation in filtered_correlation_list])
+
+    # drop columns that have 1 unique values between all rows
+    def drop_invariant_columns(self, df) -> None:
+        nunique = df.nunique()
+        cols_to_drop = nunique[nunique == 1].index
+        return(df.drop(cols_to_drop, axis=1))
+
     def get_sample_weighting(self, df) -> None:
         """
         Since we have an imbalance in the number of samples we have from different tasks, we need to inversely
@@ -263,6 +294,13 @@ class ModelBuilder():
             target (list): A list of strings that are the column names to be used as targets in the final models
         """
         self.set_target(target, is_test = False)
+        # Cleans up dataframe once target is set.
+        self.clean_up_columns()
+
+    def clean_up_columns(self) -> None:
+        # Clean up CONV: (1) Drop anything that is invariant; and (2) Preemptively remove anything with a low correlation with the target
+        self.conv = self.drop_invariant_columns(self.conv)
+        self.conv = self.conv.drop(self.get_columns_with_low_signal(self.conv, self.low_corr_thresh), axis = 1)
 
     def select_test_target(self, target: list):
         """This function calls the `set_target()` above for the test set.

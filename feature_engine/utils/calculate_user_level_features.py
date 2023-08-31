@@ -84,12 +84,27 @@ class UserLevelFeaturesCalculator:
 
             (In essence, these all represent _counts_ of something, for which it makes sense to get a "total")
         """
-        # For each summarizable feature
+        # For each "summable" feature
         for column in self.summable_columns:
-            # Average/Mean of feature across the Conversation
+            # Sum of feature across the Conversation
             self.user_data = pd.merge(
                 left=self.user_data,
                 right=get_user_sum_dataframe(self.chat_data, column),
+                on=['conversation_num', 'speaker_nickname'],
+                how="inner"
+            )
+
+    def get_user_level_averaged_features(self) -> None:
+        """
+            This function is used to aggregate the summary statistics from 
+            chat level features.
+        """
+        # For each summarizable feature
+        for column in self.columns_to_summarize:
+            # Average/Mean of feature across the Conversation
+            self.user_data = pd.merge(
+                left=self.user_data,
+                right=get_user_average_dataframe(self.chat_data, column),
                 on=['conversation_num', 'speaker_nickname'],
                 how="inner"
             )
