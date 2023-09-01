@@ -375,6 +375,23 @@ class ModelBuilder():
 
         return X, y
 
+    def set_datasets(self, X_train = None, X_val = None, X_test = None, y_train = None, y_val = None, y_test = None) -> None:
+        '''
+        This method allows the user to set any of the datasets (X_train, X_val, X_test, y_train, y_val, y_test) 
+        to any particular dataset of their choosing.
+        '''
+        if(X_train is not None and y_train is not None) and (len(X_train) == len(y_train)):
+            self.X_train = X_train
+            self.y_train = y_train
+        if(X_val is not None and y_val is not None) and (len(X_val) == len(y_val)):
+            self.X_val = X_val
+            self.y_val = y_val
+        if(X_test is not None and y_test is not None) and (len(X_test) == len(y_test)):
+            self.X_test = X_test
+            self.y_test = y_test
+        else:
+            pass
+
     def clean_up_columns(self) -> None:
         '''
         Clean up columns: (1) Drop anything that is invariant; and (2) Preemptively remove anything with a low correlation with the target
