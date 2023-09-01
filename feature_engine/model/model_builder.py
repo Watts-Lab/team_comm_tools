@@ -26,7 +26,8 @@ class ModelBuilder():
             dataset_names: list=["csop"], 
             test_dataset_names: list=None,
             standardize_within = False,
-            low_corr_thresh = 0.1
+            low_corr_thresh = 0.1,
+            feature_downselect = True
         ) -> None:
         """Initializes the various objects and variables used throughout the `ModelBuilder` class.
 
@@ -40,7 +41,7 @@ class ModelBuilder():
                                                  Defaults to `None`.
             standardize_within (bool, optional): A boolean that determines whether features are standardized *within* tasks /individual datasets (if True), or *across* tasks (if False). Defaults to False.
             low_corr_thresh (float, optional): a threshold for dropping features that have a correlation with the target lower than this level. Defaults to 0.1.
-        
+            feature_downselect(bool, optional): a boolean to determine whether we down-select features automatically (drop any invariant columns, and remove columns with low correlation w/ the DV in the training data). Defaults to True.
         Returns:
             (None)
         """
@@ -60,6 +61,8 @@ class ModelBuilder():
             self.task_maps = self.task_maps[self.task_maps['task'].isin(self.config['task_names'])]
             self.standardize_within = standardize_within
             self.low_corr_thresh = low_corr_thresh
+            self.feature_downselect = feature_downselect
+
         # If the user has specified a test set(s), then we need to build it seperately
         if self.test_dataset_names != None: 
             self.create_datasets(is_test_datasets=True)
@@ -189,8 +192,9 @@ class ModelBuilder():
         # Sort the list based on correlation values
         correlation_list.sort(key=lambda x: abs(x[1]), reverse=True)
 
-        # Filter out columns with absolute correlation < 0.1
-        filtered_correlation_list = [(column, correlation) for column, correlation in correlation_list if abs(correlation) < CORR_THRESH]
+        # Filter out columns with absolute correlation < THRESH
+        # If the threshold is set to 0, there are no filters
+        filtered_correlation_list = [(column, correlation) for column, correlation in correlation_list if abs(correlation) <= CORR_THRESH]
 
         # Sort the filtered list based on correlation values
         filtered_correlation_list.sort(key=lambda x: abs(x[1]), reverse=True)
@@ -423,7 +427,8 @@ class ModelBuilder():
 
         # Clean up columns based on correlations in the TRAINING set
         print("Cleaning Up Columns...")
-        self.clean_up_columns()
+        if self.feature_downselect:
+            self.clean_up_columns()
 
         print('Done')
 
@@ -435,18 +440,25 @@ class ModelBuilder():
         a model that is trained on a far smaller number of features. An example use case
         is creating baselines using only one feature at a time.
         """
-        if feature_subset: # filter down to only the feature subset
-            self.X_train = self.X_train[feature_subset]
-            self.X_val = self.X_val[feature_subset]
-            if self.has_test_set:
-                self.X_test = self.X_test[feature_subset]
+        if feature_subset is not None: # filter down to only the feature subset
+            self.filter_down_features(feature_subset)
 
         model = model.fit(self.X_train, self.y_train, self.sample_weight)
 
         return(self.summarize_model_metrics(model, visualize_model = False))
 
 
-    def evaluate_model(self, model, val_size: float=0.1, test_size: float=0.1, random_state: int=42, visualize_model:bool = True) -> None:
+    def filter_down_features(self, feature_subset) -> None:
+        """
+        This function filters the X's down to a specified subset.
+        """
+        self.X_train = self.X_train[feature_subset]
+        self.X_val = self.X_val[feature_subset]
+        if self.has_test_set:
+            self.X_test = self.X_test[feature_subset]
+
+
+    def evaluate_model(self, model, feature_subset=None, val_size: float=0.1, test_size: float=0.1, random_state: int=42, visualize_model:bool = True) -> None:
         """This is a driver function that calls a bunch of different functions for the following tasks:
            - Train-Val-Test splits
            - Model Training
@@ -455,12 +467,17 @@ class ModelBuilder():
 
         Args:
             model (sklearn/xgboost model): This is the model object defined by `define_model()` function
+            feature_subset (list, optional): This allows the user to input a custom list of feature names for use in training the model
             val_size (float, optional): This controls the validation data size. Defaults to 0.1.
             test_size (float, optional): This control the test data size (used when there was no explicit dataset designated for testing). Defaults to 0.1.
             random_state (int, optional): This controls the random seed for randomization. Defaults to 42, but user can provide it.
             visualize_model (bool, optional): This controls whether we want to print the visualization of the model's SHAP values or not
         """
         self.get_split_datasets(model, val_size, test_size, random_state)
+
+        if feature_subset is not None: # filter down to only the feature subset
+            self.filter_down_features(feature_subset)
+
         print('Training Model', end='...')
 
         # in cases where we have multiple datasets, we weight the loss function inversely based on 
