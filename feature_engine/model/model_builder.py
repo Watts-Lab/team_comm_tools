@@ -183,11 +183,16 @@ class ModelBuilder():
 
     # drop columns that have close to 0 correlation with the target
     def get_columns_with_low_signal(self, df, target, CORR_THRESH=0.1) -> None:
+        
+        # Exclude task columns
+        task_exclusions = self.task_maps.columns
+
         # Calculate correlations
         correlation_list = []
         for column in df.columns:
-            correlation = np.corrcoef(df[column], target)[0][1]
-            correlation_list.append((column, correlation))
+            if column not in task_exclusions: # ensure we don't drop the task map columns!
+                correlation = np.corrcoef(df[column], target)[0][1]
+                correlation_list.append((column, correlation))
 
         # Sort the list based on correlation values
         correlation_list.sort(key=lambda x: abs(x[1]), reverse=True)
