@@ -26,6 +26,15 @@ if __name__ == "__main__":
 	# )
 	# feature_builder.featurize(col="message")
 
+	# Tiny CSOP --- another test set!
+	tiny_csop_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_TINY.csv",
+		output_file_path_chat_level = "../feature_engine/output/csop_TINY_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/csop_TINY_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/csop_TINY_output_conversation_level.csv",
+	)
+	tiny_csop_feature_builder.featurize(col="message")
+
 	#####
 
 	# A tiny dataset built specifically for testing function and content word mimicry
@@ -257,32 +266,32 @@ if __name__ == "__main__":
 	
 
 	# Estimation (Gurcay)
-	gurcay_estimation_feature_builder_first25pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_25/gurcay2015estimation_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/first_25/gurcay2015estimation_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_25/gurcay2015estimation_output_conversation_level.csv",
-		analyze_first_pct = 0.25
-	)
-	gurcay_estimation_feature_builder_first25pct.featurize(col="message")	
+	# gurcay_estimation_feature_builder_first25pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_25/gurcay2015estimation_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/first_25/gurcay2015estimation_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_25/gurcay2015estimation_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.25
+	# )
+	# gurcay_estimation_feature_builder_first25pct.featurize(col="message")	
 
-	gurcay_estimation_feature_builder_first50pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_50/gurcay2015estimation_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/first_50/gurcay2015estimation_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_50/gurcay2015estimation_output_conversation_level.csv",
-		analyze_first_pct = 0.50
-	)
-	gurcay_estimation_feature_builder_first50pct.featurize(col="message")
+	# gurcay_estimation_feature_builder_first50pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_50/gurcay2015estimation_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/first_50/gurcay2015estimation_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_50/gurcay2015estimation_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.50
+	# )
+	# gurcay_estimation_feature_builder_first50pct.featurize(col="message")
 
-	gurcay_estimation_feature_builder_first75pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_75/gurcay2015estimation_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/first_75/gurcay2015estimation_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_75/gurcay2015estimation_output_conversation_level.csv",
-		analyze_first_pct = 0.75
-	)
-	gurcay_estimation_feature_builder_first75pct.featurize(col="message")	
+	# gurcay_estimation_feature_builder_first75pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_75/gurcay2015estimation_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/first_75/gurcay2015estimation_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_75/gurcay2015estimation_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.75
+	# )
+	# gurcay_estimation_feature_builder_first75pct.featurize(col="message")	
 
 	# gurcay_estimation_feature_builder_first80pct = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
@@ -293,41 +302,41 @@ if __name__ == "__main__":
 	# )
 	# gurcay_estimation_feature_builder_first80pct.featurize(col="message")
 
-	gurcay_estimation_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/gurcay2015estimation_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/gurcay2015estimation_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/gurcay2015estimation_output_conversation_level.csv"
-	)
-	gurcay_estimation_feature_builder.featurize(col="message")
+	# gurcay_estimation_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/gurcay2015estimation_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/gurcay2015estimation_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/gurcay2015estimation_output_conversation_level.csv"
+	# )
+	# gurcay_estimation_feature_builder.featurize(col="message")
 
-	# # Estimation (Becker)
-	becker_estimation_feature_builder_first25pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_25/beckerestimation_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/first_25/beckerestimation_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_25/beckerestimation_output_conversation_level.csv",
-		analyze_first_pct = 0.25
-	)
-	becker_estimation_feature_builder_first25pct.featurize(col="message")
+	# # # Estimation (Becker)
+	# becker_estimation_feature_builder_first25pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_25/beckerestimation_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/first_25/beckerestimation_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_25/beckerestimation_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.25
+	# )
+	# becker_estimation_feature_builder_first25pct.featurize(col="message")
 
-	becker_estimation_feature_builder_first50pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_50/beckerestimation_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/first_50/beckerestimation_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_50/beckerestimation_output_conversation_level.csv",
-		analyze_first_pct = 0.5
-	)
-	becker_estimation_feature_builder_first50pct.featurize(col="message")
+	# becker_estimation_feature_builder_first50pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_50/beckerestimation_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/first_50/beckerestimation_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_50/beckerestimation_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.5
+	# )
+	# becker_estimation_feature_builder_first50pct.featurize(col="message")
 
-	becker_estimation_feature_builder_first75pct = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/first_75/beckerestimation_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/first_75/beckerestimation_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/first_75/beckerestimation_output_conversation_level.csv",
-		analyze_first_pct = 0.75
-	)
-	becker_estimation_feature_builder_first75pct.featurize(col="message")
+	# becker_estimation_feature_builder_first75pct = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/first_75/beckerestimation_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/first_75/beckerestimation_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/first_75/beckerestimation_output_conversation_level.csv",
+	# 	analyze_first_pct = 0.75
+	# )
+	# becker_estimation_feature_builder_first75pct.featurize(col="message")
 
 	# becker_estimation_feature_builder_first80pct = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
@@ -338,10 +347,10 @@ if __name__ == "__main__":
 	# )
 	# becker_estimation_feature_builder_first80pct.featurize(col="message")
 
-	becker_estimation_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
-		output_file_path_chat_level = "../feature_engine/output/beckerestimation_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/beckerestimation_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/beckerestimation_output_conversation_level.csv"
-	)
-	becker_estimation_feature_builder.featurize(col="message")
+	# becker_estimation_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/beckerestimation_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/beckerestimation_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/beckerestimation_output_conversation_level.csv"
+	# )
+	# becker_estimation_feature_builder.featurize(col="message")

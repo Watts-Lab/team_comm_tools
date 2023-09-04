@@ -114,7 +114,7 @@ class ModelBuilder():
             except KeyError:
                 print("Are you sure that your dataset name is correct?")
             # Dropping redundant columns as specified in the config file    
-            conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1).dropna(axis=1) # Note --- drop NA COLUMNS, not NA ROWS
+            conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1)
             # Standardizing Features
             conv = pd.DataFrame(StandardScaler().fit_transform(conv),columns = conv.columns)
             # We store the dataset name to make it easy to join task related features later on in the pipeline.
@@ -126,19 +126,19 @@ class ModelBuilder():
             for dataset_name in dataset_names:
                 # Try reading in the dataset
                 try:
-                    full_dataset = pd.read_csv(self.output_dir + self.config[dataset_name]["filename"]).dropna(axis=1)
+                    full_dataset = pd.read_csv(self.output_dir + self.config[dataset_name]["filename"])
                     convs_complete.append(full_dataset)
                 # Handling the case when the dataset names is not found in the config files
                 except KeyError:
                     print("Are you sure that your dataset name is correct?")
                 
                 # Remove redundant columns from the current dataset
-                df_extra_columns_dropped = full_dataset.drop(self.config[dataset_name]["cols_to_ignore"], axis=1).dropna(axis=1)
+                df_extra_columns_dropped = full_dataset.drop(self.config[dataset_name]["cols_to_ignore"], axis=1)
                 
                 # check if timestamp is present
                 has_timestamp.append("timestamp" in self.config[dataset_name]["cols_to_ignore"])
 
-                #Standard Features WIHIN each task
+                #Standard Features WIHIN each task (TODO, this is actually within dataset)
                 if self.standardize_within:
                     df_extra_columns_dropped = pd.DataFrame(StandardScaler().fit_transform(df_extra_columns_dropped),columns = df_extra_columns_dropped.columns)
 
@@ -154,7 +154,11 @@ class ModelBuilder():
             # standardize only numeric cols
             numeric = conv[conv.select_dtypes(include='number').columns]
             scaled_numeric = pd.DataFrame(StandardScaler().fit_transform(numeric), columns=numeric.columns)
-            conv[numeric.columns] = scaled_numeric.values
+            conv.update(scaled_numeric)
+
+        # IMPUTATION -- TODO, make this better! Imputing with zero is imperfect because 0 has a meaning here
+        # but this happens after standardization, so we're effectively setting it to the mean
+        conv = conv.fillna(0)
 
         # Remove timestamp if not present in all datasets being concatenated
         if(not all(has_timestamp)):
@@ -280,6 +284,9 @@ class ModelBuilder():
             # Add in the combined raw and standardized targets
             conversation_clean["target_raw"] = target_raw_list
             conversation_clean["target_std"] = target_std_list
+
+        # If the DV is null, then there is nothing to predict, so it's safe to throw out the row
+        conversation_clean = conversation_clean.dropna(subset=['target_std'])
 
         # Set everything in global variables of the class
         if(not is_test):
