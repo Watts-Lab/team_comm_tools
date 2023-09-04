@@ -114,7 +114,7 @@ class ModelBuilder():
             except KeyError:
                 print("Are you sure that your dataset name is correct?")
             # Dropping redundant columns as specified in the config file    
-            conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1).dropna()
+            conv = conv_complete.drop(self.config[dataset_names[0]]["cols_to_ignore"], axis=1).dropna(axis=1) # Note --- drop NA COLUMNS, not NA ROWS
             # Standardizing Features
             conv = pd.DataFrame(StandardScaler().fit_transform(conv),columns = conv.columns)
             # We store the dataset name to make it easy to join task related features later on in the pipeline.
@@ -126,14 +126,14 @@ class ModelBuilder():
             for dataset_name in dataset_names:
                 # Try reading in the dataset
                 try:
-                    full_dataset = pd.read_csv(self.output_dir + self.config[dataset_name]["filename"]).dropna()
+                    full_dataset = pd.read_csv(self.output_dir + self.config[dataset_name]["filename"]).dropna(axis=1)
                     convs_complete.append(full_dataset)
                 # Handling the case when the dataset names is not found in the config files
                 except KeyError:
                     print("Are you sure that your dataset name is correct?")
                 
                 # Remove redundant columns from the current dataset
-                df_extra_columns_dropped = full_dataset.drop(self.config[dataset_name]["cols_to_ignore"], axis=1).dropna()
+                df_extra_columns_dropped = full_dataset.drop(self.config[dataset_name]["cols_to_ignore"], axis=1).dropna(axis=1)
                 
                 # check if timestamp is present
                 has_timestamp.append("timestamp" in self.config[dataset_name]["cols_to_ignore"])
