@@ -3,7 +3,7 @@
         "filename": "beckerestimation_output_conversation_level.csv",
         "cols_to_ignore": [
             "conversation_num", "mean_pre_discussion_error", "mean_post_discussion_error", "median_pre_discussion_error", "median_post_discussion_error", 
-            "median_pre_discussion_error_pct", "median_post_discussion_error_pct", "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "question", "chatrooms", "trial_indx"
+            "median_pre_discussion_error_pct", "median_post_discussion_error_pct", "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "reverse_mean_post_discussion_error_pct", "reverse_median_post_discussion_error_pct", "question", "chatrooms", "trial_indx"
         ]
     },
     "csop": {
@@ -31,7 +31,7 @@
         "filename": "gurcay2015estimation_output_conversation_level.csv",
         "cols_to_ignore": [
             "conversation_num", "mean_pre_discussion_error", "mean_post_discussion_error", "median_pre_discussion_error", "median_post_discussion_error", 
-            "median_pre_discussion_error_pct", "median_post_discussion_error_pct", "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "question"
+            "median_pre_discussion_error_pct", "median_post_discussion_error_pct", "mean_pre_discussion_error_pct", "mean_post_discussion_error_pct", "reverse_mean_post_discussion_error_pct", "reverse_median_post_discussion_error_pct", "question"
         ]
     },
     "juries": {
