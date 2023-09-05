@@ -106,7 +106,7 @@ class ModelBuilder():
         if(not isinstance(dataset_names, list)):
             raise TypeError("Please provide the dataset names as a list!")
 
-        # If we have only one dataset then there is not need to combine datasets. Just remove the redundant columns from the dataset needed, and we have the required dataset.
+        # If we have only one dataset then there is no need to combine datasets. Just remove the redundant columns from the dataset needed, and we have the required dataset.
         if(len(dataset_names)==1): 
             try:
                 conv_complete = pd.read_csv(self.output_dir + self.config[dataset_names[0]]["filename"])
@@ -185,8 +185,24 @@ class ModelBuilder():
         # Calling this function to add in task related features to the combined datasets created above.
         self.integrate_task_level_features(is_test_datasets=is_test_datasets)
 
-    # drop columns that have close to 0 correlation with the target
     def get_columns_with_low_signal(self, df, target, CORR_THRESH=0.1) -> None:
+        """
+        This function compares the columns in a dataframe (that is passed in by the user)
+        with a target (provided by the user).
+
+        Since we may generate a large number of features, this function works with the
+        low_corr_thresh and feature_downselect parameters of the ModelBuilder to reduce the numbers
+        of features that we pass in the model.
+
+        Specifically, after the train-test split takes place, we filter out features
+        that have a low correlation with the target (as they are least likely to contain useful signal).
+
+        @param df: the dataframe containing the features. (We assume no targets in this df/this shoudl be X!)
+        @param target: a column containing the target
+        @param CORR_THRESTH: the correlation threshold below which we drop columns.
+            - This defaults to the same value (0.1) as low_corr_thresh
+            - If it is set to 0, no columns are dropped; as abs(correlation) should always be >= 0.
+        """
         
         # Exclude task columns
         task_exclusions = self.task_maps.columns
@@ -203,15 +219,24 @@ class ModelBuilder():
 
         # Filter out columns with absolute correlation < THRESH
         # If the threshold is set to 0, there are no filters
-        filtered_correlation_list = [(column, correlation) for column, correlation in correlation_list if abs(correlation) <= CORR_THRESH]
+        filtered_correlation_list = [(column, correlation) for column, correlation in correlation_list if abs(correlation) < CORR_THRESH]
 
         # Sort the filtered list based on correlation values
         filtered_correlation_list.sort(key=lambda x: abs(x[1]), reverse=True)
 
         return([col for col, correlation in filtered_correlation_list])
 
-    # drop columns that have 1 unique values between all rows
     def drop_invariant_columns(self, df) -> None:
+        """
+        Certain features are invariant throughout the training data (e.g., the entire column is 0 throughout).
+
+        These feature obviously won't be very useful predictors, so we drop them after train-test split.
+
+        This function works by identifying columns that only have 1 unique value throughout the entire column,
+        and then dropping them.
+
+        @df: the dataframe containing the features (this should be X).
+        """
         nunique = df.nunique()
         cols_to_drop = nunique[nunique == 1].index
         return(df.drop(cols_to_drop, axis=1))
@@ -242,7 +267,8 @@ class ModelBuilder():
             self.test_conv.drop(['dataset_name', 'task_name', 'task'], axis=1, inplace=True)
         else:
             self.conv['task_name'] = self.conv['dataset_name'].map(self.config['task_mapping_keys'])
-            # Training dataset needs to be inversely weighted
+            # Training dataset needs to be inversely weighted so that the model does not overfit to 
+            # task datasets that are over-represented
             self.conv = self.get_sample_weighting(self.conv)
             self.conv = pd.merge(left=self.conv, right=self.task_maps, left_on=['task_name'], right_on=['task'], how='left')
             self.conv.drop(['dataset_name', 'task_name', 'task'], axis=1, inplace=True)
@@ -409,9 +435,10 @@ class ModelBuilder():
             pass
 
     def clean_up_columns(self) -> None:
-        '''
-        Clean up columns: (1) Drop anything that is invariant; and (2) Preemptively remove anything with a low correlation with the target
-        '''
+        """
+        Clean up columns: (1) Drop anything that is invariant; and 
+        (2) Preemptively remove anything with a low correlation with the target
+        """
 
         # Determine the drops based on the training set
         self.X_train = self.drop_invariant_columns(self.X_train)
@@ -429,6 +456,10 @@ class ModelBuilder():
 
         Before returning, it also uses the training set to filter down the features
         into a smaller set, using clean_up_column.
+
+        @param val_size: the validation set size (for splitting the datasets) Defaults to 0.1
+        @param test_size: the test dataset size. Defaults to 0.1.
+        @param random_state: the random seed, used for reproducibility (and creating different random splits).
         """
         print('Checking Holdout Sets', end='...')
         if self.test_dataset_names == None:
@@ -448,14 +479,18 @@ class ModelBuilder():
         """
         This function trains the model and returns the metrics without SHAP diagnostics.
 
-        feature_subset (default = None) is a parameter that allows the user to specify
+        @param feature_subset (default = None) is a parameter that allows the user to specify
         a model that is trained on a far smaller number of features. An example use case
-        is creating baselines using only one feature at a time.
+        is creating baselines using only one feature at a time. In this case, the user can pass
+        in the list of feature(s) they want the model to be trained on, and the model will be fit
+        using only the specified feature.
         """
         if feature_subset is not None: # filter down to only the feature subset
             self.filter_down_features(feature_subset)
 
+        print('Training Model', end='...')
         model = model.fit(self.X_train, self.y_train, self.sample_weight)
+        print('Done')
 
         return(self.summarize_model_metrics(model, visualize_model = False))
 
@@ -463,6 +498,8 @@ class ModelBuilder():
     def filter_down_features(self, feature_subset) -> None:
         """
         This function filters the X's down to a specified subset.
+
+        @param feature_subset: the list of columns that we are reducing the X's to.
         """
         self.X_train = self.X_train[feature_subset]
         self.X_val = self.X_val[feature_subset]
@@ -560,6 +597,9 @@ class ModelBuilder():
     def summarize_model_metrics(self, model, visualize_model:bool = True) -> None:
         """Prints out model metrics for each of the datasets - train, val and test
 
+        Returns: the metrics as a dictionary. This allows the user to store the metrics in addition
+        to viewing them printed out.
+
         Args:
             model (sklearn/xgboost model): The fitted model.
             visualize_model: Print all the verbose model details. (Defaults to True)
@@ -642,9 +682,11 @@ class ModelBuilder():
         })
 
         # Object that summarizes SHAP values for the model
+        # By examining the shap_summary attribute of the model object, users can look at
+        # the shap features and analyze them in detail.
         self.shap_summary = shap_df
 
-
+        # Visualize the SHAP summary
         if visualize_model:
             shap.summary_plot(shap_values, self.X_val, feature_names=self.X_val.columns, plot_type="bar")
             shap.summary_plot(shap_values, self.X_val, feature_names=self.X_val.columns)
