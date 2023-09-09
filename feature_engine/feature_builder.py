@@ -63,8 +63,9 @@ class FeatureBuilder:
 
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
+        
         # Preprocess chat data
-        self.preprocess_chat_data(col="message")
+        self.preprocess_chat_data(col="message", turns=True)
 
         self.input_columns = self.chat_data.columns
         
@@ -126,7 +127,7 @@ class FeatureBuilder:
         print("All Done!")
         self.save_features()
 
-    def preprocess_chat_data(self, col: str="message") -> None:
+    def preprocess_chat_data(self, col: str="message", turns=False) -> None:
         """
             This function is used to call all the preprocessing modules needed to clean the text.
         
@@ -145,6 +146,9 @@ class FeatureBuilder:
         # Preprocessing the text in `col` and then overwriting the column `col`.
         # TODO: We should probably use classes to abstract preprocessing module as well?
         self.chat_data[col] = self.chat_data[col].astype(str).apply(preprocess_text)
+
+        if (turns):
+            self.chat_data = preprocess_naive_turns(self.chat_data)
 
     def chat_level_features(self) -> None:
         """
