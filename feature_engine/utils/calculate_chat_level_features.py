@@ -36,6 +36,8 @@ class ChatLevelFeaturesCalculator:
         PARAMETERS:
             @param chat_data (pd.DataFrame): This is a pandas dataframe of the chat level features read in from the input dataset.
         """
+        # print(f'this is the length{len(chat_data)}')
+        # print(chat_data.tail(1))
         self.chat_data = chat_data
         self.bert_sentiment_data = bert_sentiment_data # Load BERT 
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
@@ -53,7 +55,7 @@ class ChatLevelFeaturesCalculator:
         """
 
         # Concat sentiment BERT markers (done through preprocessing)
-        self.concat_bert_features()
+        # self.concat_bert_features()
         
         # Text-Based Basic Features
         self.text_based_features()
@@ -77,7 +79,7 @@ class ChatLevelFeaturesCalculator:
         self.calculate_textblob_sentiment()
         
         # Positivity Z-Score
-        self.positivity_zscore()
+        # self.positivity_zscore()
 
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
