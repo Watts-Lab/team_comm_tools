@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 def reduce_chunks(num_rows, max_num_chunks):
     if (num_rows < max_num_chunks * 2):
@@ -10,7 +11,7 @@ def reduce_chunks(num_rows, max_num_chunks):
     
 
 # Assign chunk numbers to the chats within each conversation
-def assign_chunk_nums(chat_data, num_chunks):
+def create_chunks_messages(chat_data, num_chunks):
 
     # Calculate the total number of rows per conversation
     conversation_lengths = chat_data.groupby('conversation_num').size()
@@ -38,3 +39,52 @@ def assign_chunk_nums(chat_data, num_chunks):
                 counter = 0    
 
     return(chat_data)
+
+
+# Assign chunk numbers based on time
+def create_chunks(chat_data,num_chunks):
+
+    #check if there are timestamps
+    final_df = pd.DataFrame(columns=chat_data.columns)
+
+    for index, conv in chat_data.groupby(['batch_num', 'round_num']):
+
+        # Convert timestamp column to DateTime format
+        conv['timestamp'] = pd.to_datetime(conv['timestamp'])
+
+        # Calculate the total duration of the conversation
+        total_duration = (conv['timestamp'].max() - conv['timestamp'].min()).total_seconds()
+        # total_duration = int(df['duration'][0])
+
+        # Calculate the duration of each chunk
+        chunk_duration = total_duration / num_chunks
+
+        if chunk_duration == 0:
+            chunk_duration = 1
+
+        # Add a new column for chunk number
+        conv['chunk'] = -1 
+
+        # Assign the chunk number for each row
+        for index, row in conv.iterrows():
+            #get the timestamp 
+            timestamp = row['timestamp']
+
+            #calculate the chunk number
+            chunk_number = int(((timestamp - conv['timestamp'].min())).total_seconds() / chunk_duration)
+
+            #restrict the range of the chunks from 0 to num_chunks - 1
+            if chunk_number >= num_chunks:
+                conv.at[index, 'chunk'] = num_chunks - 1
+            else:
+                conv.at[index, 'chunk'] = chunk_number
+        final_df = pd.concat([final_df, conv], ignore_index = True)
+    
+    return final_df
+
+
+def assign_chunk_nums(chat_data, num_chunks):
+    if 'timestamp' in chat_data.columns:
+        return create_chunks(chat_data, num_chunks)
+    else:
+        return create_chunks_messages(chat_data, num_chunks)
