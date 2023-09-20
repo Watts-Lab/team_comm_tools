@@ -21,6 +21,7 @@ from utils.summarize_chat_level_features import *
 from utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
 from utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
 from utils.preprocess import *
+from utils.check_embeddings import *
 
 class FeatureBuilder:
     def __init__(
@@ -53,21 +54,28 @@ class FeatureBuilder:
         # Set first pct of conversation you want to analyze
         self.first_pct = analyze_first_pct
 
-        # Set word embedding path
-        self.word_embedding_path = re.sub('../feature_engine/data/raw_data', './embeddings', self.input_file_path)
-        self.vect_data = pd.read_csv(self.word_embedding_path, encoding='mac_roman')
-
-        # Set bert sentiment path
-        self.bert_sentiment_path = re.sub('../feature_engine/data/raw_data', './sentiment_bert/', self.input_file_path)
-        self.bert_sentiment_data = pd.read_csv(self.bert_sentiment_path, encoding='mac_roman').drop('Unnamed: 0', axis=1)
-
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
         
         # Preprocess chat data
-        self.preprocess_chat_data(col="message", turns=True)
+        self.turns = True
+        self.preprocess_chat_data(col="message", turns=self.turns)
 
         self.input_columns = self.chat_data.columns
+
+
+        # Set all paths for vector retrieval (contingent on turns)
+        df_type = "turns" if self.turns else "chats"
+        self.vect_path = re.sub('../feature_engine/data/raw_data', './embeddings/' + df_type, input_path)
+        self.bert_path = re.sub('../feature_engine/data/raw_data', './sentiment_bert/' + df_type, input_path)
+
+        # Check + generate embeddings
+        # TODO: Pass in self object?
+        check_embeddings(self.input_file_path, self.vect_path, self.bert_path)
+
+        self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
+        self.bert_sentiment_data = pd.read_csv(self.bert_path, encoding='mac_roman').drop('Unnamed: 0', axis=1)
+
         
         # Deriving the base conversation level dataframe.
         # This is the number of unique conversations (and, in conversations with multiple levels, the number of
