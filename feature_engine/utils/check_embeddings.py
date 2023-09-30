@@ -19,14 +19,14 @@ model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 # Check if embeddings exist
 def check_embeddings(chat_data, vect_path, bert_path):
     
-    vect_output_path = re.sub('./feature_engine', '', vect_path)
-    bert_output_path = re.sub('./feature_engine', '', bert_path)
+    # vect_output_path = re.sub('./feature_engine', '', vect_path)
+    # bert_output_path = re.sub('./feature_engine', '', bert_path)
 
     # ../feature_engine/embeddings --> ../embeddings
     if (not os.path.isfile(vect_path)):
-        generate_vect(chat_data, vect_output_path)
+        generate_vect(chat_data, vect_path)
     if (not os.path.isfile(bert_path)):
-        generate_bert(chat_data, bert_output_path)
+        generate_bert(chat_data, bert_path)
 
 
 # Generate sentence vectors

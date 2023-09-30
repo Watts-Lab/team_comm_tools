@@ -31,6 +31,7 @@ class FeatureBuilder:
             input_file_path: str, 
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
+            output_file_path_turn_level: str,
             output_file_path_conv_level: str,
             analyze_first_pct: float=1.0, 
             turns: bool=True
@@ -73,9 +74,10 @@ class FeatureBuilder:
 
         # Set all paths for vector retrieval (contingent on turns)
         df_type = "turns" if self.turns else "chats"
-        self.vect_path = re.sub('data/raw_data', 'embeddings/' + df_type, input_file_path)
-        self.bert_path = re.sub('data/raw_data', 'sentiment_bert/' + df_type, input_file_path)
-        self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
+        self.vect_path = re.sub('raw_data', 'vectors/sentence/' + df_type, input_file_path)
+        self.bert_path = re.sub('raw_data', 'vectors/sentiment/' + df_type, input_file_path)
+        self.output_file_path_chat_level = output_file_path_turn_level if self.turns else output_file_path_chat_level
+        # self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
 
         # Check + generate embeddings
         check_embeddings(self.chat_data, self.vect_path, self.bert_path)
