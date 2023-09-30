@@ -12,45 +12,49 @@ from scipy.special import softmax
 
 
 model_vect = SentenceTransformer('all-MiniLM-L6-v2')
-
 MODEL  = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
 # Check if embeddings exist
-def check_embeddings(input_path, vect_path, bert_path):
+def check_embeddings(chat_data, vect_path, bert_path):
     
-    dataset = re.sub('../feature_engine/data/raw_data', '', input_path)
-    
+    vect_output_path = re.sub('./feature_engine', '', vect_path)
+    bert_output_path = re.sub('./feature_engine', '', bert_path)
+
+    # ../feature_engine/embeddings --> ../embeddings
     if (not os.path.isfile(vect_path)):
-        generate_vect(vect_path, dataset)
+        generate_vect(chat_data, vect_output_path)
     if (not os.path.isfile(bert_path)):
-        generate_bert(bert_path, dataset)
+        generate_bert(chat_data, bert_output_path)
 
 
 # Generate sentence vectors
-def generate_vect(output_path, dataset):
+def generate_vect(chat_data, output_path):
 
-    embedding_arr = [row.tolist() for row in model.encode(self.chat_data.messages)]
-    embedding_df = pd.DataFrame({'message': self.chat_data.messages, 'message_embedding': embedding_arr})
+    print(f"Generating sentence vectors....")
+    # print(f"This is the current filepath: {os. getcwd()}")
+    # print(f"And we want to get to {output_path}")
+    embedding_arr = [row.tolist() for row in model_vect.encode(chat_data.message)]
+    embedding_df = pd.DataFrame({'message': chat_data.message, 'message_embedding': embedding_arr})
 
-    embedding_df.to_csv(output_path + dataset + '.csv')
+
+    embedding_df.to_csv(output_path)
 
 
 # Generate BERT sentiments 
-def generate_bert(output_path, dataset):
+def generate_bert(chat_data, output_path):
     
-    # TODO: does this overwrite messages column?
-    sentiments = self.chat_data.messages.apply(get_sentiment)
+    print(f"Generating BERT sentiments....")
+
+    messages = chat_data['message']
+    sentiments = messages.apply(get_sentiment)
 
     sent_arr = [list(dict.values()) for dict in sentiments]
 
     sent_df = pd.DataFrame(sent_arr, columns =['positive_bert', 'negative_bert', 'neutral_bert']) 
     
-    output_csv_folder = '../../sentiment_bert/'
-
-    # TODO: validate the dataset name ipynb, parse from the input path?
-    sent_df.to_csv(output_path + dataset + '.csv')
+    sent_df.to_csv(output_path)
 
 def get_sentiment(text):
 
