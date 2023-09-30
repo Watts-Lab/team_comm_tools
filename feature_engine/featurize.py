@@ -36,12 +36,13 @@ if __name__ == "__main__":
 	# feature_builder_first_80pct.featurize(col="message")
 
 	# Tiny Juries --- this is our default, test set.
-	# feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/jury_TINY_output_chat_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/jury_TINY_output_conversation_level.csv",
-	# )
-	# feature_builder.featurize(col="message")
+	feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
+		output_file_path_chat_level = "../feature_engine/output/jury_TINY_output_chat_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/jury_TINY_output_conversation_level.csv",
+		turns = False
+	)
+	feature_builder.featurize(col="message")
 
 	#####
 
@@ -137,13 +138,13 @@ if __name__ == "__main__":
 	# csopII_feature_builder_first80pct.featurize(col="message")	
 
 
-	csopII_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
-		output_file_path_chat_level = "../feature_engine/output/csopII_output_chat_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/csopII_output_conversation_level.csv"
-	)
+	# csopII_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/csopII_output_chat_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/csopII_output_conversation_level.csv"
+	# )
 
-	csopII_feature_builder.featurize(col="message")
+	# csopII_feature_builder.featurize(col="message")
 
 	
 
