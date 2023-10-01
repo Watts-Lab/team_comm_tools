@@ -48,13 +48,15 @@ def create_chunks(chat_data,num_chunks):
     final_df = pd.DataFrame(columns=chat_data.columns)
 
     for index, conv in chat_data.groupby(['batch_num', 'round_num']):
-
-        # Convert timestamp column to DateTime format
-        conv['timestamp'] = pd.to_datetime(conv['timestamp'])
+        
+        # Typecheck: str --> convert to DateTime
+        isDT = isinstance(type(conv['timestamp'].iloc[0]), str)
+        
+        if (isDT):
+            conv['timestamp'] = pd.to_datetime(conv['timestamp'])
 
         # Calculate the total duration of the conversation
-        total_duration = (conv['timestamp'].max() - conv['timestamp'].min()).total_seconds()
-        # total_duration = int(df['duration'][0])
+        total_duration = int((conv['timestamp'].max() - conv['timestamp'].min()).total_seconds()) if isDT else int(conv['timestamp'].max() - conv['timestamp'].min())
 
         # Calculate the duration of each chunk
         chunk_duration = total_duration / num_chunks
@@ -71,7 +73,7 @@ def create_chunks(chat_data,num_chunks):
             timestamp = row['timestamp']
 
             #calculate the chunk number
-            chunk_number = int(((timestamp - conv['timestamp'].min())).total_seconds() / chunk_duration)
+            chunk_number = int(((timestamp - conv['timestamp'].min())).total_seconds() / chunk_duration) if isDT else int(((timestamp - conv['timestamp'].min())) / chunk_duration)
 
             #restrict the range of the chunks from 0 to num_chunks - 1
             if chunk_number >= num_chunks:
