@@ -10,7 +10,8 @@ def reduce_chunks(num_rows, max_num_chunks):
         return max_num_chunks
     
 
-# Assign chunk numbers to the chats within each conversation
+# Assign chunk numbers to the chats within each conversation based on the number of messages.
+# This ensures that there is an even number of messages per chunk.
 def create_chunks_messages(chat_data, num_chunks):
 
     # Calculate the total number of rows per conversation
@@ -42,51 +43,79 @@ def create_chunks_messages(chat_data, num_chunks):
 
 
 # Assign chunk numbers based on time
-def create_chunks(chat_data,num_chunks):
+def create_chunks(df, num_chunks):
 
-    #check if there are timestamps
-    final_df = pd.DataFrame(columns=chat_data.columns)
+    final_df = pd.DataFrame(columns=df.columns)
 
-    for index, conv in chat_data.groupby(['batch_num', 'round_num']):
-        
-        # Typecheck: str --> convert to DateTime
-        isDT = isinstance(type(conv['timestamp'].iloc[0]), str)
-        
-        if (isDT):
-            conv['timestamp'] = pd.to_datetime(conv['timestamp'])
+    # Replace instances of NULL_TIME; this throws off the type checking
+    df['timestamp'] = df['timestamp'].replace('NULL_TIME', None)
+    timestamps = df['timestamp'].dropna()
 
-        # Calculate the total duration of the conversation
-        total_duration = int((conv['timestamp'].max() - conv['timestamp'].min()).total_seconds()) if isDT else int(conv['timestamp'].max() - conv['timestamp'].min())
+    is_datetime_string = False
 
-        # Calculate the duration of each chunk
-        chunk_duration = total_duration / num_chunks
+    # Check the type of the timestamp string
+    if (isinstance(timestamps[0], str)): # DateTime String, e.g., '2023-02-20 09:00:00'
+        df['timestamp'] = pd.to_datetime(df['timestamp'])
+        is_datetime_string = True
+    elif(isinstance(timestamps[0], int)):
+        if(timestamps[0] > 423705600): # this is Unix time; the magic number is a time in 1983!
+            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
+        # If it's not Unix time, we can treat it as an int offset
 
-        if chunk_duration == 0:
-            chunk_duration = 1
+    # Group and calculate difference
+    for conversation_num, group in df.groupby(['conversation_num']):
+
+        if pd.api.types.is_datetime64_any_dtype(df['timestamp']):
+            total_duration_seconds = (group['timestamp'].max() - group['timestamp'].min()).total_seconds() if is_datetime_string else (group['timestamp'].max() - group['timestamp'].min()).total_seconds()
+        else:
+            total_duration_seconds = (group['timestamp'].max() - group['timestamp'].min())
 
         # Add a new column for chunk number
-        conv['chunk'] = -1 
+        group['chunk'] = -1 
 
-        # Assign the chunk number for each row
-        for index, row in conv.iterrows():
-            #get the timestamp 
-            timestamp = row['timestamp']
+        # Catch NA's from the case where people didn't chat or only 1 chat exists --- all chunk nums should be 0
+        if pd.isna(total_duration_seconds) or total_duration_seconds == 0:
+            group['chunk'] = 0
 
-            #calculate the chunk number
-            chunk_number = int(((timestamp - conv['timestamp'].min())).total_seconds() / chunk_duration) if isDT else int(((timestamp - conv['timestamp'].min())) / chunk_duration)
+        # Case where people did chat
+        else:
+            # Calculate the duration of each chunk
+            chunk_duration = total_duration_seconds / num_chunks
 
-            #restrict the range of the chunks from 0 to num_chunks - 1
-            if chunk_number >= num_chunks:
-                conv.at[index, 'chunk'] = num_chunks - 1
-            else:
-                conv.at[index, 'chunk'] = chunk_number
-        final_df = pd.concat([final_df, conv], ignore_index = True)
-    
+            # Initialize the 'chunk' column
+            group['chunk'] = -1
+
+            for index, row in group.iterrows():
+                # Get the timestamp
+                timestamp = row['timestamp']
+                # Calculate the chunk number
+                if pd.api.types.is_datetime64_any_dtype(df['timestamp']):
+                    chunk_number = int(((timestamp - group['timestamp'].min()).total_seconds()) / chunk_duration)
+                else:
+                    chunk_number = int(((timestamp - group['timestamp'].min())) / chunk_duration)
+
+                # Assign the chunk number for each row
+                group.loc[index, 'chunk'] = chunk_number
+
+            # restrict the range of the chunks from 0 to num_chunks - 1
+            group['chunk'] = group['chunk'].clip(0, num_chunks - 1)
+
+        final_df = pd.concat([final_df, group], ignore_index=True)
+
     return final_df
 
 
-def assign_chunk_nums(chat_data, num_chunks):
-    if 'timestamp' in chat_data.columns:
+def assign_chunk_nums(chat_data, num_chunks, use_time_if_possible = True):
+"""
+Assigns chunks to the chat data, splitting it into "equal" pieces.
+
+@param chat_data: the input chat data
+@param num_chunks: the number of chunks desired
+@param use_time_if_possible: if a timestamp exists, chunk based on the timestamp rather than
+    based on the number of messages. Defaults to True.
+    When set to false, will use the number of messages to chunk instead.
+"""
+    if 'timestamp' in chat_data.columns and use_time_if_possible:
         return create_chunks(chat_data, num_chunks)
     else:
         return create_chunks_messages(chat_data, num_chunks)
