@@ -71,19 +71,19 @@ def create_chunks(df, num_chunks):
             total_duration_seconds = (group['timestamp'].max() - group['timestamp'].min())
 
         # Add a new column for chunk number
-        group['chunk'] = -1 
+        group['chunk_num'] = -1 
 
         # Catch NA's from the case where people didn't chat or only 1 chat exists --- all chunk nums should be 0
         if pd.isna(total_duration_seconds) or total_duration_seconds == 0:
-            group['chunk'] = 0
+            group['chunk_num'] = 0
 
         # Case where people did chat
         else:
             # Calculate the duration of each chunk
             chunk_duration = total_duration_seconds / num_chunks
 
-            # Initialize the 'chunk' column
-            group['chunk'] = -1
+            # Initialize the 'chunk_num' column
+            group['chunk_num'] = -1
 
             for index, row in group.iterrows():
                 # Get the timestamp
@@ -95,17 +95,16 @@ def create_chunks(df, num_chunks):
                     chunk_number = int(((timestamp - group['timestamp'].min())) / chunk_duration)
 
                 # Assign the chunk number for each row
-                group.loc[index, 'chunk'] = chunk_number
+                group.loc[index, 'chunk_num'] = chunk_number
 
             # restrict the range of the chunks from 0 to num_chunks - 1
-            group['chunk'] = group['chunk'].clip(0, num_chunks - 1)
+            group['chunk_num'] = group['chunk_num'].clip(0, num_chunks - 1)
 
         final_df = pd.concat([final_df, group], ignore_index=True)
 
     return final_df
 
 
-def assign_chunk_nums(chat_data, num_chunks, use_time_if_possible = True):
 """
 Assigns chunks to the chat data, splitting it into "equal" pieces.
 
@@ -115,6 +114,7 @@ Assigns chunks to the chat data, splitting it into "equal" pieces.
     based on the number of messages. Defaults to True.
     When set to false, will use the number of messages to chunk instead.
 """
+def assign_chunk_nums(chat_data, num_chunks, use_time_if_possible = True):
     if 'timestamp' in chat_data.columns and use_time_if_possible:
         return create_chunks(chat_data, num_chunks)
     else:
