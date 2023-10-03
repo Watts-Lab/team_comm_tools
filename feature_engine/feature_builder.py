@@ -31,10 +31,9 @@ class FeatureBuilder:
             input_file_path: str, 
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
-            output_file_path_turn_level: str,
             output_file_path_conv_level: str,
             analyze_first_pct: float=1.0, 
-            turns: bool=True
+            turns: bool=False
         ) -> None:
         """
             This function is used to define variables used throughout the class.
@@ -71,13 +70,11 @@ class FeatureBuilder:
 
         self.input_columns = self.chat_data.columns
 
-
         # Set all paths for vector retrieval (contingent on turns)
         df_type = "turns" if self.turns else "chats"
         self.vect_path = re.sub('raw_data', 'vectors/sentence/' + df_type, input_file_path)
         self.bert_path = re.sub('raw_data', 'vectors/sentiment/' + df_type, input_file_path)
-        self.output_file_path_chat_level = output_file_path_turn_level if self.turns else output_file_path_chat_level
-        # self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
+        self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
 
         # Check + generate embeddings
         check_embeddings(self.chat_data, self.vect_path, self.bert_path)
