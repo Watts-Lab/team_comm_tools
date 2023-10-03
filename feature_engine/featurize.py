@@ -19,24 +19,24 @@ if __name__ == "__main__":
 
 	# TINY Test sets --- just two conversations each
 	# Tiny Juries
-	feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
-		output_file_path_chat_level = "../feature_engine/output/chat/jury_TINY_output_chat_level.csv",
-		output_file_path_turn_level = "../feature_engine/output/turn/jury_TINY_output_turn_level.csv",
-		output_file_path_user_level = "../feature_engine/output/user/jury_TINY_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/jury_TINY_output_conversation_level.csv",
-		turns = True
-	)
-	feature_builder.featurize(col="message")
+	# feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/jury_TINY_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/jury_TINY_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/jury_TINY_output_conversation_level.csv",
+	# 	turns = True
+	# )
+	# feature_builder.featurize(col="message")
 
 	# Tiny CSOP
-	# tiny_csop_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_TINY.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/csop_TINY_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/csop_TINY_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/csop_TINY_output_conversation_level.csv",
-	# )
-	# tiny_csop_feature_builder.featurize(col="message")
+	tiny_csop_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_TINY.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/csop_TINY_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/csop_TINY_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/csop_TINY_output_conversation_level.csv",
+		turns=True
+	)
+	tiny_csop_feature_builder.featurize(col="message")
 
 	#####
 
