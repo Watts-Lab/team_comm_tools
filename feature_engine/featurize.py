@@ -40,26 +40,6 @@ if __name__ == "__main__":
 
 	#####
 
-	# A tiny dataset built specifically for testing function and content word mimicry
-	# mimicry_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/test_mimicry.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/test_mimicry_output_chat_level.csv",
-	#	output_file_path_user_level = "../feature_engine/output/test_mimicry_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/test_mimicry_output_conversation_level.csv"
-	# )
-
-	# mimicry_feature_builder.featurize(col="message")
-
-	# A tiny dataset built specifically for testing NTRI
-	# ntri_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/test_ntri.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/test_ntri_output_chat_level.csv",
-	#	output_file_path_user_level = "../feature_engine/output/test_ntri_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/test_ntri_output_conversation_level.csv"
-	# )
-
-	# ntri_feature_builder.featurize(col="message")
-
 	# FULL DATASETS BELOW
 
 	# Juries
@@ -106,7 +86,6 @@ if __name__ == "__main__":
 	# 	output_file_path_user_level = "../feature_engine/output/jury_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/jury_output_conversation_level.csv"
 	# )
-
 	# jury_feature_builder.featurize(col="message")
 
 
