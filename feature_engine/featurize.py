@@ -32,35 +32,15 @@ if __name__ == "__main__":
 	# Tiny CSOP
 	tiny_csop_feature_builder = FeatureBuilder(
 		input_file_path = "../feature_engine/data/raw_data/csop_conversations_TINY.csv",
-		output_file_path_chat_level = "../feature_engine/output/csop_TINY_output_chat_level.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/csop_TINY_output_chat_level.csv",
 		output_file_path_turn_level = "../feature_engine/output/turn/csop_TINY_output_turn_level.csv",
-		output_file_path_user_level = "../feature_engine/output/csop_TINY_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/csop_TINY_output_conversation_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/csop_TINY_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/csop_TINY_output_conversation_level.csv",
 		turns = True
 	)
 	tiny_csop_feature_builder.featurize(col="message")
 
 	#####
-
-	# A tiny dataset built specifically for testing function and content word mimicry
-	# mimicry_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/test_mimicry.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/test_mimicry_output_chat_level.csv",
-	#	output_file_path_user_level = "../feature_engine/output/test_mimicry_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/test_mimicry_output_conversation_level.csv"
-	# )
-
-	# mimicry_feature_builder.featurize(col="message")
-
-	# A tiny dataset built specifically for testing NTRI
-	# ntri_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/test_ntri.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/test_ntri_output_chat_level.csv",
-	#	output_file_path_user_level = "../feature_engine/output/test_ntri_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/test_ntri_output_conversation_level.csv"
-	# )
-
-	# ntri_feature_builder.featurize(col="message")
 
 	# FULL DATASETS BELOW
 
@@ -108,7 +88,6 @@ if __name__ == "__main__":
 	# 	output_file_path_user_level = "../feature_engine/output/jury_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/jury_output_conversation_level.csv"
 	# )
-
 	# jury_feature_builder.featurize(col="message")
 
 
