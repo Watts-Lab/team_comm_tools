@@ -102,6 +102,8 @@ def create_chunks(df, num_chunks):
 
         final_df = pd.concat([final_df, group], ignore_index=True)
 
+    # Cast the chunk to a string
+    final_df['chunk_num'] = str(final_df['chunk_num'])
     return final_df
 
 
@@ -111,9 +113,10 @@ Assigns chunks to the chat data, splitting it into "equal" pieces.
 @param chat_data: the input chat data
 @param num_chunks: the number of chunks desired
 @param use_time_if_possible: if a timestamp exists, chunk based on the timestamp rather than
-    based on the number of messages. Defaults to False (which means we chunk by # messages by default).
+    based on the number of messages. Defaults to True; this means we chunk via time when possible,
+    and we chunk by message only when the timestamp doesn't exist.
 """
-def assign_chunk_nums(chat_data, num_chunks, use_time_if_possible = False):
+def assign_chunk_nums(chat_data, num_chunks, use_time_if_possible = True):
     if 'timestamp' in chat_data.columns and use_time_if_possible:
         return create_chunks(chat_data, num_chunks)
     else:
