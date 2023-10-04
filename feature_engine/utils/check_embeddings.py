@@ -3,6 +3,8 @@ import numpy as np
 import re
 import os
 
+from pathlib import Path
+
 import torch
 from sentence_transformers import SentenceTransformer, util
 
@@ -28,7 +30,6 @@ def check_embeddings(chat_data, vect_path, bert_path):
     if (not os.path.isfile(bert_path)):
         generate_bert(chat_data, bert_path)
 
-
 # Generate sentence vectors
 def generate_vect(chat_data, output_path):
 
@@ -39,8 +40,9 @@ def generate_vect(chat_data, output_path):
     embedding_df = pd.DataFrame({'message': chat_data.message, 'message_embedding': embedding_arr})
 
 
+    # Create directories along the path if they don't exist
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     embedding_df.to_csv(output_path)
-
 
 # Generate BERT sentiments 
 def generate_bert(chat_data, output_path):
@@ -54,6 +56,8 @@ def generate_bert(chat_data, output_path):
 
     sent_df = pd.DataFrame(sent_arr, columns =['positive_bert', 'negative_bert', 'neutral_bert']) 
     
+    # Create directories along the path if they don't exist
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     sent_df.to_csv(output_path)
 
 def get_sentiment(text):
