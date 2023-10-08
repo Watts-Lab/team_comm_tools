@@ -23,6 +23,7 @@ from features.textblob_sentiment_analysis import *
 from features.readability import *
 from features.question_num import *
 from features.temporal_features import *
+from features.certainty import *
 
 # Importing utils
 from utils.preload_word_lists import *
@@ -89,6 +90,8 @@ class ChatLevelFeaturesCalculator:
 
         # Politeness (ConvoKit)
         self.calculate_politeness_sentiment()
+
+        self.get_certainty_score()
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
@@ -235,3 +238,8 @@ class ChatLevelFeaturesCalculator:
 
         # Concatenate the transformed dataframe with the original dataframe
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
+
+    def get_certainty_score(self) -> None:
+        
+        print("Calculating certainty...")
+        self.chat_data["certainty"] = self.chat_data["message"].apply(get_certainty)
