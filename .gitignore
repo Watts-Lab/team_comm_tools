@@ -16,3 +16,4 @@ feature_engine/features/lexicons_dict.pkl
 *.py[cod]
 feature_engine/data/vectors/sentence
 feature_engine/data/vectors/sentiment
+feature_engine/features/lexicons/certainty.txt
