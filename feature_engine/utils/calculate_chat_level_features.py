@@ -240,6 +240,4 @@ class ChatLevelFeaturesCalculator:
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
 
     def get_certainty_score(self) -> None:
-        
-        print("Calculating certainty...")
         self.chat_data["certainty"] = self.chat_data["message"].apply(get_certainty)
