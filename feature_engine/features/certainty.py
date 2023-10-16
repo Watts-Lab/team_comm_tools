@@ -2,20 +2,19 @@ import pandas as pd
 import re
 
 def get_certainty(chat): 
-    certainty = pd.read_csv("./features/lexicons/certainty.txt").sort_values(["NumWords", "NumCharacters"], ascending=False)
-   
-    certainty_score = 0
-
-    # sub every instance with the associated normative certainty score 
-    for index, row in certainty.iterrows():
-        
-        certainty_pattern = row["Word"]
-        num_matches = len(re.findall(certainty_pattern, chat))
-
-        # so that we don't double count substrings
-        # i.e. to prevent counting both "i think that" AND "i think"
-        chat = re.sub(certainty_pattern, '', chat)
-        certainty_score += (row["Certainty"] * num_matches)
-       
     
-    return certainty_score
+    # parse certainty lexicon, compile into master regex, delimited by | 
+    certainty = pd.read_csv("./features/lexicons/certainty.txt").sort_values(["NumWords", "NumCharacters"], ascending=False)
+    master_regex = certainty["Word"].str.cat(sep='|')
+   
+    # pattern match via re library
+    certainty_score = 0
+    matches = re.findall(master_regex, chat)
+
+    for match in matches:
+        certainty_score += certainty.loc[certainty['Word'] == match]["Certainty"].iloc[0]
+
+    # safeguard against division by zero error
+    if (len(matches) == 0):
+        return certainty_score
+    return (certainty_score / len(matches))
