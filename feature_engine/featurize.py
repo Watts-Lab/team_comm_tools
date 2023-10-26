@@ -44,16 +44,6 @@ if __name__ == "__main__":
 
 	# FULL DATASETS BELOW
 
-	# Deliberation (Live Video Transcript Data)
-	deliberation_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/deliberation_test_transcript.csv",
-		output_file_path_chat_level = "../feature_engine/output/chat/deliberation_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/user/deliberation_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/deliberation_output_conversation_level.csv",
-		turns = False # note: we don't need it, but turns are breaking on this dataset
-	)
-	deliberation_feature_builder.featurize(col="message")
-
 	# # Juries
 	# jury_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
