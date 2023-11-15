@@ -1,12 +1,13 @@
 import pandas as pd
 import re
 
+# parse certainty lexicon, compile into master regex, delimited by | 
+certainty = pd.read_csv("./features/lexicons/certainty.txt").sort_values(["NumWords", "NumCharacters"], ascending=False)
+master_regex = certainty["Word"].str.cat(sep='\\b|') + "\\b"
+
+
 def get_certainty(chat): 
     
-    # parse certainty lexicon, compile into master regex, delimited by | 
-    certainty = pd.read_csv("./features/lexicons/certainty.txt").sort_values(["NumWords", "NumCharacters"], ascending=False)
-    master_regex = certainty["Word"].str.cat(sep='|')
-   
     # pattern match via re library
     certainty_score = 0
     matches = re.findall(master_regex, chat)
