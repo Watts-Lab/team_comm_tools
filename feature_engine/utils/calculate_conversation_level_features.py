@@ -11,6 +11,7 @@ from features.basic_features import *
 # from utils.summarize_chat_level_features import *
 from utils.summarize_features import *
 from features.get_all_DD_features import *
+from features.fflow import *
 
 
 class ConversationLevelFeaturesCalculator:
@@ -59,6 +60,8 @@ class ConversationLevelFeaturesCalculator:
         
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
         self.get_discursive_diversity_features()
+
+        self.get_forward_flow()
 
         return self.conv_data
 
@@ -226,3 +229,15 @@ class ConversationLevelFeaturesCalculator:
             on=['conversation_num'],
             how="inner"
         )
+
+    def get_forward_flow(self) -> None:
+
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=fflow(self.chat_data, self.vect_data),
+            on=['conversation_num'],
+            how="inner"
+        )
+
+
