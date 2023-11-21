@@ -56,11 +56,7 @@ if __name__ == "__main__":
 	# jury_feature_builder.featurize(col="message")
 
 
-<<<<<<< HEAD
 	# CSOP (Abdullah)
-=======
-	# # CSOP (Abdullah)
->>>>>>> b7d6a2a510e3a69f2e8b624090233a2c8d14afff
 	# csop_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/csop_output_chat_level.csv",
