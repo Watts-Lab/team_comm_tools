@@ -56,7 +56,7 @@ class ChatLevelFeaturesCalculator:
         """
 
         # Concat sentiment BERT markers (done through preprocessing)
-        # self.concat_bert_features()
+        self.concat_bert_features()
         
         # Text-Based Basic Features
         self.text_based_features()
@@ -80,12 +80,12 @@ class ChatLevelFeaturesCalculator:
         self.calculate_textblob_sentiment()
         
         # Positivity Z-Score
-        # self.positivity_zscore()
+        self.positivity_zscore()
 
         # Dale-Chall readability features
         self.get_dale_chall_score_and_classfication()
         
-         # Tempora; features
+        # Temporal features
         self.get_temporal_features()
 
         # Politeness (ConvoKit)
@@ -228,6 +228,8 @@ class ChatLevelFeaturesCalculator:
         """
         if {'timestamp'}.issubset(self.chat_data.columns):
             self.chat_data["time_diff"] =  get_time_diff(self.chat_data,"timestamp") 
+        elif {'timestamp_start', 'timestamp_end'}.issubset(self.chat_data.columns):
+            self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data)
 
     def calculate_politeness_sentiment(self) -> None:
         """
