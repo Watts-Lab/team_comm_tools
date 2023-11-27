@@ -151,7 +151,7 @@ class ChatLevelFeaturesCalculator:
         This function helps to calculate features related to expressing hesitation (or 'hedge').
         """
         # Naive hedge (contains the word or not)
-        self.chat_data["hedge_naive"] = self.chat_data["hedge_words"].apply(is_hedged_sentence_1)
+        self.chat_data["hedge_naive"] = self.chat_data["hedge_words_lexical_per_100"].apply(is_hedged_sentence_1)
 
 
     def calculate_textblob_sentiment(self) -> None:
@@ -233,7 +233,7 @@ class ChatLevelFeaturesCalculator:
 
     def calculate_politeness_sentiment(self) -> None:
         """
-            This function calls the Politeness module from Convokit and includes all outputted features.
+        This function calls the Politeness module from Convokit and includes all outputted features.
         """
         transformed_df = self.chat_data['message'].apply(get_politeness_strategies).apply(pd.Series)
         transformed_df = transformed_df.rename(columns=lambda x: re.sub('^feature_politeness_==()','',x)[:-2].lower())
@@ -242,4 +242,8 @@ class ChatLevelFeaturesCalculator:
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
 
     def get_certainty_score(self) -> None:
-        self.chat_data["certainty"] = self.chat_data["message"].apply(get_certainty)
+        """
+        This function calculates the certainty score of a statement using the formula published in Rocklage et al. (2023)
+        Source: https://journals.sagepub.com/doi/pdf/10.1177/00222437221134802
+        """
+        self.chat_data["certainty_rocklage"] = self.chat_data["message"].apply(get_certainty)
