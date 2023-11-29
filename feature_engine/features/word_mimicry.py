@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from string import punctuation
 import re
+from .get_all_DD_features import *
+from sklearn.metrics.pairwise import cosine_similarity
 
 '''
     To compute word mimicry, we use the dataset that removed all the punctuations
@@ -79,3 +81,66 @@ def Content_mimicry_score(df, column_count_frequency, column_count_mimic):
   # Compute the content_mimicry_score
   return df[column_count_mimic].apply(lambda x:computeTF(x, ContWordFreq))
 # OUTPUT column: content_word_accommodation
+
+
+# WITH BERT SENTENCE VECTORS 
+
+def get_mimicry_bert(chat_data, vect_data):
+  
+  chat_df = chat_data.copy()
+  chat_df['message_embedding'] = conv_to_float_arr(vect_data['message_embedding'].to_frame())
+  # print(chat_df.head())
+
+  mimicry = []
+
+  for num, conv in chat_df.groupby(['conversation_num'],  sort=False):
+
+      # first chat has no zero mimicry score, nothing previous to compare it to 
+      mimicry.append(0)
+      prev_embedding = conv.iloc[0]['message_embedding']
+      
+      for index, row in conv[1:].iterrows():
+          
+          # last "pair" has only one element, safeguard against this
+          cos_sim_matrix = cosine_similarity([row['message_embedding'], prev_embedding])
+          cosine_sim = cos_sim_matrix[np.triu_indices(len(cos_sim_matrix), k = 1)][0]
+          
+          mimicry.append(cosine_sim)
+
+          prev_embedding = row['message_embedding'] 
+
+  return mimicry
+
+
+def get_moving_mimicry(chat_data, vect_data):
+
+  chat_df = chat_data.copy()
+  chat_df['message_embedding'] = conv_to_float_arr(vect_data['message_embedding'].to_frame())
+
+  moving_mimicry = []
+
+  for num, conv in chat_df.groupby(['conversation_num'], sort = False):
+
+      moving_mimicry.append(0)
+      prev_embedding = conv.iloc[0]["message_embedding"]
+      cached_pairwise_sims = 0
+      chat_count = 1
+      prev_mimicry = 0
+      
+      for index, row in conv[1:].iterrows():
+      
+          # find cosine similarity between current pair
+          cos_sim_matrix = cosine_similarity([row['message_embedding'], prev_embedding])
+          cosine_sim = cos_sim_matrix[np.triu_indices(len(cos_sim_matrix), k = 1)][0]
+
+          # average this distance with the previous average
+          
+          moving_mimicry.append((cosine_sim + prev_mimicry)/2)
+
+          # update values
+          cached_pairwise_sims += cosine_sim
+          chat_count += 1
+          prev_mimicry = cached_pairwise_sims/chat_count
+              
+      
+  return moving_mimicry
