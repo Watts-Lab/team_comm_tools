@@ -260,4 +260,4 @@ class ChatLevelFeaturesCalculator:
         This function calculates the certainty score of a statement using the formula published in Rocklage et al. (2023)
         Source: https://journals.sagepub.com/doi/pdf/10.1177/00222437221134802
         """
-        self.chat_data["certainty_rocklage"] = self.chat_data["message"].apply(get_certainty)
+        self.chat_data["certainty_rocklage"] = self.chat_data["message_lower_with_punc"].apply(get_certainty)
