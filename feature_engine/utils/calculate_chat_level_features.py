@@ -23,6 +23,7 @@ from features.textblob_sentiment_analysis import *
 from features.readability import *
 from features.question_num import *
 from features.temporal_features import *
+from features.fflow import *
 from features.certainty import *
 
 # Importing utils
@@ -30,7 +31,7 @@ from utils.preload_word_lists import *
 from utils.zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
 
 class ChatLevelFeaturesCalculator:
-    def __init__(self, chat_data: pd.DataFrame, bert_sentiment_data: pd.DataFrame) -> None:
+    def __init__(self, chat_data: pd.DataFrame, vect_data: pd.DataFrame, bert_sentiment_data: pd.DataFrame) -> None:
         """
             This function is used to initialize variables and objects that can be used by all functions of this class.
 
@@ -40,6 +41,7 @@ class ChatLevelFeaturesCalculator:
         # print(f'this is the length{len(chat_data)}')
         # print(chat_data.tail(1))
         self.chat_data = chat_data
+        self.vect_data = vect_data
         self.bert_sentiment_data = bert_sentiment_data # Load BERT 
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
         self.function_words = get_function_words() # load function words exactly once
@@ -91,6 +93,8 @@ class ChatLevelFeaturesCalculator:
         # Politeness (ConvoKit)
         self.calculate_politeness_sentiment()
 
+        # Forward Flow
+        self.get_forward_flow()
         self.get_certainty_score()
 
         # Return the input dataset with the chat level features appended (as columns)
@@ -210,7 +214,7 @@ class ChatLevelFeaturesCalculator:
         # Extract the function words / content words that also appears in the immediate previous turn
         self.chat_data["function_word_mimicry"] = mimic_words(self.chat_data, "function_words")
         self.chat_data["content_word_mimicry"] = mimic_words(self.chat_data, "content_words")
-        
+
         # Compute the number of function words that also appears in the immediate previous turn
         self.chat_data["function_word_accommodation"] = self.chat_data["function_word_mimicry"].apply(function_mimicry_score)
         
@@ -220,6 +224,10 @@ class ChatLevelFeaturesCalculator:
         # Drop the function / content word columns -- we don't need them in the output
         self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
 
+        # Compute the mimicry relative to the previous chat(s) using SBERT vectors
+        self.chat_data["mimicry_bert"] = get_mimicry_bert(self.chat_data, self.vect_data)
+        self.chat_data["moving_mimicry"] = get_moving_mimicry(self.chat_data, self.vect_data)
+        
     def get_temporal_features(self) -> None:
         """
         Calculates features relevant to the timestamps of each chat.
@@ -241,6 +249,12 @@ class ChatLevelFeaturesCalculator:
         # Concatenate the transformed dataframe with the original dataframe
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
 
+    def get_forward_flow(self) -> None:
+        """
+            This function calculates the chat-level forward flow, comparing the current chat to the average of the previous chats.
+        """
+        self.chat_data["forward_flow"] = get_forward_flow(self.chat_data, self.vect_data)
+   
     def get_certainty_score(self) -> None:
         """
         This function calculates the certainty score of a statement using the formula published in Rocklage et al. (2023)

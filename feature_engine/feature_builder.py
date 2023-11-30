@@ -124,7 +124,7 @@ class FeatureBuilder:
                               so as to identify the columns to preprocess.
         """
         # Step 1. Create chat level features.
-        print("Generating Chat Level Features ...")
+        print("Chat Level Features ...")
         self.chat_level_features()
 
         # Things to store before we loop through truncations
@@ -204,6 +204,7 @@ class FeatureBuilder:
         # Instantiating.
         chat_feature_builder = ChatLevelFeaturesCalculator(
             chat_data = self.chat_data,
+            vect_data = self.vect_data,
             bert_sentiment_data = self.bert_sentiment_data
         )
         # Calling the driver inside this class to create the features.
