@@ -68,16 +68,16 @@ if __name__ == "__main__":
 	# csop_feature_builder.featurize(col="message")
 
 
-	# # CSOP II (Nak Won Rim)
-	csopII_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
-		output_file_path_chat_level = "../feature_engine/output/chat/csopII_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/user/csopII_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/csopII_output_conversation_level.csv",
-		turns = True,
-		analyze_first_pct = [0.25, 0.5, 0.75, 1]
-	)
-	csopII_feature_builder.featurize(col="message")
+	# CSOP II (Nak Won Rim)
+	# csopII_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/csopII_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/csopII_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/csopII_output_conversation_level.csv",
+	# 	turns = True,
+	# 	analyze_first_pct = [0.25, 0.5, 0.75, 1]
+	# )
+	# csopII_feature_builder.featurize(col="message")
 
 	
 

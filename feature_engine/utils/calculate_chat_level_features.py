@@ -214,9 +214,7 @@ class ChatLevelFeaturesCalculator:
         # Extract the function words / content words that also appears in the immediate previous turn
         self.chat_data["function_word_mimicry"] = mimic_words(self.chat_data, "function_words")
         self.chat_data["content_word_mimicry"] = mimic_words(self.chat_data, "content_words")
-        self.chat_data["mimicry_bert"] = get_mimicry_bert(self.chat_data, self.vect_data)
-        self.chat_data["moving_mimicry"] = get_moving_mimicry(self.chat_data, self.vect_data)
-        
+
         # Compute the number of function words that also appears in the immediate previous turn
         self.chat_data["function_word_accommodation"] = self.chat_data["function_word_mimicry"].apply(function_mimicry_score)
         
@@ -226,6 +224,10 @@ class ChatLevelFeaturesCalculator:
         # Drop the function / content word columns -- we don't need them in the output
         self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
 
+        # Compute the mimicry relative to the previous chat(s) using SBERT vectors
+        self.chat_data["mimicry_bert"] = get_mimicry_bert(self.chat_data, self.vect_data)
+        self.chat_data["moving_mimicry"] = get_moving_mimicry(self.chat_data, self.vect_data)
+        
     def get_temporal_features(self) -> None:
         """
         Calculates features relevant to the timestamps of each chat.
@@ -251,8 +253,8 @@ class ChatLevelFeaturesCalculator:
         """
             This function calculates the chat-level forward flow, comparing the current chat to the average of the previous chats.
         """
-
         self.chat_data["forward_flow"] = get_forward_flow(self.chat_data, self.vect_data)
+   
     def get_certainty_score(self) -> None:
         """
         This function calculates the certainty score of a statement using the formula published in Rocklage et al. (2023)
