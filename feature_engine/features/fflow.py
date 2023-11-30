@@ -6,6 +6,15 @@ from .get_all_DD_features import *
 
 # CHAT LEVEL FEATURE
 
+"""
+function: get_forward_flow
+
+Measures the extent to which each chat in the conversation 'builds on' the previous chats
+in the conversation.
+
+- embedding_running_sum stores the running total embedding of all the chats that came before
+- avg_embedding stores the average of all the chats that came before
+"""
 def get_forward_flow(chat_data, vect_data):
     
     chat_df = chat_data.copy()
@@ -16,23 +25,23 @@ def get_forward_flow(chat_data, vect_data):
     for num, conv in chat_df.groupby(['conversation_num'],  sort=False):
 
         forward_flow.append(0)
-        cached_embedding = conv.iloc[0]["message_embedding"]
+        embedding_running_sum = conv.iloc[0]["message_embedding"]
         chat_count = 1
-        avg_embedding = cached_embedding / chat_count
+        avg_embedding = embedding_running_sum / chat_count
 
         for index, row in conv[1:].iterrows():
             
-            # determine distance from that and prev average, append to the list
+            # determine distance from that and average of all previous messages, append to the list
             cos_sim_matrix = cosine_similarity([row['message_embedding'], avg_embedding])
             cosine_sim = cos_sim_matrix[np.triu_indices(len(cos_sim_matrix), k = 1)][0]
 
             forward_flow.append(cosine_sim)
 
             # add to cache, increment count
-            cached_embedding += row["message_embedding"]
+            embedding_running_sum += row["message_embedding"]
             chat_count += 1
             
             # calculate new average
-            avg = cached_embedding / chat_count
+            avg_embedding = embedding_running_sum / chat_count
     
     return forward_flow
