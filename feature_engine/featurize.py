@@ -44,6 +44,17 @@ if __name__ == "__main__":
 
 	# FULL DATASETS BELOW
 
+	# Multi-Task Data
+	multi_task_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level.csv",
+		turns = True,
+		analyze_first_pct = [1]
+	)
+	multi_task_feature_builder.featurize(col="message")
+
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
