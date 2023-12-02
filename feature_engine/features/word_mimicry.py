@@ -102,12 +102,36 @@ def get_mimicry_bert(chat_data, vect_data):
       # first chat has no zero mimicry score, nothing previous to compare it to 
       mimicry.append(0)
       prev_embedding = conv.iloc[0]['message_embedding']
+
+      # TODO --- bug here
+      '''
+                         conversation_num            stageId  ... content_word_accommodation                                  message_embedding
+5762  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0  [0.017192184925079346, 0.021421026438474655, -...
+5763  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0  [-0.06343980133533478, 0.01011995691806078, 0....
+5764  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+5765  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+5766  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+5767  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+5768  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+5769  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+5770  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+5771  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+5772  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+5773  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
+      '''
+      print(conv)
+
+      print(prev_embedding) # --- possible nan issue here?
       
       for index, row in conv[1:].iterrows():
           
         # last "pair" has only one element, safeguard against this
-        cos_sim_matrix = cosine_similarity([row['message_embedding'], prev_embedding])
-        cosine_sim = cos_sim_matrix[np.triu_indices(len(cos_sim_matrix), k = 1)][0]
+        cur_embedding = row['message_embedding']
+        print(cur_embedding) ####
+        cos_sim_matrix = cosine_similarity([cur_embedding, prev_embedding])
+        cosine_sim = cos_sim_matrix[0, 1]
+
+        print(cosine_sim) ####
         
         mimicry.append(cosine_sim)
 
@@ -139,7 +163,7 @@ def get_moving_mimicry(chat_data, vect_data):
       for index, row in conv[1:].iterrows():
         # find cosine similarity between current pair
         cos_sim_matrix = cosine_similarity([row['message_embedding'], prev_embedding])
-        cosine_sim = cos_sim_matrix[np.triu_indices(len(cos_sim_matrix), k = 1)][0]
+        cosine_sim = cos_sim_matrix[0, 1]
 
         # get the running average
         prev_mimicry.append(cosine_sim)
