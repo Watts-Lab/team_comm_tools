@@ -103,7 +103,7 @@ class FeatureBuilder:
 
     def merge_conv_data_with_original(self) -> None:
         # Here, drop the message and speaker nickname (which do not matter at conversation level)
-        orig_data = preprocess_conversation_columns(pd.read_csv(self.input_file_path, encoding='mac_roman')).drop(columns=['message', 'speaker_nickname'])
+        orig_data = preprocess_conversation_columns(pd.read_csv(self.input_file_path, encoding='mac_roman'), self.conversation_id).drop(columns=['message', 'speaker_nickname'])
         orig_conv_data = orig_data.groupby(["conversation_num"]).nth(0).reset_index() # get 1st item (all conv items are the same)
         final_conv_output = pd.merge(
             left= self.conv_data,
@@ -234,7 +234,7 @@ class FeatureBuilder:
             user level features and add them into the `self.user_data` dataframe.
         """
         # Instantiating.
-        self.user_data = preprocess_conversation_columns(self.user_data)
+        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id)
         user_feature_builder = UserLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
@@ -253,7 +253,7 @@ class FeatureBuilder:
             conversation level features and add them into the `self.conv_data` dataframe.
         """
         # Instantiating.
-        self.conv_data = preprocess_conversation_columns(self.conv_data)
+        self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,

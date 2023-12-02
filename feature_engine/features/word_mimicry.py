@@ -103,35 +103,12 @@ def get_mimicry_bert(chat_data, vect_data):
       mimicry.append(0)
       prev_embedding = conv.iloc[0]['message_embedding']
 
-      # TODO --- bug here
-      '''
-                         conversation_num            stageId  ... content_word_accommodation                                  message_embedding
-5762  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0  [0.017192184925079346, 0.021421026438474655, -...
-5763  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0  [-0.06343980133533478, 0.01011995691806078, 0....
-5764  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-5765  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-5766  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-5767  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-5768  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-5769  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-5770  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-5771  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-5772  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-5773  3MRRSzADf8pKKfvKQ_Sudoku_HIGH  ECBpaMHrrLcvAb7Yz  ...                        0.0                                                NaN
-      '''
-      print(conv)
-
-      print(prev_embedding) # --- possible nan issue here?
-      
       for index, row in conv[1:].iterrows():
           
         # last "pair" has only one element, safeguard against this
         cur_embedding = row['message_embedding']
-        print(cur_embedding) ####
         cos_sim_matrix = cosine_similarity([cur_embedding, prev_embedding])
         cosine_sim = cos_sim_matrix[0, 1]
-
-        print(cosine_sim) ####
         
         mimicry.append(cosine_sim)
 
