@@ -34,7 +34,8 @@ class FeatureBuilder:
             output_file_path_user_level: str,
             output_file_path_conv_level: str,
             analyze_first_pct: list = [1.0], 
-            turns: bool=True
+            turns: bool=True,
+            conversation_id = None
         ) -> None:
         """
             This function is used to define variables used throughout the class.
@@ -50,6 +51,8 @@ class FeatureBuilder:
                 the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data
                 and compare the performance with using the full dataset.
                 This defaults to a single list containing the full dataset.
+            @param conversation_id: A string representing the column name that should be selected as the conversation ID.
+                This defaults to None.
         """
         #  Defining input and output paths.
         self.input_file_path = input_file_path
@@ -66,7 +69,8 @@ class FeatureBuilder:
 
         # Preprocess chat data
         self.turns = turns
-        self.preprocess_chat_data(col="message", turns=self.turns)
+        self.conversation_id = conversation_id
+        self.preprocess_chat_data(col="message", turns=self.turns, conversation_id = self.conversation_id)
 
         # Input columns are the columns that come in the raw chat data
         self.input_columns = self.chat_data.columns
@@ -173,7 +177,7 @@ class FeatureBuilder:
             print("All Done!")
             self.save_features()
 
-    def preprocess_chat_data(self, col: str="message", turns=False) -> None:
+    def preprocess_chat_data(self, col: str="message", turns=False, conversation_id=None) -> None:
         """
             This function is used to call all the preprocessing modules needed to clean the text.
         
@@ -183,7 +187,7 @@ class FeatureBuilder:
         """
        
         # create the appropriate grouping variables and assert the columns are present
-        self.chat_data = preprocess_conversation_columns(self.chat_data)
+        self.chat_data = preprocess_conversation_columns(self.chat_data, conversation_id)
         assert_key_columns_present(self.chat_data)
 
         # create new column that retains punctuation
