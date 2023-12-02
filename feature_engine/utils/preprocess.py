@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 
-def preprocess_conversation_columns(df):
+def preprocess_conversation_columns(df, conversation_id):
 	# remove all special characters from df
 	df.columns = df.columns.str.replace('[^A-Za-z0-9_]', '', regex=True)
 	
@@ -9,6 +9,9 @@ def preprocess_conversation_columns(df):
 	if {'batch_num', 'round_num'}.issubset(df.columns):
 		df['conversation_num'] = df.groupby(['batch_num', 'round_num']).ngroup()
 		df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
+	if ({'gameId', 'roundId', 'stageId'}.issubset(df.columns) and conversation_id is not None):
+		# set one of these as the conversation_num based on custom param
+		df['conversation_num'] = df[conversation_id]
 
 	return(df)
 
