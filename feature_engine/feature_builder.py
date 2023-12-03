@@ -35,7 +35,9 @@ class FeatureBuilder:
             output_file_path_conv_level: str,
             analyze_first_pct: list = [1.0], 
             turns: bool=True,
-            conversation_id = None
+            conversation_id = None,
+            cumulative_grouping = False, 
+            within_task = False
         ) -> None:
         """
             This function is used to define variables used throughout the class.
@@ -53,6 +55,10 @@ class FeatureBuilder:
                 This defaults to a single list containing the full dataset.
             @param conversation_id: A string representing the column name that should be selected as the conversation ID.
                 This defaults to None.
+            @param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, 
+                but also at what happened before.) This defaults to False.
+            @param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same task. 
+                This defaults to False.
         """
         #  Defining input and output paths.
         self.input_file_path = input_file_path
@@ -70,7 +76,12 @@ class FeatureBuilder:
         # Preprocess chat data
         self.turns = turns
         self.conversation_id = conversation_id
-        self.preprocess_chat_data(col="message", turns=self.turns, conversation_id = self.conversation_id)
+        self.cumulative_grouping = cumulative_grouping # for grouping the chat data
+        self.within_task = within_task
+
+        # TODO -- consider preprocessing *once*, then aggregating differently in the conversation level.
+        # Currently not doing that because it breaks the way that vector-based conversation features (e.g., DD) work.
+        self.preprocess_chat_data(col="message", turns=self.turns, conversation_id = self.conversation_id, cumulative_grouping = self.cumulative_grouping, within_task = self.within_task)
 
         # Input columns are the columns that come in the raw chat data
         self.input_columns = self.chat_data.columns
@@ -103,8 +114,7 @@ class FeatureBuilder:
 
     def merge_conv_data_with_original(self) -> None:
         # Here, drop the message and speaker nickname (which do not matter at conversation level)
-        orig_data = preprocess_conversation_columns(pd.read_csv(self.input_file_path, encoding='mac_roman'), self.conversation_id).drop(columns=['message', 'speaker_nickname'])
-        orig_conv_data = orig_data.groupby(["conversation_num"]).nth(0).reset_index() # get 1st item (all conv items are the same)
+        orig_conv_data = self.orig_data.groupby(["conversation_num"]).nth(0).reset_index() # get 1st item (all conv items are the same)
         final_conv_output = pd.merge(
             left= self.conv_data,
             right = orig_conv_data,
@@ -177,7 +187,7 @@ class FeatureBuilder:
             print("All Done!")
             self.save_features()
 
-    def preprocess_chat_data(self, col: str="message", turns=False, conversation_id=None) -> None:
+    def preprocess_chat_data(self, col: str="message", turns=False, conversation_id=None, cumulative_grouping = False, within_task = False) -> None:
         """
             This function is used to call all the preprocessing modules needed to clean the text.
         
@@ -187,7 +197,7 @@ class FeatureBuilder:
         """
        
         # create the appropriate grouping variables and assert the columns are present
-        self.chat_data = preprocess_conversation_columns(self.chat_data, conversation_id)
+        self.chat_data = preprocess_conversation_columns(self.chat_data, conversation_id, cumulative_grouping, within_task)
         assert_key_columns_present(self.chat_data)
 
         # create new column that retains punctuation
@@ -199,6 +209,9 @@ class FeatureBuilder:
 
         if (turns):
             self.chat_data = preprocess_naive_turns(self.chat_data)
+
+        # Save the preprocessed data (so we don't have to do this again)
+        self.orig_data = self.chat_data
 
     def chat_level_features(self) -> None:
         """
@@ -234,7 +247,7 @@ class FeatureBuilder:
             user level features and add them into the `self.user_data` dataframe.
         """
         # Instantiating.
-        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id)
+        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id, self.cumulative_grouping, self.within_task)
         user_feature_builder = UserLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
@@ -253,6 +266,7 @@ class FeatureBuilder:
             conversation level features and add them into the `self.conv_data` dataframe.
         """
         # Instantiating.
+        # TODO -- check  this, but it's unnecessary to use the cumulative parameters because we only need the unique conversation ID's
         self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
