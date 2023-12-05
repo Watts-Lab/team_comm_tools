@@ -88,6 +88,10 @@ class FeatureBuilder:
 
         # Set all paths for vector retrieval (contingent on turns)
         df_type = "turns" if self.turns else "chats"
+        if(self.cumulative_grouping): # create special vector paths for cumulative groupings
+            if(self.within_task):
+                df_type = df_type + "/cumulative/within_task/"
+            df_type = df_type + "/cumulative/"
         self.vect_path = re.sub('raw_data', 'vectors/sentence/' + df_type, input_file_path)
         self.bert_path = re.sub('raw_data', 'vectors/sentiment/' + df_type, input_file_path)
         self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
@@ -266,7 +270,6 @@ class FeatureBuilder:
             conversation level features and add them into the `self.conv_data` dataframe.
         """
         # Instantiating.
-        # TODO -- check  this, but it's unnecessary to use the cumulative parameters because we only need the unique conversation ID's
         self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 

@@ -290,7 +290,7 @@ def plot_pca_of_dataframes(*dfs, labels, title = "PCA Scatter Plot of DataFrames
 	# Create a scatter plot and use the "task_name" column for coloring
 	plt.figure(figsize=(10, 6))
 	unique_labels = list(set(labels))
-	colors = plt.cm.Dark2(np.arange(len(unique_labels)))
+	colors = plt.cm.tab20(np.arange(len(unique_labels)))
 
 	for i, label in enumerate(unique_labels):
 		label_data = reduced_data[stacked_data['task_name'] == label]
