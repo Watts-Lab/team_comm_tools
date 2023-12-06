@@ -244,24 +244,45 @@ def train_and_evaluate_three_models(random_seed, X, y, composition_cols, task_ma
 	# Set up the dataset by drawing 1,000 samples
 	resampled_X, resampled_y = resample(X, y)
 
+	# # Composition Features
+	# print(".......composition only.......")
+	# model_ridge_composition, mrc_q2, mrc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, composition_cols, lasso = False, tune_alpha = True)
+
+	# # Composition + Task (Map Only)
+	# print(".......composition + task map.......")
+	# task_gen_comp_features = composition_cols+task_map_cols
+	# model_ridge_taskgencomp, mrtgc_q2, mrtgc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, task_gen_comp_features, lasso = False, tune_alpha = True)
+
+	# # Composition + Task (Map + Complexity)
+	# print(".......composition + all task features.......")
+	# task_comp_features = composition_cols+task_cols
+	# model_ridge_taskcomp, mrtc_q2, mrtc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, task_comp_features, lasso = False, tune_alpha = True)
+
+	# # Composition + Task + Conversation
+	# print(".......composition + all task features + conversation.......")
+	# all_features = composition_cols+task_cols+conv_cols
+	# model_ridge_all, mrall_q2, mrall_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, all_features, lasso = False, tune_alpha = True)
+
+
+
+	# for solo categories
 	# Composition Features
-	print(".......composition only.......")
+	print(".......composition.......")
 	model_ridge_composition, mrc_q2, mrc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, composition_cols, lasso = False, tune_alpha = True)
 
 	# Composition + Task (Map Only)
-	print(".......composition + task map.......")
-	task_gen_comp_features = composition_cols+task_map_cols
-	model_ridge_taskgencomp, mrtgc_q2, mrtgc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, task_gen_comp_features, lasso = False, tune_alpha = True)
+	print(".......task map.......")
+	model_ridge_taskgencomp, mrtgc_q2, mrtgc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, task_map_cols, lasso = False, tune_alpha = True)
 
 	# Composition + Task (Map + Complexity)
-	print(".......composition + all task features.......")
-	task_comp_features = composition_cols+task_cols
-	model_ridge_taskcomp, mrtc_q2, mrtc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, task_comp_features, lasso = False, tune_alpha = True)
+	print(".......complexity.......")
+	task_complexity_features = ["High", "Low", "Medium"]
+	model_ridge_taskcomp, mrtc_q2, mrtc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, task_complexity_features, lasso = False, tune_alpha = True)
 
 	# Composition + Task + Conversation
-	print(".......composition + all task features + conversation.......")
-	all_features = composition_cols+task_cols+conv_cols
-	model_ridge_all, mrall_q2, mrall_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, all_features, lasso = False, tune_alpha = True)
+	print(".......conversation.......")
+	model_ridge_all, mrall_q2, mrall_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, conv_cols, lasso = False, tune_alpha = True)
+
 
 	return mrc_q2, mrtgc_q2, mrtc_q2, mrall_q2
 
@@ -282,23 +303,42 @@ def get_experimental_results_for_data(data_path, min_num_chats, num_conversation
 	conv_cols = list(conv_features.columns)
 
 	# Bootstrap!
-	composition_only = []
-	composition_task_general = []
-	composition_task = []
-	all_features = []
+	# composition_only = []
+	# composition_task_general = []
+	# composition_task = []
+	# all_features = []
+
+	# for solo categories
+	composition = []
+	task_map = []
+	task_complexity = []
+	conversation = []
+
+
 	random_seeds = [random.randint(1, 999999999) for i in range(N_ITERS)]
 
 	for i in range(len(random_seeds)):
 		if i % 10 == 0:
 			print("Starting iteration #" + str(i) + " ...")
 		seed = random_seeds[i]
-		comp, taskgencomp, taskcomp, taskcompconv = train_and_evaluate_three_models(seed, X, y, composition_cols, task_map_cols, task_cols, conv_cols)
-		composition_only.append(comp)
-		composition_task_general.append(taskgencomp)
-		composition_task.append(taskcomp)
-		all_features.append(taskcompconv)
+		
+		# comp, taskgencomp, taskcomp, taskcompconv = train_and_evaluate_three_models(seed, X, y, composition_cols, task_map_cols, task_cols, conv_cols)
+		comp_res, taskmap_res, complexity_res, conv_res = train_and_evaluate_three_models(seed, X, y, composition_cols, task_map_cols, task_cols, conv_cols)
 
-	return composition_only, composition_task_general, composition_task, all_features
+		#composition_only.append(comp)
+		# composition_task_general.append(taskgencomp)
+		# composition_task.append(taskcomp)
+		# all_features.append(taskcompconv)
+		
+		# for solo categories
+		composition.append(comp_res)
+		task_map.append(taskmap_res)
+		task_complexity.append(complexity_res)
+		conversation.append(conv_res)
+
+	return composition, task_map, task_complexity, conversation
+
+	# return composition_only, composition_task_general, composition_task, all_features
 
 """
 Plotting Utilities
@@ -371,15 +411,29 @@ if __name__ == "__main__":
 	min_num_chats = 0
 	desired_target = "score"
 	N_ITERS = 100
-	labels = ["Composition Only", "Composition + Task Map", "Composition + Task Map + Complexity", "Composition + Task Map + Complexity + Communication"]
+	
+	#labels = ["Composition Only", "Composition + Task Map", "Composition + Task Map + Complexity", "Composition + Task Map + Complexity + Communication"]
+	labels_solo = ["Composition", "Task Map", "Task Complexity", "Communication"]
 
 	# Call the function for each type of grouping
-	print("Beginning Analysis for Multitask (Cumulative by StageID)....")
-	composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu = get_experimental_results_for_data(multitask_cumulative_by_stage, min_num_chats, num_conversation_components, N_ITERS)
-	save_cv_data([composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu], labels, './multi_task_results/multitask_cumulative_by_stage.csv')
-	plot_means_with_confidence_intervals_and_ttests([composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu], labels, "./multi_task_results/multitask_cumulative_by_stage_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId)", confidence_level=0.95, alpha=0.05)
+	# print("Beginning Analysis for Multitask (Cumulative by StageID)....")
+	
+	# composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu = get_experimental_results_for_data(multitask_cumulative_by_stage, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu], labels, './multi_task_results/multitask_cumulative_by_stage.csv')
+	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu], labels, "./multi_task_results/multitask_cumulative_by_stage_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId)", confidence_level=0.95, alpha=0.05)
+
+	# plot the performance of each category alone
+	# composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu = get_experimental_results_for_data(multitask_cumulative_by_stage, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, './multi_task_results/multitask_cumulative_by_stage_category_solo.csv')
+	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId)", confidence_level=0.95, alpha=0.05)
 
 	print("Beginning Analysis for Multitask (Cumulative by StageID and TASK)....")
-	composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
-	save_cv_data([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, './multi_task_results/multitask_cumulative_by_stage_and_task.csv')
-	plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
+	# composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, './multi_task_results/multitask_cumulative_by_stage_and_task.csv')
+	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
+
+	# plot the performance of each category alone
+	composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversastion_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
+	save_cv_data([composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversastion_stagecumutask], labels_solo, './multi_task_results/multitask_cumulative_by_stage_and_task_category_solo.csv')
+	plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversastion_stagecumutask], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
+
