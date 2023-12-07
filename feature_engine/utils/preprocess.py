@@ -9,7 +9,7 @@ def preprocess_conversation_columns(df, conversation_id = None, cumulative_group
 	if {'batch_num', 'round_num'}.issubset(df.columns):
 		df['conversation_num'] = df.groupby(['batch_num', 'round_num']).ngroup()
 		df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
-	if ({'gameId', 'roundId', 'stageId'}.issubset(df.columns) and conversation_id is in {'gameId', 'roundId', 'stageId'}):
+	if ({'gameId', 'roundId', 'stageId'}.issubset(df.columns) and conversation_id in {'gameId', 'roundId', 'stageId'}):
 		if(cumulative_grouping):
 			df = create_cumulative_rows(df, conversation_id, within_task)
 			df['conversation_num'] = df['cumulative_Id'] # set it to be the cumulative grouping
