@@ -57,17 +57,17 @@ if __name__ == "__main__":
 	# FULL DATASETS BELOW
 
 	# Multi-Task Data
-	multi_task_feature_builder_cumulative = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
-		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative.csv",
-		output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative.csv",
-		turns = False,
-		conversation_id = "stageId",
-		cumulative_grouping = True,
+	# multi_task_feature_builder_cumulative = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative.csv",
+	# 	turns = False,
+	# 	conversation_id = "stageId",
+	# 	cumulative_grouping = True,
 
-	)
-	multi_task_feature_builder_cumulative.featurize(col="message")
+	# )
+	# multi_task_feature_builder_cumulative.featurize(col="message")
 
 	multi_task_feature_builder_cumulative_task = FeatureBuilder(
 		input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
@@ -82,17 +82,17 @@ if __name__ == "__main__":
 	)
 	multi_task_feature_builder_cumulative_task.featurize(col="message")
 
-	multi_task_feature_builder_roundId_last_cumulative = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
-		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last_cumulative.csv",
-		output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last_cumulative.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last_cumulative.csv",
-		turns = False,
-		conversation_id = "stageId",
-		cumulative_grouping = True,
+	# multi_task_feature_builder_roundId_last_cumulative = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last_cumulative.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last_cumulative.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last_cumulative.csv",
+	# 	turns = False,
+	# 	conversation_id = "stageId",
+	# 	cumulative_grouping = True,
 
-	)
-	multi_task_feature_builder_roundId_last_cumulative.featurize(col="message")
+	# )
+	# multi_task_feature_builder_roundId_last_cumulative.featurize(col="message")
 
 	# This is not needed as we can simply merge the DV's back in later!
 
