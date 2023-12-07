@@ -82,6 +82,32 @@ if __name__ == "__main__":
 	)
 	multi_task_feature_builder_cumulative_task.featurize(col="message")
 
+	multi_task_feature_builder_roundId_last_cumulative = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last_cumulative.csv",
+		output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last_cumulative.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last_cumulative.csv",
+		turns = False,
+		conversation_id = "stageId",
+		cumulative_grouping = True,
+
+	)
+	multi_task_feature_builder_roundId_last_cumulative.featurize(col="message")
+
+	# This is not needed as we can simply merge the DV's back in later!
+
+	# multi_task_feature_builder_roundId_mean_cumulative = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_mean_by_stage.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_mean_cumulative.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_mean_cumulative.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_mean_cumulative.csv",
+	# 	turns = False,
+	# 	conversation_id = "stageId",
+	# 	cumulative_grouping = True,
+
+	# )
+	# multi_task_feature_builder_roundId_mean_cumulative.featurize(col="message")
+
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
