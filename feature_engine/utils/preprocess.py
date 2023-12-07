@@ -9,17 +9,10 @@ def preprocess_conversation_columns(df, conversation_id = None, cumulative_group
 	if {'batch_num', 'round_num'}.issubset(df.columns):
 		df['conversation_num'] = df.groupby(['batch_num', 'round_num']).ngroup()
 		df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
-	if ({'gameId', 'roundId', 'stageId'}.issubset(df.columns) and conversation_id is not None):
-		
+	if ({'gameId', 'roundId', 'stageId'}.issubset(df.columns) and conversation_id is in {'gameId', 'roundId', 'stageId'}):
 		if(cumulative_grouping):
-
-			try:
-				assert(conversation_id == "stageId")
-			except AssertionError:
-				print("When analyzing data cumulatively, the `conversation_id` must be at the `stageId` level.")
-
-			df = create_cumulative_rows(df, within_task)
-			df['conversation_num'] = df['cumulative_stageId'] # set it to be the cumulative grouping
+			df = create_cumulative_rows(df, conversation_id, within_task)
+			df['conversation_num'] = df['cumulative_Id'] # set it to be the cumulative grouping
 		else:
 			df['conversation_num'] = df[conversation_id]
 
@@ -39,11 +32,11 @@ def assert_key_columns_present(df):
 		raise KeyError
 
 def preprocess_text_lowercase_but_retain_punctuation(text):
-  	# Only turns the text lowercase
+	# Only turns the text lowercase
 	return(text.lower())
 
 def preprocess_text(text):
-  	# For each individual message: preprocess to remove anything that is not an alphabet or number from the string
+	# For each individual message: preprocess to remove anything that is not an alphabet or number from the string
 	return(re.sub(r"[^a-zA-Z0-9 ]+", '',text).lower())
 
 def preprocess_naive_turns(chat_data):
@@ -60,56 +53,67 @@ def preprocess_naive_turns(chat_data):
 	return chat_data
 
 def get_turn_id(df) :
-    df["speaker_nickname_x"] = df["speaker_nickname"].shift()
-    return (df["speaker_nickname"] != df["speaker_nickname_x"]).cumsum()
-    
+	df["speaker_nickname_x"] = df["speaker_nickname"].shift()
+	return (df["speaker_nickname"] != df["speaker_nickname_x"]).cumsum()
+	
 def compress(turn_df):
-    result = turn_df.iloc[0]
-    if (len(turn_df) > 1):
-        result['message'] = turn_df['message'].str.cat(sep=' ')
-        result['message_lower_with_punc'] = turn_df['message_lower_with_punc'].str.cat(sep=' ')
-    return result
+	result = turn_df.iloc[0]
+	if (len(turn_df) > 1):
+		result['message'] = turn_df['message'].str.cat(sep=' ')
+		result['message_lower_with_punc'] = turn_df['message_lower_with_punc'].str.cat(sep=' ')
+	return result
 
-def create_cumulative_rows(input_df, within_task = False):
-    """
-    function: create_cumulative_rows
+def create_cumulative_rows(input_df, conversation_id, within_task = False):
+	"""
+	function: create_cumulative_rows
 
-    This function takes a chat-level dataframe and duplicates rows such that we can analyze
-    convesations in the context of what came before.
+	This function takes a chat-level dataframe and duplicates rows such that we can analyze
+	convesations in the context of what came before.
 
-    For example, rather than analyzing only the chats from a single stage, this function makes it possible
-    to also incorporate chats from previous stages / tasks in the same conversation.
+	For example, rather than analyzing only the chats from a single stage, this function makes it possible
+	to also incorporate chats from previous stages / tasks in the same conversation.
+	
+	@param conversation_id: The ID (stage or round) that the user wants to group on.
+	@param within_task (defaults to False). This parameter determines whether we want to restrict
+	the analysis only to chats that were of the same task (e.g., same `roundId`). By default, we look at 
+	every chat that came before, regardless of the task.
+	"""
 
-    @param within_task (defaults to False). This parameter determines whether we want to restrict
-    the analysis only to chats that were of the same task (e.g., same `roundId`). By default, we look at 
-    every chat that came before, regardless of the task.
-    """
-    result_df = pd.DataFrame(columns=input_df.columns)
+	# If the conversation_id is the gameId, return as is -- no changes requred
+	if(conversation_id == "gameId"): return input_df
 
-    # prev stageId
-    prev_stageId = None
+	result_df = pd.DataFrame(columns=input_df.columns)
 
-    # Iterate through rows
-    for index, current_row in input_df.iterrows():
-            
-        # current stageId
-        if current_row["stageId"] != prev_stageId: # we have transitioned to a new stageId
+	# prev stageId
+	prev_stageId = None
 
-            prev_stageId = current_row["stageId"]
+	# Iterate through rows
+	for index, current_row in input_df.iterrows():
+			
+		# current stageId
+		if current_row["stageId"] != prev_stageId: # we have transitioned to a new stageId
 
-            # Duplicate rows from all previous 'stageId's with the same 'gameId'
-            # Note: add `& (input_df['roundId'] == current_row['roundId'])` here to restrict this to the same round
-            if(within_task):
-                previous_rows = input_df.loc[(input_df['stageId'] != current_row['stageId']) & (input_df['timestamp'] < current_row['timestamp']) & (input_df['gameId'] == current_row['gameId']) & (input_df['roundId'] == current_row['roundId'])].copy()
-            else:
-                previous_rows = input_df.loc[(input_df['stageId'] != current_row['stageId']) & (input_df['timestamp'] < current_row['timestamp']) & (input_df['gameId'] == current_row['gameId'])].copy()
-            if(not previous_rows.empty):
-                previous_rows['cumulative_stageId'] = current_row["stageId"]
-                result_df = pd.concat([result_df, previous_rows], ignore_index=True)
+			prev_stageId = current_row["stageId"]
 
-            cur_stageId_rows = input_df.loc[(input_df['stageId'] == current_row['stageId'])].copy()
-            cur_stageId_rows['cumulative_stageId'] = current_row["stageId"]
-            # Concatenate the current row to the result DataFrame
-            result_df = pd.concat([result_df, cur_stageId_rows], ignore_index=True).drop_duplicates()
+			if(conversation_id == 'stageId'):
+				# Duplicate rows from all previous stageId's with the same 'gameId'
+				if(within_task): # ensure roundId's are the same
+					previous_rows = input_df.loc[(input_df['stageId'] != current_row['stageId']) & (input_df['timestamp'] < current_row['timestamp']) & (input_df['gameId'] == current_row['gameId']) & (input_df['roundId'] == current_row['roundId'])].copy()
+				else:
+					previous_rows = input_df.loc[(input_df['stageId'] != current_row['stageId']) & (input_df['timestamp'] < current_row['timestamp']) & (input_df['gameId'] == current_row['gameId'])].copy()
+				if(not previous_rows.empty):
+					previous_rows['cumulative_Id'] = current_row["stageId"]
+					result_df = pd.concat([result_df, previous_rows], ignore_index=True)
+			if(conversation_id == 'roundId'):
+				# Duplicate rows from all previous roundId's with the same gameId
+				previous_rows = input_df.loc[(input_df['roundId'] != current_row['roundId']) & (input_df['timestamp'] < current_row['timestamp']) & (input_df['gameId'] == current_row['gameId'])].copy()
+				if(not previous_rows.empty):
+					previous_rows['cumulative_Id'] = current_row["roundId"]
+					result_df = pd.concat([result_df, previous_rows], ignore_index=True)
 
-    return result_df
+			cur_Id_rows = input_df.loc[(input_df[conversation_id] == current_row[conversation_id])].copy()
+			cur_Id_rows['cumulative_Id'] = current_row[conversation_id]
+			# Concatenate the current row to the result DataFrame
+			result_df = pd.concat([result_df, cur_Id_rows], ignore_index=True).drop_duplicates()
+
+	return result_df
