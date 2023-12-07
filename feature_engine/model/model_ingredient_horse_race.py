@@ -92,7 +92,7 @@ def read_and_preprocess_data(path, min_num_chats, num_conversation_components):
 	task.drop(['complexity', 'task'], axis=1, inplace=True)
 
 	# Conversation
-	conversation = conv_data.drop(columns=list(dvs.columns) + list(composition.columns) + ['task', 'complexity', 'stageId', 'roundId', 'cumulative_stageId', 'gameId', 'message', 'message_lower_with_punc', 'speaker_nickname', 'conversation_num', 'timestamp'])
+	conversation = conv_data.drop(columns=list(dvs.columns) + list(composition.columns) + ['task', 'complexity', 'stageId', 'roundId', 'cumulative_Id', 'gameId', 'message', 'message_lower_with_punc', 'speaker_nickname', 'conversation_num', 'timestamp'])
 	conversation = drop_invariant_columns(conversation) # drop invariant conv features
 
 	# additional preprocess --- get PC's of conversation to reduce dimensionality issues
@@ -405,6 +405,7 @@ if __name__ == "__main__":
 	# Datasets with different aggregation methods
 	multitask_cumulative_by_stage = '../output/conv/multi_task_output_conversation_level_stageId_cumulative.csv'
 	multitask_cumulative_by_stage_and_task = '../output/conv/multi_task_output_conversation_level_stageId_cumulative_within_task.csv'
+	multitask_cumulative_by_round_dv_last = '../output/conv/multi_task_output_conversation_level_roundId_last_cumulative.csv'
 
 	# Key parameters
 	num_conversation_components = 5
@@ -416,24 +417,34 @@ if __name__ == "__main__":
 	labels_solo = ["Composition", "Task Map", "Task Complexity", "Communication"]
 
 	# Call the function for each type of grouping
-	# print("Beginning Analysis for Multitask (Cumulative by StageID)....")
+	print("Beginning Analysis for Multitask (Cumulative by StageID)....")
 	
 	# composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu = get_experimental_results_for_data(multitask_cumulative_by_stage, min_num_chats, num_conversation_components, N_ITERS)
 	# save_cv_data([composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu], labels, './multi_task_results/multitask_cumulative_by_stage.csv')
 	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu], labels, "./multi_task_results/multitask_cumulative_by_stage_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId)", confidence_level=0.95, alpha=0.05)
 
 	# plot the performance of each category alone
-	# composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu = get_experimental_results_for_data(multitask_cumulative_by_stage, min_num_chats, num_conversation_components, N_ITERS)
-	# save_cv_data([composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, './multi_task_results/multitask_cumulative_by_stage_category_solo.csv')
-	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId)", confidence_level=0.95, alpha=0.05)
+	composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu = get_experimental_results_for_data(multitask_cumulative_by_stage, min_num_chats, num_conversation_components, N_ITERS)
+	save_cv_data([composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, './multi_task_results/multitask_cumulative_by_stage_category_solo.csv')
+	plot_means_with_confidence_intervals_and_ttests([composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId)", confidence_level=0.95, alpha=0.05)
 
-	print("Beginning Analysis for Multitask (Cumulative by StageID and TASK)....")
+	# print("Beginning Analysis for Multitask (Cumulative by StageID and TASK)....")
 	# composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
 	# save_cv_data([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, './multi_task_results/multitask_cumulative_by_stage_and_task.csv')
 	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
 
 	# plot the performance of each category alone
-	composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversastion_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
-	save_cv_data([composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversastion_stagecumutask], labels_solo, './multi_task_results/multitask_cumulative_by_stage_and_task_category_solo.csv')
-	plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversastion_stagecumutask], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
+	# composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask], labels_solo, './multi_task_results/multitask_cumulative_by_stage_and_task_category_solo.csv')
+	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
+
+	# print("Beginning Analysis for Multitask, using last RoundID as DV (Chats Cumulative by RoundID)....")
+	# composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, './multi_task_results/multitask_cumulative_by_stage_and_task.csv')
+	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
+
+	# plot the performance of each category alone
+	# composition_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast = get_experimental_results_for_data(multitask_cumulative_by_round_dv_last, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast], labels_solo, './multi_task_results/multitask_cumulative_by_round_dv_last_category_solo.csv')
+	# plot_means_with_confidence_intervals_and_ttests([composition_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast], labels_solo, "./multi_task_results/multitask_cumulative_by_round_dv_last_category_solo", title_appendix = " (Chats Cumulative by Round; DV is LAST Task in Round)", confidence_level=0.95, alpha=0.05)
 
