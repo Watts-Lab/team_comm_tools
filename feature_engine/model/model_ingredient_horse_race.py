@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 import random
 import statsmodels.stats.api as sms
+import seaborn as sns
 import matplotlib.pyplot as plt
 from statsmodels.stats.multitest import multipletests
 plt.rcParams["font.family"] = "Times New Roman"
@@ -92,7 +93,7 @@ def read_and_preprocess_data(path, min_num_chats, num_conversation_components):
 	task.drop(['complexity', 'task'], axis=1, inplace=True)
 
 	# Conversation
-	conversation = conv_data.drop(columns=list(dvs.columns) + list(composition.columns) + ['task', 'complexity', 'stageId', 'roundId', 'cumulative_Id', 'gameId', 'message', 'message_lower_with_punc', 'speaker_nickname', 'conversation_num', 'timestamp'])
+	conversation = conv_data.drop(columns= list(dvs.columns) + list(composition.columns))._get_numeric_data()
 	conversation = drop_invariant_columns(conversation) # drop invariant conv features
 
 	# additional preprocess --- get PC's of conversation to reduce dimensionality issues
@@ -270,6 +271,10 @@ def train_and_evaluate_three_models(random_seed, X, y, composition_cols, task_ma
 	print(".......composition.......")
 	model_ridge_composition, mrc_q2, mrc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, composition_cols, lasso = False, tune_alpha = True)
 
+	# Composition Features
+	print(".......team size.......")
+	model_ridge_teamsize, mrts_q2, mrts_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, ["playerCount"], lasso = False, tune_alpha = True)
+
 	# Composition + Task (Map Only)
 	print(".......task map.......")
 	model_ridge_taskgencomp, mrtgc_q2, mrtgc_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, task_map_cols, lasso = False, tune_alpha = True)
@@ -284,7 +289,7 @@ def train_and_evaluate_three_models(random_seed, X, y, composition_cols, task_ma
 	model_ridge_all, mrall_q2, mrall_feature_coefficients = fit_regularized_linear_model(resampled_X, resampled_y, desired_target, conv_cols, lasso = False, tune_alpha = True)
 
 
-	return mrc_q2, mrtgc_q2, mrtc_q2, mrall_q2
+	return mrc_q2, mrts_q2, mrtgc_q2, mrtc_q2, mrall_q2
 
 def get_experimental_results_for_data(data_path, min_num_chats, num_conversation_components, N_ITERS):
 	
@@ -297,6 +302,7 @@ def get_experimental_results_for_data(data_path, min_num_chats, num_conversation
 
 	# Column Names
 	composition_cols = list(team_composition_features.columns)
+	composition_cols.remove("playerCount") # separately consider teamSize
 	task_map_path = '../utils/task_map.csv' # get task map
 	task_map_cols = list(pd.read_csv(task_map_path).drop(["task"], axis = 1).columns)
 	task_cols = list(task_features.columns)
@@ -310,6 +316,7 @@ def get_experimental_results_for_data(data_path, min_num_chats, num_conversation
 
 	# for solo categories
 	composition = []
+	team_size = []
 	task_map = []
 	task_complexity = []
 	conversation = []
@@ -323,7 +330,8 @@ def get_experimental_results_for_data(data_path, min_num_chats, num_conversation
 		seed = random_seeds[i]
 		
 		# comp, taskgencomp, taskcomp, taskcompconv = train_and_evaluate_three_models(seed, X, y, composition_cols, task_map_cols, task_cols, conv_cols)
-		comp_res, taskmap_res, complexity_res, conv_res = train_and_evaluate_three_models(seed, X, y, composition_cols, task_map_cols, task_cols, conv_cols)
+		
+		comp_res, ts_res, taskmap_res, complexity_res, conv_res = train_and_evaluate_three_models(seed, X, y, composition_cols, task_map_cols, task_cols, conv_cols)
 
 		#composition_only.append(comp)
 		# composition_task_general.append(taskgencomp)
@@ -332,14 +340,31 @@ def get_experimental_results_for_data(data_path, min_num_chats, num_conversation
 		
 		# for solo categories
 		composition.append(comp_res)
+		team_size.append(ts_res)
 		task_map.append(taskmap_res)
 		task_complexity.append(complexity_res)
 		conversation.append(conv_res)
 
-	return composition, task_map, task_complexity, conversation
+	return composition, team_size, task_map, task_complexity, conversation
 
 	# return composition_only, composition_task_general, composition_task, all_features
 
+"""
+Exploration: Are task features related to communication features?
+"""
+
+def get_relationship_between_task_and_comms(data_path, min_num_chats, num_conversation_components):
+
+	# get task features
+	team_composition_features, task_features, conv_features, targets = read_and_preprocess_data(data_path, min_num_chats=min_num_chats, num_conversation_components = num_conversation_components)
+
+	# run regression
+	task_to_comms_model, t2c_q_squared, t2c_feature_coefficients = fit_regularized_linear_model(task_features, conv_features, "PC1", task_features.columns, lasso=False, tune_alpha=True)
+
+	# get a sense of the coefficients
+	print(sort_by_mean_abs(display_feature_coefficients((t2c_feature_coefficients))))
+
+	
 """
 Plotting Utilities
 """
@@ -359,33 +384,47 @@ def plot_means_with_confidence_intervals_and_ttests(observation_lists, labels, s
 	plt.title('Predictive Power of Models; Pairwise t-test with B-H Correction' + title_appendix, size = 18)
 
 	# Perform pairwise t-tests
+	HEIGHT_MULTIPLIER = 0.1
+
 	p_values = []
+	i_s = []
+	j_s = []
+
 	line_height = np.mean(max(observation_lists)) * 0.1
 	for i in range(len(observation_lists)):
 		for j in range(i + 1, len(observation_lists)):
 			t_stat, p_value = stats.ttest_ind(observation_lists[i], observation_lists[j])
 			p_values.append(p_value)
-
-			# Draw horizontal bar between compared groups only if p-value is significant
-			if p_value < alpha:
-				line_y = max(means) + max(errors) + np.mean(max(observation_lists)) * 0.03 + (i + j) * line_height * 1.5  # Adjust the multiplier for better spacing
-				plt.plot([i, j], [line_y, line_y], color='black')
-
-				# Display significance stars based on p-value
-				if p_value < 0.001:
-					significance_label = '***'
-				elif p_value < 0.01:
-					significance_label = '**'
-				elif p_value < 0.05:
-					significance_label = '*'
-				else:
-					significance_label = 'n.s.'
-
-				# Display significance labels on the plot
-				plt.text((i + j) / 2, line_y + np.mean(max(observation_lists)) * 0.025, significance_label, ha='center', va='center')
+			i_s.append(i)
+			j_s.append(j)
 
 	# Correct p-values for multiple comparisons using Benjamini-Hochberg procedure
 	_, p_values_corrected, _, _ = multipletests(p_values, alpha=alpha, method='fdr_bh')
+
+	# Draw horizontal bar between compared groups by using the corrected p-value
+	for k in range(len(p_values_corrected)):
+
+		p_value = p_values_corrected[k]
+		i = i_s[k]
+		j = j_s[k]
+
+		# if p_value < alpha:
+		if p_value >= alpha: ### plot the lines *only if n.s.*, as most are significant
+			line_y = max(means) + max(errors) + np.mean(max(observation_lists)) * 0.03 + (i + j) * line_height * HEIGHT_MULTIPLIER  # Adjust the multiplier for better spacing
+			plt.plot([i, j], [line_y, line_y], color='black')
+
+			# Display significance stars based on p-value
+			if p_value < 0.001:
+				significance_label = '***'
+			elif p_value < 0.01:
+				significance_label = '**'
+			elif p_value < 0.05:
+				significance_label = '*'
+			else:
+				significance_label = 'n.s.'
+
+			# Display significance labels on the plot
+			plt.text((i + j) / 2, line_y + np.mean(max(observation_lists)) * 0.025, significance_label, ha='center', va='center')
 
 	# Show the plot
 	plt.savefig(save_path+".svg")
@@ -395,7 +434,12 @@ def save_cv_data(observation_lists, labels, file_path):
 	data_dict = {label: column for label, column in zip(labels, observation_lists)}
 
 	df = pd.DataFrame(data_dict)
-	df.to_csv(file_path)
+	df.to_csv(file_path, index=False)
+
+def get_cols_from_csv_data(path, labels_solo):
+	saved_results = pd.read_csv(path)
+
+	return list(saved_results[labels_solo[0]]),list(saved_results[labels_solo[1]]),list(saved_results[labels_solo[2]]),list(saved_results[labels_solo[3]]),list(saved_results[labels_solo[4]])
 
 """
 The driver of the whole thing!
@@ -406,6 +450,8 @@ if __name__ == "__main__":
 	multitask_cumulative_by_stage = '../output/conv/multi_task_output_conversation_level_stageId_cumulative.csv'
 	multitask_cumulative_by_stage_and_task = '../output/conv/multi_task_output_conversation_level_stageId_cumulative_within_task.csv'
 	multitask_cumulative_by_round_dv_last = '../output/conv/multi_task_output_conversation_level_roundId_last_cumulative.csv'
+	multitask_by_round_dv_last = '../output/conv/multi_task_output_conversation_level_roundId_last.csv'
+
 
 	# Key parameters
 	num_conversation_components = 5
@@ -414,37 +460,39 @@ if __name__ == "__main__":
 	N_ITERS = 100
 	
 	#labels = ["Composition Only", "Composition + Task Map", "Composition + Task Map + Complexity", "Composition + Task Map + Complexity + Communication"]
-	labels_solo = ["Composition", "Task Map", "Task Complexity", "Communication"]
+	labels_solo = ["Team Composition", "Team Size", "Task Attributes", "Task Complexity", "Communication Process"]
+
+
+	# Exploration of Task --> Comms
+	get_relationship_between_task_and_comms(multitask_by_round_dv_last, min_num_chats, num_conversation_components)
+
 
 	# Call the function for each type of grouping
-	print("Beginning Analysis for Multitask (Cumulative by StageID)....")
-	
-	# composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu = get_experimental_results_for_data(multitask_cumulative_by_stage, min_num_chats, num_conversation_components, N_ITERS)
-	# save_cv_data([composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu], labels, './multi_task_results/multitask_cumulative_by_stage.csv')
-	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumu, composition_task_general_stagecumu, composition_task_stagecumu, all_stagecumu], labels, "./multi_task_results/multitask_cumulative_by_stage_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId)", confidence_level=0.95, alpha=0.05)
 
-	# plot the performance of each category alone
-	composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu = get_experimental_results_for_data(multitask_cumulative_by_stage, min_num_chats, num_conversation_components, N_ITERS)
-	save_cv_data([composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, './multi_task_results/multitask_cumulative_by_stage_category_solo.csv')
-	plot_means_with_confidence_intervals_and_ttests([composition_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId)", confidence_level=0.95, alpha=0.05)
+	# print("Beginning Analysis for Multitask (Cumulative by StageID)....")
+	# ## plot the performance of each category alone
+	# composition_stagecumu, teamsize_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu = get_experimental_results_for_data(multitask_cumulative_by_stage, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_stagecumu, teamsize_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, './multi_task_results/multitask_cumulative_by_stage_category_solo.csv')
+	## composition_stagecumu, teamsize_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu = get_cols_from_csv_data('./multi_task_results/multitask_cumulative_by_stage_category_solo.csv', labels_solo)
+	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumu, teamsize_stagecumu, task_general_stagecumu, complexity_stagecumu, conversation_stagecumu], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId)", confidence_level=0.95, alpha=0.05)
 
 	# print("Beginning Analysis for Multitask (Cumulative by StageID and TASK)....")
-	# composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
-	# save_cv_data([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, './multi_task_results/multitask_cumulative_by_stage_and_task.csv')
-	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
-
-	# plot the performance of each category alone
-	# composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
-	# save_cv_data([composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask], labels_solo, './multi_task_results/multitask_cumulative_by_stage_and_task_category_solo.csv')
-	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
+	# # plot the performance of each category alone
+	# composition_stagecumutask, teamsize_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_stagecumutask, teamsize_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask], labels_solo, './multi_task_results/multitask_cumulative_by_stage_and_task_category_solo.csv')
+	## composition_stagecumutask, teamsize_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask = get_cols_from_csv_data('./multi_task_results/multitask_cumulative_by_stage_and_task_category_solo.csv', labels_solo)
+	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, teamsize_stagecumutask, task_general_stagecumutask, complexity_stagecumutask, conversation_stagecumutask], labels_solo, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_category_solo", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
 
 	# print("Beginning Analysis for Multitask, using last RoundID as DV (Chats Cumulative by RoundID)....")
-	# composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask = get_experimental_results_for_data(multitask_cumulative_by_stage_and_task, min_num_chats, num_conversation_components, N_ITERS)
-	# save_cv_data([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, './multi_task_results/multitask_cumulative_by_stage_and_task.csv')
-	# plot_means_with_confidence_intervals_and_ttests([composition_stagecumutask, composition_task_general_stagecumutask, composition_task_stagecumutask, all_stagecumutask], labels, "./multi_task_results/multitask_cumulative_by_stage_and_task_ingredient_horserace", title_appendix = " (Chats Cumulative by StageId and Task)", confidence_level=0.95, alpha=0.05)
+	# # plot the performance of each category alone
+	# composition_roundlast, teamsize_general_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast = get_experimental_results_for_data(multitask_cumulative_by_round_dv_last, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_roundlast, teamsize_general_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast], labels_solo, './multi_task_results/multitask_cumulative_by_round_dv_last_category_solo.csv')
+	## composition_roundlast, teamsize_general_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast = get_cols_from_csv_data('./multi_task_results/multitask_cumulative_by_round_dv_last_category_solo.csv', labels_solo)
+	# plot_means_with_confidence_intervals_and_ttests([composition_roundlast, teamsize_general_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast], labels_solo, "./multi_task_results/multitask_cumulative_by_round_dv_last_category_solo", title_appendix = " (Chats Cumulative by Round; DV is LAST Task in Round)", confidence_level=0.95, alpha=0.05)
 
-	# plot the performance of each category alone
-	# composition_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast = get_experimental_results_for_data(multitask_cumulative_by_round_dv_last, min_num_chats, num_conversation_components, N_ITERS)
-	# save_cv_data([composition_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast], labels_solo, './multi_task_results/multitask_cumulative_by_round_dv_last_category_solo.csv')
-	# plot_means_with_confidence_intervals_and_ttests([composition_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast], labels_solo, "./multi_task_results/multitask_cumulative_by_round_dv_last_category_solo", title_appendix = " (Chats Cumulative by Round; DV is LAST Task in Round)", confidence_level=0.95, alpha=0.05)
-
+	# print("Beginning Analysis for Multitask, using last RoundID as DV ....")
+	# # plot the performance of each category alone
+	# composition_roundlast, teamsize_general_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast = get_experimental_results_for_data(multitask_by_round_dv_last, min_num_chats, num_conversation_components, N_ITERS)
+	# save_cv_data([composition_roundlast, teamsize_general_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast], labels_solo, './multi_task_results/multitask_by_round_dv_last_category_solo.csv')
+	## composition_roundlast, teamsize_general_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast = get_cols_from_csv_data('./multi_task_results/multitask_by_round_dv_last_category_solo.csv', labels_solo)
+	# plot_means_with_confidence_intervals_and_ttests([composition_roundlast, teamsize_general_roundlast, task_general_roundlast, complexity_roundlast, conversation_roundlast], labels_solo, "./multi_task_results/multitask_by_round_dv_last_category_solo", title_appendix = " (DV is LAST Task in Round)", confidence_level=0.95, alpha=0.05)

@@ -72,8 +72,10 @@ class FeatureBuilder:
 
         # Reading chat level data (this is available in the input file path directly).
         self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
+        # Save the original data, before preprocessing 
+        self.orig_data = self.chat_data
 
-        # Preprocess chat data
+        # Parameters for preprocessing chat data
         self.turns = turns
         self.conversation_id = conversation_id
         self.cumulative_grouping = cumulative_grouping # for grouping the chat data
@@ -117,8 +119,16 @@ class FeatureBuilder:
         self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
 
     def merge_conv_data_with_original(self) -> None:
-        # Here, drop the message and speaker nickname (which do not matter at conversation level)
-        orig_conv_data = self.orig_data.groupby(["conversation_num"]).nth(0).reset_index() # get 1st item (all conv items are the same)
+
+        if(self.conversation_id is not None and "conversation_num" not in self.orig_data.columns):
+            # Set the `conversation_num` to the indicated variable
+            orig_conv_data = self.orig_data.rename(columns={self.conversation_id:"conversation_num"})
+        else:
+            orig_conv_data = self.orig_data
+
+        # Use the 1st item in the row, as they are all the same at the conv level
+        orig_conv_data = orig_conv_data.groupby(["conversation_num"]).nth(0).reset_index() 
+        
         final_conv_output = pd.merge(
             left= self.conv_data,
             right = orig_conv_data,
@@ -199,7 +209,6 @@ class FeatureBuilder:
             @param col (str): (Default value: "message")
                               This is used to identify the columns to preprocess.
         """
-       
         # create the appropriate grouping variables and assert the columns are present
         self.chat_data = preprocess_conversation_columns(self.chat_data, conversation_id, cumulative_grouping, within_task)
         assert_key_columns_present(self.chat_data)
@@ -215,7 +224,7 @@ class FeatureBuilder:
             self.chat_data = preprocess_naive_turns(self.chat_data)
 
         # Save the preprocessed data (so we don't have to do this again)
-        self.orig_data = self.chat_data
+        self.preprocessed_data = self.chat_data
 
     def chat_level_features(self) -> None:
         """

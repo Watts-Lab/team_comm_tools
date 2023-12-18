@@ -14,7 +14,7 @@ def preprocess_conversation_columns(df, conversation_id = None, cumulative_group
 			df = create_cumulative_rows(df, conversation_id, within_task)
 			df['conversation_num'] = df['cumulative_Id'] # set it to be the cumulative grouping
 		else:
-			df['conversation_num'] = df[conversation_id]
+			df['conversation_num'] = df[conversation_id] # set it to the desired grouping
 
 	return(df)
 
