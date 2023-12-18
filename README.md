@@ -8,4 +8,4 @@ Our project seeks to answer the question, “which types of team communication p
 https://docs.google.com/spreadsheets/d/1JnChOKFXkv944LvnYbzI1qrHLEPfCvEMN5XzP1AxvmA/edit?usp=sharing
 
 ## Database of Current Communication Features
-For a list of our current documented communication features, please refer to [this database](https://glitter-runner-dfb.notion.site/e0fd0ceb6c6c47d9b8e3bec95d8af78f?v=3050cfbe883e4d9ea1954bc67bf12a46&pvs=4)https://glitter-runner-dfb.notion.site/e0fd0ceb6c6c47d9b8e3bec95d8af78f?v=3050cfbe883e4d9ea1954bc67bf12a46&pvs=4.
+For a list of our current documented communication features, please refer to [this database](https://glitter-runner-dfb.notion.site/e0fd0ceb6c6c47d9b8e3bec95d8af78f?v=3050cfbe883e4d9ea1954bc67bf12a46&pvs=4).
