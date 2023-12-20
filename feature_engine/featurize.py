@@ -64,8 +64,7 @@ if __name__ == "__main__":
 		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative.csv",
 		turns = False,
 		conversation_id = "stageId",
-		cumulative_grouping = True,
-
+		cumulative_grouping = True
 	)
 	multi_task_feature_builder_cumulative.featurize(col="message")
 
@@ -78,7 +77,6 @@ if __name__ == "__main__":
 		conversation_id = "stageId",
 		cumulative_grouping = True,
 		within_task = True
-	
 	)
 	multi_task_feature_builder_cumulative_task.featurize(col="message")
 
