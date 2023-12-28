@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import colorsys
+from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
 from bokeh.plotting import figure, output_file, show
@@ -257,7 +258,7 @@ def get_pca_of_dataframes(dfs, n_components=None):
 	return(pca)
 
 
-def plot_pca_of_dataframes(*dfs, labels, title = "PCA Scatter Plot of DataFrames"):
+def plot_2d_dataframes(*dfs, labels, pca = True, legend_label = "Task", title = "PCA Scatter Plot of DataFrames"):
 	"""
 	Plot data from multiple DataFrames on the same 2D PCA plot, coloring by labels.
 
@@ -269,37 +270,40 @@ def plot_pca_of_dataframes(*dfs, labels, title = "PCA Scatter Plot of DataFrames
 	"""
 	# Add a "task_name" column to each DataFrame based on the corresponding label
 	for i, df in enumerate(dfs):
-		df['task_name'] = labels[i]
+		df['label'] = labels[i]
 	
 	# Concatenate the DataFrames into a single DataFrame
-	stacked_data = pd.concat([df.assign(task_name=labels[i]) for i, df in enumerate(get_numeric_cols(dfs))], axis=0)
-
-	# Normalize Columns Across All Tasks
-	# This ensures that features with large numeric values don't skew the PCA
-	# Simultaneously, normalizing *across* tasks ensures that 
-	cols_to_normalize = [col for col in stacked_data.columns if col != 'task_name']
-	normed_data = stacked_data[cols_to_normalize].transform(lambda x: (x - x.mean()) / x.std())
-
-	# Drop columns with any NaN values
-	normed_data = normed_data.dropna(axis=1)
+	stacked_data = pd.concat([df.assign(label=labels[i]) for i, df in enumerate(get_numeric_cols(dfs))], axis=0)
 
 	# Perform PCA for dimensionality reduction (2 components for 2D)
-	pca = PCA(n_components=2)
-	reduced_data = pca.fit_transform(normed_data)
+	if(pca):
+		# Normalize Columns Across All Tasks
+		# This ensures that features with large numeric values don't skew the PCA
+		# Simultaneously, normalizing *across* tasks ensures that 
+		cols_to_normalize = [col for col in stacked_data.columns if col != 'label']
+		normed_data = stacked_data[cols_to_normalize].transform(lambda x: (x - x.mean()) / x.std())
 
-	# Create a scatter plot and use the "task_name" column for coloring
+		# Drop columns with any NaN values
+		normed_data = normed_data.dropna(axis=1)
+		pca = PCA(n_components=2)
+		reduced_data = pca.fit_transform(normed_data)
+	else: #T-SNE
+		tsne = TSNE(n_components=2)
+		reduced_data = tsne.fit_transform(stacked_data.drop('label', axis=1))
+
+	# Create a scatter plot and use the "label" column for coloring
 	plt.figure(figsize=(10, 6))
 	unique_labels = list(set(labels))
 	colors = plt.cm.tab20(np.arange(len(unique_labels)))
 
 	for i, label in enumerate(unique_labels):
-		label_data = reduced_data[stacked_data['task_name'] == label]
+		label_data = reduced_data[stacked_data['label'] == label]
 		plt.scatter(label_data[:, 0], label_data[:, 1], label=label, color=colors[i], alpha=0.6)
 
 	plt.title(title)
 	plt.xlabel("Principal Component 1")
 	plt.ylabel("Principal Component 2")
-	plt.legend(loc='best', title='Task')
+	plt.legend(loc='best', title=legend_label)
 	plt.grid(True)
 	plt.show()
 
