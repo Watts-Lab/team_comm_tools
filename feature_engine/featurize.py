@@ -57,52 +57,52 @@ if __name__ == "__main__":
 	# FULL DATASETS BELOW
 
 	# Multi-Task Data
-	multi_task_feature_builder_cumulative = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
-		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative.csv",
-		output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative.csv",
-		turns = False,
-		conversation_id = "stageId",
-		cumulative_grouping = True
-	)
-	multi_task_feature_builder_cumulative.featurize(col="message")
+	# multi_task_feature_builder_cumulative = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative.csv",
+	# 	turns = False,
+	# 	conversation_id = "stageId",
+	# 	cumulative_grouping = True
+	# )
+	# multi_task_feature_builder_cumulative.featurize(col="message")
 
-	multi_task_feature_builder_cumulative_task = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
-		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative_within_task.csv",
-		output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative_within_task.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative_within_task.csv",
-		turns = False,
-		conversation_id = "stageId",
-		cumulative_grouping = True,
-		within_task = True
-	)
-	multi_task_feature_builder_cumulative_task.featurize(col="message")
+	# multi_task_feature_builder_cumulative_task = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative_within_task.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative_within_task.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative_within_task.csv",
+	# 	turns = False,
+	# 	conversation_id = "stageId",
+	# 	cumulative_grouping = True,
+	# 	within_task = True
+	# )
+	# multi_task_feature_builder_cumulative_task.featurize(col="message")
 
-	multi_task_feature_builder_roundId_last = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
-		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last.csv",
-		output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last.csv",
-		turns = False,
-		conversation_id = "roundId",
-		cumulative_grouping = False
+	# multi_task_feature_builder_roundId_last = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last.csv",
+	# 	turns = False,
+	# 	conversation_id = "roundId",
+	# 	cumulative_grouping = False
 
-	)
-	multi_task_feature_builder_roundId_last.featurize(col="message")
+	# )
+	# multi_task_feature_builder_roundId_last.featurize(col="message")
 
-	multi_task_feature_builder_roundId_last_cumulative = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
-		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last_cumulative.csv",
-		output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last_cumulative.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last_cumulative.csv",
-		turns = False,
-		conversation_id = "roundId",
-		cumulative_grouping = True
+	# multi_task_feature_builder_roundId_last_cumulative = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last_cumulative.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last_cumulative.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last_cumulative.csv",
+	# 	turns = False,
+	# 	conversation_id = "roundId",
+	# 	cumulative_grouping = True
 
-	)
-	multi_task_feature_builder_roundId_last_cumulative.featurize(col="message")
+	# )
+	# multi_task_feature_builder_roundId_last_cumulative.featurize(col="message")
 
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
@@ -142,15 +142,14 @@ if __name__ == "__main__":
 	
 
 	# DAT - Divergent Association Task
-	# dat_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/DAT_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/DAT_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/DAT_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/DAT_output_conversation_level.csv",
-	# 	turns = True,
-	# 	analyze_first_pct = [0.25, 0.5, 0.75, 1]
-	# )
-	# dat_feature_builder.featurize(col="message")
+	dat_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/DAT_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/DAT_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/DAT_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/DAT_output_conversation_level.csv",
+		turns = True
+	)
+	dat_feature_builder.featurize(col="message")
 
 
 	# PGG (Small)
@@ -164,23 +163,21 @@ if __name__ == "__main__":
 
 
 	# Estimation (Gurcay)
-	# gurcay_estimation_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/gurcay2015estimation_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/gurcay2015estimation_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/gurcay2015estimation_output_conversation_level.csv",
-	# 	turns = True,
-	# 	analyze_first_pct = [0.25, 0.5, 0.75, 1]
-	# )
-	# gurcay_estimation_feature_builder.featurize(col="message")
+	gurcay_estimation_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/gurcay2015estimation_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/gurcay2015estimation_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/gurcay2015estimation_output_conversation_level.csv",
+		turns = True
+	)
+	gurcay_estimation_feature_builder.featurize(col="message")
 
  	# Estimation (Becker)
-	# becker_estimation_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/beckerestimation_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/beckerestimation_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/beckerestimation_output_conversation_level.csv",
-	# 	turns = True,
-	# 	analyze_first_pct = [0.25, 0.5, 0.75, 1]
-	# )
-	# becker_estimation_feature_builder.featurize(col="message")
+	becker_estimation_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/beckerestimation_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/beckerestimation_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/beckerestimation_output_conversation_level.csv",
+		turns = True
+	)
+	becker_estimation_feature_builder.featurize(col="message")
