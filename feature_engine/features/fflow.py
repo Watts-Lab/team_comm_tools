@@ -33,7 +33,7 @@ def get_forward_flow(chat_data, vect_data):
             
             # determine distance from that and average of all previous messages, append to the list
             cos_sim_matrix = cosine_similarity([row['message_embedding'], avg_embedding])
-            cosine_sim = cos_sim_matrix[np.triu_indices(len(cos_sim_matrix), k = 1)][0]
+            cosine_sim = cos_sim_matrix[0, 1]
 
             forward_flow.append(cosine_sim)
 
