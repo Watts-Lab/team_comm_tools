@@ -10,6 +10,7 @@ from utils.gini_coefficient import *
 from features.basic_features import *
 # from utils.summarize_chat_level_features import *
 from utils.summarize_features import *
+from utils.preprocess import *
 from features.get_all_DD_features import *
 
 
@@ -36,7 +37,7 @@ class ConversationLevelFeaturesCalculator:
         self.columns_to_summarize = [column for column in self.chat_data.columns \
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
-
+        
     def calculate_conversation_level_features(self) -> pd.DataFrame:
         """
 			This is the main driver function for this class.
@@ -44,6 +45,7 @@ class ConversationLevelFeaturesCalculator:
 		RETURNS:
 			(pd.DataFrame): The conversation level dataset given to this class during initialization along with 
 							new columns for each conv level feature.
+
         """
         # Get gini based features by aggregating user-level totals, pass in USER LEVEL FEATURES
         self.get_gini_features()
@@ -226,6 +228,3 @@ class ConversationLevelFeaturesCalculator:
             on=['conversation_num'],
             how="inner"
         )
-
-
-
