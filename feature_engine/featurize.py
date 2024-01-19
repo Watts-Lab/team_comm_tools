@@ -105,39 +105,36 @@ if __name__ == "__main__":
 	# multi_task_feature_builder_roundId_last_cumulative.featurize(col="message")
 
 	# Juries
-	# jury_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/jury_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/jury_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/jury_output_conversation_level.csv",
-	# 	turns = True,
-	# 	analyze_first_pct = [0.25, 0.5, 0.75, 1]
-	# )
-	# jury_feature_builder.featurize(col="message")
+	jury_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/jury_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/jury_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/jury_output_conversation_level.csv",
+		turns = True
+	)
+	jury_feature_builder.featurize(col="message")
 
 
 	# CSOP (Abdullah)
-	# csop_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/csop_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/csop_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/csop_output_conversation_level.csv",
-	# 	turns = True,
-	# 	analyze_first_pct = [0.25, 0.5, 0.75, 1]
-	# )
-	# csop_feature_builder.featurize(col="message")
+	csop_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/csop_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/csop_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/csop_output_conversation_level.csv",
+		turns = True
+	)
+	csop_feature_builder.featurize(col="message")
 
 
 	# CSOP II (Nak Won Rim)
-	# csopII_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/csopII_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/csopII_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/csopII_output_conversation_level.csv",
-	# 	turns = True,
-	# 	analyze_first_pct = [0.25, 0.5, 0.75, 1]
-	# )
-	# csopII_feature_builder.featurize(col="message")
+	csopII_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/csopII_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/csopII_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/csopII_output_conversation_level.csv",
+		turns = True
+	)
+	csopII_feature_builder.featurize(col="message")
 
 	
 

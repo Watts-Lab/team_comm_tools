@@ -1,7 +1,0 @@
-,model,model_type,features_included,alpha,q_squared
-2,Lasso(alpha=0.13226612275646105),Lasso,Communication,0.1323,0.24245582681167488
-4,Lasso(alpha=0.13466334651952944),Lasso,All Features,0.1347,0.22305029347174365
-1,Lasso(alpha=0.07474428112010349),Lasso,Team Composition,0.0747,-0.0013580650014504148
-0,Ridge(alpha=0.07474428112010349),Ridge,Team Composition,0.0747,-0.1933516487377085
-5,Ridge(alpha=0.13466334651952944),Ridge,All Features,0.1347,-0.39232726611782387
-3,Ridge(alpha=0.13226612275646105),Ridge,Communication,0.1323,-0.4061971157352213
