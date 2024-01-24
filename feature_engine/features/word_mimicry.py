@@ -102,12 +102,13 @@ def get_mimicry_bert(chat_data, vect_data):
       # first chat has no zero mimicry score, nothing previous to compare it to 
       mimicry.append(0)
       prev_embedding = conv.iloc[0]['message_embedding']
-      
+
       for index, row in conv[1:].iterrows():
           
         # last "pair" has only one element, safeguard against this
-        cos_sim_matrix = cosine_similarity([row['message_embedding'], prev_embedding])
-        cosine_sim = cos_sim_matrix[np.triu_indices(len(cos_sim_matrix), k = 1)][0]
+        cur_embedding = row['message_embedding']
+        cos_sim_matrix = cosine_similarity([cur_embedding, prev_embedding])
+        cosine_sim = cos_sim_matrix[0, 1]
         
         mimicry.append(cosine_sim)
 
@@ -139,7 +140,7 @@ def get_moving_mimicry(chat_data, vect_data):
       for index, row in conv[1:].iterrows():
         # find cosine similarity between current pair
         cos_sim_matrix = cosine_similarity([row['message_embedding'], prev_embedding])
-        cosine_sim = cos_sim_matrix[np.triu_indices(len(cos_sim_matrix), k = 1)][0]
+        cosine_sim = cos_sim_matrix[0, 1]
 
         # get the running average
         prev_mimicry.append(cosine_sim)

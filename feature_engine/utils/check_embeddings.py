@@ -65,6 +65,7 @@ def get_sentiment(text):
     if (pd.isnull(text)):
         return({'positive': np.nan, 'negative': np.nan, 'neutral': np.nan})
     
+    text = ' '.join(text.split()[:512]) # handle cases when the text is too long: just take the first 512 chars (hacky, but BERT context window cannot be changed)
     encoded = tokenizer(text, return_tensors='pt')
     output = model_bert(**encoded)
 
