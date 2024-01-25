@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from .discursive_diversity import get_cosine_similarity
+import os
+from pathlib import Path
 
 '''
 This is a conversation level feature, which computes the semantic modulation that individuals experience with respect to themselves across each chunk transition. Incongruent modulation measures the variance of the rates of shifting, while within person discursive range measures the average amount of shifting. 
@@ -8,7 +10,10 @@ This is a conversation level feature, which computes the semantic modulation tha
 '''
 
 def get_nan_vector():
-    f = open("data/vectors/nan_vector.txt", "r")
+    current_script_directory = Path(__file__).resolve().parent
+    # TODO --- fix this file path once dataset cleaning is added!
+    nan_vector_file_path = current_script_directory / "../data/vectors/nan_vector.txt"
+    f = open(nan_vector_file_path, "r")
     str_vec = f.read()
     nan_vector_list = [float(e) for e in str_vec[1:-1].split(',')]
     return np.array(nan_vector_list)

@@ -1,12 +1,16 @@
 import pandas as pd
 import re
+import os
+from pathlib import Path
 
 # Note: This feature requires the message WITH punctuation.
 
 # parse certainty lexicon, compile into master regex, delimited by | 
-certainty = pd.read_csv("./features/lexicons/certainty.txt").sort_values(["NumWords", "NumCharacters"], ascending=False)
+# Construct the absolute path to certainty.txt using the current script directory
+current_script_directory = Path(__file__).resolve().parent
+certainty_file_path = current_script_directory / "lexicons/certainty.txt"
+certainty = pd.read_csv(certainty_file_path).sort_values(["NumWords", "NumCharacters"], ascending=False)
 master_regex = certainty["Word"].str.cat(sep='\\b|') + "\\b"
-
 
 def get_certainty(chat): 
     
