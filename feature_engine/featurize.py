@@ -19,7 +19,7 @@ if __name__ == "__main__":
 	# TINY Test sets --- just two conversations each
 	# Tiny Juries
 	feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/juries_tiny_for_testing.csv",
+		input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/juries_tiny_for_testing.csv",
 		output_file_path_chat_level = "../feature_engine/output/chat/jury_TINY_output_chat_level.csv",
 		output_file_path_user_level = "../feature_engine/output/user/jury_TINY_output_user_level.csv",
 		output_file_path_conv_level = "../feature_engine/output/conv/jury_TINY_output_conversation_level.csv",
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
 	# Tiny CSOP
 	tiny_csop_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/data/raw_data/csop_conversations_TINY.csv",
+		input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/csop_conversations_TINY.csv",
 		output_file_path_chat_level = "../feature_engine/output/chat/csop_TINY_output_chat_level.csv",
 		output_file_path_user_level = "../feature_engine/output/user/csop_TINY_output_user_level.csv",
 		output_file_path_conv_level = "../feature_engine/output/conv/csop_TINY_output_conversation_level.csv",
@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
 	# Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_TINY.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/multi_task_TINY.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_TINY_output_chat_level_stageId_cumulative.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_TINY_output_user_level_stageId_cumulative.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_TINY_output_conversation_level_stageId_cumulative.csv",
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
 	# Multi-Task Data
 	# multi_task_feature_builder_cumulative = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/multi_task_conversations_with_dv_and_composition.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative.csv",
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 	# multi_task_feature_builder_cumulative.featurize(col="message")
 
 	# multi_task_feature_builder_cumulative_task = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/multi_task_conversations_with_dv_and_composition.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative_within_task.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative_within_task.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative_within_task.csv",
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 	# multi_task_feature_builder_cumulative_task.featurize(col="message")
 
 	# multi_task_feature_builder_roundId_last = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last.csv",
@@ -92,7 +92,7 @@ if __name__ == "__main__":
 	# multi_task_feature_builder_roundId_last.featurize(col="message")
 
 	# multi_task_feature_builder_roundId_last_cumulative = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last_cumulative.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last_cumulative.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last_cumulative.csv",
@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/jury_conversations_with_outcome_var.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/jury_conversations_with_outcome_var.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/jury_output_chat_level.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/jury_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/jury_output_conversation_level.csv",
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
 	# CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csop_conversations_withblanks.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/csop_conversations_withblanks.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/csop_output_chat_level.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/csop_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/csop_output_conversation_level.csv",
@@ -127,7 +127,7 @@ if __name__ == "__main__":
 
 	# CSOP II (Nak Won Rim)
 	# csopII_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/csopII_conversations_withblanks.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/csopII_conversations_withblanks.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/csopII_output_chat_level.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/csopII_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/csopII_output_conversation_level.csv",
@@ -139,7 +139,7 @@ if __name__ == "__main__":
 
 	# DAT - Divergent Association Task
 	# dat_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/DAT_conversations_withblanks.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/DAT_conversations_withblanks.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/DAT_output_chat_level.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/DAT_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/DAT_output_conversation_level.csv",
@@ -150,7 +150,7 @@ if __name__ == "__main__":
 
 	# PGG (Small)
 	# pgg_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/pgg_conversations_withblanks.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/pgg_conversations_withblanks.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/pgg_output_chat_level.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/pgg_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/pgg_output_conversation_level.csv"
@@ -160,7 +160,7 @@ if __name__ == "__main__":
 
 	# Estimation (Gurcay)
 	# gurcay_estimation_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/gurcay2015_group_estimation.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/gurcay2015_group_estimation.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/gurcay2015estimation_output_chat_level.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/gurcay2015estimation_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/gurcay2015estimation_output_conversation_level.csv",
@@ -170,7 +170,7 @@ if __name__ == "__main__":
 
  	# Estimation (Becker)
 	# becker_estimation_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/data/raw_data/becker_group_estimation.csv",
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/becker_group_estimation.csv",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/beckerestimation_output_chat_level.csv",
 	# 	output_file_path_user_level = "../feature_engine/output/user/beckerestimation_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/beckerestimation_output_conversation_level.csv",
