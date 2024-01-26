@@ -42,7 +42,7 @@ def generate_vect(chat_data, output_path):
 
     # Create directories along the path if they don't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-    embedding_df.to_csv(output_path)
+    embedding_df.to_csv(output_path, index=False)
 
 # Generate BERT sentiments 
 def generate_bert(chat_data, output_path):
@@ -58,7 +58,7 @@ def generate_bert(chat_data, output_path):
     
     # Create directories along the path if they don't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-    sent_df.to_csv(output_path)
+    sent_df.to_csv(output_path, index=False)
 
 def get_sentiment(text):
 
