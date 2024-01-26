@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 import os
+import pickle
 
 from pathlib import Path
 
@@ -29,6 +30,46 @@ def check_embeddings(chat_data, vect_path, bert_path):
         generate_vect(chat_data, vect_path)
     if (not os.path.isfile(bert_path)):
         generate_bert(chat_data, bert_path)
+
+    ### TODO --- TEST THIS!
+    current_script_directory = Path(__file__).resolve().parent
+    LEXICON_PATH_STATIC = current_script_directory.parent/"features/lexicons_dict.pkl"
+    if (not os.path.isfile(LEXICON_PATH_STATIC)):
+        generate_lexicon_pkl()
+
+# Read in the lexicons (helper function for generating the pickle file)
+def read_in_lexicons(directory, lexicons_dict):
+    for filename in os.listdir(directory):
+        with open(directory/filename, encoding = "mac_roman") as lexicons:
+            if filename.startswith("."):
+                continue
+            lines = []
+            for lexicon in lexicons:
+                # get rid of parentheses
+                lexicon = lexicon.replace('(', '')
+                lexicon = lexicon.replace(')', '')
+                if '*' not in lexicon:
+                    lines.append(r"\b" + lexicon.replace("\n", "") + r"\b")
+                else:
+                    # get rid of any cases of multiple repeat -- e.g., '**'
+                    lexicon = lexicon.replace('\**', '\*')
+
+                    # build the final lexicon
+                    lines.append(r"\b" + lexicon.replace("\n", "").replace("*", "") + r"\S*\b")
+        clean_name = re.sub('.txt', '', filename)
+        lexicons_dict[clean_name] = "|".join(lines)
+
+# Generate the lexicon .pkl file
+def generate_lexicon_pkl():
+    print("Generating Lexicon pickle...")
+    lexicons_dict = {}
+    current_script_directory = Path(__file__).resolve().parent
+    read_in_lexicons(current_script_directory.parent / "features/lexicons/liwc_lexicons/", lexicons_dict) # Reads in LIWC Lexicons
+    read_in_lexicons(current_script_directory.parent / "features/lexicons/other_lexicons/", lexicons_dict) # Reads in Other Lexicons
+
+    # Save as pickle
+    with open(current_script_directory.parent/"features/lexicons_dict.pkl", "wb") as lexicons_pickle_file:
+        pickle.dump(lexicons_dict, lexicons_pickle_file)
 
 # Generate sentence vectors
 def generate_vect(chat_data, output_path):
