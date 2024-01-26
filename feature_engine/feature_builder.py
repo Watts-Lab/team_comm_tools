@@ -14,6 +14,7 @@ The intention behind this class is to use these modules and:
 
 # 3rd Party Imports
 import pandas as pd
+pd.options.mode.chained_assignment = None 
 import re
 import numpy as np
 from pathlib import Path
@@ -30,6 +31,7 @@ class FeatureBuilder:
     def __init__(
             self, 
             input_file_path: str, 
+            vector_directory: str,
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
             output_file_path_conv_level: str,
@@ -44,6 +46,7 @@ class FeatureBuilder:
 
         PARAMETERS:
             @param input_file_path (str): File path of the input csv dataset (assumes that the '.csv' suffix is added)
+            @param vector_directory (str): Directory path where the vectors are to be cached.
             @param output_file_path_chat_level (str): Path where the output csv file is to be generated 
                                                       (assumes that the '.csv' suffix is added)
             @param output_file_path_conv_level (str): Path where the output csv file is to be generated 
@@ -62,6 +65,7 @@ class FeatureBuilder:
         """
         #  Defining input and output paths.
         self.input_file_path = input_file_path
+        self.vector_directory = vector_directory
         print("Initializing Featurization for " + self.input_file_path + " ...")
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
@@ -81,8 +85,6 @@ class FeatureBuilder:
         self.cumulative_grouping = cumulative_grouping # for grouping the chat data
         self.within_task = within_task
 
-        # TODO -- consider preprocessing *once*, then aggregating differently in the conversation level.
-        # Currently not doing that because it breaks the way that vector-based conversation features (e.g., DD) work.
         self.preprocess_chat_data(col="message", turns=self.turns, conversation_id = self.conversation_id, cumulative_grouping = self.cumulative_grouping, within_task = self.within_task)
 
         # Input columns are the columns that come in the raw chat data
@@ -94,15 +96,18 @@ class FeatureBuilder:
             if(self.within_task):
                 df_type = df_type + "/cumulative/within_task/"
             df_type = df_type + "/cumulative/"
-        self.vect_path = re.sub('raw_data', 'vectors/sentence/' + df_type, input_file_path)
-        self.bert_path = re.sub('raw_data', 'vectors/sentiment/' + df_type, input_file_path)
+
+        file_name = re.findall("\/([^\/]+)$", self.input_file_path)[0]
+        self.vect_path = self.vector_directory + "sentence/" + df_type + "/"+ file_name
+        self.bert_path = self.vector_directory + "sentiment/" + df_type + "/"+ file_name
         self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
 
         # Check + generate embeddings
         check_embeddings(self.chat_data, self.vect_path, self.bert_path)
 
         self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
-        self.bert_sentiment_data = pd.read_csv(self.bert_path, encoding='mac_roman').drop('Unnamed: 0', axis=1)
+
+        self.bert_sentiment_data = pd.read_csv(self.bert_path, encoding='mac_roman')
 
         # Deriving the base conversation level dataframe.
         # This is the number of unique conversations (and, in conversations with multiple levels, the number of
@@ -285,6 +290,7 @@ class FeatureBuilder:
             user_data = self.user_data,
             conv_data = self.conv_data,
             vect_data = self.vect_data,
+            vector_directory = self.vector_directory,
             input_columns = self.input_columns
         )
         # Calling the driver inside this class to create the features.

@@ -15,14 +15,24 @@ from features.get_all_DD_features import *
 
 
 class ConversationLevelFeaturesCalculator:
-    def __init__(self, chat_data: pd.DataFrame, user_data: pd.DataFrame, conv_data: pd.DataFrame, vect_data: pd.DataFrame, input_columns:list) -> None:
+    def __init__(self, chat_data: pd.DataFrame, 
+                        user_data: pd.DataFrame, 
+                        conv_data: pd.DataFrame, 
+                        vect_data: pd.DataFrame, 
+                        vector_directory: str, 
+                        input_columns:list) -> None:
         """
             This function is used to initialize variables and objects that can be used by all functions of this class.
 
 		PARAMETERS:
 			@param chat_data (pd.DataFrame): This is a pandas dataframe of the chat level features read in from the input dataset.
+            @param user_data (pd.DataFrame): This is a pandas dataframe of the user level features derived from the 
+                                             chat level dataframe.
             @param conv_data (pd.DataFrame): This is a pandas dataframe of the conversation level features derived from the 
                                              chat level dataframe.
+            @param vect_data (pd.DataFrame): This is a pandas dataframe of the processed vectors derived from the 
+                                             chat level dataframe.
+            @param vector_directory (str): This is a string containing the directory where the vectors live.
             @param input_columns (list): This is a list containing all the columns in the chat level features dataframe that 
                                          should not be summarized.
         """
@@ -31,6 +41,7 @@ class ConversationLevelFeaturesCalculator:
         self.user_data = user_data
         self.conv_data = conv_data
         self.vect_data = vect_data
+        self.vector_directory = vector_directory
         # Denotes the columns that can be summarized from the chat level, onto the conversation level.
         self.input_columns = list(input_columns)
         self.input_columns.append('conversation_num')
@@ -224,7 +235,7 @@ class ConversationLevelFeaturesCalculator:
         """
         self.conv_data = pd.merge(
             left=self.conv_data,
-            right=get_DD_features(self.chat_data, self.vect_data),
+            right=get_DD_features(self.chat_data, self.vect_data, self.vector_directory),
             on=['conversation_num'],
             how="inner"
         )
