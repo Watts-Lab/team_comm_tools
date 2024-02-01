@@ -69,7 +69,7 @@ Returns: grouped dataframe; [conversation_num, max_of_input_column]
 '''
 def get_max(input_data, column_to_summarize, new_column_name):
     # grouped_conversation_data = get_count_dataframe(chat_level_data, column_to_summarize)
-    input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform(max)
+    input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform("max")
     return(input_data[["conversation_num", new_column_name]].drop_duplicates())
 
 '''
@@ -83,7 +83,7 @@ Returns: grouped dataframe;[conversation_num, min_of_input_column]
 '''
 def get_min(input_data, column_to_summarize, new_column_name):
     # grouped_conversation_data = get_count_dataframe(chat_level_data, column_to_summarize)
-    input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform(min)
+    input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform("min")
     return(input_data[["conversation_num", new_column_name]].drop_duplicates())
 
 '''
