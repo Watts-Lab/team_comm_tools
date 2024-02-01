@@ -1,5 +1,80 @@
-matplotlib==3.7.0
-numpy==1.24.2
-pandas==1.5.3
-scipy==1.10.0
-seaborn==0.12.2
+annotated-types==0.6.0
+blis==0.7.11
+Bottleneck @ file:///Users/cbousseau/work/recipes/ci_py311/bottleneck_1677925122241/work
+catalogue==2.0.10
+certifi==2023.11.17
+charset-normalizer==3.3.2
+clean-text==0.6.0
+click==8.1.7
+cloudpathlib==0.16.0
+confection==0.1.4
+contourpy==1.2.0
+convokit==3.0.0
+cycler==0.12.1
+cymem==2.0.8
+dill==0.3.8
+dnspython==2.5.0
+emoji==1.7.0
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl#sha256=86cc141f63942d4b2c5fcee06630fd6f904788d2f0ab005cce45aadb8fb73889
+filelock @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_d3quwmvouf/croot/filelock_1700591194006/work
+fonttools==4.47.2
+fsspec==2023.12.2
+ftfy==6.1.3
+gmpy2 @ file:///Users/cbousseau/work/recipes/ci_py311/gmpy2_1677937751357/work
+huggingface-hub==0.20.3
+idna==3.6
+Jinja2 @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_7dognxkzoy/croot/jinja2_1706733627811/work
+joblib==1.3.2
+kiwisolver==1.4.5
+langcodes==3.3.0
+MarkupSafe @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_a84ni4pci8/croot/markupsafe_1704206002077/work
+matplotlib==3.8.2
+mpmath @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_17iu6a8a3m/croot/mpmath_1690848269369/work
+msgpack==1.0.7
+msgpack-numpy==0.4.8
+murmurhash==1.0.10
+networkx @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_b9af3smw_7/croot/networkx_1690562010704/work
+nltk==3.8.1
+numexpr @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_45yefq0kt6/croot/numexpr_1696515289183/work
+numpy @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_cfbbnu3tzv/croot/numpy_and_numpy_base_1704311724719/work/dist/numpy-1.26.3-cp311-cp311-macosx_11_0_arm64.whl#sha256=e1ff5b3ac69d47ee7f663143870abe3577113ab9d3b17fff39b263c6a2120559
+packaging==23.2
+pandas @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_82r7p4atwy/croot/pandas_1702318000240/work/dist/pandas-2.1.4-cp311-cp311-macosx_11_0_arm64.whl#sha256=63b9f12c34b6c55958dc1c6d032dafd28dc982c5e3a7b0f2802ba7920c95f437
+pillow==10.2.0
+preshed==3.0.9
+pydantic==2.6.0
+pydantic_core==2.16.1
+pymongo==4.6.1
+pyparsing==3.1.1
+pyphen @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_8eirvc_2tc/croot/pyphen_1696417732722/work
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+pytz @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_6btwyyj8a1/croot/pytz_1695131592184/work
+PyYAML @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_a8_sdgulmz/croot/pyyaml_1698096054705/work
+regex==2023.12.25
+requests==2.31.0
+safetensors==0.4.2
+scikit-learn==1.4.0
+scipy==1.12.0
+sentence-transformers==2.3.1
+sentencepiece==0.1.99
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+smart-open==6.4.0
+spacy==3.7.2
+spacy-legacy==3.0.12
+spacy-loggers==1.0.5
+srsly==2.4.8
+sympy @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_7cbpg8656h/croot/sympy_1701397648473/work
+textblob==0.17.1
+thinc==8.2.2
+threadpoolctl==3.2.0
+tokenizers==0.15.1
+torch==2.2.0
+tqdm==4.66.1
+transformers==4.37.2
+typer==0.9.0
+typing_extensions @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_6ejdc7ufhc/croot/typing_extensions_1705599306111/work
+tzdata @ file:///croot/python-tzdata_1690578112552/work
+Unidecode==1.3.8
+urllib3==2.2.0
+wasabi==1.1.2
+wcwidth==0.2.13
+weasel==0.3.4
