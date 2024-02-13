@@ -22,7 +22,7 @@ def get_forward_flow(chat_data, vect_data):
 
     forward_flow = []
 
-    for num, conv in chat_df.groupby(['conversation_num'],  sort=False):
+    for num, conv in chat_df.groupby('conversation_num',  sort=False):
 
         forward_flow.append(0)
         embedding_running_sum = conv.iloc[0]["message_embedding"]

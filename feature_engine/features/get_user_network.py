@@ -20,7 +20,7 @@ def remove_active_user(df):
 
 def get_user_network(user_df):
     
-    user_lists = user_df.groupby(["conversation_num"]).apply(lambda df : np.asarray(df["speaker_nickname"]))
+    user_lists = user_df.groupby("conversation_num", group_keys=True).apply(lambda df : np.asarray(df["speaker_nickname"]))
 
     user_list_df = pd.merge(
         left=user_df,
@@ -29,6 +29,6 @@ def get_user_network(user_df):
         how="inner"
     )
     
-    user_list_df_final = user_list_df.groupby(["conversation_num"]).apply(lambda df : remove_active_user(df)).reset_index(drop=True)
+    user_list_df_final = user_list_df.groupby("conversation_num", group_keys=True).apply(lambda df : remove_active_user(df)).reset_index(drop=True)
     
     return user_list_df_final[['conversation_num', 'speaker_nickname', 'user_list']]
