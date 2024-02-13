@@ -60,7 +60,7 @@ This calls the `featurizer.py` file, which declares a FeatureBuilder object for 
 ## Documents and Handy Links
 - Our Team Email: csslab-team-process-map@wharton.upenn.edu (Ask Emily for the password!)
 
-- Our "master sheet," where we :
+- Our "master sheet," where we track progress, literature, and new features to build:
 https://docs.google.com/spreadsheets/d/1JnChOKFXkv944LvnYbzI1qrHLEPfCvEMN5XzP1AxvmA/edit?usp=sharing
 
 ## Database of Current Communication Features
