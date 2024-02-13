@@ -18,95 +18,56 @@ if __name__ == "__main__":
 
 	# TINY Test sets --- just two conversations each
 	# Tiny Juries
-	feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/juries_tiny_for_testing.csv",
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/jury_TINY_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/user/jury_TINY_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/jury_TINY_output_conversation_level.csv",
-		turns = False,
-	)
-	feature_builder.featurize(col="message")
+	# feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/juries_tiny_for_testing.csv",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/jury_TINY_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/jury_TINY_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/jury_TINY_output_conversation_level.csv",
+	# 	turns = False,
+	# )
+	# feature_builder.featurize(col="message")
 
-	# Tiny CSOP
-	tiny_csop_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/csop_conversations_TINY.csv",
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/csop_TINY_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/user/csop_TINY_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/csop_TINY_output_conversation_level.csv",
-		turns = True,
-	)
-	tiny_csop_feature_builder.featurize(col="message")
+	# # Tiny CSOP
+	# tiny_csop_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/csop_conversations_TINY.csv",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/csop_TINY_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/csop_TINY_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/csop_TINY_output_conversation_level.csv",
+	# 	turns = True,
+	# )
+	# tiny_csop_feature_builder.featurize(col="message")
 
-	# Tiny multi-task
-	tiny_multi_task_feature_builder = FeatureBuilder(
-		input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/multi_task_TINY.csv",
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_TINY_output_chat_level_stageId_cumulative.csv",
-		output_file_path_user_level = "../feature_engine/output/user/multi_task_TINY_output_user_level_stageId_cumulative.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_TINY_output_conversation_level_stageId_cumulative.csv",
-		turns = False,
-		conversation_id = "stageId",
-		cumulative_grouping = True
-	)
-	tiny_multi_task_feature_builder.featurize(col="message")
+	# # Tiny multi-task
+	# tiny_multi_task_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/multi_task_TINY.csv",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_TINY_output_chat_level_stageId_cumulative.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_TINY_output_user_level_stageId_cumulative.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_TINY_output_conversation_level_stageId_cumulative.csv",
+	# 	turns = False,
+	# 	conversation_id = "stageId",
+	# 	cumulative_grouping = True
+	# )
+	# tiny_multi_task_feature_builder.featurize(col="message")
 
 	#####
 
 	# FULL DATASETS BELOW
 
-	# Multi-Task Data
-	# multi_task_feature_builder_cumulative = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/multi_task_conversations_with_dv_and_composition.csv",
-	#	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative.csv",
-	# 	turns = False,
-	# 	conversation_id = "stageId",
-	# 	cumulative_grouping = True
-	# )
-	# multi_task_feature_builder_cumulative.featurize(col="message")
-
-	# multi_task_feature_builder_cumulative_task = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/multi_task_conversations_with_dv_and_composition.csv",
-	#	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_stageId_cumulative_within_task.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_stageId_cumulative_within_task.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_stageId_cumulative_within_task.csv",
-	# 	turns = False,
-	# 	conversation_id = "stageId",
-	# 	cumulative_grouping = True,
-	# 	within_task = True
-	# )
-	# multi_task_feature_builder_cumulative_task.featurize(col="message")
-
-	# multi_task_feature_builder_roundId_last = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
-	#	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last.csv",
-	# 	turns = False,
-	# 	conversation_id = "roundId",
-	# 	cumulative_grouping = False
-
-	# )
-	# multi_task_feature_builder_roundId_last.featurize(col="message")
-
-	# multi_task_feature_builder_roundId_last_cumulative = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/multi_task_conversations_with_dv_and_composition_dv_last_by_stage.csv",
-	#	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_output_chat_level_roundId_last_cumulative.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_output_user_level_roundId_last_cumulative.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_output_conversation_level_roundId_last_cumulative.csv",
-	# 	turns = False,
-	# 	conversation_id = "roundId",
-	# 	cumulative_grouping = True
-
-	# )
-	# multi_task_feature_builder_roundId_last_cumulative.featurize(col="message")
+	# Negotiation
+	negotiation_pilot = FeatureBuilder(
+		input_file_path = "../feature_engine/tpm-data/cleaned_data/negotiation_pilot_data_02_07_24_clean.csv",
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/negotiation_pilot_02_07_24.csv",
+		output_file_path_user_level = "../feature_engine/output/user/negotiation_pilot_02_07_24.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/negotiation_pilot_02_07_24.csv",
+		turns = False,
+		conversation_id = "stageId",
+		cumulative_grouping = True
+	)
+	negotiation_pilot.featurize(col="message")
 
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
