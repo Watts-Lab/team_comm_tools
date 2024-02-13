@@ -63,7 +63,7 @@ def create_chunks(df, num_chunks):
         # If it's not Unix time, we can treat it as an int offset
 
     # Group and calculate difference
-    for conversation_num, group in df.groupby(['conversation_num']):
+    for conversation_num, group in df.groupby('conversation_num'):
 
         if pd.api.types.is_datetime64_any_dtype(df['timestamp']):
             total_duration_seconds = (group['timestamp'].max() - group['timestamp'].min()).total_seconds() if is_datetime_string else (group['timestamp'].max() - group['timestamp'].min()).total_seconds()

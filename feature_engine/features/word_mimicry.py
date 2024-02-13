@@ -97,7 +97,7 @@ def get_mimicry_bert(chat_data, vect_data):
 
   mimicry = []
 
-  for num, conv in chat_df.groupby(['conversation_num'],  sort=False):
+  for num, conv in chat_df.groupby('conversation_num',  sort=False):
 
       # first chat has no zero mimicry score, nothing previous to compare it to 
       mimicry.append(0)
@@ -131,7 +131,7 @@ def get_moving_mimicry(chat_data, vect_data):
 
   moving_mimicry = []
 
-  for num, conv in chat_df.groupby(['conversation_num'], sort = False):
+  for num, conv in chat_df.groupby('conversation_num', sort = False):
 
       prev_embedding = conv.iloc[0]["message_embedding"]
       prev_mimicry = []
