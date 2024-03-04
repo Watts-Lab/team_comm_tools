@@ -86,8 +86,8 @@ function: is_responding_to_someone
 
 Returns a boolean indicating if the message is quoting someone else, as indicated by ">" or "&gt;".
 """
-def is_responding_to_someone(text):
-    return bool(re.match(r'^(>|\&gt;)', text))
+def count_responding_to_someone(text):
+    return len(re.findall(r'^(>|\&gt;)', text))
 
 """
 function: count_ellipses
@@ -108,26 +108,26 @@ def count_parentheses(text):
     return len(text_in_parentheses)
 
 
-print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test count_all_caps
+# print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test count_all_caps
 
-print(count_links("Check out this [link](https://example.com) and this one http://example.org"))  # Test count_links
+# print(count_links("Check out this [link](https://example.com) and this one http://example.org"))  # Test count_links
 
-print(count_user_references("Hello u/user1 and u/user2, hi hi hi?"))  # Test count_user_references
+# print(count_user_references("Hello u/user1 and u/user2, hi hi hi?"))  # Test count_user_references
 
-print(count_emphasis("This is **bold**, *italics*, and this is not. This is ***bolded and italicized***"))  # Test count_emphasis
+# print(count_emphasis("This is **bold**, *italics*, and this is not. This is ***bolded and italicized***"))  # Test count_emphasis
 
-print(count_bullet_points("* item 1\n* item 2\n- item 3"))  # Test count_bullet_points
+# print(count_bullet_points("* item 1\n* item 2\n- item 3"))  # Test count_bullet_points
 
-print(count_numbering("1. First\n2. Second\n3. Third"))  # Test count_numbering
+# print(count_numbering("1. First\n2. Second\n3. Third"))  # Test count_numbering
 
-print(count_line_breaks("This is the first line.\nThis is the second line.\nThis is the third line."))  # Test count_line_breaks
+# print(count_line_breaks("This is the first line.\nThis is the second line.\nThis is the third line."))  # Test count_line_breaks
 
-print(count_quotes("\"This is a quote.\" She said, \"Here's another.\""))  # Test count_quotes
+# print(count_quotes("\"This is a quote.\" She said, \"Here's another.\""))  # Test count_quotes
 
-print(is_responding_to_someone("> Quoting someone else\nThis is my reply."))  # Test is_responding_to_someone
+# print(is_responding_to_someone("> Quoting someone else\nThis is my reply."))  # Test is_responding_to_someone
 
-print(is_responding_to_someone("&gt; Quoting someone else\nThis is my reply."))  # Test is_responding_to_someone
+# print(is_responding_to_someone("&gt; Quoting someone else\nThis is my reply."))  # Test is_responding_to_someone
 
-print(count_ellipses("Well... I'm not sure... Maybe..."))  # Test count_ellipses
+# print(count_ellipses("Well... I'm not sure... Maybe..."))  # Test count_ellipses
 
-print(count_parentheses("This is a sentence (with some text in parentheses)."))  # Test count_parentheses
+# print(count_parentheses("This is a sentence (with some text in parentheses)."))  # Test count_parentheses
