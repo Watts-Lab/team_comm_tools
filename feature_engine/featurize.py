@@ -57,17 +57,26 @@ if __name__ == "__main__":
 	# FULL DATASETS BELOW
 
 	# Negotiation
-	negotiation_pilot = FeatureBuilder(
-		input_file_path = "../feature_engine/tpm-data/cleaned_data/negotiation_pilot_data_02_07_24_clean.csv",
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/negotiation_pilot_02_07_24.csv",
-		output_file_path_user_level = "../feature_engine/output/user/negotiation_pilot_02_07_24.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/negotiation_pilot_02_07_24.csv",
-		turns = False,
-		conversation_id = "stageId",
-		cumulative_grouping = True
+	# negotiation_pilot = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/negotiation_pilot_data_02_07_24_clean.csv",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/negotiation_pilot_02_07_24.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/negotiation_pilot_02_07_24.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/negotiation_pilot_02_07_24.csv",
+	# 	turns = False,
+	# 	conversation_id = "stageId",
+	# 	cumulative_grouping = True
+	# )
+	# negotiation_pilot.featurize(col="message")
+
+	test_num_words = FeatureBuilder(
+	input_file_path = "../feature_engine/tpm-data/test_num_words.csv",
+	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	output_file_path_chat_level = "../feature_engine/output/chat/test_num_words.csv",
+	output_file_path_user_level = "../feature_engine/output/user/test_num_words.csv",
+	output_file_path_conv_level = "../feature_engine/output/conv/test_num_words.csv",
 	)
-	negotiation_pilot.featurize(col="message")
+	test_num_words.featurize(col="message")
 
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
