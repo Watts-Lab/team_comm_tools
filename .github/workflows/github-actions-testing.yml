@@ -4,6 +4,9 @@ on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./feature_engine
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -13,9 +16,21 @@ jobs:
         with:
           python-version: "3.11"
 
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+      - name: Install dependencies
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          python3 -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Additional setup
+        run: |
+          python3 -m spacy download en_core_web_sm
+          import nltk
+          nltk.download('nps_chat')
+          nltk.download('punkt')
+          git submodule update --init --recursive
+
+      - name: Run featurizer
+        run: python3 featurizer.py
+
+      - name: Run tests
+        run: pytest testing/test_feature_metrics.py
