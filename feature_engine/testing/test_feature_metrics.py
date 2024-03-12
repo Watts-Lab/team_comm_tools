@@ -3,13 +3,11 @@ import pandas as pd
 import numpy as np
 from numpy import nan
 
-df =  pd.read_csv("../output/chat/csopII_output_chat_level.csv")
-df['test_pass'] = df.apply(lambda row: row["message"] == row["num_words"], axis=1)
-print(df['test_pass'])
+test_df =  pd.read_csv("../output/turn/test_num_words.csv")
+# test_df['test_pass'] = test_df.apply(lambda row: row[row['expected_column']] == row['expected_value'], axis=1)
+# test_df['obtained_value'] = test_df.apply(lambda row: row[row['expected_column']], axis=1)
+# test_df[["message", "expected_column", "expected_value", "obtained_value", "test_pass"]]
 
-# @pytest.mark.parametrize("row", df.head(5).iterrows())
-# def test_col_exists(row):
-#     assert row[1]["message"] == "i think 504 would still be ok"
-
-def test_col_exists():
-    assert False in df['test_pass'].values
+@pytest.mark.parametrize("row", test_df.iterrows())
+def test_unit_equality(row):
+    assert row[1][row[1]['expected_column']] == row[1]['expected_value']
