@@ -77,6 +77,7 @@ def generate_vect(chat_data, output_path):
     print(f"Generating sentence vectors....")
     # print(f"This is the current filepath: {os. getcwd()}")
     # print(f"And we want to get to {output_path}")
+    print(chat_data)
     embedding_arr = [row.tolist() for row in model_vect.encode(chat_data.message)]
     embedding_df = pd.DataFrame({'message': chat_data.message, 'message_embedding': embedding_arr})
 

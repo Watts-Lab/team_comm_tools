@@ -75,6 +75,7 @@ if __name__ == "__main__":
 	output_file_path_chat_level = "../feature_engine/output/chat/test_num_words.csv",
 	output_file_path_user_level = "../feature_engine/output/user/test_num_words.csv",
 	output_file_path_conv_level = "../feature_engine/output/conv/test_num_words.csv",
+	turns=False
 	)
 	test_num_words.featurize(col="message")
 
