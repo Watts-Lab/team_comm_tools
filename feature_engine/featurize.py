@@ -52,6 +52,17 @@ if __name__ == "__main__":
 	# )
 	# tiny_multi_task_feature_builder.featurize(col="message")
 
+	# testing reddit features
+	reddit_feature_tester = FeatureBuilder(
+		input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/test_reddit_features.csv",
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/reddit_test_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/reddit_test_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/reddit_test_conversation_level.csv",
+		turns = False,
+	)
+	reddit_feature_tester.featurize(col="message")
+
 	#####
 
 	# FULL DATASETS BELOW
