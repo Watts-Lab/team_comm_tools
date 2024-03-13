@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from numpy import nan
 
-test_df =  pd.read_csv("../output/turn/test_num_words.csv")
+test_df =  pd.read_csv("../output/chat/test_num_words.csv")
 # test_df['test_pass'] = test_df.apply(lambda row: row[row['expected_column']] == row['expected_value'], axis=1)
 # test_df['obtained_value'] = test_df.apply(lambda row: row[row['expected_column']], axis=1)
 # test_df[["message", "expected_column", "expected_value", "obtained_value", "test_pass"]]
