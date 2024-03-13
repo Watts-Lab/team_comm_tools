@@ -26,7 +26,7 @@ jobs:
           git submodule update --init --recursive
 
       - name: Run featurizer
-        run: python3 featurizer.py
+        run: python3 featurize.py
 
       - name: Run tests
         run: pytest testing/test_feature_metrics.py
