@@ -24,6 +24,7 @@ jobs:
       - name: Additional setup
         run: |
           git submodule update --init --recursive
+          python import_nltk.py
 
       - name: Run featurizer
         run: python3 featurize.py
