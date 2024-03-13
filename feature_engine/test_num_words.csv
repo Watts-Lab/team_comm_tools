@@ -1,0 +1,6 @@
+﻿conversation_num,speaker_nickname,message,expected_column,expected_value
+1,A,Hello I like fish.,num_words,4
+1,B,This sentence has five words.,num_words,5
+2,A,Hello??,num_words,1
+2,B,Is 4 a word?,num_words,4
+3,A,.,num_words,0

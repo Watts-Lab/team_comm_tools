@@ -18,15 +18,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python3 -m pip install --upgrade pip
+          pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz --no-deps
           pip install -r requirements.txt
 
       - name: Additional setup
         run: |
-          python3 -m spacy download en_core_web_sm
-          import nltk
-          nltk.download('nps_chat')
-          nltk.download('punkt')
           git submodule update --init --recursive
 
       - name: Run featurizer
