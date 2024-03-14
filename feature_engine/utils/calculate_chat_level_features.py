@@ -96,7 +96,7 @@ class ChatLevelFeaturesCalculator:
 
         # Forward Flow
         self.get_forward_flow()
-        self.get_certainty_score()
+        # self.get_certainty_score()
 
         # Reddit / online communication features
         self.get_reddit_features()
