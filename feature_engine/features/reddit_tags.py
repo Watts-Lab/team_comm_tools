@@ -1,4 +1,5 @@
 import numpy as np
+import string
 import re
 
 """
@@ -16,7 +17,13 @@ Returns the number of all-caps words in a message
 def count_all_caps(text):
     words = text.split()
     # Check if the word is all uppercase, is alphabetical, and has more than one letter. Differentiating all caps vs acronyms?
-    all_caps_count = sum(1 for word in words if word.isupper() and word.isalpha() and len(word) > 1) 
+    all_caps_count = sum(
+        1 for word in words 
+        if word.strip(string.punctuation).isupper()  
+        and word.strip(string.punctuation).isalpha() 
+        and len(word.strip(string.punctuation)) > 1 
+        or (word.strip(string.punctuation) != "I" and len(word.strip(string.punctuation)) == 1)
+    ) 
     return all_caps_count
 
 """
@@ -108,7 +115,7 @@ def count_parentheses(text):
     return len(text_in_parentheses)
 
 
-# print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test count_all_caps
+print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test count_all_caps
 
 # print(count_links("Check out this [link](https://example.com) and this one http://example.org"))  # Test count_links
 
