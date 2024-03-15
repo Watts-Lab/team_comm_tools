@@ -77,7 +77,9 @@ function: count_line_breaks
 Returns the number of paragraphs / line breaks in a message.
 """
 def count_line_breaks(text):
-    return text.count('\n')
+    normalized_text = re.sub(r'\r\n?', '\n', text)
+    text_single_breaks = re.sub(r'\n+', '\n', normalized_text)
+    return text_single_breaks.count('\n')
 
 """
 function: count_quotes
@@ -85,7 +87,7 @@ function: count_quotes
 Returns the number instances of text enclosed in quotation marks in a message.
 """
 def count_quotes(text):
-    quotes = re.findall(r'"([^"]*)"', text)
+    quotes = re.findall(r'"([^"]*)"|\'([^\']*)\'', text)
     return len(quotes)
 
 """
@@ -115,7 +117,7 @@ def count_parentheses(text):
     return len(text_in_parentheses)
 
 
-print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test count_all_caps
+# print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test count_all_caps
 
 # print(count_links("Check out this [link](https://example.com) and this one http://example.org"))  # Test count_links
 
@@ -123,11 +125,13 @@ print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test
 
 # print(count_emphasis("This is **bold**, *italics*, and this is not. This is ***bolded and italicized***"))  # Test count_emphasis
 
-# print(count_bullet_points("* item 1\n* item 2\n- item 3"))  # Test count_bullet_points
+# print(count_bullet_points("* item 1\n* item 2\n- item 3	"))  # Test count_bullet_points
 
 # print(count_numbering("1. First\n2. Second\n3. Third"))  # Test count_numbering
 
 # print(count_line_breaks("This is the first line.\nThis is the second line.\nThis is the third line."))  # Test count_line_breaks
+
+# print(count_line_breaks("I have a line\n\n\n\n\nhere is a new line"))  # Test count_line_breaks
 
 # print(count_quotes("\"This is a quote.\" She said, \"Here's another.\""))  # Test count_quotes
 
