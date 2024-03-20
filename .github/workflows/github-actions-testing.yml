@@ -1,5 +1,5 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Testing Features
+run-name: ${{ github.actor }} is testing feature metrics 🚀
 on: [push]
 jobs:
   Explore-GitHub-Actions:
@@ -30,4 +30,6 @@ jobs:
         run: python3 featurize.py
 
       - name: Run tests
-        run: pytest testing/test_feature_metrics.py
+        run: |
+          pytest test_feature_metrics.py > pytest_output.txt 2>&1
+          grep "ERROR" pytest_output.txt | sed 's/pytest_prints:test_feature_metrics.py:[0-9]* //'
