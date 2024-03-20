@@ -64,15 +64,15 @@ if __name__ == "__main__":
 	reddit_feature_tester.featurize(col="message")
 
 	# testing num words feature 
-	reddit_feature_tester = FeatureBuilder(
-		input_file_path = "../feature_engine/test_num_words.csv",
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/reddit_test_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/user/reddit_test_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/reddit_test_conversation_level.csv",
-		turns = False,
-	)
-	reddit_feature_tester.featurize(col="message")
+	# reddit_feature_tester = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/test_num_words.csv",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/reddit_test_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/reddit_test_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/reddit_test_conversation_level.csv",
+	# 	turns = False,
+	# )
+	# reddit_feature_tester.featurize(col="message")
 
 	#####
 
@@ -91,15 +91,15 @@ if __name__ == "__main__":
 	# )
 	# negotiation_pilot.featurize(col="message")
 
-	test_num_words = FeatureBuilder(
-	input_file_path = "../feature_engine/tpm-data/test_num_words.csv",
-	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	output_file_path_chat_level = "../feature_engine/output/chat/test_num_words.csv",
-	output_file_path_user_level = "../feature_engine/output/user/test_num_words.csv",
-	output_file_path_conv_level = "../feature_engine/output/conv/test_num_words.csv",
-	turns=False
-	)
-	test_num_words.featurize(col="message")
+	# test_num_words = FeatureBuilder(
+	# input_file_path = "../feature_engine/tpm-data/test_num_words.csv",
+	# vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# output_file_path_chat_level = "../feature_engine/output/chat/test_num_words.csv",
+	# output_file_path_user_level = "../feature_engine/output/user/test_num_words.csv",
+	# output_file_path_conv_level = "../feature_engine/output/conv/test_num_words.csv",
+	# turns=False
+	# )
+	# test_num_words.featurize(col="message")
 
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
