@@ -4,13 +4,11 @@ import numpy as np
 from numpy import nan
 import logging
 
-test_input_df = pd.read_csv("../feature_engine/reddit_test_chat_level.csv")
 test_chat_df =  pd.read_csv("../output/chat/reddit_test_chat_level.csv")
-test_conv_df_output =  pd.read_csv("../output/conv/reddit_test_chat_level.csv")
-# join test_input_df with test_conv_df_output on conversation_num id
-test_conv_df = pd.merge(test_input_df, test_conv_df_output, on='conversation_num')
-# test_conv_df = pd.read_csv("test_turn_taking.csv")
 
+test_conv_df =  pd.read_csv("../output/conv/test_turn_taking_conversation_level.csv")
+
+# join test_input_df with test_conv_df_output on conversation_num id
 # test_df['test_pass'] = test_df.apply(lambda row: row[row['expected_column']] == row['expected_value'], axis=1)
 # test_df['obtained_value'] = test_df.apply(lambda row: row[row['expected_column']], axis=1)
 # test_df[["message", "expected_column", "expected_value", "obtained_value", "test_pass"]]
@@ -32,11 +30,11 @@ def test_chat_unit_equality(row):
     try:
         assert actual == expected
     except AssertionError:
-        logger.error("")
-        logger.error("------TEST FAILED------")
-        logger.error("Testing %s for message: %s ", row[1]['expected_column'], row[1]['message_original'])
-        logger.error("Expected value: %s ", expected)
-        logger.error("Actual value: %s", actual)
+        print("")
+        print("------TEST FAILED------")
+        print("Testing %s for message: %s ", row[1]['expected_column'], row[1]['message_original'])
+        print("Expected value: %s ", expected)
+        print("Actual value: %s", actual)
 
         raise  # Re-raise the AssertionError to mark the test as failed
 
