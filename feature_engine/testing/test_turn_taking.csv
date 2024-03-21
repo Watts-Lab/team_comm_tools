@@ -1,0 +1,39 @@
+id,conversation_num,speaker_nickname,message,expected_column,feature_level,expected_value,turn_taking_index
+1,1,A,hi,turn_taking_index,conv,0.75,0.75
+2,1,A,test,turn_taking_index,conv,0.75,0.75
+3,1,B,hello,turn_taking_index,conv,0.75,0.75
+4,1,A,test test,turn_taking_index,conv,0.75,0.75
+5,1,B,testing,turn_taking_index,conv,0.75,0.75
+6,2,C,I am speaking,turn_taking_index,conv,0,0
+7,2,C,all alone,turn_taking_index,conv,0,0
+8,3,D,we,turn_taking_index,conv,1,2
+9,3,E,take,turn_taking_index,conv,1,2
+10,3,D,absolutely,turn_taking_index,conv,1,2
+11,3,E,perfect,turn_taking_index,conv,1,2
+12,3,D,turns,turn_taking_index,conv,1,2
+13,4,H,hi,turn_taking_index,conv,0.4,0.4
+14,4,H,i like texting,turn_taking_index,conv,0.4,0.4
+15,4,H,in multiple messages,turn_taking_index,conv,0.4,0.4
+16,4,H,like right now,turn_taking_index,conv,0.4,0.4
+17,4,I,i like texting in one long message. here is a funny joke you might enjoy: what kind of tea is hard to swallow? reality. haha i am so funny,turn_taking_index,conv,0.4,0.4
+18,4,H,you're right,turn_taking_index,conv,0.4,0.4
+19,4,H,i did enjoy that,turn_taking_index,conv,0.4,0.4
+20,4,H,although it was a little sad,turn_taking_index,conv,0.4,0.4
+21,4,H,do you have any more,turn_taking_index,conv,0.4,0.4
+22,4,I,Here is a list of my favorite jokes: what do you call a fish with no eyes? a fsh. hahaha. what happens to an illegally parked frog. it got toaded away. why was the easter bunny so upset. he had a bad hare day.,turn_taking_index,conv,0.4,0.4
+23,4,H,hahaha,turn_taking_index,conv,0.4,0.4
+24,5,F,hi,turn_taking_index,conv,0.8,0.8
+25,5,G,omg,turn_taking_index,conv,0.8,0.8
+26,5,F,hello!,turn_taking_index,conv,0.8,0.8
+27,5,G,we are speaking,turn_taking_index,conv,0.8,0.8
+28,5,F,in perfect turns,turn_taking_index,conv,0.8,0.8
+29,5,F,oops not anymore,turn_taking_index,conv,0.8,0.8
+30,6,J,hi,turn_taking_index,conv,0.125,0.125
+31,6,J,are you here,turn_taking_index,conv,0.125,0.125
+32,6,J,this is important,turn_taking_index,conv,0.125,0.125
+33,6,J,i am speaking into a void,turn_taking_index,conv,0.125,0.125
+34,6,J,hello,turn_taking_index,conv,0.125,0.125
+35,6,J,pls respond,turn_taking_index,conv,0.125,0.125
+36,6,J,URGENT,turn_taking_index,conv,0.125,0.125
+37,6,J,hello???,turn_taking_index,conv,0.125,0.125
+38,6,K,bye,turn_taking_index,conv,0.125,0.125

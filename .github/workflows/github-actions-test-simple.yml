@@ -31,4 +31,5 @@ jobs:
 
       - name: Run tests
         run: |
+          cd testing
           pytest -x test_feature_metrics.py
