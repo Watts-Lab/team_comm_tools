@@ -31,11 +31,4 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest -x test_feature_metrics.py > pytest_output.txt
-          grep "ERROR" pytest_output.txt | sed 's/pytest_prints:test_feature_metrics.py:[0-9]* //' > pytest_errors.txt
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-results
-          path: pytest_errors.txt
+          pytest -x test_feature_metrics.py
