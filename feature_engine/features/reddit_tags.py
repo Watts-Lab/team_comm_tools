@@ -2,10 +2,6 @@ import numpy as np
 import string
 import re
 
-import nltk
-nltk.download('nps_chat')
-nltk.download('punkt')
-
 """
 file: reddit_tags.py
 ---
@@ -120,11 +116,16 @@ def count_parentheses(text):
     text_in_parentheses = re.findall(r'\(([^)]*)\)', text)
     return len(text_in_parentheses)
 
+"""
+function: count_emojis
 
-# text emoji
-# :) ;) ;)))*
+Returns the number of instances of emojis in a message.
+"""
+def count_emojis(text):
+    emoji_pattern = r'[:;]-?\)+'
+    emojis = re.findall(emoji_pattern, text)
+    return len(emojis)
 
-# ascii emojis, number of emojis
 
 # print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test count_all_caps
 
