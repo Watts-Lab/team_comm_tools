@@ -2,6 +2,10 @@ import numpy as np
 import string
 import re
 
+import nltk
+nltk.download('nps_chat')
+nltk.download('punkt')
+
 """
 file: reddit_tags.py
 ---
@@ -79,7 +83,7 @@ Returns the number of paragraphs / line breaks in a message.
 def count_line_breaks(text):
     normalized_text = re.sub(r'\r\n?', '\n', text)
     text_single_breaks = re.sub(r'\n+', '\n', normalized_text)
-    return text_single_breaks.count('\n')
+    return text_single_breaks.count('\n') + 1
 
 """
 function: count_quotes
@@ -87,7 +91,7 @@ function: count_quotes
 Returns the number instances of text enclosed in quotation marks in a message.
 """
 def count_quotes(text):
-    quotes = re.findall(r'"([^"]*)"|\'([^\']*)\'', text)
+    quotes = re.findall(r'"([^"]*)"|\'(\b[^\'\s]{3,}[^\'\s]*\b|[^\']+\b[^\'\s]{3,}\b)\'', text)
     return len(quotes)
 
 """
@@ -117,6 +121,11 @@ def count_parentheses(text):
     return len(text_in_parentheses)
 
 
+# text emoji
+# :) ;) ;)))*
+
+# ascii emojis, number of emojis
+
 # print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test count_all_caps
 
 # print(count_links("Check out this [link](https://example.com) and this one http://example.org"))  # Test count_links
@@ -129,11 +138,13 @@ def count_parentheses(text):
 
 # print(count_numbering("1. First\n2. Second\n3. Third"))  # Test count_numbering
 
-# print(count_line_breaks("This is the first line.\nThis is the second line.\nThis is the third line."))  # Test count_line_breaks
+print(count_line_breaks("This is the first line.\nThis is the second line.\nThis is the third line."))  # Test count_line_breaks
 
 # print(count_line_breaks("I have a line\n\n\n\n\nhere is a new line"))  # Test count_line_breaks
 
-# print(count_quotes("\"This is a quote.\" She said, \"Here's another.\""))  # Test count_quotes
+print(count_quotes("\"This is a quote.\" She said, \"Here's another.\""))  # Test count_quotes
+
+print(count_quotes("\"I can't believe you use single quotes to quote people,\" she said. \"Well, he replied, \'sometimes single quotes are useful when you nest quotes inside other quotes,\' according to my English teacher\" Then she said: \'okay\'"))  # Test count_quotes
 
 # print(is_responding_to_someone("> Quoting someone else\nThis is my reply."))  # Test is_responding_to_someone
 
