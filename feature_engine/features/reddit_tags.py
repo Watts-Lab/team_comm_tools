@@ -60,7 +60,8 @@ function: count_bullet_points
 Returns the number of bullet points in a message starting with asterisks or dashes.
 """
 def count_bullet_points(text):
-    bullet_points = re.findall(r'^[\*\-] .+', text, flags=re.MULTILINE)
+    normalized_text = text.replace('\\n', '\n')
+    bullet_points = re.findall(r'^[\*\-] .+', normalized_text, flags=re.MULTILINE)
     return len(bullet_points)
 
 """
@@ -69,8 +70,9 @@ function: count_numbering
 Returns the number of numberings in a message, indicated by a format like "1. ".
 """
 def count_numbering(text):
-    numbering = re.findall(r'^\d+\. .+', text, flags=re.MULTILINE)
-    return len(numbering)
+    normalized_text = text.replace('\\n', '\n')
+    numberings = re.findall(r'^\d+\. .+', normalized_text, flags=re.MULTILINE)
+    return len(numberings)
 
 """
 function: count_line_breaks
@@ -78,9 +80,10 @@ function: count_line_breaks
 Returns the number of paragraphs / line breaks in a message.
 """
 def count_line_breaks(text):
-    normalized_text = re.sub(r'\r\n?', '\n', text)
+    normalized_text = text.replace('\\n', '\n').replace('\\r', '\n').replace('\r\n', '\n').replace('\r', '\n')
     text_single_breaks = re.sub(r'\n+', '\n', normalized_text)
-    return text_single_breaks.count('\n') + 1
+    line_break_count = text_single_breaks.count('\n') + 1  
+    return line_break_count
 
 """
 function: count_quotes
@@ -98,8 +101,9 @@ function: count_responding_to_someone
 Returns the number of block quote responses, indicating if the message is quoting someone else by ">" or "&gt;".
 """
 def count_responding_to_someone(text):
-    pattern = r'^(?:>|\&gt;).*(?:\n(?!>|\&gt;).*)+'
-    responses = re.findall(pattern, text, re.M)
+    normalized_text = text.replace('&gt;', '>')
+    pattern = r'^>.*'
+    responses = re.findall(pattern, normalized_text, re.M)
     return len(responses)
 
 """
@@ -148,19 +152,19 @@ def count_emojis(text):
 
 # print(count_emphasis("This is **bold**, *italics*, and this is not. This is ***bolded and italicized***"))  # Test count_emphasis
 
-# print(count_bullet_points("* item 1\n* item 2\n- item 3	"))  # Test count_bullet_points
+# print(count_bullet_points("* item 1\n* item 2\n- item 3"))  # Test count_bullet_points
 
-print(count_numbering("1. first\n2. second\n3. third"))  # Test count_numbering
+# print(count_numbering("1. first\n2. second\n3. third"))  # Test count_numbering
 
 # print(count_line_breaks("This is the first line.\nThis is the second line.\nThis is the third line."))  # Test count_line_breaks
 
-print(count_line_breaks("this is a line with\rA different kind of return value\rUsing carriage return instead of the newline character"))  # Test count_line_breaks
+# print(count_line_breaks("this is a line with\rA different kind of return value\rUsing carriage return instead of the newline character"))  # Test count_line_breaks
 
 # print(count_quotes("\"This is a quote.\" She said, \"Here's another.\""))  # Test count_quotes
 
 # print(count_quotes("\"I can't believe you use single quotes to quote people,\" she said. \"Well, he replied, \'sometimes single quotes are useful when you nest quotes inside other quotes,\' according to my English teacher\" Then she said: \'okay\'"))  # Test count_quotes
 
-print(count_responding_to_someone("> here I am making a quote\nI respond to it\n> I quote again\nI respond to that too"))  # Test count_responding_to_someone
+# print(count_responding_to_someone("> here I am making a quote\nI respond to it\n> I quote again\nI respond to that too"))  # Test count_responding_to_someone
 
 # print(count_ellipses("Well... I'm not sure... Maybe..."))  # Test count_ellipses
 
