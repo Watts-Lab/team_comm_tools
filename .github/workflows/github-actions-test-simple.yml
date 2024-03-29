@@ -31,6 +31,7 @@ jobs:
 
       - name: Run tests
         run: |
+          cd testing
           pytest all_feature_metrics.py
 
       # - name: Upload pytest test results
