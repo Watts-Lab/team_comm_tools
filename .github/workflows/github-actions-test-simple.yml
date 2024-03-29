@@ -31,13 +31,12 @@ jobs:
 
       - name: Run tests
         run: |
-          cd testing
-          pytest test_feature_metrics.py  --junitxml=junit/test-results.xml
+          pytest testing/test_feature_metrics.py  --junitxml=junit/test-results.xml
 
       - name: Upload pytest test results
         uses: actions/upload-artifact@v4
         with:
           name: pytest-results
-          path: ./testing/junit/test-results.xml
+          path: junit/test-results.xml
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
