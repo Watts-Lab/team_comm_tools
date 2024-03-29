@@ -27,10 +27,10 @@ def test_chat_unit_equality(row):
     try:
         assert actual == expected
     except AssertionError:
-        print("")
-        print("------TEST FAILED------")
-        print("Testing %s for message: %s ", row[1]['expected_column'], row[1]['message_original'])
-        print("Expected value: %s ", expected)
-        print("Actual value: %s", actual)
+        logger.error("")
+        logger.error("------TEST FAILED------")
+        logger.error("Testing %s for message: %s ", row[1]['expected_column'], row[1]['message_original'])
+        logger.error("Expected value: %s ", expected)
+        logger.error("Actual value: %s", actual)
 
         raise  # Re-raise the AssertionError to mark the test as failed
