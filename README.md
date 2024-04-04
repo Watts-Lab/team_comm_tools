@@ -62,7 +62,7 @@ To formally conclude the development of a new feature, it's crucial to test it's
 
 The first step is to draft test inputs (`conversation_num`, `speaker`, `message`) and expected outputs for your feature. For example,  "This is a test message." should return 5 for `num_words` at the chat level (note that `conversation_num` and `speaker` have no effect on the ultimate result, so they can be chosen arbitrarily).
 
-Testing a conversation level feature, say `discursive_diversity`, requires a series of chats. For example, "This is a test message." (speaker 1), "This is a test message." (speaker 1), "This is a test message." (speaker 2), "This is a test message." (speaker 2), within the same conversation, should return 0. 
+Testing a conversation level feature, say `discursive_diversity`, requires a series of chats. For example, "This is a test message." (speaker 1), "This is a test message." (speaker 1), "This is a test message." (speaker 2), "This is a test message." (speaker 2), within the same conversation, should return 0. Note that the `conversation_num` for each new test should be distinct from all previous `conversation_num`, even if the feature being tested is different.
 
 Once putting together the test inputs, add each CHAT (and it's associated conversation_num and speaker) as a separate row in either `test_chat_level.csv` or `test_conv_level.csv`, within `./feature_engine/testing/data/cleaned_data`. The format of the CSV is as follows: `id, conversation_num, speaker_nickname, message, expected_column, expected_value`, where `expected_column` is the feature name (i.e. num_words).
 
