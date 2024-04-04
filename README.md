@@ -60,12 +60,15 @@ This calls the `featurizer.py` file, which declares a FeatureBuilder object for 
 ### Automated Unit Testing
 To formally conclude the development of a new feature, it's crucial to test it's performance! Outlined below are the steps to unit test features at the chat or conversation level.
 
-1. Draft test inputs and expected outputs for your feature (i.e. "This is a test message." should return 4 for num_words).
-2. Add each chat as a separate row in `test_chat_level.csv` or `test_conv_level.csv`, within `./feature_engine/testing/data/cleaned_data`. The format of the CSV is as follows: `id, conversation_num, speaker_nickname, message, expected_column, expected_value`, where `expected_column` is the feature name (i.e. num_words).
-3. Push all changes to remote repository.
-4. Go under the "Actions" tab in the toolbar. Notice there's a new job running called "Testing-Features". 
-5. A green checkmark at the conclusion of this job indicates all new tests have passed. A red cross means some test has failed. Navigate to the uploaded "Artifact" (near the bottom of the status page) for list of failed tests and their associated inputs/outputs.
-6. Debug and iterate!
+The first step is to draft test inputs (`conversation_num`, `speaker`, `message`) and expected outputs for your feature. For example,  "This is a test message." should return 5 for `num_words` at the chat level (note that `conversation_num` and `speaker` have no effect on the ultimate result, which is why we've omitted them from this example).
+
+Testing a conversation level feature, say `discursive_diversity`, requires a series of chats. For example, "This is a test message." (speaker 1), "This is a test message." (speaker 1), "This is a test message." (speaker 2), "This is a test message." (speaker 2), within the same conversation, should return 0. 
+
+Once putting together the test inputs, add each CHAT (and it's associated conversation_num and speaker) as a separate row in either `test_chat_level.csv` or `test_conv_level.csv`, within `./feature_engine/testing/data/cleaned_data`. The format of the CSV is as follows: `id, conversation_num, speaker_nickname, message, expected_column, expected_value`, where `expected_column` is the feature name (i.e. num_words).
+
+Push all your changes to Github, including feature development and test dataset additions. Go under the "Actions" tab in the toolbar. Notice there's a new job running called "Testing-Features". A green checkmark at the conclusion of this job indicates all new tests have passed. A red cross means some test has failed. Navigate to the uploaded "Artifact" (near the bottom of the status page) for list of failed tests and their associated inputs/outputs.
+
+Debug and iterate!
 
 ## Documents and Handy Links
 - Our Team Email: csslab-team-process-map@wharton.upenn.edu (Ask Emily for the password!)
