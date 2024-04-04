@@ -57,6 +57,16 @@ python3 featurize.py
 ```
 This calls the `featurizer.py` file, which declares a FeatureBuilder object for different dataset of interest, and featurizes them using our framework.
 
+### Automated Unit Testing
+To formally conclude the development of a new feature, it's crucial to test it's performance! Outlined below are the steps to unit test features at the chat or conversation level.
+
+1. Draft test inputs and expected outputs for your feature (i.e. "This is a test message." should return 4 for num_words).
+2. Add each chat as a separate row in `test_chat_level.csv` or `test_conv_level.csv`, within `./feature_engine/testing/data/cleaned_data`. The format of the CSV is as follows: `id, conversation_num, speaker_nickname, message, expected_column, expected_value`, where `expected_column` is the feature name (i.e. num_words).
+3. Push all changes to remote repository.
+4. Go under the "Actions" tab in the toolbar. Notice there's a new job running called "Testing-Features". 
+5. A green checkmark at the conclusion of this job indicates all new tests have passed. A red cross means some test has failed. Navigate to the uploaded "Artifact" (near the bottom of the status page) for list of failed tests and their associated inputs/outputs.
+6. Debug and iterate!
+
 ## Documents and Handy Links
 - Our Team Email: csslab-team-process-map@wharton.upenn.edu (Ask Emily for the password!)
 
