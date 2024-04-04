@@ -281,6 +281,7 @@ class ChatLevelFeaturesCalculator:
         - Ellipses
         - Parentheses
         """
+
         self.chat_data["num_all_caps"] = self.chat_data["message_original"].apply(count_all_caps)
         self.chat_data["num_links"] = self.chat_data["message_lower_with_punc"].apply(count_links)
         self.chat_data["num_reddit_users"] = self.chat_data["message_lower_with_punc"].apply(count_user_references)
@@ -292,4 +293,4 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["num_block_quote_responses"] = self.chat_data["message_lower_with_punc"].apply(count_responding_to_someone)
         self.chat_data["num_ellipses"] = self.chat_data["message_lower_with_punc"].apply(count_ellipses)
         self.chat_data["num_parentheses"] = self.chat_data["message_lower_with_punc"].apply(count_parentheses)
-
+        self.chat_data["num_emoji"] = self.chat_data["message_lower_with_punc"].apply(count_emojis)
