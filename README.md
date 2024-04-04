@@ -60,7 +60,7 @@ This calls the `featurizer.py` file, which declares a FeatureBuilder object for 
 ### Automated Unit Testing
 To formally conclude the development of a new feature, it's crucial to test it's performance! Outlined below are the steps to unit test features at the chat or conversation level.
 
-The first step is to draft test inputs (`conversation_num`, `speaker`, `message`) and expected outputs for your feature. For example,  "This is a test message." should return 5 for `num_words` at the chat level (note that `conversation_num` and `speaker` have no effect on the ultimate result, which is why we've omitted them from this example).
+The first step is to draft test inputs (`conversation_num`, `speaker`, `message`) and expected outputs for your feature. For example,  "This is a test message." should return 5 for `num_words` at the chat level (note that `conversation_num` and `speaker` have no effect on the ultimate result, so they can be chosen arbitrarily).
 
 Testing a conversation level feature, say `discursive_diversity`, requires a series of chats. For example, "This is a test message." (speaker 1), "This is a test message." (speaker 1), "This is a test message." (speaker 2), "This is a test message." (speaker 2), within the same conversation, should return 0. 
 
