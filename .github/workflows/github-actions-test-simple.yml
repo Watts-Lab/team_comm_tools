@@ -2,7 +2,7 @@ name: Testing Features
 run-name: ${{ github.actor }} is testing feature metrics 🚀
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Testing-Features:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -32,12 +32,11 @@ jobs:
       - name: Run tests
         run: |
           cd testing
-          pytest all_feature_metrics.py
+          pytest test_feature_metrics.py
 
-      # - name: Upload pytest test results
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: pytest-results
-      #     path: testing
-      #   # Use always() to always run this step to publish test results when there are test failures
-      #   if: ${{ always() }}
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-log
+          path: ./feature_engine/testing/test.log
+        if: ${{ always() }}
