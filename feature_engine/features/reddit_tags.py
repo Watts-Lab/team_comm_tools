@@ -142,30 +142,3 @@ def count_emojis(text):
     emoji_pattern = r'[:;]-?\)+'
     emojis = re.findall(emoji_pattern, text)
     return len(emojis)
-
-
-# print(count_all_caps("HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI"))  # Test count_all_caps
-
-# print(count_links("Check out this [link](https://example.com) and this one http://example.org"))  # Test count_links
-
-# print(count_user_references("Hello u/user1 and u/user2, hi hi hi?"))  # Test count_user_references
-
-# print(count_emphasis("This is **bold**, *italics*, and this is not. This is ***bolded and italicized***"))  # Test count_emphasis
-
-# print(count_bullet_points("* item 1\n* item 2\n- item 3"))  # Test count_bullet_points
-
-# print(count_numbering("1. first\n2. second\n3. third"))  # Test count_numbering
-
-# print(count_line_breaks("This is the first line.\nThis is the second line.\nThis is the third line."))  # Test count_line_breaks
-
-# print(count_line_breaks("this is a line with\rA different kind of return value\rUsing carriage return instead of the newline character"))  # Test count_line_breaks
-
-# print(count_quotes("\"This is a quote.\" She said, \"Here's another.\""))  # Test count_quotes
-
-# print(count_quotes("\"I can't believe you use single quotes to quote people,\" she said. \"Well, he replied, \'sometimes single quotes are useful when you nest quotes inside other quotes,\' according to my English teacher\" Then she said: \'okay\'"))  # Test count_quotes
-
-# print(count_responding_to_someone("> here I am making a quote\nI respond to it\n> I quote again\nI respond to that too"))  # Test count_responding_to_someone
-
-# print(count_ellipses("Well... I'm not sure... Maybe..."))  # Test count_ellipses
-
-# print(count_parentheses("This is a sentence (with some text in parentheses)."))  # Test count_parentheses
