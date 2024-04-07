@@ -10,6 +10,8 @@ test_conv_df =  pd.read_csv("../output/conv/test_conv_level_conv.csv")
 with open('test.log', 'w'):
     pass
 
+# generate coverage for tests
+
 @pytest.mark.parametrize("row", test_chat_df.iterrows())
 def test_chat_unit_equality(row):
     actual = row[1][row[1]['expected_column']]
