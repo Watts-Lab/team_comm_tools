@@ -6,8 +6,14 @@ import logging
 
 test_chat_df =  pd.read_csv("../output/chat/test_chat_level_chat.csv")
 test_conv_df =  pd.read_csv("../output/conv/test_conv_level_conv.csv")
+num_features_chat = test_chat_df.columns.size - 7
+num_tested_chat = test_chat_df['expected_column'].nunique()
+num_features_conv = test_conv_df.columns.size - 7
+num_tested_conv = test_conv_df['expected_column'].nunique()
 
-with open('test.log', 'w'):
+with open('test.log', 'w') as f:
+    f.write(f'Tested {num_tested_chat} features out of {num_features_chat} chat level features: {num_tested_chat/num_features_chat * 100:.2f}% Coverage!\n')
+    f.write(f'Tested {num_tested_conv} features out of {num_features_conv} conv level features: {num_tested_conv/num_features_conv * 100:.2f}% Coverage!\n')
     pass
 
 # generate coverage for tests
