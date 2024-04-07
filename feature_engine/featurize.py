@@ -28,17 +28,6 @@ if __name__ == "__main__":
 	# )
 	# feature_builder.featurize(col="message")
 
-	# # Tiny CSOP
-	# tiny_csop_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/csop_conversations_TINY.csv",
-	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/csop_TINY_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/csop_TINY_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/csop_TINY_output_conversation_level.csv",
-	# 	turns = True,
-	# )
-	# tiny_csop_feature_builder.featurize(col="message")
-
 	# # Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/multi_task_TINY.csv",
@@ -74,31 +63,6 @@ if __name__ == "__main__":
 	# )
 	# testing_conv.featurize(col="message")
 
-
-	# testing reddit features
-	# test_turn_taking = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/test_turn_taking.csv",
-	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_turn_taking_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/test_turn_taking_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_turn_taking_conversation_level.csv",
-	# 	turns = False,
-	# )
-	# test_turn_taking.featurize(col="message")
-
-	# testing num words feature 
-	# reddit_feature_tester = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/test_num_words.csv",
-	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/reddit_test_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/reddit_test_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/reddit_test_conversation_level.csv",
-	# 	turns = False,
-	# )
-	# reddit_feature_tester.featurize(col="message")
-
-	#####
-
 	# FULL DATASETS BELOW
 
 	# Negotiation
@@ -114,16 +78,6 @@ if __name__ == "__main__":
 	# )
 	# negotiation_pilot.featurize(col="message")
 
-	# test_num_words = FeatureBuilder(
-	# input_file_path = "../feature_engine/tpm-data/test_num_words.csv",
-	# vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# output_file_path_chat_level = "../feature_engine/output/chat/test_num_words.csv",
-	# output_file_path_user_level = "../feature_engine/output/user/test_num_words.csv",
-	# output_file_path_conv_level = "../feature_engine/output/conv/test_num_words.csv",
-	# turns=False
-	# )
-	# test_num_words.featurize(col="message")
-
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/jury_conversations_with_outcome_var.csv",
@@ -134,7 +88,6 @@ if __name__ == "__main__":
 	# 	turns = True
 	# )
 	# jury_feature_builder.featurize(col="message")
-
 
 	# # CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
@@ -160,7 +113,6 @@ if __name__ == "__main__":
 	# csopII_feature_builder.featurize(col="message")
 
 	
-
 	# DAT - Divergent Association Task
 	# dat_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/DAT_conversations_withblanks.csv",

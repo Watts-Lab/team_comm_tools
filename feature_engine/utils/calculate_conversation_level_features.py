@@ -12,6 +12,7 @@ from features.basic_features import *
 from utils.summarize_features import *
 from utils.preprocess import *
 from features.get_all_DD_features import *
+from features.turn_taking_features import*
 
 
 class ConversationLevelFeaturesCalculator:
@@ -58,6 +59,11 @@ class ConversationLevelFeaturesCalculator:
 							new columns for each conv level feature.
 
         """
+
+        # Get turn taking index by aggregating chat level totals, pass in CHAT LEVEL FEATURES
+        self.get_turn_taking_features()
+        print("Generated turn taking index.")
+
         # Get gini based features by aggregating user-level totals, pass in USER LEVEL FEATURES
         self.get_gini_features()
         print("Generated gini features.")
@@ -74,6 +80,18 @@ class ConversationLevelFeaturesCalculator:
         self.get_discursive_diversity_features()
 
         return self.conv_data
+
+    def get_turn_taking_features(self) -> None:
+        """
+            This function is used to calculate the turn taking index in the conversation.
+        """
+
+        self.conv_data = pd.merge(
+            left=self.conv_data,
+            right=get_turn(self.chat_data.copy()),
+            on=["conversation_num"],
+            how="inner"
+        )
 
     def get_gini_features(self) -> None:
         """
