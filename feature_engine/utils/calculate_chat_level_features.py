@@ -25,6 +25,7 @@ from features.question_num import *
 from features.temporal_features import *
 from features.fflow import *
 from features.certainty import *
+from features.politeness_v2 import *
 
 # Importing utils
 from utils.preload_word_lists import *
@@ -261,3 +262,8 @@ class ChatLevelFeaturesCalculator:
         Source: https://journals.sagepub.com/doi/pdf/10.1177/00222437221134802
         """
         self.chat_data["certainty_rocklage"] = self.chat_data["message_lower_with_punc"].apply(get_certainty)
+    def calculate_politeness_v2(self) -> None:
+        """
+        This function calculates politeness features from the SECR module
+        """
+        self.chat_data = pd.concat([self.chat_data, get_politeness_v2(self.chat_data, 'message')], axis=1) 
