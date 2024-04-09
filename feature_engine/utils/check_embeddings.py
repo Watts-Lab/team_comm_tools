@@ -30,6 +30,10 @@ def check_embeddings(chat_data, vect_path, bert_path):
         generate_vect(chat_data, vect_path)
     if (not os.path.isfile(bert_path)):
         generate_bert(chat_data, bert_path)
+    if (not os.path.isfile(Path(__file__).resolve().parent.parent/"features/lexicons/certainty.txt")):
+        # unpickle certainty
+        unpickle_certainty()
+
 
     ### TODO --- TEST THIS!
     current_script_directory = Path(__file__).resolve().parent
@@ -115,3 +119,13 @@ def get_sentiment(text):
 
     # sample output format
     return({'positive': scores[2], 'negative': scores[0], 'neutral': scores[1]})
+
+
+def unpickle_certainty():
+    current_script_directory = Path(__file__).resolve().parent
+
+    with open(current_script_directory.parent/ "features/lexicons/certainty.pkl", "rb") as file:
+        unpickled_content = pickle.load(file)
+
+    with open(current_script_directory.parent/ "features/lexicons/certainty.txt", "w") as file:
+        file.write(unpickled_content)
