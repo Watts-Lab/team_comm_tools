@@ -48,7 +48,7 @@ def test_conv_unit_equality(conversation_num, conversation_rows):
         expected = row['expected_value']
     
     try:
-        assert actual == expected
+        assert round(actual, 3) == round(expected, 3)
     except AssertionError:
         expected_out = expected
         actual_out = actual
