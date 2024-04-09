@@ -121,6 +121,7 @@ pyphen==0.14.0
 pyre-extensions==0.0.30
 pyro-api==0.1.2
 pyro-ppl==1.8.6
+pytest
 pytest-runner==6.0.1
 python-dateutil==2.8.1
 python-editor==1.0.4

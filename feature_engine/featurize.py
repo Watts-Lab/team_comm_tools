@@ -28,17 +28,6 @@ if __name__ == "__main__":
 	# )
 	# feature_builder.featurize(col="message")
 
-	# # Tiny CSOP
-	# tiny_csop_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/csop_conversations_TINY.csv",
-	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/csop_TINY_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/csop_TINY_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/csop_TINY_output_conversation_level.csv",
-	# 	turns = True,
-	# )
-	# tiny_csop_feature_builder.featurize(col="message")
-
 	# # Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/multi_task_TINY.csv",
@@ -52,22 +41,42 @@ if __name__ == "__main__":
 	# )
 	# tiny_multi_task_feature_builder.featurize(col="message")
 
-	#####
+	# testing chat features
+	testing_chat = FeatureBuilder(
+		input_file_path = "../feature_engine/testing/data/cleaned_data/test_chat_level.csv",
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/test_chat_level_chat.csv",
+		output_file_path_user_level = "../feature_engine/output/user/test_chat_level_user.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/test_chat_level_conv.csv",
+		turns = False,
+	)
+	testing_chat.featurize(col="message")
+
+	# testing conv features
+	testing_conv = FeatureBuilder(
+		input_file_path = "../feature_engine/testing/data/cleaned_data/test_conv_level.csv",
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/test_conv_level_chat.csv",
+		output_file_path_user_level = "../feature_engine/output/user/test_conv_level_user.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/test_conv_level_conv.csv",
+		turns = False,
+	)
+	testing_conv.featurize(col="message")
 
 	# FULL DATASETS BELOW
 
 	# Negotiation
-	negotiation_pilot = FeatureBuilder(
-		input_file_path = "../feature_engine/tpm-data/cleaned_data/negotiation_pilot_data_02_07_24_clean.csv",
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/negotiation_pilot_02_07_24.csv",
-		output_file_path_user_level = "../feature_engine/output/user/negotiation_pilot_02_07_24.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/negotiation_pilot_02_07_24.csv",
-		turns = False,
-		conversation_id = "stageId",
-		cumulative_grouping = True
-	)
-	negotiation_pilot.featurize(col="message")
+	# negotiation_pilot = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/negotiation_pilot_data_02_07_24_clean.csv",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/negotiation_pilot_02_07_24.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/negotiation_pilot_02_07_24.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/negotiation_pilot_02_07_24.csv",
+	# 	turns = False,
+	# 	conversation_id = "stageId",
+	# 	cumulative_grouping = True
+	# )
+	# negotiation_pilot.featurize(col="message")
 
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
@@ -79,7 +88,6 @@ if __name__ == "__main__":
 	# 	turns = True
 	# )
 	# jury_feature_builder.featurize(col="message")
-
 
 	# # CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
@@ -105,7 +113,6 @@ if __name__ == "__main__":
 	# csopII_feature_builder.featurize(col="message")
 
 	
-
 	# DAT - Divergent Association Task
 	# dat_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/DAT_conversations_withblanks.csv",
