@@ -28,7 +28,7 @@ if __name__ == "__main__":
 	# )
 	# feature_builder.featurize(col="message")
 
-	# # Tiny multi-task
+	# Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
 	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/multi_task_TINY.csv",
 	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
