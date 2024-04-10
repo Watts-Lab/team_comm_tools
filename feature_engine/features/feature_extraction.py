@@ -19,6 +19,11 @@ from nltk import tokenize
 
 def sentence_split(doc):
 
+    '''
+    TODO --- there are quite a few randomly commented out lines here. I removed some code that seemed
+    obviously redunant (e.g., print statements), but I do not know why doc = nlp(text) and other commented-out
+    code is not being included. Can we clean this up?
+    '''
     # doc = nlp(text)
     sentences = [str(sent) for sent in doc.sents]
     sentences = [' ' + prep_simple(str(s)) + ' ' for s in sentences]
@@ -175,7 +180,7 @@ def bare_command(doc):
     keywords = set([' be ', ' do ', ' please ', ' have ', ' thank ', ' hang ', ' let '])
 
     # nlp.enable_pipe("senter")
-    #doc = nlp(text)
+    # doc = nlp(text)
 
     # Returns first word of every sentence along with the corresponding POS
     first_words = [' ' + prep_simple(str(sent[0])) + ' ' for sent in doc.sents]
