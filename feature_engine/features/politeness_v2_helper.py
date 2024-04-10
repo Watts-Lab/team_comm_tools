@@ -1,17 +1,17 @@
 import os
 import pandas as pd
-#import prep
 import spacy
 import en_core_web_sm
 import re
 import numpy as np
-from features import keywords
+import features.keywords as keywords
 import regex
 import pickle
 import errno
 
 nlp = en_core_web_sm.load()
 nlp.enable_pipe("senter")
+kw = keywords.kw
 
 import nltk
 from nltk.corpus import stopwords
@@ -19,12 +19,6 @@ from nltk import tokenize
 
 def sentence_split(doc):
 
-    '''
-    TODO --- there are quite a few randomly commented out lines here. I removed some code that seemed
-    obviously redunant (e.g., print statements), but I do not know why doc = nlp(text) and other commented-out
-    code is not being included. Can we clean this up?
-    '''
-    # doc = nlp(text)
     sentences = [str(sent) for sent in doc.sents]
     sentences = [' ' + prep_simple(str(s)) + ' ' for s in sentences]
 
@@ -51,8 +45,6 @@ def count_matches(keywords, doc):
     """
 
     text = sentence_pad(doc)
-
-    # print(text)
 
     key_res = []
     phrase2_count = []
@@ -138,8 +130,6 @@ def count_spacy_matches(keywords, dep_pairs):
     phrase2_count = []
 
     for key in keywords:
-        # print(key)
-
         key_res.append(key)
         counter = 0
 
@@ -179,10 +169,6 @@ def bare_command(doc):
 
     keywords = set([' be ', ' do ', ' please ', ' have ', ' thank ', ' hang ', ' let '])
 
-    # nlp.enable_pipe("senter")
-    # doc = nlp(text)
-
-    # Returns first word of every sentence along with the corresponding POS
     first_words = [' ' + prep_simple(str(sent[0])) + ' ' for sent in doc.sents]
 
     POS_fw = [sent[0].tag_ for sent in doc.sents]
@@ -268,7 +254,6 @@ def feat_counts(text, kw):
     doc_text = nlp(text)
     doc_clean_text = nlp(clean_text)
 
-    # Count key words and dependency pairs with negation
     kw_matches = count_matches(kw['word_matches'], doc_text)
 
     dep_pairs, negations = get_dep_pairs(doc_clean_text)
@@ -287,7 +272,6 @@ def feat_counts(text, kw):
     scores = scores.groupby('Features').sum().sort_values(by='Counts', ascending=False)
     scores = scores.reset_index()
 
-    # add remaining features
     bc = bare_command(doc_text)
     scores.loc[len(scores)] = ['Bare_Command', bc]
 
@@ -335,8 +319,6 @@ def load_to_lists(path, words):
                             all_lines.append(splitLine)
 
                         feature_names.append(all_filenames[i])
-
-                # print(keywords[all_filenames[i]])
             except IOError as exc:
                 if exc.errno != errno.EISDIR:
                     raise
@@ -442,8 +424,8 @@ def prep_simple(text):
 
     t = text.lower()
     t = clean_text(t)
-    t = re.sub(r"[.?!]+\ *", "", t)  # spcifially replace punctuations with nothing
-    t = re.sub('[^A-Za-z,]', ' ', t)  # all other special chracters are replaced with blanks
+    t = re.sub(r"[.?!]+\ *", "", t) 
+    t = re.sub('[^A-Za-z,]', ' ', t)  
 
     return t
 
@@ -464,7 +446,6 @@ def prep_whole(text):
 
 def sentenciser(text):
 
-    #nlp = spacy.load("en_core_web_sm", exclude=["parser"])
     nlp.enable_pipe("senter")
 
     doc = nlp(text)
@@ -476,9 +457,6 @@ def sentenciser(text):
 
 def punctuation_seperator(text):
 
-    #x = tokenize.sent_tokenize(self.text)
-
-    # split string by punctuation
     PUNCT_RE = regex.compile(r'(\p{Punctuation})')
     split_punct = PUNCT_RE.split(text)
 
