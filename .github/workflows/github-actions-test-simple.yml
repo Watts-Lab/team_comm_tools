@@ -1,0 +1,42 @@
+name: Testing Features
+run-name: ${{ github.actor }} is testing feature metrics 🚀
+on: [push]
+jobs:
+  Testing-Features:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./feature_engine
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz --no-deps
+          pip install -r requirements.txt
+
+      - name: Additional setup
+        run: |
+          git submodule update --init --recursive
+          python import_nltk.py
+
+      - name: Run featurizer
+        run: python3 featurize.py
+
+      - name: Run tests
+        run: |
+          cd testing
+          pytest test_feature_metrics.py
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-log
+          path: ./feature_engine/testing/test.log
+        if: ${{ always() }}

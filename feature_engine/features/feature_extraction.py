@@ -89,20 +89,10 @@ def get_dep_pairs(doc):
     """
 
     dep_pairs = [[token.dep_, token.head.text, token.head.i, token.text, token.i] for token in doc]
-
-    # print(dep_pairs)
-
     negations = [dep_pairs[i] for i in range(len(dep_pairs)) if dep_pairs[i][0] == 'neg']
     token_place = [dep_pairs[i][2] for i in range(len(dep_pairs)) if dep_pairs[i][0] == 'neg']
 
     dep_pairs2 = []
-
-    # if len(negations) > 0:
-    # 	for i in range(len(negations)):
-    # 		for j in range(len(dep_pairs)):
-
-    # 			if negations[i][2] != dep_pairs[j][2] and dep_pairs[j] not in dep_pairs2:
-    # 				dep_pairs2.append(dep_pairs[j])
 
     if len(negations) > 0:
 
@@ -208,7 +198,6 @@ def Question(doc):
 
     # doc = nlp(text)
     sentences = [str(sent) for sent in doc.sents if '?' in str(sent)]
-    #sentences = [s for s in sentences if '?' in s]
     all_qs = len(sentences)
 
     n = 0
@@ -234,7 +223,6 @@ def word_start(keywords, doc):
     for key in keywords:
 
         first_words = [' ' + prep_simple(str(sent[0])) + ' ' for sent in doc.sents]
-        #first_words = [prep.prep_simple(str(fw)) for fw in first_words]
         cs = [w for w in first_words if w in keywords[key]]
 
         phrase2_count.append(len(cs))
@@ -271,18 +259,9 @@ def feat_counts(text, kw):
 
     text = re.sub('(?<! )(?=[.,!?()])|(?<=[.,!?()])(?! )', r' ', text)
     text = text.lstrip()
-    # print(text)
     clean_text = prep_simple(text)
-    # print(clean_text)
     doc_text = nlp(text)
     doc_clean_text = nlp(clean_text)
-
-    # quick test to check what's being counted in Positive_Emotion
-    # t1 = [token for token in doc_clean_text]
-    # print(t1)
-    # for t in t1:
-    # 	if ' ' + str(t) + ' ' in kw['word_matches']['Positive_Emotion']:
-    # 		print(t)
 
     # Count key words and dependency pairs with negation
     kw_matches = count_matches(kw['word_matches'], doc_text)
@@ -359,19 +338,6 @@ def load_to_lists(path, words):
 
     return feature_names, all_lines
 
-# def load_data(paths, words_in_line):
-
-#   all_names = []
-#   all_attributes = []
-#   for i in range(len(paths)):
-#       names, attributes = load_to_lists(paths[i], words = words_in_line[i])
-#       all_names.extend(names)
-#       all_attributes.extend(attributes)
-
-
-#   return all_names, all_attributes
-
-
 def load_to_dict(path, words):
     """
     Main function for taking raw .txt files and generates a python dictionary
@@ -405,7 +371,6 @@ def load_to_dict(path, words):
                     all_lines = [l.center(len(l) + 2) for l in all_lines]
 
                 keywords[all_filenames[i]] = all_lines
-                # print(keywords[all_filenames[i]])
             except IOError as exc:
                 if exc.errno != errno.EISDIR:
                     raise
@@ -477,7 +442,6 @@ def prep_simple(text):
 
     return t
 
-
 def prep_whole(text):
 
     t = text.lower()
@@ -512,7 +476,6 @@ def punctuation_seperator(text):
     # split string by punctuation
     PUNCT_RE = regex.compile(r'(\p{Punctuation})')
     split_punct = PUNCT_RE.split(text)
-    # print(split_punct)
 
     # Removing punctuation from the list
     no_punct = []
@@ -527,9 +490,6 @@ def punctuation_seperator(text):
 def conjection_seperator(text):
 
     tags = nltk.pos_tag(nltk.word_tokenize(text))
-
-    # print(tags)
-
     first_elements = [e[0] for e in tags]
     second_elements = [e[1] for e in tags]
 
@@ -546,9 +506,6 @@ def conjection_seperator(text):
 def phrase_split(text):
 
     text = punctuation_seperator(text)
-
-    # print(text)
-
     phrases = []
     for t in text:
         t = conjection_seperator(t)
@@ -556,16 +513,3 @@ def phrase_split(text):
         phrases.extend(t)
 
     return phrases
-
-
-if __name__ == '__main__':
-
-    UPLOAD_FOLDER = '../Data/In/'
-    FOLDERS_IN = ['word_matches', 'spacy_pos', 'spacy_noneg', 'spacy_neg_only', 'word_start', 'spacy_tokentag']
-
-    text = 'I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.'
-    # kw is a dictionary of all key words, dependency pairs and negation words
-    # print(text)
-    kw = keywords.kw
-    scores = feat_counts(text, kw)
-    print(scores)
