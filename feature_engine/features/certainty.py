@@ -1,15 +1,20 @@
 import pandas as pd
 import re
 import os
+import io
 from pathlib import Path
+import pickle
 
 # Note: This feature requires the message WITH punctuation.
 
 # parse certainty lexicon, compile into master regex, delimited by | 
 # Construct the absolute path to certainty.txt using the current script directory
 current_script_directory = Path(__file__).resolve().parent
-certainty_file_path = current_script_directory / "lexicons/certainty.txt"
-certainty = pd.read_csv(certainty_file_path).sort_values(["NumWords", "NumCharacters"], ascending=False)
+certainty_file_pkl_path = current_script_directory / "lexicons/certainty.pkl"
+with open(certainty_file_pkl_path, 'rb') as f:
+    certainty_data = pickle.load(f)  # Load pickled data
+    certainty = pd.read_csv(io.StringIO(certainty_data), sep = ",")
+    certainty = certainty.sort_values(["NumWords", "NumCharacters"], ascending=False)
 master_regex = certainty["Word"].str.cat(sep='\\b|') + "\\b"
 
 def get_certainty(chat): 
