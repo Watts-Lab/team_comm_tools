@@ -25,6 +25,10 @@ def assert_key_columns_present(df):
 	# Assert that key columns are present
 	if {'conversation_num', 'message', 'speaker_nickname'}.issubset(df.columns):
 		print("Confirmed that data has `conversation_num`, `message`, and `speaker_nickname` columns!")
+		# ensure no NA's in essential columns
+		df['message'] = df['message'].fillna('')
+		df['conversation_num'] = df['conversation_num'].fillna(0)
+		df['speaker_nickname'] = df['speaker_nickname'].fillna(0)
 	else:
 		print("One of `conversation_num`, `message`, or `speaker_nickname` is missing! Raising error...")
 		print("Columns available: ")
