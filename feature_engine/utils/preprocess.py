@@ -121,3 +121,22 @@ def create_cumulative_rows(input_df, conversation_id, within_task = False):
 			result_df = pd.concat([result_df, cur_Id_rows], ignore_index=True).drop_duplicates()
 
 	return result_df
+
+def remove_quotes(text):
+
+    # Define the regex pattern to match text within ">"
+    # Pattern explanation:
+    # - &gt;: Matches the literal character ">"
+    # - .*?: Matches any character (.) any number of times (*), as few times as possible (?)
+    #        to ensure it matches the shortest sequence between ">"
+    # - &gt;: Matches the literal closing ">"
+    pattern = r"&gt;.*?&gt;"
+    
+    # Use re.sub() to replace all occurrences of the pattern with an empty string
+    cleaned_text = re.sub(pattern, '', text)
+    
+    return cleaned_text
+
+def preprocess_remove_quotes_from_dataset(df,on_column):
+
+    df[on_column] = df[on_column].apply(remove_quotes)
