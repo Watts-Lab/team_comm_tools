@@ -122,7 +122,7 @@ def create_cumulative_rows(input_df, conversation_id, within_task = False):
 
 	return result_df
 
-def remove_quotes(text):
+def preprocess_remove_quotes_from_dataset(text):
 
     # Define the regex pattern to match text within ">"
     # Pattern explanation:
@@ -136,7 +136,3 @@ def remove_quotes(text):
     cleaned_text = re.sub(pattern, '', text)
     
     return cleaned_text
-
-def preprocess_remove_quotes_from_dataset(df,on_column):
-
-    df[on_column] = df[on_column].apply(remove_quotes)
