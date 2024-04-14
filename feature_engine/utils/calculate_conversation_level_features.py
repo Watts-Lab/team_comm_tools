@@ -13,6 +13,7 @@ from utils.summarize_features import *
 from utils.preprocess import *
 from features.get_all_DD_features import *
 from features.turn_taking_features import*
+from features.burstiness import *
 
 
 class ConversationLevelFeaturesCalculator:
@@ -78,6 +79,9 @@ class ConversationLevelFeaturesCalculator:
         
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
         self.get_discursive_diversity_features()
+
+        # Get team burstiness coefficient using chat level temporal features
+        self.calculate_team_burstiness()
 
         return self.conv_data
 
@@ -257,3 +261,12 @@ class ConversationLevelFeaturesCalculator:
             on=['conversation_num'],
             how="inner"
         )
+    
+      
+    def calculate_team_burstiness(self) -> None:
+        """
+        Calculates team burstiness coefficient by looking at differences in std dev and mean of 
+        times in between chats
+        """
+
+        self.chat_data["team_burstiness"] = get_team_burstiness(self.chat_data, "time_diff")
