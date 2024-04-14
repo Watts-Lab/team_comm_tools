@@ -109,7 +109,7 @@ I respond to that too",num_block_quote_responses,2
 6,L,I don't really want to work with you all but let's get this over with,Impersonal_Pronoun,1
 6,J,Fine by me,Affirmation,0
 6,K,Ok so which part should we do first? the first or second?,YesNo_Questions,0
-7,L,Um please don't do that?,please_start,1
+7,L,please don't do that?,please_start,1
 7,L,I don't think that will work,hashedge,1
 7,M,I'm exhuasted rn,hasnegative,0
 7,M,i don't really care please just finish this up,haspositive,0
