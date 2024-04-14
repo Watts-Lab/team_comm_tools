@@ -268,5 +268,9 @@ class ConversationLevelFeaturesCalculator:
         Calculates team burstiness coefficient by looking at differences in std dev and mean of 
         times in between chats
         """
-
-        self.chat_data["team_burstiness"] = get_team_burstiness(self.chat_data, "time_diff")
+        self.conv_data = pd.merge(
+            left = self.conv_data,
+            right = get_team_burstiness(self.chat_data, "time_diff"),
+            on = ['conversation_num'],
+            how = "inner"
+        )
