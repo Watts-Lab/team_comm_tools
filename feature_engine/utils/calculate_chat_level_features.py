@@ -251,7 +251,7 @@ class ChatLevelFeaturesCalculator:
         """
         This function calls the Politeness module from Convokit and includes all outputted features.
         """
-        transformed_df = self.chat_data['message'].apply(get_politeness_strategies).apply(pd.Series)
+        transformed_df = self.chat_data['message_lower_with_punc'].apply(get_politeness_strategies).apply(pd.Series)
         transformed_df = transformed_df.rename(columns=lambda x: re.sub('^feature_politeness_==()','',x)[:-2].lower())
 
         # Concatenate the transformed dataframe with the original dataframe
@@ -274,7 +274,7 @@ class ChatLevelFeaturesCalculator:
         """
         This function calculates politeness features from the SECR module
         """
-        self.chat_data = pd.concat([self.chat_data, get_politeness_v2(self.chat_data, 'message')], axis=1) 
+        self.chat_data = pd.concat([self.chat_data, get_politeness_v2(self.chat_data, 'message_lower_with_punc')], axis=1) 
 
     def get_reddit_features(self) -> None:
         """
