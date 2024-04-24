@@ -99,7 +99,6 @@ I respond to that too",num_block_quote_responses,2
 2,E,I see what youre thinking but I disagree,Acknowledgement,1
 2,E,We get only one chance so we should understand how to split it,Acknowledgement,2
 2,D,"I just don't agree, I'm making the 60/40 split",Adverb_Limiter,1
-3,F,greetings everybody. should we use the first option?,Hello,1
 3,G,hey,indirect_greeting,1
 3,G,I think we should try something else,1st_person_start,1
 3,F,Ok whatever. You should leave the team then,2nd_person_start,1
@@ -112,7 +111,7 @@ I respond to that too",num_block_quote_responses,2
 5,J,Could you please explain why? I don't really understand why you are thinking that,subjunctive,1
 5,K,Sorry sorry I didn't mean to,apologizing,1
 6,L,I don't really want to work with you all but let's get this over with,Impersonal_Pronoun,1
-6,J,Fine by me,Affirmation,0
+6,J,Fine by me,Affirmation,1
 6,K,Ok so which part should we do first? the first or second?,YesNo_Questions,1
 7,L,Please don't do that?,please_start,1
 7,L,I don't think that will work,hashedge,1
@@ -121,14 +120,14 @@ I respond to that too",num_block_quote_responses,2
 7,N,Please don't do that?,Please,1
 7,N,I don't think that will work,Hedges,0
 7,O,I'm exhuasted rn,Negative_Emotion,0
-7,O,i don't really care please just finish this up,Positive_Emotion,1
+7,O,i don't really care please just finish this up,Positive_Emotion,0
 8,P,i appreciate all this from you,gratitude,1
 8,P,"well we should start rn, our part is long",1st_person_pl,1
 8,Q,ok forgive me for this error but,apologizing,1
 8,Q,you have to redo the whole thing,2nd_person,0
 8,R,ok so who will work with me? where should we begin?,direct_question,0
 8,S,i appreciate all this from you,Gratitude,1
-8,S,"well we should start rn, our part is long",First_Person_Plural,1
+8,S,"well we should start rn, our part is long",First_Person_Plural,2
 8,T,ok forgive us for this error but,Apology,0
 8,T,you have to redo the whole thing,Second_Person,1
 8,U,ok so who will work with me? where should we begin?,WH_Questions,2
