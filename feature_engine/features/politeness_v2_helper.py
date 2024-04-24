@@ -269,7 +269,7 @@ def feat_counts(text, kw):
     start_matches = word_start(kw['word_start'], doc_text)
 
     scores = pd.concat([kw_matches, dep_pair_matches, disagreement, start_matches, neg_only])
-    scores = scores.groupby('Features').sum().sort_values(by='Counts', ascending=False)
+    scores = scores.groupby('Features').sum()
     scores = scores.reset_index()
 
     bc = bare_command(doc_text)
@@ -282,8 +282,6 @@ def feat_counts(text, kw):
 
     adl = adverb_limiter(kw['spacy_tokentag'], doc_text)
     scores.loc[len(scores)] = ['Adverb_Limiter', adl]
-
-    scores = scores.sort_values(by='Counts', ascending=False)
 
     tokens = token_count(doc_text)
     scores.loc[len(scores)] = ['Token_count', tokens]

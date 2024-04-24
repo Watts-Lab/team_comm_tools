@@ -52,16 +52,16 @@ if __name__ == "__main__":
 	)
 	testing_chat.featurize(col="message")
 
-	# testing conv features
-	testing_conv = FeatureBuilder(
-		input_file_path = "../feature_engine/testing/data/cleaned_data/test_conv_level.csv",
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/test_conv_level_chat.csv",
-		output_file_path_user_level = "../feature_engine/output/user/test_conv_level_user.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/test_conv_level_conv.csv",
-		turns = False,
-	)
-	testing_conv.featurize(col="message")
+	# # testing conv features
+	# testing_conv = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/testing/data/cleaned_data/test_conv_level.csv",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_conv_level_chat.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/test_conv_level_user.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_conv_level_conv.csv",
+	# 	turns = False,
+	# )
+	# testing_conv.featurize(col="message")
 
 	# FULL DATASETS BELOW
 
