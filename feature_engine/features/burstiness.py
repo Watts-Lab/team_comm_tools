@@ -3,6 +3,9 @@ import numpy as np
 
 def burstiness(df, timediff):
 
+    if timediff not in df.columns:
+        return None 
+    
     # Check for any NA values and drop them accordingly
     df[timediff] = df[timediff].replace('NULL_TIME', np.nan)
     wait_times = (df[timediff].dropna()).astype(float).values
@@ -17,6 +20,13 @@ def burstiness(df, timediff):
     return B
 
 def get_team_burstiness(df, timediff):
+
+    if timediff not in df.columns:
+        print(f"Temporal Features are nonexistent for this dataset.")
+        return None
+    
     # Applies burstiness function to overall dataframe and then groups coefficient by conversation number
     burstiness_coeff = df.groupby("conversation_num").apply(lambda x : burstiness(x, timediff)).reset_index().rename(columns={0: "team_burstiness"})
     return burstiness_coeff
+
+
