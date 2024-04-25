@@ -19,6 +19,10 @@ from gensim.utils import simple_preprocess
 from gensim.models.ldamodel import LdaModel
 
 def get_info_diversity(df):
+    info_div_score = df.groupby("conversation_num").apply(lambda x : info_diversity(x)).reset_index().rename(columns={0: "info_diversity"})
+    return info_div_score
+
+def info_diversity(df):
 
     processed_data = df['message'].apply(preprocessing).tolist()
 
@@ -29,7 +33,7 @@ def get_info_diversity(df):
 
     topics = [lda.get_document_topics(bow) for bow in full_corpus]
 
-    ID = calculate_information_diversity(topics, 10)
+    ID = calculate_ID_score(topics, 10)
     return ID
 
 def preprocessing(data):
@@ -38,7 +42,7 @@ def preprocessing(data):
         tokens=[le.lemmatize(w) for w in word_tokens if w not in stopword and len(w)>3]
         return tokens
 
-def calculate_information_diversity(doc_topics, num_topics):
+def calculate_ID_score(doc_topics, num_topics):
         topic_matrix = []
         for doc in doc_topics:
             topic_dist = np.zeros(num_topics)
@@ -49,5 +53,5 @@ def calculate_information_diversity(doc_topics, num_topics):
         
         mean_topic_vector = np.mean(topic_matrix, axis=0)
         squared_cosine_distances = [(1 - cosine(doc, mean_topic_vector))**2 for doc in topic_matrix]
-        ID = np.sum(squared_cosine_distances) / len(squared_cosine_distances)
-        return ID
+        score = np.sum(squared_cosine_distances) / len(squared_cosine_distances)
+        return score
