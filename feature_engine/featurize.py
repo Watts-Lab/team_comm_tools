@@ -7,9 +7,12 @@ It instantiates and calls the FeatureBuilder class which defines the logic used 
 
 # Importing the Feature Generating Class
 from feature_builder import FeatureBuilder
+import pandas as pd
 
 # Main Function
 if __name__ == "__main__":
+	chat_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/test_chat_level.csv")
+	conv_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/test_conv_level.csv")
 	
 	# Instantiating the Feature Generating Class
 	# Calling the "engine"/"driver" function of the FeatureBuilder class 
@@ -43,7 +46,7 @@ if __name__ == "__main__":
 
 	# testing chat features
 	testing_chat = FeatureBuilder(
-		input_file_path = "../feature_engine/testing/data/cleaned_data/test_chat_level.csv",
+		input_df = chat_df,
 		vector_directory = "../feature_engine/tpm-data/vector_data/",
 		output_file_path_chat_level = "../feature_engine/output/chat/test_chat_level_chat.csv",
 		output_file_path_user_level = "../feature_engine/output/user/test_chat_level_user.csv",
@@ -54,7 +57,7 @@ if __name__ == "__main__":
 
 	# testing conv features
 	testing_conv = FeatureBuilder(
-		input_file_path = "../feature_engine/testing/data/cleaned_data/test_conv_level.csv",
+		input_df = conv_df,
 		vector_directory = "../feature_engine/tpm-data/vector_data/",
 		output_file_path_chat_level = "../feature_engine/output/chat/test_conv_level_chat.csv",
 		output_file_path_user_level = "../feature_engine/output/user/test_conv_level_user.csv",
