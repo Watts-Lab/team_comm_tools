@@ -30,7 +30,7 @@ from utils.check_embeddings import *
 class FeatureBuilder:
     def __init__(
             self, 
-            input_file_path: str, 
+            input_df: pd.DataFrame, 
             vector_directory: str,
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
@@ -64,20 +64,15 @@ class FeatureBuilder:
                 This defaults to False.
         """
         #  Defining input and output paths.
-        self.input_file_path = input_file_path
+        self.chat_data = input_df
         self.vector_directory = vector_directory
-        print("Initializing Featurization for " + self.input_file_path + " ...")
+        print("Initializing Featurization...")
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
 
         # Set first pct of conversation you want to analyze
         assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
         self.first_pct = analyze_first_pct
-
-        # Reading chat level data (this is available in the input file path directly).
-        self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
-        # Save the original data, before preprocessing 
-        self.orig_data = self.chat_data
 
         # Parameters for preprocessing chat data
         self.turns = turns
