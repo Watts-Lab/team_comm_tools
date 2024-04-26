@@ -66,6 +66,7 @@ class FeatureBuilder:
         """
         #  Defining input and output paths.
         self.chat_data = input_df
+        self.orig_data = self.chat_data
         self.vector_directory = vector_directory
         print("Initializing Featurization...")
         self.output_file_path_conv_level = output_file_path_conv_level
