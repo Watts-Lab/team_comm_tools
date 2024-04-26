@@ -8,11 +8,18 @@ It instantiates and calls the FeatureBuilder class which defines the logic used 
 # Importing the Feature Generating Class
 from feature_builder import FeatureBuilder
 import pandas as pd
+import chardet
 
 # Main Function
 if __name__ == "__main__":
-	chat_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/test_chat_level.csv")
-	conv_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/test_conv_level.csv")
+	with open("../feature_engine/testing/data/cleaned_data/test_chat_level.csv", 'rb') as file:
+		chat_encoding = chardet.detect(file.read())
+
+	with open("../feature_engine/testing/data/cleaned_data/test_conv_level.csv", 'rb') as file:
+		conv_encoding = chardet.detect(file.read())
+
+	chat_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/test_chat_level.csv", encoding=chat_encoding['encoding'])
+	conv_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/test_conv_level.csv", encoding=conv_encoding['encoding'])
 	
 	# Instantiating the Feature Generating Class
 	# Calling the "engine"/"driver" function of the FeatureBuilder class 
