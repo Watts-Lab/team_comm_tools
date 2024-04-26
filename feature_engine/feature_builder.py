@@ -18,6 +18,7 @@ pd.options.mode.chained_assignment = None
 import re
 import numpy as np
 from pathlib import Path
+import time
 
 # Imports from feature files and classes
 # from utils.summarize_chat_level_features import *
@@ -92,9 +93,9 @@ class FeatureBuilder:
                 df_type = df_type + "/cumulative/within_task/"
             df_type = df_type + "/cumulative/"
 
-        file_name = re.findall("\/([^\/]+)$", self.input_file_path)[0]
-        self.vect_path = self.vector_directory + "sentence/" + df_type + "/"+ file_name
-        self.bert_path = self.vector_directory + "sentiment/" + df_type + "/"+ file_name
+        base_file_name = f"features_{int(time.time())}.csv"
+        self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
+        self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
         self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
 
         # Check + generate embeddings
