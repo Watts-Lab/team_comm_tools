@@ -94,10 +94,14 @@ class FeatureBuilder:
                 df_type = df_type + "/cumulative/within_task/"
             df_type = df_type + "/cumulative/"
 
-        base_file_name = f"features_{int(time.time())}.csv"
+        ## TODO: the FeatureBuilder assumes that we are passing in an output file path that contains either "chat" or "turn"
+        ### in the name, as it saves the featurized content into either a "chat" folder or "turn" folder based on user
+        ### specifications. See: https://github.com/Watts-Lab/team-process-map/issues/211
+        self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
+        # We assume that the base file name is the last item in the output path; we will use this to name the stored vectors.
+        base_file_name = self.output_file_path_chat_level.split("/")[-1]
         self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
-        self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
 
         # Check + generate embeddings
         check_embeddings(self.chat_data, self.vect_path, self.bert_path)
@@ -300,7 +304,7 @@ class FeatureBuilder:
         """
             This function simply saves the files in the respective output file paths provided during initialization.
         """
-        # TODO: For now this function is very trivial. We will finilize the output formats (with date-time info etc) 
+        # TODO: For now this function is very trivial. We will finalize the output formats (with date-time info etc) 
         # and control the output mechanism through this function.
         self.chat_data.to_csv(self.output_file_path_chat_level, index=False)
         self.user_data.to_csv(self.output_file_path_user_level, index=False)
