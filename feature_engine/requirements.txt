@@ -132,7 +132,7 @@ regex==2023.12.25
 requests==2.31.0
 requests-async==0.5.0
 rfc3986==1.5.0
-rsa==4.0
+rsa==4.7
 ruamel.yaml==0.16.7
 Rx==1.6.3
 safetensors==0.4.2
