@@ -18,6 +18,7 @@ pd.options.mode.chained_assignment = None
 import re
 import numpy as np
 from pathlib import Path
+import time
 
 # Imports from feature files and classes
 # from utils.summarize_chat_level_features import *
@@ -30,7 +31,7 @@ from utils.check_embeddings import *
 class FeatureBuilder:
     def __init__(
             self, 
-            input_file_path: str, 
+            input_df: pd.DataFrame, 
             vector_directory: str,
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
@@ -64,20 +65,16 @@ class FeatureBuilder:
                 This defaults to False.
         """
         #  Defining input and output paths.
-        self.input_file_path = input_file_path
+        self.chat_data = input_df
+        self.orig_data = self.chat_data
         self.vector_directory = vector_directory
-        print("Initializing Featurization for " + self.input_file_path + " ...")
+        print("Initializing Featurization...")
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
 
         # Set first pct of conversation you want to analyze
         assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
         self.first_pct = analyze_first_pct
-
-        # Reading chat level data (this is available in the input file path directly).
-        self.chat_data = pd.read_csv(self.input_file_path, encoding='mac_roman')
-        # Save the original data, before preprocessing 
-        self.orig_data = self.chat_data
 
         # Parameters for preprocessing chat data
         self.turns = turns
@@ -97,10 +94,14 @@ class FeatureBuilder:
                 df_type = df_type + "/cumulative/within_task/"
             df_type = df_type + "/cumulative/"
 
-        file_name = re.findall("\/([^\/]+)$", self.input_file_path)[0]
-        self.vect_path = self.vector_directory + "sentence/" + df_type + "/"+ file_name
-        self.bert_path = self.vector_directory + "sentiment/" + df_type + "/"+ file_name
+        ## TODO: the FeatureBuilder assumes that we are passing in an output file path that contains either "chat" or "turn"
+        ### in the name, as it saves the featurized content into either a "chat" folder or "turn" folder based on user
+        ### specifications. See: https://github.com/Watts-Lab/team-process-map/issues/211
         self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
+        # We assume that the base file name is the last item in the output path; we will use this to name the stored vectors.
+        base_file_name = self.output_file_path_chat_level.split("/")[-1]
+        self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
+        self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
         check_embeddings(self.chat_data, self.vect_path, self.bert_path)
@@ -303,7 +304,7 @@ class FeatureBuilder:
         """
             This function simply saves the files in the respective output file paths provided during initialization.
         """
-        # TODO: For now this function is very trivial. We will finilize the output formats (with date-time info etc) 
+        # TODO: For now this function is very trivial. We will finalize the output formats (with date-time info etc) 
         # and control the output mechanism through this function.
         self.chat_data.to_csv(self.output_file_path_chat_level, index=False)
         self.user_data.to_csv(self.output_file_path_user_level, index=False)
