@@ -1,6 +1,6 @@
 aiocache==0.11.1
 aiofiles==23.2.1
-aiohttp==3.6.2
+aiohttp==3.9.4
 aiopubsub==2.1.5
 aioredis==2.0.1
 aiosmtplib==1.1.2
