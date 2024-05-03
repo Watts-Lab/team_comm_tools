@@ -25,6 +25,7 @@ from features.question_num import *
 from features.temporal_features import *
 from features.fflow import *
 from features.certainty import *
+from features.politeness_v2 import *
 from features.reddit_tags import *
 
 # Importing utils
@@ -93,6 +94,9 @@ class ChatLevelFeaturesCalculator:
 
         # Politeness (ConvoKit)
         self.calculate_politeness_sentiment()
+
+        # Politeness (Yeomans/Bevis)
+        self.calculate_politeness_v2()
 
         # Forward Flow
         self.get_forward_flow()
@@ -247,7 +251,7 @@ class ChatLevelFeaturesCalculator:
         """
         This function calls the Politeness module from Convokit and includes all outputted features.
         """
-        transformed_df = self.chat_data['message'].apply(get_politeness_strategies).apply(pd.Series)
+        transformed_df = self.chat_data['message_lower_with_punc'].apply(get_politeness_strategies).apply(pd.Series)
         transformed_df = transformed_df.rename(columns=lambda x: re.sub('^feature_politeness_==()','',x)[:-2].lower())
 
         # Concatenate the transformed dataframe with the original dataframe
@@ -265,6 +269,12 @@ class ChatLevelFeaturesCalculator:
         Source: https://journals.sagepub.com/doi/pdf/10.1177/00222437221134802
         """
         self.chat_data["certainty_rocklage"] = self.chat_data["message_lower_with_punc"].apply(get_certainty)
+
+    def calculate_politeness_v2(self) -> None:
+        """
+        This function calculates politeness features from the SECR module
+        """
+        self.chat_data = pd.concat([self.chat_data, get_politeness_v2(self.chat_data, 'message_lower_with_punc')], axis=1) 
 
     def get_reddit_features(self) -> None:
         """
