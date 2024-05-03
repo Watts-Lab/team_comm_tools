@@ -248,10 +248,14 @@ def feat_counts(text, kw):
             Feature counts
     """
 
+    # remove extraneous backslashes
+    text = re.sub('\\\\', '', text)
+
     text = re.sub('(?<! )(?=[.,!?()])|(?<=[.,!?()])(?! )', r' ', text)
     text = text.lstrip()
     clean_text = prep_simple(text)
     doc_text = nlp(text)
+
     doc_clean_text = nlp(clean_text)
 
     kw_matches = count_matches(kw['word_matches'], doc_text)
