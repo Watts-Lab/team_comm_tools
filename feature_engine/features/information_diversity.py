@@ -37,12 +37,14 @@ def info_diversity(df):
 
     mapping = corpora.Dictionary(processed_data)
     full_corpus = [mapping.doc2bow(text) for text in processed_data]
-    lda = LdaModel(corpus=full_corpus, id2word=mapping, num_topics=20)
 
-    topics = [lda.get_document_topics(bow) for bow in full_corpus]
-
-    ID = calculate_ID_score(topics, 20)
-    return ID
+    if not full_corpus:
+         return 0
+    else:
+        lda = LdaModel(corpus=full_corpus, id2word=mapping, num_topics=20)
+        topics = [lda.get_document_topics(bow) for bow in full_corpus]
+        ID = calculate_ID_score(topics, 20)
+        return ID
 
 def preprocessing(data):
         """
