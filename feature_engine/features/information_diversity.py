@@ -30,13 +30,14 @@ def info_diversity(df):
     Preprocess data and then create numeric mapping of words in dataset to pass into LDA model
     Uses n = 20 topics 
     """
-
     processed_data = df['message'].apply(preprocessing).tolist()
+
+    if not processed_data:
+         return 0
 
     mapping = corpora.Dictionary(processed_data)
     full_corpus = [mapping.doc2bow(text) for text in processed_data]
-
-    lda = LdaModel(corpus=full_corpus, id2word=mapping, num_topics=10)
+    lda = LdaModel(corpus=full_corpus, id2word=mapping, num_topics=20)
 
     topics = [lda.get_document_topics(bow) for bow in full_corpus]
 
