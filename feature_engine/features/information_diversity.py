@@ -73,9 +73,3 @@ def calculate_ID_score(doc_topics, num_topics):
         squared_cosine_distances = [(1 - cosine(doc, mean_topic_vector))**2 for doc in topic_matrix]
         score = np.sum(squared_cosine_distances) / len(squared_cosine_distances)
         return score
-
-df = pd.read_csv("/Users/alokkumar/Desktop/Team Communication Papers + Misc/test_burstiness.csv")
-print(df)
-processed_data = df['message'].apply(preprocessing).tolist()
-print(processed_data)
-print(get_info_diversity(df))
