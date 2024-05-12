@@ -32,7 +32,7 @@ def info_diversity(df):
     Uses n = 20 topics 
     """
     num_rows = len(df)
-    num_topics = max(1, int(math.log(num_rows)))
+    num_topics = int(math.sqrt(num_rows))
     processed_data = df['message'].apply(preprocessing).tolist()
 
     if not processed_data:
