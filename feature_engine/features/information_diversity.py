@@ -60,7 +60,7 @@ def preprocessing(data):
 
 def calculate_ID_score(doc_topics, num_topics):
         """
-        Computes info diversity score as suggested in Reidl & Woodley (2017); determine a topic vector 
+        Computes info diversity score as suggested in Reidl & Woolley (2017); determine a topic vector 
         for every message, then compute a mean topic vector across all messages, and measure the average 
         cosine similarity between the message vectors and the mean vector
         """
