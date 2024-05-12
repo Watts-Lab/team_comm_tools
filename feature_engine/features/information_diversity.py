@@ -29,7 +29,7 @@ def get_info_diversity(df):
 def info_diversity(df):
     """
     Preprocess data and then create numeric mapping of words in dataset to pass into LDA model
-    Uses n = 20 topics 
+    Uses square root of number of rows as number of topics
     """
     num_rows = len(df)
     num_topics = int(math.sqrt(num_rows))
