@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import math
 import nltk
 from nltk.corpus import stopwords
 from nltk import tokenize
@@ -30,6 +31,8 @@ def info_diversity(df):
     Preprocess data and then create numeric mapping of words in dataset to pass into LDA model
     Uses n = 20 topics 
     """
+    num_rows = len(df)
+    num_topics = max(1, int(math.log(num_rows)))
     processed_data = df['message'].apply(preprocessing).tolist()
 
     if not processed_data:
@@ -41,9 +44,9 @@ def info_diversity(df):
     if (not full_corpus or not mapping):
          return 0
     else:
-        lda = LdaModel(corpus=full_corpus, id2word=mapping, num_topics=20)
+        lda = LdaModel(corpus=full_corpus, id2word=mapping, num_topics=num_topics)
         topics = [lda.get_document_topics(bow) for bow in full_corpus]
-        ID = calculate_ID_score(topics, 20)
+        ID = calculate_ID_score(topics, num_topics)
         return ID
 
 def preprocessing(data):
@@ -68,7 +71,7 @@ def calculate_ID_score(doc_topics, num_topics):
                 topic_dist[topic] = prob
             topic_matrix.append(topic_dist)
         topic_matrix = np.array(topic_matrix)
-        
+
         mean_topic_vector = np.mean(topic_matrix, axis=0)
         squared_cosine_distances = [(1 - cosine(doc, mean_topic_vector))**2 for doc in topic_matrix]
         score = np.sum(squared_cosine_distances) / len(squared_cosine_distances)
