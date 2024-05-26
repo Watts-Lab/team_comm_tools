@@ -13,6 +13,8 @@ from utils.summarize_features import *
 from utils.preprocess import *
 from features.get_all_DD_features import *
 from features.turn_taking_features import*
+from features.burstiness import *
+from features.information_diversity import *
 
 
 class ConversationLevelFeaturesCalculator:
@@ -78,6 +80,12 @@ class ConversationLevelFeaturesCalculator:
         
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
         self.get_discursive_diversity_features()
+
+        # Get team burstiness coefficient using chat level temporal features
+        self.calculate_team_burstiness()
+
+        # Get team's information diversity score
+        self.calculate_info_diversity()
 
         return self.conv_data
 
@@ -256,4 +264,30 @@ class ConversationLevelFeaturesCalculator:
             right=get_DD_features(self.chat_data, self.vect_data, self.vector_directory),
             on=['conversation_num'],
             how="inner"
+        )
+    
+      
+    def calculate_team_burstiness(self) -> None:
+        """
+        Calculates team burstiness coefficient by looking at differences in std dev and mean of 
+        times in between chats
+        """
+        if {'time_diff'}.issubset(self.chat_data.columns):
+            self.conv_data = pd.merge(
+            left = self.conv_data,
+            right = get_team_burstiness(self.chat_data, "time_diff"),
+            on = ['conversation_num'],
+            how = "inner"
+        )
+    
+    def calculate_info_diversity(self) -> None:
+        """
+        Calculates an information diversity score for overall team by looking at cosine similarity between 
+        mean topic vector of team and each message's topic vectors
+        """
+        self.conv_data = pd.merge(
+            left = self.conv_data,
+            right = get_info_diversity(self.chat_data),
+            on = ['conversation_num'],
+            how = "inner"
         )
