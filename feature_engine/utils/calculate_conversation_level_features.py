@@ -62,24 +62,24 @@ class ConversationLevelFeaturesCalculator:
 
         """
 
-        # Get turn taking index by aggregating chat level totals, pass in CHAT LEVEL FEATURES
-        self.get_turn_taking_features()
-        print("Generated turn taking index.")
+        # # Get turn taking index by aggregating chat level totals, pass in CHAT LEVEL FEATURES
+        # self.get_turn_taking_features()
+        # print("Generated turn taking index.")
 
-        # Get gini based features by aggregating user-level totals, pass in USER LEVEL FEATURES
-        self.get_gini_features()
-        print("Generated gini features.")
+        # # Get gini based features by aggregating user-level totals, pass in USER LEVEL FEATURES
+        # self.get_gini_features()
+        # print("Generated gini features.")
 
-        # Get summary statistics by aggregating chat level features, pass in CHAT LEVEL FEATURES
-        self.get_conversation_level_aggregates()
-        print("Generated chat aggregates.")
+        # # Get summary statistics by aggregating chat level features, pass in CHAT LEVEL FEATURES
+        # self.get_conversation_level_aggregates()
+        # print("Generated chat aggregates.")
 
-        # Get summary statistics by aggregating user level features, pass in USER LEVEL FEATURES 
-        self.get_user_level_aggregates()
-        print("Generated user aggregates.")
+        # # Get summary statistics by aggregating user level features, pass in USER LEVEL FEATURES 
+        # self.get_user_level_aggregates()
+        # print("Generated user aggregates.")
         
-        # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
-        self.get_discursive_diversity_features()
+        # # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
+        # self.get_discursive_diversity_features()
 
         # Get team burstiness coefficient using chat level temporal features
         self.calculate_team_burstiness()

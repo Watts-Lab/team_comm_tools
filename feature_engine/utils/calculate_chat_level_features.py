@@ -27,6 +27,7 @@ from features.fflow import *
 from features.certainty import *
 from features.politeness_v2 import *
 from features.reddit_tags import *
+from features.named_entity_recognition_features import*
 
 # Importing utils
 from utils.preload_word_lists import *
@@ -59,41 +60,44 @@ class ChatLevelFeaturesCalculator:
                             new columns for each chat level feature.
         """
 
-        # Concat sentiment BERT markers (done through preprocessing)
-        self.concat_bert_features()
+        # NER
+        self.get_named_entity()
+
+        # # Concat sentiment BERT markers (done through preprocessing)
+        # self.concat_bert_features()
         
-        # Text-Based Basic Features
-        self.text_based_features()
+        # # Text-Based Basic Features
+        # self.text_based_features()
 
-        # "Basic" Info Exchange Feature -- z-scores of content minus first pronouns
-        self.info_exchange()
+        # # "Basic" Info Exchange Feature -- z-scores of content minus first pronouns
+        # self.info_exchange()
 
-        # lexical features
-        self.lexical_features()
+        # # lexical features
+        # self.lexical_features()
 
-        # Other lexical features
-        self.other_lexical_features()
+        # # Other lexical features
+        # self.other_lexical_features()
 
-        # Word Mimicry
-        self.calculate_word_mimicry()
+        # # Word Mimicry
+        # self.calculate_word_mimicry()
 
-        # Hedge Features
-        self.calculate_hedge_features()
+        # # Hedge Features
+        # self.calculate_hedge_features()
 
-        # TextBlob Sentiment features
-        self.calculate_textblob_sentiment()
+        # # TextBlob Sentiment features
+        # self.calculate_textblob_sentiment()
         
-        # Positivity Z-Score
-        self.positivity_zscore()
+        # # Positivity Z-Score
+        # self.positivity_zscore()
 
-        # Dale-Chall readability features
-        self.get_dale_chall_score_and_classfication()
+        # # Dale-Chall readability features
+        # self.get_dale_chall_score_and_classfication()
         
-        # Temporal features
-        self.get_temporal_features()
+        # # Temporal features
+        # self.get_temporal_features()
 
-        # Politeness (ConvoKit)
-        self.calculate_politeness_sentiment()
+        # # Politeness (ConvoKit)
+        # self.calculate_politeness_sentiment()
 
         # Politeness (Yeomans/Bevis)
         self.calculate_politeness_v2()
@@ -101,6 +105,9 @@ class ChatLevelFeaturesCalculator:
         # Forward Flow
         self.get_forward_flow()
         self.get_certainty_score()
+        # # Forward Flow
+        # self.get_forward_flow()
+        # self.get_certainty_score()
 
         # Reddit / online communication features
         self.get_reddit_features()
@@ -304,3 +311,13 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["num_ellipses"] = self.chat_data["message_lower_with_punc"].apply(count_ellipses)
         self.chat_data["num_parentheses"] = self.chat_data["message_lower_with_punc"].apply(count_parentheses)
         self.chat_data["num_emoji"] = self.chat_data["message_lower_with_punc"].apply(count_emojis)
+    
+    def get_named_entity(self) -> None:
+        """
+        This function calculates the number of named entities in a chat
+        """
+
+        train_spacy_ner()
+        self.chat_data["num_named_entity"] = self.chat_data["message"].apply(num_named_entity, cutoff=0.9)
+        self.chat_data["named_entities"] = self.chat_data["message"].apply(named_entities, cutoff=0.9)
+        # evaluate_model()

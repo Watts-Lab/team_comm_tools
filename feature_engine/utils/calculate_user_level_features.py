@@ -44,17 +44,17 @@ class UserLevelFeaturesCalculator:
 							new columns for each conv level feature.
         """
 
-        # Get average features for all features
-        self.get_user_level_averaged_features()
+        # # Get average features for all features
+        # self.get_user_level_averaged_features()
         
-        # Get total counts for all features
-        self.get_user_level_summed_features()
+        # # Get total counts for all features
+        # self.get_user_level_summed_features()
         
-        # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
-        # self.get_centroids()
+        # # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
+        # # self.get_centroids()
 
-        # Get list of other users in a given conversation
-        self.get_user_network()
+        # # Get list of other users in a given conversation
+        # self.get_user_network()
 
         return self.user_data
 
