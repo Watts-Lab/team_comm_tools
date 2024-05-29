@@ -39,7 +39,29 @@ if __name__ == "__main__":
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/jury_TINY_output_conversation_level.csv",
 	# 	turns = False,
 	# )
-	# tiny_juries_feature_builder.featurize(col="message")
+	# feature_builder.featurize(col="message")
+
+	# test_turn_taking_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/test_turn_taking.csv",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_turn_taking_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/test_turn_taking_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_turn_taking_conversation_level.csv",
+	# 	turns = False,
+	# )
+	# test_turn_taking_feature_builder.featurize(col="message")
+    
+	test_ner_feature_builder = FeatureBuilder(
+		input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/test_named_entity.csv",
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/test_named_entity_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/test_named_entity_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/test_named_entity_conversation_level.csv",
+		turns = False,
+		conversation_id = "stageId",
+		cumulative_grouping = True
+	)
+	test_ner_feature_builder.featurize(col="message")
 
 	# # Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
@@ -83,6 +105,7 @@ if __name__ == "__main__":
 	# 	input_df = juries_df,
 	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/jury_output_chat_level.csv",
+	# 	# output_file_path_chat_level = "",
 	# 	output_file_path_user_level = "../feature_engine/output/user/jury_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/jury_output_conversation_level.csv",
 	# 	turns = True
