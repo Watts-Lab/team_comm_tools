@@ -53,18 +53,18 @@ if __name__ == "__main__":
 	# )
 	# test_turn_taking_feature_builder.featurize(col="message")
     
-	test_ner_feature_builder = FeatureBuilder(
-		input_df = test_ner_df,
-		ner_training_df = test_ner_training_df,
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/test_named_entity_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/user/test_named_entity_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/test_named_entity_conversation_level.csv",
-		turns = False,
-		conversation_id = "stageId",
-		cumulative_grouping = True
-	)
-	test_ner_feature_builder.featurize(col="message")
+	# test_ner_feature_builder = FeatureBuilder(
+	# 	input_df = test_ner_df,
+	# 	ner_training_df = test_ner_training_df,
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_named_entity_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/test_named_entity_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_named_entity_conversation_level.csv",
+	# 	turns = False,
+	# 	conversation_id = "stageId",
+	# 	cumulative_grouping = True
+	# )
+	# test_ner_feature_builder.featurize(col="message")
 
 	# # Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
@@ -79,27 +79,29 @@ if __name__ == "__main__":
 	# )
 	# tiny_multi_task_feature_builder.featurize(col="message")
 
-	# # testing chat features
-	# testing_chat = FeatureBuilder(
-	# 	input_df = chat_df,
-	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_chat_level_chat.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/test_chat_level_user.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_chat_level_conv.csv",
-	# 	turns = False,
-	# )
-	# testing_chat.featurize(col="message")
+	# testing chat features
+	testing_chat = FeatureBuilder(
+		input_df = chat_df,
+		ner_training_df = test_ner_training_df,
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/test_chat_level_chat.csv",
+		output_file_path_user_level = "../feature_engine/output/user/test_chat_level_user.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/test_chat_level_conv.csv",
+		turns = False,
+	)
+	testing_chat.featurize(col="message")
 
-	# # testing conv features
-	# testing_conv = FeatureBuilder(
-	# 	input_df = conv_df,
-	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_conv_level_chat.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/test_conv_level_user.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_conv_level_conv.csv",
-	# 	turns = False,
-	# )
-	# testing_conv.featurize(col="message")
+	# testing conv features
+	testing_conv = FeatureBuilder(
+		input_df = conv_df,
+		ner_training_df = test_ner_training_df,
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/test_conv_level_chat.csv",
+		output_file_path_user_level = "../feature_engine/output/user/test_conv_level_user.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/test_conv_level_conv.csv",
+		turns = False,
+	)
+	testing_conv.featurize(col="message")
 
 	# FULL DATASETS BELOW ------------------------------------- #
 	

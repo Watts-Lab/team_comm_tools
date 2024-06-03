@@ -72,41 +72,41 @@ class ChatLevelFeaturesCalculator:
         # NER
         self.get_named_entity()
 
-        # # Concat sentiment BERT markers (done through preprocessing)
-        # self.concat_bert_features()
+        # Concat sentiment BERT markers (done through preprocessing)
+        self.concat_bert_features()
         
-        # # Text-Based Basic Features
-        # self.text_based_features()
+        # Text-Based Basic Features
+        self.text_based_features()
 
-        # # "Basic" Info Exchange Feature -- z-scores of content minus first pronouns
-        # self.info_exchange()
+        # "Basic" Info Exchange Feature -- z-scores of content minus first pronouns
+        self.info_exchange()
 
-        # # lexical features
-        # self.lexical_features()
+        # lexical features
+        self.lexical_features()
 
-        # # Other lexical features
-        # self.other_lexical_features()
+        # Other lexical features
+        self.other_lexical_features()
 
-        # # Word Mimicry
-        # self.calculate_word_mimicry()
+        # Word Mimicry
+        self.calculate_word_mimicry()
 
-        # # Hedge Features
-        # self.calculate_hedge_features()
+        # Hedge Features
+        self.calculate_hedge_features()
 
-        # # TextBlob Sentiment features
-        # self.calculate_textblob_sentiment()
+        # TextBlob Sentiment features
+        self.calculate_textblob_sentiment()
         
-        # # Positivity Z-Score
-        # self.positivity_zscore()
+        # Positivity Z-Score
+        self.positivity_zscore()
 
-        # # Dale-Chall readability features
-        # self.get_dale_chall_score_and_classfication()
+        # Dale-Chall readability features
+        self.get_dale_chall_score_and_classfication()
         
-        # # Temporal features
-        # self.get_temporal_features()
+        # Temporal features
+        self.get_temporal_features()
 
-        # # Politeness (ConvoKit)
-        # self.calculate_politeness_sentiment()
+        # Politeness (ConvoKit)
+        self.calculate_politeness_sentiment()
 
         # Politeness (Yeomans/Bevis)
         self.calculate_politeness_v2()
