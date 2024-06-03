@@ -28,6 +28,7 @@ if __name__ == "__main__":
 	csop_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/csop_conversations_withblanks.csv", encoding='utf-8')
 	csopII_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/csopII_conversations_withblanks.csv", encoding='utf-8')
 	test_ner_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/test_data/test_named_entity.csv", encoding='utf-8')
+	test_ner_training_df = pd.read_csv('C:/Users/amyta/Documents/GitHub/team-process-map/feature_engine/tpm-data/cleaned_data/test_data/train_named_entity.csv')
 	
 	# TINY / TEST DATASETS -------------------------------#
 	
@@ -54,6 +55,7 @@ if __name__ == "__main__":
     
 	test_ner_feature_builder = FeatureBuilder(
 		input_df = test_ner_df,
+		ner_training_df = test_ner_training_df,
 		vector_directory = "../feature_engine/tpm-data/vector_data/",
 		output_file_path_chat_level = "../feature_engine/output/chat/test_named_entity_chat_level.csv",
 		output_file_path_user_level = "../feature_engine/output/user/test_named_entity_user_level.csv",
