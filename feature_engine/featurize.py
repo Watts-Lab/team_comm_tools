@@ -28,7 +28,7 @@ if __name__ == "__main__":
 	csop_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/csop_conversations_withblanks.csv", encoding='utf-8')
 	csopII_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/csopII_conversations_withblanks.csv", encoding='utf-8')
 	test_ner_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/test_data/test_named_entity.csv", encoding='utf-8')
-	test_ner_training_df = pd.read_csv('C:/Users/amyta/Documents/GitHub/team-process-map/feature_engine/tpm-data/cleaned_data/test_data/train_named_entity.csv')
+	test_ner_training_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/test_data/train_named_entity.csv")
 	
 	# TINY / TEST DATASETS -------------------------------#
 	
