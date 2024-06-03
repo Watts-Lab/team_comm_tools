@@ -34,12 +34,18 @@ from utils.preload_word_lists import *
 from utils.zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
 
 class ChatLevelFeaturesCalculator:
-    def __init__(self, chat_data: pd.DataFrame, vect_data: pd.DataFrame, bert_sentiment_data: pd.DataFrame) -> None:
+    def __init__(self, chat_data: pd.DataFrame, 
+                 vect_data: pd.DataFrame, 
+                 bert_sentiment_data: pd.DataFrame, 
+                 ner_training: pd.DataFrame,
+                 ner_cutoff: int) -> None:
         """
             This function is used to initialize variables and objects that can be used by all functions of this class.
 
         PARAMETERS:
             @param chat_data (pd.DataFrame): This is a pandas dataframe of the chat level features read in from the input dataset.
+            @param ner_training_df (pd.DataFrame): This is a pandas dataframe of training data for named entity recognition feature
+            @param ner_cutoff (int): This is the cutoff value for the confidence of prediction for each named entity
         """
         # print(f'this is the length{len(chat_data)}')
         # print(chat_data.tail(1))
@@ -50,6 +56,9 @@ class ChatLevelFeaturesCalculator:
         self.function_words = get_function_words() # load function words exactly once
         self.question_words = get_question_words() # load question words exactly once
         self.first_person = get_first_person_words() # load first person words exactly once
+
+        self.ner_training = ner_training
+        self.ner_cutoff = ner_cutoff
         
     def calculate_chat_level_features(self) -> pd.DataFrame:
         """
@@ -317,7 +326,7 @@ class ChatLevelFeaturesCalculator:
         This function calculates the number of named entities in a chat
         """
 
-        train_spacy_ner()
-        self.chat_data["num_named_entity"] = self.chat_data["message"].apply(num_named_entity, cutoff=0.9)
-        self.chat_data["named_entities"] = self.chat_data["message"].apply(named_entities, cutoff=0.9)
+        train_spacy_ner(self.ner_training)
+        self.chat_data["num_named_entity"] = self.chat_data["message"].apply(num_named_entity, cutoff=self.ner_cutoff)
+        self.chat_data["named_entities"] = self.chat_data["message"].apply(named_entities, cutoff=self.ner_cutoff)
         # evaluate_model()

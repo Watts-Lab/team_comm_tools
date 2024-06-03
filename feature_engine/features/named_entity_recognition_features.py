@@ -94,11 +94,9 @@ Trains model based on user inputted file that provides example sentences and the
 
 Inspired by https://dataknowsall.com/blog/ner.html
 """   
-def train_spacy_ner():
+def train_spacy_ner(training):
 
-    # takes training data from local file
-    # change to user inputted file and check if users set up correctly
-    training = pd.read_csv("../feature_engine/tpm-data/cleaned_data/test_data/train_named_entity_jury.csv")
+    # takes training data from user inputted file
     training["sentences_to_train"] = training["sentences_to_train"].astype(str).apply(preprocess_text)
     training["names_to_train"] = training["names_to_train"].astype(str).apply(preprocess_text)
 
