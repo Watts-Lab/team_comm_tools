@@ -326,7 +326,8 @@ class ChatLevelFeaturesCalculator:
         This function calculates the number of named entities in a chat
         """
 
-        train_spacy_ner(self.ner_training)
-        self.chat_data["num_named_entity"] = self.chat_data["message"].apply(num_named_entity, cutoff=self.ner_cutoff)
-        self.chat_data["named_entities"] = self.chat_data["message"].apply(named_entities, cutoff=self.ner_cutoff)
-        # evaluate_model()
+        if self.ner_training is not None:
+            train_spacy_ner(self.ner_training)
+            self.chat_data["num_named_entity"] = self.chat_data["message"].apply(num_named_entity, cutoff=self.ner_cutoff)
+            self.chat_data["named_entities"] = self.chat_data["message"].apply(named_entities, cutoff=self.ner_cutoff)
+            # evaluate_model()
