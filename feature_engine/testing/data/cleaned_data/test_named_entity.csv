@@ -99,3 +99,13 @@ conversation_num,speaker_nickname,message,expected_value
 1,test_A,"Yes, Sharon, I can't wait to try it.",sharon
 1,test_B,"Doran, are you going to the football game on Saturday?",doran
 1,test_A,"Yes, Elias, I already got tickets for it.",elias
+1,test_A,The chair and the table are nice.,
+1,test_B,Did you watch the movie yesterday?,
+1,test_A,No that doesn't make sense. ,
+1,test_B,That makes a lot of sense!,
+1,test_A,"Wow, that's fast",
+1,test_B,"Nikki, did you see Thomas the other day?","Nikki, Thomas"
+1,test_A,"No, I didn't Nick, but Tom did you?","Nick, Tom"
+1,test_A,I think Alex and Adam and Eve went canoeing.,"Alex, Adam, Eve"
+1,test_B,Roger and Ashley and Sasha and Kayla are all lifeguarding this summer!,"Roger, Ashley, Sasha, Kayla"
+1,test_A,Do you want to go fishing with Eugene and William,"Eugene, William"
