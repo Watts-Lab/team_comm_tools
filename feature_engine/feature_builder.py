@@ -32,7 +32,6 @@ class FeatureBuilder:
     def __init__(
             self, 
             input_df: pd.DataFrame, 
-            ner_training_df: pd.DataFrame,
             vector_directory: str,
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
@@ -42,7 +41,8 @@ class FeatureBuilder:
             conversation_id = None,
             cumulative_grouping = False, 
             within_task = False,
-            ner_cutoff: int = 0.9
+            ner_cutoff: int = 0.9,
+            ner_training_df: pd.DataFrame = None
         ) -> None:
         """
             This function is used to define variables used throughout the class.

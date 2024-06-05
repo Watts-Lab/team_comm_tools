@@ -97,14 +97,14 @@ Inspired by https://dataknowsall.com/blog/ner.html
 def train_spacy_ner(training):
 
     # takes training data from user inputted file
-    training["sentences_to_train"] = training["sentences_to_train"].astype(str).apply(preprocess_text)
-    training["names_to_train"] = training["names_to_train"].astype(str).apply(preprocess_text)
+    training["sentence_to_train"] = training["sentence_to_train"].astype(str).apply(preprocess_text)
+    training["name_to_train"] = training["name_to_train"].astype(str).apply(preprocess_text)
 
     TRAIN_DATA = []
 
-    for i in range(0, len(training["sentences_to_train"])):
+    for i in range(0, len(training["sentence_to_train"])):
         TRAIN_DATA.append(
-            built_spacy_ner(training["sentences_to_train"][i], training["names_to_train"][i], "PERSON")
+            built_spacy_ner(training["sentence_to_train"][i], training["name_to_train"][i], "PERSON")
         )
 
     # add a named entity label
