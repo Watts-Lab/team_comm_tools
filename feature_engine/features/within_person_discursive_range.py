@@ -12,7 +12,7 @@ This is a conversation level feature, which computes the semantic modulation tha
 def get_nan_vector(vector_directory):
     current_script_directory = Path(__file__).resolve().parent
     # TODO --- fix this file path once dataset cleaning is added!
-    nan_vector_file_path = current_script_directory.parent / vector_directory / "nan_vector.txt"
+    nan_vector_file_path = current_script_directory.parent / "../feature_engine/tpm-data/vector_data/" / "nan_vector.txt"
 
     f = open(nan_vector_file_path, "r")
     str_vec = f.read()
