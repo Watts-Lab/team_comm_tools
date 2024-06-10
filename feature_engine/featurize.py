@@ -82,7 +82,6 @@ if __name__ == "__main__":
 	# testing chat features
 	testing_chat = FeatureBuilder(
 		input_df = chat_df,
-		ner_training_df = test_ner_training_df,
 		vector_directory = "../feature_engine/tpm-data/vector_data/",
 		output_file_path_chat_level = "../feature_engine/output/chat/test_chat_level_chat.csv",
 		output_file_path_user_level = "../feature_engine/output/user/test_chat_level_user.csv",
