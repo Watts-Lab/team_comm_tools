@@ -346,12 +346,6 @@ class ChatLevelFeaturesCalculator:
             timestamp_start, timestamp_end = self.timestamp_col[0], self.timestamp_col[1]
             if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
                 self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data, timestamp_start, timestamp_end, self.conversation_id)
-        if type(self.timestamp_col) is str and {self.timestamp_col}.issubset(self.chat_data.columns):
-            self.chat_data["time_diff"] =  get_time_diff(self.chat_data, self.timestamp_col, self.conversation_id) 
-        elif type(self.timestamp_col) is list:
-            timestamp_start, timestamp_end = self.timestamp_col[0], self.timestamp_col[1]
-            if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
-                self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data, self.conversation_id)
 
     def calculate_politeness_sentiment(self) -> None:
         """
