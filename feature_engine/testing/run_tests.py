@@ -1,8 +1,7 @@
 """
-file: featurize.py
+file: run_tests.py
 ---
-This file is the main driver of the feature generating pipeline. 
-It instantiates and calls the FeatureBuilder class which defines the logic used for feature creation.
+This file runs the feature builder pipeline on our custom testing datasets.
 """
 
 # Importing the Feature Generating Class
