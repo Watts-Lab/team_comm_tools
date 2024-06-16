@@ -4,7 +4,7 @@ aiohttp==3.9.4
 aiopubsub==2.1.5
 aioredis==2.0.1
 aiosmtplib==1.1.2
-alembic==1.3.3
+alembic==1.13.1
 aniso8601==7.0.0
 annotated-types==0.6.0
 appnope==0.1.3
@@ -124,7 +124,7 @@ pyro-api==0.1.2
 pyro-ppl==1.8.6
 pytest
 pytest-runner==6.0.1
-python-dateutil==2.8.1
+python-dateutil==2.9.0
 python-editor==1.0.4
 pytz==2024.1
 PyYAML==6.0.1
