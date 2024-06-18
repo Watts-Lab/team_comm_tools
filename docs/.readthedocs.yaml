@@ -27,6 +27,8 @@ sphinx:
 # Optional but recommended, declare the Python requirements required
 # to build your documentation
 # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
-# python:
-#    install:
-#    - requirements: feature_engine/requirements.txt
+python:
+   install:
+   - requirements: ../feature_engine/requirements.txt
+   - method: pip
+      path: https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz --no-deps

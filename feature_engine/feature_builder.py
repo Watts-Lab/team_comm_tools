@@ -1,15 +1,6 @@
 """
 file: feature_builder.py
 ---
-This file defines the FeatureBuilder class using the modules defined in "utils" and "features".
-The intention behind this class is to use these modules and:
-- Preprocess the incoming dataset defined in an input file path.
-- Create chat level features -> Use the moduled in "utils" and "features" to create features 
-                                on each chat message in the dataset (like word count, character count etc.).
-- Create conversation level features -> These can come from 2 sources:
-                                        - By aggregating the chat level features
-                                        - By defining new features specifically applicable for conversations
-- Save the chat and conversation level features in the output path specified.
 """
 
 # 3rd Party Imports
@@ -42,28 +33,40 @@ class FeatureBuilder:
             cumulative_grouping = False, 
             within_task = False
         ) -> None:
-        """
-            This function is used to define variables used throughout the class.
 
-        PARAMETERS:
-            @param input_file_path (str): File path of the input csv dataset (assumes that the '.csv' suffix is added)
-            @param vector_directory (str): Directory path where the vectors are to be cached.
-            @param output_file_path_chat_level (str): Path where the output csv file is to be generated 
+        """The FeatureBuilder is the main engine that reads in the user's inputs and specifications and generates 
+        conversational features. The FeatureBuilder separately calls the classes (the ChatLevelFeaturesCalculator,
+        ConversationLevelFeaturesCalculator, and UserLevelFeaturesCalculator) to generate conversational features at
+        different levels.
+
+        :param input_df: A pandas DataFrame containing the conversation data that you wish to featurize.
+        :type input_df: pd.DataFrame
+        :param vector_directory: Directory path where the vectors are to be cached. 
+        :type vector_directory: str
+        :param output_file_path_chat_level: Path where the output csv file is to be generated 
                                                       (assumes that the '.csv' suffix is added)
-            @param output_file_path_conv_level (str): Path where the output csv file is to be generated 
-                                                      (assumes that the '.csv' suffix is added)
-            @param analyze_first_pct (list of floats): Analyze the first X% of the data.
-                This parameter is useful because the earlier stages of the conversation may be more predictive than
+        :type output_file_path_chat_level: str
+        :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the
+                earlier stages of the conversation may be more predictive than
                 the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data
                 and compare the performance with using the full dataset.
-                This defaults to a single list containing the full dataset.
-            @param conversation_id: A string representing the column name that should be selected as the conversation ID.
-                This defaults to None.
-            @param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, 
-                but also at what happened before.) This defaults to False.
-            @param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same task. 
-                This defaults to False.
+                This defaults to [1.0]
+        :type analyze_first_pct: list(float)
+        :param conversation_id: A string representing the column name that should be selected as the conversation ID.
+                This defaults to None
+        :type conversation_id: str
+        param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, 
+                but also at what happened before.) This defaults to False
+        :type cumulative_grouping: bool
+        :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same task. 
+        :type within_task: bool
+        ...
+        :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in
+            the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal,
+            which will indicate that the features have been generated.
+        :rtype: None
         """
+        
         #  Defining input and output paths.
         self.chat_data = input_df
         self.orig_data = self.chat_data
