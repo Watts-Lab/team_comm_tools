@@ -15,9 +15,10 @@ Please use the Table of Contents below to learn more about our tool. We recommen
    
    intro
    feature_builder
-   utils/index
    features/index
+   features_conceptual/index
    examples
+   utils/index
 
 Indices and Tables
 ==================
