@@ -3,8 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Team Communication Toolkit's documentation!
-======================================================
+The Team Communication Toolkit
+===============================
+Welcome to the official documentation of the Team Communication Toolkit! If you're a social scientist looking to explore conversational data, or just someone interested in better understanding the dynamics of team conversations, you've come to the right place.
+
+Please use the Table of Contents below to learn more about our tool. We recommend that you begin in the "Introduction" section, then explore other sections of the documentation as they become relevant to you.
 
 .. toctree::
    :maxdepth: 2
@@ -12,11 +15,10 @@ Welcome to Team Communication Toolkit's documentation!
    
    intro
    feature_builder
+   utils/index
    examples
 
-
-
-Indices and tables
+Indices and Tables
 ==================
 
 * :ref:`genindex`
