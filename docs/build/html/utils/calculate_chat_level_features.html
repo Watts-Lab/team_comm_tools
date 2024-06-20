@@ -97,18 +97,6 @@
 <dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.calculate_chat_level_features.</span></span><span class="sig-name descname"><span class="pre">ChatLevelFeaturesCalculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bert_sentiment_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Initialize variables and objects used by the ChatLevelFeaturesCalculator class.</p>
-<p>This class uses various feature modules to define chat-level features. It reads input data and
-initializes variables required to compute the features.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe of chat-level features read from the input dataset</p></li>
-<li><p><strong>vect_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe containing vector data</p></li>
-<li><p><strong>bert_sentiment_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe containing BERT sentiment data</p></li>
-</ul>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_chat_level_features">
 <span class="sig-name descname"><span class="pre">calculate_chat_level_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_chat_level_features" title="Link to this definition"></a></dt>
@@ -271,6 +259,20 @@ the certainty score of a chat message and appends it to the chat data.</p>
 <dd><p>Calculate the chat-level forward flow.</p>
 <p>This function compares the current chat to the average of the previous chats
 and appends the forward flow score to the chat data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_named_entity">
+<span class="sig-name descname"><span class="pre">get_named_entity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_named_entity" title="Link to this definition"></a></dt>
+<dd><p>This function calculates the number of named entities in a chat.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
