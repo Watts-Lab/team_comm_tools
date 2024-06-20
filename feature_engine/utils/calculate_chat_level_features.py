@@ -43,7 +43,6 @@ class ChatLevelFeaturesCalculator:
         :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
         :type ner_cutoff: int
         """
-    def __init__(self, chat_data: pd.DataFrame, vect_data: pd.DataFrame, bert_sentiment_data: pd.DataFrame) -> None:
 
         self.chat_data = chat_data
         self.vect_data = vect_data
