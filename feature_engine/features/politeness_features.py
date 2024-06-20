@@ -11,8 +11,7 @@ from convokit import PolitenessStrategies
 
 ps = PolitenessStrategies()
 
-# Note: if you get an error in which `en_core_web_sm` is not found, do the following:
-# python3 -m spacy download en_core_web_sm
+# Note: if you get an error in which `en_core_web_sm` is not found, do the following: python3 -m spacy download en_core_web_sm
 
 spacy_nlp = spacy.load("en_core_web_sm", disable=["ner"])
 
