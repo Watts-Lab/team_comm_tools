@@ -1,9 +1,20 @@
 import pandas as pd
 import numpy as np
 
+def coerce_to_date_or_number(value):
+    try:
+        pd.to_datetime(value)
+        return value
+    except (ValueError, TypeError):
+        try:
+            pd.to_numeric(value)
+            return value
+        except (ValueError, TypeError):
+            return None
+
 def get_time_diff(df,on_column):
-    # Replace instances of NULL_TIME
-    df[on_column] = df[on_column].replace('NULL_TIME', None)
+    # Replace instances in which the time is a string that cannot be coerced into a date or number 
+    df[on_column] = df[on_column].apply(coerce_to_date_or_number)
 
     #convert timestamp column to datetime type (in minutes)
     try:
