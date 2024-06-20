@@ -57,7 +57,6 @@ h11==0.8.1
 h2==3.2.0
 hpack==3.0.0
 httpcore==0.3.0
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz --no-deps
 httptools==0.6.1
 huggingface-hub==0.20.3
 hyperframe==5.2.0
