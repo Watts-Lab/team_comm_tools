@@ -1,7 +1,7 @@
 user\_centroids module
 ======================
 
-.. automodule:: user_centroids
+.. automodule:: features.user_centroids
    :members:
    :undoc-members:
    :show-inheritance:
