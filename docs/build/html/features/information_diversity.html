@@ -106,9 +106,15 @@ cosine similarity between the message vectors and the mean vector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>doc_topics</strong> (<em>list</em>) – the list of topics that comes from the LDA model.</p></li>
+<li><p><strong>doc_topics</strong> (<em>list</em>) – the list of topic vectors from the team’s chat messages that comes from the LDA model.</p></li>
 <li><p><strong>num_topics</strong> (<em>int</em>) – the number of topics; set to be the square root of the number of rows, rounded to the nearest integer (this is a design decision on our part to be robust to datasets of varying sizes).</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The information diversity score, given the list of topics vectors and the number of topics</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -120,6 +126,12 @@ cosine similarity between the message vectors and the mean vector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – The utterance (chat)-level dataframe.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the grouped conversational dataframe, with a new column (“info_diversity”) representing the conversation’s information diversity score.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -133,6 +145,12 @@ Uses square root of number of rows as number of topics</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input dataframe, grouped by the conversation index, to which this function is being applied.</p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The information diversity score, obtained from calling calculate_ID_score on the chat’s topics; defaults to zero in case of empty data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -143,6 +161,12 @@ Uses square root of number of rows as number of topics</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>str</em>) – The utterance being analyzed (in this case, preprocessed for the LDA model.)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of lemmatized text with stopwords and shorter words removed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
