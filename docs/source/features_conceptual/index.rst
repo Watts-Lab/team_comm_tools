@@ -14,6 +14,7 @@ Utterance- (Chat) Level Features
    :maxdepth: 1
 
    NAMED ENTITY RECOGNITION
+   TEMPLATE
 
 Conversation-Level Features
 ****************************
