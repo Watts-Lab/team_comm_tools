@@ -152,7 +152,6 @@ singledispatch==3.7.0
 six==1.16.0
 smart-open==6.4.0
 spacy==3.7.2
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 spacy-legacy==3.0.12
 spacy-loggers==1.0.5
 sphinx==5.0.2
