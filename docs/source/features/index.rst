@@ -23,7 +23,7 @@ Utterance-Level features are calculated *first* in the Toolkit, as many conversa
    temporal_features
    readability
    textblob_sentiment_analysis
-   named_entity_recognition
+   named_entity_recognition_features
 
 
 Conversation-Level Features

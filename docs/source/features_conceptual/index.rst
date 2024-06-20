@@ -13,7 +13,7 @@ Utterance- (Chat) Level Features
 .. toctree::
    :maxdepth: 1
 
-   NAMED ENTITY RECOGNITION
+   named_entity_recognition
    TEMPLATE
 
 Conversation-Level Features
