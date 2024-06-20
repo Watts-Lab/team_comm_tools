@@ -34,7 +34,7 @@ Once utterance-level features are computed, we compute conversation-level featur
 
    burstiness
    information_diversity
-   gini_coefficient
+   ../utils/gini_coefficient
 
 Speaker- (User) Level Features
 *********************************
