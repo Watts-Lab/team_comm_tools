@@ -10,32 +10,32 @@ from features.information_diversity import *
 
 
 class ConversationLevelFeaturesCalculator:
+    """
+    Initialize variables and objects used by the ConversationLevelFeaturesCalculator class.
+
+    This class uses various feature modules to define conversation-level features. It reads input data and
+    initializes variables required to compute the features.
+
+    :param chat_data: Pandas dataframe of chat-level features read from the input dataset
+    :type chat_data: pd.DataFrame
+    :param user_data: Pandas dataframe of user-level features derived from the chat-level dataframe
+    :type user_data: pd.DataFrame
+    :param conv_data: Pandas dataframe of conversation-level features derived from the chat-level dataframe
+    :type conv_data: pd.DataFrame
+    :param vect_data: Pandas dataframe of processed vectors derived from the chat-level dataframe
+    :type vect_data: pd.DataFrame
+    :param vector_directory: Directory where vector files are stored
+    :type vector_directory: str
+    :param input_columns: List of columns in the chat-level features dataframe that should not be summarized
+    :type input_columns: list
+        """
     def __init__(self, chat_data: pd.DataFrame, 
                         user_data: pd.DataFrame, 
                         conv_data: pd.DataFrame, 
                         vect_data: pd.DataFrame, 
                         vector_directory: str, 
                         input_columns:list) -> None:
-        """
-        Initialize variables and objects used by the ConversationLevelFeaturesCalculator class.
-
-        This class uses various feature modules to define conversation-level features. It reads input data and
-        initializes variables required to compute the features.
-
-        :param chat_data: Pandas dataframe of chat-level features read from the input dataset
-        :type chat_data: pd.DataFrame
-        :param user_data: Pandas dataframe of user-level features derived from the chat-level dataframe
-        :type user_data: pd.DataFrame
-        :param conv_data: Pandas dataframe of conversation-level features derived from the chat-level dataframe
-        :type conv_data: pd.DataFrame
-        :param vect_data: Pandas dataframe of processed vectors derived from the chat-level dataframe
-        :type vect_data: pd.DataFrame
-        :param vector_directory: Directory where vector files are stored
-        :type vector_directory: str
-        :param input_columns: List of columns in the chat-level features dataframe that should not be summarized
-        :type input_columns: list
-        """
-
+    
         # Initializing variables
         self.chat_data = chat_data
         self.user_data = user_data

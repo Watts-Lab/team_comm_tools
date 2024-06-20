@@ -97,6 +97,21 @@
 <dt class="sig sig-object py" id="utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.calculate_conversation_level_features.</span></span><span class="sig-name descname"><span class="pre">ConversationLevelFeaturesCalculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initialize variables and objects used by the ConversationLevelFeaturesCalculator class.</p>
+<p>This class uses various feature modules to define conversation-level features. It reads input data and
+initializes variables required to compute the features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe of chat-level features read from the input dataset</p></li>
+<li><p><strong>user_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe of user-level features derived from the chat-level dataframe</p></li>
+<li><p><strong>conv_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe of conversation-level features derived from the chat-level dataframe</p></li>
+<li><p><strong>vect_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe of processed vectors derived from the chat-level dataframe</p></li>
+<li><p><strong>vector_directory</strong> (<em>str</em>) – Directory where vector files are stored</p></li>
+<li><p><strong>input_columns</strong> (<em>list</em>) – List of columns in the chat-level features dataframe that should not be summarized</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.calculate_conversation_level_features">
 <span class="sig-name descname"><span class="pre">calculate_conversation_level_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.calculate_conversation_level_features" title="Link to this definition"></a></dt>
