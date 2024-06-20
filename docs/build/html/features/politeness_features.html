@@ -113,35 +113,9 @@ including HASHEDGE, Factuality, Deference, Gratitude, Apologizing, etc.</p>
 <dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text of the utterance to be analyzed.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><p>A dictionary containing the politeness strategies extracted, in a format as follows.
+<dd class="field-even"><p>A dictionary containing the politeness strategies extracted, in a format as follows.
 These names are then cleaned up downstream in the ChatLevelFeaturesCalculator before being appended
 to the output dataframe.</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a>`
-{‘feature_politeness_==Please==’: 1,</p>
-<blockquote>
-<div><p>’feature_politeness_==Please_start==’: 0,
-‘feature_politeness_==HASHEDGE==’: 0,
-‘feature_politeness_==Indirect_(btw)==’: 0,
-‘feature_politeness_==Hedges==’: 0,
-‘feature_politeness_==Factuality==’: 0,
-‘feature_politeness_==Deference==’: 0,
-‘feature_politeness_==Gratitude==’: 0,
-‘feature_politeness_==Apologizing==’: 0,
-‘feature_politeness_==1st_person_pl.==’: 0,
-‘feature_politeness_==1st_person==’: 0,
-‘feature_politeness_==1st_person_start==’: 0,
-‘feature_politeness_==2nd_person==’: 1,
-‘feature_politeness_==2nd_person_start==’: 0,
-‘feature_politeness_==Indirect_(greeting)==’: 1,
-‘feature_politeness_==Direct_question==’: 0,
-‘feature_politeness_==Direct_start==’: 0,
-‘feature_politeness_==HASPOSITIVE==’: 0,
-‘feature_politeness_==HASNEGATIVE==’: 0,
-‘feature_politeness_==SUBJUNCTIVE==’: 1,
-‘feature_politeness_==INDICATIVE==’: 0}</p>
-</div></blockquote>
-<p><a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
-</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

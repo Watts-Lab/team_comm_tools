@@ -1,7 +1,7 @@
 fflow module
 ============
 
-.. automodule:: fflow
+.. automodule:: features.fflow
    :members:
    :undoc-members:
    :show-inheritance:
