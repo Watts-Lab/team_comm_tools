@@ -10,10 +10,10 @@ from convokit import TextParser
 from convokit import PolitenessStrategies
 
 ps = PolitenessStrategies()
-'''
-Note: if you get an error in which `en_core_web_sm` is not found, do the following:
-python3 -m spacy download en_core_web_sm
-'''
+
+# Note: if you get an error in which `en_core_web_sm` is not found, do the following:
+# python3 -m spacy download en_core_web_sm
+
 spacy_nlp = spacy.load("en_core_web_sm", disable=["ner"])
 
 def get_politeness_strategies(text):
@@ -31,6 +31,7 @@ def get_politeness_strategies(text):
         These names are then cleaned up downstream in the ChatLevelFeaturesCalculator before being appended
         to the output dataframe.
 
+        ```
         {'feature_politeness_==Please==': 1,
          'feature_politeness_==Please_start==': 0,
          'feature_politeness_==HASHEDGE==': 0,
@@ -52,6 +53,7 @@ def get_politeness_strategies(text):
          'feature_politeness_==HASNEGATIVE==': 0,
          'feature_politeness_==SUBJUNCTIVE==': 1,
          'feature_politeness_==INDICATIVE==': 0} 
+        ```
     """
     if pd.isnull(text):
         text = ""

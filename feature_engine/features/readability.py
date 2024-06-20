@@ -8,8 +8,8 @@ from features.basic_features import count_words
 # Define the function to calculate the Dale-Chall score
 def count_syllables(word):
     """
-    Count the number of syllables in a word
-
+    Count the number of syllables in a word.
+    
     Args:
         word(str): The input word.
 
