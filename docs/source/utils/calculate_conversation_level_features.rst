@@ -3,7 +3,7 @@
 calculate\_conversation\_level\_features module
 ===============================================
 
-.. automodule:: calculate_conversation_level_features
+.. automodule:: utils.calculate_conversation_level_features
    :members:
    :undoc-members:
    :show-inheritance:

@@ -15,9 +15,9 @@ Additional documentation for the three core classes can be found on their respec
 .. toctree::
    :maxdepth: 1
 
-   ./utils/calculate_chat_level_features
-   ./utils/calculate_conversation_level_features
-   ./utils/calculate_user_level_features
+   calculate_chat_level_features
+   calculate_conversation_level_features
+   calculate_user_level_features
 
 Other Utilities
 ****************
@@ -27,10 +27,10 @@ The FeatureBuilder and its driver classes also rely on a number of other utiliti
 .. toctree::
    :maxdepth: 1
 
-   ./utils/preload_word_lists
-   ./utils/preprocess
-   ./utils/summarize_features
-   ./utils/zscore_chats_and_conversation
-   ./utils/assign_chunk_nums
-   ./utils/check_embeddings
-   ./utils/gini_coefficient
+   preload_word_lists
+   preprocess
+   summarize_features
+   zscore_chats_and_conversation
+   assign_chunk_nums
+   check_embeddings
+   gini_coefficient

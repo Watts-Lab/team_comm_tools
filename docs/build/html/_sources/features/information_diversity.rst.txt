@@ -1,7 +1,7 @@
 information\_diversity module
 =============================
 
-.. automodule:: information_diversity
+.. automodule:: features.information_diversity
    :members:
    :undoc-members:
    :show-inheritance:

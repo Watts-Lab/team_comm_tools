@@ -1,7 +1,7 @@
 hedge module
 ============
 
-.. automodule:: hedge
+.. automodule:: features.hedge
    :members:
    :undoc-members:
    :show-inheritance:

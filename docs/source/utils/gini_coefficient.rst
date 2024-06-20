@@ -1,7 +1,7 @@
 gini\_coefficient module
 ========================
 
-.. automodule:: gini_coefficient
+.. automodule:: utils.gini_coefficient
    :members:
    :undoc-members:
    :show-inheritance:

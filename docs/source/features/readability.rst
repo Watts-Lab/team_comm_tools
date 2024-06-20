@@ -1,7 +1,7 @@
 readability module
 ==================
 
-.. automodule:: readability
+.. automodule:: features.readability
    :members:
    :undoc-members:
    :show-inheritance:
