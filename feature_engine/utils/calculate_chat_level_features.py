@@ -14,6 +14,7 @@ from features.fflow import *
 from features.certainty import *
 from features.politeness_v2 import *
 from features.reddit_tags import *
+from features.named_entity_recognition_features import*
 
 # Importing utils
 from utils.preload_word_lists import *
@@ -32,8 +33,16 @@ class ChatLevelFeaturesCalculator:
     :type vect_data: pd.DataFrame
     :param bert_sentiment_data: Pandas dataframe containing BERT sentiment data
     :type bert_sentiment_data: pd.DataFrame
+    :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature
+    :type ner_training_df: pd.DataFrame
+    :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
+    :type ner_cutoff: int
     """
-    def __init__(self, chat_data: pd.DataFrame, vect_data: pd.DataFrame, bert_sentiment_data: pd.DataFrame) -> None:
+    def __init__(self, chat_data: pd.DataFrame, 
+         vect_data: pd.DataFrame, 
+         bert_sentiment_data: pd.DataFrame, 
+         ner_training: pd.DataFrame,
+         ner_cutoff: int) -> None:
 
         self.chat_data = chat_data
         self.vect_data = vect_data
@@ -42,6 +51,9 @@ class ChatLevelFeaturesCalculator:
         self.function_words = get_function_words() # load function words exactly once
         self.question_words = get_question_words() # load question words exactly once
         self.first_person = get_first_person_words() # load first person words exactly once
+
+        self.ner_training = ner_training
+        self.ner_cutoff = ner_cutoff
         
     def calculate_chat_level_features(self) -> pd.DataFrame:
         """
@@ -53,6 +65,9 @@ class ChatLevelFeaturesCalculator:
         :return: The chat-level dataset with new columns for each chat-level feature
         :rtype: pd.DataFrame
         """
+
+        # NER
+        self.get_named_entity()
 
         # Concat sentiment BERT markers (done through preprocessing)
         self.concat_bert_features()
@@ -417,3 +432,16 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["num_ellipses"] = self.chat_data["message_lower_with_punc"].apply(count_ellipses)
         self.chat_data["num_parentheses"] = self.chat_data["message_lower_with_punc"].apply(count_parentheses)
         self.chat_data["num_emoji"] = self.chat_data["message_lower_with_punc"].apply(count_emojis)
+    
+    def get_named_entity(self) -> None:
+        """
+        This function calculates the number of named entities in a chat.
+        
+        :return: None
+        :rtype: None
+        """
+
+        if self.ner_training is not None:
+            train_spacy_ner(self.ner_training)
+            self.chat_data["num_named_entity"] = self.chat_data["message"].apply(num_named_entity, cutoff=self.ner_cutoff)
+            self.chat_data["named_entities"] = self.chat_data["message"].apply(named_entities, cutoff=self.ner_cutoff)
