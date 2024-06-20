@@ -52,7 +52,6 @@ class FeatureBuilder:
 
     :type within_task: bool, optional
 
-    ...
     :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
     :rtype: None
 
