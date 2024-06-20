@@ -23,17 +23,6 @@ Users should pass in a training file and a threshold for confidence in the Featu
 
 1) 'ner_training_df': This parameter expects a pandas DataFrame that contains the training data for named entity recognition.
 
-.. list-table:: 
-   :widths: 25 25 50
-   :header-rows: 1
-
-   * - sentence_to_train
-     - name_to_train
-   * - Helena’s idea sounds great!  
-     - Helena
-   * - I agree with Emily, what does everyone else think?
-     - Emily
-
 The file should have the following format:
 | sentence_to_train                                  | name_to_train  | 
 |----------------------------------------------------|----------------|
