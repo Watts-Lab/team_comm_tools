@@ -1,7 +1,4 @@
-"""
-file: feature_builder.py
----
-"""
+# feature_builder.py
 
 # 3rd Party Imports
 import pandas as pd
@@ -25,32 +22,31 @@ class FeatureBuilder:
     different levels.
 
     :param input_df: A pandas DataFrame containing the conversation data that you wish to featurize.
-
     :type input_df: pd.DataFrame 
     
     :param vector_directory: Directory path where the vectors are to be cached.
-
     :type vector_directory: str
     
     :param output_file_path_chat_level: Path where the output csv file is to be generated (assumes that the '.csv' suffix is added).
-
     :type output_file_path_chat_level: str
     
     :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the earlier stages of the conversation may be more predictive than the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data and compare the performance with using the full dataset. Defaults to [1.0].
-
     :type analyze_first_pct: list(float), optional
     
     :param conversation_id: A string representing the column name that should be selected as the conversation ID. Defaults to None.
-
     :type conversation_id: str, optional
     
     :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). It may not be generalizable to other conversational data, and will likely be deprecated in future versions. Defaults to False.
-
     :type cumulative_grouping: bool, optional
     
     :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same task. Defaults to False.
-
     :type within_task: bool, optional
+    
+    :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature
+    :type ner_training_df: pd.DataFrame
+    
+    :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
+    :type ner_cutoff: int
 
     :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
     :rtype: None
@@ -67,11 +63,14 @@ class FeatureBuilder:
             turns: bool=True,
             conversation_id = None,
             cumulative_grouping = False, 
-            within_task = False
+            within_task = False,
+            ner_cutoff: int = 0.9,
+            ner_training_df: pd.DataFrame = None
         ) -> None:
-        
+
         #  Defining input and output paths.
         self.chat_data = input_df
+        self.ner_training = ner_training_df
         self.orig_data = self.chat_data
         self.vector_directory = vector_directory
         print("Initializing Featurization...")
@@ -87,6 +86,7 @@ class FeatureBuilder:
         self.conversation_id = conversation_id
         self.cumulative_grouping = cumulative_grouping # for grouping the chat data
         self.within_task = within_task
+        self.ner_cutoff = ner_cutoff
 
         self.preprocess_chat_data(col="message", turns=self.turns, conversation_id = self.conversation_id, cumulative_grouping = self.cumulative_grouping, within_task = self.within_task)
 
@@ -292,7 +292,9 @@ class FeatureBuilder:
         chat_feature_builder = ChatLevelFeaturesCalculator(
             chat_data = self.chat_data,
             vect_data = self.vect_data,
-            bert_sentiment_data = self.bert_sentiment_data
+            bert_sentiment_data = self.bert_sentiment_data,
+            ner_training = self.ner_training,
+            ner_cutoff = self.ner_cutoff
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features()

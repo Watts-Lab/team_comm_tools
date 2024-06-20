@@ -5,22 +5,22 @@ from features.user_centroids import *
 
 
 class UserLevelFeaturesCalculator:
+    """
+    Initialize variables and objects used by the UserLevelFeaturesCalculator class.
+
+    This class uses various feature modules to define user- (speaker) level features. It reads input data and
+    initializes variables required to compute the features.
+
+    :param chat_data: Pandas dataframe of chat-level features read from the input dataset
+    :type chat_data: pd.DataFrame
+    :param user_data: Pandas dataframe of user-level features derived from the chat-level dataframe
+    :type user_data: pd.DataFrame
+    :param vect_data: Pandas dataframe of message embeddings corresponding to each instance of the chat data
+    :type vect_data: pd.DataFrame
+    :param input_columns: List of columns in the chat-level features dataframe that should not be summarized
+    :type input_columns: list
+    """
     def __init__(self, chat_data: pd.DataFrame, user_data: pd.DataFrame, vect_data: pd.DataFrame, input_columns:list) -> None:
-        """
-        Initialize variables and objects used by the UserLevelFeaturesCalculator class.
-
-        This class uses various feature modules to define user-level features. It reads input data and
-        initializes variables required to compute the features.
-
-        :param chat_data: Pandas dataframe of chat-level features read from the input dataset
-        :type chat_data: pd.DataFrame
-        :param user_data: Pandas dataframe of user-level features derived from the chat-level dataframe
-        :type user_data: pd.DataFrame
-        :param vect_data: Pandas dataframe of message embeddings corresponding to each instance of the chat data
-        :type vect_data: pd.DataFrame
-        :param input_columns: List of columns in the chat-level features dataframe that should not be summarized
-        :type input_columns: list
-        """
 
         # Initializing variables
         self.chat_data = chat_data
