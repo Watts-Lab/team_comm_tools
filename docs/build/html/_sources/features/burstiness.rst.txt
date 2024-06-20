@@ -1,7 +1,7 @@
 burstiness module
 =================
 
-.. automodule:: burstiness
+.. automodule:: features.burstiness
    :members:
    :undoc-members:
    :show-inheritance:

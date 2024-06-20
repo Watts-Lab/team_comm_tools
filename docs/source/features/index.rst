@@ -12,17 +12,17 @@ Utterance-Level features are calculated *first* in the Toolkit, as many conversa
 .. toctree::
    :maxdepth: 1
 
-   ./features/basic_features
-   ./features/certainty
-   ./features/lexical_features_v2
-   ./features/other_lexical_features
-   ./features/info_exchange_zscore
-   ./features/question_num
-   ./features/politeness_features
-   ./features/hedge
-   ./features/temporal_features
-   ./features/readability
-   ./features/textblob_sentiment_analysis
+   basic_features
+   certainty
+   lexical_features_v2
+   other_lexical_features
+   info_exchange_zscore
+   question_num
+   politeness_features
+   hedge
+   temporal_features
+   readability
+   textblob_sentiment_analysis
 
 
 Conversation-Level Features
@@ -32,9 +32,9 @@ Once utterance-level features are computed, we compute conversation-level featur
 .. toctree::
    :maxdepth: 1
 
-   ./features/burstiness
-   ./features/information_diversity
-   ./utils/gini_coefficient
+   burstiness
+   information_diversity
+   ../utils/gini_coefficient
 
 Speaker- (User) Level Features
 *********************************

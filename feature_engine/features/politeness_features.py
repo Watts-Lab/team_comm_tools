@@ -29,30 +29,6 @@ def get_politeness_strategies(text):
         dict: A dictionary containing the politeness strategies extracted, in a format as follows.
         These names are then cleaned up downstream in the ChatLevelFeaturesCalculator before being appended
         to the output dataframe.
-
-        ```
-        {'feature_politeness_==Please==': 1,
-         'feature_politeness_==Please_start==': 0,
-         'feature_politeness_==HASHEDGE==': 0,
-         'feature_politeness_==Indirect_(btw)==': 0,
-         'feature_politeness_==Hedges==': 0,
-         'feature_politeness_==Factuality==': 0,
-         'feature_politeness_==Deference==': 0,
-         'feature_politeness_==Gratitude==': 0,
-         'feature_politeness_==Apologizing==': 0,
-         'feature_politeness_==1st_person_pl.==': 0,
-         'feature_politeness_==1st_person==': 0,
-         'feature_politeness_==1st_person_start==': 0,
-         'feature_politeness_==2nd_person==': 1,
-         'feature_politeness_==2nd_person_start==': 0,
-         'feature_politeness_==Indirect_(greeting)==': 1,
-         'feature_politeness_==Direct_question==': 0,
-         'feature_politeness_==Direct_start==': 0,
-         'feature_politeness_==HASPOSITIVE==': 0,
-         'feature_politeness_==HASNEGATIVE==': 0,
-         'feature_politeness_==SUBJUNCTIVE==': 1,
-         'feature_politeness_==INDICATIVE==': 0} 
-        ```
     """
     if pd.isnull(text):
         text = ""

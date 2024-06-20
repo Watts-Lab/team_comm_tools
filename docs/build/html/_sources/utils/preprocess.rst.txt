@@ -1,7 +1,7 @@
 preprocess module
 =================
 
-.. automodule:: preprocess
+.. automodule:: utils.preprocess
    :members:
    :undoc-members:
    :show-inheritance:

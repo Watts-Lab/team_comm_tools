@@ -1,7 +1,7 @@
 question\_num module
 ====================
 
-.. automodule:: question_num
+.. automodule:: features.question_num
    :members:
    :undoc-members:
    :show-inheritance:
