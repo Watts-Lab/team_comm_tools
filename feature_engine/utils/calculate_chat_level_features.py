@@ -239,7 +239,7 @@ class ChatLevelFeaturesCalculator:
         Extract various lexical features from the chats.
 
         This function calculates and appends the following lexical features to the chat data:
-        - Number of questions (naive approach using question marks)
+        - Number of questions (naive approach using question marks and question words)
         - Classification of whether the message contains clarification questions
         - Word type-to-token ratio (TTR)
         - Proportion of first-person pronouns
@@ -251,11 +251,9 @@ class ChatLevelFeaturesCalculator:
         """
 
         # Get the number of questions in each message
-        # naive: Number of Question Marks
+        # naive: Number of Question Marks + Sentences that start with question words
         self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(lambda x: calculate_num_question_naive(x, question_words = self.question_words))
-        # nltk: Using POS-tagging; commented out because Convokit/Politeness has a similar feature, and it's not clear this has an advantage?
-        #self.chat_data["num_question_nltk"] = self.chat_data["message_lower_with_punc"].apply(lambda x: calculate_num_question_nltk(x))
-
+        
         # Classify whether the message contains clarification questions
         self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(classify_NTRI)
         
