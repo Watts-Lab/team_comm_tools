@@ -1,7 +1,7 @@
 basic\_features module
 ======================
 
-.. automodule:: features.basic_features
+.. automodule:: feature_engine.features.basic_features
    :members:
    :undoc-members:
    :show-inheritance:
