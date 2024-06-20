@@ -29,7 +29,7 @@ sphinx:
 # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
 python:
    install:
-   - requirements: ../feature_engine/requirements.txt
+   - requirements: ./requirements.txt
    #  Temporarily commenting out due to build error on RTD --- fix!
    #  Make sure your configuration file doesn't have any errors. YAML: mapping values are not allowed here in "<unicode string>", line 34, column 11: path: https://github.com/explosion/s ... ^
    # - method: pip
