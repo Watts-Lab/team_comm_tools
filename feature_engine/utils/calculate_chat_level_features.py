@@ -21,28 +21,28 @@ from utils.preload_word_lists import *
 from utils.zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
 
 class ChatLevelFeaturesCalculator:
+    """
+    Initialize variables and objects used by the ChatLevelFeaturesCalculator class.
+
+    This class uses various feature modules to define chat-level features. It reads input data and
+    initializes variables required to compute the features.
+
+    :param chat_data: Pandas dataframe of chat-level features read from the input dataset
+    :type chat_data: pd.DataFrame
+    :param vect_data: Pandas dataframe containing vector data
+    :type vect_data: pd.DataFrame
+    :param bert_sentiment_data: Pandas dataframe containing BERT sentiment data
+    :type bert_sentiment_data: pd.DataFrame
+    :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature
+    :type ner_training_df: pd.DataFrame
+    :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
+    :type ner_cutoff: int
+    """
     def __init__(self, chat_data: pd.DataFrame, 
-                 vect_data: pd.DataFrame, 
-                 bert_sentiment_data: pd.DataFrame, 
-                 ner_training: pd.DataFrame,
-                 ner_cutoff: int) -> None:
-        """
-        Initialize variables and objects used by the ChatLevelFeaturesCalculator class.
-
-        This class uses various feature modules to define chat-level features. It reads input data and
-        initializes variables required to compute the features.
-
-        :param chat_data: Pandas dataframe of chat-level features read from the input dataset
-        :type chat_data: pd.DataFrame
-        :param vect_data: Pandas dataframe containing vector data
-        :type vect_data: pd.DataFrame
-        :param bert_sentiment_data: Pandas dataframe containing BERT sentiment data
-        :type bert_sentiment_data: pd.DataFrame
-        :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature
-        :type ner_training_df: pd.DataFrame
-        :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
-        :type ner_cutoff: int
-        """
+         vect_data: pd.DataFrame, 
+         bert_sentiment_data: pd.DataFrame, 
+         ner_training: pd.DataFrame,
+         ner_cutoff: int) -> None:
 
         self.chat_data = chat_data
         self.vect_data = vect_data
