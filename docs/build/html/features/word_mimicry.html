@@ -76,8 +76,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="word-mimicry-module">
-<h1>word_mimicry module<a class="headerlink" href="#word-mimicry-module" title="Link to this heading"></a></h1>
+  <section id="module-features.word_mimicry">
+<span id="word-mimicry-module"></span><h1>word_mimicry module<a class="headerlink" href="#module-features.word_mimicry" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.Content_mimicry_score">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">Content_mimicry_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_count_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_count_mimic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.Content_mimicry_score" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.computeTF">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">computeTF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column_mimc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.computeTF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.compute_frequency">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">compute_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.compute_frequency" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.function_mimicry_score">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">function_mimicry_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function_mimic_words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.function_mimicry_score" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.get_content_words_in_message">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">get_content_words_in_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_word_reference</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.get_content_words_in_message" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.get_function_words_in_message">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">get_function_words_in_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_word_reference</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.get_function_words_in_message" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.get_mimicry_bert">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">get_mimicry_bert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.get_mimicry_bert" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.get_moving_mimicry">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">get_moving_mimicry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.get_moving_mimicry" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.mimic_words">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">mimic_words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.mimic_words" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 
 

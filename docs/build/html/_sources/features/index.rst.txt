@@ -13,6 +13,17 @@ Utterance-Level features are calculated *first* in the Toolkit, as many conversa
    :maxdepth: 1
 
    basic_features
+   certainty
+   lexical_features_v2
+   other_lexical_features
+   info_exchange_zscore
+   question_num
+   politeness_features
+   hedge
+   temporal_features
+   readability
+   textblob_sentiment_analysis
+
 
 Conversation-Level Features
 ****************************
@@ -22,6 +33,8 @@ Once utterance-level features are computed, we compute conversation-level featur
    :maxdepth: 1
 
    burstiness
+   information_diversity
+   ../utils/gini_coefficient
 
 Speaker- (User) Level Features
 *********************************
