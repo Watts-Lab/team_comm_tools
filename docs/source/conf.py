@@ -6,11 +6,10 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../../'))
-sys.path.insert(0, os.path.abspath('../../feature_engine/'))
-sys.path.insert(0, os.path.abspath('../../feature_engine/utils/'))
-sys.path.insert(0, os.path.abspath('../../feature_engine/features/'))
 sys.path.insert(0, os.path.abspath('../../feature_engine/testing/'))
+sys.path.insert(0, os.path.abspath('../../feature_engine/features/'))
+sys.path.insert(0, os.path.abspath('../../feature_engine/utils/'))
+sys.path.insert(0, os.path.abspath('../../feature_engine/'))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
