@@ -13,6 +13,7 @@ Utterance-Level features are calculated *first* in the Toolkit, as many conversa
    :maxdepth: 1
 
    basic_features
+   certainty
 
 Conversation-Level Features
 ****************************
@@ -22,6 +23,7 @@ Once utterance-level features are computed, we compute conversation-level featur
    :maxdepth: 1
 
    burstiness
+   information_diversity
 
 Speaker- (User) Level Features
 *********************************
