@@ -29,6 +29,4 @@ sphinx:
 # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
 python:
    install:
-   - method: pip
-     path: https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
-   - requirements: ./feature_engine/requirements.txt
+    - requirements: ./feature_engine/requirements.txt
