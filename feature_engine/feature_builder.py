@@ -161,7 +161,7 @@ class FeatureBuilder:
         :rtype: None
         """
 
-        if(self.conversation_id is not None and "conversation_num" not in self.orig_data.columns):
+        if(self.conversation_id_col is not None and "conversation_num" not in self.orig_data.columns):
             # Set the `conversation_num` to the indicated variable
             orig_conv_data = self.orig_data.rename(columns={self.conversation_id_col: "conversation_num"})
         else:
@@ -349,7 +349,7 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id, self.cumulative_grouping, self.within_task)
+        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id_col, self.cumulative_grouping, self.within_task)
         user_feature_builder = UserLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
@@ -370,7 +370,7 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-        self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id)
+        self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id_col)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
