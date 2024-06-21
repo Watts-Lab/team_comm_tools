@@ -33,8 +33,14 @@ class FeatureBuilder:
     :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the earlier stages of the conversation may be more predictive than the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data and compare the performance with using the full dataset. Defaults to [1.0].
     :type analyze_first_pct: list(float), optional
     
-    :param conversation_id: A string representing the column name that should be selected as the conversation ID. Defaults to None.
-    :type conversation_id: str, optional
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str, optional
+
+    :param speaker_id_col: A string representing the column name that should be selected as the speaker ID. Defaults to "speaker_nickname".
+    :type speaker_id_col: str, optional
+
+    :param message: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message: str, optional
     
     :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). It may not be generalizable to other conversational data, and will likely be deprecated in future versions. Defaults to False.
     :type cumulative_grouping: bool, optional
@@ -255,13 +261,9 @@ class FeatureBuilder:
 
         This function groups the chat data as specified, verifies column presence, creates original and lowercased columns, preprocesses text, and optionally processes chat turns.
 
-        :param col: Column to preprocess, defaults to "message"
-        :type col: str, optional
         :param turns: Whether to preprocess naive turns, defaults to False
         :type turns: bool, optional
-        :param conversation_id: Identifier for conversation grouping, defaults to None
-        :type conversation_id: str, optional
-        :param cumulative_grouping: Whether to use cumulative grouping, defaults to False
+        :param col: Columns to preprocess, including conversation_id, speaker_id and message, defaults to None
         :type cumulative_grouping: bool, optional
         :param within_task: Whether to group within tasks, defaults to False
         :type within_task: bool, optional
