@@ -33,7 +33,7 @@ def preprocess_conversation_columns(df, conversation_id = None, cumulative_group
 
 	return(df)
 
-def assert_key_columns_present(df):
+def assert_key_columns_present(df, column_names):
 	"""Ensure that the DataFrame has essential columns and handle missing values.
     
     This function removes all special characters from the DataFrame column names
@@ -47,18 +47,22 @@ def assert_key_columns_present(df):
     :raises KeyError: If one of `conversation_num`, `message`, or `speaker_nickname` columns is missing.
     """
 
+	conversation_id_col = column_names['conversation_id_col']
+	speaker_id_col = column_names['speaker_id_col']
+	message_col = column_names['message_col']
+
 	# remove all special characters from df
 	df.columns = df.columns.str.replace('[^A-Za-z0-9_]', '', regex=True)
 
 	# Assert that key columns are present
-	if {'conversation_num', 'message', 'speaker_nickname'}.issubset(df.columns):
-		print("Confirmed that data has `conversation_num`, `message`, and `speaker_nickname` columns!")
+	if {conversation_id_col, speaker_id_col, message_col}.issubset(df.columns):
+		print(f"Confirmed that data has conversation_id: {conversation_id_col}, speaker_id: {speaker_id_col} and message: {message_col} columns!")
 		# ensure no NA's in essential columns
-		df['message'] = df['message'].fillna('')
-		df['conversation_num'] = df['conversation_num'].fillna(0)
-		df['speaker_nickname'] = df['speaker_nickname'].fillna(0)
+		df[conversation_id_col] = df[conversation_id_col].fillna(0)
+		df[speaker_id_col] = df[speaker_id_col].fillna(0)
+		df[message_col] = df[message_col].fillna('')
 	else:
-		print("One of `conversation_num`, `message`, or `speaker_nickname` is missing! Raising error...")
+		print("One or more of conversation_id, speaker_id or message columns are missing! Raising error...")
 		print("Columns available: ")
 		print(df.columns)
 		raise KeyError
@@ -89,7 +93,7 @@ def preprocess_text(text):
     """
 	return(re.sub(r"[^a-zA-Z0-9 ]+", '',text).lower())
 
-def preprocess_naive_turns(chat_data):
+def preprocess_naive_turns(chat_data, column_names):
 	"""Combine adjacent rows of the same speaker in the same conversation and compress messages into a "turn".
 
     This function first generates a 'turn_id' for each chat message within the same conversation,
@@ -101,12 +105,13 @@ def preprocess_naive_turns(chat_data):
     :return: The processed chat data with combined message turns.
     :rtype: pandas.DataFrame
     """
-	turn_id_per_conv = chat_data.groupby(['conversation_num'], sort=False).apply(lambda df : get_turn_id(df))
+	conversation_id_col = column_names['conversation_id_col']
+	turn_id_per_conv = chat_data.groupby([conversation_id_col], sort=False).apply(lambda df : get_turn_id(df))
 	turn_id_per_conv = turn_id_per_conv.to_frame().reset_index().rename(columns={0:'turn_id'})
 	chat_data = pd.concat([chat_data, turn_id_per_conv["turn_id"]], axis=1)
 	
 	# Use turn_id to compress messages with the same turn id per conversation
-	chat_data = chat_data.groupby('conversation_num', sort=False).apply(lambda df : df.groupby('turn_id', as_index=False).apply(compress)).reset_index(drop=True)
+	chat_data = chat_data.groupby(conversation_id_col, sort=False).apply(lambda df : df.groupby('turn_id', as_index=False).apply(compress)).reset_index(drop=True)
 	
 	return chat_data
 
