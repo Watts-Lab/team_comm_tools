@@ -41,6 +41,8 @@ class ChatLevelFeaturesCalculator:
     def __init__(self, chat_data: pd.DataFrame, 
          vect_data: pd.DataFrame, 
          bert_sentiment_data: pd.DataFrame, 
+         message: str,
+         conversation_id: str,
          ner_training: pd.DataFrame,
          ner_cutoff: int) -> None:
 
