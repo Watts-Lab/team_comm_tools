@@ -27,6 +27,8 @@ if __name__ == "__main__":
 	juries_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/jury_conversations_with_outcome_var.csv", encoding='utf-8')
 	csop_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/csop_conversations_withblanks.csv", encoding='utf-8')
 	csopII_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/csopII_conversations_withblanks.csv", encoding='utf-8')
+	test_ner_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/test_named_entity.csv", encoding='utf-8')
+	test_ner_training_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/train_named_entity.csv")
 	
 	# TINY / TEST DATASETS -------------------------------#
 	
@@ -39,7 +41,30 @@ if __name__ == "__main__":
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/jury_TINY_output_conversation_level.csv",
 	# 	turns = False,
 	# )
-	# tiny_juries_feature_builder.featurize(col="message")
+	# feature_builder.featurize(col="message")
+
+	# test_turn_taking_feature_builder = FeatureBuilder(
+	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/test_turn_taking.csv",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_turn_taking_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/test_turn_taking_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_turn_taking_conversation_level.csv",
+	# 	turns = False,
+	# )
+	# test_turn_taking_feature_builder.featurize(col="message")
+    
+	test_ner_feature_builder = FeatureBuilder(
+		input_df = test_ner_df,
+		ner_training_df = test_ner_training_df,
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/test_named_entity_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/test_named_entity_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/test_named_entity_conversation_level.csv",
+		turns = False,
+		conversation_id = "stageId",
+		cumulative_grouping = True
+	)
+	test_ner_feature_builder.featurize(col="message")
 
 	# # Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
@@ -83,6 +108,7 @@ if __name__ == "__main__":
 	# 	input_df = juries_df,
 	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
 	# 	output_file_path_chat_level = "../feature_engine/output/chat/jury_output_chat_level.csv",
+	# 	# output_file_path_chat_level = "",
 	# 	output_file_path_user_level = "../feature_engine/output/user/jury_output_user_level.csv",
 	# 	output_file_path_conv_level = "../feature_engine/output/conv/jury_output_conversation_level.csv",
 	# 	turns = True
