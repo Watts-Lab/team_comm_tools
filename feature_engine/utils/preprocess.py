@@ -44,6 +44,8 @@ def assert_key_columns_present(df, column_names):
 
     :param df: The DataFrame to check and process.
     :type df: pandas.DataFrame
+	:param column_names: Columns to preprocess.
+    :type column_names: dict
     :raises KeyError: If one of `conversation_num`, `message`, or `speaker_nickname` columns is missing.
     """
 
@@ -102,6 +104,8 @@ def preprocess_naive_turns(chat_data, column_names):
 
     :param chat_data: The chat data to process.
     :type chat_data: pandas.DataFrame
+	:param column_names: Columns to preprocess.
+    :type column_names: dict
     :return: The processed chat data with combined message turns.
     :rtype: pandas.DataFrame
     """
