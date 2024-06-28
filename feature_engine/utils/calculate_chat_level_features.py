@@ -236,8 +236,8 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data["textblob_subjectivity"] = self.chat_data["message"].apply(get_subjectivity_score)
-        self.chat_data["textblob_polarity"] = self.chat_data["message"].apply(get_polarity_score)
+        self.chat_data["textblob_subjectivity"] = self.chat_data[self.message].apply(get_subjectivity_score)
+        self.chat_data["textblob_polarity"] = self.chat_data[self.message].apply(get_polarity_score)
 
     def get_dale_chall_score_and_classfication(self) -> None:
         """
@@ -447,5 +447,5 @@ class ChatLevelFeaturesCalculator:
 
         if self.ner_training is not None:
             train_spacy_ner(self.ner_training)
-            self.chat_data["num_named_entity"] = self.chat_data["message"].apply(num_named_entity, cutoff=self.ner_cutoff)
-            self.chat_data["named_entities"] = self.chat_data["message"].apply(named_entities, cutoff=self.ner_cutoff)
+            self.chat_data["num_named_entity"] = self.chat_data[self.message].apply(num_named_entity, cutoff=self.ner_cutoff)
+            self.chat_data["named_entities"] = self.chat_data[self.message].apply(named_entities, cutoff=self.ner_cutoff)
