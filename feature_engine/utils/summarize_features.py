@@ -5,7 +5,7 @@ These functions are for the purpose of calculating aggregates of various user le
 
 '''
 
-def get_user_sum_dataframe(chat_level_data, on_column, speaker_id = "speaker_nickname"):
+def get_user_sum_dataframe(chat_level_data, on_column, conversation_id_col = "conversation_num", speaker_id_col = "speaker_nickname"):
     """Generate a user-level summary DataFrame by summing a specified column per individual.
 
     This function groups chat-level data by user and conversation, sums the values of a 
@@ -15,12 +15,14 @@ def get_user_sum_dataframe(chat_level_data, on_column, speaker_id = "speaker_nic
     :type chat_level_data: pandas.DataFrame
     :param on_column: The name of the numeric column to sum for each user.
     :type on_column: str
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str, optional
     :param speaker_id: The column name representing the user identifier, defaults to "speaker_nickname".
     :type speaker_id: str, optional
     :return: A grouped DataFrame with the total sum of the specified column per individual.
     :rtype: pandas.DataFrame
     """
-    grouped_conversation_data = chat_level_data[["conversation_num", speaker_id, on_column]].groupby(["conversation_num", speaker_id]).sum().reset_index()
+    grouped_conversation_data = chat_level_data[[conversation_id_col, speaker_id_col, on_column]].groupby([conversation_id_col, speaker_id_col]).sum().reset_index()
     grouped_conversation_data = grouped_conversation_data.rename(columns = {on_column: "sum_"+on_column})
     # gets this dataframe:
     # Batch# Round# Speaker  Total Number of Words
@@ -29,7 +31,7 @@ def get_user_sum_dataframe(chat_level_data, on_column, speaker_id = "speaker_nic
     return(grouped_conversation_data)
 
 
-def get_user_average_dataframe(chat_level_data, on_column, speaker_id = "speaker_nickname"):
+def get_user_average_dataframe(chat_level_data, on_column, conversation_id_col = "conversation_num", speaker_id_col = "speaker_nickname"):
     """Generate a user-level summary DataFrame by averaging a specified column per individual.
 
     This function groups chat-level data by user and conversation, calculates the average values
@@ -39,19 +41,21 @@ def get_user_average_dataframe(chat_level_data, on_column, speaker_id = "speaker
     :type chat_level_data: pandas.DataFrame
     :param on_column: The name of the numeric column to average for each user.
     :type on_column: str
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str, optional
     :param speaker_id: The column name representing the user identifier, defaults to "speaker_nickname".
     :type speaker_id: str, optional
     :return: A grouped DataFrame with the average of the specified column per individual.
     :rtype: pandas.DataFrame
     """
-    grouped_conversation_data = chat_level_data[["conversation_num", speaker_id, on_column]].groupby(["conversation_num", speaker_id]).mean().reset_index()
+    grouped_conversation_data = chat_level_data[[conversation_id_col, speaker_id_col, on_column]].groupby([conversation_id_col, speaker_id_col]).mean().reset_index()
     grouped_conversation_data = grouped_conversation_data.rename(columns = {on_column: "average_"+on_column})    # gets this dataframe:
     # Batch# Round# Speaker  Average Number of Words
     # 0      1      Priya    100
     # 0      1      Yuluan   90
     return(grouped_conversation_data)
 
-def get_average(input_data, column_to_summarize, new_column_name):
+def get_average(input_data, column_to_summarize, new_column_name, conversation_id_col = "conversation_num"):
     """Generate a summary DataFrame with the average of a specified column per conversation.
 
     This function calculates the average of a specified column for each conversation in the input data,
@@ -63,13 +67,15 @@ def get_average(input_data, column_to_summarize, new_column_name):
     :type column_to_summarize: str
     :param new_column_name: The desired name for the new summary column.
     :type new_column_name: str
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str, optional
     :return: A DataFrame with the conversation number and the average of the specified column.
     :rtype: pandas.DataFrame
     """
-    input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform(lambda x: np.mean(x))
-    return(input_data[["conversation_num", new_column_name]].drop_duplicates())
+    input_data[new_column_name] = input_data.groupby([conversation_id_col], sort=False)[column_to_summarize].transform(lambda x: np.mean(x))
+    return(input_data[[conversation_id_col, new_column_name]].drop_duplicates())
 
-def get_max(input_data, column_to_summarize, new_column_name):
+def get_max(input_data, column_to_summarize, new_column_name, conversation_id_col = "conversation_num"):
     """Generate a summary DataFrame with the maximum value of a specified column per conversation.
 
     This function calculates the maximum value of a specified column for each conversation in the input data,
@@ -81,13 +87,15 @@ def get_max(input_data, column_to_summarize, new_column_name):
     :type column_to_summarize: str
     :param new_column_name: The desired name for the new summary column.
     :type new_column_name: str
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str, optional
     :return: A DataFrame with the conversation number and the maximum value of the specified column.
     :rtype: pandas.DataFrame
     """
-    input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform("max")
+    input_data[new_column_name] = input_data.groupby([conversation_id_col], sort=False)[column_to_summarize].transform("max")
     return(input_data[["conversation_num", new_column_name]].drop_duplicates())
 
-def get_min(input_data, column_to_summarize, new_column_name):
+def get_min(input_data, column_to_summarize, new_column_name, conversation_id_col = "conversation_num"):
     """Generate a summary DataFrame with the minimum value of a specified column per conversation.
 
     This function calculates the minimum value of a specified column for each conversation in the input data,
@@ -99,13 +107,15 @@ def get_min(input_data, column_to_summarize, new_column_name):
     :type column_to_summarize: str
     :param new_column_name: The desired name for the new summary column.
     :type new_column_name: str
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str, optional
     :return: A DataFrame with the conversation number and the minimum value of the specified column.
     :rtype: pandas.DataFrame
     """
-    input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform("min")
-    return(input_data[["conversation_num", new_column_name]].drop_duplicates())
+    input_data[new_column_name] = input_data.groupby([conversation_id_col], sort=False)[column_to_summarize].transform("min")
+    return(input_data[[conversation_id_col, new_column_name]].drop_duplicates())
 
-def get_stdev(input_data, column_to_summarize, new_column_name):
+def get_stdev(input_data, column_to_summarize, new_column_name, conversation_id_col = "conversation_num"):
     """Generate a summary DataFrame with the standard deviation of a specified column per conversation.
 
     This function calculates the standard deviation of a specified column for each conversation in the input data,
@@ -117,13 +127,15 @@ def get_stdev(input_data, column_to_summarize, new_column_name):
     :type column_to_summarize: str
     :param new_column_name: The desired name for the new summary column.
     :type new_column_name: str
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str, optional
     :return: A DataFrame with the conversation number and the standard deviation of the specified column.
     :rtype: pandas.DataFrame
     """
-    input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform(lambda x: np.std(x))
-    return(input_data[["conversation_num", new_column_name]].drop_duplicates())
+    input_data[new_column_name] = input_data.groupby([conversation_id_col], sort=False)[column_to_summarize].transform(lambda x: np.std(x))
+    return(input_data[[conversation_id_col, new_column_name]].drop_duplicates())
 
-def get_sum(input_data, column_to_summarize, new_column_name):
+def get_sum(input_data, column_to_summarize, new_column_name, conversation_id_col = "conversation_num"):
     """Generate a summary DataFrame with the sum of a specified column per conversation.
 
     This function calculates the sum of a specified column for each conversation in the input data,
@@ -135,9 +147,11 @@ def get_sum(input_data, column_to_summarize, new_column_name):
     :type column_to_summarize: str
     :param new_column_name: The desired name for the new summary column.
     :type new_column_name: str
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str, optional
     :return: A DataFrame with the conversation number and the sum of the specified column.
     :rtype: pandas.DataFrame
     """
-    input_data[new_column_name] = input_data.groupby(["conversation_num"], sort=False)[column_to_summarize].transform(lambda x: np.sum(x))
-    return(input_data[["conversation_num", new_column_name]].drop_duplicates())
+    input_data[new_column_name] = input_data.groupby([conversation_id_col], sort=False)[column_to_summarize].transform(lambda x: np.sum(x))
+    return(input_data[[conversation_id_col, new_column_name]].drop_duplicates())
 
