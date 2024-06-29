@@ -110,16 +110,19 @@ def preprocess_naive_turns(chat_data, column_names):
     :rtype: pandas.DataFrame
     """
 	conversation_id_col = column_names['conversation_id_col']
-	turn_id_per_conv = chat_data.groupby([conversation_id_col], sort=False).apply(lambda df : get_turn_id(df))
+	message_col = column_names['message_col']
+	speaker_id_col = column_names['speaker_id_col']
+	turn_id_per_conv = chat_data.groupby([conversation_id_col], sort=False).apply(lambda df : get_turn_id(df, speaker_id_col))
 	turn_id_per_conv = turn_id_per_conv.to_frame().reset_index().rename(columns={0:'turn_id'})
 	chat_data = pd.concat([chat_data, turn_id_per_conv["turn_id"]], axis=1)
 	
 	# Use turn_id to compress messages with the same turn id per conversation
-	chat_data = chat_data.groupby(conversation_id_col, sort=False).apply(lambda df : df.groupby('turn_id', as_index=False).apply(compress)).reset_index(drop=True)
+	chat_data = chat_data.groupby(conversation_id_col, sort=False).apply(
+		lambda df : df.groupby('turn_id', as_index=False).apply(lambda df : compress(df, message_col))).reset_index(drop=True)
 	
 	return chat_data
 
-def get_turn_id(df):
+def get_turn_id(df, speaker_id_col):
 	"""Generate turn IDs for a conversation to identify turns taken by speakers.
 
     This function compares the current speaker with the previous one to identify when a change in speaker occurs, 
@@ -127,13 +130,15 @@ def get_turn_id(df):
 
     :param df: The DataFrame containing chat data for a single conversation.
     :type df: pandas.DataFrame
+	:param speaker_id_col: A string representing the column name that should be selected as the speaker ID.
+    :type speaker_id_col: str
     :return: A Series containing the turn IDs.
     :rtype: pandas.Series
     """
-	df["speaker_nickname_x"] = df["speaker_nickname"].shift()
-	return (df["speaker_nickname"] != df["speaker_nickname_x"]).cumsum()
+	df[f"{speaker_id_col}_x"] = df[speaker_id_col].shift()
+	return (df[speaker_id_col] != df[f"{speaker_id_col}_x"]).cumsum()
 	
-def compress(turn_df):
+def compress(turn_df, message_col):
 	"""Combine messages in the same turn into a single message.
 
     This function takes a DataFrame representing messages in a single turn and
@@ -142,12 +147,14 @@ def compress(turn_df):
 
     :param turn_df: The DataFrame containing messages in a single turn.
     :type turn_df: pandas.DataFrame
+	:param message_col: A string representing the column name that should be selected as the message.
+    :type message_col: str
     :return: A Series with combined messages for the turn.
     :rtype: pandas.Series
     """
 	result = turn_df.iloc[0]
 	if (len(turn_df) > 1):
-		result['message'] = turn_df['message'].str.cat(sep=' ')
+		result[message_col] = turn_df[message_col].str.cat(sep=' ')
 		result['message_lower_with_punc'] = turn_df['message_lower_with_punc'].str.cat(sep=' ')
 	return result
 
