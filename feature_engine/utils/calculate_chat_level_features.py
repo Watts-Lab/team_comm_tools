@@ -179,7 +179,7 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["info_exchange_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "info_exchange_wordcount")
 
         # Get the z-score within each conversation
-        self.chat_data["info_exchange_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "info_exchange_wordcount")
+        self.chat_data["info_exchange_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "info_exchange_wordcount", self.conversation_id)
 
         # Drop the info exchange wordcount --- it's a linear combination of 2 columns and therefore useless
         self.chat_data = self.chat_data.drop(columns=['info_exchange_wordcount'])
@@ -199,7 +199,7 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["positivity_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "positive_bert")
 
         # Get the z-score within each conversation
-        self.chat_data["positivity_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "positive_bert")
+        self.chat_data["positivity_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "positive_bert", self.conversation_id)
 
     def lexical_features(self) -> None:
         """
