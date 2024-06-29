@@ -380,6 +380,7 @@ class FeatureBuilder:
             vect_data = self.vect_data,
             vector_directory = self.vector_directory,
             conversation_id_col = self.conversation_id_col,
+            speaker_id_col= self.speaker_id_col,
             input_columns = self.input_columns
         )
         self.conv_data = conv_feature_builder.calculate_conversation_level_features()

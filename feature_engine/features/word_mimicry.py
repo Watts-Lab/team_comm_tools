@@ -28,6 +28,7 @@ def get_content_words_in_message(text, function_word_reference):
 @param on_column: the column that we want to find mimicry on
                   For function words: input == `function_words`
                   For content words: input == `content_words`
+@param conversation_id: A string representing the column name that should be selected as the conversation ID
 '''
 def mimic_words(df, on_column, conversation_id):
   word_mimic = [[]]

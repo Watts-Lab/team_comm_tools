@@ -35,6 +35,7 @@ class ConversationLevelFeaturesCalculator:
                         vect_data: pd.DataFrame, 
                         vector_directory: str, 
                         conversation_id_col: str,
+                        speaker_id_col: str,
                         input_columns:list) -> None:
     
         # Initializing variables
@@ -44,6 +45,7 @@ class ConversationLevelFeaturesCalculator:
         self.vect_data = vect_data
         self.vector_directory = vector_directory
         self.conversation_id_col = conversation_id_col
+        self.speaker_id_col = speaker_id_col
         # Denotes the columns that can be summarized from the chat level, onto the conversation level.
         self.input_columns = list(input_columns)
         self.input_columns.append('conversation_num')
@@ -101,7 +103,7 @@ class ConversationLevelFeaturesCalculator:
 
         self.conv_data = pd.merge(
             left=self.conv_data,
-            right=get_turn(self.chat_data.copy()),
+            right=get_turn(self.chat_data.copy(), self.speaker_id_col),
             on=[self.conversation_id_col],
             how="inner"
         )
