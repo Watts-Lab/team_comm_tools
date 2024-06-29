@@ -356,6 +356,8 @@ class FeatureBuilder:
             chat_data = self.chat_data, 
             user_data = self.user_data,
             vect_data= self.vect_data,
+            conversation_id_col = self.conversation_id_col,
+            speaker_id_col = self.speaker_id_col,
             input_columns = self.input_columns
         )
         self.user_data = user_feature_builder.calculate_user_level_features()
