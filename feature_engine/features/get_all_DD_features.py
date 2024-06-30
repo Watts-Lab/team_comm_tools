@@ -36,7 +36,7 @@ def get_DD_features(chat_data, vect_data, conversation_id_col="conversation_num"
     chats_chunked = assign_chunk_nums(chats, num_chunks)
 
     # Get variance in discursive diversity 
-    var_disc_div = get_variance_in_DD(chats_chunked)
+    var_disc_div = get_variance_in_DD(chats_chunked, conversation_id_col)
     var_disc_div = var_disc_div.replace(np.nan, 0)
 
     # Get within-person discursive range metrics
