@@ -127,7 +127,7 @@ class ConversationLevelFeaturesCalculator:
             
             self.conv_data = pd.merge(
                 left=self.conv_data,
-                right=get_gini(self.user_data.copy(), "sum_"+column), # this applies to the summed columns in user_data, which matches the above
+                right=get_gini(self.user_data.copy(), "sum_"+column, self.conversation_id_col), # this applies to the summed columns in user_data, which matches the above
                 on=[self.conversation_id_col],
                 how="inner"
             )
