@@ -22,7 +22,7 @@ def coerce_to_date_or_number(value):
         except (ValueError, TypeError):
             return None
 
-def get_time_diff(df,on_column):
+def get_time_diff(df, on_column, conversation_id_col="conversation_num"):
     """
     Obtains the time difference between messages, assuming there is only a *single* timestamp column
     representing the time of each utterance.
@@ -30,6 +30,7 @@ def get_time_diff(df,on_column):
     Args:
         df (pd.DataFrame): This is a pandas dataframe of the chat level features.
         on_column (str): The column name for the timestamp columns.
+        conversation_id_col(str): A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
     
     Returns:
         pd.Series: A column representing the time difference between messages.
@@ -49,17 +50,17 @@ def get_time_diff(df,on_column):
         df["time_diff"] = np.zeros(len(df))
 
         for i in range(1, len(df)):
-            if df.loc[i, "conversation_num"] == df.loc[i-1, "conversation_num"]: # only do this if they're in the same conversation
+            if df.loc[i, conversation_id_col] == df.loc[i-1, conversation_id_col]: # only do this if they're in the same conversation
                 df.loc[i, "time_diff"] = (df.loc[i, on_column] - df.loc[(i-1), on_column]) / pd.Timedelta(seconds=1)
     except TypeError:
         # dateTime conversion failed, which means that we can likely treat it as just an int representing # seconds elapsed
         for i in range(1, len(df)):
-            if df.loc[i, "conversation_num"] == df.loc[i-1, "conversation_num"]: # only do this if they're in the same conversation
+            if df.loc[i, conversation_id_col] == df.loc[i-1, conversation_id_col]: # only do this if they're in the same conversation
                 df.loc[i, "time_diff"] = (df.loc[i, on_column] - df.loc[(i-1), on_column])
 
     return df['time_diff']
 
-def get_time_diff_startend(df):
+def get_time_diff_startend(df, conversation_id_col="conversation_num"):
     """
     Obtains the time difference between messages, assuming there are *two* timestamp columns, one representing
     the start of a message and one representing the end of a message.
@@ -78,7 +79,7 @@ def get_time_diff_startend(df):
     df["time_diff"] = np.zeros(len(df))
 
     for i in range(1, len(df)):
-        if df.loc[i, "conversation_num"] == df.loc[i-1, "conversation_num"]: # only do this if they're in the same conversation
+        if df.loc[i, conversation_id_col] == df.loc[i-1, conversation_id_col]: # only do this if they're in the same conversation
             df.loc[i, "time_diff"] = (df.loc[i, "timestamp_start"] - df.loc[(i-1), "timestamp_end"])
 
     return df['time_diff']

@@ -131,7 +131,7 @@ class UserLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.user_data['mean_embedding'] = get_user_centroids(self.chat_data, self.vect_data)
+        self.user_data['mean_embedding'] = get_user_centroids(self.chat_data, self.vect_data, self.conversation_id_col, self.speaker_id_col)
 
     def get_user_network(self) -> None:
         """

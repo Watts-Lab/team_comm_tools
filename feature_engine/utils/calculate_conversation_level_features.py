@@ -103,7 +103,7 @@ class ConversationLevelFeaturesCalculator:
 
         self.conv_data = pd.merge(
             left=self.conv_data,
-            right=get_turn(self.chat_data.copy(), self.speaker_id_col),
+            right=get_turn(self.chat_data.copy(), self.conversation_id_col, self.speaker_id_col),
             on=[self.conversation_id_col],
             how="inner"
         )
