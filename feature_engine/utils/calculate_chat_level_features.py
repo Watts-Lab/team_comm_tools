@@ -43,6 +43,7 @@ class ChatLevelFeaturesCalculator:
          bert_sentiment_data: pd.DataFrame, 
          message: str,
          conversation_id: str,
+         timestamp_col: str | list,
          ner_training: pd.DataFrame,
          ner_cutoff: int) -> None:
 
@@ -51,6 +52,7 @@ class ChatLevelFeaturesCalculator:
         self.bert_sentiment_data = bert_sentiment_data # Load BERT 
         self.message = message
         self.conversation_id = conversation_id
+        self.timestamp_col = timestamp_col
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
         self.function_words = get_function_words() # load function words exactly once
         self.question_words = get_question_words() # load question words exactly once
@@ -338,14 +340,18 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        if {'timestamp'}.issubset(self.chat_data.columns):
-            self.chat_data["time_diff"] =  get_time_diff(self.chat_data, "timestamp", self.conversation_id) 
-        elif {'timestamp_start', 'timestamp_end'}.issubset(self.chat_data.columns):
-            self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data, self.conversation_id)
-        if {'timestamp'}.issubset(self.chat_data.columns):
-            self.chat_data["time_diff"] =  get_time_diff(self.chat_data, "timestamp", self.conversation_id) 
-        elif {'timestamp_start', 'timestamp_end'}.issubset(self.chat_data.columns):
-            self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data, self.conversation_id)
+        if type(self.timestamp_col) is str and {self.timestamp_col}.issubset(self.chat_data.columns):
+            self.chat_data["time_diff"] =  get_time_diff(self.chat_data, self.timestamp_col, self.conversation_id) 
+        elif type(self.timestamp_col) is list:
+            timestamp_start, timestamp_end = self.timestamp_col[0], self.timestamp_col[1]
+            if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
+                self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data, timestamp_start, timestamp_end, self.conversation_id)
+        if type(self.timestamp_col) is str and {self.timestamp_col}.issubset(self.chat_data.columns):
+            self.chat_data["time_diff"] =  get_time_diff(self.chat_data, self.timestamp_col, self.conversation_id) 
+        elif type(self.timestamp_col) is list:
+            timestamp_start, timestamp_end = self.timestamp_col[0], self.timestamp_col[1]
+            if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
+                self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data, self.conversation_id)
 
     def calculate_politeness_sentiment(self) -> None:
         """

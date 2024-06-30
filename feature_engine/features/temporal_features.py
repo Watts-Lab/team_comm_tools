@@ -60,7 +60,7 @@ def get_time_diff(df, on_column, conversation_id_col="conversation_num"):
 
     return df['time_diff']
 
-def get_time_diff_startend(df, conversation_id_col="conversation_num"):
+def get_time_diff_startend(df, timestamp_start, timestamp_end, conversation_id_col="conversation_num"):
     """
     Obtains the time difference between messages, assuming there are *two* timestamp columns, one representing
     the start of a message and one representing the end of a message.
@@ -80,6 +80,6 @@ def get_time_diff_startend(df, conversation_id_col="conversation_num"):
 
     for i in range(1, len(df)):
         if df.loc[i, conversation_id_col] == df.loc[i-1, conversation_id_col]: # only do this if they're in the same conversation
-            df.loc[i, "time_diff"] = (df.loc[i, "timestamp_start"] - df.loc[(i-1), "timestamp_end"])
+            df.loc[i, "time_diff"] = (df.loc[i, timestamp_start] - df.loc[(i-1), timestamp_end])
 
     return df['time_diff']

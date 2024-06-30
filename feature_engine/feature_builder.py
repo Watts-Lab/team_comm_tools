@@ -71,7 +71,7 @@ class FeatureBuilder:
             conversation_id_col: str = "conversation_num",
             speaker_id_col: str = "speaker_nickname",
             message_col: str = "message",
-            timestamp_col: str = None,
+            timestamp_col: str | list = "timestamp",
             cumulative_grouping = False, 
             within_task = False,
             ner_cutoff: int = 0.9,
@@ -312,7 +312,8 @@ class FeatureBuilder:
             ner_training = self.ner_training,
             ner_cutoff = self.ner_cutoff,
             message = self.message_col,
-            conversation_id = self.conversation_id_col
+            conversation_id = self.conversation_id_col,
+            timestamp_col = self.timestamp_col
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features()
