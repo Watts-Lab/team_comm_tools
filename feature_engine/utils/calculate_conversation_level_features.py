@@ -48,7 +48,8 @@ class ConversationLevelFeaturesCalculator:
         self.speaker_id_col = speaker_id_col
         # Denotes the columns that can be summarized from the chat level, onto the conversation level.
         self.input_columns = list(input_columns)
-        self.input_columns.append('conversation_num')
+        if 'conversation_num' not in self.input_columns:
+            self.input_columns.append('conversation_num')
         self.columns_to_summarize = [column for column in self.chat_data.columns \
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
