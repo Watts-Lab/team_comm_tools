@@ -18,7 +18,7 @@ Returns the total number of turns for each speaker
 @param input_date = a dataframe of conversations, in which each row is one chat
 """
 
-def count_turns(input_data, speaker_id_col):
+def count_turns(input_data, speaker_id_col="speaker_nickname"):
     temp_turn_count = 1
     consolidated_actions = []
 
@@ -55,6 +55,6 @@ def count_turn_taking_index(input_data, speaker_id_col):
     else:
         return (len(count_turns(input_data, speaker_id_col)) - 1) / (len(input_data) - 1)
 
-def get_turn(input_data, speaker_id_col):
-    turn_calculated_2 = input_data.groupby("conversation_num").apply(lambda x : count_turn_taking_index(x, speaker_id_col)).reset_index().rename(columns={0: "turn_taking_index"})
+def get_turn(input_data, conversation_id_col="conversation_num", speaker_id_col="speaker_nickname"):
+    turn_calculated_2 = input_data.groupby(conversation_id_col).apply(lambda x : count_turn_taking_index(x, speaker_id_col)).reset_index().rename(columns={0: "turn_taking_index"})
     return turn_calculated_2

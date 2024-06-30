@@ -151,7 +151,7 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """     
-        self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
+        self.conv_data = self.chat_data[[self.conversation_id_col]].drop_duplicates()
 
     def merge_conv_data_with_original(self) -> None:
         """

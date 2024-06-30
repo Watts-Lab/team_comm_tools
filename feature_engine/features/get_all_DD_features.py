@@ -19,7 +19,7 @@ def conv_to_float_arr(df):
             df['message_embedding'] = [np.array(e) for e in df['message_embedding']]
     return df
 
-def get_DD_features(chat_data, vect_data, conversation_id_col="conversation_num", speaker_id_col= "speaker_nickname"):
+def get_DD_features(chat_data, vect_data, conversation_id_col="conversation_num", speaker_id_col="speaker_nickname"):
     
     chats = chat_data.copy()
 
