@@ -169,7 +169,7 @@ def assign_chunk_nums(chat_data, num_chunks, conversation_id_col, timestamp_col,
     :return: DataFrame with chunk numbers assigned
     :rtype: pd.DataFrame
     """
-    if 'timestamp' in chat_data.columns and use_time_if_possible:
+    if timestamp_col in chat_data.columns and use_time_if_possible:
         return create_chunks(chat_data, num_chunks, conversation_id_col, timestamp_col)
     else:
         return create_chunks_messages(chat_data, num_chunks, conversation_id_col)
