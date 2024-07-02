@@ -25,6 +25,8 @@ def get_info_diversity(df, conversation_id_col, message_col):
 
     Args:
         df (pd.DataFrame): The utterance (chat)-level dataframe.
+        conversation_id_col (str): This is a string with the name of the column containing the unique identiifer of a conversation.
+        message_col (str): This is a string with the name of the column containing the message / text.
     
     Returns:
         pd.DataFrame: the grouped conversational dataframe, with a new column ("info_diversity") representing the conversation's information diversity score.
@@ -39,7 +41,8 @@ def info_diversity(df, message_col):
 
     Args:
         df (pd.DataFrame): The input dataframe, grouped by the conversation index, to which this function is being applied.
-    
+        message_col (str): This is a string with the name of the column containing the message / text.
+
     Returns:
         float: The information diversity score, obtained from calling calculate_ID_score on the chat's topics; defaults to zero in case of empty data
     """
