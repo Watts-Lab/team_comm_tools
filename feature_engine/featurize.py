@@ -24,11 +24,10 @@ if __name__ == "__main__":
 	conv_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/test_conv_level.csv", encoding=conv_encoding['encoding'])
 	tiny_juries_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/test_data/juries_tiny_for_testing.csv", encoding='utf-8')
 	tiny_multi_task_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/test_data/multi_task_TINY.csv", encoding='utf-8')
+	tiny_multi_task_renamed_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/test_data/multi_task_TINY_cols_renamed.csv", encoding='utf-8')
 	juries_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/jury_conversations_with_outcome_var.csv", encoding='utf-8')
 	csop_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/csop_conversations_withblanks.csv", encoding='utf-8')
 	csopII_df = pd.read_csv("../feature_engine/tpm-data/cleaned_data/csopII_conversations_withblanks.csv", encoding='utf-8')
-	test_ner_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/test_named_entity.csv", encoding='utf-8')
-	test_ner_training_df = pd.read_csv("../feature_engine/testing/data/cleaned_data/train_named_entity.csv")
 	
 	# TINY / TEST DATASETS -------------------------------#
 	
@@ -43,29 +42,6 @@ if __name__ == "__main__":
 	# )
 	# feature_builder.featurize(col="message")
 
-	# test_turn_taking_feature_builder = FeatureBuilder(
-	# 	input_file_path = "../feature_engine/tpm-data/cleaned_data/test_data/test_turn_taking.csv",
-	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_turn_taking_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/test_turn_taking_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_turn_taking_conversation_level.csv",
-	# 	turns = False,
-	# )
-	# test_turn_taking_feature_builder.featurize(col="message")
-    
-	test_ner_feature_builder = FeatureBuilder(
-		input_df = test_ner_df,
-		ner_training_df = test_ner_training_df,
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/test_named_entity_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/user/test_named_entity_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/test_named_entity_conversation_level.csv",
-		turns = False,
-		conversation_id = "stageId",
-		cumulative_grouping = True
-	)
-	test_ner_feature_builder.featurize(col="message")
-
 	# # Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
 	# 	input_df = tiny_multi_task_df,
@@ -79,27 +55,55 @@ if __name__ == "__main__":
 	# )
 	# tiny_multi_task_feature_builder.featurize(col="message")
 
-	# testing chat features
-	testing_chat = FeatureBuilder(
-		input_df = chat_df,
+	"""
+	Testing Package Task 1
+	---
+	In this test, we simply test the functionaality of everything after we rename everything.
+	Here, we use a test dataset that has a different conversation ID, speaker ID, message column, and timestamp
+	column compared to the defaults, and ensure that nothing breaks.
+	"""
+	testing_package_task_1 = FeatureBuilder(
+		input_df = tiny_multi_task_renamed_df,
+		conversation_id_col = "roundId",
+		speaker_id_col = "speakerId",
+		message_col = "text",
+		timestamp_col = "time",
 		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/test_chat_level_chat.csv",
-		output_file_path_user_level = "../feature_engine/output/user/test_chat_level_user.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/test_chat_level_conv.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_PT1_level_chat.csv",
+		output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_PT1_level_user.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_PT1_level_conv.csv",
 		turns = False,
 	)
-	testing_chat.featurize(col="message")
+	testing_package_task_1.featurize(col="message")
 
-	# testing conv features
-	testing_conv = FeatureBuilder(
-		input_df = conv_df,
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/test_conv_level_chat.csv",
-		output_file_path_user_level = "../feature_engine/output/user/test_conv_level_user.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/test_conv_level_conv.csv",
-		turns = False,
-	)
-	testing_conv.featurize(col="message")
+	"""
+	Testing Package Task 1 Advanced Features
+	---
+	In this test, we test the functionality of the advanced grouping features.
+	
+	"""
+
+	# # testing chat features
+	# testing_chat = FeatureBuilder(
+	# 	input_df = chat_df,
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_chat_level_chat.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/test_chat_level_user.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_chat_level_conv.csv",
+	# 	turns = False,
+	# )
+	# testing_chat.featurize(col="message")
+
+	# # testing conv features
+	# testing_conv = FeatureBuilder(
+	# 	input_df = conv_df,
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/test_conv_level_chat.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/test_conv_level_user.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/test_conv_level_conv.csv",
+	# 	turns = False,
+	# )
+	# testing_conv.featurize(col="message")
 
 	# FULL DATASETS BELOW ------------------------------------- #
 	

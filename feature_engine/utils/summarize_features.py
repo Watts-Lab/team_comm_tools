@@ -93,7 +93,7 @@ def get_max(input_data, column_to_summarize, new_column_name, conversation_id_co
     :rtype: pandas.DataFrame
     """
     input_data[new_column_name] = input_data.groupby([conversation_id_col], sort=False)[column_to_summarize].transform("max")
-    return(input_data[["conversation_num", new_column_name]].drop_duplicates())
+    return(input_data[[conversation_id_col, new_column_name]].drop_duplicates())
 
 def get_min(input_data, column_to_summarize, new_column_name, conversation_id_col):
     """Generate a summary DataFrame with the minimum value of a specified column per conversation.

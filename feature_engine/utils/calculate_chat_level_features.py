@@ -214,7 +214,7 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data = pd.concat([self.chat_data, liwc_features(self.chat_data)], axis = 1)
+        self.chat_data = pd.concat([self.chat_data, liwc_features(self.chat_data, self.message_col)], axis = 1)
         
     def calculate_hedge_features(self) -> None:
         """
@@ -426,7 +426,7 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data["num_all_caps"] = self.chat_data["message_original"].apply(count_all_caps)
+        self.chat_data["num_all_caps"] = self.chat_data[self.message_col + "_original"].apply(count_all_caps)
         self.chat_data["num_links"] = self.chat_data["message_lower_with_punc"].apply(count_links)
         self.chat_data["num_reddit_users"] = self.chat_data["message_lower_with_punc"].apply(count_user_references)
         self.chat_data["num_emphasis"] = self.chat_data["message_lower_with_punc"].apply(count_emphasis)

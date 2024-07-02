@@ -67,7 +67,6 @@ class FeatureBuilder:
             output_file_path_conv_level: str,
             analyze_first_pct: list = [1.0], 
             turns: bool=True,
-            # conversation_id = None,
             conversation_id_col: str = "conversation_num",
             speaker_id_col: str = "speaker_nickname",
             message_col: str = "message",
@@ -277,15 +276,14 @@ class FeatureBuilder:
         assert_key_columns_present(self.chat_data, column_names)
 
         # save original column with no preprocessing
-        col = column_names.get('message_col')
-        self.chat_data[col + "_original"] = self.chat_data[col]
+        self.chat_data[self.message_col + "_original"] = self.chat_data[self.message_col]
 
         # create new column that retains punctuation
-        self.chat_data["message_lower_with_punc"] = self.chat_data[col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
+        self.chat_data["message_lower_with_punc"] = self.chat_data[self.message_col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
     
         # Preprocessing the text in `col` and then overwriting the column `col`.
         # TODO: We should probably use classes to abstract preprocessing module as well?
-        self.chat_data[col] = self.chat_data[col].astype(str).apply(preprocess_text)
+        self.chat_data[self.message_col] = self.chat_data[self.message_col].astype(str).apply(preprocess_text)
 
         if (turns):
             self.chat_data = preprocess_naive_turns(self.chat_data, column_names)
