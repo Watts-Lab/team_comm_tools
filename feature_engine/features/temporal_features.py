@@ -22,7 +22,7 @@ def coerce_to_date_or_number(value):
         except (ValueError, TypeError):
             return None
 
-def get_time_diff(df, on_column, conversation_id_col="conversation_num"):
+def get_time_diff(df, on_column, conversation_id_col):
     """
     Obtains the time difference between messages, assuming there is only a *single* timestamp column
     representing the time of each utterance.
@@ -30,8 +30,8 @@ def get_time_diff(df, on_column, conversation_id_col="conversation_num"):
     Args:
         df (pd.DataFrame): This is a pandas dataframe of the chat level features.
         on_column (str): The column name for the timestamp columns.
-        conversation_id_col(str): A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
-    
+        conversation_id_col(str): A string representing the column name that should be selected as the conversation ID.
+
     Returns:
         pd.Series: A column representing the time difference between messages.
     """
@@ -60,7 +60,7 @@ def get_time_diff(df, on_column, conversation_id_col="conversation_num"):
 
     return df['time_diff']
 
-def get_time_diff_startend(df, timestamp_start, timestamp_end, conversation_id_col="conversation_num"):
+def get_time_diff_startend(df, timestamp_start, timestamp_end, conversation_id_col):
     """
     Obtains the time difference between messages, assuming there are *two* timestamp columns, one representing
     the start of a message and one representing the end of a message.
@@ -70,6 +70,9 @@ def get_time_diff_startend(df, timestamp_start, timestamp_end, conversation_id_c
 
     Args:
         df (pd.DataFrame): This is a pandas dataframe of the chat level features.
+        timestamp_start(str): A string representing the column name that should be selected as the start timestamp.
+        timestamp_end(str): A string representing the column name that should be selected as the end timestamp.
+        conversation_id_col(str): A string representing the column name that should be selected as the conversation ID.
 
     Returns:
         pd.Series: A column representing the time difference between messages.

@@ -19,7 +19,7 @@ from gensim.models import CoherenceModel
 from gensim.utils import simple_preprocess
 from gensim.models.ldamodel import LdaModel
 
-def get_info_diversity(df):
+def get_info_diversity(df, conversation_id_col, message_col):
     """
     Computes information diversity (value between 0 and 1 inclusive) for all conversations.
 
@@ -29,10 +29,10 @@ def get_info_diversity(df):
     Returns:
         pd.DataFrame: the grouped conversational dataframe, with a new column ("info_diversity") representing the conversation's information diversity score.
     """
-    info_div_score = df.groupby("conversation_num").apply(lambda x : info_diversity(x)).reset_index().rename(columns={0: "info_diversity"})
+    info_div_score = df.groupby(conversation_id_col).apply(lambda x : info_diversity(x, message_col)).reset_index().rename(columns={0: "info_diversity"})
     return info_div_score
 
-def info_diversity(df):
+def info_diversity(df, message_col):
     """
     Preprocess data and then create numeric mapping of words in dataset to pass into LDA model
     Uses square root of number of rows as number of topics
@@ -45,7 +45,7 @@ def info_diversity(df):
     """
     num_rows = len(df)
     num_topics = int(math.sqrt(num_rows))
-    processed_data = df['message'].apply(preprocessing).tolist()
+    processed_data = df[message_col].apply(preprocessing).tolist()
 
     if not processed_data:
          return 0

@@ -71,7 +71,7 @@ class FeatureBuilder:
             conversation_id_col: str = "conversation_num",
             speaker_id_col: str = "speaker_nickname",
             message_col: str = "message",
-            timestamp_col: str | list = "timestamp",
+            timestamp_col: str | tuple[str, str] = "timestamp",
             cumulative_grouping = False, 
             within_task = False,
             ner_cutoff: int = 0.9,
@@ -273,7 +273,7 @@ class FeatureBuilder:
         """
 
         # create the appropriate grouping variables and assert the columns are present
-        self.chat_data = preprocess_conversation_columns(self.chat_data, self.conversation_id_col, cumulative_grouping, within_task)
+        self.chat_data = preprocess_conversation_columns(self.chat_data, self.conversation_id_col, self.timestamp_col, cumulative_grouping, within_task)
         assert_key_columns_present(self.chat_data, column_names)
 
         # save original column with no preprocessing
@@ -352,7 +352,7 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id_col, self.cumulative_grouping, self.within_task)
+        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id_col, self.timestamp_col, self.cumulative_grouping, self.within_task)
         user_feature_builder = UserLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
@@ -375,7 +375,7 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-        self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id_col)
+        self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id_col, self.timestamp_col)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
@@ -383,7 +383,9 @@ class FeatureBuilder:
             vect_data = self.vect_data,
             vector_directory = self.vector_directory,
             conversation_id_col = self.conversation_id_col,
-            speaker_id_col= self.speaker_id_col,
+            speaker_id_col = self.speaker_id_col,
+            message_col = self.message_col,
+            timestamp_col = self.timestamp_col,
             input_columns = self.input_columns
         )
         self.conv_data = conv_feature_builder.calculate_conversation_level_features()

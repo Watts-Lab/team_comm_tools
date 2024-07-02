@@ -36,6 +36,8 @@ class ConversationLevelFeaturesCalculator:
                         vector_directory: str, 
                         conversation_id_col: str,
                         speaker_id_col: str,
+                        message_col: str,
+                        timestamp_col: str,
                         input_columns:list) -> None:
     
         # Initializing variables
@@ -46,6 +48,8 @@ class ConversationLevelFeaturesCalculator:
         self.vector_directory = vector_directory
         self.conversation_id_col = conversation_id_col
         self.speaker_id_col = speaker_id_col
+        self.message_col = message_col
+        self.timestamp_col = timestamp_col
         # Denotes the columns that can be summarized from the chat level, onto the conversation level.
         self.input_columns = list(input_columns)
         if 'conversation_num' not in self.input_columns:
@@ -295,7 +299,7 @@ class ConversationLevelFeaturesCalculator:
         """
         self.conv_data = pd.merge(
             left=self.conv_data,
-            right=get_DD_features(self.chat_data, self.vect_data, self.conversation_id_col, self.speaker_id_col),
+            right=get_DD_features(self.chat_data, self.vect_data, self.conversation_id_col, self.speaker_id_col, self.timestamp_col),
             on=[self.conversation_id_col],
             how="inner"
         )
@@ -315,7 +319,7 @@ class ConversationLevelFeaturesCalculator:
         if {'time_diff'}.issubset(self.chat_data.columns):
             self.conv_data = pd.merge(
             left = self.conv_data,
-            right = get_team_burstiness(self.chat_data, "time_diff"),
+            right = get_team_burstiness(self.chat_data, "time_diff", self.conversation_id_col),
             on = [self.conversation_id_col],
             how = "inner"
         )
@@ -333,7 +337,7 @@ class ConversationLevelFeaturesCalculator:
         """
         self.conv_data = pd.merge(
             left = self.conv_data,
-            right = get_info_diversity(self.chat_data),
+            right = get_info_diversity(self.chat_data, self.conversation_id_col, self.message_col),
             on = [self.conversation_id_col],
             how = "inner"
         )

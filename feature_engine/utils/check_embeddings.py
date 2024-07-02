@@ -20,7 +20,7 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
 # Check if embeddings exist
-def check_embeddings(chat_data, vect_path, bert_path, message_col="message"):
+def check_embeddings(chat_data, vect_path, bert_path, message_col):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
@@ -100,7 +100,7 @@ def generate_lexicon_pkl():
     with open(current_script_directory.parent/"features/lexicons_dict.pkl", "wb") as lexicons_pickle_file:
         pickle.dump(lexicons_dict, lexicons_pickle_file)
 
-def generate_vect(chat_data, output_path, message_col="message"):
+def generate_vect(chat_data, output_path, message_col):
     """
     Generates sentence vectors for the given chat data and saves them to a CSV file.
 
@@ -117,14 +117,14 @@ def generate_vect(chat_data, output_path, message_col="message"):
 
     print(f"Generating sentence vectors....")
 
-    embedding_arr = [row.tolist() for row in model_vect.encode(chat_data.message)]
+    embedding_arr = [row.tolist() for row in model_vect.encode(chat_data[message_col])]
     embedding_df = pd.DataFrame({'message': chat_data[message_col], 'message_embedding': embedding_arr})
 
     # Create directories along the path if they don't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     embedding_df.to_csv(output_path, index=False)
 
-def generate_bert(chat_data, output_path, message_col="message"):
+def generate_bert(chat_data, output_path, message_col):
     """
     Generates RoBERTa sentiment scores for the given chat data and saves them to a CSV file.
 
