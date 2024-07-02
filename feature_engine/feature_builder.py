@@ -311,8 +311,8 @@ class FeatureBuilder:
             bert_sentiment_data = self.bert_sentiment_data,
             ner_training = self.ner_training,
             ner_cutoff = self.ner_cutoff,
-            message = self.message_col,
-            conversation_id = self.conversation_id_col,
+            conversation_id_col = self.conversation_id_col,
+            message_col = self.message_col,
             timestamp_col = self.timestamp_col
         )
         # Calling the driver inside this class to create the features.
