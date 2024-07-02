@@ -38,28 +38,30 @@ class ChatLevelFeaturesCalculator:
     :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
     :type ner_cutoff: int
     """
-    def __init__(self, chat_data: pd.DataFrame, 
-         vect_data: pd.DataFrame, 
-         bert_sentiment_data: pd.DataFrame, 
-         message_col: str,
-         conversation_id_col: str,
-         timestamp_col: str | list,
-         ner_training: pd.DataFrame,
-         ner_cutoff: int) -> None:
+    def __init__(
+            self, 
+            chat_data: pd.DataFrame, 
+            vect_data: pd.DataFrame, 
+            bert_sentiment_data: pd.DataFrame, 
+            ner_training: pd.DataFrame,
+            ner_cutoff: int,
+            conversation_id_col: str,
+            message_col: str,
+            timestamp_col: str | tuple[str, str]
+            ) -> None:
 
         self.chat_data = chat_data
         self.vect_data = vect_data
         self.bert_sentiment_data = bert_sentiment_data # Load BERT 
-        self.message_col = message_col
+        self.ner_training = ner_training
+        self.ner_cutoff = ner_cutoff
         self.conversation_id_col = conversation_id_col
         self.timestamp_col = timestamp_col
+        self.message_col = message_col
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
         self.function_words = get_function_words() # load function words exactly once
         self.question_words = get_question_words() # load question words exactly once
         self.first_person = get_first_person_words() # load first person words exactly once
-
-        self.ner_training = ner_training
-        self.ner_cutoff = ner_cutoff
         
     def calculate_chat_level_features(self) -> pd.DataFrame:
         """
