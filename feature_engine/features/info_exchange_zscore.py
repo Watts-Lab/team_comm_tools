@@ -22,6 +22,7 @@ def get_info_exchange_wordcount(df, first_person, message_col):
   Args:
     df (pd.DataFrame):  This is a pandas dataframe of the chat level features.
     first_person (list): A list of first person words. This comes from get_first_person_words() under the Utilities.
+    message_col (str): This is a string with the name of the column containing the message / text.
 
   Returns:
     pd.Series: A column containing the difference in total words and first-person singular pronouns.

@@ -30,7 +30,7 @@ def get_time_diff(df, on_column, conversation_id_col):
     Args:
         df (pd.DataFrame): This is a pandas dataframe of the chat level features.
         on_column (str): The column name for the timestamp columns.
-        conversation_id_col(str): A string representing the column name that should be selected as the conversation ID.
+        conversation_id_col(str): A string representing the column name that should be selected as the unique conversation identifier.
 
     Returns:
         pd.Series: A column representing the time difference between messages.
