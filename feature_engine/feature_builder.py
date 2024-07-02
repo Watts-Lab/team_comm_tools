@@ -129,7 +129,7 @@ class FeatureBuilder:
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path)
+        check_embeddings(self.chat_data, self.vect_path, self.bert_path, self.message_col)
 
         self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
 
