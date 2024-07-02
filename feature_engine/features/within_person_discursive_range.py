@@ -22,7 +22,7 @@ def get_nan_vector():
     return np.array(nan_vector_list)
 
 
-def get_within_person_disc_range(chat_data, num_chunks, conversation_id_col="conversation_num", speaker_id_col= "speaker_nickname"):
+def get_within_person_disc_range(chat_data, num_chunks, conversation_id_col, speaker_id_col):
 
     # Get nan vector 
     nan_vector = get_nan_vector()

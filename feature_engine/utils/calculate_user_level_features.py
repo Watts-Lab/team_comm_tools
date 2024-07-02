@@ -144,7 +144,7 @@ class UserLevelFeaturesCalculator:
         """
         self.user_data = pd.merge(
                 left=self.user_data,
-                right=get_user_network(self.user_data),
+                right=get_user_network(self.user_data, self.conversation_id_col, self.speaker_id_col),
                 on=[self.conversation_id_col, self.speaker_id_col],
                 how="inner"
             )
