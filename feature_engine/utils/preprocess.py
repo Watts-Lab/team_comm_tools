@@ -7,7 +7,7 @@ def preprocess_conversation_columns(df, conversation_id, timestamp_col, grouping
 
     :param df: The DataFrame containing conversation data.
     :type df: pd.DataFrame
-    :param conversation_id: The column name to use for assigning conversation numbers. Must be one of {'gameId', 'roundId', 'stageId'}.
+    :param conversation_id: The column name to use for assigning conversation numbers.
     :type conversation_id: str, optional
     :param cumulative_grouping: Whether to group data cumulatively based on the conversation_id.
     :type cumulative_grouping: bool, optional
@@ -23,6 +23,8 @@ def preprocess_conversation_columns(df, conversation_id, timestamp_col, grouping
 	if not grouping_keys: # case 1: single identifier
 		return df
 	if not set(grouping_keys).issubset(df.columns):
+		print(df)
+		print(grouping_keys)
 		raise ValueError("One or more grouping keys does not exist in the column set.")
 	if cumulative_grouping and len(grouping_keys) == 3: # case 3: cumulative grouping
 		df = create_cumulative_rows(df, conversation_id, timestamp_col, grouping_keys, within_task)
@@ -31,18 +33,6 @@ def preprocess_conversation_columns(df, conversation_id, timestamp_col, grouping
 		df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
 
 	return df
-
-	# if {'batch_num', 'round_num'}.issubset(df.columns):
-	# 	df['conversation_num'] = df.groupby(['batch_num', 'round_num']).ngroup()
-	# 	df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
-	# if ({'gameId', 'roundId', 'stageId'}.issubset(df.columns) and conversation_id in {'gameId', 'roundId', 'stageId'}):
-	# 	if(cumulative_grouping):
-	# 		df = create_cumulative_rows(df, conversation_id, timestamp_col, within_task)
-	# 		df['conversation_num'] = df['cumulative_Id'] # set it to be the cumulative grouping
-	# 	else:
-	# 		df['conversation_num'] = df[conversation_id] # set it to the desired grouping
-
-	
 
 def assert_key_columns_present(df, column_names):
 	"""Ensure that the DataFrame has essential columns and handle missing values.
@@ -177,18 +167,20 @@ def create_cumulative_rows(input_df, conversation_id, timestamp_col, grouping_ke
     the same conversation.
 
     NOTE: This function was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica).
-    It may not be generalizable to other conversational data, and will likely be deprecated in future versions.
+    
+	It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
+	group/conversation has one High-level identifier, which contains one or more Mid-level identifiers, which contains one or more Low-level identifiers.
 
     :param input_df: The DataFrame containing chat data.
     :type input_df: pandas.DataFrame
     :param conversation_id: The ID (e.g., stage or round) used for grouping the data.
     :type conversation_id: str
-    :param within_task: Flag to determine whether to restrict the analysis to the same task (`roundId`), defaults to False.
+    :param within_task: Flag to determine whether to restrict the analysis to the same task (assumed to be the Mid-Level Identifier), defaults to False.
     :type within_task: bool, optional
     :return: The processed DataFrame with cumulative rows added.
     :rtype: pandas.DataFrame
     """
-	level_high, level_mid, level_low = grouping_keys[0], grouping_keys[1], grouping_keys[2] # ['gameId', 'roundId', 'stageId']
+	level_high, level_mid, level_low = grouping_keys[0], grouping_keys[1], grouping_keys[2] # In Empirica data: ['gameId', 'roundId', 'stageId']
 
 	# If the conversation_id is the highest level ID (gameId), return as is -- no changes requred
 	if(conversation_id == level_high): return input_df

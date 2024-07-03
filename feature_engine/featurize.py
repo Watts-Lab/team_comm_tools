@@ -55,6 +55,7 @@ if __name__ == "__main__":
 	# )
 	# tiny_multi_task_feature_builder.featurize(col="message")
 
+
 	"""
 	Testing Package Task 1
 	---
@@ -62,19 +63,20 @@ if __name__ == "__main__":
 	Here, we use a test dataset that has a different conversation ID, speaker ID, message column, and timestamp
 	column compared to the defaults, and ensure that nothing breaks.
 	"""
-	testing_package_task_1 = FeatureBuilder(
-		input_df = tiny_multi_task_renamed_df,
-		conversation_id_col = "roundId",
-		speaker_id_col = "speakerId",
-		message_col = "text",
-		timestamp_col = "time",
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_PT1_level_chat.csv",
-		output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_PT1_level_user.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_PT1_level_conv.csv",
-		turns = False,
-	)
-	testing_package_task_1.featurize(col="message")
+	# print("TESTING CASE 1 ......")
+	# testing_package_task_1 = FeatureBuilder(
+	# 	input_df = tiny_multi_task_renamed_df,
+	# 	conversation_id_col = "roundId",
+	# 	speaker_id_col = "speakerId",
+	# 	message_col = "text",
+	# 	timestamp_col = "time",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_PT1_level_chat.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_PT1_level_user.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_PT1_level_conv.csv",
+	# 	turns = False,
+	# )
+	# testing_package_task_1.featurize(col="message")
 
 	"""
 	Testing Package Task 1 Advanced Features
@@ -86,27 +88,99 @@ if __name__ == "__main__":
 		the stageId (which will confirm that it worked)
 
 	"Case 3": Complex hieararchical grouping
-	- ID: stageID; cumulative: True, within_task: False
-	- ID: stageID; cumulative: True; within_task: True
-	- ID: roundID; cumulative: True, within_task: True
+	- (3a) ID: stageID; cumulative: True, within_task: False
+	- (3b) ID: stageID; cumulative: True; within_task: True
+	- (3c) ID: roundID; cumulative: True, within_task: True
 
 	Improper examples:
 	- grouping keys: ["roundID", "stageID"], ID: "gameID"
 	"""
-	testing_case_2 = FeatureBuilder(
+	# print("TESTING CASE 2 ....")
+	# testing_case_2 = FeatureBuilder(
+	# 	input_df = tiny_multi_task_renamed_df,
+	# 	grouping_keys = ["roundId", "stageId"],
+	# 	speaker_id_col = "speakerId",
+	# 	message_col = "text",
+	# 	timestamp_col = "time",
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_case2_level_chat.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_case2_level_user.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_case2_level_conv.csv",
+	# 	turns = False,
+	# )
+	# testing_case_2.featurize(col="message")
+
+	# print("TESTING CASE 3A .....")
+	# testing_case_3_a = FeatureBuilder(
+	# 	input_df = tiny_multi_task_renamed_df,
+	# 	conversation_id_col = "stageId",
+	# 	grouping_keys = ["gameId", "roundId", "stageId"],
+	# 	speaker_id_col = "speakerId",
+	# 	message_col = "text",
+	# 	timestamp_col = "time",
+	# 	cumulative_grouping = True, 
+    #     within_task = False,
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_case3a_level_chat.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_case3a_level_user.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_case3a_level_conv.csv",
+	# 	turns = False,
+	# )
+	# testing_case_3_a.featurize(col="message")
+
+	print("TESTING CASE 3B .....")
+	testing_case_3_b = FeatureBuilder(
 		input_df = tiny_multi_task_renamed_df,
-		conversation_id_col = "roundId",
+		conversation_id_col = "stageId",
+		grouping_keys = ["gameId", "roundId", "stageId"],
 		speaker_id_col = "speakerId",
 		message_col = "text",
 		timestamp_col = "time",
+		cumulative_grouping = True, 
+        within_task = True,
 		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_case2_level_chat.csv",
-		output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_case2_level_user.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_case2_level_conv.csv",
+		output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_case3b_level_chat.csv",
+		output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_case3b_level_user.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_case3b_level_conv.csv",
 		turns = False,
 	)
-	testing_case_2.featurize(col="message")
+	testing_case_3_b.featurize(col="message")
 
+	print("TESTING CASE 3C .....")
+	testing_case_3_c = FeatureBuilder(
+		input_df = tiny_multi_task_renamed_df,
+		conversation_id_col = "roundId",
+		grouping_keys = ["gameId", "roundId", "stageId"],
+		speaker_id_col = "speakerId",
+		message_col = "text",
+		timestamp_col = "time",
+		cumulative_grouping = True, 
+        within_task = True,
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_case3c_level_chat.csv",
+		output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_case3c_level_user.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_case3c_level_conv.csv",
+		turns = False,
+	)
+	testing_case_3_c.featurize(col="message")
+
+	print("TESTING IMPROPER CASE .....")
+	testing_case_improper = FeatureBuilder(
+		input_df = tiny_multi_task_renamed_df,
+		conversation_id_col = "gameId",
+		grouping_keys = ["roundID", "stageID"],
+		speaker_id_col = "speakerId",
+		message_col = "text",
+		timestamp_col = "time",
+		cumulative_grouping = True, 
+        within_task = True,
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_improper_level_chat.csv",
+		output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_improper_level_user.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_improper_level_conv.csv",
+		turns = False,
+	)
+	testing_case_improper.featurize(col="message")
 
 
 	# # testing chat features
