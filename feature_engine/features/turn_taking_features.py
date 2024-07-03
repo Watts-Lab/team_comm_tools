@@ -9,13 +9,10 @@ Calculates the turn-taking index for each speaker
 """
 
 """
-function: count_turns
-
 Returns the total number of turns for each speaker
-"""
 
-"""
-@param input_date = a dataframe of conversations, in which each row is one chat
+input_data (pd.DataFrame): a dataframe of conversations, in which each row is one chat
+speaker_id_col (str): the name of the column containing the speaker's unique identifier
 """
 
 def count_turns(input_data, speaker_id_col):
@@ -25,28 +22,28 @@ def count_turns(input_data, speaker_id_col):
     start_index = input_data.index[0] + 1
     end_index = len(input_data) + input_data.index[0]
 
-    for turn_index in range(start_index, end_index):
-
-        if input_data[speaker_id_col][turn_index] == input_data[speaker_id_col][turn_index - 1]:
+    prev_row = input_data.iloc[0]
+    for i, row in input_data.iloc[1:, :].iterrows():
+        cur_row = row
+        if cur_row[speaker_id_col] == prev_row[speaker_id_col]:
             temp_turn_count += 1
         else:
-            consolidated_actions.append((input_data[speaker_id_col][turn_index - 1], temp_turn_count))
+            consolidated_actions.append((prev_row[speaker_id_col], temp_turn_count))
             temp_turn_count = 1
 
-        if turn_index == max(range(start_index, end_index)):
-            consolidated_actions.append((input_data[speaker_id_col][turn_index], temp_turn_count))
+        prev_row = cur_row
 
+    consolidated_actions.append((cur_row[speaker_id_col], temp_turn_count))
     assert sum(x[1] for x in consolidated_actions) == len(input_data)
 
     df_consolidated_actions = pd.DataFrame(columns=[speaker_id_col, "turn_count"], data=consolidated_actions)
-
     return df_consolidated_actions
 
 """
-function: count_turn_taking_index
-
-
 Returns the turn-taking index for each speaker
+
+input_data (pd.DataFrame): a dataframe of conversations, in which each row is one chat
+speaker_id_col (str): the name of the column containing the speaker's unique identifier
 """
 
 def count_turn_taking_index(input_data, speaker_id_col):

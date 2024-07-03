@@ -42,10 +42,14 @@ class FeatureBuilder:
     :param message: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message: str, optional
     
-    :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). It may not be generalizable to other conversational data, and will likely be deprecated in future versions. Defaults to False.
+    :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) 
+        NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). 
+        It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
+        group/conversation has one High-level identifier, which contains one or more Mid-level identifiers, which contains one or more Low-level identifiers.
+        Defaults to False.
     :type cumulative_grouping: bool, optional
     
-    :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same task. Defaults to False.
+    :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same "task" (Mid-level identifier). Defaults to False.
     :type within_task: bool, optional
     
     :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature
@@ -348,20 +352,17 @@ class FeatureBuilder:
         for conversation_num, num_rows in num_rows_to_retain.itertuples(index=False):
             chat_truncated = pd.concat([chat_truncated,chat_grouped.get_group(conversation_num).head(int(num_rows))], ignore_index = True)
 
-        self.chat_data = chat_truncated
-
     def user_level_features(self) -> None:
         """
         Instantiate and use the UserLevelFeaturesCalculator to create user-level features.
 
-        This function preprocesses conversation-level data, creates user-level features using 
+        This function creates user-level features using 
         the UserLevelFeaturesCalculator, and adds them to the `self.user_data` dataframe.
         It also removes special characters from the column names.
 
         :return: None
         :rtype: None
         """
-        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id_col, self.timestamp_col, self.grouping_keys, self.cumulative_grouping, self.within_task)
         user_feature_builder = UserLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
@@ -378,13 +379,12 @@ class FeatureBuilder:
         """
         Instantiate and use the ConversationLevelFeaturesCalculator to create conversation-level features.
 
-        This function preprocesses conversation-level data, creates conversation-level features using 
+        This function creates conversation-level features using 
         the ConversationLevelFeaturesCalculator, and adds them to the `self.conv_data` dataframe.
 
         :return: None
         :rtype: None
         """
-        self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id_col, self.timestamp_col, self.grouping_keys, self.cumulative_grouping, self.within_task)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
