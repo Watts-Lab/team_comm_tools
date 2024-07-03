@@ -71,6 +71,7 @@ class FeatureBuilder:
             speaker_id_col: str = "speaker_nickname",
             message_col: str = "message",
             timestamp_col: str | tuple[str, str] = "timestamp",
+            grouping_keys: list = [],
             cumulative_grouping = False, 
             within_task = False,
             ner_cutoff: int = 0.9,
@@ -102,12 +103,22 @@ class FeatureBuilder:
             'message_col': message_col,
             'timestamp_col': timestamp_col
         }
+        self.grouping_keys = grouping_keys
         self.cumulative_grouping = cumulative_grouping # for grouping the chat data
         self.within_task = within_task
         self.ner_cutoff = ner_cutoff
 
-        self.preprocess_chat_data(turns=self.turns, column_names = self.column_names, cumulative_grouping = self.cumulative_grouping, within_task = self.within_task)
-
+        # check grouping rules
+        if self.cumulative_grouping and len(grouping_keys) != 3:
+            print("WARNING: Can only perform cumulative grouping for three-layer nesting. Ignoring cumulative command and grouping by unique combinations in the grouping_keys.")
+            self.cumulative_grouping = False
+        if self.cumulative_grouping and self.conversation_id_col not in self.grouping_keys:
+            raise ValueError("Conversation identifier for cumulative grouping must be one of the grouping keys.")
+        if self.grouping_keys and not self.cumulative_grouping and self.conversation_id_col != "conversation_num":
+            print("WARNING: Conversation identifier for non-cumulative grouping must be conversation_num. Reseting conversation_id.")
+            self.conversation_id_col = "conversation_num"
+        
+        self.preprocess_chat_data()
         # Input columns are the columns that come in the raw chat data
         self.input_columns = self.chat_data.columns
 
@@ -254,7 +265,7 @@ class FeatureBuilder:
             print("All Done!")
             self.save_features()
 
-    def preprocess_chat_data(self, turns=False, column_names=None, cumulative_grouping = False, within_task = False) -> None:
+    def preprocess_chat_data(self) -> None:
         """
         Call all preprocessing modules needed to clean the chat text.
 
@@ -272,8 +283,8 @@ class FeatureBuilder:
         """
 
         # create the appropriate grouping variables and assert the columns are present
-        self.chat_data = preprocess_conversation_columns(self.chat_data, self.conversation_id_col, self.timestamp_col, cumulative_grouping, within_task)
-        assert_key_columns_present(self.chat_data, column_names)
+        self.chat_data = preprocess_conversation_columns(self.chat_data, self.conversation_id_col, self.timestamp_col, self.grouping_keys, self.cumulative_grouping, self.within_task)
+        assert_key_columns_present(self.chat_data, self.column_names)
 
         # save original column with no preprocessing
         self.chat_data[self.message_col + "_original"] = self.chat_data[self.message_col]
@@ -285,8 +296,8 @@ class FeatureBuilder:
         # TODO: We should probably use classes to abstract preprocessing module as well?
         self.chat_data[self.message_col] = self.chat_data[self.message_col].astype(str).apply(preprocess_text)
 
-        if (turns):
-            self.chat_data = preprocess_naive_turns(self.chat_data, column_names)
+        if (self.turns):
+            self.chat_data = preprocess_naive_turns(self.chat_data, self.column_names)
 
         # Save the preprocessed data (so we don't have to do this again)
         self.preprocessed_data = self.chat_data
@@ -350,7 +361,7 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id_col, self.timestamp_col, self.cumulative_grouping, self.within_task)
+        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id_col, self.timestamp_col, self.grouping_keys, self.cumulative_grouping, self.within_task)
         user_feature_builder = UserLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
@@ -373,7 +384,7 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-        self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id_col, self.timestamp_col)
+        self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id_col, self.timestamp_col, self.grouping_keys, self.cumulative_grouping, self.within_task)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
