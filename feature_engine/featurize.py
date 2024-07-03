@@ -58,7 +58,7 @@ if __name__ == "__main__":
 	"""
 	Testing Package Task 1
 	---
-	In this test, we simply test the functionaality of everything after we rename everything.
+	In this test, we simply test the functionaality of everything after we rename everything ("Case 1").
 	Here, we use a test dataset that has a different conversation ID, speaker ID, message column, and timestamp
 	column compared to the defaults, and ensure that nothing breaks.
 	"""
@@ -81,7 +81,33 @@ if __name__ == "__main__":
 	---
 	In this test, we test the functionality of the advanced grouping features.
 	
+	"Case 2": .ngroup() feature
+	- Group by ["gameId", "roundId", "stageId"] and assert that the number of groupings matches
+		the stageId (which will confirm that it worked)
+
+	"Case 3": Complex hieararchical grouping
+	- ID: stageID; cumulative: True, within_task: False
+	- ID: stageID; cumulative: True; within_task: True
+	- ID: roundID; cumulative: True, within_task: True
+
+	Improper examples:
+	- grouping keys: ["roundID", "stageID"], ID: "gameID"
 	"""
+	testing_case_2 = FeatureBuilder(
+		input_df = tiny_multi_task_renamed_df,
+		conversation_id_col = "roundId",
+		speaker_id_col = "speakerId",
+		message_col = "text",
+		timestamp_col = "time",
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/tiny_multi_task_case2_level_chat.csv",
+		output_file_path_user_level = "../feature_engine/output/user/tiny_multi_task_case2_level_user.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/tiny_multi_task_case2_level_conv.csv",
+		turns = False,
+	)
+	testing_case_2.featurize(col="message")
+
+
 
 	# # testing chat features
 	# testing_chat = FeatureBuilder(
