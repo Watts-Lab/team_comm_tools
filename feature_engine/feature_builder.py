@@ -116,6 +116,7 @@ class FeatureBuilder:
         if self.cumulative_grouping and len(grouping_keys) != 3:
             print("WARNING: Can only perform cumulative grouping for three-layer nesting. Ignoring cumulative command and grouping by unique combinations in the grouping_keys.")
             self.cumulative_grouping = False
+            self.conversation_id_col = "conversation_num"
         if self.cumulative_grouping and self.conversation_id_col not in self.grouping_keys:
             raise ValueError("Conversation identifier for cumulative grouping must be one of the grouping keys.")
         if self.grouping_keys and not self.cumulative_grouping and self.conversation_id_col != "conversation_num":
