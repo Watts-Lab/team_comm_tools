@@ -389,7 +389,7 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data["forward_flow"] = get_forward_flow(self.chat_data, self.vect_data)
+        self.chat_data["forward_flow"] = get_forward_flow(self.chat_data, self.vect_data, self.conversation_id_col)
    
     def get_certainty_score(self) -> None:
         """

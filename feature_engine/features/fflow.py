@@ -15,14 +15,14 @@ in the conversation.
 - embedding_running_sum stores the running total embedding of all the chats that came before
 - avg_embedding stores the average of all the chats that came before
 """
-def get_forward_flow(chat_data, vect_data):
+def get_forward_flow(chat_data, vect_data, conversation_id_col):
     
     chat_df = chat_data.copy()
     chat_df['message_embedding'] = conv_to_float_arr(vect_data['message_embedding'].to_frame())
 
     forward_flow = []
 
-    for num, conv in chat_df.groupby('conversation_num',  sort=False):
+    for num, conv in chat_df.groupby(conversation_id_col,  sort=False):
 
         forward_flow.append(0)
         embedding_running_sum = conv.iloc[0]["message_embedding"]
