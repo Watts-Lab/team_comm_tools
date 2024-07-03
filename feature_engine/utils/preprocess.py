@@ -23,8 +23,6 @@ def preprocess_conversation_columns(df, conversation_id, timestamp_col, grouping
 	if not grouping_keys: # case 1: single identifier
 		return df
 	if not set(grouping_keys).issubset(df.columns):
-		print(df)
-		print(grouping_keys)
 		raise ValueError("One or more grouping keys does not exist in the column set.")
 	if cumulative_grouping and len(grouping_keys) == 3: # case 3: cumulative grouping
 		df = create_cumulative_rows(df, conversation_id, timestamp_col, grouping_keys, within_task)
