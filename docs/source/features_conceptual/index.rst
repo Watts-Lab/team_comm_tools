@@ -14,6 +14,7 @@ Utterance- (Chat) Level Features
    :maxdepth: 1
 
    named_entity_recognition
+   positivity_bert
    TEMPLATE
 
 Conversation-Level Features
