@@ -15,6 +15,7 @@ Utterance- (Chat) Level Features
 
    named_entity_recognition
    positivity_bert
+   mimicry_bert
    TEMPLATE
 
 Conversation-Level Features
