@@ -1,7 +1,7 @@
 .. _mimicry_bert:
 
 Mimicry (BERT)
-============
+==============
 
 High-Level Intuition
 *********************
