@@ -164,9 +164,6 @@ class FeatureBuilder:
         self.bert_sentiment_data = pd.read_csv(self.bert_path, encoding='mac_roman')
 
         # Deriving the base conversation level dataframe.
-        # This is the number of unique conversations (and, in conversations with multiple levels, the number of
-        # unique rows across "batch_num", and "round_num".)
-        # Assume that "conversation_num" is the primary key for this table.
         self.conv_data = self.chat_data[[self.conversation_id_col]].drop_duplicates()
 
     def set_self_conv_data(self) -> None:
