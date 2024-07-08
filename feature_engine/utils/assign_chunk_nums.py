@@ -140,7 +140,9 @@ def create_chunks(df, num_chunks, conversation_id_col, timestamp_col):
             # restrict the range of the chunks from 0 to num_chunks - 1
             group['chunk_num'] = group['chunk_num'].clip(0, num_chunks - 1)
 
-        final_df = pd.concat([final_df, group], ignore_index=True)
+        final_df = (final_df.copy() if group.empty else group.copy() if final_df.empty
+           else pd.concat([final_df, group], ignore_index=True) # to silence FutureWarning
+          )
 
     # Cast the chunk to a string
     final_df['chunk_num'] = str(final_df['chunk_num'])
