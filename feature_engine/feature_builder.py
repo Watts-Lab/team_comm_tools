@@ -83,9 +83,9 @@ class FeatureBuilder:
         ) -> None:
 
         #  Defining input and output paths.
-        self.chat_data = input_df
+        self.chat_data = input_df.copy()
+        self.orig_data = input_df.copy()
         self.ner_training = ner_training_df
-        self.orig_data = self.chat_data
         self.vector_directory = vector_directory
         print("Initializing Featurization...")
         self.output_file_path_conv_level = output_file_path_conv_level
@@ -113,7 +113,7 @@ class FeatureBuilder:
         self.ner_cutoff = ner_cutoff
 
         # check grouping rules
-        if self.conversation_id_col not in self.chat_data.columns:
+        if self.conversation_id_col not in self.chat_data.columns and len(self.grouping_keys)==0:
             if(self.conversation_id_col == "conversation_num"):
                 raise ValueError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
             raise ValueError("Conversation identifier not present in data.")
@@ -202,8 +202,8 @@ class FeatureBuilder:
             orig_conv_data = self.orig_data
 
         # Use the 1st item in the row, as they are all the same at the conv level
-        orig_conv_data = orig_conv_data.groupby([self.conversation_id_col]).nth(0).reset_index() 
-        
+        orig_conv_data = orig_conv_data.groupby([self.conversation_id_col]).nth(0).reset_index()
+
         final_conv_output = pd.merge(
             left= self.conv_data,
             right = orig_conv_data,
