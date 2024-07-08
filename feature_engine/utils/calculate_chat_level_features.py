@@ -348,7 +348,7 @@ class ChatLevelFeaturesCalculator:
             timestamp_start, timestamp_end = self.timestamp_col
             if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
                 self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data, timestamp_start, timestamp_end, self.conversation_id_col)
-
+    
     def calculate_politeness_sentiment(self) -> None:
         """
         Calculate politeness strategies using the Politeness module from Convokit.
