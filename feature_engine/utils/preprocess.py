@@ -169,12 +169,28 @@ def create_cumulative_rows(input_df, conversation_id, timestamp_col, grouping_ke
 	It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
 	group/conversation has one High-level identifier, which contains one or more Mid-level identifiers, which contains one or more Low-level identifiers.
 
+	This is specifically applicable to a hierachical conversation in which the same group of pairing does a series of different activities, each of which
+	may have one or more subparts. Thus, the group as a whole will have a "high-level" identiifer; each activity will have a "mid-level" identifier, and each
+	sub-part will have a "low-level" identifier.
+
     :param input_df: The DataFrame containing chat data.
     :type input_df: pandas.DataFrame
+
     :param conversation_id: The ID (e.g., stage or round) used for grouping the data.
     :type conversation_id: str
-    :param within_task: Flag to determine whether to restrict the analysis to the same task (assumed to be the Mid-Level Identifier), defaults to False.
+
+    :param timestamp_col: The column containing the timestamp. Since we assume that the conversation is evolving over time, we use the timestamp column to
+    	make the analysis of conversation "cumulative" (that is, to include in our analysis prior discussions for other activities).
+    :type timestamp_col: str
+
+    :param grouping_keys: A list of three hierarchical keys, which must be passed in the order of (highest level, mid level, lowest level). 
+    	We assume that, for a given item at the highest level, there are one or more items at the mid level; for each item at the mid level, there
+    	are one or more items at the lowest level.
+    :type grouping_keys: list
+
+    :param within_task: Flag to determine whether to restrict the analysis to the same activity or "task" (assumed to be the Mid-Level Identifier), defaults to False.
     :type within_task: bool, optional
+
     :return: The processed DataFrame with cumulative rows added.
     :rtype: pandas.DataFrame
     """
@@ -183,22 +199,26 @@ def create_cumulative_rows(input_df, conversation_id, timestamp_col, grouping_ke
 	# If the conversation_id is the highest level ID (gameId), return as is -- no changes requred
 	if(conversation_id == level_high): return input_df
 
+	# print a warning in case user gave incompatible instructions:
+	if(conversation_id == level_mid and within_task):
+		print("WARNING: Cumulative grouping with the mid-level identifier is incompatible with the `within_task` parameter. Ignoring `within_task` parameter.")
+
 	result_df = pd.DataFrame(columns=input_df.columns)
 
 	# prev stageId
-	prev_stageId = None
+	prev_low_level_id = None
 
 	# Iterate through rows
 	for _, current_row in input_df.iterrows():
 			
 		# current stageId
-		if current_row[level_low] != prev_stageId: # we have transitioned to a new stageId
+		if current_row[level_low] != prev_low_level_id: # we have transitioned to a new low-level identifier (subactivity)
 
-			prev_stageId = current_row[level_low]
+			prev_low_level_id = current_row[level_low]
 
 			if(conversation_id == level_low):
-				# Duplicate rows from all previous stageId's with the same 'gameId'
-				if(within_task): # ensure roundId's are the same
+				# Duplicate rows from all previous stageId's with the same high-level identifier
+				if(within_task): # ensure the mid-level identifier is the same
 					previous_rows = input_df.loc[(input_df[level_low] != current_row[level_low]) & (input_df[timestamp_col] < current_row[timestamp_col]) & (input_df[level_high] == current_row[level_high]) & (input_df[level_mid] == current_row[level_mid])].copy()
 				else:
 					previous_rows = input_df.loc[(input_df[level_low] != current_row[level_low]) & (input_df[timestamp_col] < current_row[timestamp_col]) & (input_df[level_high] == current_row[level_high])].copy()
@@ -206,7 +226,7 @@ def create_cumulative_rows(input_df, conversation_id, timestamp_col, grouping_ke
 					previous_rows['conversation_num'] = current_row[level_low]
 					result_df = pd.concat([result_df, previous_rows], ignore_index=True)
 			if(conversation_id == level_mid):
-				# Duplicate rows from all previous roundId's with the same gameId
+				# Duplicate rows from all previous mid-level identifiers with the same high-level identifier
 				previous_rows = input_df.loc[(input_df[level_mid] != current_row[level_mid]) & (input_df[timestamp_col] < current_row[timestamp_col]) & (input_df[level_high] == current_row[level_high])].copy()
 				if(not previous_rows.empty):
 					previous_rows['conversation_num'] = current_row[level_mid]

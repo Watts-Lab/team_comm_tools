@@ -120,10 +120,16 @@ class FeatureBuilder:
         if self.cumulative_grouping and self.conversation_id_col not in self.grouping_keys:
             raise ValueError("Conversation identifier for cumulative grouping must be one of the grouping keys.")
         if self.grouping_keys and not self.cumulative_grouping and self.conversation_id_col != "conversation_num":
-            print("WARNING: Conversation identifier for non-cumulative grouping must be conversation_num. Resetting conversation_id.")
+            print("WARNING: When grouping by the unique combination of a list of keys (`grouping_keys`), the conversation identifier must be auto-generated (`conversation_num`) rather than a user-provided column. Resetting conversation_id.")
             self.conversation_id_col = "conversation_num"
         
         self.preprocess_chat_data()
+
+        # set new identifier column for cumulative grouping.
+        if self.cumulative_grouping and len(grouping_keys) == 3:
+            print("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative convrersations.")
+            self.conversation_id_col = "conversation_num"
+
         # Input columns are the columns that come in the raw chat data
         self.input_columns = self.chat_data.columns
 
