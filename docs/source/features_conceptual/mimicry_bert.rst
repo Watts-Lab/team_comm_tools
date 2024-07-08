@@ -21,8 +21,6 @@ Note that the first utterance in a conversation cannot have a mimicry score, as 
 
 Interpreting the Feature 
 *************************
-Read the code associated with this feature and answer the following questions, if applicable:
-
 This feature generates a score between 0-1 for each utterance in a conversation, with scores closer to 0 representing a more original thought compared with the previous chat (lacking mimicry), while scores near 1 represent a higher degree of mimicry/similarity with the previous chat. 
 
 It's important to note that this score doesn't measure the overall mimicry of the conversation. As an utterance-level feature, it computes the mimicry only between the selected chat and the previous. If a particular message is only similar to chats exchanged before it's direct previous chat, therefore, it won't have a high mimicry score (see below). In the same vein, high mimicry score for an individual chat does not signal that a conversation overall employed high mimicry.
