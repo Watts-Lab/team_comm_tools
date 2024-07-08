@@ -113,6 +113,13 @@ class FeatureBuilder:
         self.ner_cutoff = ner_cutoff
 
         # check grouping rules
+        if self.conversation_id_col not in self.chat_data.columns:
+            if(self.conversation_id_col == "conversation_num"):
+                raise ValueError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
+            raise ValueError("Conversation identifier not present in data.")
+        if self.cumulative_grouping and len(grouping_keys) == 0:
+            print("WARNING: No grouping keys provided. Ignoring `cumulative_grouping` argument.")
+            self.cumulative_grouping = False
         if self.cumulative_grouping and len(grouping_keys) != 3:
             print("WARNING: Can only perform cumulative grouping for three-layer nesting. Ignoring cumulative command and grouping by unique combinations in the grouping_keys.")
             self.cumulative_grouping = False
