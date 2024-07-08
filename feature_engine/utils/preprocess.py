@@ -9,9 +9,15 @@ def preprocess_conversation_columns(df, conversation_id, timestamp_col, grouping
     :type df: pd.DataFrame
     :param conversation_id: The column name to use for assigning conversation numbers.
     :type conversation_id: str, optional
+    :param timestamp_col: The name of the column containing the timestamp
+    :type timestamp_col: str
+    :param grouping_keys: A list of multiple identifier keys for a conversation.
+    :type grouping_keys: list
     :param cumulative_grouping: Whether to group data cumulatively based on the conversation_id.
+       	This option was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica).
     :type cumulative_grouping: bool, optional
-    :param within_task: Used only if cumulative_grouping is True, to specify if grouping is within the task.
+    :param within_task: Used only if cumulative_grouping is True, to specify if grouping is within the "task." 
+    	This option was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica).
     :type within_task: bool, optional
     :return: The preprocessed DataFrame with a conversation number column.
     :rtype: pd.DataFrame

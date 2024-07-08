@@ -35,6 +35,8 @@ def create_chunks_messages(chat_data, num_chunks, conversation_id_col):
     :type chat_data: pd.DataFrame
     :param num_chunks: Initial maximum number of chunks
     :type num_chunks: int
+    :param conversation_id_col: The name of the column containing the unique conversation identifier
+    :type conversation_id_col: str
 
     :return: Dataframe with an additional 'chunk_num' column indicating chunk assignments
     :rtype: pd.DataFrame
@@ -77,6 +79,10 @@ def create_chunks(df, num_chunks, conversation_id_col, timestamp_col):
     :type df: pd.DataFrame
     :param num_chunks: Number of chunks to divide the conversation into
     :type num_chunks: int
+    :param conversation_id_col: The name of the column containing the unique conversation identifier
+    :type conversation_id_col: str
+    :param timestamp_col: The name of the column containing the timestamp
+    :type timestamp_col: str
 
     :return: DataFrame with an additional 'chunk_num' column indicating time-based chunk assignments
     :rtype: pd.DataFrame
@@ -165,6 +171,8 @@ def assign_chunk_nums(chat_data, num_chunks, conversation_id_col, timestamp_col,
     :type chat_data: pd.DataFrame
     :param num_chunks: The number of chunks desired
     :type num_chunks: int
+    :param timestamp_col: The name of the column containing the timestamp
+    :type timestamp_col: str
     :param use_time_if_possible: If a timestamp exists, chunk based on the timestamp rather than based on the number of messages. Defaults to True.
     :type use_time_if_possible: bool, optional
 
