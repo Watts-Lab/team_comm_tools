@@ -30,11 +30,13 @@ jobs:
         run: |
           cd testing
           python3 run_tests.py
+          python3 run_package_grouping_tests.py
 
       - name: Run tests
         run: |
           cd testing
           pytest test_feature_metrics.py
+          pytest test_package.py
 
       - name: Upload test results
         uses: actions/upload-artifact@v2

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import re
 
-def get_info_exchange_wordcount(df, first_person):
+def get_info_exchange_wordcount(df, first_person, message_col):
   '''
   This functinon computes the total word count in a message minus first person singular pronouns.
 
@@ -22,11 +22,12 @@ def get_info_exchange_wordcount(df, first_person):
   Args:
     df (pd.DataFrame):  This is a pandas dataframe of the chat level features.
     first_person (list): A list of first person words. This comes from get_first_person_words() under the Utilities.
+    message_col (str): This is a string with the name of the column containing the message / text.
 
   Returns:
     pd.Series: A column containing the difference in total words and first-person singular pronouns.
 
   '''
   first_person_regex = " | ".join(first_person)
-  df['first_person_raw'] = df['message'].apply(lambda chat: len(re.findall(first_person_regex, chat)))
+  df['first_person_raw'] = df[message_col].apply(lambda chat: len(re.findall(first_person_regex, chat)))
   return (df["num_words"] - df["first_person_raw"])

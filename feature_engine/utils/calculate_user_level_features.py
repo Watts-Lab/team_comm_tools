@@ -17,16 +17,21 @@ class UserLevelFeaturesCalculator:
     :type user_data: pd.DataFrame
     :param vect_data: Pandas dataframe of message embeddings corresponding to each instance of the chat data
     :type vect_data: pd.DataFrame
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str
+    :param speaker_id_col: A string representing the column name that should be selected as the speaker ID. Defaults to "speaker_nickname".
+    :type speaker_id_col: str
     :param input_columns: List of columns in the chat-level features dataframe that should not be summarized
     :type input_columns: list
     """
-    def __init__(self, chat_data: pd.DataFrame, user_data: pd.DataFrame, vect_data: pd.DataFrame, input_columns:list) -> None:
+    def __init__(self, chat_data: pd.DataFrame, user_data: pd.DataFrame, vect_data: pd.DataFrame, conversation_id_col: str, speaker_id_col: str, input_columns:list) -> None:
 
         # Initializing variables
         self.chat_data = chat_data
         self.user_data = user_data
         self.vect_data = vect_data
-
+        self.conversation_id_col = conversation_id_col
+        self.speaker_id_col = speaker_id_col
         # Denotes the columns that can be summarized from the chat level, onto the conversation level.
         self.input_columns = list(input_columns)
         self.input_columns.append('conversation_num')
@@ -93,8 +98,8 @@ class UserLevelFeaturesCalculator:
             # Sum of feature across the Conversation
             self.user_data = pd.merge(
                 left=self.user_data,
-                right=get_user_sum_dataframe(self.chat_data, column),
-                on=['conversation_num', 'speaker_nickname'],
+                right=get_user_sum_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+                on=[self.conversation_id_col, self.speaker_id_col],
                 how="inner"
             )
 
@@ -112,8 +117,8 @@ class UserLevelFeaturesCalculator:
             # Average/Mean of feature across the Conversation
             self.user_data = pd.merge(
                 left=self.user_data,
-                right=get_user_average_dataframe(self.chat_data, column),
-                on=['conversation_num', 'speaker_nickname'],
+                right=get_user_average_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+                on=[self.conversation_id_col, self.speaker_id_col],
                 how="inner"
             )
 
@@ -126,7 +131,7 @@ class UserLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.user_data['mean_embedding'] = get_user_centroids(self.chat_data, self.vect_data)
+        self.user_data['mean_embedding'] = get_user_centroids(self.chat_data, self.vect_data, self.conversation_id_col, self.speaker_id_col)
 
     def get_user_network(self) -> None:
         """
@@ -139,7 +144,7 @@ class UserLevelFeaturesCalculator:
         """
         self.user_data = pd.merge(
                 left=self.user_data,
-                right=get_user_network(self.user_data),
-                on=['conversation_num', 'speaker_nickname'],
+                right=get_user_network(self.user_data, self.conversation_id_col, self.speaker_id_col),
+                on=[self.conversation_id_col, self.speaker_id_col],
                 how="inner"
             )

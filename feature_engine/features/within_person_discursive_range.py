@@ -22,13 +22,13 @@ def get_nan_vector():
     return np.array(nan_vector_list)
 
 
-def get_within_person_disc_range(chat_data, num_chunks):
+def get_within_person_disc_range(chat_data, num_chunks, conversation_id_col, speaker_id_col):
 
     # Get nan vector 
     nan_vector = get_nan_vector()
 
     #calculate mean vector per speaker per chunk
-    mean_vec_speaker_chunks = pd.DataFrame(chat_data.groupby(['conversation_num', 'speaker_nickname', 'chunk_num']).message_embedding.apply(np.mean)).unstack('chunk_num').rename(columns={'message_embedding': 'mean_chunk_vec'})
+    mean_vec_speaker_chunks = pd.DataFrame(chat_data.groupby([conversation_id_col, speaker_id_col, 'chunk_num']).message_embedding.apply(np.mean)).unstack('chunk_num').rename(columns={'message_embedding': 'mean_chunk_vec'})
 
     #collapse multi-index
     mean_vec_speaker_chunks.columns = ["_c".join(col).strip() for col in mean_vec_speaker_chunks.columns.values]
@@ -59,18 +59,18 @@ def get_within_person_disc_range(chat_data, num_chunks):
     for i in range(actual_num_chunks - 1):
         index.append("c" + str(i) + "_c" + str(i + 1))
     range_df = pd.DataFrame(inter_chunk_range, index=index).T
-    range_df['conversation_num'] = mean_vec_speaker_chunks.reset_index()['conversation_num']
-    range_df = range_df.set_index('conversation_num')
+    range_df[conversation_id_col] = mean_vec_speaker_chunks.reset_index()[conversation_id_col]
+    range_df = range_df.set_index(conversation_id_col)
 
     # variance within person discursive range 
-    var_disc_range = range_df.groupby('conversation_num').apply(lambda x: np.nanvar(x, axis=0).sum()).to_frame().rename(columns={0:'incongruent_modulation'})
+    var_disc_range = range_df.groupby(conversation_id_col).apply(lambda x: np.nanvar(x, axis=0).sum()).to_frame().rename(columns={0:'incongruent_modulation'})
     
     # average within person discursive range 
-    avg_disc_range = range_df.groupby('conversation_num').apply(lambda x: np.nanmean(x, axis=0).sum()).to_frame().rename(columns={0:'within_person_disc_range'})
+    avg_disc_range = range_df.groupby(conversation_id_col).apply(lambda x: np.nanmean(x, axis=0).sum()).to_frame().rename(columns={0:'within_person_disc_range'})
 
     return pd.merge(
                 left=var_disc_range,
                 right=avg_disc_range,
-                on=['conversation_num'],
+                on=[conversation_id_col],
                 how="inner"
             )
