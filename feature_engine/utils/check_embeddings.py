@@ -20,7 +20,7 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
 # Check if embeddings exist
-def check_embeddings(chat_data, vect_path, bert_path):
+def check_embeddings(chat_data, vect_path, bert_path, message_col):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
@@ -33,14 +33,16 @@ def check_embeddings(chat_data, vect_path, bert_path):
     :type vect_path: str
     :param bert_path: Path to the BERT embeddings file
     :type bert_path: str
+    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message_col: str, optional
 
     :return: None
     :rtype: None
     """
     if (not os.path.isfile(vect_path)):
-        generate_vect(chat_data, vect_path)
+        generate_vect(chat_data, vect_path, message_col)
     if (not os.path.isfile(bert_path)):
-        generate_bert(chat_data, bert_path)
+        generate_bert(chat_data, bert_path, message_col)
     if (not os.path.isfile(Path(__file__).resolve().parent.parent/"features/lexicons/certainty.txt")):
         # unpickle certainty
         unpickle_certainty()
@@ -98,7 +100,7 @@ def generate_lexicon_pkl():
     with open(current_script_directory.parent/"features/lexicons_dict.pkl", "wb") as lexicons_pickle_file:
         pickle.dump(lexicons_dict, lexicons_pickle_file)
 
-def generate_vect(chat_data, output_path):
+def generate_vect(chat_data, output_path, message_col):
     """
     Generates sentence vectors for the given chat data and saves them to a CSV file.
 
@@ -106,6 +108,8 @@ def generate_vect(chat_data, output_path):
     :type chat_data: pd.DataFrame
     :param output_path: Path to save the CSV file containing message embeddings.
     :type output_path: str
+    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message_col: str, optional
     :raises FileNotFoundError: If the output path is invalid.
     :return: None
     :rtype: None
@@ -113,14 +117,14 @@ def generate_vect(chat_data, output_path):
 
     print(f"Generating sentence vectors....")
 
-    embedding_arr = [row.tolist() for row in model_vect.encode(chat_data.message)]
-    embedding_df = pd.DataFrame({'message': chat_data.message, 'message_embedding': embedding_arr})
+    embedding_arr = [row.tolist() for row in model_vect.encode(chat_data[message_col])]
+    embedding_df = pd.DataFrame({'message': chat_data[message_col], 'message_embedding': embedding_arr})
 
     # Create directories along the path if they don't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     embedding_df.to_csv(output_path, index=False)
 
-def generate_bert(chat_data, output_path):
+def generate_bert(chat_data, output_path, message_col):
     """
     Generates RoBERTa sentiment scores for the given chat data and saves them to a CSV file.
 
@@ -128,13 +132,15 @@ def generate_bert(chat_data, output_path):
     :type chat_data: pd.DataFrame
     :param output_path: Path to save the CSV file containing sentiment scores.
     :type output_path: str
+    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message_col: str, optional
     :raises FileNotFoundError: If the output path is invalid.
     :return: None
     :rtype: None
     """
     print(f"Generating BERT sentiments....")
 
-    messages = chat_data['message']
+    messages = chat_data[message_col]
     sentiments = messages.apply(get_sentiment)
 
     sent_arr = [list(dict.values()) for dict in sentiments]

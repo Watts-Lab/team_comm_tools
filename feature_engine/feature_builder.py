@@ -33,13 +33,23 @@ class FeatureBuilder:
     :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the earlier stages of the conversation may be more predictive than the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data and compare the performance with using the full dataset. Defaults to [1.0].
     :type analyze_first_pct: list(float), optional
     
-    :param conversation_id: A string representing the column name that should be selected as the conversation ID. Defaults to None.
-    :type conversation_id: str, optional
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str, optional
+
+    :param speaker_id_col: A string representing the column name that should be selected as the speaker ID. Defaults to "speaker_nickname".
+    :type speaker_id_col: str, optional
+
+    :param message: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message: str, optional
     
-    :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). It may not be generalizable to other conversational data, and will likely be deprecated in future versions. Defaults to False.
+    :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) 
+        NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). 
+        It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
+        group/conversation has one High-level identifier, which contains one or more Mid-level identifiers, which contains one or more Low-level identifiers.
+        Defaults to False.
     :type cumulative_grouping: bool, optional
     
-    :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same task. Defaults to False.
+    :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same "task" (Mid-level identifier). Defaults to False.
     :type within_task: bool, optional
     
     :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature
@@ -61,7 +71,11 @@ class FeatureBuilder:
             output_file_path_conv_level: str,
             analyze_first_pct: list = [1.0], 
             turns: bool=True,
-            conversation_id = None,
+            conversation_id_col: str = "conversation_num",
+            speaker_id_col: str = "speaker_nickname",
+            message_col: str = "message",
+            timestamp_col: str | tuple[str, str] = "timestamp",
+            grouping_keys: list = [],
             cumulative_grouping = False, 
             within_task = False,
             ner_cutoff: int = 0.9,
@@ -69,9 +83,9 @@ class FeatureBuilder:
         ) -> None:
 
         #  Defining input and output paths.
-        self.chat_data = input_df
+        self.chat_data = input_df.copy()
+        self.orig_data = input_df.copy()
         self.ner_training = ner_training_df
-        self.orig_data = self.chat_data
         self.vector_directory = vector_directory
         print("Initializing Featurization...")
         self.output_file_path_conv_level = output_file_path_conv_level
@@ -83,12 +97,45 @@ class FeatureBuilder:
 
         # Parameters for preprocessing chat data
         self.turns = turns
-        self.conversation_id = conversation_id
+        self.conversation_id_col = conversation_id_col
+        self.speaker_id_col = speaker_id_col
+        self.message_col = message_col
+        self.timestamp_col = timestamp_col
+        self.column_names = {
+            'conversation_id_col': conversation_id_col,
+            'speaker_id_col': speaker_id_col,
+            'message_col': message_col,
+            'timestamp_col': timestamp_col
+        }
+        self.grouping_keys = grouping_keys
         self.cumulative_grouping = cumulative_grouping # for grouping the chat data
         self.within_task = within_task
         self.ner_cutoff = ner_cutoff
 
-        self.preprocess_chat_data(col="message", turns=self.turns, conversation_id = self.conversation_id, cumulative_grouping = self.cumulative_grouping, within_task = self.within_task)
+        # check grouping rules
+        if self.conversation_id_col not in self.chat_data.columns and len(self.grouping_keys)==0:
+            if(self.conversation_id_col == "conversation_num"):
+                raise ValueError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
+            raise ValueError("Conversation identifier not present in data.")
+        if self.cumulative_grouping and len(grouping_keys) == 0:
+            print("WARNING: No grouping keys provided. Ignoring `cumulative_grouping` argument.")
+            self.cumulative_grouping = False
+        if self.cumulative_grouping and len(grouping_keys) != 3:
+            print("WARNING: Can only perform cumulative grouping for three-layer nesting. Ignoring cumulative command and grouping by unique combinations in the grouping_keys.")
+            self.cumulative_grouping = False
+            self.conversation_id_col = "conversation_num"
+        if self.cumulative_grouping and self.conversation_id_col not in self.grouping_keys:
+            raise ValueError("Conversation identifier for cumulative grouping must be one of the grouping keys.")
+        if self.grouping_keys and not self.cumulative_grouping and self.conversation_id_col != "conversation_num":
+            print("WARNING: When grouping by the unique combination of a list of keys (`grouping_keys`), the conversation identifier must be auto-generated (`conversation_num`) rather than a user-provided column. Resetting conversation_id.")
+            self.conversation_id_col = "conversation_num"
+        
+        self.preprocess_chat_data()
+
+        # set new identifier column for cumulative grouping.
+        if self.cumulative_grouping and len(grouping_keys) == 3:
+            print("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative convrersations.")
+            self.conversation_id_col = "conversation_num"
 
         # Input columns are the columns that come in the raw chat data
         self.input_columns = self.chat_data.columns
@@ -110,7 +157,7 @@ class FeatureBuilder:
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path)
+        check_embeddings(self.chat_data, self.vect_path, self.bert_path, self.message_col)
 
         self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
 
@@ -120,7 +167,7 @@ class FeatureBuilder:
         # This is the number of unique conversations (and, in conversations with multiple levels, the number of
         # unique rows across "batch_num", and "round_num".)
         # Assume that "conversation_num" is the primary key for this table.
-        self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
+        self.conv_data = self.chat_data[[self.conversation_id_col]].drop_duplicates()
 
     def set_self_conv_data(self) -> None:
         """
@@ -132,14 +179,14 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """     
-        self.conv_data = self.chat_data[['conversation_num']].drop_duplicates()
+        self.conv_data = self.chat_data[[self.conversation_id_col]].drop_duplicates()
 
     def merge_conv_data_with_original(self) -> None:
         """
-        Merge conversation-level data with the original dataset.
+        Merge conversation-level data with the original dataset, so that we retain all desired columns, both original and generated.
 
-        If `conversation_id` is defined and "conversation_num" is not already a column in the original dataset,
-        the function renames the `conversation_id` column to "conversation_num". Otherwise, it retains the original dataset.
+        If the conversational identifier was generated by our system (as opposed to an existing column in the original dataset),
+        the function uses the preprocessed data, which contains the generated ID. Otherwise, it uses the original dataset.
 
         The function groups the original conversation data by "conversation_num" and merges it with the
         conversation-level data (`conv_data`). It drops duplicate rows and removes the 'index' column if present.
@@ -148,19 +195,19 @@ class FeatureBuilder:
         :rtype: None
         """
 
-        if(self.conversation_id is not None and "conversation_num" not in self.orig_data.columns):
-            # Set the `conversation_num` to the indicated variable
-            orig_conv_data = self.orig_data.rename(columns={self.conversation_id:"conversation_num"})
+        if(self.conversation_id_col == "conversation_num" and "conversation_num" not in self.orig_data.columns):
+            # This indicates that the user asked us to generate a conversation_num, as it wasn't in the original
+            orig_conv_data = self.preprocessed_data # we therefore use the preprocessed data instead of the original
         else:
             orig_conv_data = self.orig_data
 
         # Use the 1st item in the row, as they are all the same at the conv level
-        orig_conv_data = orig_conv_data.groupby(["conversation_num"]).nth(0).reset_index() 
-        
+        orig_conv_data = orig_conv_data.groupby([self.conversation_id_col]).nth(0).reset_index()
+
         final_conv_output = pd.merge(
             left= self.conv_data,
             right = orig_conv_data,
-            on=['conversation_num'],
+            on=[self.conversation_id_col],
             how="left"
         ).drop_duplicates()
 
@@ -202,7 +249,7 @@ class FeatureBuilder:
         for percentage in self.first_pct: 
             # Reset chat, conv, and user objects
             self.chat_data = self.chat_data_complete
-            self.user_data = self.chat_data[['conversation_num', 'speaker_nickname']].drop_duplicates()
+            self.user_data = self.chat_data[[self.conversation_id_col, self.speaker_id_col]].drop_duplicates()
             self.set_self_conv_data()
 
             print("Generating features for the first " + str(percentage*100) + "% of messages...")
@@ -236,19 +283,15 @@ class FeatureBuilder:
             print("All Done!")
             self.save_features()
 
-    def preprocess_chat_data(self, col: str="message", turns=False, conversation_id=None, cumulative_grouping = False, within_task = False) -> None:
+    def preprocess_chat_data(self) -> None:
         """
         Call all preprocessing modules needed to clean the chat text.
 
         This function groups the chat data as specified, verifies column presence, creates original and lowercased columns, preprocesses text, and optionally processes chat turns.
 
-        :param col: Column to preprocess, defaults to "message"
-        :type col: str, optional
         :param turns: Whether to preprocess naive turns, defaults to False
         :type turns: bool, optional
-        :param conversation_id: Identifier for conversation grouping, defaults to None
-        :type conversation_id: str, optional
-        :param cumulative_grouping: Whether to use cumulative grouping, defaults to False
+        :param col: Columns to preprocess, including conversation_id, speaker_id and message, defaults to None
         :type cumulative_grouping: bool, optional
         :param within_task: Whether to group within tasks, defaults to False
         :type within_task: bool, optional
@@ -258,21 +301,21 @@ class FeatureBuilder:
         """
 
         # create the appropriate grouping variables and assert the columns are present
-        self.chat_data = preprocess_conversation_columns(self.chat_data, conversation_id, cumulative_grouping, within_task)
-        assert_key_columns_present(self.chat_data)
+        self.chat_data = preprocess_conversation_columns(self.chat_data, self.conversation_id_col, self.timestamp_col, self.grouping_keys, self.cumulative_grouping, self.within_task)
+        assert_key_columns_present(self.chat_data, self.column_names)
 
         # save original column with no preprocessing
-        self.chat_data[col + "_original"] = self.chat_data[col]
+        self.chat_data[self.message_col + "_original"] = self.chat_data[self.message_col]
 
         # create new column that retains punctuation
-        self.chat_data["message_lower_with_punc"] = self.chat_data[col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
+        self.chat_data["message_lower_with_punc"] = self.chat_data[self.message_col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
     
         # Preprocessing the text in `col` and then overwriting the column `col`.
         # TODO: We should probably use classes to abstract preprocessing module as well?
-        self.chat_data[col] = self.chat_data[col].astype(str).apply(preprocess_text)
+        self.chat_data[self.message_col] = self.chat_data[self.message_col].astype(str).apply(preprocess_text)
 
-        if (turns):
-            self.chat_data = preprocess_naive_turns(self.chat_data)
+        if (self.turns):
+            self.chat_data = preprocess_naive_turns(self.chat_data, self.column_names)
 
         # Save the preprocessed data (so we don't have to do this again)
         self.preprocessed_data = self.chat_data
@@ -294,7 +337,10 @@ class FeatureBuilder:
             vect_data = self.vect_data,
             bert_sentiment_data = self.bert_sentiment_data,
             ner_training = self.ner_training,
-            ner_cutoff = self.ner_cutoff
+            ner_cutoff = self.ner_cutoff,
+            conversation_id_col = self.conversation_id_col,
+            message_col = self.message_col,
+            timestamp_col = self.timestamp_col
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features()
@@ -314,30 +360,29 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-        chat_grouped = self.chat_data.groupby('conversation_num')
+        chat_grouped = self.chat_data.groupby(self.conversation_id_col)
         num_rows_to_retain = pd.DataFrame(np.ceil(chat_grouped.size() * percentage)).reset_index()
         chat_truncated = pd.DataFrame()
         for conversation_num, num_rows in num_rows_to_retain.itertuples(index=False):
             chat_truncated = pd.concat([chat_truncated,chat_grouped.get_group(conversation_num).head(int(num_rows))], ignore_index = True)
 
-        self.chat_data = chat_truncated
-
     def user_level_features(self) -> None:
         """
         Instantiate and use the UserLevelFeaturesCalculator to create user-level features.
 
-        This function preprocesses conversation-level data, creates user-level features using 
+        This function creates user-level features using 
         the UserLevelFeaturesCalculator, and adds them to the `self.user_data` dataframe.
         It also removes special characters from the column names.
 
         :return: None
         :rtype: None
         """
-        self.user_data = preprocess_conversation_columns(self.user_data, self.conversation_id, self.cumulative_grouping, self.within_task)
         user_feature_builder = UserLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
             vect_data= self.vect_data,
+            conversation_id_col = self.conversation_id_col,
+            speaker_id_col = self.speaker_id_col,
             input_columns = self.input_columns
         )
         self.user_data = user_feature_builder.calculate_user_level_features()
@@ -348,19 +393,22 @@ class FeatureBuilder:
         """
         Instantiate and use the ConversationLevelFeaturesCalculator to create conversation-level features.
 
-        This function preprocesses conversation-level data, creates conversation-level features using 
+        This function creates conversation-level features using 
         the ConversationLevelFeaturesCalculator, and adds them to the `self.conv_data` dataframe.
 
         :return: None
         :rtype: None
         """
-        self.conv_data = preprocess_conversation_columns(self.conv_data, self.conversation_id)
         conv_feature_builder = ConversationLevelFeaturesCalculator(
             chat_data = self.chat_data, 
             user_data = self.user_data,
             conv_data = self.conv_data,
             vect_data = self.vect_data,
             vector_directory = self.vector_directory,
+            conversation_id_col = self.conversation_id_col,
+            speaker_id_col = self.speaker_id_col,
+            message_col = self.message_col,
+            timestamp_col = self.timestamp_col,
             input_columns = self.input_columns
         )
         self.conv_data = conv_feature_builder.calculate_conversation_level_features()

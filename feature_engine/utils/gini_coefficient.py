@@ -20,7 +20,7 @@ def gini_coefficient(x):
         return np.nan
     return diffsum / (len(x)**2 * np.mean(x))
 
-def get_gini(input_data, on_column):
+def get_gini(input_data, on_column, conversation_id_col):
 	"""
     Calculates the Gini coefficient for a specified numeric column within grouped conversation data.
 
@@ -28,9 +28,11 @@ def get_gini(input_data, on_column):
     :type input_data: pd.DataFrame
     :param on_column: The name of the numeric column on which the Gini coefficient is to be calculated.
     :type on_column: str
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID.
+    :type conversation_id_col: str
     :return: A DataFrame with Gini coefficients for each conversation.
     :rtype: pd.DataFrame
     """
 
-	gini_calculated = input_data.groupby(["conversation_num"]).apply(lambda df : gini_coefficient(np.asarray(df[on_column]))).reset_index().rename(columns={0: "gini_coefficient_" + on_column})
+	gini_calculated = input_data.groupby([conversation_id_col]).apply(lambda df : gini_coefficient(np.asarray(df[on_column]))).reset_index().rename(columns={0: "gini_coefficient_" + on_column})
 	return(gini_calculated)

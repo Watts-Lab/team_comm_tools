@@ -38,7 +38,7 @@ def burstiness(df, timediff):
     B = (standard_deviation - mean) / (standard_deviation + mean)
     return B
 
-def get_team_burstiness(df, timediff):
+def get_team_burstiness(df, timediff, conversation_id_col):
     """ Applies the burstiness coefficient to each conversation in the utterance (chat)-level dataframe and returns a conversation-level dataframe.
     The Burstiness feature takes advantage of the fact that we already compute the time difference between messages
     as one of the utterance (chat)-level features.
@@ -46,6 +46,7 @@ def get_team_burstiness(df, timediff):
     Args:
         df (pd.DataFrame): The utterance (chat)-level dataframe.
         timediff (str): The column name associated with the time differences between messages in a conversation (computed by the utterance-level feature, get_temporal_features.) 
+        conversation_id_col (str): A string representing the column name that should be selected as the conversation ID.
 
     Returns:
         pd.DataFrame: a grouped dataframe that contains the conversation identifier as the key, and contains a new column ("team_burstiness") for each group's burstiness coefficient.
@@ -55,5 +56,5 @@ def get_team_burstiness(df, timediff):
         return None
     
     # Applies burstiness function to overall dataframe and then groups coefficient by conversation number
-    burstiness_coeff = df.groupby("conversation_num").apply(lambda x : burstiness(x, timediff)).reset_index().rename(columns={0: "team_burstiness"})
+    burstiness_coeff = df.groupby(conversation_id_col).apply(lambda x : burstiness(x, timediff)).reset_index().rename(columns={0: "team_burstiness"})
     return burstiness_coeff
