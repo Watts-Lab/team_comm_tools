@@ -235,6 +235,9 @@ def create_cumulative_rows(input_df, conversation_id, timestamp_col, grouping_ke
 			cur_Id_rows = input_df.loc[(input_df[conversation_id] == current_row[conversation_id])].copy()
 			cur_Id_rows['conversation_num'] = current_row[conversation_id]
 			# Concatenate the current row to the result DataFrame
-			result_df = pd.concat([result_df, cur_Id_rows], ignore_index=True).drop_duplicates()
+
+			result_df = (result_df.copy() if cur_Id_rows.empty else cur_Id_rows.copy() if result_df.empty
+		       else pd.concat([result_df, cur_Id_rows], ignore_index=True).drop_duplicates() # to silence FutureWarning
+		      )
 
 	return result_df
