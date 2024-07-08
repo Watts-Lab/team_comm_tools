@@ -33,8 +33,8 @@ def check_embeddings(chat_data, vect_path, bert_path, message_col):
     :type vect_path: str
     :param bert_path: Path to the BERT embeddings file
     :type bert_path: str
-    :param message: A string representing the column name that should be selected as the message. Defaults to "message".
-    :type message: str, optional
+    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message_col: str, optional
 
     :return: None
     :rtype: None
@@ -108,8 +108,8 @@ def generate_vect(chat_data, output_path, message_col):
     :type chat_data: pd.DataFrame
     :param output_path: Path to save the CSV file containing message embeddings.
     :type output_path: str
-    :param message: A string representing the column name that should be selected as the message. Defaults to "message".
-    :type message: str, optional
+    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message_col: str, optional
     :raises FileNotFoundError: If the output path is invalid.
     :return: None
     :rtype: None
@@ -132,8 +132,8 @@ def generate_bert(chat_data, output_path, message_col):
     :type chat_data: pd.DataFrame
     :param output_path: Path to save the CSV file containing sentiment scores.
     :type output_path: str
-    :param message: A string representing the column name that should be selected as the message. Defaults to "message".
-    :type message: str, optional
+    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message_col: str, optional
     :raises FileNotFoundError: If the output path is invalid.
     :return: None
     :rtype: None
