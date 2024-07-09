@@ -137,12 +137,6 @@ rsa==4.7
 ruamel.yaml==0.16.7
 Rx==1.6.3
 safetensors==0.4.2
-sanic==19.6.3
-sanic-compress==0.1.1
-Sanic-Cors==0.9.9.post4
-Sanic-GraphQL==1.1.0
-sanic-jwt==1.4.0
-Sanic-Plugins-Framework==0.9.5
 scikit-learn==1.5.1
 scipy==1.12.0
 sentence-transformers==2.3.1
