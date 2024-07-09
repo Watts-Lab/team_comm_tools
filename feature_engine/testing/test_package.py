@@ -27,6 +27,7 @@ def test_path_robustness():
 def test_case_1():
 
     try:
+        case1_chatdf = pd.read_csv("../output/chat/tiny_multi_task_PT1_level_chat.csv")
         # Case 1 should have the same number of rows as the input df
         assert(input_data.shape[0] == case1_chatdf.shape[0])
     except AssertionError:
