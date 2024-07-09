@@ -91,6 +91,13 @@ class FeatureBuilder:
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
 
+        # Basic error detetection
+        # user didn't specify a file name, or specified one with only nonalphanumeric chars
+        if not bool(self.output_file_path_conv_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_conv_level)):
+            raise ValueError("ERROR: Improper conversation-level output file name detected.")
+        if not bool(self.output_file_path_user_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_user_level)):
+            raise ValueError("ERROR: Improper user (speaker)-level output file name detected.")
+
         # Set first pct of conversation you want to analyze
         assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
         self.first_pct = analyze_first_pct
@@ -147,12 +154,59 @@ class FeatureBuilder:
                 df_type = df_type + "/cumulative/within_task/"
             df_type = df_type + "/cumulative/"
 
-        ## TODO: the FeatureBuilder assumes that we are passing in an output file path that contains either "chat" or "turn"
-        ### in the name, as it saves the featurized content into either a "chat" folder or "turn" folder based on user
-        ### specifications. See: https://github.com/Watts-Lab/team-process-map/issues/211
-        self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
+        """
+        File path cleanup and assumptions:
+        -----
+        - By design, we save data into a folder called 'output/' (and add it if not already present in the path)
+        - Within 'output/', we save data within the following subfolders:
+            - chat/ for chat-level data
+            - turn/ for turn-level data
+            - conv/ for convesation-level data
+            - user/ for user-level data
+        - We always output files as a csv (and add '.csv' if not present)
+        - We consider the "base file name" to be the file name of the chat-level data, and we use this to name the file
+            containing the vector encodings
+        - The inputted file name must be a valid, non-empty string
+        - The inputted file name must not contain only special characters with no alphanumeric component
+        """
         # We assume that the base file name is the last item in the output path; we will use this to name the stored vectors.
-        base_file_name = self.output_file_path_chat_level.split("/")[-1]
+        try:
+            base_file_name = output_file_path_chat_level.split("/")[-1]
+        except:
+            raise ValueError("ERROR: Improper chat-level output file name detected.") 
+
+        if not bool(base_file_name) or not bool(re.sub('[^A-Za-z0-9_]', '', base_file_name)): # user didn't specify a file name, or specified one with only nonalphanumeric chars
+            raise ValueError("ERROR: Improper chat-level output file name detected.")
+
+        try:
+            folder_type_name = output_file_path_chat_level.split("/")[-2]
+        except IndexError: # user didn't specify a folder, so we will have to append it for them
+            folder_type_name = "turn" if self.turns else "chat"
+            output_file_path_chat_level = '/'.join(output_file_path_chat_level.split("/")[:-1]) + '/' + folder_type_name + '/' + base_file_name
+
+        # We check whether the second to last item is a "folder type": either chat or turn.
+        if folder_type_name not in ["chat", "turn"]: # user didn't specify the folder type, so we will append it for them
+            folder_type_name = "turn" if self.turns else "chat"
+            output_file_path_chat_level = '/'.join(output_file_path_chat_level.split("/")[:-1]) + '/' + folder_type_name + '/' + base_file_name
+
+        # Set file paths, ensuring correct subfolder type is added.
+        self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
+        if self.output_file_path_chat_level.split(".")[-1] != "csv": self.output_file_path_chat_level = self.output_file_path_chat_level + ".csv"
+        if not re.match("(.*\/|^)conv\/", self.output_file_path_conv_level):
+            self.output_file_path_conv_level = "/".join(self.output_file_path_conv_level.split("/")[:-1]) + "/conv/" + self.output_file_path_conv_level.split("/")[-1]
+        if self.output_file_path_conv_level.split(".")[-1] != "csv": self.output_file_path_conv_level = self.output_file_path_conv_level + ".csv"
+        if not re.match("(.*\/|^)user\/", self.output_file_path_user_level):
+            self.output_file_path_user_level = "/".join(self.output_file_path_user_level.split("/")[:-1]) + "/user/" + self.output_file_path_user_level.split("/")[-1]
+        if self.output_file_path_user_level.split(".")[-1] != "csv": self.output_file_path_user_level = self.output_file_path_user_level + ".csv"
+
+        # Ensure output/ is added before the subfolder.
+        if not re.match("(.*\/|^)output\/", self.output_file_path_chat_level):
+            self.output_file_path_chat_level = re.sub('/' + folder_type_name + '/', '/output/' + folder_type_name + '/', self.output_file_path_chat_level)
+        if not re.match("(.*\/|^)output\/", self.output_file_path_conv_level):
+            self.output_file_path_conv_level = re.sub('/conv/', '/output/conv/', self.output_file_path_conv_level)
+        if not re.match("(.*\/|^)output\/", self.output_file_path_user_level):
+            self.output_file_path_user_level = re.sub('/user/', '/output/user/', self.output_file_path_user_level)
+
         self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
