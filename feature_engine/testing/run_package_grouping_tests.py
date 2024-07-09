@@ -28,7 +28,7 @@ if __name__ == "__main__":
 	Here, we use a test dataset that has a different conversation ID, speaker ID, message column, and timestamp
 	column compared to the defaults, and ensure that nothing breaks.
 	"""
-	print("TESTING CASE 1 ......")
+	print("TESTING CASE 1 + FILE PATH ROBUSTNESS ......")
 	testing_package_task_1 = FeatureBuilder(
 		input_df = tiny_multi_task_renamed_df,
 		conversation_id_col = "roundId",
@@ -36,9 +36,9 @@ if __name__ == "__main__":
 		message_col = "text",
 		timestamp_col = "time",
 		vector_directory = "../tpm-data/vector_data/",
-		output_file_path_chat_level = "../output/chat/tiny_multi_task_PT1_level_chat.csv",
-		output_file_path_user_level = "../output/user/tiny_multi_task_PT1_level_user.csv",
-		output_file_path_conv_level = "../output/conv/tiny_multi_task_PT1_level_conv.csv",
+		output_file_path_chat_level = "../tiny_multi_task_PT1_level_chat",
+		output_file_path_user_level = "../tiny_multi_task_PT1_level_user",
+		output_file_path_conv_level = "../tiny_multi_task_PT1_level_conv",
 		turns = False,
 	)
 	testing_package_task_1.featurize(col="message")
