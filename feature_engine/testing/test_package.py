@@ -18,9 +18,11 @@ def test_path_robustness():
     try:
         case1_chatdf = pd.read_csv("../output/chat/tiny_multi_task_PT1_level_chat.csv")
     except:
-        file.write("\n")
+        with open('test.log', 'a') as file:
+            file.write("\n")
             file.write("------TEST FAILED------\n")
             file.write(f"Case 1 file (../output/chat/tiny_multi_task_PT1_level_chat.csv) not found: Path robustness test failed.\n")
+        raise
 
 def test_case_1():
 
