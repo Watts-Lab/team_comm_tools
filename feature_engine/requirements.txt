@@ -115,7 +115,7 @@ pydantic==2.6.0
 pydantic_core==2.16.1
 Pygments==2.17.2
 PyJWT==2.8.0
-pymongo==4.6.1
+pymongo==4.6.3
 pyparsing==3.1.1
 pyphen==0.14.0
 pyre-extensions==0.0.30
