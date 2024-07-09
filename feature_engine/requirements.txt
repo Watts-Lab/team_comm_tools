@@ -60,7 +60,6 @@ httpcore==0.3.0
 httptools==0.6.1
 huggingface-hub==0.20.3
 hyperframe==5.2.0
-idna==3.7
 importlib-metadata==7.0.1
 ipykernel==6.29.0
 ipython==8.21.0
