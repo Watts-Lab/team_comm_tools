@@ -192,19 +192,19 @@ class FeatureBuilder:
         # Set file paths, ensuring correct subfolder type is added.
         self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
         if self.output_file_path_chat_level.split(".")[-1] != "csv": self.output_file_path_chat_level = self.output_file_path_chat_level + ".csv"
-        if not re.match("[\/^]*conv/", self.output_file_path_conv_level):
+        if not re.match("(.*\/|^)conv\/", self.output_file_path_conv_level):
             self.output_file_path_conv_level = "/".join(self.output_file_path_conv_level.split("/")[:-1]) + "/conv/" + self.output_file_path_conv_level.split("/")[-1]
         if self.output_file_path_conv_level.split(".")[-1] != "csv": self.output_file_path_conv_level = self.output_file_path_conv_level + ".csv"
-        if not re.match("[\/^]*user/", self.output_file_path_user_level):
+        if not re.match("(.*\/|^)user\/", self.output_file_path_user_level):
             self.output_file_path_user_level = "/".join(self.output_file_path_user_level.split("/")[:-1]) + "/user/" + self.output_file_path_user_level.split("/")[-1]
         if self.output_file_path_user_level.split(".")[-1] != "csv": self.output_file_path_user_level = self.output_file_path_user_level + ".csv"
 
         # Ensure output/ is added before the subfolder.
-        if not re.match("[\/^]*output/", self.output_file_path_chat_level):
+        if not re.match("(.*\/|^)output\/", self.output_file_path_chat_level):
             self.output_file_path_chat_level = re.sub('/' + folder_type_name + '/', '/output/' + folder_type_name + '/', self.output_file_path_chat_level)
-        if not re.match("[\/^]*output/", self.output_file_path_conv_level):
+        if not re.match("(.*\/|^)output\/", self.output_file_path_conv_level):
             self.output_file_path_conv_level = re.sub('/conv/', '/output/conv/', self.output_file_path_conv_level)
-        if not re.match("[\/^]*output/", self.output_file_path_user_level):
+        if not re.match("(.*\/|^)output\/", self.output_file_path_user_level):
             self.output_file_path_user_level = re.sub('/user/', '/output/user/', self.output_file_path_user_level)
 
         self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
