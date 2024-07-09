@@ -91,10 +91,11 @@ class FeatureBuilder:
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
 
-        # Basic error detetection for conv and user level
-        if not bool(self.output_file_path_conv_level):
+        # Basic error detetection
+        # user didn't specify a file name, or specified one with only nonalphanumeric chars
+        if not bool(self.output_file_path_conv_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_conv_level)):
             raise ValueError("ERROR: Improper conversation-level output file name detected.")
-        if not bool(self.output_file_path_user_level):
+        if not bool(self.output_file_path_user_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_user_level)):
             raise ValueError("ERROR: Improper user (speaker)-level output file name detected.")
 
         # Set first pct of conversation you want to analyze
@@ -153,13 +154,10 @@ class FeatureBuilder:
                 df_type = df_type + "/cumulative/within_task/"
             df_type = df_type + "/cumulative/"
 
-        ## TODO: the FeatureBuilder assumes that we are passing in an output file path that contains either "chat" or "turn"
-        ### in the name, as it saves the featurized content into either a "chat" folder or "turn" folder based on user
-        ### specifications. See: https://github.com/Watts-Lab/team-process-map/issues/211
-        
         """
-        File path manipulations:
-        - By design, we always output everything into a folder called 'output/' (and add it if not present)
+        File path cleanup and assumptions:
+        -----
+        - By design, we save data into a folder called 'output/' (and add it if not already present in the path)
         - Within 'output/', we save data within the following subfolders:
             - chat/ for chat-level data
             - turn/ for turn-level data
@@ -168,6 +166,8 @@ class FeatureBuilder:
         - We always output files as a csv (and add '.csv' if not present)
         - We consider the "base file name" to be the file name of the chat-level data, and we use this to name the file
             containing the vector encodings
+        - The inputted file name must be a valid, non-empty string
+        - The inputted file name must not contain only special characters with no alphanumeric component
         """
         # We assume that the base file name is the last item in the output path; we will use this to name the stored vectors.
         try:
@@ -175,7 +175,7 @@ class FeatureBuilder:
         except:
             raise ValueError("ERROR: Improper chat-level output file name detected.") 
 
-        if base_file_name == "": # user didn't specify a file name
+        if not bool(base_file_name) or not bool(re.sub('[^A-Za-z0-9_]', '', base_file_name)): # user didn't specify a file name, or specified one with only nonalphanumeric chars
             raise ValueError("ERROR: Improper chat-level output file name detected.")
 
         try:
@@ -206,12 +206,6 @@ class FeatureBuilder:
             self.output_file_path_conv_level = re.sub('/conv/', '/output/conv/', self.output_file_path_conv_level)
         if not re.match("[\/^]*output/", self.output_file_path_user_level):
             self.output_file_path_user_level = re.sub('/user/', '/output/user/', self.output_file_path_user_level)
-
-        print(self.output_file_path_chat_level)
-        print(self.output_file_path_conv_level)
-        print(self.output_file_path_user_level)
-
-        raise
 
         self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
