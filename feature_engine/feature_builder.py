@@ -150,9 +150,46 @@ class FeatureBuilder:
         ## TODO: the FeatureBuilder assumes that we are passing in an output file path that contains either "chat" or "turn"
         ### in the name, as it saves the featurized content into either a "chat" folder or "turn" folder based on user
         ### specifications. See: https://github.com/Watts-Lab/team-process-map/issues/211
-        self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
+        
+        """
+        File path manipulations:
+        - By design, we always output everything into a folder called 'output/' (and add it if not present)
+        - Within 'output/', we save data within the following subfolders:
+            - chat/ for chat-level data
+            - turn/ for turn-level data
+            - conv/ for convesation-level data
+            - user/ for user-level data
+        - We always output files as a csv (and add '.csv' if not present)
+        - We consider the "base file name" to be the file name of the chat-level data, and we use this to name the file
+            containing the vector encodings
+        """
         # We assume that the base file name is the last item in the output path; we will use this to name the stored vectors.
-        base_file_name = self.output_file_path_chat_level.split("/")[-1]
+        base_file_name = output_file_path_chat_level.split("/")[-1]
+        folder_type_name = output_file_path_chat_level.split("/")[-2]
+
+        # We check whether the second to last item is a "folder type": either chat or turn.
+        if folder_type_name not in ["chat", "turn"]: # user didn't specify the folder type, so we will append it for them
+            folder_type_name = "turn" if self.turns else "chat"
+            output_file_path_chat_level = '/'.join(output_file_path_chat_level.split("/")[:-1]) + '/' + folder_type_name + '/' + base_file_name
+
+        # Set file paths, ensuring correct subfolder type is added.
+        self.output_file_path_chat_level = re.sub('chat', 'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
+        if self.output_file_path_chat_level.split(".")[-1] != "csv": self.output_file_path_chat_level = self.output_file_path_chat_level + ".csv"
+        if '/conv/' not in self.output_file_path_conv_level: 
+            self.output_file_path_conv_level = "/".join(self.output_file_path_conv_level.split("/")[:-1]) + "/conv/" + self.output_file_path_conv_level.split("/")[-1]
+        if self.output_file_path_conv_level.split(".")[-1] != "csv": self.output_file_path_conv_level = self.output_file_path_conv_level + ".csv"
+        if '/user/' not in self.output_file_path_user_level:
+            self.output_file_path_user_level = "/".join(self.output_file_path_user_level.split("/")[:-1]) + "/user/" + self.output_file_path_user_level.split("/")[-1]
+        if self.output_file_path_user_level.split(".")[-1] != "csv": self.output_file_path_user_level = self.output_file_path_user_level + ".csv"
+
+        # Ensure output/ is added before the subfolder.
+        if '/output/' + folder_type_name not in self.output_file_path_chat_level:
+            self.output_file_path_chat_level = re.sub('/' + folder_type_name + '/', '/output/' + folder_type_name + '/', self.output_file_path_chat_level)
+        if '/output/' + 'conv' not in self.output_file_path_conv_level:
+            self.output_file_path_conv_level = re.sub('/conv/', '/output/conv/', self.output_file_path_conv_level)
+        if '/output/' + 'user' not in self.output_file_path_user_level:
+            self.output_file_path_user_level = re.sub('/user/', '/output/user/', self.output_file_path_user_level)
+
         self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
