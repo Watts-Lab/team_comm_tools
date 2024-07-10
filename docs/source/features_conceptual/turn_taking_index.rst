@@ -19,8 +19,9 @@ Read the code associated with this feature and give an intuitive explanation of 
 The turn-taking formula is: (Number of Turns - 1) / (Total Number of Chats - 1)
 
 For example, in the following dataframe:
+
 .. list-table:: Speaker Turn Counts
-   :widths: 50 25
+   :widths: 60 25
    :header-rows: 1
 
    * - speaker_nickname
@@ -60,13 +61,6 @@ The turn-taking index will therefore distinguish between teams that have people 
 Interpreting the Feature 
 *************************
 In the edge case where only a single person spoke the entire time, causing the denominator to be 0, the turn-taking index is set to 0.
-
-Read the code associated with this feature and answer the following questions, if applicable:
-
-1. What are the bounds of the score? What does a high versus low score mean? (How should you read this score?)
-2. Give a concrete example (e.g., negative score versus positive score)
-3. What DOESN’T the score measure? That is, what does the score take into account, and what are some ways that it might not capture the high-level social science concept?
-4. Are there any edge cases that we should be aware of? (e.g., if the conversation contains only one chat?) To the best of your knowledge, how does the code handle it?
 
 Related Features 
 *****************
