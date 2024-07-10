@@ -7,6 +7,7 @@ def remove_active_user(df, speaker_id_col):
 
     Args:
         df (pd.DataFrame): Contains 'speaker_nickname' and 'user_list' columns.
+        speaker_id_col (str): The name of the column containing the speaker's unique identifier.
 
     Returns:
         pd.DataFrame: Modified pd.DataFrame with 'user_list' updated to remove the active user.
@@ -27,7 +28,9 @@ def get_user_network(user_df, conversation_id_col, speaker_id_col):
     This is a user level feature.
     
     Args:
-        user_df (pd.DataFrame): The dataset for whcih we are generating a "user_list" per user per conversation, contains 'conversation_num' and 'speaker_nickname' columns
+        user_df (pd.DataFrame): The dataset for which we are generating a "user_list" per user per conversation.
+        conversation_id_col (str): The name of the column containing conversation identifiers.
+        speaker_id_col (str): The name of the column containing the speaker's unique identifier.
 
     Returns:
         pd.DataFrame: Updated user_df with a 'user_list' column

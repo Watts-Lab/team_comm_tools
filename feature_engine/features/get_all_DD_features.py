@@ -32,6 +32,9 @@ def get_DD_features(chat_data, vect_data, conversation_id_col, speaker_id_col, t
     Args:
         chat_data (pd.DataFrame): pd.DataFrame containing conversation-level chat data.
         vect_data (pd.DataFrame): pd.DataFrame containing vectorized data.
+        conversation_id_col (str): Column name for conversation identifiers.
+        speaker_id_col (str): Column name for speaker identifiers.
+        timestamp_col (str): Column name for message timestamps.
 
     Returns:
         pd.DataFrame:pd.DataFrame containing merged discursive metrics for each conversation.
