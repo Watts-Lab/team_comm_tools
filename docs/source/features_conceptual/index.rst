@@ -14,6 +14,7 @@ Utterance- (Chat) Level Features
    :maxdepth: 1
 
    named_entity_recognition
+   word_ttr
    TEMPLATE
 
 Conversation-Level Features
@@ -22,4 +23,5 @@ Conversation-Level Features
 .. toctree::
    :maxdepth: 1
 
+   turn_taking_index
    TEMPLATE
