@@ -4,7 +4,7 @@ from .get_all_DD_features import *
 # from sklearn.metrics.pairwise import cosine_similarity
 
 
-def get_forward_flow(chat_data, vect_data):
+def get_forward_flow(chat_data, vect_data, conversation_id_col):
 
     """
     Measures the extent to which each chat in the conversation 'builds on' the previous chats in the conversation.
@@ -13,26 +13,22 @@ def get_forward_flow(chat_data, vect_data):
     Args:
         chat_data (pd.DataFrame): pd.DataFrame containing chat data with 'conversation_num' and 'message_embedding' columns.
         vect_data (pd.DataFrame): pd.DataFrame containing vectorized data.
+        conversation_id_col (str): The name of the column representing conversation IDs.
 
     Returns:
         List: List of cosine similarities representing forward flow for each chat in the conversation.
     """
-    
     
     chat_df = chat_data.copy()
     chat_df['message_embedding'] = conv_to_float_arr(vect_data['message_embedding'].to_frame())
 
     forward_flow = []
 
-    for num, conv in chat_df.groupby('conversation_num',  sort=False):
+    for num, conv in chat_df.groupby(conversation_id_col,  sort=False):
 
         forward_flow.append(0)
-        
-        # embedding_running_sum stores the running total embedding of all the chats that came before
         embedding_running_sum = conv.iloc[0]["message_embedding"]
         chat_count = 1
-
-        # avg_embedding stores the average of all the chats that came before
         avg_embedding = embedding_running_sum / chat_count
 
         for index, row in conv[1:].iterrows():

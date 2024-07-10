@@ -12,7 +12,7 @@ def count_turns(input_data):
     Returns:
         pd.DataFrame: Updated input_data with an additional 'turn_count' column
     '''
-     
+
     temp_turn_count = 1
     consolidated_actions = []
 
@@ -46,6 +46,7 @@ def count_turn_taking_index(input_data):
     Returns:
         float: Turn-taking index.
     '''
+
     if(len(input_data) == 1): # there is only 1 speaker for one row; catch a divide by zero error
         return 0
     else:
@@ -61,6 +62,6 @@ def get_turn(input_data):
     Returns:
         pd.DataFrame: Resulting pd.DataFrame with an updated 'turn_taking_index' columns.
     """
-
+    
     turn_calculated_2 = input_data.groupby("conversation_num").apply(lambda x : count_turn_taking_index(x)).reset_index().rename(columns={0: "turn_taking_index"})
     return turn_calculated_2

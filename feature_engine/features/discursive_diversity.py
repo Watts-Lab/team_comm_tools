@@ -3,11 +3,6 @@ import numpy as np
 import itertools
 from sklearn.metrics.pairwise import cosine_similarity
 
-'''
-This is a conversation level feature, which computes degree of divergence amongst the meanings conveyed by speakers in a given conversation. 
-
-'''
-
 def get_unique_pairwise_combos(lst):
     """
     Computes all unique pairwise combinations of the elements in a list.
@@ -42,9 +37,10 @@ def get_cosine_similarity(vecs):
         return np.nan
 
 
-def get_DD(chat_data):
+def get_DD(chat_data, conversation_id_col, speaker_id_col):
     """
-    Computes discursive diversity per conversation based on cosine distances between each pair of speakers.
+    Computes degree of divergence amongst the meanings conveyed by speakers in a given conversation. 
+    This is a conversation level feature.
 
     Args:
         chat_data (pd.DataFrame): DataFrame containing chat data with 'conversation_num', 'speaker_nickname', and 'message_embedding' columns.
@@ -52,12 +48,12 @@ def get_DD(chat_data):
     Returns:
         pd.DataFrame: pd.DataFrame with 'conversation_num' and 'discursive_diversity' columns representing discursive diversity per conversation.
     """
-    
+
     # Get mean embedding per speaker per conversation
-    user_centroid_per_conv = pd.DataFrame(chat_data.groupby(['conversation_num','speaker_nickname'])['message_embedding'].apply(np.mean)).reset_index().rename(columns={'message_embedding':'mean_embedding'})
+    user_centroid_per_conv = pd.DataFrame(chat_data.groupby([conversation_id_col,speaker_id_col])['message_embedding'].apply(np.mean)).reset_index().rename(columns={'message_embedding':'mean_embedding'})
 
     # For each team(conversation) get all unique pairwise combinations of members' means:
-    user_pairs = pd.DataFrame(user_centroid_per_conv.groupby(['conversation_num'])['mean_embedding'].\
+    user_pairs = pd.DataFrame(user_centroid_per_conv.groupby([conversation_id_col])['mean_embedding'].\
     apply(get_unique_pairwise_combos)).reset_index().\
     rename(columns={'mean_embedding':'user_pairs_per_conv'})
 
@@ -85,4 +81,5 @@ def get_DD(chat_data):
 
     user_pairs['discursive_diversity'] =  cos_dists_mean_widay_btwu
 
-    return user_pairs[['conversation_num', 'discursive_diversity']]
+    return user_pairs[[conversation_id_col, 'discursive_diversity']]
+
