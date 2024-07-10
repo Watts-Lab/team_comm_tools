@@ -69,7 +69,8 @@ class FeatureBuilder:
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
             output_file_path_conv_level: str,
-            additional_features: list = None,
+            custom_features: list = None,
+            excluded_features: list = None,
             analyze_first_pct: list = [1.0], 
             turns: bool=True,
             conversation_id_col: str = "conversation_num",
@@ -124,13 +125,12 @@ class FeatureBuilder:
             "Certainty",
             "Turn-Taking Index",
             "Team Burstiness",
-            # TODO --- the aggregates are missing entries in the dictionary!
             # "Conversation Level Aggregates",
             # "User Level Aggregates"
         ]
 
-        self.additional_features = additional_features or []
-        # TODO -- add features the user would want to exclude! (e.g., things in the default that user doesn't want)
+        self.custom_features = custom_features or []
+        self.excluded_features = excluded_features or []
 
         # TODO -- the featurizer breaks after we convert the list into a set because
         # some of the features need to be calcualted first; for example, the "Information Exchange"
@@ -139,9 +139,12 @@ class FeatureBuilder:
         # number of words doesn't exist, it will break.  
 
         # temp fix: remove redundancies FIRST, rather than using the set
-        self.additional_features = [feature for feature in self.additional_features if feature not in self.default_features]
+        self.custom_features = [feature for feature in self.custom_features if feature not in self.default_features]
 
-        self.features_to_calculate = self.default_features + self.additional_features
+        self.features_to_calculate = [
+            feature for feature in self.default_features + self.custom_features 
+            if feature not in self.excluded_features
+        ]
 
         # Read in the feature dictionary
         with open('features.pkl', 'rb') as file:
