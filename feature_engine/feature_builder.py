@@ -147,7 +147,7 @@ class FeatureBuilder:
         ]
 
         # Read in the feature dictionary
-        with open('features.pkl', 'rb') as file:
+        with open('feature_engine/features.pkl', 'rb') as file:
             feature_dictionary = pickle.load(file)
 
         # set which chat / conversation feature methods we want to calculate
