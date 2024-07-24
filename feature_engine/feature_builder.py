@@ -14,7 +14,7 @@ from utils.calculate_user_level_features import UserLevelFeaturesCalculator
 from utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
 from utils.preprocess import *
 from utils.check_embeddings import *
-from generate_feature_dict import feature_dict
+from feature_dict import feature_dict
 
 class FeatureBuilder:
     """The FeatureBuilder is the main engine that reads in the user's inputs and specifications and generates 
@@ -106,16 +106,11 @@ class FeatureBuilder:
             "Information Exchange",
             "LIWC and Other Lexicons",
             "Questions",
-            # TODO -- the below 3 functions are redundant because they share a function
-            # in calculate_chat_level_features. We need to split them up and have fewer
-            # such "double-whammy's."
             "Conversational Repair",
             "Word Type-Token Ratio",
             "Proportion of First-Person Pronouns",
-            # "Function Word Accommodation",
-            # "Content Word Accommodation",
-            # "(BERT) Mimicry",
-            # "Moving Mimicry",
+            "Function Word Accommodation",
+            "Content Word Accommodation",
             "Hedge",
             "TextBlob Subjectivity",
             "TextBlob Polarity",
@@ -124,7 +119,6 @@ class FeatureBuilder:
             "Time Difference",
             "Politeness Strategies",
             "Politeness / Receptiveness Markers",
-            # "Forward Flow",
             "Certainty",
             "Online Discussion Tags",
             ### Conversation Level
@@ -133,21 +127,12 @@ class FeatureBuilder:
             "Team Burstiness",
             "Conversation Level Aggregates",
             "User Level Aggregates",
-            # "Discursive Diversity",
             "Team Burstiness",
             "Information Diversity",
             "Conversation Level Aggregates",
             "User Level Aggregates"
         ]
 
-        # self.custom_features = [ # fill for testing purpose, all requires vect_data
-        #     "Function Word Accommodation",
-        #     "Content Word Accommodation",
-        #     "(BERT) Mimicry",
-        #     "Moving Mimicry",
-        #     "Forward Flow",
-        #     "Discursive Diversity"
-        # ]
         # warning if user added invalid custom/exclude features
         self.custom_features = []
         invalid_features = set()
@@ -159,9 +144,8 @@ class FeatureBuilder:
         if invalid_features:
             invalid_features_str = ', '.join(invalid_features)
             print(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
-        # self.excluded_features = [feat for feat in excluded_features if feat in self.feature_dict]
 
-        # deduplicate functions
+        # deduplicate functions and append them into a list for calculation
         self.feature_methods_chat = []
         self.feature_methods_conv = []
         for feature in self.default_features + self.custom_features:
@@ -172,10 +156,6 @@ class FeatureBuilder:
             elif level == 'Conversation':
                 if func not in self.feature_methods_conv:
                     self.feature_methods_conv.append(func)
-
-        # set which chat / conversation feature methods we want to calculate
-        # self.feature_methods_chat = {key: self.feature_dict[key]["function"] for key in self.features_to_calculate if self.feature_dict[key]["level"] == "Chat"}
-        # self.feature_methods_conv = {key: self.feature_dict[key]["function"] for key in self.features_to_calculate if self.feature_dict[key]["level"] == "Conversation"}
 
         # Basic error detetection
         # user didn't specify a file name, or specified one with only nonalphanumeric chars

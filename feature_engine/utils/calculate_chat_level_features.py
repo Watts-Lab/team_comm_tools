@@ -77,57 +77,6 @@ class ChatLevelFeaturesCalculator:
         for method in feature_methods:
             method(self)
 
-        # # NER
-        # self.get_named_entity()
-
-        # # Concat sentiment BERT markers (done through preprocessing)
-        # self.concat_bert_features()
-        
-        # # Text-Based Basic Features
-        # self.text_based_features()
-
-        # # "Basic" Info Exchange Feature -- z-scores of content minus first pronouns
-        # self.info_exchange()
-
-        # # lexical features
-        # self.lexical_features()
-
-        # # Other lexical features
-        # self.other_lexical_features()
-
-        # # Word Mimicry
-        # self.calculate_word_mimicry()
-
-        # # Hedge Features
-        # self.calculate_hedge_features()
-
-        # # TextBlob Sentiment features
-        # self.calculate_textblob_sentiment()
-        
-        # # Positivity Z-Score
-        # self.positivity_zscore()
-
-        # # Dale-Chall readability features
-        # self.get_dale_chall_score_and_classfication()
-        
-        # # Temporal features
-        # self.get_temporal_features()
-
-        # # Politeness (ConvoKit)
-        # self.calculate_politeness_sentiment()
-
-        # # Politeness (Yeomans/Bevis)
-        # self.calculate_politeness_v2()
-
-        # # Forward Flow
-        # self.get_forward_flow()
-
-        # Certainty
-        # self.get_certainty_score()
-
-        # # Reddit / online communication features
-        # self.get_reddit_features()
-
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
         
@@ -297,14 +246,14 @@ class ChatLevelFeaturesCalculator:
         Calculate features related to word mimicry.
 
         This function calculates the number of function words and the sum of inverse frequency of content words
-        that also appear in the other’s prior turn. It also computes mimicry using SBERT vectors.
+        that also appear in the other’s prior turn.
+
 
         - Extracts function and content words from a message
         - Identifies mimicry of function and content words from the immediate previous turn
         - Computes function word accommodation (number of mimicked function words)
         - Computes content word accommodation (sum of inverse frequency of mimicked content words)
-        - Computes mimicry relative to the previous chat or messages using SBERT vectors
-
+        
         Drops the intermediate columns related to function and content words after calculation.
 
         :return: None
@@ -328,7 +277,14 @@ class ChatLevelFeaturesCalculator:
         # Drop the function / content word columns -- we don't need them in the output
         self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
 
-        # Compute the mimicry relative to the previous chat(s) using SBERT vectors
+    def calculate_vector_word_mimicry(self) -> None:
+        """
+        Compute the mimicry relative to the previous chat(s) using SBERT vectors.
+
+        :return: None
+        :rtype: None
+        """
+
         self.chat_data["mimicry_bert"] = get_mimicry_bert(self.chat_data, self.vect_data, self.conversation_id_col)
         self.chat_data["moving_mimicry"] = get_moving_mimicry(self.chat_data, self.vect_data, self.conversation_id_col)
         

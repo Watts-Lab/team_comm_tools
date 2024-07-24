@@ -5,7 +5,7 @@ from utils.preprocess import *
 
 feature_dict = { # TODO: customize preprocess methods
     # Chat Level
-    "Named Entity Recognition": { # TODO: fill NER information
+    "Named Entity Recognition": {
     "columns": ["num_named_entity", "named_entities"],
     "file": "named_entity_recognition_features.py",
     "level": "Chat",
@@ -21,7 +21,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Positivity (BERT)": {
     "columns": ["positive_bert", "negative_bert", "neutral_bert"],
-    "file": "bert_features.py", # TODO: this file doesn't exist
+    "file": "./utils/check_embeddings.py",
     "level": "Chat",
     "semantic_grouping": "Emotion",
     "description": "The extent to which a statement is positive, negative, or neutral, as assigned by Cardiffnlp/twitter-roberta-base-sentiment-latest. The total scores (Positive, Negative, Neutral) sum to 1.",
@@ -240,7 +240,7 @@ feature_dict = { # TODO: customize preprocess methods
     "description": "The cosine similarity of the SBERT vectors between the current utterance and the utterance in the previous turn.",
     "references": "Inspired by accommodation (Matarazzo & Wiens, 1977), language style matching (Tausczik & Pennebaker, 2013) and synchrony (Niederhoffer & Pennebaker, 2002), and implemented in a manner similar to forward flow (Gray et al., 2019)",
     "wiki_link": "https://github.com/Watts-Lab/team-process-map/wiki/C.9-Mimicry:-Function-word,-Content-word,-BERT,-Moving",
-    "function": ChatLevelFeaturesCalculator.calculate_word_mimicry,
+    "function": ChatLevelFeaturesCalculator.calculate_vector_word_mimicry,
     "dependencies": [],
     "preprocess": [],
     "vect_data": True,
@@ -254,7 +254,7 @@ feature_dict = { # TODO: customize preprocess methods
     "description": "The running average of all BERT Mimicry scores computed so far in a conversation. Captures the extent to which all participants in a conversation mimic each other up until a given point.",
     "references": "Inspired by accommodation (Matarazzo & Wiens, 1977), language style matching (Tausczik & Pennebaker, 2013) and synchrony (Niederhoffer & Pennebaker, 2002), and implemented in a manner similar to forward flow (Gray et al., 2019)",
     "wiki_link": "https://github.com/Watts-Lab/team-process-map/wiki/C.9-Mimicry:-Function-word,-Content-word,-BERT,-Moving",
-    "function": ChatLevelFeaturesCalculator.calculate_word_mimicry,
+    "function": ChatLevelFeaturesCalculator.calculate_vector_word_mimicry,
     "dependencies": [],
     "preprocess": [],
     "vect_data": True,
@@ -535,7 +535,7 @@ feature_dict = { # TODO: customize preprocess methods
     "vect_data": False,
     "bert_sentiment_data": False
   },
-  "User Level Aggregates": { #TODO: fill information
+  "User Level Aggregates": {
     "columns": [], 
     "file": "summarize_features.py",
     "level": "Conversation",
@@ -597,51 +597,3 @@ feature_dict = { # TODO: customize preprocess methods
     "bert_sentiment_data": False
   }
 }
-
-  # feature_methods_chat = {
-  #     "Positivity (BERT)": ChatLevelFeaturesCalculator.concat_bert_features, #
-  #     "Message Length": ChatLevelFeaturesCalculator.text_based_features, #
-  #     "Message Quantity": ChatLevelFeaturesCalculator.text_based_features, #
-  #     "Information Exchange": ChatLevelFeaturesCalculator.info_exchange, #
-  #     "LIWC and Other Lexicons": ChatLevelFeaturesCalculator.lexical_features, #
-  #     "Questions": ChatLevelFeaturesCalculator.other_lexical_features, #
-  #     "Conversational Repair": ChatLevelFeaturesCalculator.other_lexical_features,
-  #     "Word Type-Token Ratio": ChatLevelFeaturesCalculator.other_lexical_features,
-  #     "Proportion of First-Person Pronouns": ChatLevelFeaturesCalculator.other_lexical_features,
-  #     "Function Word Accommodation": ChatLevelFeaturesCalculator.calculate_word_mimicry,
-  #     "Content Word Accommodation": ChatLevelFeaturesCalculator.calculate_word_mimicry,
-  #     "(BERT) Mimicry": ChatLevelFeaturesCalculator.calculate_word_mimicry,
-  #     "Moving Mimicry": ChatLevelFeaturesCalculator.calculate_word_mimicry,
-  #     "Hedge": ChatLevelFeaturesCalculator.calculate_hedge_features,
-  #     "TextBlob Subjectivity": ChatLevelFeaturesCalculator.calculate_textblob_sentiment,
-  #     "TextBlob Polarity": ChatLevelFeaturesCalculator.calculate_textblob_sentiment,
-  #     "Positivity Z-Score": ChatLevelFeaturesCalculator.positivity_zscore,
-  #     "Dale-Chall Score": ChatLevelFeaturesCalculator.get_dale_chall_score_and_classfication,
-  #     "Time Difference": ChatLevelFeaturesCalculator.get_temporal_features,
-  #     "Politeness Strategies": ChatLevelFeaturesCalculator.calculate_politeness_sentiment,
-  #     "Politeness / Receptiveness Markers": ChatLevelFeaturesCalculator.calculate_politeness_v2,
-  #     "Forward Flow": ChatLevelFeaturesCalculator.get_forward_flow,
-  #     "Certainty": ChatLevelFeaturesCalculator.get_certainty_score,
-  #     "Online Discussion Tags": ChatLevelFeaturesCalculator.get_reddit_features
-  # }
-
-  # feature_methods_conv = {
-  #     "Turn-Taking Index": ConversationLevelFeaturesCalculator.get_turn_taking_features,
-  #     "Equal Participation": ConversationLevelFeaturesCalculator.get_gini_features,
-  #     "Conversation Level Aggregates": ConversationLevelFeaturesCalculator.get_conversation_level_aggregates,
-  #     "User Level Aggregates": ConversationLevelFeaturesCalculator.get_user_level_aggregates,
-  #     "Discursive Diversity": ConversationLevelFeaturesCalculator.get_discursive_diversity_features,
-  #     "Team Burstiness": ConversationLevelFeaturesCalculator.calculate_team_burstiness,
-  #     "Information Diversity": ConversationLevelFeaturesCalculator.calculate_info_diversity
-  # }
-
-  # # combine feature_methods_chat and feature_methods_conv
-  # feature_methods_dicts = {**feature_methods_chat, **feature_methods_conv}
-
-  # # add them to a combined dictionary
-  # for feat in features.keys():
-  #   features[feat]["function"] = feature_methods_dicts[feat]
-
-  # # save the features 
-  # with open('features.pkl', 'wb') as file:
-  #     pickle.dump(features, file)
