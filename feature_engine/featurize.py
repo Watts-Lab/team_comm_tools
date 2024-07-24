@@ -28,29 +28,29 @@ if __name__ == "__main__":
 	
 	# TINY / TEST DATASETS -------------------------------#
 
-	# # Tiny Juries
-	# tiny_juries_feature_builder = FeatureBuilder(
-	# 	input_df = tiny_juries_df,
-	# 	grouping_keys = ["batch_num", "round_num"],
-	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/jury_TINY_output_chat_level.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/jury_TINY_output_user_level.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/jury_TINY_output_conversation_level.csv",
-	# 	turns = False,
-	# )
-	# tiny_juries_feature_builder.featurize(col="message")
+	# Tiny Juries
+	tiny_juries_feature_builder = FeatureBuilder(
+		input_df = tiny_juries_df,
+		grouping_keys = ["batch_num", "round_num"],
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/jury_TINY_output_chat_level.csv",
+		output_file_path_user_level = "../feature_engine/output/user/jury_TINY_output_user_level.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/jury_TINY_output_conversation_level.csv",
+		turns = False,
+	)
+	tiny_juries_feature_builder.featurize(col="message")
 
-	# # Tiny multi-task
-	# tiny_multi_task_feature_builder = FeatureBuilder(
-	# 	input_df = tiny_multi_task_df,
-	# 	conversation_id_col = "stageId",
-	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
-	# 	output_file_path_chat_level = "../feature_engine/output/chat/multi_task_TINY_output_chat_level_stageId_cumulative.csv",
-	# 	output_file_path_user_level = "../feature_engine/output/user/multi_task_TINY_output_user_level_stageId_cumulative.csv",
-	# 	output_file_path_conv_level = "../feature_engine/output/conv/multi_task_TINY_output_conversation_level_stageId_cumulative.csv",
-	# 	turns = False
-	# )
-	# tiny_multi_task_feature_builder.featurize(col="message")
+	# Tiny multi-task
+	tiny_multi_task_feature_builder = FeatureBuilder(
+		input_df = tiny_multi_task_df,
+		conversation_id_col = "stageId",
+		vector_directory = "../feature_engine/tpm-data/vector_data/",
+		output_file_path_chat_level = "../feature_engine/output/chat/multi_task_TINY_output_chat_level_stageId_cumulative.csv",
+		output_file_path_user_level = "../feature_engine/output/user/multi_task_TINY_output_user_level_stageId_cumulative.csv",
+		output_file_path_conv_level = "../feature_engine/output/conv/multi_task_TINY_output_conversation_level_stageId_cumulative.csv",
+		turns = False
+	)
+	tiny_multi_task_feature_builder.featurize(col="message")
 
 	# FULL DATASETS BELOW ------------------------------------- #
 	
@@ -79,13 +79,13 @@ if __name__ == "__main__":
 	# csop_feature_builder.featurize(col="message")
 
 
-	# CSOP II (Nak Won Rim)
-	csopII_feature_builder = FeatureBuilder(
-		input_df = csopII_df,
-		vector_directory = "../feature_engine/tpm-data/vector_data/",
-		output_file_path_chat_level = "../feature_engine/output/chat/csopII_output_chat_level.csv",
-		output_file_path_user_level = "../feature_engine/output/user/csopII_output_user_level.csv",
-		output_file_path_conv_level = "../feature_engine/output/conv/csopII_output_conversation_level.csv",
-		turns = True
-	)
-	csopII_feature_builder.featurize(col="message")
+	# # CSOP II (Nak Won Rim)
+	# csopII_feature_builder = FeatureBuilder(
+	# 	input_df = csopII_df,
+	# 	vector_directory = "../feature_engine/tpm-data/vector_data/",
+	# 	output_file_path_chat_level = "../feature_engine/output/chat/csopII_output_chat_level.csv",
+	# 	output_file_path_user_level = "../feature_engine/output/user/csopII_output_user_level.csv",
+	# 	output_file_path_conv_level = "../feature_engine/output/conv/csopII_output_conversation_level.csv",
+	# 	turns = True
+	# )
+	# csopII_feature_builder.featurize(col="message")
