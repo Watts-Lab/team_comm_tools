@@ -7,7 +7,7 @@ feature_dict = { # TODO: customize preprocess methods
     # Chat Level
     "Named Entity Recognition": {
     "columns": ["num_named_entity", "named_entities"],
-    "file": "named_entity_recognition_features.py",
+    "file": "./features/named_entity_recognition_features.py",
     "level": "Chat",
     "semantic_grouping": "Content",
     "description": "This feature detects whether a user is talking about (or to) someone else in a conversation.",
@@ -35,7 +35,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Message Length": {
     "columns": ["num_words", "num_chars"],
-    "file": "basic_features.py",
+    "file": "./features/basic_features.py",
     "level": "Chat",
     "semantic_grouping": "Quantity",
     "description": "The length of a message in words and characters.",
@@ -49,7 +49,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Message Quantity": {
     "columns": ["num_messages"],
-    "file": "basic_features.py",
+    "file": "./features/basic_features.py",
     "level": "Chat", # This was "Conversation, Speaker" in the database
     "semantic_grouping": "Quantity",
     "description": "The total number of messages sent.",
@@ -66,7 +66,7 @@ feature_dict = { # TODO: customize preprocess methods
       "info_exchange_zscore_chats",
       "info_exchange_zscore_conversation"
     ],
-    "file": "info_exchange_zscore.py, zscore_chats_and_conversation.py",
+    "file": "./features/info_exchange_zscore.py, ./utils/zscore_chats_and_conversation.py",
     "level": "Chat",
     "semantic_grouping": "Content",
     "description": "A crude measure of task-focused communication: the total number of words spoken, with the number of first-person pronouns (which suggest self-focus) removed. This value is then z-scored to describe the extent to which a message had more/less task-focused communication relative to other messages. We implement two flavors of the z-score: the first scores the messages with respect to other messages in the same conversation; the second scores the messages with respect to all messages in the data.",
@@ -136,7 +136,7 @@ feature_dict = { # TODO: customize preprocess methods
       "nltk_english_stopwords_lexical_per_100",
       "hedge_words_lexical_per_100"
     ],
-    "file": "lexical_features_v2.py",
+    "file": "./features/lexical_features_v2.py",
     "level": "Chat",
     "semantic_grouping": ["Content", "Emotion", "Engagement"],
     "description": "The extent to which messages reflect words from a variety of lexicons (predominantly LIWC). Each measure is expressed as a rate of word use per 100 words.",
@@ -150,7 +150,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Questions": {
     "columns": ["num_question_naive"],
-    "file": "questions_num.py, other_lexical_features.py",
+    "file": "./features/question_num.py",
     "level": "Chat",
     "semantic_grouping": "Engagement",
     "description": "Number of questions asked in an utterance. In the naive version, it counts the number of question marks (’?’).",
@@ -164,7 +164,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Conversational Repair": {
     "columns": ["NTRI"],
-    "file": "questions_num.py, other_lexical_features.py",
+    "file": "./features/other_lexical_features.py",
     "level": "Chat",
     "semantic_grouping": "Engagement",
     "description": "A binary indicator of whether an utterance contains a repair indicator, defined as the following: - “what?” - “sorry” - “excuse me” - “huh?” - “who?” - “pardon?” - “say … again?” - “what’s that?” - “what is that”",
@@ -178,7 +178,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Word Type-Token Ratio": {
     "columns": ["word_TTR"],
-    "file": "questions_num.py, other_lexical_features.py",
+    "file": "./features/other_lexical_features.py",
     "level": "Chat",
     "semantic_grouping": "Content",
     "description": "The ratio of word types (the total number of unique words in an utterance) to tokens (the total number of words in an utterance).",
@@ -192,7 +192,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Proportion of First-Person Pronouns": {
     "columns": ["first_pronouns_proportion"],
-    "file": "questions_num.py, other_lexical_features.py",
+    "file": "./features/other_lexical_features.py",
     "level": "Chat",
     "semantic_grouping": "Content",
     "description": "The proportion of words in an utterance that are first-person pronouns (e.g., “I,” “me,” “we,” “us”).",
@@ -206,7 +206,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Function Word Accommodation": {
     "columns": ["function_word_accommodation"],
-    "file": "word_mimicry.py",
+    "file": "./features/word_mimicry.py",
     "level": "Chat",
     "semantic_grouping": "Variance",
     "description": "The total number of function words used in a given turn that were also used in the previous turn. Function words are defined as a list of 190 words from the source paper.",
@@ -215,12 +215,12 @@ feature_dict = { # TODO: customize preprocess methods
     "function": ChatLevelFeaturesCalculator.calculate_word_mimicry,
     "dependencies": [],
     "preprocess": [],
-    "vect_data": True,
+    "vect_data": False,
     "bert_sentiment_data": False
   },
   "Content Word Accommodation": {
     "columns": ["content_word_accommodation"],
-    "file": "word_mimicry.py",
+    "file": "./features/word_mimicry.py",
     "level": "Chat",
     "semantic_grouping": "Variance",
     "description": "The total number of non-function words used in a given turn that were also used in the previous turn, normalized by the inverse document frequency of each content word.",
@@ -229,12 +229,12 @@ feature_dict = { # TODO: customize preprocess methods
     "function": ChatLevelFeaturesCalculator.calculate_word_mimicry,
     "dependencies": [],
     "preprocess": [],
-    "vect_data": True,
+    "vect_data": False,
     "bert_sentiment_data": False
   },
   "(BERT) Mimicry": {
     "columns": ["mimicry_bert"],
-    "file": "word_mimicry.py",
+    "file": "./features/word_mimicry.py",
     "level": "Chat",
     "semantic_grouping": "Variance",
     "description": "The cosine similarity of the SBERT vectors between the current utterance and the utterance in the previous turn.",
@@ -248,7 +248,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Moving Mimicry": {
     "columns": ["moving_mimicry"],
-    "file": "word_mimicry.py",
+    "file": "./features/word_mimicry.py",
     "level": "Chat",
     "semantic_grouping": "Variance",
     "description": "The running average of all BERT Mimicry scores computed so far in a conversation. Captures the extent to which all participants in a conversation mimic each other up until a given point.",
@@ -262,7 +262,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Hedge": {
     "columns": ["hedge_naive"],
-    "file": "hedge_features.py",
+    "file": "./features/hedge.py",
     "level": "Chat",
     "semantic_grouping": "Engagement",
     "description": "Captures whether a speaker appears to “hedge” their statement and express lack of certainty; e.g., a score of 1 is assigned if hedge phrases (”I think,” “a little,” “maybe,” “possibly”) are present, and a score of 0 is assigned otherwise.",
@@ -276,7 +276,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "TextBlob Subjectivity": {
     "columns": ["textblob_subjectivity"],
-    "file": "textblob_sentiment_analysis.py",
+    "file": "./features/textblob_sentiment_analysis.py",
     "level": "Chat",
     "semantic_grouping": "Content",
     "description": "The extent to which a statement is “subjective” (containing personal information) or “objective” (containing factual information), as measured by TextBlob. Ranges from 0 (objective) to 1 (subjective).",
@@ -290,7 +290,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "TextBlob Polarity": {
     "columns": ["textblob_polarity"],
-    "file": "textblob_sentiment_analysis.py",
+    "file": "./features/textblob_sentiment_analysis.py",
     "level": "Chat",
     "semantic_grouping": "Emotion",
     "description": "The extent to which a statement is positive or negative; ranges from -1 (negative) to 1 (positive); neutrality is assigned a score of 0.",
@@ -304,7 +304,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Positivity Z-Score": {
     "columns": ["positivity_zscore_chats", "positivity_zscore_conversation"],
-    "file": "zscore_chats_and_conversation.py",
+    "file": "./utils/zscore_chats_and_conversation.py",
     "level": "Chat",
     "semantic_grouping": "Emotion",
     "description": "The relative extent to which an utterance is more (or less) positive, compared to other messages. Here, we use the BERT-assigned positivity score, and calculate two flavors of the z-score: the first scores the messages with respect to other messages in the same conversation; the second scores the messages with respect to all messages in the data.",
@@ -318,7 +318,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Dale-Chall Score": {
     "columns": ["dale_chall_score", "dale_chall_classification"],
-    "file": "readability.py",
+    "file": "./features/readability.py",
     "level": "Chat",
     "semantic_grouping": "Content",
     "description": "The reading level of the utterance, as calculated by the Dale-Chall Score.",
@@ -332,7 +332,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Time Difference": {
     "columns": ["time_diff"],
-    "file": "temporal_features.py",
+    "file": "./features/temporal_features.py",
     "level": "Chat",
     "semantic_grouping": "Pace",
     "description": "The response time between successive utterances.",
@@ -368,7 +368,7 @@ feature_dict = { # TODO: customize preprocess methods
       "subjunctive",
       "indicative"
     ],
-    "file": "politeness_features.py",
+    "file": "./features/politeness_features.py",
     "level": "Chat",
     "semantic_grouping": "Engagement",
     "description": "A collection of conversational markers that indicates the use of politeness.",
@@ -422,7 +422,7 @@ feature_dict = { # TODO: customize preprocess methods
       "Goodbye",
       "Token_count"
     ],
-    "file": "politeness_v2.py, politeness_v2_helper.py",
+    "file": "./features/politeness_v2.py, ./features/politeness_v2_helper.py, ./features/keywords.py",
     "level": "Chat",
     "semantic_grouping": "Engagement",
     "description": "A collection of conversational markers that indicates the use of politeness / receptiveness.",
@@ -436,7 +436,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Forward Flow": {
     "columns": ["forward_flow"],
-    "file": "fflow.py",
+    "file": "./features/fflow.py",
     "level": "Chat",
     "semantic_grouping": "Variance",
     "description": "The extent to which a conversation “flows forward” — that is, evolves to new topics over time. The forward flow of a given message is the cosine similarity between the SBERT vector of the current message and the average SBERT vector of all previous messages. In other words, it captures how similar a message is to everything that has come before (so far).",
@@ -450,7 +450,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Certainty": {
     "columns": ["certainty_rocklage"],
-    "file": "certainty.py",
+    "file": "./features/certainty.py",
     "level": "Chat",
     "semantic_grouping": "Content",
     "description": "The extent to which a message expresses (un)certainty, as evaluated on a 1-9 scale. Very certain messages (e.g., “I am absolutely sure”) are higher on the scale; very uncertain messages (”I do not know for certain…”) are lower on the scale.",
@@ -476,7 +476,7 @@ feature_dict = { # TODO: customize preprocess methods
       "num_parentheses",
       "num_emoji"
     ],
-    "file": "reddit_tags.py",
+    "file": "./features/reddit_tags.py",
     "level": "Chat",
     "semantic_grouping": "Content",
     "description": "Calculates a number of metrics specific to communications in an online setting: 1. Num all caps: Number of words that are in all caps 2. Num links: Number of links to external resources 3. Num Reddit Users: Number of usernames referred to, in u/RedditUser format. 4. Num Emphasis: The number of times someone used **emphasis** in their message 5. Num Bullet Points: The number of bullet points used in a message. 6. Num Line Breaks: The number of line breaks in a message. 7. Num Quotes: The number of “quotes” in a message. 8. Num Block Quotes Responses: The number of times someone uses a block quote (”>”), indicating a longer quotation 9. Num Ellipses: The number of times someone uses ellipses (…) in their message 10. Num Parentheses: The number of sets of fully closed parenthetical statements in a message 11. Num Emoji: The number of emoticons in a message, e.g., “:)”",
@@ -491,7 +491,7 @@ feature_dict = { # TODO: customize preprocess methods
   ### Conversation Level
   "Turn-Taking Index": {
     "columns": ["turn_taking_index"],
-    "file": "turn_taking_features.py",
+    "file": "./features/turn_taking_features.py",
     "level": "Conversation",
     "semantic_grouping": "Equality",
     "description": "Calculates a metric describing the extent to which individuals take turns speaking in a conversation. Adapted from Almaatouq et al. (2023), in which we treat each separate chat as equivalent to an in-game “solution”: ”A group’s turn-taking index for a given round is measured by dividing the number of turns taken … by the total number of [chats] on a particular task instance.”",
@@ -509,7 +509,7 @@ feature_dict = { # TODO: customize preprocess methods
       "gini_coefficient_sum_num_chars",
       "gini_coefficient_sum_num_messages"
     ],
-    "file": "gini_coefficient.py",
+    "file": "./utils/gini_coefficient.py",
     "level": "Conversation",
     "semantic_grouping": "Equality",
     "description": "The extent to which each participant in a conversation engages equally, as measured by a Gini coefficient. We calculate three flavors of Gini coefficient, using the number of words, number of characters, and the number of messages, respectively.",
@@ -523,7 +523,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Conversation Level Aggregates": {
     "columns": [], 
-    "file": "summarize_features.py",
+    "file": "./utils/summarize_features.py",
     "level": "Conversation",
     "semantic_grouping": "N/A",
     "description": "Aggregation of utterance (chat)-level features at the conversation level",
@@ -537,7 +537,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "User Level Aggregates": {
     "columns": [], 
-    "file": "summarize_features.py",
+    "file": "./utils/summarize_features.py, ./features/get_user_network.py, ./features/user_centroids.py",
     "level": "Conversation",
     "semantic_grouping": "N/A",
     "description": "Aggregation of utterance (chat)-level features at the speaker (user) level",
@@ -556,7 +556,7 @@ feature_dict = { # TODO: customize preprocess methods
       "incongruent_modulation",
       "within_person_disc_range"
     ],
-    "file": "get_all_DD_features.py",
+    "file": "./features/get_all_DD_features.py, ./features/discursive_diversity.py, ./features/variance_in_DD.py, ./features/within_person_discursive_range.py",
     "level": "Conversation",
     "semantic_grouping": "Variance",
     "description": "Calculates metrics related to the extent to which members in a conversation speak similarly. 1. Discursive diversity: 1 - the average pairwise cosine distances between the centroids associated with each speaker in a conversation. 2. Variance in discursive diversity: the extent to which discursive diversity varies across the beginning, middle, and end of a conversation. 3. Incongruent modulation: the total variance, per speaker, between the (beginning, middle) and (middle, end) of a conversation. As described by the pape, this is the “team-level variance in members’ within-person discursive range” from stage 1 to stage 2, and from stage 2 to stage 3. 4. Within-person discursive range: The sum, across all speakers in the conversation, of each speaker’s average distance between their centroids for the (beginning, middle) and (middle, end) of a conversation.",
@@ -570,7 +570,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Team Burstiness": {
     "columns": ["team_burstiness"],
-    "file": "burstiness.py",
+    "file": "./features/burstiness.py",
     "level": "Conversation",
     "semantic_grouping": "Pace",
     "description": "This conversation-level feature measures the level of burstiness of chats in a conversation. The metric takes a value between -1 and 1, with a higher value indicating higher levels of team burstiness. Teams with higher burstiness would have more spiked patterns in team activity, which tends to indicate a higher sense of responsiveness and connectedness within the team members.",
@@ -584,7 +584,7 @@ feature_dict = { # TODO: customize preprocess methods
   },
   "Information Diversity": {
     "columns": ["info_diversity"],
-    "file": "information_diversity.py",
+    "file": "./features/information_diversity.py",
     "level": "Conversation",
     "semantic_grouping": "Variance",
     "description": "This conversation-level feature uses topic modeling to measure the level of information diversity across a conversation. We first preprocess the data with lowercasing, lemmatization, removing stop words, and removing short words (less than length 3). We then use the gensim package to create an LDA Model for each conversation, generating a corresponding topic space with its number of dimensions = num_topics. To determine the number of topics used, we use a logarithmic scale relative to the number of chats in the conversation. A team's info diversity is then computed by looking at the average cosine dissimilarity between each chat's topic vector and the mean topic vector across the entire conversation. The value ranges between 0 and 1, with higher values indicating a higher level of information diversity/diversity in topics discussed throughout the conversation. As discussed in the paper above, typical info diversity values are quite small, with the paper having a mean score of 0.04 and standard deviation of 0.05.",
