@@ -297,11 +297,30 @@ class FeatureBuilder:
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path, self.message_col)
+        need_sentence = False
+        need_sentiment = False
+        
+        for feature in self.default_features + self.custom_features:
+            if(need_sentiment and need_sentence):
+                break # if we confirm that both are needed, break (we're done!)
 
-        self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
+            # else, keep checking the requirements of each feature to confirm embeddings are needed
+            if(not need_sentence and feature_dict[feature]["vect_data"]):
+                need_sentence = True
+            if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
+                need_sentiment = True
 
-        self.bert_sentiment_data = pd.read_csv(self.bert_path, encoding='mac_roman')
+        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.message_col)
+
+        if(need_sentence):
+            self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
+        else:
+            self.vect_data = None
+
+        if(need_sentiment):
+            self.bert_sentiment_data = pd.read_csv(self.bert_path, encoding='mac_roman')
+        else:
+            self.bert_sentiment_data = None
 
         # Deriving the base conversation level dataframe.
         self.conv_data = self.chat_data[[self.conversation_id_col]].drop_duplicates()
