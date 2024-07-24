@@ -63,7 +63,7 @@ class ChatLevelFeaturesCalculator:
         self.question_words = get_question_words() # load question words exactly once
         self.first_person = get_first_person_words() # load first person words exactly once
         
-    def calculate_chat_level_features(self, features_to_calculate: list, feature_methods: dict) -> pd.DataFrame:
+    def calculate_chat_level_features(self, feature_methods: list) -> pd.DataFrame:
         """
         Main driver function for creating chat-level features.
 
@@ -74,11 +74,10 @@ class ChatLevelFeaturesCalculator:
         :rtype: pd.DataFrame
         """
 
-        for feature in features_to_calculate:
-            if feature in feature_methods:
-                feature_methods[feature](self)
+        for method in feature_methods:
+            method(self)
 
-        # NER
+        # # NER
         # self.get_named_entity()
 
         # # Concat sentiment BERT markers (done through preprocessing)

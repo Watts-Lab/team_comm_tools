@@ -14,6 +14,7 @@ from utils.calculate_user_level_features import UserLevelFeaturesCalculator
 from utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
 from utils.preprocess import *
 from utils.check_embeddings import *
+from generate_feature_dict import feature_dict
 
 class FeatureBuilder:
     """The FeatureBuilder is the main engine that reads in the user's inputs and specifications and generates 
@@ -69,8 +70,8 @@ class FeatureBuilder:
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
             output_file_path_conv_level: str,
-            custom_features: list = None,
-            excluded_features: list = None,
+            custom_features: list = [],
+            # excluded_features: list = [],
             analyze_first_pct: list = [1.0], 
             turns: bool=True,
             conversation_id_col: str = "conversation_num",
@@ -95,7 +96,10 @@ class FeatureBuilder:
 
         # Set features to generate
         # TODO --- think through more carefully which ones we want to exclude and why
+        self.feature_dict = feature_dict
         self.default_features = [
+            ### Chat Level
+            "Named Entity Recognition",
             "Positivity (BERT)",
             "Message Length",
             "Message Quantity",
@@ -105,14 +109,13 @@ class FeatureBuilder:
             # TODO -- the below 3 functions are redundant because they share a function
             # in calculate_chat_level_features. We need to split them up and have fewer
             # such "double-whammy's."
-
-            # "Conversational Repair",
-            # "Word Type-Token Ratio",
-            # "Proportion of First-Person Pronouns",
-            "Function Word Accommodation",
-            "Content Word Accommodation",
-            "(BERT) Mimicry",
-            "Moving Mimicry",
+            "Conversational Repair",
+            "Word Type-Token Ratio",
+            "Proportion of First-Person Pronouns",
+            # "Function Word Accommodation",
+            # "Content Word Accommodation",
+            # "(BERT) Mimicry",
+            # "Moving Mimicry",
             "Hedge",
             "TextBlob Subjectivity",
             "TextBlob Polarity",
@@ -121,40 +124,48 @@ class FeatureBuilder:
             "Time Difference",
             "Politeness Strategies",
             "Politeness / Receptiveness Markers",
-            "Forward Flow",
+            # "Forward Flow",
             "Certainty",
+            "Online Discussion Tags",
+            ### Conversation Level
             "Turn-Taking Index",
+            "Equal Participation",
             "Team Burstiness",
-            # "Conversation Level Aggregates",
-            # "User Level Aggregates"
+            "Conversation Level Aggregates",
+            "User Level Aggregates",
+            # "Discursive Diversity",
+            "Team Burstiness",
+            "Information Diversity"
+            "Conversation Level Aggregates",
+            "User Level Aggregates"
         ]
 
-        self.custom_features = custom_features or []
-        self.excluded_features = excluded_features or []
+        self.custom_features = [ # fill for testing purpose, all requires vect_data
+            "Function Word Accommodation",
+            "Content Word Accommodation",
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Forward Flow",
+            "Discursive Diversity"
+        ] # = [feat for feat in custom_features if feat in self.feature_dict]
+        # TODO: warning if user added invalid custom/exclude features
+        # self.excluded_features = [feat for feat in excluded_features if feat in self.feature_dict]
 
-        # TODO -- the featurizer breaks after we convert the list into a set because
-        # some of the features need to be calcualted first; for example, the "Information Exchange"
-        # feature depends on the "Message Length" feature, because information excahnge divides
-        # the number of non-first-person-pronoun words by the total number of words. If the total
-        # number of words doesn't exist, it will break.  
-
-        # temp fix: remove redundancies FIRST, rather than using the set
-        self.custom_features = [feature for feature in self.custom_features if feature not in self.default_features]
-
-        self.features_to_calculate = [
-            feature for feature in self.default_features + self.custom_features 
-            if feature not in self.excluded_features
-        ]
-
-        # Read in the feature dictionary
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        features_path = os.path.join(script_dir, 'features.pkl')
-        with open(features_path, 'rb') as file:
-            feature_dictionary = pickle.load(file)
+        # deduplicate functions
+        self.feature_methods_chat = []
+        self.feature_methods_conv = []
+        for feature in self.default_features + self.custom_features:
+            level, func = self.feature_dict[feature]["level"], self.feature_dict[feature]['function']
+            if level == 'Chat':
+                if func not in self.feature_methods_chat:
+                    self.feature_methods_chat.append(feature)
+            elif level == 'Conversation':
+                if func not in self.feature_methods_conv:
+                    self.feature_methods_conv.append(feature)
 
         # set which chat / conversation feature methods we want to calculate
-        self.feature_methods_chat = {key: feature_dictionary[key]["function"] for key in self.features_to_calculate if  feature_dictionary[key]["level"] == "Chat"}
-        self.feature_methods_conv = {key: feature_dictionary[key]["function"] for key in self.features_to_calculate if  feature_dictionary[key]["level"] == "Conversation"}
+        # self.feature_methods_chat = {key: self.feature_dict[key]["function"] for key in self.features_to_calculate if self.feature_dict[key]["level"] == "Chat"}
+        # self.feature_methods_conv = {key: self.feature_dict[key]["function"] for key in self.features_to_calculate if self.feature_dict[key]["level"] == "Conversation"}
 
         # Basic error detetection
         # user didn't specify a file name, or specified one with only nonalphanumeric chars
@@ -459,7 +470,7 @@ class FeatureBuilder:
             timestamp_col = self.timestamp_col
         )
         # Calling the driver inside this class to create the features.
-        self.chat_data = chat_feature_builder.calculate_chat_level_features(self.features_to_calculate, self.feature_methods_chat)
+        self.chat_data = chat_feature_builder.calculate_chat_level_features(self.feature_methods_chat)
         # Remove special characters in column names
         self.chat_data.columns = ["".join(c for c in col if c.isalnum() or c == '_') for col in self.chat_data.columns]
 
@@ -528,7 +539,7 @@ class FeatureBuilder:
             input_columns = self.input_columns
         )
         # Calling the driver inside this class to create the features.
-        self.conv_data = conv_feature_builder.calculate_conversation_level_features(self.features_to_calculate, self.feature_methods_conv)
+        self.conv_data = conv_feature_builder.calculate_conversation_level_features(self.feature_methods_conv)
 
     def save_features(self) -> None:
         """

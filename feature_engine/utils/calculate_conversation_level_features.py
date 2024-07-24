@@ -58,7 +58,7 @@ class ConversationLevelFeaturesCalculator:
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
         
-    def calculate_conversation_level_features(self, features_to_calculate: list, feature_methods: dict) -> pd.DataFrame:
+    def calculate_conversation_level_features(self, feature_methods: list) -> pd.DataFrame:
         """
         Main driver function for creating conversation-level features.
 
@@ -69,9 +69,8 @@ class ConversationLevelFeaturesCalculator:
         :rtype: pd.DataFrame
         """
 
-        for feature in features_to_calculate:
-            if feature in feature_methods:
-                feature_methods[feature](self)
+        for method in feature_methods:
+            method(self)
 
         # # Get turn taking index by aggregating chat level totals, pass in CHAT LEVEL FEATURES
         # self.get_turn_taking_features()
