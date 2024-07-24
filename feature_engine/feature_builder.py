@@ -158,10 +158,10 @@ class FeatureBuilder:
             level, func = self.feature_dict[feature]["level"], self.feature_dict[feature]['function']
             if level == 'Chat':
                 if func not in self.feature_methods_chat:
-                    self.feature_methods_chat.append(feature)
+                    self.feature_methods_chat.append(func)
             elif level == 'Conversation':
                 if func not in self.feature_methods_conv:
-                    self.feature_methods_conv.append(feature)
+                    self.feature_methods_conv.append(func)
 
         # set which chat / conversation feature methods we want to calculate
         # self.feature_methods_chat = {key: self.feature_dict[key]["function"] for key in self.features_to_calculate if self.feature_dict[key]["level"] == "Chat"}
