@@ -46,6 +46,7 @@ If your feature is about documentation, ensure that you check the boxes relevant
     "bert_sentiment_data": False
   }
 ```
+- [ ] If my feature is at the chat level, my dictionary entry is in the top half of the file; if my feature is at the conversation level, my dictionary entry is in the bottom half of the file (below the comment that says, `### Conversation Level`).
 
 ## Documentation
 Did you document your feature? You should follow the same requirements as above:
