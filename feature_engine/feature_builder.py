@@ -28,11 +28,24 @@ class FeatureBuilder:
     :param vector_directory: Directory path where the vectors are to be cached.
     :type vector_directory: str
     
-    :param output_file_path_chat_level: Path where the output csv file is to be generated (assumes that the '.csv' suffix is added).
+    :param output_file_path_chat_level: Path where the chat (utterance)-level output csv file is to be generated.
     :type output_file_path_chat_level: str
+
+    :param output_file_path_user_level: Path where the user (speaker)-level output csv file is to be generated.
+    :type output_file_path_user_level: str
+
+    :param output_file_path_conv_level: Path where the conversation-level output csv file is to be generated.
+    :type output_file_path_conv_level: str
+
+    :param custom_features: A list of additional features outside of the default features that should be calculated.
+        Defaults to an empty list (i.e., no additional features beyond the defaults will be computed).
+    :type custom_features: list, optional
     
     :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the earlier stages of the conversation may be more predictive than the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data and compare the performance with using the full dataset. Defaults to [1.0].
     :type analyze_first_pct: list(float), optional
+
+    :param turns: If true, collapses multiple "chats"/messages by the same speaker in a row into a single "turn." Defaults to False.
+    :type turns: bool, optional
     
     :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
     :type conversation_id_col: str, optional
@@ -40,8 +53,16 @@ class FeatureBuilder:
     :param speaker_id_col: A string representing the column name that should be selected as the speaker ID. Defaults to "speaker_nickname".
     :type speaker_id_col: str, optional
 
-    :param message: A string representing the column name that should be selected as the message. Defaults to "message".
-    :type message: str, optional
+    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message_col: str, optional
+
+    :param timestamp_col: A string representing the column name that should be selected as the message. Defaults to "timestamp".
+    :type timestamp_col: str, optional
+
+    :param grouping_keys: A list of multiple identifiers that collectively identify a conversation. If non-empty, we will group by all of the keys in the list and use the
+    grouped key as the unique "conversational identifier."
+        Defaults to an empty list.
+    :type grouping_keys: list, optional
     
     :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) 
         NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). 
@@ -71,9 +92,8 @@ class FeatureBuilder:
             output_file_path_user_level: str,
             output_file_path_conv_level: str,
             custom_features: list = [],
-            # excluded_features: list = [],
             analyze_first_pct: list = [1.0], 
-            turns: bool=True,
+            turns: bool=False,
             conversation_id_col: str = "conversation_num",
             speaker_id_col: str = "speaker_nickname",
             message_col: str = "message",
@@ -81,8 +101,8 @@ class FeatureBuilder:
             grouping_keys: list = [],
             cumulative_grouping = False, 
             within_task = False,
-            ner_cutoff: int = 0.9,
-            ner_training_df: pd.DataFrame = None
+            ner_training_df: pd.DataFrame = None,
+            ner_cutoff: int = 0.9
         ) -> None:
 
         #  Defining input and output paths.
