@@ -140,15 +140,25 @@ class FeatureBuilder:
             "User Level Aggregates"
         ]
 
-        self.custom_features = [ # fill for testing purpose, all requires vect_data
-            "Function Word Accommodation",
-            "Content Word Accommodation",
-            "(BERT) Mimicry",
-            "Moving Mimicry",
-            "Forward Flow",
-            "Discursive Diversity"
-        ] # = [feat for feat in custom_features if feat in self.feature_dict]
-        # TODO: warning if user added invalid custom/exclude features
+        # self.custom_features = [ # fill for testing purpose, all requires vect_data
+        #     "Function Word Accommodation",
+        #     "Content Word Accommodation",
+        #     "(BERT) Mimicry",
+        #     "Moving Mimicry",
+        #     "Forward Flow",
+        #     "Discursive Diversity"
+        # ]
+        # warning if user added invalid custom/exclude features
+        self.custom_features = []
+        invalid_features = set()
+        for feat in custom_features:
+            if feat in self.feature_dict:
+                self.custom_features.append(feat)
+            else:
+                invalid_features.add(feat)
+        if invalid_features:
+            invalid_features_str = ', '.join(invalid_features)
+            print(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
         # self.excluded_features = [feat for feat in excluded_features if feat in self.feature_dict]
 
         # deduplicate functions

@@ -37,6 +37,14 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "../output/chat/test_chat_level_chat.csv",
 		output_file_path_user_level = "../output/user/test_chat_level_user.csv",
 		output_file_path_conv_level = "../output/conv/test_chat_level_conv.csv",
+		custom_features = [ # all requires vect_data
+            "Function Word Accommodation",
+            "Content Word Accommodation",
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Forward Flow",
+            "Discursive Diversity"
+        ],
 		turns = False,
 	)
 	testing_chat.featurize(col="message")
@@ -47,6 +55,14 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "../output/chat/test_conv_level_chat.csv",
 		output_file_path_user_level = "../output/user/test_conv_level_user.csv",
 		output_file_path_conv_level = "../output/conv/test_conv_level_conv.csv",
+		custom_features = [ # all requires vect_data
+            "Function Word Accommodation",
+            "Content Word Accommodation",
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Forward Flow",
+            "Discursive Diversity"
+        ],
 		turns = False,
 	)
 	testing_conv.featurize(col="message")
