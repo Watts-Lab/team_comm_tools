@@ -135,7 +135,7 @@ class FeatureBuilder:
             "User Level Aggregates",
             # "Discursive Diversity",
             "Team Burstiness",
-            "Information Diversity"
+            "Information Diversity",
             "Conversation Level Aggregates",
             "User Level Aggregates"
         ]
