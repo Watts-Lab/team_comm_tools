@@ -14,6 +14,7 @@ from utils.calculate_user_level_features import UserLevelFeaturesCalculator
 from utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
 from utils.preprocess import *
 from utils.check_embeddings import *
+from feature_dict import feature_dict
 
 class FeatureBuilder:
     """The FeatureBuilder is the main engine that reads in the user's inputs and specifications and generates 
@@ -27,11 +28,24 @@ class FeatureBuilder:
     :param vector_directory: Directory path where the vectors are to be cached.
     :type vector_directory: str
     
-    :param output_file_path_chat_level: Path where the output csv file is to be generated (assumes that the '.csv' suffix is added).
+    :param output_file_path_chat_level: Path where the chat (utterance)-level output csv file is to be generated.
     :type output_file_path_chat_level: str
+
+    :param output_file_path_user_level: Path where the user (speaker)-level output csv file is to be generated.
+    :type output_file_path_user_level: str
+
+    :param output_file_path_conv_level: Path where the conversation-level output csv file is to be generated.
+    :type output_file_path_conv_level: str
+
+    :param custom_features: A list of additional features outside of the default features that should be calculated.
+        Defaults to an empty list (i.e., no additional features beyond the defaults will be computed).
+    :type custom_features: list, optional
     
     :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the earlier stages of the conversation may be more predictive than the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data and compare the performance with using the full dataset. Defaults to [1.0].
     :type analyze_first_pct: list(float), optional
+
+    :param turns: If true, collapses multiple "chats"/messages by the same speaker in a row into a single "turn." Defaults to False.
+    :type turns: bool, optional
     
     :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
     :type conversation_id_col: str, optional
@@ -39,8 +53,16 @@ class FeatureBuilder:
     :param speaker_id_col: A string representing the column name that should be selected as the speaker ID. Defaults to "speaker_nickname".
     :type speaker_id_col: str, optional
 
-    :param message: A string representing the column name that should be selected as the message. Defaults to "message".
-    :type message: str, optional
+    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message_col: str, optional
+
+    :param timestamp_col: A string representing the column name that should be selected as the message. Defaults to "timestamp".
+    :type timestamp_col: str, optional
+
+    :param grouping_keys: A list of multiple identifiers that collectively identify a conversation. If non-empty, we will group by all of the keys in the list and use the
+    grouped key as the unique "conversational identifier."
+        Defaults to an empty list.
+    :type grouping_keys: list, optional
     
     :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) 
         NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). 
@@ -69,8 +91,9 @@ class FeatureBuilder:
             output_file_path_chat_level: str, 
             output_file_path_user_level: str,
             output_file_path_conv_level: str,
+            custom_features: list = [],
             analyze_first_pct: list = [1.0], 
-            turns: bool=True,
+            turns: bool=False,
             conversation_id_col: str = "conversation_num",
             speaker_id_col: str = "speaker_nickname",
             message_col: str = "message",
@@ -78,8 +101,8 @@ class FeatureBuilder:
             grouping_keys: list = [],
             cumulative_grouping = False, 
             within_task = False,
-            ner_cutoff: int = 0.9,
-            ner_training_df: pd.DataFrame = None
+            ner_training_df: pd.DataFrame = None,
+            ner_cutoff: int = 0.9
         ) -> None:
 
         #  Defining input and output paths.
@@ -90,6 +113,69 @@ class FeatureBuilder:
         print("Initializing Featurization...")
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
+
+        # Set features to generate
+        # TODO --- think through more carefully which ones we want to exclude and why
+        self.feature_dict = feature_dict
+        self.default_features = [
+            ### Chat Level
+            "Named Entity Recognition",
+            "Positivity (BERT)",
+            "Message Length",
+            "Message Quantity",
+            "Information Exchange",
+            "LIWC and Other Lexicons",
+            "Questions",
+            "Conversational Repair",
+            "Word Type-Token Ratio",
+            "Proportion of First-Person Pronouns",
+            "Function Word Accommodation",
+            "Content Word Accommodation",
+            "Hedge",
+            "TextBlob Subjectivity",
+            "TextBlob Polarity",
+            "Positivity Z-Score",
+            "Dale-Chall Score",
+            "Time Difference",
+            "Politeness Strategies",
+            "Politeness / Receptiveness Markers",
+            "Certainty",
+            "Online Discussion Tags",
+            ### Conversation Level
+            "Turn-Taking Index",
+            "Equal Participation",
+            "Team Burstiness",
+            "Conversation Level Aggregates",
+            "User Level Aggregates",
+            "Team Burstiness",
+            "Information Diversity",
+            "Conversation Level Aggregates",
+            "User Level Aggregates"
+        ]
+
+        # warning if user added invalid custom/exclude features
+        self.custom_features = []
+        invalid_features = set()
+        for feat in custom_features:
+            if feat in self.feature_dict:
+                self.custom_features.append(feat)
+            else:
+                invalid_features.add(feat)
+        if invalid_features:
+            invalid_features_str = ', '.join(invalid_features)
+            print(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
+
+        # deduplicate functions and append them into a list for calculation
+        self.feature_methods_chat = []
+        self.feature_methods_conv = []
+        for feature in self.default_features + self.custom_features:
+            level, func = self.feature_dict[feature]["level"], self.feature_dict[feature]['function']
+            if level == 'Chat':
+                if func not in self.feature_methods_chat:
+                    self.feature_methods_chat.append(func)
+            elif level == 'Conversation':
+                if func not in self.feature_methods_conv:
+                    self.feature_methods_conv.append(func)
 
         # Basic error detetection
         # user didn't specify a file name, or specified one with only nonalphanumeric chars
@@ -211,11 +297,30 @@ class FeatureBuilder:
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path, self.message_col)
+        need_sentence = False
+        need_sentiment = False
+        
+        for feature in self.default_features + self.custom_features:
+            if(need_sentiment and need_sentence):
+                break # if we confirm that both are needed, break (we're done!)
 
-        self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
+            # else, keep checking the requirements of each feature to confirm embeddings are needed
+            if(not need_sentence and feature_dict[feature]["vect_data"]):
+                need_sentence = True
+            if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
+                need_sentiment = True
 
-        self.bert_sentiment_data = pd.read_csv(self.bert_path, encoding='mac_roman')
+        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.message_col)
+
+        if(need_sentence):
+            self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
+        else:
+            self.vect_data = None
+
+        if(need_sentiment):
+            self.bert_sentiment_data = pd.read_csv(self.bert_path, encoding='mac_roman')
+        else:
+            self.bert_sentiment_data = None
 
         # Deriving the base conversation level dataframe.
         self.conv_data = self.chat_data[[self.conversation_id_col]].drop_duplicates()
@@ -394,7 +499,7 @@ class FeatureBuilder:
             timestamp_col = self.timestamp_col
         )
         # Calling the driver inside this class to create the features.
-        self.chat_data = chat_feature_builder.calculate_chat_level_features()
+        self.chat_data = chat_feature_builder.calculate_chat_level_features(self.feature_methods_chat)
         # Remove special characters in column names
         self.chat_data.columns = ["".join(c for c in col if c.isalnum() or c == '_') for col in self.chat_data.columns]
 
@@ -462,7 +567,8 @@ class FeatureBuilder:
             timestamp_col = self.timestamp_col,
             input_columns = self.input_columns
         )
-        self.conv_data = conv_feature_builder.calculate_conversation_level_features()
+        # Calling the driver inside this class to create the features.
+        self.conv_data = conv_feature_builder.calculate_conversation_level_features(self.feature_methods_conv)
 
     def save_features(self) -> None:
         """
