@@ -1,7 +1,6 @@
 .DS_Store
 src/data/.DS_Store
 src/.DS_Store
-src/data/raw_data/results_by_user_detailed.csv
 src/features/lexicons/liwc_lexicons/
 src/features/lexicons/liwc_lexicons_small_test/
 src/features/lexicons/certainty.txt
@@ -13,10 +12,13 @@ src/ipython_notebooks/.ipynb_checkpoints/
 tests/ipython_notebooks/.ipynb_checkpoints/
 tests/data/vector_data/
 tests/test.log
-team_process_map/
+tests/output/*
+tests/vector_data/*
 src/utils/__pycache__/
 .idea/
 *.py[cod]
 src/data/vectors/sentence
 src/data/vectors/sentiment
 src/features/lexicons/certainty.txt
+examples/vector_data/*
+examples/output/*

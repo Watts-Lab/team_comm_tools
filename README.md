@@ -32,16 +32,8 @@ nltk.download('nps_chat')
 nltk.download('punkt')
 ```
 
-### Step 3: Initialize the data repository
-Test data for the project currenly lives in a separate repository. To populate the data repository when running for the first time, run the following command:
-
-```
-git submodule update --init --recursive
-```
-For more information on updating submodules, refer to [this documentation](https://stackoverflow.com/questions/1030169/pull-latest-changes-for-all-git-submodules).
-
-### Step 4: Run the Featurizer
-At this point, you should be ready to run the featurizer! Navigate to the `src` folder, and use the following command:
+### Step 3: Run the Featurizer
+At this point, you should be ready to run the featurizer! Navigate to the `examples` folder, and use the following command:
 
 ```
 python3 featurize.py
@@ -63,12 +55,3 @@ We have also implemented automated unit testing of all code (which runs upon eve
 3. Push all your changes to GitHub, including feature development and test dataset additions. Go under the "Actions" tab in the toolbar. Notice there's a new job running called "Testing-Features". A green checkmark at the conclusion of this job indicates all new tests have passed. A red cross means some test has failed. Navigate to the uploaded "Artifact" (near the bottom of the status page) for list of failed tests and their associated inputs/outputs.
 
 4. Debug and iterate!
-
-## Documents and Handy Links
-- Our Team Email: csslab-team-process-map@wharton.upenn.edu (Ask Emily for the password!)
-
-- Our "master sheet," where we track progress, literature, and new features to build:
-https://docs.google.com/spreadsheets/d/1JnChOKFXkv944LvnYbzI1qrHLEPfCvEMN5XzP1AxvmA/edit?usp=sharing
-
-## Database of Current Communication Features
-For a list of our current documented communication features, please refer to [this database](https://glitter-runner-dfb.notion.site/e0fd0ceb6c6c47d9b8e3bec95d8af78f?v=3050cfbe883e4d9ea1954bc67bf12a46&pvs=4).

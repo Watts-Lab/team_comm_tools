@@ -14,7 +14,7 @@ while within person discursive range measures the average amount of shifting.
 
 def get_nan_vector():
     current_script_directory = Path(__file__).resolve().parent
-    nan_vector_file_path = current_script_directory.parent / "../src/tpm-data/vector_data/" / "nan_vector.txt"
+    nan_vector_file_path = current_script_directory.parent / "../src/features/assets" / "nan_vector.txt"
 
     f = open(nan_vector_file_path, "r")
     str_vec = f.read()

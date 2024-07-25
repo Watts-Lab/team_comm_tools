@@ -7,6 +7,7 @@ import re
 import numpy as np
 from pathlib import Path
 import time
+import itertools
 
 # Imports from feature files and classes
 from utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
@@ -256,6 +257,18 @@ class FeatureBuilder:
         - The inputted file name must not contain only special characters with no alphanumeric component
         """
         # We assume that the base file name is the last item in the output path; we will use this to name the stored vectors.
+        if ('/' not in output_file_path_chat_level or 
+            '/' not in self.output_file_path_conv_level or 
+            '/' not in self.output_file_path_user_level):
+            raise ValueError(
+                "We expect you to pass a path in for your output files "
+                "(output_file_path_chat_level, output_file_path_user_level, and "
+                "output_file_path_conv_level). If you would like the output to be "
+                "the current directory, please append './' to the beginning of your "
+                "filename(s). Your filename should be in the format: "
+                "path/to/output_name.csv or ./output_name.csv for the current working directory."
+            )
+
         try:
             base_file_name = output_file_path_chat_level.split("/")[-1]
         except:
