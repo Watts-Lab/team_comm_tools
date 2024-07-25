@@ -35,10 +35,10 @@ if __name__ == "__main__":
 		speaker_id_col = "speakerId",
 		message_col = "text",
 		timestamp_col = "time",
-		vector_directory = "../tpm-data/vector_data/",
-		output_file_path_chat_level = "../tiny_multi_task_PT1_level_chat",
-		output_file_path_user_level = "../tiny_multi_task_PT1_level_user",
-		output_file_path_conv_level = "../tiny_multi_task_PT1_level_conv",
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./tiny_multi_task_PT1_level_chat",
+		output_file_path_user_level = "./tiny_multi_task_PT1_level_user",
+		output_file_path_conv_level = "./tiny_multi_task_PT1_level_conv",
 		turns = False,
 	)
 	testing_package_task_1.featurize(col="message")
@@ -67,10 +67,10 @@ if __name__ == "__main__":
 		speaker_id_col = "speakerId",
 		message_col = "text",
 		timestamp_col = "time",
-		vector_directory = "../tpm-data/vector_data/",
-		output_file_path_chat_level = "../output/chat/tiny_multi_task_case2_level_chat.csv",
-		output_file_path_user_level = "../output/user/tiny_multi_task_case2_level_user.csv",
-		output_file_path_conv_level = "../output/conv/tiny_multi_task_case2_level_conv.csv",
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/tiny_multi_task_case2_level_chat.csv",
+		output_file_path_user_level = "./output/user/tiny_multi_task_case2_level_user.csv",
+		output_file_path_conv_level = "./output/conv/tiny_multi_task_case2_level_conv.csv",
 		turns = False,
 	)
 	testing_case_2.featurize(col="message")
@@ -85,10 +85,10 @@ if __name__ == "__main__":
 		timestamp_col = "time",
 		cumulative_grouping = True, 
         within_task = False,
-		vector_directory = "../tpm-data/vector_data/",
-		output_file_path_chat_level = "../output/chat/tiny_multi_task_case3a_level_chat.csv",
-		output_file_path_user_level = "../output/user/tiny_multi_task_case3a_level_user.csv",
-		output_file_path_conv_level = "../output/conv/tiny_multi_task_case3a_level_conv.csv",
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/tiny_multi_task_case3a_level_chat.csv",
+		output_file_path_user_level = "./output/user/tiny_multi_task_case3a_level_user.csv",
+		output_file_path_conv_level = "./output/conv/tiny_multi_task_case3a_level_conv.csv",
 		turns = False,
 	)
 	testing_case_3_a.featurize(col="message")
@@ -103,10 +103,10 @@ if __name__ == "__main__":
 		timestamp_col = "time",
 		cumulative_grouping = True, 
         within_task = True,
-		vector_directory = "../tpm-data/vector_data/",
-		output_file_path_chat_level = "../output/chat/tiny_multi_task_case3b_level_chat.csv",
-		output_file_path_user_level = "../output/user/tiny_multi_task_case3b_level_user.csv",
-		output_file_path_conv_level = "../output/conv/tiny_multi_task_case3b_level_conv.csv",
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/tiny_multi_task_case3b_level_chat.csv",
+		output_file_path_user_level = "./output/user/tiny_multi_task_case3b_level_user.csv",
+		output_file_path_conv_level = "./output/conv/tiny_multi_task_case3b_level_conv.csv",
 		turns = False,
 	)
 	testing_case_3_b.featurize(col="message")
@@ -121,10 +121,10 @@ if __name__ == "__main__":
 		timestamp_col = "time",
 		cumulative_grouping = True, 
         within_task = True,
-		vector_directory = "../tpm-data/vector_data/",
-		output_file_path_chat_level = "../output/chat/tiny_multi_task_case3c_level_chat.csv",
-		output_file_path_user_level = "../output/user/tiny_multi_task_case3c_level_user.csv",
-		output_file_path_conv_level = "../output/conv/tiny_multi_task_case3c_level_conv.csv",
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/tiny_multi_task_case3c_level_chat.csv",
+		output_file_path_user_level = "./output/user/tiny_multi_task_case3c_level_user.csv",
+		output_file_path_conv_level = "./output/conv/tiny_multi_task_case3c_level_conv.csv",
 		turns = False,
 	)
 	testing_case_3_c.featurize(col="message")
@@ -139,10 +139,10 @@ if __name__ == "__main__":
 		timestamp_col = "time",
 		cumulative_grouping = False, 
         within_task = True,
-		vector_directory = "../tpm-data/vector_data/",
-		output_file_path_chat_level = "../output/chat/tiny_multi_task_improper_level_chat.csv",
-		output_file_path_user_level = "../output/user/tiny_multi_task_improper_level_user.csv",
-		output_file_path_conv_level = "../output/conv/tiny_multi_task_improper_level_conv.csv",
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/tiny_multi_task_improper_level_chat.csv",
+		output_file_path_user_level = "./output/user/tiny_multi_task_improper_level_user.csv",
+		output_file_path_conv_level = "./output/conv/tiny_multi_task_improper_level_conv.csv",
 		turns = False,
 	)
 	testing_case_improper.featurize(col="message")

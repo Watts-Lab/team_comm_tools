@@ -7,27 +7,27 @@ import logging
 
 input_data = pd.read_csv("data/cleaned_data/multi_task_TINY_cols_renamed.csv", encoding='utf-8')
 case1_chatdf = None # starts out as None as reading this file in is a test unto itself!
-case2_chatdf = pd.read_csv("../output/chat/tiny_multi_task_case2_level_chat.csv")
-case3a_chatdf = pd.read_csv("../output/chat/tiny_multi_task_case3a_level_chat.csv")
-case3b_chatdf = pd.read_csv("../output/chat/tiny_multi_task_case3b_level_chat.csv")
-case3c_chatdf = pd.read_csv("../output/chat/tiny_multi_task_case3c_level_chat.csv")
-impropercase_chatdf = pd.read_csv("../output/chat/tiny_multi_task_improper_level_chat.csv")
+case2_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case2_level_chat.csv")
+case3a_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3a_level_chat.csv")
+case3b_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3b_level_chat.csv")
+case3c_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3c_level_chat.csv")
+impropercase_chatdf = pd.read_csv("./output/chat/tiny_multi_task_improper_level_chat.csv")
 
 def test_path_robustness():
     # case 1 was specified without the necessary 'output/', 'chat/', and '.csv' in its path. Ensure it works!
     try:
-        case1_chatdf = pd.read_csv("../output/chat/tiny_multi_task_PT1_level_chat.csv")
+        case1_chatdf = pd.read_csv("./output/chat/tiny_multi_task_PT1_level_chat.csv")
     except:
         with open('test.log', 'a') as file:
             file.write("\n")
             file.write("------TEST FAILED------\n")
-            file.write(f"Case 1 file (../output/chat/tiny_multi_task_PT1_level_chat.csv) not found: Path robustness test failed.\n")
+            file.write(f"Case 1 file (./output/chat/tiny_multi_task_PT1_level_chat.csv) not found: Path robustness test failed.\n")
         raise
 
 def test_case_1():
 
     try:
-        case1_chatdf = pd.read_csv("../output/chat/tiny_multi_task_PT1_level_chat.csv")
+        case1_chatdf = pd.read_csv("./output/chat/tiny_multi_task_PT1_level_chat.csv")
         # Case 1 should have the same number of rows as the input df
         assert(input_data.shape[0] == case1_chatdf.shape[0])
     except AssertionError:

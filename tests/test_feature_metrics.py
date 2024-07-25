@@ -5,8 +5,8 @@ from numpy import nan
 import logging
 import itertools
 
-test_chat_df =  pd.read_csv("../output/chat/test_chat_level_chat.csv")
-test_conv_df =  pd.read_csv("../output/conv/test_conv_level_conv.csv")
+test_chat_df =  pd.read_csv("./output/chat/test_chat_level_chat.csv")
+test_conv_df =  pd.read_csv("./output/conv/test_conv_level_conv.csv")
 
 # Import the Feature Dictionary
 import sys

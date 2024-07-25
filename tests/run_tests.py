@@ -33,10 +33,10 @@ if __name__ == "__main__":
 
 	testing_chat = FeatureBuilder(
 		input_df = chat_df,
-		vector_directory = "../tpm-data/vector_data/",
-		output_file_path_chat_level = "../output/chat/test_chat_level_chat.csv",
-		output_file_path_user_level = "../output/user/test_chat_level_user.csv",
-		output_file_path_conv_level = "../output/conv/test_chat_level_conv.csv",
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_chat_level_chat.csv",
+		output_file_path_user_level = "./output/user/test_chat_level_user.csv",
+		output_file_path_conv_level = "./output/conv/test_chat_level_conv.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
             "(BERT) Mimicry",
             "Moving Mimicry",
@@ -49,10 +49,10 @@ if __name__ == "__main__":
 
 	testing_conv = FeatureBuilder(
 		input_df = conv_df,
-		vector_directory = "../tpm-data/vector_data/",
-		output_file_path_chat_level = "../output/chat/test_conv_level_chat.csv",
-		output_file_path_user_level = "../output/user/test_conv_level_user.csv",
-		output_file_path_conv_level = "../output/conv/test_conv_level_conv.csv",
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_conv_level_chat.csv",
+		output_file_path_user_level = "./output/user/test_conv_level_user.csv",
+		output_file_path_conv_level = "./output/conv/test_conv_level_conv.csv",
 		custom_features = [
             "(BERT) Mimicry",
             "Moving Mimicry",
