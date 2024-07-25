@@ -185,6 +185,12 @@ class FeatureBuilder:
         if not bool(self.output_file_path_user_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_user_level)):
             raise ValueError("ERROR: Improper user (speaker)-level output file name detected.")
 
+        # drop all columns that are in our generated feature set --- we don't want to create confusion!
+        chat_features = list(itertools.chain(*[self.feature_dict[feature]["columns"] for feature in self.feature_dict.keys() if self.feature_dict[feature]["level"] == "Chat"]))
+        columns_to_drop = [col for col in chat_features if col in self.chat_data.columns]
+        self.chat_data = self.chat_data.drop(columns=columns_to_drop)
+        self.orig_data = self.orig_data.drop(columns=columns_to_drop)
+
         # Set first pct of conversation you want to analyze
         assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
         self.first_pct = analyze_first_pct

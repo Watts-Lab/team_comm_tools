@@ -146,3 +146,26 @@ if __name__ == "__main__":
 		turns = False,
 	)
 	testing_case_improper.featurize(col="message")
+
+	"""
+	Test robustness of the FeatureBuilder to taking in an input that contains existing feature names.
+	This was reported as bug here: https://github.com/Watts-Lab/team-comm-tools/issues/256
+	"""
+
+	chat_df_existing_output = pd.read_csv("./output/chat/test_chat_level_chat.csv")
+
+	testing_chat_existing = FeatureBuilder(
+		input_df = chat_df_existing_output,
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_chat_level_existing_chat.csv",
+		output_file_path_user_level = "./output/user/test_chat_level_existing_user.csv",
+		output_file_path_conv_level = "./output/conv/test_chat_level_existing_conv.csv",
+		custom_features = [
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Forward Flow",
+            "Discursive Diversity"
+        ],
+		turns = False,
+	)
+	testing_chat_existing.featurize(col="message")

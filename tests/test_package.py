@@ -3,8 +3,9 @@ import pandas as pd
 import numpy as np
 from numpy import nan
 import logging
+import itertools
 
-
+# Import Test Outputs
 input_data = pd.read_csv("data/cleaned_data/multi_task_TINY_cols_renamed.csv", encoding='utf-8')
 case1_chatdf = None # starts out as None as reading this file in is a test unto itself!
 case2_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case2_level_chat.csv")
@@ -12,6 +13,14 @@ case3a_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3a_level_chat.csv
 case3b_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3b_level_chat.csv")
 case3c_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3c_level_chat.csv")
 impropercase_chatdf = pd.read_csv("./output/chat/tiny_multi_task_improper_level_chat.csv")
+
+# Import the Feature Dictionary
+import sys
+import os
+
+# Add the parent directory to the sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src/')))
+from feature_dict import feature_dict
 
 def test_path_robustness():
     # case 1 was specified without the necessary 'output/', 'chat/', and '.csv' in its path. Ensure it works!
@@ -146,7 +155,7 @@ def test_case_3c():
 
         raise  
 
-def test_imporper_case():
+def test_improper_case():
     try:
         # assert that we treat the improper case the exact same as case 2
         assert(impropercase_chatdf.shape == case2_chatdf.shape)
@@ -163,3 +172,24 @@ def test_imporper_case():
             file.write(f"Number of unique conversation identifiers in improper case: {improper_ids}\n")
             file.write(f"Number of unique conversation identifiers in Case 2: {case_2_ids}\n")
 
+def test_robustness_to_existing_column_names():
+    try:
+        chat_df_orig = pd.read_csv("./output/chat/test_chat_level_chat.csv") # original output
+        chat_df_existing = pd.read_csv("./output/chat/test_chat_level_existing_chat.csv") # output for dataframe that had existing cols
+
+        # filter down to the feature columns of interest
+        chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in feature_dict.keys() if feature_dict[feature]["level"] == "Chat"]))
+        chat_feature_cols = [col for col in chat_df_orig.columns if col in chat_features]
+        chat_df_orig = chat_df_orig[chat_feature_cols].reset_index(drop=True)
+        chat_df_existing = chat_df_existing[chat_feature_cols].reset_index(drop=True)
+
+        # assert that we have the right dimensions for both
+        assert(chat_df_orig.shape == chat_df_existing.shape)
+
+    except AssertionError:
+        with open('test.log', 'a') as file:
+            file.write("\n")
+            file.write("------TEST FAILED------\n")
+            file.write(f"Robustness check for passing in chat dataframe with feature columns failed.\n")
+
+        raise 
