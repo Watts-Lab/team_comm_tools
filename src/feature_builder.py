@@ -7,6 +7,7 @@ import re
 import numpy as np
 from pathlib import Path
 import time
+import itertools
 
 # Imports from feature files and classes
 from utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
@@ -184,6 +185,12 @@ class FeatureBuilder:
         if not bool(self.output_file_path_user_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_user_level)):
             raise ValueError("ERROR: Improper user (speaker)-level output file name detected.")
 
+        # drop all columns that are in our generated feature set --- we don't want to create confusion!
+        chat_features = list(itertools.chain(*[self.feature_dict[feature]["columns"] for feature in self.feature_dict.keys() if self.feature_dict[feature]["level"] == "Chat"]))
+        columns_to_drop = [col for col in chat_features if col in self.chat_data.columns]
+        self.chat_data = self.chat_data.drop(columns=columns_to_drop)
+        self.orig_data = self.orig_data.drop(columns=columns_to_drop)
+
         # Set first pct of conversation you want to analyze
         assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
         self.first_pct = analyze_first_pct
@@ -256,6 +263,18 @@ class FeatureBuilder:
         - The inputted file name must not contain only special characters with no alphanumeric component
         """
         # We assume that the base file name is the last item in the output path; we will use this to name the stored vectors.
+        if ('/' not in output_file_path_chat_level or 
+            '/' not in self.output_file_path_conv_level or 
+            '/' not in self.output_file_path_user_level):
+            raise ValueError(
+                "We expect you to pass a path in for your output files "
+                "(output_file_path_chat_level, output_file_path_user_level, and "
+                "output_file_path_conv_level). If you would like the output to be "
+                "the current directory, please append './' to the beginning of your "
+                "filename(s). Your filename should be in the format: "
+                "path/to/output_name.csv or ./output_name.csv for the current working directory."
+            )
+
         try:
             base_file_name = output_file_path_chat_level.split("/")[-1]
         except:

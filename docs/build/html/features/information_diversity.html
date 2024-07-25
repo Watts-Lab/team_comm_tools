@@ -122,11 +122,15 @@ cosine similarity between the message vectors and the mean vector.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="features.information_diversity.get_info_diversity">
-<span class="sig-prename descclassname"><span class="pre">features.information_diversity.</span></span><span class="sig-name descname"><span class="pre">get_info_diversity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.information_diversity.get_info_diversity" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.information_diversity.</span></span><span class="sig-name descname"><span class="pre">get_info_diversity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.information_diversity.get_info_diversity" title="Link to this definition"></a></dt>
 <dd><p>Computes information diversity (value between 0 and 1 inclusive) for all conversations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – The utterance (chat)-level dataframe.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The utterance (chat)-level dataframe.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – This is a string with the name of the column containing the unique identiifer of a conversation.</p></li>
+<li><p><strong>message_col</strong> (<em>str</em>) – This is a string with the name of the column containing the message / text.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the grouped conversational dataframe, with a new column (“info_diversity”) representing the conversation’s information diversity score.</p>
@@ -139,12 +143,15 @@ cosine similarity between the message vectors and the mean vector.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="features.information_diversity.info_diversity">
-<span class="sig-prename descclassname"><span class="pre">features.information_diversity.</span></span><span class="sig-name descname"><span class="pre">info_diversity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.information_diversity.info_diversity" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.information_diversity.</span></span><span class="sig-name descname"><span class="pre">info_diversity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.information_diversity.info_diversity" title="Link to this definition"></a></dt>
 <dd><p>Preprocess data and then create numeric mapping of words in dataset to pass into LDA model
 Uses square root of number of rows as number of topics</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input dataframe, grouped by the conversation index, to which this function is being applied.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input dataframe, grouped by the conversation index, to which this function is being applied.</p></li>
+<li><p><strong>message_col</strong> (<em>str</em>) – This is a string with the name of the column containing the message / text.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The information diversity score, obtained from calling calculate_ID_score on the chat’s topics; defaults to zero in case of empty data</p>

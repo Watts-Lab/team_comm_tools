@@ -105,7 +105,7 @@
 <span id="summarize-features-module"></span><h1>summarize_features module<a class="headerlink" href="#module-utils.summarize_features" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.summarize_features.get_average">
-<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_average" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_average" title="Link to this definition"></a></dt>
 <dd><p>Generate a summary DataFrame with the average of a specified column per conversation.</p>
 <p>This function calculates the average of a specified column for each conversation in the input data,
 and returns a DataFrame containing the conversation number and the calculated average.</p>
@@ -115,6 +115,7 @@ and returns a DataFrame containing the conversation number and the calculated av
 <li><p><strong>input_data</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing data at the chat or user level.</p></li>
 <li><p><strong>column_to_summarize</strong> (<em>str</em>) – The name of the column to be averaged.</p></li>
 <li><p><strong>new_column_name</strong> (<em>str</em>) – The desired name for the new summary column.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -128,7 +129,7 @@ and returns a DataFrame containing the conversation number and the calculated av
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.summarize_features.get_max">
-<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_max" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_max" title="Link to this definition"></a></dt>
 <dd><p>Generate a summary DataFrame with the maximum value of a specified column per conversation.</p>
 <p>This function calculates the maximum value of a specified column for each conversation in the input data,
 and returns a DataFrame containing the conversation number and the calculated maximum value.</p>
@@ -138,6 +139,7 @@ and returns a DataFrame containing the conversation number and the calculated ma
 <li><p><strong>input_data</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing data at the chat or user level.</p></li>
 <li><p><strong>column_to_summarize</strong> (<em>str</em>) – The name of the column to be aggregated for maximum value.</p></li>
 <li><p><strong>new_column_name</strong> (<em>str</em>) – The desired name for the new summary column.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -151,7 +153,7 @@ and returns a DataFrame containing the conversation number and the calculated ma
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.summarize_features.get_min">
-<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_min" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_min" title="Link to this definition"></a></dt>
 <dd><p>Generate a summary DataFrame with the minimum value of a specified column per conversation.</p>
 <p>This function calculates the minimum value of a specified column for each conversation in the input data,
 and returns a DataFrame containing the conversation number and the calculated minimum value.</p>
@@ -161,6 +163,7 @@ and returns a DataFrame containing the conversation number and the calculated mi
 <li><p><strong>input_data</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing data at the chat or user level.</p></li>
 <li><p><strong>column_to_summarize</strong> (<em>str</em>) – The name of the column to be aggregated for minimum value.</p></li>
 <li><p><strong>new_column_name</strong> (<em>str</em>) – The desired name for the new summary column.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -174,7 +177,7 @@ and returns a DataFrame containing the conversation number and the calculated mi
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.summarize_features.get_stdev">
-<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_stdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_stdev" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_stdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_stdev" title="Link to this definition"></a></dt>
 <dd><p>Generate a summary DataFrame with the standard deviation of a specified column per conversation.</p>
 <p>This function calculates the standard deviation of a specified column for each conversation in the input data,
 and returns a DataFrame containing the conversation number and the calculated standard deviation.</p>
@@ -184,6 +187,7 @@ and returns a DataFrame containing the conversation number and the calculated st
 <li><p><strong>input_data</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing data at the chat or user level.</p></li>
 <li><p><strong>column_to_summarize</strong> (<em>str</em>) – The name of the column to be aggregated for standard deviation.</p></li>
 <li><p><strong>new_column_name</strong> (<em>str</em>) – The desired name for the new summary column.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -197,7 +201,7 @@ and returns a DataFrame containing the conversation number and the calculated st
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.summarize_features.get_sum">
-<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_sum" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_to_summarize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_sum" title="Link to this definition"></a></dt>
 <dd><p>Generate a summary DataFrame with the sum of a specified column per conversation.</p>
 <p>This function calculates the sum of a specified column for each conversation in the input data,
 and returns a DataFrame containing the conversation number and the calculated sum.</p>
@@ -207,6 +211,7 @@ and returns a DataFrame containing the conversation number and the calculated su
 <li><p><strong>input_data</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing data at the chat or user level.</p></li>
 <li><p><strong>column_to_summarize</strong> (<em>str</em>) – The name of the column to be aggregated for the sum.</p></li>
 <li><p><strong>new_column_name</strong> (<em>str</em>) – The desired name for the new summary column.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -220,7 +225,7 @@ and returns a DataFrame containing the conversation number and the calculated su
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.summarize_features.get_user_average_dataframe">
-<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_user_average_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_level_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speaker_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'speaker_nickname'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_user_average_dataframe" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_user_average_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_level_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speaker_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_user_average_dataframe" title="Link to this definition"></a></dt>
 <dd><p>Generate a user-level summary DataFrame by averaging a specified column per individual.</p>
 <p>This function groups chat-level data by user and conversation, calculates the average values
 of a specified numeric column for each user, and returns the resulting DataFrame.</p>
@@ -229,7 +234,8 @@ of a specified numeric column for each user, and returns the resulting DataFrame
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chat_level_data</strong> (<em>pandas.DataFrame</em>) – The DataFrame in which each row represents a single chat.</p></li>
 <li><p><strong>on_column</strong> (<em>str</em>) – The name of the numeric column to average for each user.</p></li>
-<li><p><strong>speaker_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The column name representing the user identifier, defaults to “speaker_nickname”.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
+<li><p><strong>speaker_id</strong> (<em>str</em>) – The column name representing the user identifier.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -243,7 +249,7 @@ of a specified numeric column for each user, and returns the resulting DataFrame
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.summarize_features.get_user_sum_dataframe">
-<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_user_sum_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_level_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speaker_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'speaker_nickname'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_user_sum_dataframe" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.summarize_features.</span></span><span class="sig-name descname"><span class="pre">get_user_sum_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_level_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speaker_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.summarize_features.get_user_sum_dataframe" title="Link to this definition"></a></dt>
 <dd><p>Generate a user-level summary DataFrame by summing a specified column per individual.</p>
 <p>This function groups chat-level data by user and conversation, sums the values of a
 specified numeric column for each user (speaker), and returns the resulting DataFrame.</p>
@@ -252,7 +258,8 @@ specified numeric column for each user (speaker), and returns the resulting Data
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chat_level_data</strong> (<em>pandas.DataFrame</em>) – The DataFrame in which each row represents a single chat.</p></li>
 <li><p><strong>on_column</strong> (<em>str</em>) – The name of the numeric column to sum for each user.</p></li>
-<li><p><strong>speaker_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The column name representing the user identifier, defaults to “speaker_nickname”.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
+<li><p><strong>speaker_id</strong> (<em>str</em>) – The column name representing the user identifier.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
