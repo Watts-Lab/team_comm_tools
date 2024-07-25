@@ -102,7 +102,7 @@
 <span id="assign-chunk-nums-module"></span><h1>assign_chunk_nums module<a class="headerlink" href="#module-utils.assign_chunk_nums" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.assign_chunk_nums.assign_chunk_nums">
-<span class="sig-prename descclassname"><span class="pre">utils.assign_chunk_nums.</span></span><span class="sig-name descname"><span class="pre">assign_chunk_nums</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_time_if_possible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.assign_chunk_nums.assign_chunk_nums" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.assign_chunk_nums.</span></span><span class="sig-name descname"><span class="pre">assign_chunk_nums</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_time_if_possible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.assign_chunk_nums.assign_chunk_nums" title="Link to this definition"></a></dt>
 <dd><p>Assign chunks to the chat data, splitting it into “equal” pieces.</p>
 <p>This functionality is necessary for some conversational features that examine what happens throughout the course
 of a conversation (e.g., in the beginning, middle, and end).</p>
@@ -114,6 +114,7 @@ Otherwise, it will chunk based on the number of messages.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – The input chat data</p></li>
 <li><p><strong>num_chunks</strong> (<em>int</em>) – The number of chunks desired</p></li>
+<li><p><strong>timestamp_col</strong> (<em>str</em>) – The name of the column containing the timestamp</p></li>
 <li><p><strong>use_time_if_possible</strong> (<em>bool</em><em>, </em><em>optional</em>) – If a timestamp exists, chunk based on the timestamp rather than based on the number of messages. Defaults to True.</p></li>
 </ul>
 </dd>
@@ -128,7 +129,7 @@ Otherwise, it will chunk based on the number of messages.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.assign_chunk_nums.create_chunks">
-<span class="sig-prename descclassname"><span class="pre">utils.assign_chunk_nums.</span></span><span class="sig-name descname"><span class="pre">create_chunks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_chunks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.assign_chunk_nums.create_chunks" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.assign_chunk_nums.</span></span><span class="sig-name descname"><span class="pre">create_chunks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.assign_chunk_nums.create_chunks" title="Link to this definition"></a></dt>
 <dd><p>Assign chunk numbers to the chats within each conversation based on time.</p>
 <p>This function divides each conversation into time-based chunks, ensuring each chunk spans an equal duration.</p>
 <dl class="field-list simple">
@@ -136,6 +137,8 @@ Otherwise, it will chunk based on the number of messages.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame containing chat data with a ‘timestamp’ column</p></li>
 <li><p><strong>num_chunks</strong> (<em>int</em>) – Number of chunks to divide the conversation into</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – The name of the column containing the unique conversation identifier</p></li>
+<li><p><strong>timestamp_col</strong> (<em>str</em>) – The name of the column containing the timestamp</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -149,7 +152,7 @@ Otherwise, it will chunk based on the number of messages.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.assign_chunk_nums.create_chunks_messages">
-<span class="sig-prename descclassname"><span class="pre">utils.assign_chunk_nums.</span></span><span class="sig-name descname"><span class="pre">create_chunks_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_chunks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.assign_chunk_nums.create_chunks_messages" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.assign_chunk_nums.</span></span><span class="sig-name descname"><span class="pre">create_chunks_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.assign_chunk_nums.create_chunks_messages" title="Link to this definition"></a></dt>
 <dd><p>Assign chunk numbers to the chats within each conversation based on the number of messages.</p>
 <p>This function ensures that there is an even number of messages per chunk by calculating
 the chunk size for each conversation and adjusting the chunk number accordingly.</p>
@@ -158,6 +161,7 @@ the chunk size for each conversation and adjusting the chunk number accordingly.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Dataframe containing chat data</p></li>
 <li><p><strong>num_chunks</strong> (<em>int</em>) – Initial maximum number of chunks</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – The name of the column containing the unique conversation identifier</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
