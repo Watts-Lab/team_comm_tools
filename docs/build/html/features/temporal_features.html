@@ -122,7 +122,7 @@ that can be interpreted as a time elapsed; otherwise, sets it equal to none.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="features.temporal_features.get_time_diff">
-<span class="sig-prename descclassname"><span class="pre">features.temporal_features.</span></span><span class="sig-name descname"><span class="pre">get_time_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.temporal_features.get_time_diff" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.temporal_features.</span></span><span class="sig-name descname"><span class="pre">get_time_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.temporal_features.get_time_diff" title="Link to this definition"></a></dt>
 <dd><p>Obtains the time difference between messages, assuming there is only a <em>single</em> timestamp column
 representing the time of each utterance.</p>
 <dl class="field-list simple">
@@ -130,6 +130,7 @@ representing the time of each utterance.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – This is a pandas dataframe of the chat level features.</p></li>
 <li><p><strong>on_column</strong> (<em>str</em>) – The column name for the timestamp columns.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the unique conversation identifier.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -143,14 +144,19 @@ representing the time of each utterance.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="features.temporal_features.get_time_diff_startend">
-<span class="sig-prename descclassname"><span class="pre">features.temporal_features.</span></span><span class="sig-name descname"><span class="pre">get_time_diff_startend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.temporal_features.get_time_diff_startend" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.temporal_features.</span></span><span class="sig-name descname"><span class="pre">get_time_diff_startend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.temporal_features.get_time_diff_startend" title="Link to this definition"></a></dt>
 <dd><p>Obtains the time difference between messages, assuming there are <em>two</em> timestamp columns, one representing
 the start of a message and one representing the end of a message.</p>
 <p>Currently assumes that the start and end columns are named “timestamp_start” and “timestamp_end”, although
 this should be made more generalizable in a future commit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – This is a pandas dataframe of the chat level features.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – This is a pandas dataframe of the chat level features.</p></li>
+<li><p><strong>timestamp_start</strong> (<em>str</em>) – A string representing the column name that should be selected as the start timestamp.</p></li>
+<li><p><strong>timestamp_end</strong> (<em>str</em>) – A string representing the column name that should be selected as the end timestamp.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A column representing the time difference between messages.</p>

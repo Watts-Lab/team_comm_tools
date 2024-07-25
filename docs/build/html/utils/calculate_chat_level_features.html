@@ -95,7 +95,7 @@
 <span id="calculate-chat-level-features-module"></span><span id="chat-level-features"></span><h1>calculate_chat_level_features module<a class="headerlink" href="#module-utils.calculate_chat_level_features" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.calculate_chat_level_features.</span></span><span class="sig-name descname"><span class="pre">ChatLevelFeaturesCalculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bert_sentiment_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner_training</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.calculate_chat_level_features.</span></span><span class="sig-name descname"><span class="pre">ChatLevelFeaturesCalculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bert_sentiment_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner_training</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Initialize variables and objects used by the ChatLevelFeaturesCalculator class.</p>
 <p>This class uses various feature modules to define chat-level features. It reads input data and
@@ -113,7 +113,7 @@ initializes variables required to compute the features.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_chat_level_features">
-<span class="sig-name descname"><span class="pre">calculate_chat_level_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_chat_level_features" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">calculate_chat_level_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_chat_level_features" title="Link to this definition"></a></dt>
 <dd><p>Main driver function for creating chat-level features.</p>
 <p>This function computes various chat-level features using different modules and appends
 them as new columns to the input chat data.</p>
@@ -194,17 +194,30 @@ politeness features to the chat data.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_vector_word_mimicry">
+<span class="sig-name descname"><span class="pre">calculate_vector_word_mimicry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_vector_word_mimicry" title="Link to this definition"></a></dt>
+<dd><p>Compute the mimicry relative to the previous chat(s) using SBERT vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_word_mimicry">
 <span class="sig-name descname"><span class="pre">calculate_word_mimicry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_word_mimicry" title="Link to this definition"></a></dt>
 <dd><p>Calculate features related to word mimicry.</p>
 <p>This function calculates the number of function words and the sum of inverse frequency of content words
-that also appear in the other’s prior turn. It also computes mimicry using SBERT vectors.</p>
+that also appear in the other’s prior turn.</p>
 <ul class="simple">
 <li><p>Extracts function and content words from a message</p></li>
 <li><p>Identifies mimicry of function and content words from the immediate previous turn</p></li>
 <li><p>Computes function word accommodation (number of mimicked function words)</p></li>
 <li><p>Computes content word accommodation (sum of inverse frequency of mimicked content words)</p></li>
-<li><p>Computes mimicry relative to the previous chat or messages using SBERT vectors</p></li>
 </ul>
 <p>Drops the intermediate columns related to function and content words after calculation.</p>
 <dl class="field-list simple">

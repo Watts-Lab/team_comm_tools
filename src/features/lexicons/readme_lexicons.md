@@ -1,4 +1,4 @@
-# Lexicons (feature_engine/features/lexicons/)
+# Lexicons (src/features/lexicons/)
 This is a folder for lexicon-based features. Some of the lexicons are proprietary, and therefore they are kept hidden on the .gitignore. 
 
 List of lexicons in this folder:

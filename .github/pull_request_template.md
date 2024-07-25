@@ -60,11 +60,11 @@ Did you document your feature? You should follow the same requirements as above:
 - [ ] My feature is a .py file.
 - [ ] My feature uses snake case in the name. That means the name of the format is `my_feature`, NOT `myFeature` (camel case).
 - [ ] My feature has the name, `NAME_features.py`, where NAME is the name of my feature.
-- [ ] My feature is located in `feature_engine/features/`.
+- [ ] My feature is located in `src/features/`.
 
 ## Testing
 - [ ] I have thought about test cases for my features, with inputs and expected outputs.
-- [ ] I have added test cases for my feature under the `testing/` folder.
+- [ ] I have added test cases for my feature under the `tests/` folder.
 - [ ] My feature passes the automated testing suite.
 
 The location of my tests are here:
