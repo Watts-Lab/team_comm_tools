@@ -104,7 +104,7 @@
 <span id="check-embeddings-module"></span><h1>check_embeddings module<a class="headerlink" href="#module-utils.check_embeddings" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.check_embeddings">
-<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">check_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bert_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.check_embeddings" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">check_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bert_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_sentence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_sentiment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.check_embeddings" title="Link to this definition"></a></dt>
 <dd><p>Check if embeddings and required lexicons exist, and generate them if they don’t.</p>
 <p>This function ensures the necessary vector and BERT embeddings are available.
 It also checks for the presence of certainty and lexicon files, generating them if needed.</p>
@@ -112,8 +112,11 @@ It also checks for the presence of certainty and lexicon files, generating them 
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Dataframe containing chat data</p></li>
-<li><p><strong>vect_path</strong> (<em>str</em>) – Path to the vector embeddings file</p></li>
-<li><p><strong>bert_path</strong> (<em>str</em>) – Path to the BERT embeddings file</p></li>
+<li><p><strong>vect_path</strong> (<em>str</em>) – Path to the vector embeddings file (by default, we want SBERT vectors; embeddings for each utterance.)</p></li>
+<li><p><strong>bert_path</strong> (<em>str</em>) – Path to the RoBERTa sentiment inference output file</p></li>
+<li><p><strong>need_sentence</strong> (<em>bool</em>) – Whether at least one feature will require SBERT vectors; we will not need to calculate them otherwise.</p></li>
+<li><p><strong>need_sentiment</strong> (<em>bool</em>) – Whether at least one feature will require the RoBERTa sentiments; we will not need to calculate them otherwise.</p></li>
+<li><p><strong>message_col</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the message. Defaults to “message”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -127,13 +130,14 @@ It also checks for the presence of certainty and lexicon files, generating them 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.generate_bert">
-<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_bert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_bert" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_bert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_bert" title="Link to this definition"></a></dt>
 <dd><p>Generates RoBERTa sentiment scores for the given chat data and saves them to a CSV file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Contains message data to be analyzed for sentiments.</p></li>
 <li><p><strong>output_path</strong> (<em>str</em>) – Path to save the CSV file containing sentiment scores.</p></li>
+<li><p><strong>message_col</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the message. Defaults to “message”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -172,13 +176,14 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.generate_vect">
-<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_vect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_vect" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_vect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_vect" title="Link to this definition"></a></dt>
 <dd><p>Generates sentence vectors for the given chat data and saves them to a CSV file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Contains message data to be vectorized.</p></li>
 <li><p><strong>output_path</strong> (<em>str</em>) – Path to save the CSV file containing message embeddings.</p></li>
+<li><p><strong>message_col</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the message. Defaults to “message”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>

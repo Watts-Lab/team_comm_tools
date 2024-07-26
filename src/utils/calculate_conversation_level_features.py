@@ -58,7 +58,7 @@ class ConversationLevelFeaturesCalculator:
                                      if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
         
-    def calculate_conversation_level_features(self) -> pd.DataFrame:
+    def calculate_conversation_level_features(self, feature_methods: list) -> pd.DataFrame:
         """
         Main driver function for creating conversation-level features.
 
@@ -69,30 +69,8 @@ class ConversationLevelFeaturesCalculator:
         :rtype: pd.DataFrame
         """
 
-        # Get turn taking index by aggregating chat level totals, pass in CHAT LEVEL FEATURES
-        self.get_turn_taking_features()
-        print("Generated turn taking index.")
-
-        # Get gini based features by aggregating user-level totals, pass in USER LEVEL FEATURES
-        self.get_gini_features()
-        print("Generated gini features.")
-
-        # Get summary statistics by aggregating chat level features, pass in CHAT LEVEL FEATURES
-        self.get_conversation_level_aggregates()
-        print("Generated chat aggregates.")
-
-        # Get summary statistics by aggregating user level features, pass in USER LEVEL FEATURES 
-        self.get_user_level_aggregates()
-        print("Generated user aggregates.")
-        
-        # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
-        self.get_discursive_diversity_features()
-
-        # Get team burstiness coefficient using chat level temporal features
-        self.calculate_team_burstiness()
-
-        # Get team's information diversity score
-        self.calculate_info_diversity()
+        for method in feature_methods:
+            method(self)
 
         return self.conv_data
 
@@ -286,7 +264,7 @@ class ConversationLevelFeaturesCalculator:
                 how="inner"
             )
 
-    
+
     def get_discursive_diversity_features(self) -> None:
         """
         Calculate discursive diversity features for each conversation.

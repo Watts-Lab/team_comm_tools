@@ -27,6 +27,27 @@ If your feature is about documentation, ensure that you check the boxes relevant
 
 # My PR is About Adding a New Feature to the Code Repository
 
+## Adding Feature to the Feature Dictionary
+- [ ] I have edited the `feature_dictionary.py` file with an appropriate entry for my feature. Below is a sample entry; *I confirm that all fields are accurately filled out*.
+
+```
+  "Function Word Accommodation": {
+    "columns": ["function_word_accommodation"],
+    "file": "./features/word_mimicry.py",
+    "level": "Chat",
+    "semantic_grouping": "Variance",
+    "description": "The total number of function words used in a given turn that were also used in the previous turn. Function words are defined as a list of 190 words from the source paper.",
+    "references": "(Ranganath et al., 2013)",
+    "wiki_link": "https://github.com/Watts-Lab/team-process-map/wiki/C.9-Mimicry:-Function-word,-Content-word,-BERT,-Moving",
+    "function": ChatLevelFeaturesCalculator.calculate_word_mimicry,
+    "dependencies": [],
+    "preprocess": [],
+    "vect_data": False,
+    "bert_sentiment_data": False
+  }
+```
+- [ ] If my feature is at the chat level, my dictionary entry is in the top half of the file; if my feature is at the conversation level, my dictionary entry is in the bottom half of the file (below the comment that says, `### Conversation Level`).
+
 ## Documentation
 Did you document your feature? You should follow the same requirements as above:
 - [ ] Docstrings: I have followed the proper documentation format (https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html; Google Format recommended).
@@ -39,11 +60,11 @@ Did you document your feature? You should follow the same requirements as above:
 - [ ] My feature is a .py file.
 - [ ] My feature uses snake case in the name. That means the name of the format is `my_feature`, NOT `myFeature` (camel case).
 - [ ] My feature has the name, `NAME_features.py`, where NAME is the name of my feature.
-- [ ] My feature is located in `feature_engine/features/`.
+- [ ] My feature is located in `src/features/`.
 
 ## Testing
 - [ ] I have thought about test cases for my features, with inputs and expected outputs.
-- [ ] I have added test cases for my feature under the `testing/` folder.
+- [ ] I have added test cases for my feature under the `tests/` folder.
 - [ ] My feature passes the automated testing suite.
 
 The location of my tests are here:

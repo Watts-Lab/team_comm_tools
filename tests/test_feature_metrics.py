@@ -3,12 +3,26 @@ import pandas as pd
 import numpy as np
 from numpy import nan
 import logging
+import itertools
 
-test_chat_df =  pd.read_csv("../output/chat/test_chat_level_chat.csv")
-test_conv_df =  pd.read_csv("../output/conv/test_conv_level_conv.csv")
-num_features_chat = test_chat_df.columns.size - 7
+test_chat_df =  pd.read_csv("./output/chat/test_chat_level_chat.csv")
+test_conv_df =  pd.read_csv("./output/conv/test_conv_level_conv.csv")
+
+# Import the Feature Dictionary
+import sys
+import os
+
+# Add the parent directory to the sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src/')))
+from feature_dict import feature_dict
+
+chat_features = [feature_dict[feature]["columns"] for feature in feature_dict.keys() if feature_dict[feature]["level"] == "Chat"]
+conversation_features = [feature_dict[feature]["columns"] for feature in feature_dict.keys() if feature_dict[feature]["level"] == "Conversation"]
+
+num_features_chat = len(list(itertools.chain(*chat_features)))
+num_features_conv = len(list(itertools.chain(*conversation_features)))
+
 num_tested_chat = test_chat_df['expected_column'].nunique()
-num_features_conv = test_conv_df.columns.size - 7
 num_tested_conv = test_conv_df['expected_column'].nunique()
 
 with open('test.log', 'w') as f:
@@ -17,7 +31,6 @@ with open('test.log', 'w') as f:
     pass
 
 # generate coverage for tests
-
 @pytest.mark.parametrize("row", test_chat_df.iterrows())
 def test_chat_unit_equality(row):
     actual = row[1][row[1]['expected_column']]

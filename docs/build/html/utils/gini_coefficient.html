@@ -100,13 +100,14 @@
 <span id="gini-coefficient-module"></span><h1>gini_coefficient module<a class="headerlink" href="#module-utils.gini_coefficient" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.gini_coefficient.get_gini">
-<span class="sig-prename descclassname"><span class="pre">utils.gini_coefficient.</span></span><span class="sig-name descname"><span class="pre">get_gini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.gini_coefficient.get_gini" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.gini_coefficient.</span></span><span class="sig-name descname"><span class="pre">get_gini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.gini_coefficient.get_gini" title="Link to this definition"></a></dt>
 <dd><p>Calculates the Gini coefficient for a specified numeric column within grouped conversation data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_data</strong> (<em>pd.DataFrame</em>) – A DataFrame of conversations, where each row represents one chat.</p></li>
 <li><p><strong>on_column</strong> (<em>str</em>) – The name of the numeric column on which the Gini coefficient is to be calculated.</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

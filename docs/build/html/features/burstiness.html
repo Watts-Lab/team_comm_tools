@@ -121,7 +121,7 @@ conversation occur periodically (e.g., every X seconds), versus in a “bursty�
 
 <dl class="py function">
 <dt class="sig sig-object py" id="features.burstiness.get_team_burstiness">
-<span class="sig-prename descclassname"><span class="pre">features.burstiness.</span></span><span class="sig-name descname"><span class="pre">get_team_burstiness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timediff</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.burstiness.get_team_burstiness" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.burstiness.</span></span><span class="sig-name descname"><span class="pre">get_team_burstiness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timediff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.burstiness.get_team_burstiness" title="Link to this definition"></a></dt>
 <dd><p>Applies the burstiness coefficient to each conversation in the utterance (chat)-level dataframe and returns a conversation-level dataframe.
 The Burstiness feature takes advantage of the fact that we already compute the time difference between messages
 as one of the utterance (chat)-level features.</p>
@@ -130,6 +130,7 @@ as one of the utterance (chat)-level features.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The utterance (chat)-level dataframe.</p></li>
 <li><p><strong>timediff</strong> (<em>str</em>) – The column name associated with the time differences between messages in a conversation (computed by the utterance-level feature, get_temporal_features.)</p></li>
+<li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

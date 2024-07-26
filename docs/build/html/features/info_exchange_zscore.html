@@ -105,7 +105,7 @@
 <span id="info-exchange-zscore-module"></span><h1>info_exchange_zscore module<a class="headerlink" href="#module-features.info_exchange_zscore" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="features.info_exchange_zscore.get_info_exchange_wordcount">
-<span class="sig-prename descclassname"><span class="pre">features.info_exchange_zscore.</span></span><span class="sig-name descname"><span class="pre">get_info_exchange_wordcount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_person</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.info_exchange_zscore.get_info_exchange_wordcount" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.info_exchange_zscore.</span></span><span class="sig-name descname"><span class="pre">get_info_exchange_wordcount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_person</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.info_exchange_zscore.get_info_exchange_wordcount" title="Link to this definition"></a></dt>
 <dd><p>This functinon computes the total word count in a message minus first person singular pronouns.</p>
 <p>Note that the function assumes that lexical features and basic features have already been run, and have generated a raw count of
 first-person pronouns (stored in “first_person_raw”) and a total number of words (stored in “num_words”).</p>
@@ -121,6 +121,7 @@ the entire dataset of all conversations.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – This is a pandas dataframe of the chat level features.</p></li>
 <li><p><strong>first_person</strong> (<em>list</em>) – A list of first person words. This comes from get_first_person_words() under the Utilities.</p></li>
+<li><p><strong>message_col</strong> (<em>str</em>) – This is a string with the name of the column containing the message / text.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
