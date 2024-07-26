@@ -20,7 +20,7 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 
 # Check if embeddings exist
-def check_embeddings(chat_data, vect_path, bert_path, message_col):
+def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentiment, message_col = "message"):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
@@ -29,19 +29,23 @@ def check_embeddings(chat_data, vect_path, bert_path, message_col):
 
     :param chat_data: Dataframe containing chat data
     :type chat_data: pd.DataFrame
-    :param vect_path: Path to the vector embeddings file
+    :param vect_path: Path to the vector embeddings file (by default, we want SBERT vectors; embeddings for each utterance.)
     :type vect_path: str
-    :param bert_path: Path to the BERT embeddings file
+    :param bert_path: Path to the RoBERTa sentiment inference output file
     :type bert_path: str
+    :param need_sentence: Whether at least one feature will require SBERT vectors; we will not need to calculate them otherwise.
+    :type need_sentence: bool
+    :param need_sentiment: Whether at least one feature will require the RoBERTa sentiments; we will not need to calculate them otherwise.
+    :type need_sentiment: bool
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
 
     :return: None
     :rtype: None
     """
-    if (not os.path.isfile(vect_path)):
+    if (not os.path.isfile(vect_path) and need_sentence):
         generate_vect(chat_data, vect_path, message_col)
-    if (not os.path.isfile(bert_path)):
+    if (not os.path.isfile(bert_path) and need_sentiment):
         generate_bert(chat_data, bert_path, message_col)
     if (not os.path.isfile(Path(__file__).resolve().parent.parent/"features/lexicons/certainty.txt")):
         # unpickle certainty

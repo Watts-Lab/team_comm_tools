@@ -9,5 +9,5 @@ The featurizer takes text conversations and transforms them into the following r
 To set up and run the featurizer from scratch, you should do the following.
 
 # Run the main featurizer [Do this every time you want to refresh/generate new features.]
-- Declare a new FeatureBuilder object inside `featurize.py`.
-- In the terminal, run `python3 featurize.py`.
+- Declare a new FeatureBuilder object inside your Python file.
+- Call the FeatureBuilder (using the `.featurize` command).

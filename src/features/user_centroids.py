@@ -12,5 +12,3 @@ def get_user_centroids(chat_data, vect_data, conversation_id_col, speaker_id_col
     user_centroid_per_conv = pd.DataFrame(chats.groupby([conversation_id_col, speaker_id_col])['message_embedding'].apply(np.mean)).reset_index().rename(columns={'message_embedding':'mean_embedding'})
 
     return user_centroid_per_conv['mean_embedding']
-
-

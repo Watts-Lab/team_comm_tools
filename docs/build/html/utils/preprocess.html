@@ -106,7 +106,7 @@
 <span id="preprocess-module"></span><h1>preprocess module<a class="headerlink" href="#module-utils.preprocess" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.assert_key_columns_present">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">assert_key_columns_present</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.assert_key_columns_present" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">assert_key_columns_present</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.assert_key_columns_present" title="Link to this definition"></a></dt>
 <dd><p>Ensure that the DataFrame has essential columns and handle missing values.</p>
 <p>This function removes all special characters from the DataFrame column names
 and checks if the essential columns <cite>conversation_num</cite>, <cite>message</cite>, and
@@ -115,7 +115,8 @@ KeyError is raised. It also fills missing values in the essential columns
 with default values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame to check and process.</p>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame
+:param column_names: Columns to preprocess.</em>) – The DataFrame to check and process.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>KeyError</strong> – If one of <cite>conversation_num</cite>, <cite>message</cite>, or <cite>speaker_nickname</cite> columns is missing.</p>
@@ -125,14 +126,15 @@ with default values.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.compress">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">compress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">turn_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.compress" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">compress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">turn_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.compress" title="Link to this definition"></a></dt>
 <dd><p>Combine messages in the same turn into a single message.</p>
 <p>This function takes a DataFrame representing messages in a single turn and
 concatenates their ‘message’ and ‘message_lower_with_punc’ columns into
 single strings if there are multiple messages in the same turn.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>turn_df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing messages in a single turn.</p>
+<dd class="field-odd"><p><strong>turn_df</strong> (<em>pandas.DataFrame
+:param message_col: A string representing the column name that should be selected as the message.</em>) – The DataFrame containing messages in a single turn.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A Series with combined messages for the turn.</p>
@@ -145,19 +147,30 @@ single strings if there are multiple messages in the same turn.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.create_cumulative_rows">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">create_cumulative_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.create_cumulative_rows" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">create_cumulative_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouping_keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.create_cumulative_rows" title="Link to this definition"></a></dt>
 <dd><p>Generate cumulative rows for chat data to analyze conversations in context.</p>
 <p>This function takes chat-level data and duplicates rows to facilitate the analysis of conversations
 in the context of preceding chats. It enables the inclusion of chats from previous stages or tasks within
 the same conversation.</p>
-<p>NOTE: This function was created in the context of a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>).
-It may not be generalizable to other conversational data, and will likely be deprecated in future versions.</p>
+<p>NOTE: This function was created in the context of a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>).</p>
+<blockquote>
+<div><p>It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
+group/conversation has one High-level identifier, which contains one or more Mid-level identifiers, which contains one or more Low-level identifiers.</p>
+<p>This is specifically applicable to a hierachical conversation in which the same group of pairing does a series of different activities, each of which
+may have one or more subparts. Thus, the group as a whole will have a “high-level” identiifer; each activity will have a “mid-level” identifier, and each
+sub-part will have a “low-level” identifier.</p>
+</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing chat data.</p></li>
 <li><p><strong>conversation_id</strong> (<em>str</em>) – The ID (e.g., stage or round) used for grouping the data.</p></li>
-<li><p><strong>within_task</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag to determine whether to restrict the analysis to the same task (<cite>roundId</cite>), defaults to False.</p></li>
+<li><p><strong>timestamp_col</strong> (<em>str</em>) – The column containing the timestamp. Since we assume that the conversation is evolving over time, we use the timestamp column to
+make the analysis of conversation “cumulative” (that is, to include in our analysis prior discussions for other activities).</p></li>
+<li><p><strong>grouping_keys</strong> (<em>list</em>) – A list of three hierarchical keys, which must be passed in the order of (highest level, mid level, lowest level).
+We assume that, for a given item at the highest level, there are one or more items at the mid level; for each item at the mid level, there
+are one or more items at the lowest level.</p></li>
+<li><p><strong>within_task</strong> (<em>bool</em><em>, </em><em>optional</em>) – Flag to determine whether to restrict the analysis to the same activity or “task” (assumed to be the Mid-Level Identifier), defaults to False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -171,13 +184,14 @@ It may not be generalizable to other conversational data, and will likely be dep
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.get_turn_id">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">get_turn_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.get_turn_id" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">get_turn_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speaker_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.get_turn_id" title="Link to this definition"></a></dt>
 <dd><p>Generate turn IDs for a conversation to identify turns taken by speakers.</p>
 <p>This function compares the current speaker with the previous one to identify when a change in speaker occurs,
 and then assigns a unique ‘turn_id’ that increments whenever the speaker changes within the conversation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing chat data for a single conversation.</p>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame
+:param speaker_id_col: A string representing the column name that should be selected as the speaker ID.</em>) – The DataFrame containing chat data for a single conversation.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A Series containing the turn IDs.</p>
@@ -190,15 +204,19 @@ and then assigns a unique ‘turn_id’ that increments whenever the speaker cha
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.preprocess_conversation_columns">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_conversation_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative_grouping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_conversation_columns" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_conversation_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouping_keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative_grouping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_conversation_columns" title="Link to this definition"></a></dt>
 <dd><p>Preprocesses conversation data by removing special characters from column names and assigning a conversation number.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame containing conversation data.</p></li>
-<li><p><strong>conversation_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The column name to use for assigning conversation numbers. Must be one of {‘gameId’, ‘roundId’, ‘stageId’}.</p></li>
-<li><p><strong>cumulative_grouping</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to group data cumulatively based on the conversation_id.</p></li>
-<li><p><strong>within_task</strong> (<em>bool</em><em>, </em><em>optional</em>) – Used only if cumulative_grouping is True, to specify if grouping is within the task.</p></li>
+<li><p><strong>conversation_id</strong> (<em>str</em><em>, </em><em>optional</em>) – The column name to use for assigning conversation numbers.</p></li>
+<li><p><strong>timestamp_col</strong> (<em>str</em>) – The name of the column containing the timestamp</p></li>
+<li><p><strong>grouping_keys</strong> (<em>list</em>) – A list of multiple identifier keys for a conversation.</p></li>
+<li><p><strong>cumulative_grouping</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to group data cumulatively based on the conversation_id.
+This option was created in the context of a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>).</p></li>
+<li><p><strong>within_task</strong> (<em>bool</em><em>, </em><em>optional</em>) – Used only if cumulative_grouping is True, to specify if grouping is within the “task.”
+This option was created in the context of a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -212,14 +230,15 @@ and then assigns a unique ‘turn_id’ that increments whenever the speaker cha
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.preprocess_naive_turns">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_naive_turns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_naive_turns" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_naive_turns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_naive_turns" title="Link to this definition"></a></dt>
 <dd><p>Combine adjacent rows of the same speaker in the same conversation and compress messages into a “turn”.</p>
 <p>This function first generates a ‘turn_id’ for each chat message within the same conversation,
 indicating turns taken by the active speaker. It then combines messages with the same ‘turn_id’
 within each conversation to compress repeated messages from the same speaker.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>chat_data</strong> (<em>pandas.DataFrame</em>) – The chat data to process.</p>
+<dd class="field-odd"><p><strong>chat_data</strong> (<em>pandas.DataFrame
+:param column_names: Columns to preprocess.</em>) – The chat data to process.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The processed chat data with combined message turns.</p>
