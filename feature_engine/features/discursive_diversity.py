@@ -28,13 +28,13 @@ def get_cosine_similarity(vecs):
         return np.nan
 
 
-def get_DD(chat_data):
+def get_DD(chat_data, conversation_id_col, speaker_id_col):
     
     # Get mean embedding per speaker per conversation
-    user_centroid_per_conv = pd.DataFrame(chat_data.groupby(['conversation_num','speaker_nickname'])['message_embedding'].apply(np.mean)).reset_index().rename(columns={'message_embedding':'mean_embedding'})
+    user_centroid_per_conv = pd.DataFrame(chat_data.groupby([conversation_id_col,speaker_id_col])['message_embedding'].apply(np.mean)).reset_index().rename(columns={'message_embedding':'mean_embedding'})
 
     # For each team(conversation) get all unique pairwise combinations of members' means:
-    user_pairs = pd.DataFrame(user_centroid_per_conv.groupby(['conversation_num'])['mean_embedding'].\
+    user_pairs = pd.DataFrame(user_centroid_per_conv.groupby([conversation_id_col])['mean_embedding'].\
     apply(get_unique_pairwise_combos)).reset_index().\
     rename(columns={'mean_embedding':'user_pairs_per_conv'})
 
@@ -62,5 +62,5 @@ def get_DD(chat_data):
 
     user_pairs['discursive_diversity'] =  cos_dists_mean_widay_btwu
 
-    return user_pairs[['conversation_num', 'discursive_diversity']]
+    return user_pairs[[conversation_id_col, 'discursive_diversity']]
 

@@ -38,22 +38,30 @@ class ChatLevelFeaturesCalculator:
     :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
     :type ner_cutoff: int
     """
-    def __init__(self, chat_data: pd.DataFrame, 
-         vect_data: pd.DataFrame, 
-         bert_sentiment_data: pd.DataFrame, 
-         ner_training: pd.DataFrame,
-         ner_cutoff: int) -> None:
+    def __init__(
+            self, 
+            chat_data: pd.DataFrame, 
+            vect_data: pd.DataFrame, 
+            bert_sentiment_data: pd.DataFrame, 
+            ner_training: pd.DataFrame,
+            ner_cutoff: int,
+            conversation_id_col: str,
+            message_col: str,
+            timestamp_col: str | tuple[str, str]
+            ) -> None:
 
         self.chat_data = chat_data
         self.vect_data = vect_data
         self.bert_sentiment_data = bert_sentiment_data # Load BERT 
+        self.ner_training = ner_training
+        self.ner_cutoff = ner_cutoff
+        self.conversation_id_col = conversation_id_col
+        self.timestamp_col = timestamp_col
+        self.message_col = message_col
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
         self.function_words = get_function_words() # load function words exactly once
         self.question_words = get_question_words() # load question words exactly once
         self.first_person = get_first_person_words() # load first person words exactly once
-
-        self.ner_training = ner_training
-        self.ner_cutoff = ner_cutoff
         
     def calculate_chat_level_features(self) -> pd.DataFrame:
         """
@@ -145,13 +153,13 @@ class ChatLevelFeaturesCalculator:
         :rtype: None
         """
         # Count Words
-        self.chat_data["num_words"] = self.chat_data["message"].apply(count_words)
+        self.chat_data["num_words"] = self.chat_data[self.message_col].apply(count_words)
         
         # Count Characters
-        self.chat_data["num_chars"] = self.chat_data["message"].apply(count_characters)
+        self.chat_data["num_chars"] = self.chat_data[self.message_col].apply(count_characters)
         
         # Count Messages        
-        self.chat_data["num_messages"] = self.chat_data["message"].apply(count_messages)
+        self.chat_data["num_messages"] = self.chat_data[self.message_col].apply(count_messages)
         
     def info_exchange(self) -> None:
         """
@@ -169,13 +177,13 @@ class ChatLevelFeaturesCalculator:
         """
 
         # Get Modified Wordcount: Total word count - first_singular pronouns
-        self.chat_data["info_exchange_wordcount"] = get_info_exchange_wordcount(self.chat_data, self.first_person)
+        self.chat_data["info_exchange_wordcount"] = get_info_exchange_wordcount(self.chat_data, self.first_person, self.message_col)
         
         # Get the z-score of each message across all chats
         self.chat_data["info_exchange_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "info_exchange_wordcount")
 
         # Get the z-score within each conversation
-        self.chat_data["info_exchange_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "info_exchange_wordcount")
+        self.chat_data["info_exchange_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "info_exchange_wordcount", self.conversation_id_col)
 
         # Drop the info exchange wordcount --- it's a linear combination of 2 columns and therefore useless
         self.chat_data = self.chat_data.drop(columns=['info_exchange_wordcount'])
@@ -195,7 +203,7 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["positivity_zscore_chats"] = get_zscore_across_all_chats(self.chat_data, "positive_bert")
 
         # Get the z-score within each conversation
-        self.chat_data["positivity_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "positive_bert")
+        self.chat_data["positivity_zscore_conversation"] = get_zscore_across_all_conversations(self.chat_data, "positive_bert", self.conversation_id_col)
 
     def lexical_features(self) -> None:
         """
@@ -206,7 +214,7 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data = pd.concat([self.chat_data, liwc_features(self.chat_data)], axis = 1)
+        self.chat_data = pd.concat([self.chat_data, liwc_features(self.chat_data, self.message_col)], axis = 1)
         
     def calculate_hedge_features(self) -> None:
         """
@@ -232,8 +240,8 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data["textblob_subjectivity"] = self.chat_data["message"].apply(get_subjectivity_score)
-        self.chat_data["textblob_polarity"] = self.chat_data["message"].apply(get_polarity_score)
+        self.chat_data["textblob_subjectivity"] = self.chat_data[self.message_col].apply(get_subjectivity_score)
+        self.chat_data["textblob_polarity"] = self.chat_data[self.message_col].apply(get_polarity_score)
 
     def get_dale_chall_score_and_classfication(self) -> None:
         """
@@ -246,7 +254,7 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data['dale_chall_score'] = self.chat_data['message'].apply(lambda x: dale_chall_helper(x, easy_words = self.easy_dale_chall_words))
+        self.chat_data['dale_chall_score'] = self.chat_data[self.message_col].apply(lambda x: dale_chall_helper(x, easy_words = self.easy_dale_chall_words))
         self.chat_data['dale_chall_classification'] = self.chat_data['dale_chall_score'].apply(classify_text_dalechall)
 
     def other_lexical_features(self) -> None:
@@ -273,7 +281,7 @@ class ChatLevelFeaturesCalculator:
         self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(classify_NTRI)
         
         # Calculate the word type-to-token ratio
-        self.chat_data["word_TTR"] = self.chat_data["message"].apply(get_word_TTR)
+        self.chat_data["word_TTR"] = self.chat_data[self.message_col].apply(get_word_TTR)
         
         # Calculate the proportion of first person pronouns from the chats
         self.chat_data["first_pronouns_proportion"] = get_proportion_first_pronouns(self.chat_data)
@@ -301,12 +309,12 @@ class ChatLevelFeaturesCalculator:
         """
 
         # Extract function words / content words from a message
-        self.chat_data["function_words"] = self.chat_data["message"].apply(lambda x: get_function_words_in_message(x, function_word_reference = self.function_words))
-        self.chat_data["content_words"] = self.chat_data["message"].apply(lambda x: get_content_words_in_message(x, function_word_reference = self.function_words))
+        self.chat_data["function_words"] = self.chat_data[self.message_col].apply(lambda x: get_function_words_in_message(x, function_word_reference = self.function_words))
+        self.chat_data["content_words"] = self.chat_data[self.message_col].apply(lambda x: get_content_words_in_message(x, function_word_reference = self.function_words))
         
         # Extract the function words / content words that also appears in the immediate previous turn
-        self.chat_data["function_word_mimicry"] = mimic_words(self.chat_data, "function_words")
-        self.chat_data["content_word_mimicry"] = mimic_words(self.chat_data, "content_words")
+        self.chat_data["function_word_mimicry"] = mimic_words(self.chat_data, "function_words", self.conversation_id_col)
+        self.chat_data["content_word_mimicry"] = mimic_words(self.chat_data, "content_words", self.conversation_id_col)
 
         # Compute the number of function words that also appears in the immediate previous turn
         self.chat_data["function_word_accommodation"] = self.chat_data["function_word_mimicry"].apply(function_mimicry_score)
@@ -318,8 +326,8 @@ class ChatLevelFeaturesCalculator:
         self.chat_data = self.chat_data.drop(columns=['function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
 
         # Compute the mimicry relative to the previous chat(s) using SBERT vectors
-        self.chat_data["mimicry_bert"] = get_mimicry_bert(self.chat_data, self.vect_data)
-        self.chat_data["moving_mimicry"] = get_moving_mimicry(self.chat_data, self.vect_data)
+        self.chat_data["mimicry_bert"] = get_mimicry_bert(self.chat_data, self.vect_data, self.conversation_id_col)
+        self.chat_data["moving_mimicry"] = get_moving_mimicry(self.chat_data, self.vect_data, self.conversation_id_col)
         
     def get_temporal_features(self) -> None:
         """
@@ -334,11 +342,13 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        if {'timestamp'}.issubset(self.chat_data.columns):
-            self.chat_data["time_diff"] =  get_time_diff(self.chat_data,"timestamp") 
-        elif {'timestamp_start', 'timestamp_end'}.issubset(self.chat_data.columns):
-            self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data)
-
+        if type(self.timestamp_col) is str and {self.timestamp_col}.issubset(self.chat_data.columns):
+            self.chat_data["time_diff"] =  get_time_diff(self.chat_data, self.timestamp_col, self.conversation_id_col) 
+        elif type(self.timestamp_col) is tuple:
+            timestamp_start, timestamp_end = self.timestamp_col
+            if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
+                self.chat_data["time_diff"] =  get_time_diff_startend(self.chat_data, timestamp_start, timestamp_end, self.conversation_id_col)
+    
     def calculate_politeness_sentiment(self) -> None:
         """
         Calculate politeness strategies using the Politeness module from Convokit.
@@ -379,7 +389,7 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data["forward_flow"] = get_forward_flow(self.chat_data, self.vect_data)
+        self.chat_data["forward_flow"] = get_forward_flow(self.chat_data, self.vect_data, self.conversation_id_col)
    
     def get_certainty_score(self) -> None:
         """
@@ -416,7 +426,7 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data["num_all_caps"] = self.chat_data["message_original"].apply(count_all_caps)
+        self.chat_data["num_all_caps"] = self.chat_data[self.message_col + "_original"].apply(count_all_caps)
         self.chat_data["num_links"] = self.chat_data["message_lower_with_punc"].apply(count_links)
         self.chat_data["num_reddit_users"] = self.chat_data["message_lower_with_punc"].apply(count_user_references)
         self.chat_data["num_emphasis"] = self.chat_data["message_lower_with_punc"].apply(count_emphasis)
@@ -439,5 +449,5 @@ class ChatLevelFeaturesCalculator:
 
         if self.ner_training is not None:
             train_spacy_ner(self.ner_training)
-            self.chat_data["num_named_entity"] = self.chat_data["message"].apply(num_named_entity, cutoff=self.ner_cutoff)
-            self.chat_data["named_entities"] = self.chat_data["message"].apply(named_entities, cutoff=self.ner_cutoff)
+            self.chat_data["num_named_entity"] = self.chat_data[self.message_col].apply(num_named_entity, cutoff=self.ner_cutoff)
+            self.chat_data["named_entities"] = self.chat_data[self.message_col].apply(named_entities, cutoff=self.ner_cutoff)
