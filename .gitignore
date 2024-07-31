@@ -31,8 +31,8 @@ MANIFEST
 .DS_Store
 
 # unwanted files
-src/team_comm_tools/features/lexicons/liwc_lexicons/
-src/team_comm_tools/features/lexicons/liwc_lexicons_small_test/
+src/team_comm_tools/features/lexicons/liwc_lexicons/*
+src/team_comm_tools/features/lexicons/liwc_lexicons_small_test/*
 src/team_comm_tools/features/lexicons/certainty.txt
 src/team_comm_tools/modules/
 src/team_comm_tools/output/*
@@ -45,7 +45,9 @@ tests/vector_data/*
 src/utils/__pycache__/
 .idea/
 *.py[cod]
-src/team_comm_tools/features/lexicons/certainty.txt
+src/data/vectors/sentence
+src/data/vectors/sentiment
+src/features/lexicons/certainty.txt
 examples/vector_data/*
 examples/output/*
 node_modules/
@@ -54,3 +56,5 @@ node_modules/
 /output
 /vector_data
 test.py
+
+
