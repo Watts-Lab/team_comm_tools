@@ -118,17 +118,8 @@ Defaults to an empty list (i.e., no additional features beyond the defaults will
 <li><p><strong>speaker_id_col</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the speaker ID. Defaults to “speaker_nickname”.</p></li>
 <li><p><strong>message_col</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the message. Defaults to “message”.</p></li>
 <li><p><strong>timestamp_col</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the message. Defaults to “timestamp”.</p></li>
-<li><p><strong>grouping_keys</strong> – A list of multiple identifiers that collectively identify a conversation. If non-empty, we will group by all of the keys in the list and use the</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="simple">
-<dt>grouped key as the unique “conversational identifier.”</dt><dd><p>Defaults to an empty list.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
+<li><p><strong>grouping_keys</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of multiple identifiers that collectively identify a conversation. If non-empty, we will group by all of the keys in the list and use the grouped key as the unique “conversational identifier.”
+Defaults to an empty list.</p></li>
 <li><p><strong>cumulative_grouping</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.)
 NOTE: This parameter and the following one (<cite>within_grouping</cite>) was created in the context of a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>).
 It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
