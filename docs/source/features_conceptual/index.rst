@@ -16,7 +16,7 @@ Utterance- (Chat) Level Features
    named_entity_recognition
    positivity_bert
    mimicry_bert
-   TEMPLATE
+   word_ttr
 
 Conversation-Level Features
 ****************************
@@ -24,4 +24,4 @@ Conversation-Level Features
 .. toctree::
    :maxdepth: 1
 
-   TEMPLATE
+   turn_taking_index
