@@ -23,3 +23,4 @@ src/data/vectors/sentiment
 src/features/lexicons/certainty.txt
 examples/vector_data/*
 examples/output/*
+node_modules/
