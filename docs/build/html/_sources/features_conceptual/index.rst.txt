@@ -14,6 +14,8 @@ Utterance- (Chat) Level Features
    :maxdepth: 1
 
    named_entity_recognition
+   positivity_bert
+   mimicry_bert
    word_ttr
 
 Conversation-Level Features

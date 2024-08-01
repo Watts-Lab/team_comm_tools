@@ -5,27 +5,51 @@ Content Word Accommodation
 
 High-Level Intuition
 *********************
-This feature measure how much the current utterance "mimicks" the previous utterance in a conversation, with respect to the content words in the message. 
+This feature measures how much the current utterance "mimics" the previous utterance in a conversation, with respect to the content words (that is, non-function words) in the message. Content words are those that possess semantic content, so this measure roughly estimates the extent to which individuals are echoing each other in a "substantive" way, as opposed to mimicing the speaking style.
 
 Citation
 *********
-https://web.stanford.edu/~jurafsky/pubs/ranganath2013.pdf
+`Ranganath et al. (2013) https://web.stanford.edu/~jurafsky/pubs/ranganath2013.pdf`_
 
 Implementation Basics 
 **********************
-Counts the number of shared content words between the current and previous utterance in a conversation. Have a reference list of content words that are considered in the computation. Content words are defined as words that "possess semantic content and contribute to the meaning of the sentence", i.e. any words that are NOT function words. Some examples of content words are "paper", "coffee", "Mr.Smith", etc.
+To compute the feature, we count the number of shared content words between the current and previous utterance in a conversation, then normalize it by the frequency of the word across all inputs in the dataset. This follows the original authors' method:
 
+	Content words are defined as any word that is not a function word. For each content word w in a given speaker’s turn, if w also occurs in the immediately preceding turn of the other, we count w as an accommodated content word. The raw count of accommodated content words is be the total number of these accommodated content words over every turn in the conversation side. Because content words vary widely in frequency, we normalized our counts by the frequency of each word.
+
+The feature requires a reference list of function words, which are defined by the original authors as follows.
+
+**Auxiliary and copular verbs**
+  able, am, are, aren’t, be, been, being, can, can’t, cannot, could, couldn’t, did, didn’t, do, don’t, get, got, gotta, had, hadn’t, hasn’t, have, haven’t, is, isn’t, may, should, should’ve, shouldn’t, was, were, will, won’t, would, would’ve, wouldn’t
+
+**Conjunctions**
+  although, and, as, because, ’cause, but, if, or, so, then, unless, whereas, while
+
+**Determiners, Predeterminers, and Quantifiers**
+  a, an, each, every, all, lot, lots, the, this, those
+
+**Pronouns and Wh-words**
+  anybody, anything, anywhere, everybody’s, everyone, everything, everything’s, everywhere, he, he’d, he’s, her, him, himself, herself, his, I, I’d, I’ll, I’m, I’ve, it, it’d, it’ll, it’s, its, itself, me, my, mine, myself, nobody, nothing, nowhere, one, one’s, ones, our, ours, she, she’ll, she’s, she’d, somebody, someone, someplace, that, that’d, that’ll, that’s, them, themselves, these, they, they’d, they’ll, they’re, they’ve, us, we, we’d, we’ll, we’re, we’ve, what, what’d, what’s, whatever, when, where, where’d, where’s, wherever, which, who, who’s, whom, whose, why, you, you’d, you’ll, you’re, you’ve, your, yours, yourself
+
+**Prepositions**
+  about, after, against, at, before, by, down, for, from, in, into, near, of, off, on, out, over, than, to, until, up, with, without
+
+**Discourse Particles**
+  ah, hi, huh, like, mm-hmm, oh, okay, right, uh, uh-huh, um, well, yeah, yup
+
+**Adverbs and Negatives**
+  just, no, not, really, too, very
 
 Implementation Notes/Caveats 
 *****************************
-Note that the first utterance in a conversation cannot have a mimicry score, as there is no "previous utterance" to associate it with. In this case, we assign a value of 0 to this utterance, signalling that there is no mimicry involved, a completely original thought. 
+Note that the first utterance in a conversation cannot have a mimicry score, as there is no "previous utterance" to associate it with. In this case, we assign a value of 0 to this utterance.
 
 Interpreting the Feature 
 *************************
-This feature generates a shared word count for each utterance in a conversation, with lower scores representing a more original thought compared with the previous chat (lacking content word mimicry), while higher scores represent a higher degree of content word mimicry with the previous chat. The bounds of this score range from 0 to the total number of words in the selected chat.
+This feature generates a (normalized) shared word count for each utterance in a conversation, with lower scores (close to 0) representing utterances that discuss more "different" content compared to the previous utterance; in other words, there is a lack of content word mimicry. Higher scores represent utterances that discuss the "same" content compared to the previous utterance.
 
-It's important to note that this score doesn't measure the overall mimicry of the conversation. As an utterance-level feature, it computes the content word mimicry only between the selected chat and the previous. It's also important to note that this feature doesn't measure mimicry in its entirety, but rather within the context of content words. Check Mimicry (BERT) for a more comprehensive mimicry feature.
+It's important to note that this score doesn't measure the overall level of mimicry over the course of the conversation. As an utterance-level feature, it computes the content word mimicry only between the focal utterance and the previous one. It's also important to note that, because the feature is lexical, it doesn't measure "mimicry" in the sense of having a simialr opinion --- only in the sense of having a large number of shared words. For example, "I loved the movie last night" and "I hated the movie last night" express opposing sentiments, but share most of their content words ("movie", "last", "night"). Additionally, homonyms may create false positives; "I was present in class" and "I got you a present" share the content word "present," but it takes on a different meaning in each case. Other measures of mimicry relying on transformer-based models (e.g., the Mimicry (BERT) features) can help to mitigate this issue.
 
 Related Features 
 *****************
-This toolkit incorporates a host of mimicry-related features, with others including Function Word Accommodation, Mimicry (BERT), and Moving Mimicry. The former use a similar concrete bag-of-words approach to compute mimicry within the content word domain, rather than the function word domain. Mimicry (BERT) uses cosine similarity between sBERT embeddings to measure mimicry between a given chat and the previous. Moving Mimicry is similar to Mimicry (BERT) in that it uses sBERT embeddings to compute similarity, but differs in that it  helps reason towards the overall flow of mimicry throughout a conversation, rather than at one instantaneous point.
+Other mimicry-related features include Function Word Accommodation, Mimicry (BERT), and Moving Mimicry. Function Word Accommodation is a lexical feature that is the complement of this one; it measures the number of function words shared between successive utterances. The latter two use more advanced, transformer-based models to compute similarity between utterances. Mimicry (BERT) uses the cosine similarity between sBERT embeddings to measure mimicry between a given utterance and the previous one. Moving Mimicry is similar to Mimicry (BERT) in that it uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the overall flow of mimicry throughout a conversation, rather than at one instantaneous point.
