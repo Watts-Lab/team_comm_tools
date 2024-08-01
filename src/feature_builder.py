@@ -74,13 +74,13 @@ class FeatureBuilder:
     :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same "task" (Mid-level identifier). Defaults to False.
     :type within_task: bool, optional
     
-    :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature
+    :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature. Defaults to None, and will not generate named entity featuers if it does not exist.
     :type ner_training_df: pd.DataFrame
     
-    :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
+    :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity. Defaults to 0.9.
     :type ner_cutoff: int
 
-    :param regenerate_vectors: If true, will regenerate vector data even if it already exists
+    :param regenerate_vectors: If true, will regenerate vector data even if it already exists. Defaults to False.
     :type regenerate_vectors: bool, optional
 
     :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
