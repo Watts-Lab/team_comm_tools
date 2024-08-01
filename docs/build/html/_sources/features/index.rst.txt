@@ -24,6 +24,10 @@ Utterance-Level features are calculated *first* in the Toolkit, as many conversa
    readability
    textblob_sentiment_analysis
    named_entity_recognition_features
+   politeness_v2
+   politeness_v2_helper
+   reddit_tags
+   word_mimicry
    fflow
 
 Conversation-Level Features
