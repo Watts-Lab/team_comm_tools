@@ -15,6 +15,8 @@ Utterance- (Chat) Level Features
 
    named_entity_recognition
    positivity_bert
+   content_word_accommodation
+   function_word_accommodation
    mimicry_bert
    word_ttr
 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moving Mimicry &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Moving Mimicry</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/features_conceptual/moving_mimicry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="moving-mimicry">
+<span id="id1"></span><h1>Moving Mimicry<a class="headerlink" href="#moving-mimicry" title="Permalink to this heading"></a></h1>
+<section id="high-level-intuition">
+<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Permalink to this heading"></a></h2>
+<p>This feature measure the degree of mimicry a conversation has displayed up until the current utterance.</p>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this heading"></a></h2>
+<p>N/A; This is a novel measure that builds on related measures of mimicry/accommodation (see “Related Features”).</p>
+</section>
+<section id="implementation-basics">
+<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Permalink to this heading"></a></h2>
+<p>Using BERT’s Sentence Transfomers model (<a class="reference external" href="https://sbert.net/">https://sbert.net/</a>), utterances are represented as multidimensional embeddings. Stepping through each message in a conversation, this feature first computes the cosine similarity of the current embedding and previous embedding to determine their degree of mimicry. It then computes the average of all mimicry scores computed thus far (up until this point in the conversation), including the mimicry metric just computed, and assigned the output to the current chat. The feature then this running average for the proceeding chat.</p>
+</section>
+<section id="implementation-notes-caveats">
+<h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Permalink to this heading"></a></h2>
+<p>Note that the first utterance in a conversation cannot have a moving mimicry score, as there is no “previous utterance” to associate it with. In this case, we assign a value of 0 to this utterance.</p>
+</section>
+<section id="interpreting-the-feature">
+<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Permalink to this heading"></a></h2>
+<p>This feature generates a score between 0-1 for each utterance in a conversation, with scores closer to 0 representing a more original conversation (lacking mimicry) up until chat X, while scores near 1 represent a higher degree of mimicry/similarity within the conversation up until chat X.</p>
+</section>
+<section id="related-features">
+<h2>Related Features<a class="headerlink" href="#related-features" title="Permalink to this heading"></a></h2>
+<p>This toolkit incorporates a host of mimicry-related features, with others including Function Word Accommodation, Content Word Accommodation, and Mimicry (BERT). The former two features use a bag-of-words approach to compute mimicry within two discrete categories. Mimicry (BERT) is similar in that it still uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the mimicry at one instantaneous point in a conversation, rather than the overall flow of mimicry throughout a conversation up until a certain point.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
