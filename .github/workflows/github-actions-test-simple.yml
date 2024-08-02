@@ -29,14 +29,12 @@ jobs:
           cd tests
           python3 run_tests.py
           python3 run_package_grouping_tests.py
-        working-directory: ./src/team_comm_tools/
 
       - name: Run tests
         run: |
           cd tests
           pytest test_feature_metrics.py
           pytest test_package.py
-        working-directory: ./src/team_comm_tools/
 
       - name: Upload test results
         uses: actions/upload-artifact@v2
