@@ -18,6 +18,7 @@ Utterance- (Chat) Level Features
    message_length
    message_quantity
    online_discussion_tags
+   word_ttr
    TEMPLATE
 
 Conversation-Level Features
@@ -26,4 +27,4 @@ Conversation-Level Features
 .. toctree::
    :maxdepth: 1
 
-   TEMPLATE
+   turn_taking_index
