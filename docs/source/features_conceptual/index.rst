@@ -14,6 +14,10 @@ Utterance- (Chat) Level Features
    :maxdepth: 1
 
    named_entity_recognition
+   information_exchange
+   message_length
+   message_quantity
+   online_discussion_tags
    TEMPLATE
 
 Conversation-Level Features
