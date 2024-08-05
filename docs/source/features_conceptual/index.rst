@@ -19,6 +19,8 @@ Utterance- (Chat) Level Features
    message_quantity
    online_discussion_tags
    word_ttr
+   textblob_polarity
+   textblob_subjectivity
    TEMPLATE
 
 Conversation-Level Features
