@@ -21,6 +21,7 @@ Utterance- (Chat) Level Features
    word_ttr
    textblob_polarity
    textblob_subjectivity
+   proportion_of_first_person_pronouns
    TEMPLATE
 
 Conversation-Level Features
