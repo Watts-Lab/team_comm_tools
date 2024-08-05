@@ -26,7 +26,6 @@ However, the algorithm will classify it as a positive sentence because it simply
 (4 positive words in this case make the sentence positive for the algorithm).
 
 
-
 Interpreting the Feature 
 *************************
 
