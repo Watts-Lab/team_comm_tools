@@ -1,11 +1,11 @@
 .. _TEMPLATE:
 
-FEATURE NAME
+Textblob Subjectivity
 ============
 
 High-Level Intuition
 *********************
-High-level, what does this feature measure?
+Measures whether a message is subjective or objective
 
 Citation
 *********

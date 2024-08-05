@@ -1,11 +1,11 @@
 .. _TEMPLATE:
 
-FEATURE NAME
+Textblob Polarity
 ============
 
 High-Level Intuition
 *********************
-High-level, what does this feature measure?
+Measures the polarity i.e. how positive or negative a message is
 
 Citation
 *********

@@ -1,6 +1,6 @@
 .. _TEMPLATE:
 
-ONLINE DISCUSSION TAGS
+Message Quantity
 ============
 
 High-Level Intuition

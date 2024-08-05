@@ -1,6 +1,6 @@
 .. _TEMPLATE:
 
-FEATURE NAME
+Information Exchange
 ============
 
 High-Level Intuition
