@@ -22,6 +22,7 @@ Utterance- (Chat) Level Features
    textblob_polarity
    textblob_subjectivity
    proportion_of_first_person_pronouns
+   hedge
    TEMPLATE
 
 Conversation-Level Features
