@@ -23,6 +23,7 @@ Utterance- (Chat) Level Features
    textblob_subjectivity
    proportion_of_first_person_pronouns
    hedge
+   dale_chall_score
    TEMPLATE
 
 Conversation-Level Features
