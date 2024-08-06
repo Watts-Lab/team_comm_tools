@@ -24,6 +24,7 @@ Utterance- (Chat) Level Features
    proportion_of_first_person_pronouns
    hedge
    dale_chall_score
+   time_difference
    TEMPLATE
 
 Conversation-Level Features
