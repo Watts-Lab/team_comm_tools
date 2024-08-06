@@ -4,14 +4,6 @@ from .discursive_diversity import get_cosine_similarity
 import os
 from pathlib import Path
 
-'''
-This is a conversation level feature, which computes the semantic modulation that 
-individuals experience with respect to themselves across each chunk transition. 
-Incongruent modulation measures the variance of the rates of shifting, 
-while within person discursive range measures the average amount of shifting. 
-
-'''
-
 def get_nan_vector():
     current_script_directory = Path(__file__).resolve().parent
     nan_vector_file_path = current_script_directory.parent / "../src/features/assets" / "nan_vector.txt"
@@ -21,6 +13,22 @@ def get_nan_vector():
     nan_vector_list = [float(e) for e in str_vec[1:-1].split(',')]
     return np.array(nan_vector_list)
 
+"""Computes the degree to which a speaker's diction changes between each chunk in a conversation. Performs an aggregation function on these distances this across all speakers per chunk interval to return either incongruent modulation or within person discursive range conversation-level metrics.
+
+The Incongruent Modulation feature measures the variance of the rate of speaker shifts. It computes the distance between every speaker's mean embeddings across pairs of consecutive chunks in a conversation. The variance of these cosine distances across speakers per interval is summed.
+
+The Within Person Discursive Range feature measures the average degree of speaker shifts. It computes the distance between every speaker's mean embeddings across pairs of consecutive chunks in a conversation. The average of these cosine distances across speakers per interval is summed.
+
+Args:
+    chat_data (pd.DataFrame): The utterance (chat)-level dataframe.
+    num_chunks (int): The number of chunks this conversation is split into.
+    conversation_id_col (str): The name of the column containing the conversation identifiers.
+    speaker_id_col (str): The name of the column containing the speaker identifiers.
+
+Returns:
+    pd.DataFrame: A grouped dataframe that contains the conversation identifier as the key, and contains new columns ("incongruent_modulation") and ("within_person_discursive_range").
+
+"""
 
 def get_within_person_disc_range(chat_data, num_chunks, conversation_id_col, speaker_id_col):
 
