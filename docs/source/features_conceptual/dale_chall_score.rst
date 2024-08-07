@@ -16,8 +16,6 @@ Implementation Basics
 
 The Dale–Chall readability formula is a readability test that provides a numeric gauge of the comprehension difficulty that readers come upon when reading a text. It uses a list of 3000 words that groups of fourth-grade American students could reliably understand, considering any word not on that list to be difficult.
 
-The Formula for the Dale-Chall readability score is:
-
 The formula for calculating the raw score of the Dale–Chall readability score (1948) is given below:
 
 0.1579(difficult words ×100/words) + 0.0496(words/sentences)

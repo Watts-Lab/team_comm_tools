@@ -14,7 +14,7 @@ NA
 Implementation Basics 
 **********************
 
-Returns the number of words in a message/utterance
+Returns the number of words in a message/utterance by splitting on the whitespace, after preprocessing to remove punctuation.
 
 Implementation Notes/Caveats 
 *****************************
@@ -29,7 +29,6 @@ Longer messages may indicate more detailed explanations, more extensive engageme
 Conversely, shorter messages might be more direct, concise, or reflect quick interactions.
 
 For example, a curt "Hi" has a message length of 1, whereas a more detailed "Hello, How are you doing today?" has a message length of 6.
-
 
 Related Features 
 *****************

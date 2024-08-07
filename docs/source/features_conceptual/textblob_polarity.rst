@@ -13,7 +13,7 @@ Citation
 
 Implementation Basics 
 **********************
-To calculate polarity, we use the TextBlob Library in python. 
+To calculate polarity, we use the TextBlob Library in Python. 
 This library is implemented using the Naive Bayes Algorithm, `Textblob <https://textblob.readthedocs.io/en/dev/>`_ which is a "Bag of Words"-based classifier.
 
 Implementation Notes/Caveats 
@@ -33,4 +33,10 @@ Scores are a continuous variable, ranging from -1 (extremely negative) to 1 (ext
 
 Related Features 
 *****************
-N/A
+This feature is correlates to other positivity related features such as:
+
+1. positive_bert
+2. positivity_zscore_chats
+3. positivity_zscore_conversation
+4. has_positive
+5. Positive_Emotion

@@ -26,4 +26,4 @@ A score of 1 is assigned if hedge phrases (”I think,” “a little,” “may
 
 Related Features 
 *****************
-Politness Strategies - which also measures hedges
+Politeness Strategies - which also measures hedges

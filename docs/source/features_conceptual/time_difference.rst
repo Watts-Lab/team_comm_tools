@@ -23,8 +23,8 @@ NA
 Interpreting the Feature 
 *************************
 The difference between the timestamp of the current utterance and the previous utterance in seconds.
-We accept DateTime objects, unix time, even raw numbers of seconds...
+We accept only DateTime objects, Unix timestamps, or the number of seconds elapsed from the beginning of the conversation.
 
 Related Features 
 *****************
-NA
+This feature helps us understand other temporal-related features, such as Burstiness (which measures whether the messages come in at regular intervals or whether they come in all at once in a short "burst")

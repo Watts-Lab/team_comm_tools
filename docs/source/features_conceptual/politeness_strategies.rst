@@ -15,7 +15,11 @@ Citation
 
 Implementation Basics 
 **********************
-Each utterance (message) and a Spacy object (to do the parsing) is parsed through the transform_utterance() method of a PolitenessStrategies instance, developed by Convokit.
+
+The PolitenessStrategies framework in Convokit identifies linguistic aspects of politeness using an annotated corpus of requests.
+It evaluates and operationalizes politeness theory components like indirection and deference, with a classifier achieving near-human performance across domains. 
+
+Each utterance (message) and a Spacy object (to do the parsing) is parsed through the transform_utterance() method of a PolitenessStrategies instance.
 This method "Extract politeness strategies for raw string inputs (or individual utterances)." It calculates the following politeness strategies:
 
 please

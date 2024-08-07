@@ -21,7 +21,6 @@ Word count minus first-person singular pronouns was taken as a measure of inform
 
 Implementation Notes/Caveats 
 *****************************
-
 1. Personal opinion acts as an important part in on-task communications, and this feature specifically excludes first person pronouns
 that might be indicative of personal opinions, which might not be ideal in all cases.
 2. This method does not capture the quality of the information itself because it solely relies on the quantity. A person might say a lot of words but none of the information is meaningful to the topic.
@@ -29,6 +28,8 @@ that might be indicative of personal opinions, which might not be ideal in all c
 
 Interpreting the Feature 
 *************************
+
+We are assuming this is a single conversation, and this is a dataset that consists of only one conversation.
 
 Example:
 Messages in a conversation:
@@ -61,4 +62,5 @@ Read more about z-scores here: https://www.statology.org/z-score-python/
 
 Related Features 
 *****************
-N/A
+
+Generally strongly correlated with message length, especially in cases where there are not a ton of pronoun use.

@@ -18,7 +18,7 @@ This function is trivial; by definition, each message counts as 1. However, at t
 
 Implementation Notes/Caveats 
 *****************************
-This feature becomes relevant at the conversation level, but is trivial at the chat level 
+This feature becomes relevant at the conversation level, but is trivial at the chat level.
 
 Interpreting the Feature 
 *************************
