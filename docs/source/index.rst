@@ -7,7 +7,7 @@ The Team Communication Toolkit
 ===============================
 Welcome to the official documentation of the Team Communication Toolkit! If you're a social scientist looking to explore conversational data, or just someone interested in better understanding the dynamics of team conversations, you've come to the right place.
 
-Getting Started
+How to Download
 ****************
 
 To use our tool, please ensure that you have Python >= 3.10 installed and a working version of `pip <https://pypi.org/project/pip/>`_, which is Python's package installer. Then, in your local environment, run the following:
@@ -81,7 +81,7 @@ Once you import the tool, you will be able to declare a FeatureBuilder object, w
    # this line of code runs the FeatureBuilder on your data
    my_feature_builder.featurize(col="message")
 
-Use the Table of Contents below to learn more about our tool. We recommend that you begin in the "Introduction" section, then explore other sections of the documentation as they become relevant to you. More information on using our tool can be found in :ref:`examples`.
+Use the Table of Contents below to learn more about our tool. We recommend that you begin in the "Introduction" section, then explore other sections of the documentation as they become relevant to you. More information on using our tool can be found in the :ref:`examples`.
 
 .. toctree::
    :maxdepth: 2
