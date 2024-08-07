@@ -1,4 +1,4 @@
-.. _TEMPLATE:
+.. _positivity_z_score:
 
 Positivity Z-Score
 ============

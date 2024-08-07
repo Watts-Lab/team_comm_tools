@@ -1,4 +1,4 @@
-.. _TEMPLATE:
+.. _information_exchange:
 
 Information Exchange
 ============

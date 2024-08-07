@@ -1,4 +1,4 @@
-.. _TEMPLATE:
+.. _message_length:
 
 Message Length
 ============

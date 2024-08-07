@@ -1,6 +1,6 @@
-.. _TEMPLATE:
+.. _online_discussion_tag:
 
-ONLINE DISCUSSION TAGS
+Online Discussion Tags
 ============
 
 High-Level Intuition

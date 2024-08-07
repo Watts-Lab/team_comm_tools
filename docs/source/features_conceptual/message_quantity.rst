@@ -1,4 +1,4 @@
-.. _TEMPLATE:
+.. _message_quantity:
 
 Message Quantity
 ============

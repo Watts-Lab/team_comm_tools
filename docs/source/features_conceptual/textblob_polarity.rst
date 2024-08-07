@@ -1,4 +1,4 @@
-.. _TEMPLATE:
+.. _textblob_polarity:
 
 Textblob Polarity
 ============

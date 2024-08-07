@@ -1,4 +1,4 @@
-.. _TEMPLATE:
+.. _dale_chall_score:
 
 Dale-Chall Score
 ============

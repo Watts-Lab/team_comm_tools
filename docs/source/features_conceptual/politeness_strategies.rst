@@ -1,4 +1,4 @@
-.. _TEMPLATE:
+.. _politeness_strategies:
 
 Politeness Strategies
 ============

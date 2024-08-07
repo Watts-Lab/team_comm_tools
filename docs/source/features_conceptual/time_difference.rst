@@ -1,4 +1,4 @@
-.. _TEMPLATE:
+.. _time_difference:
 
 Time Difference
 ============
@@ -22,7 +22,8 @@ NA
 
 Interpreting the Feature 
 *************************
-The difference between the timestamp of the current utterance and the previous utterance in seconds
+The difference between the timestamp of the current utterance and the previous utterance in seconds.
+We accept DateTime objects, unix time, even raw numbers of seconds...
 
 Related Features 
 *****************

@@ -1,25 +1,39 @@
-.. _TEMPLATE:
+.. _politeness_receptiveness_markers:
 
-FEATURE NAME
+Politeness Receptiveness Markers
 ============
 
 High-Level Intuition
 *********************
-High-level, what does this feature measure?
+A collection of conversational markers that indicates the use of politeness / receptiveness.
 
 Citation
 *********
-Provide a citation of the relevant social science paper(s) and computational paper(s).
+`Yeomans et al., (2020) <https://www.mikeyeomans.info/papers/receptiveness.pdf>`_
+`SECR Module (For computing features from Yeomans et al., 2020) <https://github.com/bbevis/SECR/tree/main>`_
 
 Implementation Basics 
 **********************
-Read the code associated with this feature and give an intuitive explanation of what the code does. How does the technical implementation link to the high-level concept?
+
+We follow a very similar framework to the SECR Module to compute a 39 politeness features for each chat in a conversation. The chats are first preprocessed in the following ways:
+
+1. Convert all words to lowercase
+2. Remove/expand contractions (i.e don’t to do not; can’t to cannot; let’s to let us)
+3. Ensure all characters are legal traditional A-Z alphabet letters by using corresponding RegExs
+
+We then calculate the general categories of features in different ways, following similar structure as the SECR module.
+
+1. count_matches and Adverb_Limiter: calculates features using a standard bag-of-words approach, detecting the number of keywords from a pre-specified list stored in keywords.py.
+2. get_dep_pairs/get_dep_pairs_noneg: use Spacy to get dependency pairs for relevant words, using token.dep_ to differentiate with negation.
+3. Question: Question-related features are computed by counting the number of question words in a chat.
+4. word_start: detect certain conjunctions/affirmation words using pre-specified dictionary
+
+The corresponding counts are then returned concatenated to the original dataframe.
+
 
 Implementation Notes/Caveats 
 *****************************
-Read the code associated with this feature, as well as the internal Wiki page associated with the feature. Does our implementation deviate from the paper in any way? How might this affect someone's ability to interpret the feature?
-
-If this is not applicable (e.g., the implementation is straightforward and there are no caveats), *delete this section.*
+NA
 
 Interpreting the Feature 
 *************************
@@ -32,4 +46,4 @@ Read the code associated with this feature and answer the following questions, i
 
 Related Features 
 *****************
-Are there any related/similar features to this one? Is this part of an "umbrella" or group of features? Write about them here, and do your best to explain how they are different. Why would you use one implementation over the other?
+Politness Strategies
