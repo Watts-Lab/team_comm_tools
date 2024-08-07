@@ -37,12 +37,48 @@ NA
 
 Interpreting the Feature 
 *************************
-Read the code associated with this feature and answer the following questions, if applicable:
 
-1. What are the bounds of the score? What does a high versus low score mean? (How should you read this score?)
-2. Give a concrete example (e.g., negative score versus positive score)
-3. What DOESN’T the score measure? That is, what does the score take into account, and what are some ways that it might not capture the high-level social science concept?
-4. Are there any edge cases that we should be aware of? (e.g., if the conversation contains only one chat?) To the best of your knowledge, how does the code handle it?
+The SECR module contains the following 39 features.
+
+Impersonal_Pronoun
+First_Person_Single
+Hedges
+Negation
+Subjectivity
+Negative_Emotion
+Reasoning
+Agreement
+Second_Person
+Adverb_Limiter
+Disagreement
+Acknowledgement
+First_Person_Plural
+For_Me
+WH_Questions
+YesNo_Questions
+Bare_Command
+Truth_Intensifier
+Apology
+Ask_Agency
+By_The_Way
+Can_You
+Conjunction_Start
+Could_You
+Filler_Pause
+For_You
+Formal_Title
+Give_Agency
+Affirmation
+Gratitude
+Hello
+Informal_Title
+Let_Me_Know
+Swearing
+Reassurance
+Please
+Positive_Emotion
+Goodbye
+Token_count
 
 Related Features 
 *****************
