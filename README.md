@@ -40,7 +40,11 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 ```
 
+## Import Recommendations: Virtual Environment and Pip
+
 **We strongly recommend using a virtual environment in Python to run the package.** We have several specific dependency requirements. One important one is that we are currently only compatible with numpy < 2.0.0 because [numpy 2.0.0 and above](https://numpy.org/devdocs/release/2.0.0-notes.html#changes) made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.
+
+**We also strongly recommend using thet your version of pip is up-to-date (>=24.0).** There have been reports in which users have had trouble downloading dependencies (specifically, the Spacy package) with older versions of pip. If you get an error with downloading `en_core_web_sm`, we recommend updating pip.
 
 
 ## Using the FeatureBuilder

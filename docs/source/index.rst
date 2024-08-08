@@ -33,7 +33,12 @@ Additionally, we require the following NLTK dependencies, which need to be downl
    nltk.download('stopwords')
    nltk.download('wordnet')
 
+Import Recommendations: Virtual Environment and Pip
+===================================================
+
 **We strongly recommend using a virtual environment in Python to run the package.** We have several specific dependency requirements. One important one is that we are currently only compatible with numpy < 2.0.0 because `numpy 2.0.0 and above <https://numpy.org/devdocs/release/2.0.0-notes.html#changes>`_ made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.
+
+**We also strongly recommend that your version of pip is up-to-date (>=24.0).** There have been reports in which users have had trouble downloading dependencies (specifically, the Spacy package) with older versions of pip. If you get an error with downloading ``en_core_web_sm``, we recommend updating pip.
 
 After you import the package and install dependencies, you can then use our tool in your Python script as follows:
 
@@ -42,6 +47,9 @@ After you import the package and install dependencies, you can then use our tool
    from team_comm_tools import FeatureBuilder
 
 *Note*: PyPI treats hyphens and underscores equally, so "pip install team_comm_tools" and "pip install team-comm-tools" are equivalent. However, Python does NOT treat them equally, and **you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder**.
+
+Using the Package
+******************
 
 Once you import the tool, you will be able to declare a FeatureBuilder object, which is the heart of our tool. Here is some sample syntax:
 
