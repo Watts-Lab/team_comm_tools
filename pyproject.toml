@@ -30,6 +30,7 @@ dependencies = [
   "spacy>=3.7.2",
   "spacy-legacy==3.0.12",
   "spacy-loggers==1.0.5",
+  "en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl",
   "textblob==0.17.1",
   "tokenizers==0.19.1",
   "torch==2.4.0",
@@ -52,6 +53,9 @@ keywords = ["computational social science", "teams", "communication", "conversat
 Homepage = "https://teamcommtools.seas.upenn.edu/"
 Documentation = "https://conversational-featurizer.readthedocs.io/en/latest/"
 Repository = "https://github.com/Watts-Lab/team-comm-tools"
+
+[project.scripts]
+import_nltk = "team_comm_tools.utils.import_nltk:download_nltk_resources"
 
 [tool.setuptools.packages.find]
 where = ["src"]
