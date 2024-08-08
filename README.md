@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 
 # The Team Communication Toolkit
-The Team Communication Toolkit is a research project and Python package that aims to make it easier for social scientists to explore text-based conversational data.
+The Team Communication Toolkit is a Python package that makes it easy for social scientists to analyze and understand *text-based communication data*. Our aim is to facilitate seamless analyses of conversational data --- especially among groups and teams! --- by providing a single interface for researchers to generate and explore dozens of research-backed conversational features.
 
 <div align="center">
 
@@ -13,49 +13,63 @@ The Team Communication Toolkit is a research project and Python package that aim
 
 </div>
 
-## Getting Started
+# Getting Started
 
-If you are new to this repository, welcome! Please follow the steps below to get started.
+To use our tool, please ensure that you have Python >= 3.10 installed and a working version of [pip](https://pypi.org/project/pip/), which is Python's package installer. Then, in your local environment, run the following:
 
-### Step 1: Clone the Repo
-First, clone this repository into your local development environment: 
-
-```
-git clone https://github.com/Watts-Lab/team_comm_tools.git
+```sh
+pip install team_comm_tools
 ```
 
-### Step 2: Download Dependencies
+You will also need to ensure that Spacy and NLTK are installed in addition to the required dependencies. If you get an error that en_core_web_sm is not found, you should ensure the following:
 
-**Python Version**: We require >= `python3.10` when running this repository.
-
-We *strongly* recommend using a virtual environment to install the dependencies required for the project.
-
-Running the following script will install all required packages and dependencies:
-
-```
-./setup.sh
+```sh
+spacy download en_core_web_sm
 ```
 
-### Step 3: Run the Featurizer
-At this point, you should be ready to run the featurizer! Navigate to the `examples` folder, and use the following command:
+Additionally, we require the following NLTK dependencies:
 
+```sh
+nltk.download('nps_chat')
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
 ```
-python3 featurize.py
+
+**We strongly recommend using a virtual environment in Python to run the package.** We have several specific dependency requirements. One important one is that we are currently only compatible with numpy < 2.0.0 because [numpy 2.0.0 and above](https://numpy.org/devdocs/release/2.0.0-notes.html#changes) made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.
+
+After you import the package and install dependencies, you can then use our tool in your Python script as follows:
+
+```python
+from team_comm_tools import FeatureBuilder
 ```
-This calls the `featurizer.py` file, which declares a FeatureBuilder object for different dataset of interest, and featurizes them using our framework. The `featurize.py` file provides an end-to-end worked example of how you can declare a FeatureBuilder and call it on data; equally, you can replace this file with any file / notebook of your choosing, as long as you import the FeatureBuilder module.
 
-## Contributing Code and Automated Unit Testing
-If you would like to contribute to the repository, we have implemented a [Pull Request Template](https://github.com/Watts-Lab/team_comm_tools/blob/main/.github/pull_request_template.md) with a basic checklist that you should consider when adding code (e.g., improving documentation or developing a new feature).
+This allows you to declare a FeatureBuilder object, which is the heart of our tool. Here is some sample syntax:
 
-We have also implemented automated unit testing of all code (which runs upon every push to GitHub), allowing us to ensure that new features function as expected and do not break any previous features. The points below highlight key steps to using our automated test suite.
+```python
+# this section of code declares a FeatureBuilder object
+my_feature_builder = FeatureBuilder(
+   input_df = my_pandas_dataframe,
+   conversation_id_col = "conversation_id",  # this means there's a column in your data called 'conversation_id' that uniquely identifies a conversation
+   vector_directory = "./vector_data/",  # this is where we'll cache things like sentence vectors; this directory doesn't have to exist; we'll create it for you!
+   output_file_path_chat_level = "./my_output_chat_level.csv", # give us names for the utterance (chat), speaker (user), and conversation-level outputs
+   output_file_path_user_level = "./my_output_user_level.csv",
+   output_file_path_conv_level = "./my_output_conversation_level.csv",
+   turns = False,  # if true, this will combine successive turns by the same speaker.
+   custom_features = [  # these features depend on sentence vectors, so they take longer to generate on larger datasets. Add them in manually if you are interested in adding them to your output!
+         "(BERT) Mimicry",
+         "Moving Mimicry",
+         "Forward Flow",
+         "Discursive Diversity"
+   ],
+)
 
-1. Draft test inputs (`conversation_num`, `speaker`, `message`) and expected outputs for your feature. 
+# this line of code runs the FeatureBuilder on your data
+my_feature_builder.featurize(col="message")
+```
 
-- For example,  "This is a test message." should return 5 for `num_words` at the chat level (note that `conversation_num` and `speaker` have no effect on the ultimate result, so they can be chosen arbitrarily).
-- Testing a conversation level feature, say `discursive_diversity`, requires a series of chats rather than just one chat. For example, "This is a test message." (speaker 1), "This is a test message." (speaker 1), "This is a test message." (speaker 2), "This is a test message." (speaker 2), within the same conversation, should return 0. Note that the `conversation_num` for each new test should be distinct from all previous `conversation_num`, even if the feature being tested is different.
+*Note*: PyPI treats hyphens and underscores equally, so `pip install team_comm_tools` and `pip install team-comm-tools` are equivalent. However, Python does NOT treat them equally, and **you should use underscores when you import the package, like this: `from team_comm_tools import FeatureBuilder`**.
 
-2. Once you have test inputs, add each CHAT (and its associated conversation_num and speaker) as a separate row in either `test_chat_level.csv` or `test_conv_level.csv`, within `./tests/data/cleaned_data`. The format of the CSV is as follows: `id, conversation_num, speaker_nickname, message, expected_column, expected_value`, where `expected_column` is the feature name (i.e. num_words).
 
-3. Push all your changes to GitHub, including feature development and test dataset additions. Go under the "Actions" tab in the toolbar. Notice there's a new job running called "Testing-Features". A green checkmark at the conclusion of this job indicates all new tests have passed. A red cross means some test has failed. Navigate to the uploaded "Artifact" (near the bottom of the status page) for list of failed tests and their associated inputs/outputs.
-
-4. Debug and iterate!
+# Learn More
+Please visit our website, [https://teamcommtools.seas.upenn.edu/](https://teamcommtools.seas.upenn.edu/) for general information about our project and research. For more detailed documentation on our features and examples, please visit our [Read the Docs Page](https://conversational-featurizer.readthedocs.io/en/latest/)
