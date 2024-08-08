@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Content Word Accommodation" href="content_word_accommodation.html" />
-    <link rel="prev" title="Named Entity Recognition" href="named_entity_recognition.html" /> 
+    <link rel="next" title="Positivity Z-Score" href="positivity_z_score.html" />
+    <link rel="prev" title="Dale-Chall Score" href="dale_chall_score.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,6 +52,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Conceptual Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="named_entity_recognition.html">Named Entity Recognition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="information_exchange.html">Information Exchange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proportion_of_first_person_pronouns.html">Proportion of First Person Pronouns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="message_length.html">Message Length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="message_quantity.html">Message Quantity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="word_ttr.html">Word Type-Token Ratio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dale_chall_score.html">Dale-Chall Score</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Positivity (BERT)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#high-level-intuition">High-Level Intuition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#citation">Citation</a></li>
@@ -61,10 +67,18 @@
 <li class="toctree-l4"><a class="reference internal" href="#related-features">Related Features</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="positivity_z_score.html">Positivity Z-Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="textblob_polarity.html">Textblob Polarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="textblob_subjectivity.html">Textblob Subjectivity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="content_word_accommodation.html">Content Word Accommodation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="function_word_accommodation.html">Function Word Accommodation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mimicry_bert.html">Mimicry (BERT)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="word_ttr.html">Word Type-Token Ratio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="moving_mimicry.html">Moving Mimicry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="time_difference.html">Time Difference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hedge.html">Hedge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="politeness_strategies.html">Politeness Strategies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="politeness_receptiveness_markers.html">Politeness Receptiveness Markers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="online_discussions_tags.html">Online Discussion Tags</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#conversation-level-features">Conversation-Level Features</a></li>
@@ -107,11 +121,11 @@
 </section>
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
-<p>Twitter-roBERTa-base-sentiment model from the Hugging Face Transformers library.</p>
+<p>Twitter-roBERTa-base-sentiment model from the <a class="reference external" href="https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment">Hugging Face Transformers library</a>.</p>
 </section>
 <section id="implementation-basics">
 <h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Link to this heading"></a></h2>
-<p>The code uses the Twitter-roBERTa-base-sentiment model to predict how relatively positive, negative, and neutral a message is on a 0-1 scale.</p>
+<p>The code runs inference on the the Twitter-roBERTa-base-sentiment model to predict how relatively positive, negative, and neutral a message is on a 0-1 scale.</p>
 </section>
 <section id="implementation-notes-caveats">
 <h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Link to this heading"></a></h2>
@@ -119,7 +133,8 @@
 </section>
 <section id="interpreting-the-feature">
 <h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Link to this heading"></a></h2>
-<p>This feature general 3 sentiment markers: positive_bert, negative_bert, and neutral_bert. Each score ranges from 0-1, and all three scores add up to 1. This feature measures to what extent a particular utterance aligns with each label, relative to the other labels. Below is an example output file.</p>
+<p>This feature returns 3 general sentiment markers: <strong>positive_bert</strong>, <strong>negative_bert</strong>, and <strong>neutral_bert</strong>. Each score ranges from 0-1, and all three scores add up to 1. This feature measures the extent to which a particular utterance aligns with each label, relative to the other labels.</p>
+<p>Below is an example output file:</p>
 <table class="docutils align-default" id="id2">
 <caption><span class="caption-text">Output File</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
 <colgroup>
@@ -164,8 +179,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="named_entity_recognition.html" class="btn btn-neutral float-left" title="Named Entity Recognition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="content_word_accommodation.html" class="btn btn-neutral float-right" title="Content Word Accommodation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="dale_chall_score.html" class="btn btn-neutral float-left" title="Dale-Chall Score" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="positivity_z_score.html" class="btn btn-neutral float-right" title="Positivity Z-Score" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

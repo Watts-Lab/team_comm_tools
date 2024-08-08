@@ -1,7 +1,7 @@
 .. _politeness_receptiveness_markers:
 
 Politeness Receptiveness Markers
-============
+=================================
 
 High-Level Intuition
 *********************
@@ -24,7 +24,7 @@ We follow a very similar framework to the SECR Module to compute a 39 politeness
 We then calculate the general categories of features in different ways, following similar structure as the SECR module.
 
 1. count_matches and Adverb_Limiter: calculates features using a standard bag-of-words approach, detecting the number of keywords from a pre-specified list stored in keywords.py.
-2. get_dep_pairs/get_dep_pairs_noneg: use Spacy to get dependency pairs for relevant words, using token.dep_ to differentiate with negation.
+2. get_dep_pairs/get_dep_pairs_noneg: use Spacy to get dependency pairs for relevant words, using `token.dep_` to differentiate with negation.
 3. Question: Question-related features are computed by counting the number of question words in a chat.
 4. word_start: detect certain conjunctions/affirmation words using pre-specified dictionary
 

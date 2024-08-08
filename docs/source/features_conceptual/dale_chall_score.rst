@@ -1,7 +1,7 @@
 .. _dale_chall_score:
 
 Dale-Chall Score
-============
+=================
 
 High-Level Intuition
 *********************
@@ -33,18 +33,18 @@ NA
 Interpreting the Feature 
 *************************
 
-Scores range from 0 to 10, and can be interpreted as:
+Scores range from 0 to 10, and can be interpreted as follows:
 
-=====  =============================================
-Score  Notes
-=====  =============================================
-4.9    easily understood by an average 4th-grade student or lower
-5.0–5.9  easily understood by an average 5th- or 6th-grade student
-6.0–6.9  easily understood by an average 7th- or 8th-grade student
-7.0–7.9  easily understood by an average 9th- or 10th-grade student
-8.0–8.9  easily understood by an average 11th- or 12th-grade student
-9.0–9.9  easily understood by an average college student
-=====  =============================================
+======== ===============================================================
+Score     Notes
+======== ===============================================================
+4.9       easily understood by an average 4th-grade student or lower
+5.0-5.9   easily understood by an average 5th- or 6th-grade student
+6.0-6.9   easily understood by an average 7th- or 8th-grade student
+7.0-7.9   easily understood by an average 9th- or 10th-grade student
+8.0-8.9   easily understood by an average 11th- or 12th-grade student
+9.0-9.9   easily understood by an average college student
+======== ===============================================================
 
 Related Features 
 *****************

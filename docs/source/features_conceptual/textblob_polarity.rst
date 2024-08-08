@@ -1,7 +1,7 @@
 .. _textblob_polarity:
 
 Textblob Polarity
-============
+==================
 
 High-Level Intuition
 *********************

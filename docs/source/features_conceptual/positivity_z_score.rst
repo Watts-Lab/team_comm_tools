@@ -1,7 +1,7 @@
 .. _positivity_z_score:
 
 Positivity Z-Score
-============
+===================
 
 High-Level Intuition
 *********************

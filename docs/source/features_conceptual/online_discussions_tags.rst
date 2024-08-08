@@ -1,7 +1,7 @@
-.. _online_discussion_tag:
+.. _online_discussions_tags:
 
 Online Discussion Tags
-============
+=======================
 
 High-Level Intuition
 *********************
@@ -24,7 +24,7 @@ Calculates a number of metrics specific to communications in an online setting:
 6. Num Line Breaks: The number of line breaks in a message.
 7. Num Quotes: The number of “quotes” in a message.
 8. Num Block Quotes Responses: The number of times someone uses a block quote (”>”), indicating a longer quotation
-9. Num Ellipses: The number of times someone uses ellipses (…) in their message
+9. Num Ellipses: The number of times someone uses ellipses (...) in their message
 10. Num Parentheses: The number of sets of fully closed parenthetical statements in a message
 11. Num Emoji: The number of emoticons in a message, e.g., “:)”
 

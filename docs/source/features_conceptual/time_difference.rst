@@ -1,7 +1,7 @@
 .. _time_difference:
 
 Time Difference
-============
+================
 
 High-Level Intuition
 *********************

@@ -1,7 +1,7 @@
 .. _message_length:
 
 Message Length
-============
+===============
 
 High-Level Intuition
 *********************

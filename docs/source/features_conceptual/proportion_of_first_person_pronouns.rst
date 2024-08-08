@@ -1,7 +1,7 @@
 .. _proportion_of_first_person_pronouns:
 
 Proportion of First Person Pronouns
-============
+====================================
 
 High-Level Intuition
 *********************

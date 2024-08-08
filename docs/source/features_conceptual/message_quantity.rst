@@ -1,7 +1,7 @@
 .. _message_quantity:
 
 Message Quantity
-============
+=================
 
 High-Level Intuition
 *********************

@@ -4,7 +4,7 @@ Introduction
 ============
 
 | "Language most showeth a man; speak that I may see thee."
-| --- Johnson, qtd. in Matarazzo & Wiens (1977)
+| --- Jonson, qtd. in Matarazzo & Wiens (1977)
 
 The Team Communication Toolkit is a Python package that makes it easy for social scientists to analyze and understand *text-based communication data*. Our aim is to facilitate seamless analyses of conversational data --- especially among groups and teams! --- by providing a single interface for researchers to generate and explore dozens of research-backed conversational features. 
 

@@ -1,7 +1,7 @@
 .. _textblob_subjectivity:
 
 Textblob Subjectivity
-============
+======================
 
 High-Level Intuition
 *********************

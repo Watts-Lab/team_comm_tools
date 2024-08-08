@@ -1,7 +1,7 @@
 .. _information_exchange:
 
 Information Exchange
-============
+=====================
 
 High-Level Intuition
 *********************
@@ -26,13 +26,14 @@ that might be indicative of personal opinions, which might not be ideal in all c
 2. This method does not capture the quality of the information itself because it solely relies on the quantity. A person might say a lot of words but none of the information is meaningful to the topic.
 
 
-Interpreting the Feature 
+Interpreting the Feature
 *************************
 
 We are assuming this is a single conversation, and this is a dataset that consists of only one conversation.
 
 Example:
 Messages in a conversation:
+
 1. "I went to the store."
    - info_exchange_wordcount: 4 (5 words minus 1 first person pronoun "I")
 
@@ -52,10 +53,10 @@ Read more about z-scores here: https://www.statology.org/z-score-python/
   - Message 2: 1.22
   - Message 3: -1.22
 
-- **zscore_conversation**: Same values as above since it's one conversation.
+- **zscore_conversation**:
+  - Same values as above since it's a single conversation.
 
-### Interpretation:
-- zscore_chats:
+### Interpretation **zscore_chats**:
   - 0: Average information exchange.
   - 1.22: Higher-than-average.
   - -1.22: Lower-than-average.

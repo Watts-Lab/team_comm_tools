@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Function Word Accommodation" href="function_word_accommodation.html" />
-    <link rel="prev" title="Positivity (BERT)" href="positivity_bert.html" /> 
+    <link rel="prev" title="Textblob Subjectivity" href="textblob_subjectivity.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,7 +52,16 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Conceptual Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="named_entity_recognition.html">Named Entity Recognition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="information_exchange.html">Information Exchange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proportion_of_first_person_pronouns.html">Proportion of First Person Pronouns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="message_length.html">Message Length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="message_quantity.html">Message Quantity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="word_ttr.html">Word Type-Token Ratio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dale_chall_score.html">Dale-Chall Score</a></li>
 <li class="toctree-l3"><a class="reference internal" href="positivity_bert.html">Positivity (BERT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="positivity_z_score.html">Positivity Z-Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="textblob_polarity.html">Textblob Polarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="textblob_subjectivity.html">Textblob Subjectivity</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Content Word Accommodation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#high-level-intuition">High-Level Intuition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#citation">Citation</a></li>
@@ -64,7 +73,12 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="function_word_accommodation.html">Function Word Accommodation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mimicry_bert.html">Mimicry (BERT)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="word_ttr.html">Word Type-Token Ratio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="moving_mimicry.html">Moving Mimicry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="time_difference.html">Time Difference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hedge.html">Hedge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="politeness_strategies.html">Politeness Strategies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="politeness_receptiveness_markers.html">Politeness Receptiveness Markers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="online_discussions_tags.html">Online Discussion Tags</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#conversation-level-features">Conversation-Level Features</a></li>
@@ -103,7 +117,7 @@
 <span id="id1"></span><h1>Content Word Accommodation<a class="headerlink" href="#content-word-accommodation" title="Link to this heading"></a></h1>
 <section id="high-level-intuition">
 <h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Link to this heading"></a></h2>
-<p>This feature measures how much the current utterance “mimics” the previous utterance in a conversation, with respect to the content words (that is, non-function words) in the message. Content words are those that possess semantic content, so this measure roughly estimates the extent to which individuals are echoing each other in a “substantive” way, as opposed to mimicing the speaking style.</p>
+<p>This feature measures how much the current utterance “mimics” the previous utterance in a conversation, with respect to the content words (that is, non-function words) in the message. Content words are those that possess semantic content, so this measure roughly estimates the extent to which individuals are echoing each other in a “substantive” way, as opposed to mimicking the speaking style.</p>
 </section>
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
@@ -111,7 +125,7 @@
 </section>
 <section id="implementation-basics">
 <h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Link to this heading"></a></h2>
-<p>To compute the feature, we count the number of shared content words between the current and previous utterance in a conversation, then normalize it by the frequency of the word across all inputs in the dataset. This follows the original authors’ method:</p>
+<p>To compute the feature, we count the number of shared content words (defined as anything that is not on the function word list) between the current and previous utterance in a conversation, then normalize it by the frequency of the word across all inputs in the dataset. This follows the original authors’ method:</p>
 <blockquote>
 <div><p>Content words are defined as any word that is not a function word. For each content word w in a given speaker’s turn, if w also occurs in the immediately preceding turn of the other, we count w as an accommodated content word. The raw count of accommodated content words is be the total number of these accommodated content words over every turn in the conversation side. Because content words vary widely in frequency, we normalized our counts by the frequency of each word.</p>
 </div></blockquote>
@@ -152,7 +166,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="positivity_bert.html" class="btn btn-neutral float-left" title="Positivity (BERT)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="textblob_subjectivity.html" class="btn btn-neutral float-left" title="Textblob Subjectivity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="function_word_accommodation.html" class="btn btn-neutral float-right" title="Function Word Accommodation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
