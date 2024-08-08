@@ -18,6 +18,11 @@ build:
     pre_install: # Stuff in src/requirements.txt depends on en_core_web_sm, which in turn depends on spacy
       - pip install spacy==3.7.2 
       - bash -c "python3 -m spacy download en_core_web_sm"
+    post_install: # Install NLTK resources after the install step
+      - python -m nltk.downloader nps_chat
+      - python -m nltk.downloader punkt
+      - python -m nltk.downloader stopwords
+      - python -m nltk.downloader wordnet
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
@@ -35,9 +40,3 @@ python:
    install:
     - requirements: ./docs/requirements.txt
     - requirements: ./requirements.txt
-jobs:
-    post_install: # Install NLTK resources after the install step
-      - python -m nltk.downloader nps_chat
-      - python -m nltk.downloader punkt
-      - python -m nltk.downloader stopwords
-      - python -m nltk.downloader wordnet
