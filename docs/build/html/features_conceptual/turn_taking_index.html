@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Turn Taking Index &mdash; Team Communication Toolkit 0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -95,25 +95,25 @@
            <div itemprop="articleBody">
              
   <section id="turn-taking-index">
-<span id="id1"></span><h1>Turn Taking Index<a class="headerlink" href="#turn-taking-index" title="Permalink to this heading"></a></h1>
+<span id="id1"></span><h1>Turn Taking Index<a class="headerlink" href="#turn-taking-index" title="Link to this heading"></a></h1>
 <section id="high-level-intuition">
-<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Permalink to this heading"></a></h2>
+<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Link to this heading"></a></h2>
 <p>This feature measures the extent to which people take turns in a conversation. “Turns” are the number of distinct, broken up “chats” in a row during which a person has the “floor” during a conversation.</p>
 <p>The turn-taking index, a value between 0 and 1, distinguishes between teams that have individuals who speak in big chunks (in this case, the value will be closer to 0) versus teams that have individuals interrupting each other a great deal (in the case of perfect turn-taking, the value is equal to 1).</p>
 </section>
 <section id="citation">
-<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this heading"></a></h2>
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="https://onlinelibrary.wiley.com/doi/pdf/10.1111/tops.12706">Almaatouq, Alsobay et al. (2023)</a></p>
 </section>
 <section id="implementation-basics">
-<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Permalink to this heading"></a></h2>
+<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Link to this heading"></a></h2>
 <p>The turn-taking formula is: (Number of Turns - 1) / (Total Number of Chats - 1)</p>
 <p>For example, in the following dataframe:</p>
 <table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Speaker Turn Counts</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<caption><span class="caption-text">Speaker Turn Counts</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 71%" />
-<col style="width: 29%" />
+<col style="width: 70.6%" />
+<col style="width: 29.4%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>speaker_nickname</p></th>
@@ -144,7 +144,7 @@
 (e.g., the whole conversation is just a monologue), then we want the index to be 0, not 1 / (n_chats).</p>
 </section>
 <section id="implementation-notes-caveats">
-<h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Permalink to this heading"></a></h2>
+<h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Link to this heading"></a></h2>
 <p>In Almaatouq, Alsobay et al. (2023), turn-taking was originally measured in terms of actions in a game.</p>
 <p>A player took a “turn” when they made a bunch of uninterrupted turns in a game; then, their turn-taking index divided the number of uninterrupted turns by the total number of turns taken:</p>
 <blockquote>
@@ -158,11 +158,11 @@
 <p>The turn-taking index therefore distinguishes between teams that have people speak in big chunks (you say your piece, then I say mine, debate-style), versus teams that have people interrupting each other a great deal.</p>
 </section>
 <section id="interpreting-the-feature">
-<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Permalink to this heading"></a></h2>
+<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Link to this heading"></a></h2>
 <p>In the edge case where only a single person spoke the entire time, causing the denominator to be 0, the turn-taking index is set to 0.</p>
 </section>
 <section id="related-features">
-<h2>Related Features<a class="headerlink" href="#related-features" title="Permalink to this heading"></a></h2>
+<h2>Related Features<a class="headerlink" href="#related-features" title="Link to this heading"></a></h2>
 <p>N/A</p>
 </section>
 </section>

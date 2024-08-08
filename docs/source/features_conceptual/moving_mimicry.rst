@@ -24,7 +24,7 @@ Interpreting the Feature
 This feature generates a score between 0-1 for each utterance in a conversation, with scores closer to 0 representing a more original conversation (lacking mimicry) up until chat X, while scores near 1 represent a higher degree of mimicry/similarity within the conversation up until chat X. 
 
 .. list-table:: Output File
-   :widths: 40 20
+   :widths: 40 20 20
    :header-rows: 1
 
    * - message
@@ -38,11 +38,11 @@ This feature generates a score between 0-1 for each utterance in a conversation,
      - 0.89
    * - What's the plan for today?
      - Speaker A
-     - 0.68
+     - 0.12
    * - My name is Emily.
      - Speaker C
-     - 0.58
+     - 0.09
 
 Related Features 
 *****************
-This toolkit incorporates a host of mimicry-related features, with others including :doc:`Function Word Accomodation <function_word_accomodation.rst>`, :doc:`Content Word Accomodation <content_word_accomodation.rst>`, and :doc:`Mimicry (BERT) <mimicry_bert.rst>`. The former two features use a bag-of-words approach to compute mimicry within two discrete categories. Mimicry (BERT) is similar in that it still uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the mimicry discretely between a single utterance and the previous utterance, rather than the overall flow of mimicry throughout a conversation up until a certain point.
+This toolkit incorporates a host of mimicry-related features, with others including :ref:`function_word_accommodation`, :ref:`content_word_accommodation`, and :ref:`mimicry_bert`. The former two features use a bag-of-words approach to compute mimicry within two discrete categories. Mimicry (BERT) is similar in that it still uses SBERT embeddings to compute similarity, but differs in that it helps reason towards the mimicry discretely between a single utterance and the previous utterance, rather than the overall flow of mimicry throughout a conversation up until a certain point.

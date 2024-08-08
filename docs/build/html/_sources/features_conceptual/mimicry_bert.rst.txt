@@ -26,7 +26,7 @@ This feature generates a score between 0-1 for each utterance in a conversation,
 It's important to note that this score doesn't measure the overall mimicry of the conversation. As an utterance-level feature, it computes the mimicry only between the selected chat and the previous. If a particular message is only similar to chats exchanged before it's direct previous chat, therefore, it won't have a high mimicry score (see below). In the same vein, high mimicry score for an individual chat does not signal that a conversation overall employed high mimicry.
 
 .. list-table:: Output File
-   :widths: 40 20
+   :widths: 40 20 20
    :header-rows: 1
 
    * - message
@@ -47,4 +47,4 @@ It's important to note that this score doesn't measure the overall mimicry of th
 
 Related Features 
 *****************
-This toolkit incorporates a host of mimicry-related features, with others including Function Word Accommodation, Content Word Accommodation, and Mimicry (BERT). The former two features use a bag-of-words approach to compute mimicry within two discrete categories. Mimicry (BERT) is similar in that it still uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the mimicry at one instantaneous point in a conversation, rather than the overall flow of mimicry throughout a conversation up until a certain point.
+This toolkit incorporates a host of mimicry-related features, with others including :ref:`function_word_accommodation`, :ref:`content_word_accommodation`, and :ref:`moving_mimicry`. The former two features use a bag-of-words approach to compute mimicry within two discrete categories. Mimicry (BERT) is similar in that it still uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the mimicry discretely between a single utterance and the previous utterance, rather than the overall flow of mimicry throughout a conversation up until a certain point.

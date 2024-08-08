@@ -9,12 +9,11 @@ This feature measures the positivity of a message using BERT's generated valence
 
 Citation
 *********
-Twitter-roBERTa-base-sentiment model from the Hugging Face Transformers library.
+Twitter-roBERTa-base-sentiment model from the `Hugging Face Transformers library <https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment>`_.
 
 Implementation Basics 
 **********************
-The code uses the Twitter-roBERTa-base-sentiment model to predict how relatively positive, negative, and neutral a message is on a 0-1 scale.
-
+The code runs inference on the the Twitter-roBERTa-base-sentiment model to predict how relatively positive, negative, and neutral a message is on a 0-1 scale.
 
 Implementation Notes/Caveats 
 *****************************
@@ -23,7 +22,9 @@ This feature precomputes these valence ratings in the data preprocessing step & 
 
 Interpreting the Feature 
 *************************
-This feature general 3 sentiment markers: positive_bert, negative_bert, and neutral_bert. Each score ranges from 0-1, and all three scores add up to 1. This feature measures to what extent a particular utterance aligns with each label, relative to the other labels. Below is an example output file. 
+This feature returns 3 general sentiment markers: **positive_bert**, **negative_bert**, and **neutral_bert**. Each score ranges from 0-1, and all three scores add up to 1. This feature measures the extent to which a particular utterance aligns with each label, relative to the other labels. 
+
+Below is an example output file:
 
 .. list-table:: Output File
    :widths: 40 20 20 20

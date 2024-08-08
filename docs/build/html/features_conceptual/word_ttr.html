@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Word Type-Token Ratio &mdash; Team Communication Toolkit 0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -99,27 +99,27 @@
            <div itemprop="articleBody">
              
   <section id="word-type-token-ratio">
-<span id="word-ttr"></span><h1>Word Type-Token Ratio<a class="headerlink" href="#word-type-token-ratio" title="Permalink to this heading"></a></h1>
+<span id="word-ttr"></span><h1>Word Type-Token Ratio<a class="headerlink" href="#word-type-token-ratio" title="Link to this heading"></a></h1>
 <section id="high-level-intuition">
-<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Permalink to this heading"></a></h2>
+<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Link to this heading"></a></h2>
 <p>This feature measures the ratio of the number of unique words (“types”) to the total number of words (“tokens”) is an utterance. This is a standard measure of <a class="reference external" href="https://en.wikipedia.org/wiki/Lexical_density">lexical density</a>.</p>
 </section>
 <section id="citation">
-<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this heading"></a></h2>
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="https://cpb-us-e1.wpmucdn.com/sites.northwestern.edu/dist/f/1603/files/2017/01/Reichel_etal_Interspeech_2015-2i4gnzk.pdf">Reichel, et al. (2015)</a></p>
 <p><a class="reference external" href="https://www.sltinfo.com/wp-content/uploads/2014/01/type-token-ratio.pdf">Williamson (2009)</a></p>
 </section>
 <section id="implementation-basics">
-<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Permalink to this heading"></a></h2>
+<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Link to this heading"></a></h2>
 <p>The Type-Token Ratio is calculated as follows: Number of Unique Words / Number of Total Words.</p>
 <p>The function assumes that punctuation is retained when being inputted, but parses it out within the function.</p>
 </section>
 <section id="interpreting-the-feature">
-<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Permalink to this heading"></a></h2>
+<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Link to this heading"></a></h2>
 <p>A low type-token ratio indicates that an individual is using many of the same words over and over; for example, if an individual is speaking with great hesitation, repeating themselves, or using filler and functional words (“um”, “that is”, “the”), there will be fewer unique words relative to the total number of words. Individuals who choose their words carefully, with minimal repetition, will tend to have a higher type-token ratio. The mode of communication can also impact lexical density; individuals typically have a lower type-token ratio when speaking out loud than when writing.</p>
 </section>
 <section id="related-features">
-<h2>Related Features<a class="headerlink" href="#related-features" title="Permalink to this heading"></a></h2>
+<h2>Related Features<a class="headerlink" href="#related-features" title="Link to this heading"></a></h2>
 <p>N/A</p>
 </section>
 </section>

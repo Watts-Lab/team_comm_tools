@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Function Word Accommodation &mdash; Team Communication Toolkit 0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -100,17 +100,17 @@
            <div itemprop="articleBody">
              
   <section id="function-word-accommodation">
-<span id="id1"></span><h1>Function Word Accommodation<a class="headerlink" href="#function-word-accommodation" title="Permalink to this heading"></a></h1>
+<span id="id1"></span><h1>Function Word Accommodation<a class="headerlink" href="#function-word-accommodation" title="Link to this heading"></a></h1>
 <section id="high-level-intuition">
-<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Permalink to this heading"></a></h2>
+<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Link to this heading"></a></h2>
 <p>This feature measures how much the current utterance “mimics” the previous utterance in a conversation, with respect to the function words in the message. Function words are often part of the grammatical structure or style of a piece of text, rather than part of its “substance;” thus, a high degree of function word accommodation can be loosely said to indicate mimicry of on another’s speaking style (as distinct from the content).</p>
 </section>
 <section id="citation">
-<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this heading"></a></h2>
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="https://web.stanford.edu/~jurafsky/pubs/ranganath2013.pdf">Ranganath et al. (2013)</a></p>
 </section>
 <section id="implementation-basics">
-<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Permalink to this heading"></a></h2>
+<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Link to this heading"></a></h2>
 <p>The feature countds the number of shared function words between the current and previous utterance in a conversation. Function words are defined as words that “express grammatical relationships among other words within a sentence.” The list of 195 function words provided by the original authors is reproduced below.</p>
 <dl class="simple">
 <dt><strong>Auxiliary and copular verbs</strong></dt><dd><p>able, am, are, aren’t, be, been, being, can, can’t, cannot, could, couldn’t, did, didn’t, do, don’t, get, got, gotta, had, hadn’t, hasn’t, have, haven’t, is, isn’t, may, should, should’ve, shouldn’t, was, were, will, won’t, would, would’ve, wouldn’t</p>
@@ -130,17 +130,17 @@
 </dl>
 </section>
 <section id="implementation-notes-caveats">
-<h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Permalink to this heading"></a></h2>
+<h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Link to this heading"></a></h2>
 <p>Note that the first utterance in a conversation cannot have a mimicry score, as there is no “previous utterance” to associate it with. In this case, we assign a value of 0 to this utterance.</p>
 </section>
 <section id="interpreting-the-feature">
-<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Permalink to this heading"></a></h2>
+<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Link to this heading"></a></h2>
 <p>This feature generates a word count for each utterance in a conversation, with lower scores representing a lower degree of accommodation, and higher scores representing a higher degree of acommodation. The bounds of this score are 0 (no shared function words) to the total number of words in the selected chat (the entire utterance consists of function words, and all were shared between successive utterances).</p>
 <p>It’s important to note that this score doesn’t measure the overall level of mimicry over the course of the conversation. As an utterance-level feature, it computes the function word mimicry only between the focal utterance and the previous one. It’s also important to note that, because the feature is lexical, it is determined purely based on the number of shared words, and not based on the meaning of those words. Other measures of mimicry relying on transformer-based models (e.g., the Mimicry (BERT) features) can help to mitigate this issue.</p>
 </section>
 <section id="related-features">
-<h2>Related Features<a class="headerlink" href="#related-features" title="Permalink to this heading"></a></h2>
-<p>Other mimicry-related features include Content Word Accommodation, Mimicry (BERT), and Moving Mimicry. Content Word Accommodation is a lexical feature that is the complement of this one; it measures the number of all words <em>other than</em> function words shared between successive utterances. The latter two use more advanced, transformer-based models to compute similarity between utterances. Mimicry (BERT) uses the cosine similarity between sBERT embeddings to measure mimicry between a given utterance and the previous one. Moving Mimicry is similar to Mimicry (BERT) in that it uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the overall flow of mimicry throughout a conversation, rather than at one instantaneous point.</p>
+<h2>Related Features<a class="headerlink" href="#related-features" title="Link to this heading"></a></h2>
+<p>Other mimicry-related features include <a class="reference internal" href="content_word_accommodation.html#content-word-accommodation"><span class="std std-ref">Content Word Accommodation</span></a>, <a class="reference internal" href="mimicry_bert.html#mimicry-bert"><span class="std std-ref">Mimicry (BERT)</span></a>, and <a class="reference internal" href="moving_mimicry.html#moving-mimicry"><span class="std std-ref">Moving Mimicry</span></a>. Content Word Accommodation is a lexical feature that is the complement of this one; it measures the number of all words <em>other than</em> function words shared between successive utterances. The latter two use more advanced, transformer-based models to compute similarity between utterances. Mimicry (BERT) uses the cosine similarity between sBERT embeddings to measure mimicry between a given utterance and the previous one. Moving Mimicry is similar to Mimicry (BERT) in that it uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the overall flow of mimicry throughout a conversation, rather than discretely between a single utterance and the previous utterance.</p>
 </section>
 </section>
 

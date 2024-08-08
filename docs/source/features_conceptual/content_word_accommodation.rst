@@ -5,7 +5,7 @@ Content Word Accommodation
 
 High-Level Intuition
 *********************
-This feature measures how much the current utterance "mimics" the previous utterance in a conversation, with respect to the content words (that is, non-function words) in the message. Content words are those that possess semantic content, so this measure roughly estimates the extent to which individuals are echoing each other in a "substantive" way, as opposed to mimicing the speaking style.
+This feature measures how much the current utterance "mimics" the previous utterance in a conversation, with respect to the content words (that is, non-function words) in the message. Content words are those that possess semantic content, so this measure roughly estimates the extent to which individuals are echoing each other in a "substantive" way, as opposed to mimicking the speaking style.
 
 Citation
 *********
@@ -13,7 +13,7 @@ Citation
 
 Implementation Basics 
 **********************
-To compute the feature, we count the number of shared content words between the current and previous utterance in a conversation, then normalize it by the frequency of the word across all inputs in the dataset. This follows the original authors' method:
+To compute the feature, we count the number of shared content words (defined as anything that is not on the function word list) between the current and previous utterance in a conversation, then normalize it by the frequency of the word across all inputs in the dataset. This follows the original authors' method:
 
 	Content words are defined as any word that is not a function word. For each content word w in a given speaker’s turn, if w also occurs in the immediately preceding turn of the other, we count w as an accommodated content word. The raw count of accommodated content words is be the total number of these accommodated content words over every turn in the conversation side. Because content words vary widely in frequency, we normalized our counts by the frequency of each word.
 
@@ -52,4 +52,4 @@ It's important to note that this score doesn't measure the overall level of mimi
 
 Related Features 
 *****************
-Other mimicry-related features include :doc:`Function Word Accomodation <function_word_accomodation.rst>`, :doc:`Mimicry (BERT) <mimicry_bert.rst>`, and :doc:`Moving Mimicry <moving_mimicry.rst>`. Function Word Accommodation is a lexical feature that is the complement of this one; it measures the number of function words shared between successive utterances. The latter two use more advanced, transformer-based models to compute similarity between utterances. Mimicry (BERT) uses the cosine similarity between sBERT embeddings to measure mimicry between a given utterance and the previous one. Moving Mimicry is similar to Mimicry (BERT) in that it uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the overall flow of mimicry throughout a conversation, rather than discretely between a single utterance and the previous utterance.
+Other mimicry-related features include :ref:`function_word_accommodation`, :ref:`mimicry_bert`, and :ref:`moving_mimicry`. Function Word Accommodation is a lexical feature that is the complement of this one; it measures the number of function words shared between successive utterances. The latter two use more advanced, transformer-based models to compute similarity between utterances. Mimicry (BERT) uses the cosine similarity between sBERT embeddings to measure mimicry between a given utterance and the previous one. Moving Mimicry is similar to Mimicry (BERT) in that it uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the overall flow of mimicry throughout a conversation, rather than discretely between a single utterance and the previous utterance.
