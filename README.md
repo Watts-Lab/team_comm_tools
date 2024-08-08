@@ -5,6 +5,8 @@
 # The Team Communication Toolkit
 The Team Communication Toolkit is a Python package that makes it easy for social scientists to analyze and understand *text-based communication data*. Our aim is to facilitate seamless analyses of conversational data --- especially among groups and teams! --- by providing a single interface for researchers to generate and explore dozens of research-backed conversational features.
 
+We are a research project created by the [Computational Social Science Lab at UPenn](https://css.seas.upenn.edu/) and funded by the [Wharton AI and Analytics Initiative](https://ai-analytics.wharton.upenn.edu/).
+
 <div align="center">
 
 [![View - Home Page](https://img.shields.io/badge/View_site-GH_Pages-2ea44f?style=for-the-badge)](https://teamcommtools.seas.upenn.edu/)
