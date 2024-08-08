@@ -14,7 +14,19 @@ Utterance- (Chat) Level Features
    :maxdepth: 1
 
    named_entity_recognition
+   information_exchange
+   message_length
+   message_quantity
+   online_discussion_tags
    word_ttr
+   textblob_polarity
+   textblob_subjectivity
+   proportion_of_first_person_pronouns
+   hedge
+   dale_chall_score
+   time_difference
+   positivity_z_score
+   politeness_strategies
 
 Conversation-Level Features
 ****************************
