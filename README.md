@@ -107,3 +107,6 @@ For more information, please refer to the [Introduction on our Read the Docs Pag
 
 # Learn More
 Please visit our website, [https://teamcommtools.seas.upenn.edu/](https://teamcommtools.seas.upenn.edu/), for general information about our project and research. For more detailed documentation on our features and examples, please visit our [Read the Docs Page](https://conversational-featurizer.readthedocs.io/en/latest/).
+
+# Becoming a Contributor
+If you would like to make pull requests to this open-sourced repository, please read our [GitHub Repo Getting Started Guide](/github_repo_getting_started.md). We welcome new feature contributions or improvements to our framework.
