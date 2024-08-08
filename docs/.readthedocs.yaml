@@ -35,3 +35,9 @@ python:
    install:
     - requirements: ./docs/requirements.txt
     - requirements: ./requirements.txt
+jobs:
+    post_install: # Install NLTK resources after the install step
+      - python -m nltk.downloader nps_chat
+      - python -m nltk.downloader punkt
+      - python -m nltk.downloader stopwords
+      - python -m nltk.downloader wordnet
