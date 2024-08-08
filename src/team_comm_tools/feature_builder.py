@@ -124,7 +124,7 @@ class FeatureBuilder:
         self.default_features = [
             ### Chat Level
             "Named Entity Recognition",
-            "Positivity (BERT)",
+            "Sentiment (RoBERTa)",
             "Message Length",
             "Message Quantity",
             "Information Exchange",
