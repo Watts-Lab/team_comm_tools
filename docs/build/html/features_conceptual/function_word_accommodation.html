@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Function Word Accommodation &mdash; Team Communication Toolkit 0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=837179f8"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mimicry (BERT)" href="mimicry_bert.html" />
+    <link rel="prev" title="Content Word Accommodation" href="content_word_accommodation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Conceptual Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="named_entity_recognition.html">Named Entity Recognition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="positivity_bert.html">Positivity (BERT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content_word_accommodation.html">Content Word Accommodation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Function Word Accommodation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#high-level-intuition">High-Level Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#citation">Citation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implementation-basics">Implementation Basics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implementation-notes-caveats">Implementation Notes/Caveats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interpreting-the-feature">Interpreting the Feature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#related-features">Related Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mimicry_bert.html">Mimicry (BERT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="word_ttr.html">Word Type-Token Ratio</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conversation-level-features">Conversation-Level Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Features: Conceptual Documentation</a></li>
+      <li class="breadcrumb-item active">Function Word Accommodation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/features_conceptual/function_word_accommodation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="function-word-accommodation">
+<span id="id1"></span><h1>Function Word Accommodation<a class="headerlink" href="#function-word-accommodation" title="Link to this heading"></a></h1>
+<section id="high-level-intuition">
+<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Link to this heading"></a></h2>
+<p>This feature measures how much the current utterance “mimics” the previous utterance in a conversation, with respect to the function words in the message. Function words are often part of the grammatical structure or style of a piece of text, rather than part of its “substance;” thus, a high degree of function word accommodation can be loosely said to indicate mimicry of on another’s speaking style (as distinct from the content).</p>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://web.stanford.edu/~jurafsky/pubs/ranganath2013.pdf">Ranganath et al. (2013)</a></p>
+</section>
+<section id="implementation-basics">
+<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Link to this heading"></a></h2>
+<p>The feature countds the number of shared function words between the current and previous utterance in a conversation. Function words are defined as words that “express grammatical relationships among other words within a sentence.” The list of 195 function words provided by the original authors is reproduced below.</p>
+<dl class="simple">
+<dt><strong>Auxiliary and copular verbs</strong></dt><dd><p>able, am, are, aren’t, be, been, being, can, can’t, cannot, could, couldn’t, did, didn’t, do, don’t, get, got, gotta, had, hadn’t, hasn’t, have, haven’t, is, isn’t, may, should, should’ve, shouldn’t, was, were, will, won’t, would, would’ve, wouldn’t</p>
+</dd>
+<dt><strong>Conjunctions</strong></dt><dd><p>although, and, as, because, ’cause, but, if, or, so, then, unless, whereas, while</p>
+</dd>
+<dt><strong>Determiners, Predeterminers, and Quantifiers</strong></dt><dd><p>a, an, each, every, all, lot, lots, the, this, those</p>
+</dd>
+<dt><strong>Pronouns and Wh-words</strong></dt><dd><p>anybody, anything, anywhere, everybody’s, everyone, everything, everything’s, everywhere, he, he’d, he’s, her, him, himself, herself, his, I, I’d, I’ll, I’m, I’ve, it, it’d, it’ll, it’s, its, itself, me, my, mine, myself, nobody, nothing, nowhere, one, one’s, ones, our, ours, she, she’ll, she’s, she’d, somebody, someone, someplace, that, that’d, that’ll, that’s, them, themselves, these, they, they’d, they’ll, they’re, they’ve, us, we, we’d, we’ll, we’re, we’ve, what, what’d, what’s, whatever, when, where, where’d, where’s, wherever, which, who, who’s, whom, whose, why, you, you’d, you’ll, you’re, you’ve, your, yours, yourself</p>
+</dd>
+<dt><strong>Prepositions</strong></dt><dd><p>about, after, against, at, before, by, down, for, from, in, into, near, of, off, on, out, over, than, to, until, up, with, without</p>
+</dd>
+<dt><strong>Discourse Particles</strong></dt><dd><p>ah, hi, huh, like, mm-hmm, oh, okay, right, uh, uh-huh, um, well, yeah, yup</p>
+</dd>
+<dt><strong>Adverbs and Negatives</strong></dt><dd><p>just, no, not, really, too, very</p>
+</dd>
+</dl>
+</section>
+<section id="implementation-notes-caveats">
+<h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Link to this heading"></a></h2>
+<p>Note that the first utterance in a conversation cannot have a mimicry score, as there is no “previous utterance” to associate it with. In this case, we assign a value of 0 to this utterance.</p>
+</section>
+<section id="interpreting-the-feature">
+<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Link to this heading"></a></h2>
+<p>This feature generates a word count for each utterance in a conversation, with lower scores representing a lower degree of accommodation, and higher scores representing a higher degree of acommodation. The bounds of this score are 0 (no shared function words) to the total number of words in the selected chat (the entire utterance consists of function words, and all were shared between successive utterances).</p>
+<p>It’s important to note that this score doesn’t measure the overall level of mimicry over the course of the conversation. As an utterance-level feature, it computes the function word mimicry only between the focal utterance and the previous one. It’s also important to note that, because the feature is lexical, it is determined purely based on the number of shared words, and not based on the meaning of those words. Other measures of mimicry relying on transformer-based models (e.g., the Mimicry (BERT) features) can help to mitigate this issue.</p>
+</section>
+<section id="related-features">
+<h2>Related Features<a class="headerlink" href="#related-features" title="Link to this heading"></a></h2>
+<p>Other mimicry-related features include <a class="reference internal" href="content_word_accommodation.html#content-word-accommodation"><span class="std std-ref">Content Word Accommodation</span></a>, <a class="reference internal" href="mimicry_bert.html#mimicry-bert"><span class="std std-ref">Mimicry (BERT)</span></a>, and <a class="reference internal" href="moving_mimicry.html#moving-mimicry"><span class="std std-ref">Moving Mimicry</span></a>. Content Word Accommodation is a lexical feature that is the complement of this one; it measures the number of all words <em>other than</em> function words shared between successive utterances. The latter two use more advanced, transformer-based models to compute similarity between utterances. Mimicry (BERT) uses the cosine similarity between sBERT embeddings to measure mimicry between a given utterance and the previous one. Moving Mimicry is similar to Mimicry (BERT) in that it uses sBERT embeddings to compute similarity, but differs in that it helps reason towards the overall flow of mimicry throughout a conversation, rather than discretely between a single utterance and the previous utterance.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="content_word_accommodation.html" class="btn btn-neutral float-left" title="Content Word Accommodation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mimicry_bert.html" class="btn btn-neutral float-right" title="Mimicry (BERT)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 Features: Conceptual Documentation
 ==================================
 
-In constrast with the :ref:`Features: Technical Documentation <features_technical>` page, this page aims to provide a resource for conceptually understanding the features: what are they, what are they meant to measure, and how is our operationalization connected to concepts from social science?
+In contrast with the :ref:`Features: Technical Documentation <features_technical>` page, this page aims to provide a resource for conceptually understanding the features: what are they, what are they meant to measure, and how is our operationalization connected to concepts from social science?
 
 **Please note that this page is currently under construction.**
 
@@ -18,6 +18,10 @@ Utterance- (Chat) Level Features
    message_length
    message_quantity
    online_discussion_tags
+   positivity_bert
+   content_word_accommodation
+   function_word_accommodation
+   mimicry_bert
    word_ttr
    textblob_polarity
    textblob_subjectivity
