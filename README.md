@@ -93,9 +93,13 @@ We accept input data in the format of a Pandas DataFrame. Your data needs to hav
 
 ### Featurized Outputs: Levels of Analysis
 
-Notably, not all communication features are made equal, as they can be defined at different levels of analysis. For example, a single utterance ("you are great!") may be described as a "positive statement." An individual who makes many such utterances may be described as a "positive person." Finally, the entire team may enjoy a "positive conversation," an interaction in which everyone speaks positively to each other. In this way, the same concept of positivity can be applied to three levels: (1) the **utterance**, (2) the **speaker**, and (3) the **conversation**, and we generate a separate output file for each level.
+Notably, not all communication features are made equal, as they can be defined at different levels of analysis. For example, a single utterance ("you are great!") may be described as a "positive statement." An individual who makes many such utterances may be described as a "positive person." Finally, the entire team may enjoy a "positive conversation," an interaction in which everyone speaks positively to each other. In this way, the same concept of positivity can be applied to three levels: 
 
-When you declare a FeatureBuilder, you will need to specify an output path for each level of analysis.
+1. The **utterance**,
+2. The **speaker**, amd
+3. The **conversation**
+
+**We generate a separate output file for each level.** When you declare a FeatureBuilder, you will need to specify an output path for each level of analysis.
 
 For more information, please refer to the [Introduction on our Read the Docs Page](https://conversational-featurizer.readthedocs.io/en/latest/intro.html#intro).
 
