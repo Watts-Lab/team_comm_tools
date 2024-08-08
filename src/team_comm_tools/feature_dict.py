@@ -23,7 +23,7 @@ feature_dict = { # TODO: customize preprocess methods
     "vect_data": False,
     "bert_sentiment_data": False
   },
-  "Positivity (RoBERTa)": {
+  "Sentiment (RoBERTa)": {
     "columns": ["positive_bert", "negative_bert", "neutral_bert"],
     "file": "./utils/check_embeddings.py",
     "level": "Chat",
