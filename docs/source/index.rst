@@ -22,9 +22,11 @@ You will also need to ensure that Spacy and NLTK are installed in addition to th
 
    spacy download en_core_web_sm
 
-Additionally, we require the following NLTK dependencies:
+Additionally, we require the following NLTK dependencies, which need to be downloaded via Python. If you don't have them, run the following python script in your environment:
 
 .. code-block::
+
+   import nltk
 
    nltk.download('nps_chat')
    nltk.download('punkt')
