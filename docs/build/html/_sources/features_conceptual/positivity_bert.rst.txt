@@ -1,11 +1,11 @@
 .. _positivity_bert:
 
-Positivity (BERT)
-=================
+Sentiment (RoBERTa)
+===================
 
 High-Level Intuition
 *********************
-This feature measures the positivity of a message using BERT's generated valence sentiment markers.
+This feature measures the positivity of a message using RoBERTa's generated valence sentiment markers.
 
 Citation
 *********
@@ -17,7 +17,7 @@ The code runs inference on the the Twitter-roBERTa-base-sentiment model to predi
 
 Implementation Notes/Caveats 
 *****************************
-This feature precomputes these valence ratings in the data preprocessing step & stores them locally; this essentially "caches" the sentiment markers, preventing the case where a user spends extra time regenerating these ratings on subsequent requests.
+This feature precomputes these valence ratings in the data preprocessing step and stores them locally; this essentially "caches" the sentiment markers, preventing the case where a user spends extra time regenerating these ratings on subsequent requests.
 
 
 Interpreting the Feature 
@@ -50,4 +50,4 @@ Below is an example output file:
 
 Related Features 
 *****************
-N/A
+This feature is one of several that measure sentiment. Other sentiment-related features include Negative_Emotion and Positive_Emotion, which are attributes of :ref:`politeness_receptiveness_markers`; :ref:`textblob_polarity`; and LIWC (a relevant column name being positive_affect_lexical_per_100). A z-scored version of the positivity RoBERTa score is also included separately (:ref:`positivity_z_score`).

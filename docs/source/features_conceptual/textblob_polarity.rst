@@ -33,10 +33,4 @@ Scores are a continuous variable, ranging from -1 (extremely negative) to 1 (ext
 
 Related Features 
 *****************
-This feature is correlates to other positivity related features such as:
-
-1. positive_bert
-2. positivity_zscore_chats
-3. positivity_zscore_conversation
-4. has_positive
-5. Positive_Emotion
+This feature is one of several that measure sentiment. Other sentiment-related features include :ref:`positivity_bert`; Negative_Emotion and Positive_Emotion, which are attributes of :ref:`politeness_receptiveness_markers`; and LIWC (a relevant column name being positive_affect_lexical_per_100).

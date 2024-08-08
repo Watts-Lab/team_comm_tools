@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Positivity (BERT) &mdash; Team Communication Toolkit 0.1.1 documentation</title>
+  <title>Sentiment (RoBERTa) &mdash; Team Communication Toolkit 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -58,7 +58,7 @@
 <li class="toctree-l3"><a class="reference internal" href="message_quantity.html">Message Quantity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="word_ttr.html">Word Type-Token Ratio</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dale_chall_score.html">Dale-Chall Score</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Positivity (BERT)</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Sentiment (RoBERTa)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#high-level-intuition">High-Level Intuition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#citation">Citation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#implementation-basics">Implementation Basics</a></li>
@@ -103,7 +103,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Features: Conceptual Documentation</a></li>
-      <li class="breadcrumb-item active">Positivity (BERT)</li>
+      <li class="breadcrumb-item active">Sentiment (RoBERTa)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/features_conceptual/positivity_bert.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -113,11 +113,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="positivity-bert">
-<span id="id1"></span><h1>Positivity (BERT)<a class="headerlink" href="#positivity-bert" title="Link to this heading"></a></h1>
+  <section id="sentiment-roberta">
+<span id="positivity-bert"></span><h1>Sentiment (RoBERTa)<a class="headerlink" href="#sentiment-roberta" title="Link to this heading"></a></h1>
 <section id="high-level-intuition">
 <h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Link to this heading"></a></h2>
-<p>This feature measures the positivity of a message using BERT’s generated valence sentiment markers.</p>
+<p>This feature measures the positivity of a message using RoBERTa’s generated valence sentiment markers.</p>
 </section>
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
@@ -129,14 +129,14 @@
 </section>
 <section id="implementation-notes-caveats">
 <h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Link to this heading"></a></h2>
-<p>This feature precomputes these valence ratings in the data preprocessing step &amp; stores them locally; this essentially “caches” the sentiment markers, preventing the case where a user spends extra time regenerating these ratings on subsequent requests.</p>
+<p>This feature precomputes these valence ratings in the data preprocessing step and stores them locally; this essentially “caches” the sentiment markers, preventing the case where a user spends extra time regenerating these ratings on subsequent requests.</p>
 </section>
 <section id="interpreting-the-feature">
 <h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Link to this heading"></a></h2>
 <p>This feature returns 3 general sentiment markers: <strong>positive_bert</strong>, <strong>negative_bert</strong>, and <strong>neutral_bert</strong>. Each score ranges from 0-1, and all three scores add up to 1. This feature measures the extent to which a particular utterance aligns with each label, relative to the other labels.</p>
 <p>Below is an example output file:</p>
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Output File</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Output File</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 40.0%" />
 <col style="width: 20.0%" />
@@ -171,7 +171,7 @@
 </section>
 <section id="related-features">
 <h2>Related Features<a class="headerlink" href="#related-features" title="Link to this heading"></a></h2>
-<p>N/A</p>
+<p>This feature is one of several that measure sentiment. Other sentiment-related features include Negative_Emotion and Positive_Emotion, which are attributes of <a class="reference internal" href="politeness_receptiveness_markers.html#politeness-receptiveness-markers"><span class="std std-ref">Politeness Receptiveness Markers</span></a>; <a class="reference internal" href="textblob_polarity.html#textblob-polarity"><span class="std std-ref">Textblob Polarity</span></a>; and LIWC (a relevant column name being positive_affect_lexical_per_100). A z-scored version of the positivity RoBERTa score is also included separately (<a class="reference internal" href="positivity_z_score.html#positivity-z-score"><span class="std std-ref">Positivity Z-Score</span></a>).</p>
 </section>
 </section>
 
