@@ -39,32 +39,41 @@ After you import the package and install dependencies, you can then use our tool
 
    from team_comm_tools import FeatureBuilder
 
+*Note*: PyPI treats hyphens and underscores equally, so "pip install team_comm_tools" and "pip install team-comm-tools" are equivalent. However, Python does NOT treat them equally, and **you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder**.
 
-This allows you to declare a FeatureBuilder object, which is the heart of our tool. Here is some sample syntax:
+Once you import the tool, you will be able to declare a FeatureBuilder object, which is the heart of our tool. Here is some sample syntax:
 
 .. code-block:: python
 
-   # this section of code declares a FeatureBuilder object
    my_feature_builder = FeatureBuilder(
       input_df = my_pandas_dataframe,
-      conversation_id_col = "conversation_id", # this means there's a column in your data called 'conversation_id' that uniquely identifies a conversation
-      vector_directory = "./vector_data/", # this is where we'll cache things like sentence vectors; this directory doesn't have to exist; we'll create it for you!
-      output_file_path_chat_level = "./my_output_chat_level.csv", # give us names for the utterance (chat), speaker (user), and conversation-level outputs
+      # this means there's a column in your data called 'conversation_id' that uniquely identifies a conversation
+      conversation_id_col = "conversation_id",  
+      # this means there's a column in your data called 'speaker_id' that uniquely identifies a speaker
+      speaker_id_col = "speaker_id",
+      # this means there's a column in your data called 'messagae' that contains the content you want to featurize
+      message_col = "message",
+      # this means there's a column in your data called 'timestamp' that conains the time associated with each message; we also accept a list of (timestamp_start, timestamp_end), in case your data is formatted in that way.
+      timestamp_col= "timestamp",
+      # this is where we'll cache things like sentence vectors; this directory doesn't have to exist; we'll create it for you!
+      vector_directory = "./vector_data/",
+      # give us names for the utterance (chat), speaker (user), and conversation-level outputs
+      output_file_path_chat_level = "./my_output_chat_level.csv", 
       output_file_path_user_level = "./my_output_user_level.csv",
       output_file_path_conv_level = "./my_output_conversation_level.csv",
-      turns = False, # if true, this will combine successive turns by the same speaker.
-      custom_features = [ # these features depend on sentence vectors, so they take longer to generate on larger dataset. Add them in manually if you are interested in add them to your output!
+      # if true, this will combine successive turns by the same speaker.
+      turns = False,
+      # these features depend on sentence vectors, so they take longer to generate on larger datasets. Add them in manually if you are interested in adding them to your output!
+      custom_features = [  
             "(BERT) Mimicry",
             "Moving Mimicry",
             "Forward Flow",
             "Discursive Diversity"
       ],
    )
-   
+
    # this line of code runs the FeatureBuilder on your data
    my_feature_builder.featurize(col="message")
-
-*Note*: PyPI treats hyphens and underscores equally, so "pip install team_comm_tools" and "pip install team-comm-tools" are equivalent. However, Python does NOT treat them equally, and **you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder**.
 
 Use the Table of Contents below to learn more about our tool. We recommend that you begin in the "Introduction" section, then explore other sections of the documentation as they become relevant to you. More information on using our tool can be found in :ref:`examples`.
 
