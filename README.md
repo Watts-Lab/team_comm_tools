@@ -29,15 +29,10 @@ You will also need to ensure that Spacy and NLTK are installed in addition to th
 spacy download en_core_web_sm
 ```
 
-Additionally, we require the following NLTK dependencies, which need to be downloaded via Python. If you don't have them, run the following python script in your environment (it is also available in our GitHub repository as [import_nltk.py](https://github.com/Watts-Lab/team_comm_tools/blob/main/src/team_comm_tools/utils/import_nltk.py)):
+Additionally, we require several NLTK dependencies. If you don't have them in your environment, run this one-liner in your terminal:
 
-```python
-import nltk
-
-nltk.download('nps_chat')
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
+```sh
+import_nltk
 ```
 
 ## Import Recommendations: Virtual Environment and Pip
