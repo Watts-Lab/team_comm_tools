@@ -86,23 +86,32 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">team_comm_tools</span>
 </pre></div>
 </div>
-<p>You will also need to ensure that Spacy and NLTK are installed in addition to the required dependencies. If you get an error that en_core_web_sm is not found, you should ensure the following:</p>
+<p>You will also need to ensure that Spacy and NLTK are installed in addition to the required dependencies. The Spacy model should download <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code> automatically upon install. If you get an error that en_core_web_sm is not found, you should run the following in your terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spacy</span> <span class="n">download</span> <span class="n">en_core_web_sm</span>
 </pre></div>
 </div>
-<p>Additionally, we require the following NLTK dependencies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;nps_chat&#39;</span><span class="p">)</span>
+<p>Additionally, we require the following NLTK dependencies, which need to be downloaded via Python. If you don’t have them, run the following python script in your environment (it is also available in our GitHub repository as <a class="reference external" href="https://github.com/Watts-Lab/team_comm_tools/blob/main/src/team_comm_tools/utils/import_nltk.py">import_nltk.py</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;nps_chat&#39;</span><span class="p">)</span>
 <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">)</span>
 <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;stopwords&#39;</span><span class="p">)</span>
 <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;wordnet&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<section id="import-recommendations-virtual-environment-and-pip">
+<h3>Import Recommendations: Virtual Environment and Pip<a class="headerlink" href="#import-recommendations-virtual-environment-and-pip" title="Link to this heading"></a></h3>
 <p><strong>We strongly recommend using a virtual environment in Python to run the package.</strong> We have several specific dependency requirements. One important one is that we are currently only compatible with numpy &lt; 2.0.0 because <a class="reference external" href="https://numpy.org/devdocs/release/2.0.0-notes.html#changes">numpy 2.0.0 and above</a> made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.</p>
+<p><strong>We also strongly recommend that your version of pip is up-to-date (&gt;=24.0).</strong> There have been reports in which users have had trouble downloading dependencies (specifically, the Spacy package) with older versions of pip. If you get an error with downloading <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code>, we recommend updating pip.</p>
 <p>After you import the package and install dependencies, you can then use our tool in your Python script as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">team_comm_tools</span> <span class="kn">import</span> <span class="n">FeatureBuilder</span>
 </pre></div>
 </div>
 <p><em>Note</em>: PyPI treats hyphens and underscores equally, so “pip install team_comm_tools” and “pip install team-comm-tools” are equivalent. However, Python does NOT treat them equally, and <strong>you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder</strong>.</p>
+</section>
+</section>
+<section id="using-the-package">
+<h2>Using the Package<a class="headerlink" href="#using-the-package" title="Link to this heading"></a></h2>
 <p>Once you import the tool, you will be able to declare a FeatureBuilder object, which is the heart of our tool. Here is some sample syntax:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_feature_builder</span> <span class="o">=</span> <span class="n">FeatureBuilder</span><span class="p">(</span>
    <span class="n">input_df</span> <span class="o">=</span> <span class="n">my_pandas_dataframe</span><span class="p">,</span>

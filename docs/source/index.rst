@@ -16,13 +16,13 @@ To use our tool, please ensure that you have Python >= 3.10 installed and a work
 
    pip install team_comm_tools
 
-You will also need to ensure that Spacy and NLTK are installed in addition to the required dependencies. If you get an error that en_core_web_sm is not found, you should ensure the following:
+You will also need to ensure that Spacy and NLTK are installed in addition to the required dependencies. The Spacy model should download ``en_core_web_sm`` automatically upon install. If you get an error that en_core_web_sm is not found, you should run the following in your terminal:
 
 .. code-block::
 
    spacy download en_core_web_sm
 
-Additionally, we require the following NLTK dependencies, which need to be downloaded via Python. If you don't have them, run the following python script in your environment:
+Additionally, we require the following NLTK dependencies, which need to be downloaded via Python. If you don't have them, run the following python script in your environment (it is also available in our GitHub repository as `import_nltk.py <https://github.com/Watts-Lab/team_comm_tools/blob/main/src/team_comm_tools/utils/import_nltk.py>`_):
 
 .. code-block::
 
