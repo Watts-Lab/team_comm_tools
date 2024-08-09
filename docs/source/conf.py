@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath('../../src/team_comm_tools/features/'))
 project = 'Team Communication Toolkit'
 copyright = '2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group'
 author = 'Xinlan Emily Hu and the Team Communication Toolkit Research Group'
-release = '0.0'
+release = '0.1.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
