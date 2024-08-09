@@ -52,3 +52,7 @@ examples/vector_data/*
 examples/output/*
 node_modules/
 
+# testing
+/output
+/vector_data
+test.py
