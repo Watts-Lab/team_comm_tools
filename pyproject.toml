@@ -54,7 +54,7 @@ Documentation = "https://conversational-featurizer.readthedocs.io/en/latest/"
 Repository = "https://github.com/Watts-Lab/team-comm-tools"
 
 [project.scripts]
-download_resources = "team_comm_tools.utils.import_nltk:download_resources"
+download_resources = "team_comm_tools.utils.download_resources:download"
 
 [tool.setuptools.packages.find]
 where = ["src"]
