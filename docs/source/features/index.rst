@@ -40,8 +40,10 @@ Once utterance-level features are computed, we compute conversation-level featur
    burstiness
    information_diversity
    ../utils/gini_coefficient
-   discursive_diversity
    get_all_DD_features
+   discursive_diversity
+   variance_in_DD
+   within_person_discursive_range
    turn_taking_features
 
 Speaker- (User) Level Features

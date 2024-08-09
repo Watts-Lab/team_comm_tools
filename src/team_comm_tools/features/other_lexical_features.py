@@ -2,7 +2,8 @@ import re
 
 from .basic_features import *
 
-NTRI_regex = "what\?+|sorry|excuse me|huh\??|who\?+|pardon\?+|say.*again\??|what'?s that|what is that"
+NTRI_regex = r"what\?+|sorry|excuse me|huh\??|who\?+|pardon\?+|say.*again\??|what'?s that|what is that"
+
 def classify_NTRI(text):
   """
   Classify whether the message contains clarification questions, such as "what?" "sorry?" etc.
