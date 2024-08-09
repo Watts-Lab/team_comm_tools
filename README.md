@@ -23,17 +23,17 @@ To use our tool, please ensure that you have Python >= 3.10 installed and a work
 pip install team_comm_tools
 ```
 
-You will also need to ensure that Spacy and NLTK are installed in addition to the required dependencies. The Spacy model should download `en_core_web_sm` automatically upon install. If you get an error that en_core_web_sm is not found, you should run the following in your terminal:
+This command will automatically install our package and all required dependencies.
+
+## Troubleshooting
+
+In the event that some dependency installations fail (for example, you may get an error that `en_core_web_sm` from Spacy is not found, or that there is a missing NLTK resource), please run this simple one-line command in your terminal, which will force the installation of Spacy and NLTK dependencies:
 
 ```sh
-spacy download en_core_web_sm
+download_resources
 ```
 
-Additionally, we require several NLTK dependencies. If you don't have them in your environment, run this one-liner in your terminal:
-
-```sh
-import_nltk
-```
+If you encounter a further issue in which the 'wordnet' package from NLTK is not found, it may be related to a known bug in NLTK in which the wordnet package does not unzip automatically. If this is the case, please follow the instructions to manually unzip it, documented in [this thread](https://github.com/nltk/nltk/issues/3028).
 
 ## Import Recommendations: Virtual Environment and Pip
 
