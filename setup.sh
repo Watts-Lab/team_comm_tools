@@ -18,7 +18,13 @@ fi
 
 # Step 3: Run the import_nltk.py script
 echo "Running import_nltk.py..."
-python src/team_comm_tools/utils/import_nltk.py
+python -c "
+    import nltk
+    nltk.download('nps_chat')
+    nltk.download('punkt')
+    nltk.download('stopwords')
+    nltk.download('wordnet')
+    "
 if [ $? -ne 0 ]; then
     echo "Failed to run import_nltk.py."
     exit 1
