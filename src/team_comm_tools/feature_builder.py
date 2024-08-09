@@ -10,6 +10,8 @@ import time
 import itertools
 
 # Imports from feature files and classes
+from team_comm_tools.utils.download_resources import download
+download()
 from team_comm_tools.utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
 from team_comm_tools.utils.calculate_user_level_features import UserLevelFeaturesCalculator
 from team_comm_tools.utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
