@@ -1,4 +1,4 @@
-.. _TEMPLATE:
+ .. _TEMPLATE:
 
 FEATURE NAME
 ============

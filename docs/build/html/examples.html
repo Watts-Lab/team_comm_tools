@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Examples &mdash; Team Communication Toolkit 0.0 documentation</title>
+  <title>Examples &mdash; Team Communication Toolkit 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=837179f8"></script>
+        <script src="_static/documentation_options.js?v=a58bc63e"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -51,7 +51,10 @@
 <li class="toctree-l1"><a class="reference internal" href="features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features_conceptual/index.html">Features: Conceptual Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#import-recommendations-virtual-environment-and-pip">Import Recommendations: Virtual Environment and Pip</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#using-the-package">Using the Package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#importing-the-package">Importing the Package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#running-the-featurebuilder-on-your-data">Running the FeatureBuilder on Your Data</a><ul>
@@ -100,22 +103,31 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">team_comm_tools</span>
 </pre></div>
 </div>
-<p>You will also need to manually install some additional required dependencies to set up the package. In your terminal, run the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">setup</span><span class="o">.</span><span class="n">sh</span>
+<p>You will also need to ensure that Spacy and NLTK are installed in addition to the required dependencies. The Spacy model should download <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code> automatically upon install. If you get an error that en_core_web_sm is not found, you should run the following in your terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spacy</span> <span class="n">download</span> <span class="n">en_core_web_sm</span>
 </pre></div>
 </div>
-<p>Once complete, you should see, “Installation and requirements check completed successfully.” This means you are ready to go!</p>
+<p>Additionally, we require several NLTK dependencies. If you don’t have them in your environment, run this one-liner in your terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">import_nltk</span>
+</pre></div>
+</div>
+<section id="import-recommendations-virtual-environment-and-pip">
+<h3>Import Recommendations: Virtual Environment and Pip<a class="headerlink" href="#import-recommendations-virtual-environment-and-pip" title="Link to this heading"></a></h3>
+<p><strong>We strongly recommend using a virtual environment in Python to run the package.</strong> We have several specific dependency requirements. One important one is that we are currently only compatible with numpy &lt; 2.0.0 because <a class="reference external" href="https://numpy.org/devdocs/release/2.0.0-notes.html#changes">numpy 2.0.0 and above</a> made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.</p>
+<p><strong>We also strongly recommend that your version of pip is up-to-date (&gt;=24.0).</strong> There have been reports in which users have had trouble downloading dependencies (specifically, the Spacy package) with older versions of pip. If you get an error with downloading <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code>, we recommend updating pip.</p>
+</section>
 </section>
 <section id="using-the-package">
 <h2>Using the Package<a class="headerlink" href="#using-the-package" title="Link to this heading"></a></h2>
 <p>After you install it, the Team Communication Toolkit can be imported at the top of any Python script. We have provided a simple example file, “featurize.py”, under our <a class="reference external" href="https://github.com/Watts-Lab/team_comm_tools/tree/main/examples">examples folder</a> on GitHub, and this walkthrough will highlight some of our top use cases. However, it won’t follow the file exactly.</p>
 <section id="importing-the-package">
 <h3>Importing the Package<a class="headerlink" href="#importing-the-package" title="Link to this heading"></a></h3>
-<p>At the top of your Python script, write the following:</p>
+<p>After you import the package and install dependencies, you can then use our tool in your Python script as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">team_comm_tools</span> <span class="kn">import</span> <span class="n">FeatureBuilder</span>
 </pre></div>
 </div>
 <p>Now you have access to the <a class="reference internal" href="feature_builder.html#feature-builder"><span class="std std-ref">feature_builder module</span></a>. This is the main class that you’ll need to interact with the Team Communication Toolkit.</p>
+<p><em>Note</em>: PyPI treats hyphens and underscores equally, so “pip install team_comm_tools” and “pip install team-comm-tools” are equivalent. However, Python does NOT treat them equally, and <strong>you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder</strong>.</p>
 </section>
 <section id="running-the-featurebuilder-on-your-data">
 <h3>Running the FeatureBuilder on Your Data<a class="headerlink" href="#running-the-featurebuilder-on-your-data" title="Link to this heading"></a></h3>
