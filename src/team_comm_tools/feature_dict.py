@@ -578,7 +578,7 @@ feature_dict = { # TODO: customize preprocess methods
     "level": "Conversation",
     "semantic_grouping": "Pace",
     "description": "This conversation-level feature measures the level of burstiness of chats in a conversation. The metric takes a value between -1 and 1, with a higher value indicating higher levels of team burstiness. Teams with higher burstiness would have more spiked patterns in team activity, which tends to indicate a higher sense of responsiveness and connectedness within the team members.",
-    "references": "(Reidl and Wooley, 2017)",
+    "references": "(Reidl and Woolley, 2017)",
     "wiki_link": "https://github.com/Watts-Lab/team-process-map/wiki/Team-Burstiness",
     "function": ConversationLevelFeaturesCalculator.calculate_team_burstiness,
     "dependencies": [],
