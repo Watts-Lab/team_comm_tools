@@ -34,7 +34,8 @@ function HowItWorks() {
         We believe these contributions will allow the toolkit to become a living resource for anyone interested
         in understanding and quantifying conversations.
       </p>
-      <br />
+
+      <h1 className='how-it-works-headers'>Getting Started</h1>
       <p>
         Our tool is publicly available on <a href="https://pypi.org/project/team-comm-tools/">PyPI</a>, with a getting started guide available in
         our <a href="https://conversational-featurizer.readthedocs.io/en/latest/examples.html">documentation</a>.
@@ -48,19 +49,27 @@ function HowItWorks() {
       <div className="code">
         pip install team_comm_tools
       </div>
+      <br />
       <p>
-        You will also need to manually install some additional required dependencies to set up the package. In your terminal, run the following:
+        This command will automatically install our package and all required dependencies.
+      </p>
+
+      <h1 className='home-subheaders'>
+        Troubleshooting
+      </h1>
+      <p> 
+        In the event that some dependency installations fail (for example, you may get an error that <span className="mini-code">en_core_web_sm</span> from Spacy is not found,
+        or that there is a missing NLTK resource),
+        please run this simple one-line command in your terminal, which will force the installation of Spacy and NLTK dependencies:
       </p>
       <br />
       <div className="code">
-        <a href="https://github.com/Watts-Lab/team_comm_tools/blob/main/setup.sh">./setup.sh</a>
+        download_resources
       </div>
-      <p>
-        (This links to a file on our GitHub page; in a future version, we will update the package to automatically install these dependencies.)
-      </p>
       <br />
       <p>
-        Once complete, you should see, “Installation and requirements check completed successfully.” This means you are ready to go!
+      If you encounter a further issue in which the ‘wordnet’ package from NLTK is not found, it may be related to a known bug in NLTK in which the wordnet package does not unzip automatically. 
+      If this is the case, please follow the instructions to manually unzip it, documented in this <a href="https://github.com/nltk/nltk/issues/3028">thread</a>.
       </p>
 
       <h1 className='how-it-works-headers'>Technical Documentation: ReadTheDocs</h1>
