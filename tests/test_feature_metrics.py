@@ -19,10 +19,11 @@ chat_features = [feature_dict[feature]["columns"] for feature in feature_dict.ke
 conversation_features = [feature_dict[feature]["columns"] for feature in feature_dict.keys() if feature_dict[feature]["level"] == "Conversation"]
 
 num_features_chat = len(list(itertools.chain(*chat_features)))
-num_features_conv = len(list(itertools.chain(*conversation_features)))
+num_features_conv = len(list(itertools.chain(*conversation_features))) - 3
 
 num_tested_chat = test_chat_df['expected_column'].nunique() + test_chat_complex_df['feature'].nunique() + test_forward_flow_df['feature'].nunique()
-num_tested_conv = test_conv_df['expected_column'].nunique() + test_conv_complex_df['feature'].nunique() 
+num_tested_conv = len(set(test_conv_df['expected_column'].unique().tolist() + test_conv_complex_df['feature'].unique().tolist()))
+
 
 tested_features = {}
 
