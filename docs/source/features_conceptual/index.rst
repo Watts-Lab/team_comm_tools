@@ -33,6 +33,9 @@ Utterance- (Chat) Level Features
    politeness_strategies
    politeness_receptiveness_markers
    online_discussions_tags
+   discursive_diversity
+   forward_flow
+   certainty
 
 Conversation-Level Features
 ****************************
