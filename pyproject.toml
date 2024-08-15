@@ -61,5 +61,8 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "team_comm_tools" = [
+  'features/lexicons/dale_chall.txt',
+  'features/lexicons/function_words.txt',
+  'features/lexicons/question_words.txt',
   'features/assets/*'
 ]

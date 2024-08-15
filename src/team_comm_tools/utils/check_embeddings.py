@@ -74,7 +74,7 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
     
     # Get the lexicon pickle
     current_script_directory = Path(__file__).resolve().parent
-    LEXICON_PATH_STATIC = current_script_directory.parent/"features/lexicons_dict.pkl"
+    LEXICON_PATH_STATIC = current_script_directory.parent/"features/assets/lexicons_dict.pkl"
     if (not os.path.isfile(LEXICON_PATH_STATIC)):
         generate_lexicon_pkl()
 
