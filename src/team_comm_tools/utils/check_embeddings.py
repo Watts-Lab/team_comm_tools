@@ -77,7 +77,7 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
     LEXICON_PATH_STATIC = current_script_directory.parent/"features/assets/lexicons_dict.pkl"
     if (not os.path.isfile(LEXICON_PATH_STATIC)):
         generate_lexicon_pkl()
-    CERTAINTY_PATH_STATIC = current_script_directory.parent/"features/assets/certainty_dict.pkl"
+    CERTAINTY_PATH_STATIC = current_script_directory.parent/"features/assets/certainty.pkl"
     if (not os.path.isfile(CERTAINTY_PATH_STATIC)):
         generate_certainty_pkl()
 
