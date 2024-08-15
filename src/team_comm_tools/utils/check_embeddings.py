@@ -52,9 +52,6 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
         generate_vect(chat_data, vect_path, message_col)
     if (regenerate_vectors or (not os.path.isfile(bert_path))) and need_sentiment:
         generate_bert(chat_data, bert_path, message_col)
-    if (not os.path.isfile(Path(__file__).resolve().parent.parent/"features/lexicons/certainty.txt")):
-        # unpickle certainty
-        unpickle_certainty()
 
     try:
         vector_df = pd.read_csv(vect_path)
@@ -202,21 +199,3 @@ def get_sentiment(text):
 
     # sample output format
     return({'positive': scores[2], 'negative': scores[0], 'neutral': scores[1]})
-
-
-def unpickle_certainty():
-    """
-    Unpickles the certainty data from a '.pkl' file and writes it to a '.txt' file.
-
-    :raises FileNotFoundError: If the '.pkl' file is not found.
-    :raises IOError: If there is an issue reading from the '.pkl' file or writing to the '.txt' file.
-    :return: None
-    :rtype: None
-    """
-    current_script_directory = Path(__file__).resolve().parent
-
-    with open(current_script_directory.parent/ "features/lexicons/certainty.pkl", "rb") as file:
-        unpickled_content = pickle.load(file)
-
-    with open(current_script_directory.parent/ "features/lexicons/certainty.txt", "w") as file:
-        file.write(unpickled_content)
