@@ -362,7 +362,11 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data["certainty_rocklage"] = self.chat_data["message_lower_with_punc"].apply(get_certainty)
+    
+        try:
+            self.chat_data["certainty_rocklage"] = self.chat_data["message_lower_with_punc"].apply(get_certainty)
+        except:
+            print("WARNING: Certainty lexicon not found. Skipping feature...")
 
     def get_reddit_features(self) -> None:
         """
