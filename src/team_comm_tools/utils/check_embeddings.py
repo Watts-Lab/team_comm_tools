@@ -131,7 +131,7 @@ def generate_lexicon_pkl():
         with open(current_script_directory.parent/"features/assets/lexicons_dict.pkl", "wb") as lexicons_pickle_file:
             pickle.dump(lexicons_dict, lexicons_pickle_file)
     except:
-        print("WARNING: Lexicons not found. Skipping feature...")
+        print("WARNING: Lexicons not found. Skipping pickle generation...")
 
 def generate_certainty_pkl():
     """
@@ -159,7 +159,7 @@ def generate_certainty_pkl():
         with open(current_script_directory.parent/"features/assets/certainty.pkl", "wb") as file:
             pickle.dump(text_content, file)
     except:
-        print("WARNING: Certainty lexicon not found. Skipping feature...")
+        print("WARNING: Certainty lexicon not found. Skipping pickle generation...")
 
 
 def generate_vect(chat_data, output_path, message_col):
