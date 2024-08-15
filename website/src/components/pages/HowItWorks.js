@@ -34,7 +34,6 @@ function HowItWorks() {
         We believe these contributions will allow the toolkit to become a living resource for anyone interested
         in understanding and quantifying conversations.
       </p>
-
       <h1 className='how-it-works-headers'>Getting Started</h1>
       <p>
         Our tool is publicly available on <a href="https://pypi.org/project/team-comm-tools/">PyPI</a>, with a getting started guide available in

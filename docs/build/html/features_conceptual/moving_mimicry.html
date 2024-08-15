@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moving Mimicry &mdash; Team Communication Toolkit 0.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=a58bc63e"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Time Difference" href="time_difference.html" />
+    <link rel="prev" title="Mimicry (BERT)" href="mimicry_bert.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Team Communication Toolkit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Conceptual Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="named_entity_recognition.html">Named Entity Recognition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="information_exchange.html">Information Exchange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proportion_of_first_person_pronouns.html">Proportion of First Person Pronouns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="message_length.html">Message Length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="message_quantity.html">Message Quantity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="word_ttr.html">Word Type-Token Ratio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dale_chall_score.html">Dale-Chall Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="positivity_bert.html">Sentiment (RoBERTa)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="positivity_z_score.html">Positivity Z-Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="textblob_polarity.html">Textblob Polarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="textblob_subjectivity.html">Textblob Subjectivity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content_word_accommodation.html">Content Word Accommodation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function_word_accommodation.html">Function Word Accommodation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mimicry_bert.html">Mimicry (BERT)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Moving Mimicry</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#high-level-intuition">High-Level Intuition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#citation">Citation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implementation-basics">Implementation Basics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implementation-notes-caveats">Implementation Notes/Caveats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interpreting-the-feature">Interpreting the Feature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#related-features">Related Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="time_difference.html">Time Difference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hedge.html">Hedge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="politeness_strategies.html">Politeness Strategies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="politeness_receptiveness_markers.html">Politeness Receptiveness Markers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="online_discussions_tags.html">Online Discussion Tags</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conversation-level-features">Conversation-Level Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team Communication Toolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Features: Conceptual Documentation</a></li>
+      <li class="breadcrumb-item active">Moving Mimicry</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/features_conceptual/moving_mimicry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="moving-mimicry">
+<span id="id1"></span><h1>Moving Mimicry<a class="headerlink" href="#moving-mimicry" title="Link to this heading"></a></h1>
+<section id="high-level-intuition">
+<h2>High-Level Intuition<a class="headerlink" href="#high-level-intuition" title="Link to this heading"></a></h2>
+<p>This feature measure the degree of mimicry a conversation has displayed up until the current utterance.</p>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
+<p>N/A; This is a novel measure that builds on related measures of mimicry/accommodation (see “Related Features”).</p>
+</section>
+<section id="implementation-basics">
+<h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Link to this heading"></a></h2>
+<p>Using BERT’s Sentence Transfomers model (<a class="reference external" href="https://sbert.net/">https://sbert.net/</a>), utterances are represented as multidimensional embeddings. Stepping through each message in a conversation, this feature first computes the cosine similarity of the current embedding and previous embedding to determine their degree of mimicry. It then computes the average of all mimicry scores computed thus far (up until this point in the conversation), including the mimicry metric just computed, and assigned the output to the current chat. The feature then this running average for the proceeding chat.</p>
+</section>
+<section id="implementation-notes-caveats">
+<h2>Implementation Notes/Caveats<a class="headerlink" href="#implementation-notes-caveats" title="Link to this heading"></a></h2>
+<p>Note that the first utterance in a conversation cannot have a moving mimicry score, as there is no “previous utterance” to associate it with. In this case, we assign a value of 0 to this utterance.</p>
+</section>
+<section id="interpreting-the-feature">
+<h2>Interpreting the Feature<a class="headerlink" href="#interpreting-the-feature" title="Link to this heading"></a></h2>
+<p>This feature generates a score between 0-1 for each utterance in a conversation, with scores closer to 0 representing a more original conversation (lacking mimicry) up until chat X, while scores near 1 represent a higher degree of mimicry/similarity within the conversation up until chat X.</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Output File</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>message</p></th>
+<th class="head"><p>speaker</p></th>
+<th class="head"><p>mimicry_bert</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Hi, my name is Shruti!</p></td>
+<td><p>Speaker A</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hey, my name is Nathaniel, but I go by Nate.</p></td>
+<td><p>Speaker B</p></td>
+<td><p>0.89</p></td>
+</tr>
+<tr class="row-even"><td><p>What’s the plan for today?</p></td>
+<td><p>Speaker A</p></td>
+<td><p>0.12</p></td>
+</tr>
+<tr class="row-odd"><td><p>My name is Emily.</p></td>
+<td><p>Speaker C</p></td>
+<td><p>0.09</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="related-features">
+<h2>Related Features<a class="headerlink" href="#related-features" title="Link to this heading"></a></h2>
+<p>This toolkit incorporates a host of mimicry-related features, with others including <a class="reference internal" href="function_word_accommodation.html#function-word-accommodation"><span class="std std-ref">Function Word Accommodation</span></a>, <a class="reference internal" href="content_word_accommodation.html#content-word-accommodation"><span class="std std-ref">Content Word Accommodation</span></a>, and <a class="reference internal" href="mimicry_bert.html#mimicry-bert"><span class="std std-ref">Mimicry (BERT)</span></a>. The former two features use a bag-of-words approach to compute mimicry within two discrete categories. Mimicry (BERT) is similar in that it still uses SBERT embeddings to compute similarity, but differs in that it helps reason towards the mimicry discretely between a single utterance and the previous utterance, rather than the overall flow of mimicry throughout a conversation up until a certain point.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mimicry_bert.html" class="btn btn-neutral float-left" title="Mimicry (BERT)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="time_difference.html" class="btn btn-neutral float-right" title="Time Difference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Xinlan Emily Hu and the Team Communication Toolkit Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

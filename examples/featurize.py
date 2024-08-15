@@ -4,13 +4,7 @@ file: featurize.py
 This is an example file that declares a FeatureBuilder constructor for several empirical datasets.
 """
 
-import sys
-import os
-
-# Add the parent directory to the sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src/')))
-
-from feature_builder import FeatureBuilder
+from team_comm_tools import FeatureBuilder
 import pandas as pd
 
 # Main Function
@@ -51,7 +45,7 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./jury_TINY_output_chat_level.csv",
 		output_file_path_user_level = "./jury_TINY_output_user_level.csv",
 		output_file_path_conv_level = "./jury_TINY_output_conversation_level.csv",
-		turns = False,
+		turns = False
 	)
 	tiny_juries_feature_builder.featurize(col="message")
 

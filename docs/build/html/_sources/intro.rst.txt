@@ -4,7 +4,7 @@ Introduction
 ============
 
 | "Language most showeth a man; speak that I may see thee."
-| --- Johnson, qtd. in Matarazzo & Wiens (1977)
+| --- Jonson, qtd. in Matarazzo & Wiens (1977)
 
 The Team Communication Toolkit is a Python package that makes it easy for social scientists to analyze and understand *text-based communication data*. Our aim is to facilitate seamless analyses of conversational data --- especially among groups and teams! --- by providing a single interface for researchers to generate and explore dozens of research-backed conversational features. 
 
@@ -28,6 +28,8 @@ The heart of our tool is a class called the :ref:`FeatureBuilder <feature_builde
 
 Generating Features: Utterance-, Speaker-, and Conversation-Level
 ******************************************************************
+.. _generating_features:
+
 Notably, not all communication features are made equal, as they can be defined at different levels of analysis. For example, a single utterance ("you are great!") may be described as a "positive statement." An individual who makes many such utterances may be described as a "positive person." Finally, the entire team may enjoy a "positive conversation," an interaction in which everyone speaks positively to each other. In this way, the same concept of positivity can be applied to three levels: the utterance, the speaker, and the conversation.
 
 The table below provides a simple illustrative example of two conversations, presented in the Toolkit's required input format. We require only three columns: a conversation ID, a speaker ID, and a message/text input. The timestamp column is optional, but behaviors related to the conversation's pace cannot be measured without it. 

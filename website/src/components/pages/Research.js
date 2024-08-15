@@ -12,7 +12,6 @@ function Research() {
       <h1 className='research'>
         Research
       </h1>
-
       <p> 
         The paper preprint can be found <a href='https://osf.io/preprints/psyarxiv/pz98q?view_only='> here</a>.
       </p>
