@@ -72,11 +72,14 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
         if need_sentiment: # It's OK if we don't have the path, if the sentiment features are not necessary
             generate_bert(chat_data, bert_path, message_col)
     
-    # Get the lexicon pickle
+    # Get the lexicon pickle(s) if they don't exist
     current_script_directory = Path(__file__).resolve().parent
     LEXICON_PATH_STATIC = current_script_directory.parent/"features/assets/lexicons_dict.pkl"
     if (not os.path.isfile(LEXICON_PATH_STATIC)):
         generate_lexicon_pkl()
+    CERTAINTY_PATH_STATIC = current_script_directory.parent/"features/assets/certainty_dict.pkl"
+    if (not os.path.isfile(CERTAINTY_PATH_STATIC)):
+        generate_certainty_pkl()
 
 # Read in the lexicons (helper function for generating the pickle file)
 def read_in_lexicons(directory, lexicons_dict):
@@ -117,14 +120,47 @@ def generate_lexicon_pkl():
     :rtype: None
     """
     print("Generating Lexicon pickle...")
-    lexicons_dict = {}
-    current_script_directory = Path(__file__).resolve().parent
-    read_in_lexicons(current_script_directory.parent / "features/lexicons/liwc_lexicons/", lexicons_dict) # Reads in LIWC Lexicons
-    read_in_lexicons(current_script_directory.parent / "features/lexicons/other_lexicons/", lexicons_dict) # Reads in Other Lexicons
 
-    # Save as pickle
-    with open(current_script_directory.parent/"features/lexicons_dict.pkl", "wb") as lexicons_pickle_file:
-        pickle.dump(lexicons_dict, lexicons_pickle_file)
+    try:
+        lexicons_dict = {}
+        current_script_directory = Path(__file__).resolve().parent
+        read_in_lexicons(current_script_directory.parent / "features/lexicons/liwc_lexicons/", lexicons_dict) # Reads in LIWC Lexicons
+        read_in_lexicons(current_script_directory.parent / "features/lexicons/other_lexicons/", lexicons_dict) # Reads in Other Lexicons
+
+        # Save as pickle
+        with open(current_script_directory.parent/"features/assets/lexicons_dict.pkl", "wb") as lexicons_pickle_file:
+            pickle.dump(lexicons_dict, lexicons_pickle_file)
+    except:
+        print("WARNING: Lexicons not found. Skipping feature...")
+
+def generate_certainty_pkl():
+    """
+    Helper function for generating the pickle file containing the certainty lexicon.
+
+    This function reads in lexicon files from a specified directory, processes the content, 
+    and appends the cleaned lexicon patterns to a dictionary.
+
+    :param directory: The directory containing the lexicon files
+    :type directory: Path
+    :param lexicons_dict: Dictionary to store the processed lexicon patterns
+    :type lexicons_dict: dict
+
+    :return: None
+    :rtype: None
+    """
+    print("Generating Certainty pickle...")
+
+    try:
+        current_script_directory = Path(__file__).resolve().parent
+        with open(current_script_directory.parent/"features/lexicons/certainty.txt", "r") as file:
+            text_content = file.read()
+
+        # Pickle the text content
+        with open(current_script_directory.parent/"features/assets/certainty.pkl", "wb") as file:
+            pickle.dump(text_content, file)
+    except:
+        print("WARNING: Certainty lexicon not found. Skipping feature...")
+
 
 def generate_vect(chat_data, output_path, message_col):
     """
