@@ -7,17 +7,6 @@ import pickle
 
 # Note: This feature requires the message WITH punctuation.
 
-# parse certainty lexicon, compile into master regex, delimited by | 
-# Construct the absolute path to certainty.txt using the current script directory
-current_dir = os.path.dirname(__file__)
-certainty_file_pkl_path = os.path.join(current_dir, './lexicons/certainty.pkl')
-certainty_file_pkl_path = os.path.abspath(certainty_file_pkl_path)
-with open(certainty_file_pkl_path, 'rb') as f:
-    certainty_data = pickle.load(f)  # Load pickled data
-    certainty = pd.read_csv(io.StringIO(certainty_data), sep = ",")
-    certainty = certainty.sort_values(["NumWords", "NumCharacters"], ascending=False)
-master_regex = certainty["Word"].str.cat(sep='\\b|') + "\\b"
-
 def get_certainty(chat):
     """ Calculates a score of how "certain" a given expression is, using the Certainty Lexicon.
 
@@ -41,6 +30,17 @@ def get_certainty(chat):
         float: The certainty score of the utterance.
     """
     
+    # parse certainty lexicon, compile into master regex, delimited by | 
+    # Construct the absolute path to certainty.txt using the current script directory
+    current_dir = os.path.dirname(__file__)
+    certainty_file_pkl_path = os.path.join(current_dir, './assets/certainty.pkl')
+    certainty_file_pkl_path = os.path.abspath(certainty_file_pkl_path)
+    with open(certainty_file_pkl_path, 'rb') as f:
+        certainty_data = pickle.load(f)  # Load pickled data
+        certainty = pd.read_csv(io.StringIO(certainty_data), sep = ",")
+        certainty = certainty.sort_values(["NumWords", "NumCharacters"], ascending=False)
+    master_regex = certainty["Word"].str.cat(sep='\\b|') + "\\b"
+
     # default certainty value is 4.5; aka a "neutral" statement in the event we don't find anything
     DEFAULT_CERTAINTY = 4.5
 
