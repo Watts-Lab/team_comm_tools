@@ -13,6 +13,8 @@ We are a research project created by the [Computational Social Science Lab at UP
 
 [![View - Documentation](https://img.shields.io/badge/view-Documentation-blue?style=for-the-badge)](https://conversational-featurizer.readthedocs.io/en/latest/ "Go to project documentation")
 
+The Team Communication Toolkit is an academic project and is intended to be used for academic purposes only.
+
 </div>
 
 # Getting Started
