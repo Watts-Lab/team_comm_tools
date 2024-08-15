@@ -61,6 +61,5 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "team_comm_tools" = [
-  'features/lexicons/**/*', 
   'features/assets/*'
 ]
