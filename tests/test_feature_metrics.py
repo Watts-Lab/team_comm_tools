@@ -292,6 +292,7 @@ def test_final_results():
 
         for feature, results in tested_features.items():
             accuracy = results['passed'] / (results['passed'] + results['failed']) * 100
+            file.write(f"Feature: {feature}\n")
             if accuracy != 100:
                 file.write("\n")
                 file.write("------RESULTS------\n")
