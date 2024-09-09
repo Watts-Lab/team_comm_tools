@@ -1,6 +1,6 @@
 .. _politeness_receptiveness_markers:
 
-Politeness Receptiveness Markers
+Politeness/Receptiveness Markers
 =================================
 
 High-Level Intuition

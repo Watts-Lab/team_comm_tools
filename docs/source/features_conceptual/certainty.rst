@@ -38,4 +38,4 @@ Each key in the Certainty Lexicon is associated with a certainty score between 0
 
 Related Features 
 *****************
-Another measure of Certainty is contained within the LIWC lexicon.
+Another measure of Certainty is contained within :ref:`liwc`. Additionally, :ref:`hedge` and associated features (see the measure of hedging within :ref:`politeness_strategies` also captures the degree of uncertainty for a given utterance.

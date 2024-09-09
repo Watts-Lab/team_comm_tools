@@ -66,9 +66,9 @@ In this example, the first conversation displays a much higher discursive divers
    * - Conversation 1
      - I'd rather go to the gym.
      - Speaker C
-   * - conversation
-     - message
-     - speaker
+   * - **conversation**
+     - **message**
+     - **speaker**
    * - Conversation 2
      - What's the plan looking like today?
      - Speaker A
@@ -96,4 +96,4 @@ In this example, the first conversation displays a much higher discursive divers
 
 Related Features 
 *****************
-Discursive Diversity is the core feature within an umbrella group of discursive features. The other three features in this umbrella --- Variance in Discursive Diversity, Incongruent Modulation, and Within-Person Discursive Range --- all use conversation chunking and build on the central feature. These features capture the diversity of semantic content within a conversation and how this diversity changes over time, whereas the primary Discursive Diversity metric captures the overall diversity of semantic content within a conversation. 
+Discursive Diversity is the core feature within an umbrella group of discursive features. The other three features in this umbrella --- Variance in Discursive Diversity, Incongruent Modulation, and Within-Person Discursive Range --- all use conversation chunking and build on the central feature. These features capture the diversity of semantic content within a conversation and how this diversity changes over time, whereas the primary Discursive Diversity metric captures the overall diversity of semantic content within a conversation. A related measure of the diversity of topics discussed in a conversation is :ref:`information_diversity`.
