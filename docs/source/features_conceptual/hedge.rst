@@ -13,7 +13,7 @@ Citation
 
 Implementation Basics 
 **********************
-A score of 1 is assigned if hedge phrases (”I think,” “a little,” “maybe,” “possibly”) are present, and a score of 0 is assigned otherwise.
+The score is a binary representation of whether an utterance contains any hedges. A score of 1 is assigned if any hedge phrases (”I think,” “a little,” “maybe,” “possibly”) are present, and a score of 0 is assigned otherwise.
 
 Implementation Notes/Caveats 
 *****************************
@@ -21,9 +21,9 @@ This is a bag of words feature, which is a naive approach towards detecting hedg
 
 Interpreting the Feature 
 *************************
-A score of 1 is assigned if hedge phrases (”I think,” “a little,” “maybe,” “possibly”) are present, and a score of 0 is assigned otherwise.
+A score of 1 is assigned if hedge phrases (e.g., ”I think,” “a little,” “maybe,” “possibly”) are present, and a score of 0 is assigned otherwise.
 
 
 Related Features 
 *****************
-Politeness Strategies - which also measures hedges
+Please see :ref:`politeness_strategies`, which also contains a measure for hedging.

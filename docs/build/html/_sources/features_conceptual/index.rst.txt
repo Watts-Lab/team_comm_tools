@@ -5,8 +5,6 @@ Features: Conceptual Documentation
 
 In contrast with the :ref:`Features: Technical Documentation <features_technical>` page, this page aims to provide a resource for conceptually understanding the features: what are they, what are they meant to measure, and how is our operationalization connected to concepts from social science?
 
-**Please note that this page is currently under construction.**
-
 Utterance- (Chat) Level Features
 *********************************
 
@@ -14,6 +12,9 @@ Utterance- (Chat) Level Features
    :maxdepth: 1
 
    named_entity_recognition
+   time_difference
+   liwc
+   certainty
    information_exchange
    proportion_of_first_person_pronouns
    message_length
@@ -28,11 +29,14 @@ Utterance- (Chat) Level Features
    function_word_accommodation
    mimicry_bert
    moving_mimicry
-   time_difference
+   forward_flow
    hedge
+   questions
+   conversational_repair
    politeness_strategies
    politeness_receptiveness_markers
    online_discussions_tags
+   
 
 Conversation-Level Features
 ****************************
@@ -40,4 +44,8 @@ Conversation-Level Features
 .. toctree::
    :maxdepth: 1
 
+   gini_coefficient
    turn_taking_index
+   team_burstiness
+   discursive_diversity
+   information_diversity
