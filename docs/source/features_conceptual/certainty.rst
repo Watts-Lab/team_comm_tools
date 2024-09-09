@@ -5,7 +5,7 @@ Certainty
 
 High-Level Intuition
 *********************
-This feature measures how "certain", i.e. confident or sure, a given utterance is, using the Certainty Lexicon pushed in Rocklage et al. (2023).
+This feature measures how "certain", i.e. confident or sure, a given utterance is, using the Certainty Lexicon published in Rocklage et al. (2023).
 
 Citation
 *********
@@ -13,8 +13,7 @@ Citation
 
 Implementation Basics 
 **********************
-The Certainty Lexicon provided a dictionary of words and phrases and their associated certainty metric. This feature feature uses a regular expression to identify these words and phrases within a given utterance, and subsequently averages the corresponding certainty metrics to get the overall certainty score. If no matches are found, the default value is 4.5 (indicating that an utterance is neither certain nor uncertain). 
-
+The Certainty Lexicon provided a dictionary of words and phrases and their associated certainty metric. This feature uses a regular expression to identify these words and phrases within a given utterance, and subsequently averages the corresponding certainty metrics to get the overall certainty score. If no matches are found, the default value is 4.5 (indicating that an utterance is neither certain nor uncertain). 
 
 Implementation Notes/Caveats 
 *****************************
@@ -25,7 +24,7 @@ Interpreting the Feature
 Each key in the Certainty Lexicon is associated with a certainty score between 0 (very uncertain) and 9 (very certain). The feature computes the average certainty score of all matched words/phrases in a given utterance, so the score remains within this 0-9 range. If there are no matches found, then the default value of 4.5 (no certainty indicators present, "neutral certainty") is returned.
 
 .. list-table:: Output File
-   :widths: 40 20 20
+   :widths: 40 20
 
    * - message
      - certainty
@@ -36,6 +35,7 @@ Each key in the Certainty Lexicon is associated with a certainty score between 0
    * - My name is Emily.
      - 4.5
 
+
 Related Features 
 *****************
-N/A
+Another measure of Certainty is contained within the LIWC lexicon.
