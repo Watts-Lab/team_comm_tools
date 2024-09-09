@@ -98,7 +98,6 @@
              
   <section id="examples">
 <span id="id1"></span><h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
-<p><strong>Note:</strong> Our “Examples” page is constantly being improved. This page is a work in progress!</p>
 <section id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
 <p>To use our tool, please ensure that you have Python &gt;= 3.10 installed and a working version of <a class="reference external" href="https://pypi.org/project/pip/">pip</a>, which is Python’s package installer. Then, in your local environment, run the following:</p>
@@ -185,7 +184,7 @@
 </div>
 </div></blockquote>
 </li>
-<li><p><strong>In the FeatureBuilder, we assume that every conversation has a unique identifying string, and that all the messages belonging to the same conversation have the same identifier.</strong> Typically, we would use the column <strong>conversation_id_col</strong> to indicate the name of this identifier. However, we also support cases in which there is more than one identifer per conversation, and our example here illustrates this functionality. The <strong>grouping_keys</strong> parameter means that we want to group by more than one column, and allow the FeatureBuilder to treat unique combinations of the grouping keys as the “conversational identifier”. This means that we treat each unique combination of “batch_num” and “round_num” as a different conversation.</p>
+<li><p><strong>In the FeatureBuilder, we assume that every conversation has a unique identifying string, and that all the messages belonging to the same conversation have the same identifier.</strong> Typically, we would use the column <strong>conversation_id_col</strong> to indicate the name of this identifier. However, we also support cases in which there is more than one identifer per conversation, and our example here illustrates this functionality. The <strong>grouping_keys</strong> parameter means that we want to group by more than one column, and allow the FeatureBuilder to treat unique combinations of the grouping keys as the “conversational identifier”. This means that we treat each unique combination of “batch_num” and “round_num” as a different conversation, and we <em>override</em> the <strong>conversation_id_col</strong> if a list of <strong>grouping_keys</strong> is present.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>In cases where you are using <strong>conversation_id_col</strong>, “conversation_num” is the default value for this parameter.</p></li>

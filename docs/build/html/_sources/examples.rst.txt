@@ -3,8 +3,6 @@
 Examples
 =============
 
-**Note:** Our "Examples" page is constantly being improved. This page is a work in progress!
-
 Getting Started
 ****************
 
@@ -106,7 +104,7 @@ Basic Input Columns
 
 		timestamp_col = ("timestamp_start", "timestamp_end")
 
-* **In the FeatureBuilder, we assume that every conversation has a unique identifying string, and that all the messages belonging to the same conversation have the same identifier.** Typically, we would use the column **conversation_id_col** to indicate the name of this identifier. However, we also support cases in which there is more than one identifer per conversation, and our example here illustrates this functionality. The **grouping_keys** parameter means that we want to group by more than one column, and allow the FeatureBuilder to treat unique combinations of the grouping keys as the "conversational identifier". This means that we treat each unique combination of "batch_num" and "round_num" as a different conversation.
+* **In the FeatureBuilder, we assume that every conversation has a unique identifying string, and that all the messages belonging to the same conversation have the same identifier.** Typically, we would use the column **conversation_id_col** to indicate the name of this identifier. However, we also support cases in which there is more than one identifer per conversation, and our example here illustrates this functionality. The **grouping_keys** parameter means that we want to group by more than one column, and allow the FeatureBuilder to treat unique combinations of the grouping keys as the "conversational identifier". This means that we treat each unique combination of "batch_num" and "round_num" as a different conversation, and we *override* the **conversation_id_col** if a list of **grouping_keys** is present.
 
 	* In cases where you are using **conversation_id_col**, "conversation_num" is the default value for this parameter.
 

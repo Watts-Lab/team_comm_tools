@@ -3,7 +3,7 @@
 Question (Naive)
 =================
 
-High-Level Intuition
+High*Level Intuition
 *********************
 This feature is a naive measure of counting the number of questions asked.
 
@@ -17,31 +17,31 @@ The feature first tokenizes an utterance into sentences based on its punctuation
 
 The list of question words used is:
 
-- what
-- why
-- when
-- where
-- who
-- which
-- whom
-- whose
-- how
-- is
-- am
-- are
-- do
-- does
-- did
-- can
-- could
-- shall
-- should
-- will
-- would
-- have
-- has
-- had
-- don't
+* what
+* why
+* when
+* where
+* who
+* which
+* whom
+* whose
+* how
+* is
+* am
+* are
+* do
+* does
+* did
+* can
+* could
+* shall
+* should
+* will
+* would
+* have
+* has
+* had
+* don't
 
 Interpreting the Feature 
 *************************
