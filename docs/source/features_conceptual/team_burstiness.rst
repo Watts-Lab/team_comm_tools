@@ -13,7 +13,9 @@ Citation
 
 Implementation Basics 
 **********************
-Burstiness requires as input a vector of wait times between successive messages (which we compute in the toolkit as `time_diff`; see :ref:`time_difference`). Then, the metric is given by :math:`B = \frac{\text{standard\_deviation} - \text{mean}}{\text{standard\_deviation} + \text{mean}}`.
+Burstiness requires as input a vector of wait times between successive messages (which we compute in the toolkit as `time_diff`; see :ref:`time_difference`). Then, the metric is given by: 
+
+:math:`B = \frac{\text{standard\_deviation} - \text{mean}}{\text{standard\_deviation} + \text{mean}}`.
 
 Implementation Notes/Caveats 
 *****************************

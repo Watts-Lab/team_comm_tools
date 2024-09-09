@@ -12,9 +12,9 @@ In addition to LIWC, we also incorporate additional lexicons where relevant, suc
 Citation
 *********
 By default, we use LIWC-2007; `Pennebaker et al. (2007) <https://www.liwc.net/LIWC2007LanguageManual.pdf>`_
+
 Positive Word Lexicon: `Hu and Liu (2004) <https://www.cs.uic.edu/~liub/publications/kdd04-revSummary.pdf>`_
 `NLTK's List of English Stowords <https://gist.github.com/sebleier/554280>`_
-
 
 Implementation 
 ****************

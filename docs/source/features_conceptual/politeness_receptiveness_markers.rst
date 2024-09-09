@@ -10,6 +10,7 @@ A collection of conversational markers that indicates the use of politeness / re
 Citation
 *********
 `Yeomans et al., (2020) <https://www.mikeyeomans.info/papers/receptiveness.pdf>`_
+
 `SECR Module (For computing features from Yeomans et al., 2020) <https://github.com/bbevis/SECR/tree/main>`_
 
 Implementation Basics 

@@ -1,7 +1,7 @@
 .. _information_diversity:
 
-FEATURE NAME
-============
+Information Diversity
+======================
 
 High-Level Intuition
 *********************
@@ -13,7 +13,7 @@ Citation
 
 Implementation Basics 
 **********************
-**Preprocessing and Generating Topics.** We first preprocess the data by ensuring all utterance are in lowercase, lemmatized, and by removing stop words and words shorter than three caracters. We then use the `gensim <https://radimrehurek.com/gensim/>`_ package to create an `LDA model <https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation>` for each conversation, generating a corresponding topic space with its in which the number of dimensions equals the number of topics. 
+**Preprocessing and Generating Topics.** We first preprocess the data by ensuring all utterance are in lowercase, lemmatized, and by removing stop words and words shorter than three caracters. We then use the `gensim <https://radimrehurek.com/gensim/>`_ package to create an `LDA model <https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation>`_ for each conversation, generating a corresponding topic space with its in which the number of dimensions equals the number of topics. 
 
 **Determining Number of Topics.** To determine the number of topics used, we use the square root of the number of utterances (rows) in the conversation, rounded to the nearest integer.
 
