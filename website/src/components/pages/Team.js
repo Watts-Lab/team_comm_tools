@@ -7,10 +7,6 @@ const current = [
     image: `${process.env.PUBLIC_URL}/shruti.png`
   },
   {
-    name: 'Gina Chen',
-    image: `${process.env.PUBLIC_URL}/gina.jfif`
-  },
-  {
     name: 'Priya DCosta',
     image: `${process.env.PUBLIC_URL}/priya.png`
   },
@@ -36,6 +32,10 @@ const alumni = [
   {
     name: 'Yuluan Cao',
     image: `${process.env.PUBLIC_URL}/yuluan.jpg`
+  },
+  {
+    name: 'Gina Chen',
+    image: `${process.env.PUBLIC_URL}/gina.jfif`
   },
   {
     name: 'Nikhil Kumar',
