@@ -16,6 +16,7 @@ Implementation
 The feature first tokenizes an utterance into sentences based on its punctuation. Any sentence ending with a question mark (?) or beginning with a question word is counted as a "question."
 
 The list of question words used is:
+
 - what
 - why
 - when
