@@ -7,6 +7,11 @@ import json
 
 app = Flask(__name__)
 
+from flask import Flask, jsonify
+import json
+
+app = Flask(__name__)
+
 feature_dict = { # TODO: customize preprocess methods
     # Chat Level
     "Named Entity Recognition": {

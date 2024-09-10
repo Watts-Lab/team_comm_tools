@@ -12,7 +12,10 @@ function Research() {
       <h1 className='research'>
         Research
       </h1>
-
+      <p> 
+        The paper preprint can be found <a href='https://osf.io/preprints/psyarxiv/pz98q?view_only='> here</a>.
+      </p>
+      <br />
       <p>
         The Team Communication Toolkit is a research project that has been featured at the International Conference on Computational Social Science (IC2S2) and the Academy of Management (AOM) Annual Meeting.
         It is the winner of the 2024 IACM Technology Innovation Award (by the International Association for Conflict Management).
