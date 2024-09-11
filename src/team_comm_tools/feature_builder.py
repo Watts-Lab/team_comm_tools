@@ -66,7 +66,8 @@ class FeatureBuilder:
     :param timestamp_col: A string representing the column name that should be selected as the message. Defaults to "timestamp".
     :type timestamp_col: str, optional
 
-    :param grouping_keys: A list of multiple identifiers that collectively identify a conversation. If non-empty, we will group by all of the keys in the list and use the grouped key as the unique "conversational identifier."
+    :param grouping_keys: A list of multiple identifiers that collectively identify a conversation. If non-empty, we will group by all of the keys in the list and use the
+    grouped key as the unique "conversational identifier."
         Defaults to an empty list.
     :type grouping_keys: list, optional
     
@@ -86,11 +87,31 @@ class FeatureBuilder:
     :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity. Defaults to 0.9.
     :type ner_cutoff: int
 
-    :param regenerate_vectors: If true, will regenerate vector data even if it already exists. Defaults to False.
+    :param regenerate_vectors: If true, will regenerate vector data even if it already exists.  Defaults to False.
     :type regenerate_vectors: bool, optional
 
     :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation). Defaults to False.
     :type compute_vectors_from_preprocessed: bool, optional
+    :param custom_vect_path: If provided, features will be generated using custom vectors rather than default SBERT.  Defaults to None.
+    :type custom_vect_path: str, optional
+
+    :param convo_aggregation: If true, will aggregate features at the conversational level. Defaults to True.
+    :type convo_aggregation: bool, optional
+
+    :param convo_methods: Specifies which functions that you want to aggregate with (e.g., mean, std...) at the conversational level. Defaults to ['mean', 'max', 'min', 'std'].
+    :type convo_methods: list, optional
+
+    :param convo_columns: Specifies which columns (at the utterance/chat level) that you want aggregated for the conversational level. Defauts to all all numeric columns.
+    :type convo_columns: list, optional
+
+    :param user_aggregation: If true, will aggregate features at the speaker/user level. Defaults to True.
+    :type convo_aggregation: bool, optional
+
+    :param user_methods: Specifies which functions that you want to aggregate with (e.g., mean, std...) at the speaker/user level. Defaults to ['mean', 'max', 'min', 'std'].
+    :type convo_methods: list, optional
+
+    :param user_columns: Specifies which columns (at the utterance/chat level) that you want aggregated for the speaker/user level. Defauts to all all numeric columns.
+    :type convo_columns: list, optional
 
     :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
     :rtype: None
@@ -118,6 +139,13 @@ class FeatureBuilder:
             ner_cutoff: int = 0.9,
             regenerate_vectors: bool = False,
             compute_vectors_from_preprocessed: bool = False
+            custom_vect_path: str = None,
+            convo_aggregation = True,
+            convo_methods: list = ['mean', 'max', 'min', 'std'],
+            convo_columns: list = None,
+            user_aggregation = True,
+            user_methods: list = ['mean', 'max', 'min', 'std'],
+            user_columns: list = None
         ) -> None:
 
         # Defining input and output paths.
@@ -224,6 +252,12 @@ class FeatureBuilder:
         self.within_task = within_task
         self.ner_cutoff = ner_cutoff
         self.regenerate_vectors = regenerate_vectors
+        self.convo_aggregation = convo_aggregation
+        self.convo_methods = convo_methods
+        self.convo_columns = convo_columns
+        self.user_aggregation = user_aggregation
+        self.user_methods = user_methods
+        self.user_columns = user_columns
 
         if(compute_vectors_from_preprocessed == True):
             self.vector_colname = self.message_col # because the message col will eventually get preprocessed
@@ -358,7 +392,15 @@ class FeatureBuilder:
         if not re.match(r"(.*\/|^)output\/", self.output_file_path_user_level):
             self.output_file_path_user_level = re.sub(r'/user/', r'/output/user/', self.output_file_path_user_level)
 
-        self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
+        if custom_vect_path is not None:
+            print("Detected that user has requested custom vectors...")
+            print("We will generate features using custom vectors rather than default SBERT")
+            self.vect_path = custom_vect_path
+        else:
+            self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
+        
+        self.original_vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
+        
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
@@ -375,7 +417,9 @@ class FeatureBuilder:
             if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
                 need_sentiment = True
 
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname)
+        # preprocess chat data again
+        self.preprocess_chat_data()
+        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, self.message_col)
 
         if(need_sentence):
             self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
@@ -607,7 +651,10 @@ class FeatureBuilder:
             vect_data= self.vect_data,
             conversation_id_col = self.conversation_id_col,
             speaker_id_col = self.speaker_id_col,
-            input_columns = self.input_columns
+            input_columns = self.input_columns,
+            user_aggregation = self.user_aggregation,
+            user_methods = self.user_methods,
+            user_columns = self.user_columns
         )
         self.user_data = user_feature_builder.calculate_user_level_features()
         # Remove special characters in column names
@@ -633,7 +680,11 @@ class FeatureBuilder:
             speaker_id_col = self.speaker_id_col,
             message_col = self.message_col,
             timestamp_col = self.timestamp_col,
-            input_columns = self.input_columns
+            input_columns = self.input_columns,
+            convo_aggregation = self.convo_aggregation,
+            convo_methods = self.convo_methods,
+            convo_columns = self.convo_columns,
+            user_aggregation = self.user_aggregation
         )
         # Calling the driver inside this class to create the features.
         self.conv_data = conv_feature_builder.calculate_conversation_level_features(self.feature_methods_conv)
