@@ -15,7 +15,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "echo https://teamcommtools.seas.upenn.edu/ > build/CNAME && npm run build",
+    "predeploy": "npm run build",
+    "add-domain": "echo 'teamcommtools.seas.upenn.edu' > build/CNAME",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
