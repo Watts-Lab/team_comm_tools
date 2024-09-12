@@ -19,12 +19,22 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '16.x'  # You can adjust this to your preferred Node.js version
+        node-version: '14' 
 
     - name: Install dependencies
       run: npm ci
       working-directory: ./website  # Navigate to the website folder
 
+    - name: Build the project
+      run: npm run build
+      working-directory: ./website
+
+    - name: Configure Git
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+      working-directory: ./website
+      
     - name: Deploy
       run: npm run deploy
       working-directory: ./website  # Run deploy inside the website folder
