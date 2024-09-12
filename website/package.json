@@ -16,9 +16,8 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "npm run add-domain && gh-pages -d build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
-    "add-domain": "echo \"https://teamcommtools.seas.upenn.edu/\" > build/CNAME",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "react-scripts start"
