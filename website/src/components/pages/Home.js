@@ -18,7 +18,7 @@ function Home() {
 
             <div className="home-body">
                 <h1 className='home-headers'>
-                    The Team Communication Toolkit
+                    TEMP: The Team Communication Toolkit
                 </h1>
                 <p>
                     The Team Communication Toolkit is a research project
