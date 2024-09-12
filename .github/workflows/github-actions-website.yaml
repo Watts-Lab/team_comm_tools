@@ -31,8 +31,8 @@ jobs:
 
     - name: Configure Git
       run: |
-        git config --global user.email "you@example.com"
-        git config --global user.name "Your Name"
+        git config --global user.email "amy.tang.zheng@gmail.com"
+        git config --global user.name "amytangzheng"
       working-directory: ./website
       
     - name: Deploy
