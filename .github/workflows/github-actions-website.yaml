@@ -29,6 +29,9 @@ jobs:
       run: npm run build
       working-directory: ./website
 
+    - name: Add CNAME file
+      run: echo 'teamcommtools.seas.upenn.edu' > ./website/build/CNAME
+
     - name: Configure Git
       run: |
         git config --global user.email "amy.tang.zheng@gmail.com"
@@ -36,5 +39,7 @@ jobs:
       working-directory: ./website
       
     - name: Deploy
-      run: npm run deploy
+      run: |
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        npm run deploy
       working-directory: ./website  # Run deploy inside the website folder
