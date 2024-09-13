@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - amy/website
-    paths:
-      - 'website/**'  # Only trigger when changes occur in the website folder
+    # paths:
+      # - # 'website/**'  # Only trigger when changes occur in the website folder
 
 jobs:
   deploy:
