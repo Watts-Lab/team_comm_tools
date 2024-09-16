@@ -20,7 +20,7 @@ Finally, even when researchers build and measure their own features, what happen
 
 What if there existed a single package did it all for you? What if, instead of combing through the literature, deciding on constructs of interest, and putting together packages to build out features on your own, a vast (and ever-increasing!) collection of conversational attributes was readily available at your fingertips?
 
-We introduce the **Team Communication Toolkit**: a "one-stop shop" for exploring conversational data. Our framework is a single package encompassing a variety of common, research-backed measures of communication. These include tools like `LIWC <https://www.liwc.app/>`_, `Convokit <https://convokit.cornell.edu/>`_, `The Conversational Receptiveness Package <https://www.mikeyeomans.info/papers/receptiveness.pdf>`_, `The Lexical Suite <https://www.lexicalsuite.com/>`_ and much more. If you are working with conversational data for the first time, or just seeking to understand what you can possibly learn from open-ended conversations, this is the right place for you. We have collected over 100 features that you can explore, so that researchers can spend more time learning from conversations and less time worrying about how to begin studying them.
+We introduce the **Team Communication Toolkit**: a "one-stop shop" for exploring conversational data. Our framework is a single package encompassing a variety of common, research-backed measures of communication. These include tools like `LIWC <https://www.liwc.app/>`_, `ConvoKit <https://convokit.cornell.edu/>`_, `The Conversational Receptiveness Package <https://www.mikeyeomans.info/papers/receptiveness.pdf>`_, `The Lexical Suite <https://www.lexicalsuite.com/>`_ and much more. If you are working with conversational data for the first time, or just seeking to understand what you can possibly learn from open-ended conversations, this is the right place for you. We have collected over 100 features that you can explore, so that researchers can spend more time learning from conversations and less time worrying about how to begin studying them.
 
 The FeatureBuilder
 *******************
@@ -53,6 +53,10 @@ We therefore generate features at three different levels of analysis: the uttera
 The three levels of analysis are closely interconnected. In the Toolkit, Utterance-level features are calculated first. Features of utterances can then be "aggregated" into features at both the speaker and conversation level: by making more positive statements, you become a more positive person; the conversation as a whole also becomes more positive. While the positivity feature can be aggregated using a simple function (such as the mean), other utterance- and speaker-level features require more complex aggregation methods. The Gini coefficient is one such example, and it is applied to speaker level characteristics (the total number of messages, words, and characters uttered by each speaker). This aggregation generates a conversation-level feature that quantifies the "equality" in airtime during a conversation.
 
 The driving functions for generating features at different levels are located in the :ref:`Utilities <utils>`. In general, you do not have to directly interact with these utilties, as the Toolkit generates utterance-, speaker-, and conversational-level features by default. However, you (as a researcher) may only only be interested a subset of the outputs, and customizable options will be made avilable in the FeatureBuilder soon.
+
+Getting Started
+*****************
+Please refer to the :ref:`index_main` to get started. From there, we recommend reading :ref:`basics` for a high-level overview of the requirements and parameters, and then reading through :ref:`examples` for a detailed walkthrough and discussion of considerations.
 
 Feature Documentation
 **********************

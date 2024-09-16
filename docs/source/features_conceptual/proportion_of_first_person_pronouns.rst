@@ -18,12 +18,10 @@ i, me, mine, myself, my, we, our, ours, ourselves, lets
 
 Implementation Notes/Caveats 
 *****************************
-
 This is a "Bag-of-words" based feature, which might be a naive approach.
 
 Interpreting the Feature 
 *************************
-
 The scores of this feature range from 0 (No first person pronouns) to 1 (only first person pronouns)
 
 Related Features 
