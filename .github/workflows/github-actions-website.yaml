@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - amy/website
-    # paths:
-      # - # 'website/**'  # Only trigger when changes occur in the website folder
+    paths:
+      - 'website/**'  # Only trigger when changes occur in the website folder
 
 jobs:
   deploy:
@@ -34,8 +34,8 @@ jobs:
 
     - name: Configure Git
       run: |
-        git config --global user.email "yourname@gmail.com"
-        git config --global user.name "Your name"
+        git config --global user.email "team_comm_tools_admin@gmail.com"
+        git config --global user.name "team_comm_tools_admin"
       working-directory: ./website
       
     - name: Deploy
