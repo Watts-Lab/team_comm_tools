@@ -3,14 +3,29 @@
 The Basics
 ==========
 
+A Light-Touch, One-Function Package
+*************************************
+
 The Team Communication Toolkit is designed to be a **light-touch package**. This means you should need minimal lines of code to get from text data to structured communication features. We have defaults and sample code to help you quickly run the toolkit on your data.
 
 However, we understand that you might have special requirements and need to customize features. Therefore, we offer adjustable "knobs" in the FeatureBuilder (:ref:`feature_builder`).
 
-This overview will provide you with a high-level understanding of the key inputs and assumptions of our toolkit. After reading, refer to the walkthrough in :ref:`examples` for a detailed discussion. Sample code can be found on GitHub in the `examples folder <https://github.com/Watts-Lab/team_comm_tools/tree/main/examples>`_.
+This overview will provide you with a high-level understanding of the key inputs and assumptions of our toolkit. After reading, refer to the walkthrough in :ref:`examples` for a detailed discussion. 
+
+
+Demo / Sample Code
+*******************
+
+We have provided a simple example file, "featurize.py", and a demo notebook, "demo.ipynb," under our `examples folder <https://github.com/Watts-Lab/team_comm_tools/tree/main/examples>`_ on GitHub.
+
+You can also `access our demo notebook on Google Colab <https://colab.research.google.com/drive/1e8D5h_prRJsGs_N563EvpoQK0uZIAYsJ?usp=sharing>`_, where you can make a copy and run it on your own.
+
+
+Key Assumptions and Parameters
+*******************************
 
 Package Assumptions 
-********************
+++++++++++++++++++++
 
 1. **Pandas DataFrame**: Your input should be a `Pandas dataframe <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html>`_.
 
@@ -54,7 +69,7 @@ Package Assumptions
 11. **Summarizing Numeric Features**: All numeric utterance-level features are **summarizable**. Aggregations (e.g., "mean level of positivity") will appear in the Conversation-level data.
 
 Customizable Parameters
-************************
+++++++++++++++++++++++++
 
 Here are some parameters that can be customized. For more details, refer to :ref:`examples` and :ref:`feature_builder`.
 

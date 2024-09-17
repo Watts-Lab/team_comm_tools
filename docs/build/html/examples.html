@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Examples &mdash; Team Communication Toolkit 0.1.1 documentation</title>
+  <title>Worked Example &mdash; Team Communication Toolkit 0.1.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -51,13 +51,11 @@
 <li class="toctree-l1"><a class="reference internal" href="feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Worked Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#demo-sample-code">Demo / Sample Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#import-recommendations-virtual-environment-and-pip">Import Recommendations: Virtual Environment and Pip</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#using-the-package">Using the Package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#importing-the-package">Importing the Package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#running-the-featurebuilder-on-your-data">Running the FeatureBuilder on Your Data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#basic-input-columns">Basic Input Columns</a></li>
@@ -86,7 +84,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Examples</li>
+      <li class="breadcrumb-item active">Worked Example</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -96,8 +94,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="examples">
-<span id="id1"></span><h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
+  <section id="worked-example">
+<span id="examples"></span><h1>Worked Example<a class="headerlink" href="#worked-example" title="Link to this heading"></a></h1>
+<section id="demo-sample-code">
+<h2>Demo / Sample Code<a class="headerlink" href="#demo-sample-code" title="Link to this heading"></a></h2>
+<p>After following the “Getting Started” steps below, the Team Communication Toolkit can be imported at the top of any Python script. We have provided a simple example file, “featurize.py”, and a demo notebook, “demo.ipynb,” under our <a class="reference external" href="https://github.com/Watts-Lab/team_comm_tools/tree/main/examples">examples folder</a> on GitHub.</p>
+<p>You can also <a class="reference external" href="https://colab.research.google.com/drive/1e8D5h_prRJsGs_N563EvpoQK0uZIAYsJ?usp=sharing">access our demo notebook on Google Colab</a>, where you can make a copy and run it on your own.</p>
+<p>Finally, this page will walk you through a case study, highlighting top use cases and considerations when using the toolkit.</p>
+</section>
 <section id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
 <p>To use our tool, please ensure that you have Python &gt;= 3.10 installed and a working version of <a class="reference external" href="https://pypi.org/project/pip/">pip</a>, which is Python’s package installer. Then, in your local environment, run the following:</p>
@@ -112,16 +116,13 @@
 </pre></div>
 </div>
 <p>If you encounter a further issue in which the ‘wordnet’ package from NLTK is not found, it may be related to a known bug in NLTK in which the wordnet package does not unzip automatically. If this is the case, please follow the instructions to manually unzip it, documented in <a class="reference external" href="https://github.com/nltk/nltk/issues/3028">this thread</a>.</p>
+<p>You can also find a full list of our requirements <a class="reference external" href="https://github.com/Watts-Lab/team_comm_tools/blob/main/requirements.txt">here</a>.</p>
 </section>
 <section id="import-recommendations-virtual-environment-and-pip">
 <h3>Import Recommendations: Virtual Environment and Pip<a class="headerlink" href="#import-recommendations-virtual-environment-and-pip" title="Link to this heading"></a></h3>
 <p><strong>We strongly recommend using a virtual environment in Python to run the package.</strong> We have several specific dependency requirements. One important one is that we are currently only compatible with numpy &lt; 2.0.0 because <a class="reference external" href="https://numpy.org/devdocs/release/2.0.0-notes.html#changes">numpy 2.0.0 and above</a> made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.</p>
 <p><strong>We also strongly recommend that your version of pip is up-to-date (&gt;=24.0).</strong> There have been reports in which users have had trouble downloading dependencies (specifically, the Spacy package) with older versions of pip. If you get an error with downloading <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code>, we recommend updating pip.</p>
 </section>
-</section>
-<section id="using-the-package">
-<h2>Using the Package<a class="headerlink" href="#using-the-package" title="Link to this heading"></a></h2>
-<p>After you install it, the Team Communication Toolkit can be imported at the top of any Python script. We have provided a simple example file, “featurize.py”, under our <a class="reference external" href="https://github.com/Watts-Lab/team_comm_tools/tree/main/examples">examples folder</a> on GitHub, and this walkthrough will highlight some of our top use cases. However, it won’t follow the file exactly.</p>
 <section id="importing-the-package">
 <h3>Importing the Package<a class="headerlink" href="#importing-the-package" title="Link to this heading"></a></h3>
 <p>After you import the package and install dependencies, you can then use our tool in your Python script as follows:</p>
@@ -238,7 +239,7 @@
 <blockquote>
 <div><ul class="simple">
 <li><p>These messages by John can be thought of as a single turn, in which he says, “Hey Michael, how are you? I wanted to talk to you real quick!” Instead, however, John sent three messages in a row, suggesting that he took three “turns.” When the <strong>turns</strong> parameter is set to True, the FeatureBuilder will automatically combine messages like this into a single “turn.”</p></li>
-<li><p>We note, however, that one of our features (<cite>:ref:turn_taking_index</cite>) will always give the value of “1” in the case when you set <strong>turns=True</strong>, since, by definition, people will never take multiple “turns” in a row.</p></li>
+<li><p>We note, however, that one of our features (<a class="reference internal" href="features_conceptual/turn_taking_index.html#turn-taking-index"><span class="std std-ref">Turn Taking Index</span></a>) will always give the value of “1” in the case when you set <strong>turns=True</strong>, since, by definition, people will never take multiple “turns” in a row.</p></li>
 </ul>
 </div></blockquote>
 </li>
