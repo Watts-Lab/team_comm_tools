@@ -56,10 +56,15 @@ Now you have access to the :ref:`feature_builder`. This is the main class that y
 
 *Note*: PyPI treats hyphens and underscores equally, so "pip install team_comm_tools" and "pip install team-comm-tools" are equivalent. However, Python does NOT treat them equally, and **you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder**.
 
-Running the FeatureBuilder on Your Data
-++++++++++++++++++++++++++++++++++++++++
+Walkthrough: Running the FeatureBuilder on Your Data
+*****************************************************
 
-Next, you'll want to get some data to run your FeatureBuilder on! The FeatureBuilder accepts any Pandas DataFrame as the input, so you can read in data in whatever format you like. For the purposes of this walkthrough, we'll be using some jury deliberation data from `Hu et al. (2021) <https://dl.acm.org/doi/pdf/10.1145/3411764.3445433?casa_token=d-b5sCdwpNcAAAAA:-U-ePTSSE3rY1_BLXy1-0spFN_i4gOJqy8D0CeXHLAJna5bFRTee9HEnM0TnK_R-g0BOqOn35mU>`_. 
+Next, we'll go through the details of running the FeatureBuilder on your data, discussing each of the specific options / parameters at your disposal.
+
+Configuring the FeatureBuilder
+++++++++++++++++++++++++++++++++
+
+The FeatureBuilder accepts any Pandas DataFrame as the input, so you can read in data in whatever format you like. For the purposes of this walkthrough, we'll be using some jury deliberation data from `Hu et al. (2021) <https://dl.acm.org/doi/pdf/10.1145/3411764.3445433?casa_token=d-b5sCdwpNcAAAAA:-U-ePTSSE3rY1_BLXy1-0spFN_i4gOJqy8D0CeXHLAJna5bFRTee9HEnM0TnK_R-g0BOqOn35mU>`_. 
 
 We first import Pandas and read in the dataframe:
 

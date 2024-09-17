@@ -57,7 +57,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#import-recommendations-virtual-environment-and-pip">Import Recommendations: Virtual Environment and Pip</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#importing-the-package">Importing the Package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#running-the-featurebuilder-on-your-data">Running the FeatureBuilder on Your Data</a><ul>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#walkthrough-running-the-featurebuilder-on-your-data">Walkthrough: Running the FeatureBuilder on Your Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-featurebuilder">Configuring the FeatureBuilder</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#basic-input-columns">Basic Input Columns</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#advanced-configuration-columns">Advanced Configuration Columns</a></li>
 </ul>
@@ -132,9 +135,13 @@
 <p>Now you have access to the <a class="reference internal" href="feature_builder.html#feature-builder"><span class="std std-ref">feature_builder module</span></a>. This is the main class that you’ll need to interact with the Team Communication Toolkit.</p>
 <p><em>Note</em>: PyPI treats hyphens and underscores equally, so “pip install team_comm_tools” and “pip install team-comm-tools” are equivalent. However, Python does NOT treat them equally, and <strong>you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder</strong>.</p>
 </section>
-<section id="running-the-featurebuilder-on-your-data">
-<h3>Running the FeatureBuilder on Your Data<a class="headerlink" href="#running-the-featurebuilder-on-your-data" title="Link to this heading"></a></h3>
-<p>Next, you’ll want to get some data to run your FeatureBuilder on! The FeatureBuilder accepts any Pandas DataFrame as the input, so you can read in data in whatever format you like. For the purposes of this walkthrough, we’ll be using some jury deliberation data from <a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/3411764.3445433?casa_token=d-b5sCdwpNcAAAAA:-U-ePTSSE3rY1_BLXy1-0spFN_i4gOJqy8D0CeXHLAJna5bFRTee9HEnM0TnK_R-g0BOqOn35mU">Hu et al. (2021)</a>.</p>
+</section>
+<section id="walkthrough-running-the-featurebuilder-on-your-data">
+<h2>Walkthrough: Running the FeatureBuilder on Your Data<a class="headerlink" href="#walkthrough-running-the-featurebuilder-on-your-data" title="Link to this heading"></a></h2>
+<p>Next, we’ll go through the details of running the FeatureBuilder on your data, discussing each of the specific options / parameters at your disposal.</p>
+<section id="configuring-the-featurebuilder">
+<h3>Configuring the FeatureBuilder<a class="headerlink" href="#configuring-the-featurebuilder" title="Link to this heading"></a></h3>
+<p>The FeatureBuilder accepts any Pandas DataFrame as the input, so you can read in data in whatever format you like. For the purposes of this walkthrough, we’ll be using some jury deliberation data from <a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/3411764.3445433?casa_token=d-b5sCdwpNcAAAAA:-U-ePTSSE3rY1_BLXy1-0spFN_i4gOJqy8D0CeXHLAJna5bFRTee9HEnM0TnK_R-g0BOqOn35mU">Hu et al. (2021)</a>.</p>
 <p>We first import Pandas and read in the dataframe:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">juries_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./example_data/full_empirical_datasets/jury_conversations_with_outcome_var.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>

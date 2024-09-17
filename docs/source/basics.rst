@@ -10,7 +10,7 @@ The Team Communication Toolkit is designed to be a **light-touch package**. This
 
 However, we understand that you might have special requirements and need to customize features. Therefore, we offer adjustable "knobs" in the FeatureBuilder (:ref:`feature_builder`).
 
-This overview will provide you with a high-level understanding of the key inputs and assumptions of our toolkit. After reading, refer to the walkthrough in :ref:`examples` for a detailed discussion. 
+This overview will provide you with a high-level understanding of the key inputs and assumptions of our toolkit. After reading, refer to the walkthrough in the :ref:`examples` for a detailed discussion. 
 
 
 Demo / Sample Code
@@ -71,7 +71,7 @@ Package Assumptions
 Customizable Parameters
 ++++++++++++++++++++++++
 
-Here are some parameters that can be customized. For more details, refer to :ref:`examples` and :ref:`feature_builder`.
+Here are some parameters that can be customized. For more details, refer to the :ref:`examples` and :ref:`feature_builder`.
 
 1. **analyze_first_pct**: Analyze only the first portion (X% of utterances) of a conversation.
 
