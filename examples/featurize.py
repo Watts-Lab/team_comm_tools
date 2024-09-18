@@ -94,10 +94,10 @@ if __name__ == "__main__":
 		output_file_path_conv_level = "./jury_TINY_output_conversation_level_custom_agg.csv",
 		convo_methods = ['mean'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean; it will aggregate ONLY "negative_bert" at the speaker/user level, using max.
 		convo_columns = ['positive_bert'],
-		user_methods = ['mean', 'max'],
-		user_columns = ['positive_bert', 'negative_bert'],
-		# user_methods = ['max'],
-		# user_columns = ['negative_bert'],
+		# user_methods = ['mean', 'max'],
+		# user_columns = ['positive_bert', 'negative_bert'],
+		user_methods = ['max'],
+		user_columns = ['negative_bert'],
 		turns = False,
 	)
 	tiny_juries_feature_builder_custom_aggregation.featurize(col="message")	

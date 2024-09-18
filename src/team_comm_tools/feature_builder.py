@@ -684,7 +684,9 @@ class FeatureBuilder:
             convo_aggregation = self.convo_aggregation,
             convo_methods = self.convo_methods,
             convo_columns = self.convo_columns,
-            user_aggregation = self.user_aggregation
+            user_aggregation = self.user_aggregation,
+            user_methods = self.user_methods,
+            user_columns = self.user_columns
         )
         # Calling the driver inside this class to create the features.
         self.conv_data = conv_feature_builder.calculate_conversation_level_features(self.feature_methods_conv)
