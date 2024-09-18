@@ -35,6 +35,10 @@ class ConversationLevelFeaturesCalculator:
     :type convo_columns: list
     :param user_aggregation: If true, will aggregate features at the user level
     :type convo_aggregation: bool
+    :param user_methods: Specifies which functions users want to aggregate with (e.g., mean, std...) at the user level
+    :type user_methods: list
+    :param user_columns: Specifies which columns (at the chat level) users want aggregated for the user level
+    :type user_columns: list
         """
     def __init__(self, chat_data: pd.DataFrame, 
                         user_data: pd.DataFrame, 
@@ -49,7 +53,9 @@ class ConversationLevelFeaturesCalculator:
                         convo_aggregation: bool,
                         convo_methods: list,
                         convo_columns: list,
-                        user_aggregation: bool
+                        user_aggregation: bool,
+                        user_methods: list,
+                        user_columns: list
                         ) -> None:
 
         # Initializing variables
@@ -227,53 +233,71 @@ class ConversationLevelFeaturesCalculator:
         - Minimum of averaged user-level features
         - Maximum of averaged user-level features
 
+
         :return: None
         :rtype: None
         """
 
         if self.convo_aggregation == True and self.user_aggregation == True:
+            
+            # this may be right??
+            if 'mean' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                         # Average/Mean of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_average(self.user_data.copy(), user_method + "_" +user_column, 'average_user_' + user_method + "_" +user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
+
+            if 'std' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                        # Standard Deviation of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_stdev(self.user_data.copy(), user_method + "_" + user_column, 'stdev_user_' + user_method + "_" + user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
+
+            if 'min' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                        # Minima of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_min(self.user_data.copy(), user_method + "_" + user_column, 'min_user_sum_' + user_method + "_" + user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
+                
+            if 'max' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                        # Maxima of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_max(self.user_data.copy(), user_method + "_" + user_column, 'max_user_sum_' + user_method + "_" + user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
+
 
             # Sum Columns were created using self.get_user_level_summed_features()
-            for column in self.columns_to_summarize:
+            # for column in self.columns_to_summarize:
+            #     # change to self.user_columns
+            #     # should be summable_columns
 
-                if 'mean' in self.convo_methods:
-                    # Average/Mean of User-Level Feature
-                    self.conv_data = pd.merge(
-                        left=self.conv_data,
-                        right=get_average(self.user_data.copy(), "sum_"+column, 'average_user_sum_'+column, self.conversation_id_col),
-                        on=[self.conversation_id_col],
-                        how="inner"
-                    )
-
-                if 'std' in self.convo_methods:
-                    # Standard Deviation of User-Level Feature
-                    self.conv_data = pd.merge(
-                        left=self.conv_data,
-                        right=get_stdev(self.user_data.copy(), "sum_"+column, 'stdev_user_sum_'+column, self.conversation_id_col),
-                        on=[self.conversation_id_col],
-                        how="inner"
-                    )
-
-                if 'min' in self.convo_methods:
-                    # Minima of User-Level Feature
-                    self.conv_data = pd.merge(
-                        left=self.conv_data,
-                        right=get_min(self.user_data.copy(), "sum_"+column, 'min_user_sum_'+column, self.conversation_id_col),
-                        on=[self.conversation_id_col],
-                        how="inner"
-                    )
-                
-                if 'max' in self.convo_methods:
-                    # Maxima of User-Level Feature
-                    self.conv_data = pd.merge(
-                        left=self.conv_data,
-                        right=get_max(self.user_data.copy(), "sum_"+column, 'max_user_sum_'+column, self.conversation_id_col),
-                        on=[self.conversation_id_col],
-                        how="inner"
-                    )
-
-            # # temp checking for error
-            # for column in self.summable_columns:
+            #     # for method in self.user_methods:
+            #     #     self.conv_data = pd.merge(
+            #     #         left=self.conv_data,
+            #     #         right=get_average(self.user_data.copy(), method+"_"+column, 'average_user_' + method + "_" +column, self.conversation_id_col),
+            #     #         on=[self.conversation_id_col],
+            #     #         how="inner"
+            #     #     )
 
             #     if 'mean' in self.convo_methods:
             #         # Average/Mean of User-Level Feature
