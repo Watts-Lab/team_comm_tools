@@ -6,7 +6,7 @@ def download():
     # nltk
     for resource in [
         'corpora/nps_chat',
-        'tokenizers/punkt',
+        'tokenizers/punkt_tab',
         'corpora/stopwords',
         'corpora/wordnet']:
         try:
