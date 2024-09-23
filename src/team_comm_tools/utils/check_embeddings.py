@@ -180,14 +180,15 @@ def generate_vect(chat_data, output_path, message_col):
 
     print(f"Generating SBERT sentence vectors...")
 
-    embedding_arr = [row.tolist() for row in tqdm(model_vect.encode(chat_data[message_col]), total=len(chat_data[message_col]))]
+    embeddings = model_vect.encode(chat_data[message_col].tolist())
+    embedding_arr = [row.tolist() for row in tqdm(embeddings, total=len(chat_data[message_col]))]
     embedding_df = pd.DataFrame({'message': chat_data[message_col], 'message_embedding': embedding_arr})
 
     # Create directories along the path if they don't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     embedding_df.to_csv(output_path, index=False)
 
-def generate_bert(chat_data, output_path, message_col):
+def generate_bert(chat_data, output_path, message_col, batch_size=128):
     """
     Generates RoBERTa sentiment scores for the given chat data and saves them to a CSV file.
 
@@ -197,42 +198,56 @@ def generate_bert(chat_data, output_path, message_col):
     :type output_path: str
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
+    :param batch_size: The size of each batch for processing sentiment analysis. Defaults to 128.
+    :type batch_size: int
     :raises FileNotFoundError: If the output path is invalid.
     :return: None
     :rtype: None
     """
     print(f"Generating RoBERTa sentiments...")
-    tqdm.pandas()
 
-    messages = chat_data[message_col]
-    sentiments = messages.progress_apply(get_sentiment)
+    messages = chat_data[message_col].tolist()
+    batch_sentiments_df = pd.DataFrame()
 
-    sent_arr = [list(dict.values()) for dict in sentiments]
+    for i in tqdm(range(0, len(messages), batch_size)):
+        batch = messages[i:i + batch_size]
+        batch_df = get_sentiment(batch)
+        batch_sentiments_df = pd.concat([batch_sentiments_df, batch_df], ignore_index=True)
 
-    sent_df = pd.DataFrame(sent_arr, columns =['positive_bert', 'negative_bert', 'neutral_bert']) 
-    
     # Create directories along the path if they don't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-    sent_df.to_csv(output_path, index=False)
+    batch_sentiments_df.to_csv(output_path, index=False)
 
-def get_sentiment(text):
+def get_sentiment(texts):
     """
-    Analyzes the sentiment of the given text using a BERT model and returns the scores for positive, negative, and neutral sentiments.
+    Analyzes the sentiment of the given list of texts using a BERT model and returns a DataFrame with scores for positive, negative, and neutral sentiments.
 
-    :param text: The input text to analyze.
-    :type text: str or None
-    :return: A dictionary with sentiment scores.
-    :rtype: dict
+    :param texts: The list of input texts to analyze.
+    :type texts: list of str
+    :return: A DataFrame with sentiment scores.
+    :rtype: pd.DataFrame
     """
 
-    if (pd.isnull(text)):
-        return({'positive': np.nan, 'negative': np.nan, 'neutral': np.nan})
-    
-    encoded = tokenizer(text, truncation=True, max_length=512, return_tensors='pt')
+    # Handle and tokenize non-null texts
+    texts_series = pd.Series(texts)
+    non_null_texts = texts_series.dropna().tolist()
+
+    encoded = tokenizer(non_null_texts, padding=True, truncation=True, max_length=512, return_tensors='pt')
     output = model_bert(**encoded)
 
-    scores = output[0][0].detach().numpy()
-    scores = softmax(scores)
+    scores = output[0].detach().numpy()
+    scores = softmax(scores, axis=1)
 
-    # sample output format
-    return({'positive': scores[2], 'negative': scores[0], 'neutral': scores[1]})
+    sent_dict = {
+        'positive_bert': scores[:, 2],
+        'negative_bert': scores[:, 0],
+        'neutral_bert': scores[:, 1]
+    }
+    
+    non_null_sent_df = pd.DataFrame(sent_dict)
+
+    # Initialize the DataFrame such that null texts get np.nan
+    sent_df = pd.DataFrame(np.nan, index=texts_series.index, columns=['positive_bert', 'negative_bert', 'neutral_bert'])
+    sent_df.loc[texts_series.notnull(), ['positive_bert', 'negative_bert', 'neutral_bert']] = non_null_sent_df.values
+
+    return sent_df

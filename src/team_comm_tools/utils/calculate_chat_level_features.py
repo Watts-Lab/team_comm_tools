@@ -20,6 +20,9 @@ from team_comm_tools.features.named_entity_recognition_features import*
 from .preload_word_lists import *
 from .zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
 
+# Loading bar
+from tqdm import tqdm
+
 class ChatLevelFeaturesCalculator:
     """
     Initialize variables and objects used by the ChatLevelFeaturesCalculator class.
@@ -74,7 +77,7 @@ class ChatLevelFeaturesCalculator:
         :rtype: pd.DataFrame
         """
 
-        for method in feature_methods:
+        for method in tqdm(feature_methods):
             method(self)
 
         # Return the input dataset with the chat level features appended (as columns)

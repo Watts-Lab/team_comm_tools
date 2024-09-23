@@ -71,12 +71,17 @@ if __name__ == "__main__":
 	# Juries
 	# jury_feature_builder = FeatureBuilder(
 	# 	input_df = juries_df,
-	#	grouping_keys = ["batch_num", "round_num"],
+	# 	grouping_keys = ["batch_num", "round_num"],
 	# 	vector_directory = "./vector_data/",
 	# 	output_file_path_chat_level = "./jury_output_chat_level.csv",
 	# 	output_file_path_user_level = "./jury_output_user_level.csv",
 	# 	output_file_path_conv_level = "./jury_output_conversation_level.csv",
-	# 	turns = True
+	# 	turns = True,
+	# 	custom_features = [
+	# 		"(BERT) Mimicry",
+	# 		"Moving Mimicry",
+	# 		"Forward Flow",
+	# 		"Discursive Diversity"]
 	# )
 	# jury_feature_builder.featurize(col="message")
 
