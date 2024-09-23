@@ -90,7 +90,7 @@ Now we are ready to call the FeatureBuilder on our data. All we need to do is de
 		output_file_path_conv_level = "./jury_output_conversation_level.csv",
 		turns = True
 	)
-	jury_feature_builder.featurize(col="message")
+	jury_feature_builder.featurize()
 
 Basic Input Columns
 ^^^^^^^^^^^^^^^^^^^^

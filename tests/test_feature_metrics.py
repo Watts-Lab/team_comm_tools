@@ -175,8 +175,8 @@ def test_chat_complex(batch):
     inv_result = batch[1][1][feature]
     dir_result = batch[2][1][feature]
 
-    inv_distance = og_result - inv_result
-    dir_distance = og_result - dir_result
+    inv_distance = abs(og_result - inv_result)
+    dir_distance = abs(og_result - dir_result)
 
     # calculate ratio between inv and dir
     ratio = dir_distance / inv_distance
