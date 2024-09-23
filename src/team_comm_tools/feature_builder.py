@@ -240,7 +240,7 @@ class FeatureBuilder:
 
         # set new identifier column for cumulative grouping.
         if self.cumulative_grouping and len(grouping_keys) == 3:
-            print("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative convrersations.")
+            print("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative conversations.")
             self.conversation_id_col = "conversation_num"
 
         # Input columns are the columns that come in the raw chat data
@@ -401,7 +401,7 @@ class FeatureBuilder:
         if {'index'}.issubset(self.conv_data.columns):
             self.conv_data = self.conv_data.drop(columns=['index'])
 
-    def featurize(self, col: str="message") -> None:
+    def featurize(self) -> None:
         """
         Main driver function for feature generation.
 
@@ -409,9 +409,6 @@ class FeatureBuilder:
         truncation percentages of the data if specified, and produces user-level and 
         conversation-level features. Finally, the features are saved into the 
         designated output files.
-
-        :param col: Column to preprocess, defaults to "message"
-        :type col: str, optional
 
         :return: None
         :rtype: None
@@ -494,7 +491,7 @@ class FeatureBuilder:
         # create new column that retains punctuation
         self.chat_data["message_lower_with_punc"] = self.chat_data[self.message_col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
     
-        # Preprocessing the text in `col` and then overwriting the column `col`.
+        # Preprocessing the text in `message_col` and then overwriting the column `message_col`.
         # TODO: We should probably use classes to abstract preprocessing module as well?
         self.chat_data[self.message_col] = self.chat_data[self.message_col].astype(str).apply(preprocess_text)
 

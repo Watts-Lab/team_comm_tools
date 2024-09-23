@@ -52,7 +52,7 @@ if __name__ == "__main__":
 			"Forward Flow",
 			"Discursive Diversity"]
 	)
-	tiny_juries_feature_builder.featurize(col="message")
+	tiny_juries_feature_builder.featurize()
 
 	# Tiny multi-task
 	tiny_multi_task_feature_builder = FeatureBuilder(
@@ -64,7 +64,7 @@ if __name__ == "__main__":
 		output_file_path_conv_level = "./multi_task_TINY_output_conversation_level_stageId_cumulative.csv",
 		turns = False
 	)
-	tiny_multi_task_feature_builder.featurize(col="message")
+	tiny_multi_task_feature_builder.featurize()
 
 	# FULL DATASETS BELOW ------------------------------------- #
 	
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 	# 		"Forward Flow",
 	# 		"Discursive Diversity"]
 	# )
-	# jury_feature_builder.featurize(col="message")
+	# jury_feature_builder.featurize()
 
 	# # CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
@@ -94,7 +94,7 @@ if __name__ == "__main__":
 	# 	output_file_path_conv_level = "./csop_output_conversation_level.csv",
 	# 	turns = True
 	# )
-	# csop_feature_builder.featurize(col="message")
+	# csop_feature_builder.featurize()
 
 
 	# # CSOP II (Nak Won Rim)
@@ -106,4 +106,4 @@ if __name__ == "__main__":
 	# 	output_file_path_conv_level = "./csopII_output_conversation_level.csv",
 	# 	turns = True
 	# )
-	# csopII_feature_builder.featurize(col="message")
+	# csopII_feature_builder.featurize()

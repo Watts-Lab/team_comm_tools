@@ -45,7 +45,7 @@ if __name__ == "__main__":
         ],
 		turns = False,
 	)
-	testing_chat.featurize(col="message")
+	testing_chat.featurize()
 
 	testing_conv = FeatureBuilder(
 		input_df = conv_df,
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         ],
 		turns = False,
 	)
-	testing_conv.featurize(col="message")
+	testing_conv.featurize()
 
 	test_ner_feature_builder = FeatureBuilder(
 		input_df = test_ner_df,
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         ],
 		turns = False,
 	)
-	test_ner_feature_builder.featurize(col="message")
+	test_ner_feature_builder.featurize()
 
 	# testing perturbed chat level features
 	testing_chat_complex = FeatureBuilder(
@@ -95,7 +95,7 @@ if __name__ == "__main__":
         ],
 		turns = False,
 	)
-	testing_chat_complex.featurize(col="message")
+	testing_chat_complex.featurize()
 
 	# testing conv features
 	testing_conv_complex = FeatureBuilder(
@@ -112,7 +112,7 @@ if __name__ == "__main__":
         ],
 		turns = False,
 	)
-	testing_conv_complex.featurize(col="message")
+	testing_conv_complex.featurize()
 
 	testing_conv_complex_ts = FeatureBuilder(
 		input_df = conv_complex_timestamps_df,
@@ -128,7 +128,7 @@ if __name__ == "__main__":
         ],
 		turns = False,
 	)
-	testing_conv_complex_ts.featurize(col="message")
+	testing_conv_complex_ts.featurize()
 
 	# testing forward flow
 	testing_forward_flow = FeatureBuilder(
@@ -146,4 +146,4 @@ if __name__ == "__main__":
 		turns = False,
 	)
 
-	testing_forward_flow.featurize(col="message")
+	testing_forward_flow.featurize()
