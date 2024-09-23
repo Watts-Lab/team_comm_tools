@@ -43,7 +43,7 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False,
+		turns = False
 	)
 	testing_chat.featurize()
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False,
+		turns = False
 	)
 	testing_conv.featurize()
 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False,
+		turns = False
 	)
 	test_ner_feature_builder.featurize()
 
@@ -93,7 +93,7 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False,
+		turns = False
 	)
 	testing_chat_complex.featurize()
 
@@ -110,7 +110,7 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False,
+		turns = False
 	)
 	testing_conv_complex.featurize()
 
@@ -126,7 +126,7 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False,
+		turns = False
 	)
 	testing_conv_complex_ts.featurize()
 
@@ -143,7 +143,7 @@ if __name__ == "__main__":
 			"Forward Flow",
 			"Discursive Diversity"
 		],
-		turns = False,
+		turns = False
 	)
 
 	testing_forward_flow.featurize()

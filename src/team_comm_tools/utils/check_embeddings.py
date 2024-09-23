@@ -180,7 +180,9 @@ def generate_vect(chat_data, output_path, message_col):
 
     print(f"Generating SBERT sentence vectors...")
 
-    embeddings = model_vect.encode(chat_data[message_col].tolist())
+    # Ensure empty strings are encoded as NaN
+    empty_to_nan = [text if text and text.strip() else np.nan for text in chat_data[message_col].tolist()]
+    embeddings = model_vect.encode(empty_to_nan)
     embedding_arr = [row.tolist() for row in tqdm(embeddings, total=len(chat_data[message_col]))]
     embedding_df = pd.DataFrame({'message': chat_data[message_col], 'message_embedding': embedding_arr})
 
@@ -188,7 +190,7 @@ def generate_vect(chat_data, output_path, message_col):
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     embedding_df.to_csv(output_path, index=False)
 
-def generate_bert(chat_data, output_path, message_col, batch_size=128):
+def generate_bert(chat_data, output_path, message_col, batch_size=64):
     """
     Generates RoBERTa sentiment scores for the given chat data and saves them to a CSV file.
 
@@ -198,7 +200,7 @@ def generate_bert(chat_data, output_path, message_col, batch_size=128):
     :type output_path: str
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
-    :param batch_size: The size of each batch for processing sentiment analysis. Defaults to 128.
+    :param batch_size: The size of each batch for processing sentiment analysis. Defaults to 64.
     :type batch_size: int
     :raises FileNotFoundError: If the output path is invalid.
     :return: None
@@ -228,11 +230,15 @@ def get_sentiment(texts):
     :rtype: pd.DataFrame
     """
 
-    # Handle and tokenize non-null texts
+    # Handle and tokenize non-null and non-empty texts
     texts_series = pd.Series(texts)
-    non_null_texts = texts_series.dropna().tolist()
+    non_null_non_empty_texts = texts_series[texts_series.apply(lambda x: pd.notnull(x) and x.strip() != '')].tolist()
 
-    encoded = tokenizer(non_null_texts, padding=True, truncation=True, max_length=512, return_tensors='pt')
+    if not non_null_non_empty_texts:
+        # Return a DataFrame with NaN if there are no valid texts to process
+        return pd.DataFrame(np.nan, index=texts_series.index, columns=['positive_bert', 'negative_bert', 'neutral_bert'])
+
+    encoded = tokenizer(non_null_non_empty_texts, padding=True, truncation=True, max_length=512, return_tensors='pt')
     output = model_bert(**encoded)
 
     scores = output[0].detach().numpy()
@@ -246,8 +252,8 @@ def get_sentiment(texts):
     
     non_null_sent_df = pd.DataFrame(sent_dict)
 
-    # Initialize the DataFrame such that null texts get np.nan
+    # Initialize the DataFrame such that null texts and empty texts get np.nan
     sent_df = pd.DataFrame(np.nan, index=texts_series.index, columns=['positive_bert', 'negative_bert', 'neutral_bert'])
-    sent_df.loc[texts_series.notnull(), ['positive_bert', 'negative_bert', 'neutral_bert']] = non_null_sent_df.values
+    sent_df.loc[texts_series.apply(lambda x: pd.notnull(x) and x.strip() != ''), ['positive_bert', 'negative_bert', 'neutral_bert']] = non_null_sent_df.values
 
     return sent_df

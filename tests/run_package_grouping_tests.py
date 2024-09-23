@@ -64,7 +64,7 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_case2_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_case2_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_case2_level_conv.csv",
-		turns = False,
+		turns = False
 	)
 	testing_case_2.featurize()
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_case3a_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_case3a_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_case3a_level_conv.csv",
-		turns = False,
+		turns = False
 	)
 	testing_case_3_a.featurize()
 
@@ -100,7 +100,7 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_case3b_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_case3b_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_case3b_level_conv.csv",
-		turns = False,
+		turns = False
 	)
 	testing_case_3_b.featurize()
 
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_case3c_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_case3c_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_case3c_level_conv.csv",
-		turns = False,
+		turns = False
 	)
 	testing_case_3_c.featurize()
 
@@ -136,7 +136,7 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_improper_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_improper_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_improper_level_conv.csv",
-		turns = False,
+		turns = False
 	)
 	testing_case_improper.featurize()
 
@@ -150,6 +150,7 @@ if __name__ == "__main__":
 	testing_chat_existing = FeatureBuilder(
 		input_df = chat_df_existing_output,
 		vector_directory = "./vector_data/",
+		message_col = "message_original",
 		output_file_path_chat_level = "./output/chat/test_chat_level_existing_chat.csv",
 		output_file_path_user_level = "./output/user/test_chat_level_existing_user.csv",
 		output_file_path_conv_level = "./output/conv/test_chat_level_existing_conv.csv",
@@ -159,7 +160,7 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False,
+		turns = False
 	)
 	testing_chat_existing.featurize()
 
@@ -168,6 +169,7 @@ if __name__ == "__main__":
 	- Super long input
 	- Input containing only symbols (e.g,. ":-)")
 	- Empty input
+	- Input with many spaces
 	"""
 	vector_testing_input = pd.read_csv("data/cleaned_data/test_vector_edge_cases.csv", encoding='latin-1')
 
@@ -184,6 +186,7 @@ if __name__ == "__main__":
             "Discursive Diversity"
         ],
 		turns = False,
+		regenerate_vectors = True
 	)
 	test_vectors.featurize()
 
