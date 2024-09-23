@@ -4,6 +4,7 @@ import re
 import os
 import pickle
 
+from tqdm import tqdm
 from pathlib import Path
 
 import torch
@@ -179,7 +180,7 @@ def generate_vect(chat_data, output_path, message_col):
 
     print(f"Generating SBERT sentence vectors...")
 
-    embedding_arr = [row.tolist() for row in model_vect.encode(chat_data[message_col])]
+    embedding_arr = [row.tolist() for row in tqdm(model_vect.encode(chat_data[message_col]), total=len(chat_data[message_col]))]
     embedding_df = pd.DataFrame({'message': chat_data[message_col], 'message_embedding': embedding_arr})
 
     # Create directories along the path if they don't exist
@@ -201,9 +202,10 @@ def generate_bert(chat_data, output_path, message_col):
     :rtype: None
     """
     print(f"Generating RoBERTa sentiments...")
+    tqdm.pandas()
 
     messages = chat_data[message_col]
-    sentiments = messages.apply(get_sentiment)
+    sentiments = messages.progress_apply(get_sentiment)
 
     sent_arr = [list(dict.values()) for dict in sentiments]
 
@@ -226,8 +228,7 @@ def get_sentiment(text):
     if (pd.isnull(text)):
         return({'positive': np.nan, 'negative': np.nan, 'neutral': np.nan})
     
-    text = ' '.join(text.split()[:512]) # handle cases when the text is too long: just take the first 512 chars (hacky, but BERT context window cannot be changed)
-    encoded = tokenizer(text, return_tensors='pt')
+    encoded = tokenizer(text, truncation=True, max_length=512, return_tensors='pt')
     output = model_bert(**encoded)
 
     scores = output[0][0].detach().numpy()

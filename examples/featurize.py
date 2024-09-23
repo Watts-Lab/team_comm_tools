@@ -45,7 +45,12 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./jury_TINY_output_chat_level.csv",
 		output_file_path_user_level = "./jury_TINY_output_user_level.csv",
 		output_file_path_conv_level = "./jury_TINY_output_conversation_level.csv",
-		turns = False
+		turns = False,
+		custom_features = [
+			"(BERT) Mimicry",
+			"Moving Mimicry",
+			"Forward Flow",
+			"Discursive Diversity"]
 	)
 	tiny_juries_feature_builder.featurize(col="message")
 
