@@ -49,6 +49,10 @@ Package Assumptions
 
 8. **Vector Data Cache**: Your data's vector data will be cached in **vector_directory**. This directory will be created if it doesn’t exist, but its contents should be reserved for cached vector files.
 
+   * Note: v0.1.3 and earlier compute vectors using _preprocessed_ text by default, which drops capitalization and punctuation. However, this can affect the interpretation of sentiment vectors; for example, "Hello!" has more positive sentiment than "hello." Consequently, from v0.1.4 onwards, we compute vectors using the raw input text, including punctuation and capitalization. To restore this behavior, please set **compute_vectors_from_preprocessed** to True.
+
+   * Additionally, we assume that empty messages are equivalent to "NaN vector," defined `here <https://raw.githubusercontent.com/Watts-Lab/team_comm_tools/refs/heads/main/src/team_comm_tools/features/assets/nan_vector.txt>`_.
+
 9. **Output Files**: We generate three outputs: **output_file_path_chat_level** (Utterance- or Chat-Level Features), **output_file_path_user_level** (Speaker- or User-Level Features), and **output_file_path_conv_level** (Conversation-Level Features).
 
    * This should be a *path*, not just a filename. For example, "./my_file.csv", not just "my_file.csv."
@@ -80,3 +84,5 @@ Here are some parameters that can be customized. For more details, refer to the 
 4. **ner_training_df** and **ner_cutoff**: Measure the number of named entities in each utterance (see :ref:`named_entity_recognition`).
 
 5. **regenerate_vectors**: Force-regenerate vector data even if it already exists.
+
+6. **compute_vectors_from_preprocessed**: Computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation), and this parameter now defaults to False.

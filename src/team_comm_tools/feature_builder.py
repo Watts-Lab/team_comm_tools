@@ -85,6 +85,9 @@ class FeatureBuilder:
     :param regenerate_vectors: If true, will regenerate vector data even if it already exists. Defaults to False.
     :type regenerate_vectors: bool, optional
 
+    :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation). Defaults to False.
+    :type compute_vectors_from_preprocessed: bool, optional
+
     :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
     :rtype: None
 
@@ -108,7 +111,8 @@ class FeatureBuilder:
             within_task = False,
             ner_training_df: pd.DataFrame = None,
             ner_cutoff: int = 0.9,
-            regenerate_vectors: bool = False
+            regenerate_vectors: bool = False,
+            compute_vectors_from_preprocessed: bool = False
         ) -> None:
 
         #  Defining input and output paths.
@@ -116,6 +120,7 @@ class FeatureBuilder:
         self.orig_data = input_df.copy()
         self.ner_training = ner_training_df
         self.vector_directory = vector_directory
+
         print("Initializing Featurization...")
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
@@ -217,6 +222,11 @@ class FeatureBuilder:
         self.within_task = within_task
         self.ner_cutoff = ner_cutoff
         self.regenerate_vectors = regenerate_vectors
+
+        if(compute_vectors_from_preprocessed == True):
+            self.vector_colname = self.message_col # because the message col will eventually get preprocessed
+        else:
+            self.vector_colname = self.message_col + "_original" # because this contains the original message
 
         # check grouping rules
         if self.conversation_id_col not in self.chat_data.columns and len(self.grouping_keys)==0:
@@ -338,7 +348,7 @@ class FeatureBuilder:
             if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
                 need_sentiment = True
 
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.message_col + "_original")
+        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname)
 
         if(need_sentence):
             self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')

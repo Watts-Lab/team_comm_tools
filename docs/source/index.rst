@@ -76,7 +76,7 @@ Once you import the tool, you will be able to declare a FeatureBuilder object, w
    )
 
    # this line of code runs the FeatureBuilder on your data
-   my_feature_builder.featurize(col="message")
+   my_feature_builder.featurize()
 
 Use the Table of Contents below to learn more about our tool. We recommend that you begin in the "Introduction" section, then explore other sections of the documentation as they become relevant to you. We recommend reading :ref:`basics` for a high-level overview of the requirements and parameters, and then reading through the :ref:`examples` for a detailed walkthrough and discussion of considerations.
 
