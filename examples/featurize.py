@@ -69,8 +69,8 @@ if __name__ == "__main__":
 		user_methods = ['mean'], # This will aggregate ONLY "negative_bert" at the speaker/user level, using mean.
 		user_columns = ['negative_bert'],
 	)
-	tiny_juries_feature_builder_custom_agg.featurize()
- 
+	tiny_juries_feature_builder.featurize(col="message")
+
 	# Tiny multi-task
 	tiny_multi_task_feature_builder = FeatureBuilder(
 		input_df = tiny_multi_task_df,

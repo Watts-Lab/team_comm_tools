@@ -292,6 +292,11 @@ class FeatureBuilder:
         else:
             self.vector_colname = self.message_col + "_original" # because this contains the original message
 
+        if(compute_vectors_from_preprocessed == True):
+            self.vector_colname = self.message_col # because the message col will eventually get preprocessed
+        else:
+            self.vector_colname = self.message_col + "_original" # because this contains the original message
+
         # check grouping rules
         if self.conversation_id_col not in self.chat_data.columns and len(self.grouping_keys)==0:
             if(self.conversation_id_col == "conversation_num"):
