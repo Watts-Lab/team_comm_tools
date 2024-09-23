@@ -169,7 +169,7 @@ if __name__ == "__main__":
 	- Input containing only symbols (e.g,. ":-)")
 	- Empty input
 	"""
-	vector_testing_input = pd.read_csv("data/cleaned_data/test_vector_edge_cases.csv.csv")
+	vector_testing_input = pd.read_csv("data/cleaned_data/test_vector_edge_cases.csv")
 
 	test_vectors = FeatureBuilder(
 		input_df = vector_testing_input,
