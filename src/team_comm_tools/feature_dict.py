@@ -607,14 +607,17 @@ feature_dict = { # TODO: customize preprocess methods
   }
 }
 
-keys_to_keep = ["columns", "file", "level", "semantic_grouping", "description", "references", "wiki_link"]
+keys_to_keep = ["columns", "file", "level",
+                "semantic_grouping", "description", "references", "wiki_link"]
 
 filtered_dict = {feature_name: {key: value for key, value in feature_data.items() if key in keys_to_keep}
                  for feature_name, feature_data in feature_dict.items()}
 
+
 @app.route('/features')
 def get_features():
     return jsonify(filtered_dict)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
