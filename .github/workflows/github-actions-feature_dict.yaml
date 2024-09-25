@@ -1,12 +1,11 @@
 name: Deploy feature_dict to AWS Lambda
-#TODO
 
 on:
   push:
     branches:
       - 'amy/website'
-    # paths:
-    #   - 'src/team_comm_tools/feature_dict.py'
+    paths:
+      - 'src/team_comm_tools/feature_dict.py'
 
 jobs:
   deploy:
@@ -21,27 +20,27 @@ jobs:
       with:
         python-version: "3.11"
 
-    # Step 2: Set up AWS CLI using AWS secrets
-    - name: Install AWS CLI
+    - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y awscli
-      
-    # Step 3: Configure AWS CLI with your secrets
-    - name: Configure AWS CLI
+        python -m pip install --upgrade pip
+        pip install flask
+        pip install awscli
+  
+    - name: Package Lambda function
       run: |
-        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws configure set region us-east-1  # Change this to your region
+        mkdir package
+        pip install --target ./package flask
+        cp src/team_comm_tools/feature_dict.py ./package  # Copies feature_dict.py
+        cd package
+        zip -r ../function.zip .  # Packages the Lambda function
 
-    # Step 4: Deploy your Lambda function
-    - name: Deploy Lambda function
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+  
+    - name: Update Lambda function
       run: |
-        aws lambda update-function-code \
-          --function-name YourLambdaFunctionName \
-          --zip-file fileb://function.zip
-
-    # Step 5: Create the function.zip file
-    - name: Zip Lambda function
-      run: zip -r function.zip .
-
+        aws lambda update-function-code --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} --zip-file fileb://function.zip
