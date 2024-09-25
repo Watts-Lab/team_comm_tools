@@ -6,7 +6,7 @@ on:
     branches:
       - 'amy/website'
     paths:
-      - 'feature_dict.py'  # Trigger workflow when feature_dict.py is updated
+      - 'src/team_comm_tools/feature_dict.py'
 
 jobs:
   deploy:
