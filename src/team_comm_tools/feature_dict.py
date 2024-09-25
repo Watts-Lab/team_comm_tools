@@ -4,6 +4,10 @@ from .utils.preprocess import *
 
 from flask import Flask, jsonify
 import json
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
@@ -609,12 +613,39 @@ feature_dict = { # TODO: customize preprocess methods
 
 keys_to_keep = ["columns", "file", "level", "semantic_grouping", "description", "references", "wiki_link"]
 
-filtered_dict = {feature_name: {key: value for key, value in feature_data.items() if key in keys_to_keep}
-                 for feature_name, feature_data in feature_dict.items()}
+# filtered_dict = {feature_name: {key: value for key, value in feature_data.items() if key in keys_to_keep}
+#                  for feature_name, feature_data in feature_dict.items()}
 
-@app.route('/features')
-def get_features():
-    return jsonify(filtered_dict)
+# @app.route('/features')
+# def get_features():
+#     return jsonify(filtered_dict)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+def feature_dict_logic():
+    # Filter the feature dictionary based on specified keys
+    filtered_dict = {feature_name: {key: value for key, value in feature_data.items() if key in keys_to_keep}
+                     for feature_name, feature_data in feature_dict.items()}
+    return filtered_dict
+
+def lambda_handler(event, context):
+    logging.info(f"Received event: {json.dumps(event)}")
+    try:
+        response_data = feature_dict_logic()  # Call your logic function
+        return {
+            'statusCode': 200,
+            'body': json.dumps(response_data),
+            'headers': {
+                'Content-Type': 'application/json',
+            }
+        }
+    except Exception as e:
+        logging.error(f"Error: {str(e)}")
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': str(e)}),
+            'headers': {
+                'Content-Type': 'application/json',
+            }
+        }
