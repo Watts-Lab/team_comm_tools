@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 feature_dict = { # TODO: customize preprocess methods
     # Chat Level
-    "Named Entity Recognition": {
+    "Named Entity Recognition TEST": {
     "columns": ["num_named_entity", "named_entities"],
     "file": "./features/named_entity_recognition_features.py",
     "level": "Chat",
