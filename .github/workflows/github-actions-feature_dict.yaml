@@ -1,0 +1,47 @@
+name: Deploy feature_dict to AWS Lambda
+#TODO
+
+on:
+  push:
+    branches:
+      - 'amy/website'
+    paths:
+      - 'feature_dict.py'  # Trigger workflow when feature_dict.py is updated
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    # Step 2: Set up AWS CLI using AWS secrets
+    - name: Install AWS CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y awscli
+      
+    # Step 3: Configure AWS CLI with your secrets
+    - name: Configure AWS CLI
+      run: |
+        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws configure set region us-east-1  # Change this to your region
+
+    # Step 4: Deploy your Lambda function
+    - name: Deploy Lambda function
+      run: |
+        aws lambda update-function-code \
+          --function-name YourLambdaFunctionName \
+          --zip-file fileb://function.zip
+
+    # Step 5: Create the function.zip file
+    - name: Zip Lambda function
+      run: zip -r function.zip .
+
