@@ -6,6 +6,7 @@ on:
       - 'amy/website'
     paths:
       - 'src/team_comm_tools/feature_dict.py'
+      - 'src/team_comm_tools/utils/**'
 
 jobs:
   deploy:
@@ -30,6 +31,7 @@ jobs:
       run: |
         mkdir package
         pip install --target ./package flask
+        cp -r src/team_comm_tools/utils ./package/utils  # Copies the utils folder
         cp src/team_comm_tools/feature_dict.py ./package  # Copies feature_dict.py
         cd package
         zip -r ../function.zip .  # Packages the Lambda function
