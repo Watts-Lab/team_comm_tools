@@ -23,6 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        ./setup.sh
         pip install flask
         pip install awscli
 
