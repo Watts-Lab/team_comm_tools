@@ -25,12 +25,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install flask
         pip install awscli
+
+    # Run the feature_dict.py file to generate filtered_dict.json
+    - name: Run feature_dict.py
+      run: |
+        python src/team_comm_tools/feature_dict.py
   
     - name: Package Lambda function
       run: |
         mkdir package
         pip install --target ./package flask
         cp src/team_comm_tools/feature_dict.py ./package  # Copies feature_dict.py
+        cp src/team_comm_tools/lambda_function.py ./package  # Copies lambda_function.py
+        cp src/team_comm_tools/filtered_dict.json ./package  # Copies filtered_dict.json
         cd package
         zip -r ../function.zip .  # Packages the Lambda function
 

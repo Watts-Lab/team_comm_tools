@@ -1,15 +1,10 @@
-from .utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
-from .utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
-from .utils.preprocess import *
+# from .utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
+# from .utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
+# from .utils.preprocess import *
 
-from flask import Flask, jsonify
-import json
-import logging
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-
-app = Flask(__name__)
+from team_comm_tools.utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
+from team_comm_tools.utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
+from team_comm_tools.utils.preprocess import *
 
 from flask import Flask, jsonify
 import json
@@ -616,19 +611,12 @@ keys_to_keep = ["columns", "file", "level", "semantic_grouping", "description", 
 filtered_dict = {feature_name: {key: value for key, value in feature_data.items() if key in keys_to_keep}
                  for feature_name, feature_data in feature_dict.items()}
 
+with open('./filtered_dict.json', 'w') as json_file:
+  json.dump(filtered_dict, json_file, indent=4)
+
 # @app.route('/features')
 # def get_features():
 #     return jsonify(filtered_dict)
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
-
-print('Loading function')
-
-def lambda_handler(event, context):
-    return {
-        'statusCode': 200,
-        'body': json.dumps({
-            'message': "Lambda is working!"
-        })
-    }
