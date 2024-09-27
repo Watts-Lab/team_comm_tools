@@ -71,6 +71,8 @@ class ConversationLevelFeaturesCalculator:
         self.convo_aggregation = convo_aggregation
         self.convo_methods = convo_methods
         self.user_aggregation = user_aggregation
+        self.user_methods = user_methods
+        self.user_columns = user_columns
         # Denotes the columns that can be summarized from the chat level, onto the conversation level.
         self.input_columns = list(input_columns)
         if 'conversation_num' not in self.input_columns:
@@ -177,7 +179,7 @@ class ConversationLevelFeaturesCalculator:
                 if 'mean' in self.convo_methods:
                     self.conv_data = pd.merge(
                         left=self.conv_data,
-                        right=get_average(self.chat_data.copy(), column, 'average_'+column, self.conversation_id_col),
+                        right=get_mean(self.chat_data.copy(), column, 'mean_'+column, self.conversation_id_col),
                         on=[self.conversation_id_col],
                         how="inner"
                     )
@@ -247,7 +249,7 @@ class ConversationLevelFeaturesCalculator:
                          # Average/Mean of User-Level Feature
                         self.conv_data = pd.merge(
                             left=self.conv_data,
-                            right=get_average(self.user_data.copy(), user_method + "_" +user_column, 'average_user_' + user_method + "_" +user_column, self.conversation_id_col),
+                            right=get_mean(self.user_data.copy(), user_method + "_" +user_column, "mean_user_" + user_method + "_" +user_column, self.conversation_id_col),
                             on=[self.conversation_id_col],
                             how="inner"
                         )
@@ -269,7 +271,7 @@ class ConversationLevelFeaturesCalculator:
                         # Minima of User-Level Feature
                         self.conv_data = pd.merge(
                             left=self.conv_data,
-                            right=get_min(self.user_data.copy(), user_method + "_" + user_column, 'min_user_sum_' + user_method + "_" + user_column, self.conversation_id_col),
+                            right=get_min(self.user_data.copy(), user_method + "_" + user_column, 'min_user_' + user_method + "_" + user_column, self.conversation_id_col),
                             on=[self.conversation_id_col],
                             how="inner"
                         )
@@ -280,7 +282,7 @@ class ConversationLevelFeaturesCalculator:
                         # Maxima of User-Level Feature
                         self.conv_data = pd.merge(
                             left=self.conv_data,
-                            right=get_max(self.user_data.copy(), user_method + "_" + user_column, 'max_user_sum_' + user_method + "_" + user_column, self.conversation_id_col),
+                            right=get_max(self.user_data.copy(), user_method + "_" + user_column, 'max_user_' + user_method + "_" + user_column, self.conversation_id_col),
                             on=[self.conversation_id_col],
                             how="inner"
                         )
@@ -335,14 +337,14 @@ class ConversationLevelFeaturesCalculator:
             #             how="inner"
             #         )
 
-            # Average Columns were created using self.get_user_level_averaged_features()
+            # Average Columns were created using self.get_user_level_mean_features()
             for column in self.columns_to_summarize:
                 
                 if 'mean' in self.convo_methods:
                     # Average/Mean of User-Level Feature
                     self.conv_data = pd.merge(
                         left=self.conv_data,
-                        right=get_average(self.user_data.copy(), "average_"+column, 'average_user_avg_'+column, self.conversation_id_col),
+                        right=get_mean(self.user_data.copy(), "mean_"+column, 'mean_user_avg_'+column, self.conversation_id_col),
                         on=[self.conversation_id_col],
                         how="inner"
                     )
@@ -351,7 +353,7 @@ class ConversationLevelFeaturesCalculator:
                     # Standard Deviation of User-Level Feature
                     self.conv_data = pd.merge(
                         left=self.conv_data,
-                        right=get_stdev(self.user_data.copy(), "average_"+column, 'stdev_user_avg_'+column, self.conversation_id_col),
+                        right=get_stdev(self.user_data.copy(), "mean_"+column, 'stdev_user_avg_'+column, self.conversation_id_col),
                         on=[self.conversation_id_col],
                         how="inner"
                     )
@@ -360,7 +362,7 @@ class ConversationLevelFeaturesCalculator:
                     # Minima of User-Level Feature
                     self.conv_data = pd.merge(
                         left=self.conv_data,
-                        right=get_min(self.user_data.copy(), "average_"+column, 'min_user_avg_'+column, self.conversation_id_col),
+                        right=get_min(self.user_data.copy(), "mean_"+column, 'min_user_avg_'+column, self.conversation_id_col),
                         on=[self.conversation_id_col],
                         how="inner"
                     )
@@ -369,7 +371,7 @@ class ConversationLevelFeaturesCalculator:
                     # Maxima of User-Level Feature
                     self.conv_data = pd.merge(
                         left=self.conv_data,
-                        right=get_max(self.user_data.copy(), "average_"+column, 'max_user_avg_'+column, self.conversation_id_col),
+                        right=get_max(self.user_data.copy(), "mean_"+column, 'max_user_avg_'+column, self.conversation_id_col),
                         on=[self.conversation_id_col],
                         how="inner"
                     )
