@@ -85,7 +85,7 @@ my_feature_builder = FeatureBuilder(
 )
 
 # this line of code runs the FeatureBuilder on your data
-my_feature_builder.featurize(col="message")
+my_feature_builder.featurize()
 ```
 
 ### Data Format

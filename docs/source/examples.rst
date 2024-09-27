@@ -1,7 +1,16 @@
 .. _examples:
 
-Examples
-=============
+Worked Example
+================
+
+Demo / Sample Code
+*******************
+
+After following the "Getting Started" steps below, the Team Communication Toolkit can be imported at the top of any Python script. We have provided a simple example file, "featurize.py", and a demo notebook, "demo.ipynb," under our `examples folder <https://github.com/Watts-Lab/team_comm_tools/tree/main/examples>`_ on GitHub.
+
+You can also `access our demo notebook on Google Colab <https://colab.research.google.com/drive/1e8D5h_prRJsGs_N563EvpoQK0uZIAYsJ?usp=sharing>`_, where you can make a copy and run it on your own.
+
+Finally, this page will walk you through a case study, highlighting top use cases and considerations when using the toolkit.
 
 Getting Started
 ****************
@@ -25,17 +34,14 @@ In the event that some dependency installations fail (for example, you may get a
 
 If you encounter a further issue in which the 'wordnet' package from NLTK is not found, it may be related to a known bug in NLTK in which the wordnet package does not unzip automatically. If this is the case, please follow the instructions to manually unzip it, documented in `this thread <https://github.com/nltk/nltk/issues/3028>`_.
 
+You can also find a full list of our requirements `here <https://github.com/Watts-Lab/team_comm_tools/blob/main/requirements.txt>`_.
+
 Import Recommendations: Virtual Environment and Pip
 +++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 **We strongly recommend using a virtual environment in Python to run the package.** We have several specific dependency requirements. One important one is that we are currently only compatible with numpy < 2.0.0 because `numpy 2.0.0 and above <https://numpy.org/devdocs/release/2.0.0-notes.html#changes>`_ made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.
 
 **We also strongly recommend that your version of pip is up-to-date (>=24.0).** There have been reports in which users have had trouble downloading dependencies (specifically, the Spacy package) with older versions of pip. If you get an error with downloading ``en_core_web_sm``, we recommend updating pip.
-
-Using the Package
-******************
-
-After you install it, the Team Communication Toolkit can be imported at the top of any Python script. We have provided a simple example file, "featurize.py", under our `examples folder <https://github.com/Watts-Lab/team_comm_tools/tree/main/examples>`_ on GitHub, and this walkthrough will highlight some of our top use cases. However, it won't follow the file exactly.
 
 Importing the Package
 ++++++++++++++++++++++
@@ -50,10 +56,15 @@ Now you have access to the :ref:`feature_builder`. This is the main class that y
 
 *Note*: PyPI treats hyphens and underscores equally, so "pip install team_comm_tools" and "pip install team-comm-tools" are equivalent. However, Python does NOT treat them equally, and **you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder**.
 
-Running the FeatureBuilder on Your Data
-++++++++++++++++++++++++++++++++++++++++
+Walkthrough: Running the FeatureBuilder on Your Data
+*****************************************************
 
-Next, you'll want to get some data to run your FeatureBuilder on! The FeatureBuilder accepts any Pandas DataFrame as the input, so you can read in data in whatever format you like. For the purposes of this walkthrough, we'll be using some jury deliberation data from `Hu et al. (2021) <https://dl.acm.org/doi/pdf/10.1145/3411764.3445433?casa_token=d-b5sCdwpNcAAAAA:-U-ePTSSE3rY1_BLXy1-0spFN_i4gOJqy8D0CeXHLAJna5bFRTee9HEnM0TnK_R-g0BOqOn35mU>`_. 
+Next, we'll go through the details of running the FeatureBuilder on your data, discussing each of the specific options / parameters at your disposal.
+
+Configuring the FeatureBuilder
+++++++++++++++++++++++++++++++++
+
+The FeatureBuilder accepts any Pandas DataFrame as the input, so you can read in data in whatever format you like. For the purposes of this walkthrough, we'll be using some jury deliberation data from `Hu et al. (2021) <https://dl.acm.org/doi/pdf/10.1145/3411764.3445433?casa_token=d-b5sCdwpNcAAAAA:-U-ePTSSE3rY1_BLXy1-0spFN_i4gOJqy8D0CeXHLAJna5bFRTee9HEnM0TnK_R-g0BOqOn35mU>`_. 
 
 We first import Pandas and read in the dataframe:
 
@@ -79,7 +90,7 @@ Now we are ready to call the FeatureBuilder on our data. All we need to do is de
 		output_file_path_conv_level = "./jury_output_conversation_level.csv",
 		turns = True
 	)
-	jury_feature_builder.featurize(col="message")
+	jury_feature_builder.featurize()
 
 Basic Input Columns
 ^^^^^^^^^^^^^^^^^^^^
@@ -160,7 +171,7 @@ Basic Input Columns
 
 		* These messages by John can be thought of as a single turn, in which he says, "Hey Michael, how are you? I wanted to talk to you real quick!" Instead, however, John sent three messages in a row, suggesting that he took three "turns." When the **turns** parameter is set to True, the FeatureBuilder will automatically combine messages like this into a single "turn."
 
-		* We note, however, that one of our features (`:ref:turn_taking_index`) will always give the value of "1" in the case when you set **turns=True**, since, by definition, people will never take multiple "turns" in a row.
+		* We note, however, that one of our features (:ref:`turn_taking_index`) will always give the value of "1" in the case when you set **turns=True**, since, by definition, people will never take multiple "turns" in a row.
 
 
 Advanced Configuration Columns

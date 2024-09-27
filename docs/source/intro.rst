@@ -56,7 +56,7 @@ The driving functions for generating features at different levels are located in
 
 Getting Started
 *****************
-Please refer to the :ref:`index` to get started. From there, we recommend reading :ref:`basics` for a high-level overview of the requirements and parameters, and then reading through :ref:`examples` for a detailed walkthrough and discussion of considerations.
+Please refer to the :ref:`index_main` to get started. From there, we recommend reading :ref:`basics` for a high-level overview of the requirements and parameters, and then reading through the :ref:`examples` for a detailed walkthrough and discussion of considerations.
 
 Feature Documentation
 **********************

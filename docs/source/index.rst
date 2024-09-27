@@ -1,7 +1,4 @@
-.. Team Communication Toolkit documentation master file, created by
-   sphinx-quickstart on Fri Jun 14 12:54:37 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. _index_main:
 
 The Team Communication Toolkit
 ===============================
@@ -79,9 +76,9 @@ Once you import the tool, you will be able to declare a FeatureBuilder object, w
    )
 
    # this line of code runs the FeatureBuilder on your data
-   my_feature_builder.featurize(col="message")
+   my_feature_builder.featurize()
 
-Use the Table of Contents below to learn more about our tool. We recommend that you begin in the "Introduction" section, then explore other sections of the documentation as they become relevant to you. We recommend reading :ref:`basics` for a high-level overview of the requirements and parameters, and then reading through :ref:`examples` for a detailed walkthrough and discussion of considerations.
+Use the Table of Contents below to learn more about our tool. We recommend that you begin in the "Introduction" section, then explore other sections of the documentation as they become relevant to you. We recommend reading :ref:`basics` for a high-level overview of the requirements and parameters, and then reading through the :ref:`examples` for a detailed walkthrough and discussion of considerations.
 
 .. toctree::
    :maxdepth: 2

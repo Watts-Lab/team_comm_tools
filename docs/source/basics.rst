@@ -3,14 +3,27 @@
 The Basics
 ==========
 
+A Light-Touch, One-Function Package
+*************************************
+
 The Team Communication Toolkit is designed to be a **light-touch package**. This means you should need minimal lines of code to get from text data to structured communication features. We have defaults and sample code to help you quickly run the toolkit on your data.
 
 However, we understand that you might have special requirements and need to customize features. Therefore, we offer adjustable "knobs" in the FeatureBuilder (:ref:`feature_builder`).
 
-This overview will provide you with a high-level understanding of the key inputs and assumptions of our toolkit. After reading, refer to the walkthrough in :ref:`examples` for a detailed discussion. Sample code can be found on GitHub in the `examples folder <https://github.com/Watts-Lab/team_comm_tools/tree/main/examples>`_.
+This overview will provide you with a high-level understanding of the key inputs and assumptions of our toolkit. After reading, refer to the walkthrough in the :ref:`examples` for a detailed discussion.
+
+Demo / Sample Code
+*******************
+
+We have provided a simple example file, "featurize.py", and a demo notebook, "demo.ipynb," under our `examples folder <https://github.com/Watts-Lab/team_comm_tools/tree/main/examples>`_ on GitHub.
+
+You can also `access our demo notebook on Google Colab <https://colab.research.google.com/drive/1e8D5h_prRJsGs_N563EvpoQK0uZIAYsJ?usp=sharing>`_, where you can make a copy and run it on your own.
+
+Key Assumptions and Parameters
+*******************************
 
 Package Assumptions 
-********************
+++++++++++++++++++++
 
 1. **Pandas DataFrame**: Your input should be a `Pandas dataframe <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html>`_.
 
@@ -36,6 +49,10 @@ Package Assumptions
 
 8. **Vector Data Cache**: Your data's vector data will be cached in **vector_directory**. This directory will be created if it doesn’t exist, but its contents should be reserved for cached vector files.
 
+   * Note: v0.1.3 and earlier compute vectors using _preprocessed_ text by default, which drops capitalization and punctuation. However, this can affect the interpretation of sentiment vectors; for example, "Hello!" has more positive sentiment than "hello." Consequently, from v0.1.4 onwards, we compute vectors using the raw input text, including punctuation and capitalization. To restore this behavior, please set **compute_vectors_from_preprocessed** to True.
+
+   * Additionally, we assume that empty messages are equivalent to "NaN vector," defined `here <https://raw.githubusercontent.com/Watts-Lab/team_comm_tools/refs/heads/main/src/team_comm_tools/features/assets/nan_vector.txt>`_.
+
 9. **Output Files**: We generate three outputs: **output_file_path_chat_level** (Utterance- or Chat-Level Features), **output_file_path_user_level** (Speaker- or User-Level Features), and **output_file_path_conv_level** (Conversation-Level Features).
 
    * This should be a *path*, not just a filename. For example, "./my_file.csv", not just "my_file.csv."
@@ -54,9 +71,9 @@ Package Assumptions
 11. **Summarizing Numeric Features**: All numeric utterance-level features are **summarizable**. Aggregations (e.g., "mean level of positivity") will appear in the Conversation-level data.
 
 Customizable Parameters
-************************
+++++++++++++++++++++++++
 
-Here are some parameters that can be customized. For more details, refer to :ref:`examples` and :ref:`feature_builder`.
+Here are some parameters that can be customized. For more details, refer to the :ref:`examples` and :ref:`feature_builder`.
 
 1. **analyze_first_pct**: Analyze only the first portion (X% of utterances) of a conversation.
 
@@ -67,3 +84,5 @@ Here are some parameters that can be customized. For more details, refer to :ref
 4. **ner_training_df** and **ner_cutoff**: Measure the number of named entities in each utterance (see :ref:`named_entity_recognition`).
 
 5. **regenerate_vectors**: Force-regenerate vector data even if it already exists.
+
+6. **compute_vectors_from_preprocessed**: Computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation), and this parameter now defaults to False.

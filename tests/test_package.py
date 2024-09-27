@@ -4,6 +4,8 @@ import numpy as np
 from numpy import nan
 import logging
 import itertools
+import os
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Import Test Outputs
 input_data = pd.read_csv("data/cleaned_data/multi_task_TINY_cols_renamed.csv", encoding='utf-8')
@@ -13,6 +15,9 @@ case3a_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3a_level_chat.csv
 case3b_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3b_level_chat.csv")
 case3c_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3c_level_chat.csv")
 impropercase_chatdf = pd.read_csv("./output/chat/tiny_multi_task_improper_level_chat.csv")
+sentiment_output = pd.read_csv('./vector_data/sentiment/chats/test_vectors_chat.csv') 
+sbert_output = pd.read_csv('./vector_data/sentence/chats/test_vectors_chat.csv')
+
 
 # Import the Feature Dictionary
 from team_comm_tools.feature_dict import feature_dict
@@ -167,6 +172,8 @@ def test_improper_case():
             file.write(f"Number of unique conversation identifiers in improper case: {improper_ids}\n")
             file.write(f"Number of unique conversation identifiers in Case 2: {case_2_ids}\n")
 
+        raise
+
 def test_robustness_to_existing_column_names():
     try:
         chat_df_orig = pd.read_csv("./output/chat/test_chat_level_chat.csv") # original output
@@ -187,4 +194,43 @@ def test_robustness_to_existing_column_names():
             file.write("------TEST FAILED------\n")
             file.write(f"Robustness check for passing in chat dataframe with feature columns failed.\n")
 
-        raise 
+        raise
+
+def get_nan_vector_str():
+    current_dir = os.path.dirname(__file__)
+    nan_vector_file_path = os.path.join(current_dir, '../src/team_comm_tools/features/assets/nan_vector.txt')
+    nan_vector_file_path = os.path.abspath(nan_vector_file_path)
+
+    f = open(nan_vector_file_path, "r")
+    return f.read()
+
+def str_to_vec(str_vec):
+    vector_list = [float(e) for e in str_vec[1:-1].split(',')]
+    return np.array(vector_list).reshape(-1, 1)
+
+def test_empty_vectors_equal():
+    try:
+        # assert that the last two rows are equal; they're both empty
+        assert(sbert_output.iloc[-1]["message_embedding"]==sbert_output.iloc[-2]["message_embedding"])
+        assert(sentiment_output.iloc[-1].equals(sentiment_output.iloc[-2]))
+
+        # assert that the 'positive bert' of the last sentiment is np.nan
+        assert(np.isnan(float(sentiment_output.iloc[-1]["positive_bert"])))
+
+        # compare empty vector to nan vector
+        message_embedding_str = sbert_output.iloc[-1]["message_embedding"]
+        message_embedding_vec = str_to_vec(message_embedding_str)
+        nan_vector_str = get_nan_vector_str()
+        nan_vector = str_to_vec(nan_vector_str)
+
+        # Compute cosine similarity and assert it's essentially 1
+        similarity = cosine_similarity([message_embedding_vec.flatten()], [nan_vector.flatten()])[0][0]
+        assert(round(similarity, 0) == 1.0)
+
+    except AssertionError:
+        with open('test.log', 'a') as file:
+            file.write("\n")
+            file.write("------TEST FAILED------\n")
+            file.write(f"Empty message vectors / sentence scores are not equal.\n")
+
+        raise

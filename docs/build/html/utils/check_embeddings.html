@@ -50,7 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#driver-classes-utterance-conversation-and-speaker-level-features">“Driver” Classes: Utterance-, Conversation-, and Speaker-Level Features</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#other-utilities">Other Utilities</a><ul class="current">
@@ -132,7 +132,7 @@ It also checks for the presence of certainty and lexicon files, generating them 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.generate_bert">
-<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_bert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_bert" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_bert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_bert" title="Link to this definition"></a></dt>
 <dd><p>Generates RoBERTa sentiment scores for the given chat data and saves them to a CSV file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -140,6 +140,7 @@ It also checks for the presence of certainty and lexicon files, generating them 
 <li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Contains message data to be analyzed for sentiments.</p></li>
 <li><p><strong>output_path</strong> (<em>str</em>) – Path to save the CSV file containing sentiment scores.</p></li>
 <li><p><strong>message_col</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the message. Defaults to “message”.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – The size of each batch for processing sentiment analysis. Defaults to 64.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -224,17 +225,17 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.get_sentiment">
-<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">get_sentiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.get_sentiment" title="Link to this definition"></a></dt>
-<dd><p>Analyzes the sentiment of the given text using a BERT model and returns the scores for positive, negative, and neutral sentiments.</p>
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">get_sentiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.get_sentiment" title="Link to this definition"></a></dt>
+<dd><p>Analyzes the sentiment of the given list of texts using a BERT model and returns a DataFrame with scores for positive, negative, and neutral sentiments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> (<em>str</em><em> or </em><em>None</em>) – The input text to analyze.</p>
+<dd class="field-odd"><p><strong>texts</strong> (<em>list</em><em> of </em><em>str</em>) – The list of input texts to analyze.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary with sentiment scores.</p>
+<dd class="field-even"><p>A DataFrame with sentiment scores.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
