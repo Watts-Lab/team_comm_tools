@@ -21,7 +21,7 @@ echo "Running import_nltk.py..."
 python -c "
 import nltk
 nltk.download('nps_chat')
-nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('wordnet')
 "

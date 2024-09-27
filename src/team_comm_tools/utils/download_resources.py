@@ -1,8 +1,18 @@
 import nltk
 import spacy
 import subprocess
+import ssl
 
 def download():
+
+    # Resolves SSL download error to ensure package downloads required NLTK dependencies
+    try:
+        _create_unverified_https_context = ssl._create_unverified_context
+    except AttributeError:
+        pass
+    else:
+        ssl._create_default_https_context = _create_unverified_https_context
+
     # nltk
     for resource in [
         'corpora/nps_chat',
