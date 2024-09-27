@@ -29,7 +29,9 @@ jobs:
     # Run the feature_dict.py file to generate filtered_dict.json
     - name: Run feature_dict.py
       run: |
-        python -m src.team_comm_tools.feature_dict
+        cd src
+        cd team_comm_tools
+        python feature_dict.py
   
     - name: Package Lambda function
       run: |
