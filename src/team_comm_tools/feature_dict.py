@@ -1,10 +1,10 @@
-# from .utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
-# from .utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
-# from .utils.preprocess import *
+from .utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
+from .utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
+from .utils.preprocess import *
 
-from team_comm_tools.utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
-from team_comm_tools.utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
-from team_comm_tools.utils.preprocess import *
+# from team_comm_tools.utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
+# from team_comm_tools.utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
+# from team_comm_tools.utils.preprocess import *
 
 from flask import Flask, jsonify
 import json
@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 feature_dict = { # TODO: customize preprocess methods
     # Chat Level
-    "Named Entity Recognition TESTING": {
+    "Named Entity Recognition TEST": {
     "columns": ["num_named_entity", "named_entities"],
     "file": "./features/named_entity_recognition_features.py",
     "level": "Chat",

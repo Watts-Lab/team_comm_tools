@@ -27,6 +27,9 @@ jobs:
         pip install flask
         pip install awscli
 
+    - name: Install package
+      run: pip install .
+
     # Run the feature_dict.py file to generate filtered_dict.json
     - name: Run feature_dict.py
       run: |
