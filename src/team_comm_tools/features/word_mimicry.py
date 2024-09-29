@@ -117,7 +117,7 @@ def computeTF(column_mimc, frequency_dict):
         float: The sum of term frequencies for the content mimic words.
     """
     tfdict = {}
-    print(frequency_dict)
+    # print(frequency_dict)
     wf = pd.Series(column_mimc, dtype='str').value_counts()
     for i in wf.index:
         tfdict[i] = wf[i]/frequency_dict[i]
@@ -166,7 +166,7 @@ def Content_mimicry_score_per_conv(df, column_count_frequency, column_count_mimi
         ContWordFreq = compute_frequency_per_conv(df_conv, column_count_frequency)
         content_mimic_scores.append(df_conv[column_count_mimic].apply(
             lambda x: computeTF(x, ContWordFreq)).tolist())
-    print(content_mimic_scores)
+    # print(content_mimic_scores)
     return [item for sublist in content_mimic_scores for item in sublist]
 
 
