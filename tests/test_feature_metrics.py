@@ -37,7 +37,6 @@ tested_chat = set(test_chat.tolist())
 num_tested_conv = len(set(test_conv_df['expected_column'].unique(
 ).tolist() + test_conv_complex_df['feature'].unique().tolist()))
 
-
 tested_features = {}
 
 
