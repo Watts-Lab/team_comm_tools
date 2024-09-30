@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Features: Technical Documentation" href="features/index.html" />
-    <link rel="prev" title="Introduction" href="intro.html" /> 
+    <link rel="prev" title="The Basics" href="basics.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,6 +47,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">The Basics</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">feature_builder module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#feature_builder.FeatureBuilder"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#feature_builder.FeatureBuilder.chat_level_features"><code class="docutils literal notranslate"><span class="pre">FeatureBuilder.chat_level_features()</span></code></a></li>
@@ -64,7 +65,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Worked Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils/index.html">Utilities</a></li>
 </ul>
 
@@ -173,21 +174,18 @@ the ConversationLevelFeaturesCalculator, and adds them to the <cite>self.conv_da
 
 <dl class="py method">
 <dt class="sig sig-object py" id="feature_builder.FeatureBuilder.featurize">
-<span class="sig-name descname"><span class="pre">featurize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.featurize" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">featurize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#feature_builder.FeatureBuilder.featurize" title="Link to this definition"></a></dt>
 <dd><p>Main driver function for feature generation.</p>
 <p>This function creates chat-level features, generates features for different
 truncation percentages of the data if specified, and produces user-level and
 conversation-level features. Finally, the features are saved into the
 designated output files.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>col</strong> (<em>str</em><em>, </em><em>optional</em>) – Column to preprocess, defaults to “message”</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -308,7 +306,7 @@ It also removes special characters from the column names.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="intro.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="basics.html" class="btn btn-neutral float-left" title="The Basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="features/index.html" class="btn btn-neutral float-right" title="Features: Technical Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -9,9 +9,9 @@ A collection of conversational markers that indicates the use of politeness.
 
 Citation
 *********
-`Danescu-Niculescu-Mizil et al., (2013) <https://www.cs.cornell.edu/~cristian/Politeness_files/politeness.pdf>`_
-`Jonathan P. Chang, Caleb Chiam, Liye Fu, Andrew Wang, Justine Zhang, Cristian Danescu-Niculescu-Mizil. 2020. "ConvoKit: A Toolkit for the Analysis of Conversations". Proceedings of SIGDIAL. <https://www.cs.cornell.edu/~cristian/ConvoKit_Demo_Paper_files/convokit-demo-paper.pdf>`_
+`Danescu-Niculescu-Mizil et al. (2013) <https://www.cs.cornell.edu/~cristian/Politeness_files/politeness.pdf>`_
 
+`Chang et al. (2020) <https://www.cs.cornell.edu/~cristian/ConvoKit_Demo_Paper_files/convokit-demo-paper.pdf>`_
 
 Implementation Basics 
 **********************

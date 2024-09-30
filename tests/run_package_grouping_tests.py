@@ -34,7 +34,7 @@ if __name__ == "__main__":
 		output_file_path_conv_level = "./tiny_multi_task_PT1_level_conv",
 		turns = False,
 	)
-	testing_package_task_1.featurize(col="message")
+	testing_package_task_1.featurize()
 
 	"""
 	Testing Package Task 1 Advanced Features
@@ -64,9 +64,9 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_case2_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_case2_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_case2_level_conv.csv",
-		turns = False,
+		turns = False
 	)
-	testing_case_2.featurize(col="message")
+	testing_case_2.featurize()
 
 	print("TESTING CASE 3A .....")
 	testing_case_3_a = FeatureBuilder(
@@ -82,9 +82,9 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_case3a_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_case3a_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_case3a_level_conv.csv",
-		turns = False,
+		turns = False
 	)
-	testing_case_3_a.featurize(col="message")
+	testing_case_3_a.featurize()
 
 	print("TESTING CASE 3B .....")
 	testing_case_3_b = FeatureBuilder(
@@ -100,9 +100,9 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_case3b_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_case3b_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_case3b_level_conv.csv",
-		turns = False,
+		turns = False
 	)
-	testing_case_3_b.featurize(col="message")
+	testing_case_3_b.featurize()
 
 	print("TESTING CASE 3C .....")
 	testing_case_3_c = FeatureBuilder(
@@ -118,9 +118,9 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_case3c_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_case3c_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_case3c_level_conv.csv",
-		turns = False,
+		turns = False
 	)
-	testing_case_3_c.featurize(col="message")
+	testing_case_3_c.featurize()
 
 	print("TESTING IMPROPER CASE .....")
 	testing_case_improper = FeatureBuilder(
@@ -136,9 +136,9 @@ if __name__ == "__main__":
 		output_file_path_chat_level = "./output/chat/tiny_multi_task_improper_level_chat.csv",
 		output_file_path_user_level = "./output/user/tiny_multi_task_improper_level_user.csv",
 		output_file_path_conv_level = "./output/conv/tiny_multi_task_improper_level_conv.csv",
-		turns = False,
+		turns = False
 	)
-	testing_case_improper.featurize(col="message")
+	testing_case_improper.featurize()
 
 	"""
 	Test robustness of the FeatureBuilder to taking in an input that contains existing feature names.
@@ -150,6 +150,7 @@ if __name__ == "__main__":
 	testing_chat_existing = FeatureBuilder(
 		input_df = chat_df_existing_output,
 		vector_directory = "./vector_data/",
+		message_col = "message_original",
 		output_file_path_chat_level = "./output/chat/test_chat_level_existing_chat.csv",
 		output_file_path_user_level = "./output/user/test_chat_level_existing_user.csv",
 		output_file_path_conv_level = "./output/conv/test_chat_level_existing_conv.csv",
@@ -159,6 +160,33 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False,
+		turns = False
 	)
-	testing_chat_existing.featurize(col="message")
+	testing_chat_existing.featurize()
+
+	"""
+	Test robustness of the vector pipeline to weird inputs:
+	- Super long input
+	- Input containing only symbols (e.g,. ":-)")
+	- Empty input
+	- Input with many spaces
+	"""
+	vector_testing_input = pd.read_csv("data/cleaned_data/test_vector_edge_cases.csv", encoding='latin-1')
+
+	test_vectors = FeatureBuilder(
+		input_df = vector_testing_input,
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_vectors_chat.csv",
+		output_file_path_user_level = "./output/user/test_vectors_user.csv",
+		output_file_path_conv_level = "./output/conv/test_vectors_conv.csv",
+		custom_features = [
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Forward Flow",
+            "Discursive Diversity"
+        ],
+		turns = False,
+		regenerate_vectors = True
+	)
+	test_vectors.featurize()
+

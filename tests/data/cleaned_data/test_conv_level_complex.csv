@@ -359,3 +359,56 @@ conversation_9, speaker_1,, I have The level of play this year has been incredib
 conversation_9, speaker_2,, I’m not a chess expert but I enjoy watching the matches They’re so intense,info_diversity
 conversation_9, speaker_3,, It’s amazing how much thought goes into each move It’s like a mental workout,info_diversity
 conversation_9, speaker_1,, Definitely I find that playing chess really sharpens my focus,info_diversity
+AA, A,, this is four words,gini_coefficient_sum_num_words
+AA, A,, what about this also i think,gini_coefficient_sum_num_words
+AA, B,, i think it is,gini_coefficient_sum_num_words
+AA, B,, just some random words,gini_coefficient_sum_num_words
+AA, C,, hello hello hello hello helloooo,gini_coefficient_sum_num_words
+AA, C,, what is up ok,gini_coefficient_sum_num_words
+AAA, A,, this is six words i think,gini_coefficient_sum_num_words
+AAA, A,, what about this being five,gini_coefficient_sum_num_words
+AAA, B,, i only have four,gini_coefficient_sum_num_words
+AAA, B,, but then i get seven words woohoo,gini_coefficient_sum_num_words
+AAA, C,, i think this is even,gini_coefficient_sum_num_words
+AAA, C,, lets see the results though,gini_coefficient_sum_num_words
+AAAA, A,, im going to be talking the absolute most right now,gini_coefficient_sum_num_words
+AAAA, A,, its because i want to raise our gini score woohooo,gini_coefficient_sum_num_words
+AAAA, B,, ok,gini_coefficient_sum_num_words
+AAAA, B,, i can talk,gini_coefficient_sum_num_words
+AAAA, C,, hello,gini_coefficient_sum_num_words
+AAAA, C,, i dont want to talk,gini_coefficient_sum_num_words
+BB, A,, this is same character count,gini_coefficient_sum_num_chars
+BB, A,, this similar similar counts,gini_coefficient_sum_num_chars
+BB, B,, this is roughly same character,gini_coefficient_sum_num_chars
+BB, B,, hello how are we doing blah,gini_coefficient_sum_num_chars
+BB, C,, number of characteros,gini_coefficient_sum_num_chars
+BB, C,, i want to get some good after,gini_coefficient_sum_num_chars
+BBB, A,, what is your name,gini_coefficient_sum_num_chars
+BBB, A,, my name is shruti,gini_coefficient_sum_num_chars
+BBB, B,, his name is evan,gini_coefficient_sum_num_chars
+BBB, B,, her name is priya dcosta,gini_coefficient_sum_num_chars
+BBB, C,, we were on penn today,gini_coefficient_sum_num_chars
+BBB, C,, team communication toolkit,gini_coefficient_sum_num_chars
+BBBB, A,, this is same character count but an insane amount of characters,gini_coefficient_sum_num_chars
+BBBB, A,, i am going to keep on saying things until i get fired,gini_coefficient_sum_num_chars
+BBBB, B,, ok,gini_coefficient_sum_num_chars
+BBBB, B,, lets see,gini_coefficient_sum_num_chars
+BBBB, C,, curious for this,gini_coefficient_sum_num_chars
+BBBB, C,, results should be good,gini_coefficient_sum_num_chars
+CC, A,, this is same message count,gini_coefficient_sum_num_messages
+CC, B,, this is same message count,gini_coefficient_sum_num_messages
+CC, C,, this is same message count,gini_coefficient_sum_num_messages
+CC, D,, this is same message count,gini_coefficient_sum_num_messages
+CC, E,, this is same message count,gini_coefficient_sum_num_messages
+CC, F,, this is same message count,gini_coefficient_sum_num_messages
+CCC, A,, this is same message count,gini_coefficient_sum_num_messages
+CCC, A,, this is same message count,gini_coefficient_sum_num_messages
+CCC, C,, this is same message count,gini_coefficient_sum_num_messages
+CCC, D,, this is same message count,gini_coefficient_sum_num_messages
+CCC, E,, this is same message count,gini_coefficient_sum_num_messages
+CCC, E,, this is same message count,gini_coefficient_sum_num_messages
+CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
+CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
+CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
+CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
+CCCC, E,, this is different message count,gini_coefficient_sum_num_messages

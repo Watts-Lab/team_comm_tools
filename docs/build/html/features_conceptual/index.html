@@ -18,11 +18,12 @@
         <script src="../_static/documentation_options.js?v=a58bc63e"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Named Entity Recognition" href="named_entity_recognition.html" />
-    <link rel="prev" title="turn_taking_features module" href="../features/turn_taking_features.html" /> 
+    <link rel="prev" title="get_user_network module" href="../features/get_user_network.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,11 +48,15 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Features: Conceptual Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="named_entity_recognition.html">Named Entity Recognition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="time_difference.html">Time Difference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="liwc.html">Linguistic Inquiry and Word Count (LIWC) and Other Lexicons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="certainty.html">Certainty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="information_exchange.html">Information Exchange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="proportion_of_first_person_pronouns.html">Proportion of First Person Pronouns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="message_length.html">Message Length</a></li>
@@ -66,20 +71,26 @@
 <li class="toctree-l3"><a class="reference internal" href="function_word_accommodation.html">Function Word Accommodation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="mimicry_bert.html">Mimicry (BERT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="moving_mimicry.html">Moving Mimicry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="time_difference.html">Time Difference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="forward_flow.html">Forward Flow</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hedge.html">Hedge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="questions.html">Question (Naive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conversational_repair.html">Conversational Repair</a></li>
 <li class="toctree-l3"><a class="reference internal" href="politeness_strategies.html">Politeness Strategies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="politeness_receptiveness_markers.html">Politeness Receptiveness Markers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="politeness_receptiveness_markers.html">Politeness/Receptiveness Markers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="online_discussions_tags.html">Online Discussion Tags</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#conversation-level-features">Conversation-Level Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gini_coefficient.html">Gini Coefficient</a></li>
 <li class="toctree-l3"><a class="reference internal" href="turn_taking_index.html">Turn Taking Index</a></li>
+<li class="toctree-l3"><a class="reference internal" href="team_burstiness.html">Team Burstiness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="discursive_diversity.html">Discursive Diversity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="information_diversity.html">Information Diversity</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 </ul>
 
@@ -110,12 +121,14 @@
   <section id="features-conceptual-documentation">
 <span id="features-conceptual"></span><h1>Features: Conceptual Documentation<a class="headerlink" href="#features-conceptual-documentation" title="Link to this heading"></a></h1>
 <p>In contrast with the <a class="reference internal" href="../features/index.html#features-technical"><span class="std std-ref">Features: Technical Documentation</span></a> page, this page aims to provide a resource for conceptually understanding the features: what are they, what are they meant to measure, and how is our operationalization connected to concepts from social science?</p>
-<p><strong>Please note that this page is currently under construction.</strong></p>
 <section id="utterance-chat-level-features">
 <h2>Utterance- (Chat) Level Features<a class="headerlink" href="#utterance-chat-level-features" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="named_entity_recognition.html">Named Entity Recognition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time_difference.html">Time Difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="liwc.html">Linguistic Inquiry and Word Count (LIWC) and Other Lexicons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="certainty.html">Certainty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="information_exchange.html">Information Exchange</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proportion_of_first_person_pronouns.html">Proportion of First Person Pronouns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="message_length.html">Message Length</a></li>
@@ -130,10 +143,12 @@
 <li class="toctree-l1"><a class="reference internal" href="function_word_accommodation.html">Function Word Accommodation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mimicry_bert.html">Mimicry (BERT)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="moving_mimicry.html">Moving Mimicry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="time_difference.html">Time Difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forward_flow.html">Forward Flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hedge.html">Hedge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="questions.html">Question (Naive)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conversational_repair.html">Conversational Repair</a></li>
 <li class="toctree-l1"><a class="reference internal" href="politeness_strategies.html">Politeness Strategies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="politeness_receptiveness_markers.html">Politeness Receptiveness Markers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="politeness_receptiveness_markers.html">Politeness/Receptiveness Markers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="online_discussions_tags.html">Online Discussion Tags</a></li>
 </ul>
 </div>
@@ -142,7 +157,11 @@
 <h2>Conversation-Level Features<a class="headerlink" href="#conversation-level-features" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="gini_coefficient.html">Gini Coefficient</a></li>
 <li class="toctree-l1"><a class="reference internal" href="turn_taking_index.html">Turn Taking Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team_burstiness.html">Team Burstiness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discursive_diversity.html">Discursive Diversity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="information_diversity.html">Information Diversity</a></li>
 </ul>
 </div>
 </section>
@@ -152,7 +171,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../features/turn_taking_features.html" class="btn btn-neutral float-left" title="turn_taking_features module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../features/get_user_network.html" class="btn btn-neutral float-left" title="get_user_network module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="named_entity_recognition.html" class="btn btn-neutral float-right" title="Named Entity Recognition" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

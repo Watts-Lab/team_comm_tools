@@ -48,4 +48,12 @@ Once utterance-level features are computed, we compute conversation-level featur
 
 Speaker- (User) Level Features
 *********************************
-User-level features currently represent an aggregation of features at the utterance- level (for example, the average number of words spoken *by a particular user*). There is therefore no separate speaker-level feature documentation; you may reference the :ref:`Speaker (User)-Level Features Page <user_level_features>` for more information.
+User-level features generally represent an aggregation of features at the utterance- level (for example, the average number of words spoken *by a particular user*). There is therefore limited speaker-level feature documentation, other than a function used to compute the "network" of other speakers that an individual interacts with in a conversation.
+
+You may reference the :ref:`Speaker (User)-Level Features Page <user_level_features>` for more information.
+
+
+.. toctree::
+   :maxdepth: 1
+
+   get_user_network

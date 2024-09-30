@@ -44,10 +44,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">The Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Worked Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils/index.html">Utilities</a></li>
 </ul>
 
@@ -85,7 +86,6 @@
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
- | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
@@ -351,6 +351,8 @@
         <li><a href="features/named_entity_recognition_features.html#module-features.named_entity_recognition_features">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     features.other_lexical_features
 
@@ -358,8 +360,6 @@
         <li><a href="features/other_lexical_features.html#module-features.other_lexical_features">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     features.politeness_features
 
@@ -424,13 +424,6 @@
 </li>
       </ul></li>
       <li>
-    features.user_centroids
-
-      <ul>
-        <li><a href="features/user_centroids.html#module-features.user_centroids">module</a>
-</li>
-      </ul></li>
-      <li>
     features.variance_in_DD
 
       <ul>
@@ -462,6 +455,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utils/check_embeddings.html#utils.check_embeddings.generate_bert">generate_bert() (in module utils.check_embeddings)</a>
+</li>
+      <li><a href="utils/check_embeddings.html#utils.check_embeddings.generate_certainty_pkl">generate_certainty_pkl() (in module utils.check_embeddings)</a>
 </li>
       <li><a href="utils/check_embeddings.html#utils.check_embeddings.generate_lexicon_pkl">generate_lexicon_pkl() (in module utils.check_embeddings)</a>
 </li>
@@ -527,10 +522,10 @@
 </li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.get_moving_mimicry">get_moving_mimicry() (in module features.word_mimicry)</a>
 </li>
-      <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_named_entity">get_named_entity() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_named_entity">get_named_entity() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
+</li>
       <li><a href="features/within_person_discursive_range.html#features.within_person_discursive_range.get_nan_vector">get_nan_vector() (in module features.within_person_discursive_range)</a>
 </li>
       <li><a href="features/textblob_sentiment_analysis.html#features.textblob_sentiment_analysis.get_polarity_score">get_polarity_score() (in module features.textblob_sentiment_analysis)</a>
@@ -570,8 +565,6 @@
       <li><a href="features/discursive_diversity.html#features.discursive_diversity.get_unique_pairwise_combos">get_unique_pairwise_combos() (in module features.discursive_diversity)</a>
 </li>
       <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_average_dataframe">get_user_average_dataframe() (in module utils.summarize_features)</a>
-</li>
-      <li><a href="features/user_centroids.html#features.user_centroids.get_user_centroids">get_user_centroids() (in module features.user_centroids)</a>
 </li>
       <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.get_user_level_aggregates">get_user_level_aggregates() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
 </li>
@@ -615,19 +608,6 @@
 </li>
       <li><a href="features/hedge.html#features.hedge.is_hedged_sentence_1">is_hedged_sentence_1() (in module features.hedge)</a>
 </li>
-  </ul></td>
-</tr></table>
-
-<h2 id="K">K</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    keywords
-
-      <ul>
-        <li><a href="features/keywords.html#module-keywords">module</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -706,15 +686,11 @@
 </li>
         <li><a href="features/turn_taking_features.html#module-features.turn_taking_features">features.turn_taking_features</a>
 </li>
-        <li><a href="features/user_centroids.html#module-features.user_centroids">features.user_centroids</a>
-</li>
         <li><a href="features/variance_in_DD.html#module-features.variance_in_DD">features.variance_in_DD</a>
 </li>
         <li><a href="features/within_person_discursive_range.html#module-features.within_person_discursive_range">features.within_person_discursive_range</a>
 </li>
         <li><a href="features/word_mimicry.html#module-features.word_mimicry">features.word_mimicry</a>
-</li>
-        <li><a href="features/keywords.html#module-keywords">keywords</a>
 </li>
         <li><a href="utils/assign_chunk_nums.html#module-utils.assign_chunk_nums">utils.assign_chunk_nums</a>
 </li>
@@ -847,8 +823,6 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utils/check_embeddings.html#utils.check_embeddings.unpickle_certainty">unpickle_certainty() (in module utils.check_embeddings)</a>
-</li>
       <li><a href="feature_builder.html#feature_builder.FeatureBuilder.user_level_features">user_level_features() (feature_builder.FeatureBuilder method)</a>
 </li>
       <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator">UserLevelFeaturesCalculator (class in utils.calculate_user_level_features)</a>
@@ -881,8 +855,6 @@
         <li><a href="utils/calculate_user_level_features.html#module-utils.calculate_user_level_features">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     utils.check_embeddings
 
@@ -890,6 +862,8 @@
         <li><a href="utils/check_embeddings.html#module-utils.check_embeddings">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     utils.gini_coefficient
 

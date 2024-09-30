@@ -9,7 +9,9 @@ Returns the number of words in a message/utterance
 
 Citation
 *********
-NA
+`Cao et al. (2021) <https://dl.acm.org/doi/pdf/10.1145/3432929>`_
+
+`Ranganath et al. (2013) <https://web.stanford.edu/~jurafsky/pubs/ranganath2013.pdf>`_
 
 Implementation Basics 
 **********************

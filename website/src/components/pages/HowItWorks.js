@@ -34,10 +34,41 @@ function HowItWorks() {
         We believe these contributions will allow the toolkit to become a living resource for anyone interested
         in understanding and quantifying conversations.
       </p>
+      <h1 className='how-it-works-headers'>Getting Started</h1>
+      <p>
+        Our tool is publicly available on <a href="https://pypi.org/project/team-comm-tools/">PyPI</a>, with a getting started guide available in
+        our <a href="https://conversational-featurizer.readthedocs.io/en/latest/examples.html">documentation</a>.
+      </p>
       <br />
-      <p>More information coming soon:</p>
-      <p>Our toolkit is currently pre-launch. Details on how to download our package
-        will be released after our package officially launches later this summer (August 2024).
+      <p>
+        To use our tool, please ensure that you have Python {'>'}= 3.10 installed and a working version of <a href="https://pypi.org/project/pip/">pip</a>,
+        which is Python’s package installer. Then, in your local environment, run the following:
+      </p>
+      <br />
+      <div className="code">
+        pip install team_comm_tools
+      </div>
+      <br />
+      <p>
+        This command will automatically install our package and all required dependencies.
+      </p>
+
+      <h1 className='home-subheaders'>
+        Troubleshooting
+      </h1>
+      <p> 
+        In the event that some dependency installations fail (for example, you may get an error that <span className="mini-code">en_core_web_sm</span> from Spacy is not found,
+        or that there is a missing NLTK resource),
+        please run this simple one-line command in your terminal, which will force the installation of Spacy and NLTK dependencies:
+      </p>
+      <br />
+      <div className="code">
+        download_resources
+      </div>
+      <br />
+      <p>
+      If you encounter a further issue in which the ‘wordnet’ package from NLTK is not found, it may be related to a known bug in NLTK in which the wordnet package does not unzip automatically. 
+      If this is the case, please follow the instructions to manually unzip it, documented in this <a href="https://github.com/nltk/nltk/issues/3028">thread</a>.
       </p>
 
       <h1 className='how-it-works-headers'>Technical Documentation: ReadTheDocs</h1>
@@ -69,34 +100,34 @@ function HowItWorks() {
 
       <h1 className='how-it-works-headers'>Features</h1>
       <div className='features'>
-      <table>
-        <thead>
-          <tr>
-            <th>Feature</th>
-            <th>Description</th>
-            <th>Columns</th>
-            <th>File</th>
-            <th>Level</th>
-            <th>Semantic Grouping</th>
-            <th>References</th>
-            <th>Wiki Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(data).map(([key, value]) => (
-            <tr key={key}>
-              <td className='feature-name'>{key}</td>
-              <td className='desc'>{value.description}</td>
-              <td className='norm' style={{width: "200px"}}>{value.columns ? value.columns.join(', ') : 'N/A'}</td>
-              <td className='norm' style={{width: "200px"}}>{value.file}</td>
-              <td className='norm'>{value.level}</td>
-              <td className='norm'>{value.semantic_grouping}</td>
-              <td className='desc'>{value.references}</td>
-              <td className='norm'><a href={value.wiki_link} target="_blank" rel="noopener noreferrer">{value.wiki_link}</a></td>
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Description</th>
+              <th>Columns</th>
+              <th>File</th>
+              <th>Level</th>
+              <th>Semantic Grouping</th>
+              <th>References</th>
+              <th>Wiki Link</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {Object.entries(data).map(([key, value]) => (
+              <tr key={key}>
+                <td className='feature-name'>{key}</td>
+                <td className='desc'>{value.description}</td>
+                <td className='norm' style={{ width: "200px" }}>{value.columns ? value.columns.join(', ') : 'N/A'}</td>
+                <td className='norm' style={{ width: "200px" }}>{value.file}</td>
+                <td className='norm'>{value.level}</td>
+                <td className='norm'>{value.semantic_grouping}</td>
+                <td className='desc'>{value.references}</td>
+                <td className='norm'><a href={value.wiki_link} target="_blank" rel="noopener noreferrer">{value.wiki_link}</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

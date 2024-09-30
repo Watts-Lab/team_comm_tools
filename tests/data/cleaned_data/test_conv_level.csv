@@ -52,3 +52,45 @@ A, Mary,2020-04-20T18:31:00.125Z, I agree it's also important to take breaks and
 A, Jessica,2020-04-20T18:31:20.125Z, I'm always struggling to stay motivated any tips?,team_burstiness,-1.0
 A, John,2020-04-20T18:31:40.125Z, I find it helpful to set realistic goals and break down large tasks into smaller ones.,team_burstiness,-1.0
 A, Mary,2020-04-20T18:32:00.125Z, It's also important to find a study buddy or group to help you stay accountable.,team_burstiness,-1.0
+B, B,, this is four words,gini_coefficient_sum_num_words,0
+B, B,, what about this also,gini_coefficient_sum_num_words,0
+B, B,, i think it is,gini_coefficient_sum_num_words,0
+B, A,, just some random words,gini_coefficient_sum_num_words,0
+B, A,, hello hello hello hello,gini_coefficient_sum_num_words,0
+B, A,, what is up ok,gini_coefficient_sum_num_words,0
+C, A,, this is same character count,gini_coefficient_sum_num_chars,0
+C, A,, this is same character count,gini_coefficient_sum_num_chars,0
+C, A,, this is same character count,gini_coefficient_sum_num_chars,0
+C, X,, this is same character count,gini_coefficient_sum_num_chars,0
+C, X,, this is same character count,gini_coefficient_sum_num_chars,0
+C, X,, this is same character count,gini_coefficient_sum_num_chars,0
+D, A,, this is same message count,gini_coefficient_sum_num_messages,0
+D, B,, this is same message count,gini_coefficient_sum_num_messages,0
+D, C,, this is same message count,gini_coefficient_sum_num_messages,0
+D, D,, this is same message count,gini_coefficient_sum_num_messages,0
+D, E,, this is same message count,gini_coefficient_sum_num_messages,0
+D, F,, this is same message count,gini_coefficient_sum_num_messages,0
+E, A,, i think im the only speaker in this conversation,gini_coefficient_sum_num_words,0.5
+E, A,, yeah i think we're trying to get the gini high,gini_coefficient_sum_num_words,0.5
+E, A,, ill just keep talking!,gini_coefficient_sum_num_words,0.5
+E, X,,,gini_coefficient_sum_num_words,0.5
+E, X,,,gini_coefficient_sum_num_words,0.5
+E, X,,,gini_coefficient_sum_num_words,0.5
+F, A,, i think im the only speaker in this conversation,gini_coefficient_sum_num_chars,0.75
+F, A,, yeah i think we're trying to get the gini high,gini_coefficient_sum_num_chars,0.75
+F, A,, ill just keep talking!,gini_coefficient_sum_num_ chars,0.75
+F, X,,,gini_coefficient_sum_num_chars,0.75
+F, Y,,,gini_coefficient_sum_num_chars,0.75
+F, Z,,,gini_coefficient_sum_num_chars,0.75
+00,1,,first,sum_num_messages,3
+00,1,,first,sum_num_messages,3
+00,1,,first,sum_num_messages,3
+01,2,,second,sum_num_messages,4
+01,2,,second,sum_num_messages,4
+01,2,,second,sum_num_messages,4
+01,2,,second,sum_num_messages,4
+02,3,,third,sum_num_messages,5
+02,3,,third,sum_num_messages,5
+02,3,,third,sum_num_messages,5
+02,3,,third,sum_num_messages,5
+02,3,,third,sum_num_messages,5

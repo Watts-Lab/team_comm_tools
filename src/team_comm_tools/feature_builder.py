@@ -85,6 +85,9 @@ class FeatureBuilder:
     :param regenerate_vectors: If true, will regenerate vector data even if it already exists. Defaults to False.
     :type regenerate_vectors: bool, optional
 
+    :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation). Defaults to False.
+    :type compute_vectors_from_preprocessed: bool, optional
+
     :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
     :rtype: None
 
@@ -108,7 +111,8 @@ class FeatureBuilder:
             within_task = False,
             ner_training_df: pd.DataFrame = None,
             ner_cutoff: int = 0.9,
-            regenerate_vectors: bool = False
+            regenerate_vectors: bool = False,
+            compute_vectors_from_preprocessed: bool = False
         ) -> None:
 
         #  Defining input and output paths.
@@ -116,6 +120,7 @@ class FeatureBuilder:
         self.orig_data = input_df.copy()
         self.ner_training = ner_training_df
         self.vector_directory = vector_directory
+
         print("Initializing Featurization...")
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
@@ -218,6 +223,11 @@ class FeatureBuilder:
         self.ner_cutoff = ner_cutoff
         self.regenerate_vectors = regenerate_vectors
 
+        if(compute_vectors_from_preprocessed == True):
+            self.vector_colname = self.message_col # because the message col will eventually get preprocessed
+        else:
+            self.vector_colname = self.message_col + "_original" # because this contains the original message
+
         # check grouping rules
         if self.conversation_id_col not in self.chat_data.columns and len(self.grouping_keys)==0:
             if(self.conversation_id_col == "conversation_num"):
@@ -240,7 +250,7 @@ class FeatureBuilder:
 
         # set new identifier column for cumulative grouping.
         if self.cumulative_grouping and len(grouping_keys) == 3:
-            print("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative convrersations.")
+            print("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative conversations.")
             self.conversation_id_col = "conversation_num"
 
         # Input columns are the columns that come in the raw chat data
@@ -338,7 +348,7 @@ class FeatureBuilder:
             if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
                 need_sentiment = True
 
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, self.message_col)
+        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname)
 
         if(need_sentence):
             self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
@@ -401,7 +411,7 @@ class FeatureBuilder:
         if {'index'}.issubset(self.conv_data.columns):
             self.conv_data = self.conv_data.drop(columns=['index'])
 
-    def featurize(self, col: str="message") -> None:
+    def featurize(self) -> None:
         """
         Main driver function for feature generation.
 
@@ -409,9 +419,6 @@ class FeatureBuilder:
         truncation percentages of the data if specified, and produces user-level and 
         conversation-level features. Finally, the features are saved into the 
         designated output files.
-
-        :param col: Column to preprocess, defaults to "message"
-        :type col: str, optional
 
         :return: None
         :rtype: None
@@ -494,7 +501,7 @@ class FeatureBuilder:
         # create new column that retains punctuation
         self.chat_data["message_lower_with_punc"] = self.chat_data[self.message_col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
     
-        # Preprocessing the text in `col` and then overwriting the column `col`.
+        # Preprocessing the text in `message_col` and then overwriting the column `message_col`.
         # TODO: We should probably use classes to abstract preprocessing module as well?
         self.chat_data[self.message_col] = self.chat_data[self.message_col].astype(str).apply(preprocess_text)
 
