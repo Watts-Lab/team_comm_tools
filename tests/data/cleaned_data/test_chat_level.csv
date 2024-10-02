@@ -698,5 +698,5 @@ A,2,able get got,function_word_accommodation,1
 A,5,get,function_word_accommodation,1
 B,1,able am are,content_word_accommodation,0
 B,2,able am are hello,content_word_accommodation,0
-B,3,able am hello yoyo,content_word_accommodation,0.333333
-B,2,hello yoyo,content_word_accommodation,0.8333333
+B,3,able am hello yoyo,content_word_accommodation_per_conv,0.3333333
+B,2,hello yoyo,content_word_accommodation_per_conv,0.8333333
