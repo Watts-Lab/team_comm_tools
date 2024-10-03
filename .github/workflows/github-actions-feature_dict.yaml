@@ -3,7 +3,7 @@ name: Deploy feature_dict to AWS Lambda
 on:
   push:
     branches:
-      - 'amy/website'
+      - 'dev'
     paths:
       - 'src/team_comm_tools/feature_dict.py'
 
