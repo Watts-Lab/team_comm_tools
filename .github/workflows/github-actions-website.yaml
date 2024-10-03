@@ -3,7 +3,7 @@ name: Deploy Website on Commit
 on:
   push:
     branches:
-      - amy/website
+      - dev
     paths:
       - 'website/**'  # Only trigger when changes occur in the website folder
 
