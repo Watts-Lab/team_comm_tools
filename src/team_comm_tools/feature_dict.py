@@ -1,7 +1,3 @@
-# from .utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
-# from .utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
-# from .utils.preprocess import *
-
 from team_comm_tools.utils.calculate_chat_level_features import ChatLevelFeaturesCalculator
 from team_comm_tools.utils.calculate_conversation_level_features import ConversationLevelFeaturesCalculator
 from team_comm_tools.utils.preprocess import *
@@ -618,10 +614,3 @@ filtered_dict = {feature_name: {key: value for key, value in feature_data.items(
 
 with open('./filtered_dict.json', 'w') as json_file:
   json.dump(filtered_dict, json_file, indent=4)
-
-# @app.route('/features')
-# def get_features():
-#     return jsonify(filtered_dict)
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
