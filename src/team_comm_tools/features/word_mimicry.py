@@ -141,7 +141,7 @@ def Content_mimicry_score(df, column_count_frequency, column_count_mimic):
     # Compute the content_mimicry_score
     return df[column_count_mimic].apply(lambda x:computeTF(x, ContWordFreq))
 
-def Content_mimicry_score_per_conv(df, column_count_frequency, column_count_mimic):
+def Content_mimicry_score_per_conv(df, column_count_frequency, column_count_mimic, conversation_id):
     """
     Combine the steps to compute the content word mimicry score.
 
@@ -155,8 +155,8 @@ def Content_mimicry_score_per_conv(df, column_count_frequency, column_count_mimi
 
     """
     content_mimic_scores = []
-    for conv in df['conversation_num'].unique():
-        df_conv = df[df['conversation_num'] == conv]
+    for conv in df[conversation_id].unique():
+        df_conv = df[df[conversation_id] == conv]
         ContWordFreq = compute_frequency_per_conv(df_conv, column_count_frequency)
         content_mimic_scores.append(df_conv[column_count_mimic].apply(
             lambda x: computeTF(x, ContWordFreq)).tolist())

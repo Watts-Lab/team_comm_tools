@@ -298,9 +298,9 @@ def test_forward_flow_unit(batch):
     if feature not in tested_features:
         tested_features[feature] = {'passed': 0, 'failed': 0}
 
-    og_result = batch[0][1][feature]
-    inv_result = batch[1][1][feature]
-    dir_result = batch[2][1][feature]
+    og_result = round(batch[0][1][feature], 3)
+    inv_result = round(batch[1][1][feature], 3)
+    dir_result = round(batch[2][1][feature], 3)
 
     inv_distance = abs(og_result - inv_result)
     dir_distance = abs(og_result - dir_result)
