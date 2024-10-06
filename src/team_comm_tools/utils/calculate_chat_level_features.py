@@ -307,7 +307,7 @@ class ChatLevelFeaturesCalculator:
             self.chat_data, "content_words", "content_word_mimicry")
         
         # Compute the sum of inverse frequency of each content word that also occurred in the other’s immediately prior turn WITHIN CONVERSATIONS.
-        self.chat_data["content_word_accommodatio_per_conv"] = Content_mimicry_score_per_conv(
+        self.chat_data["content_word_accommodation_per_conv"] = Content_mimicry_score_per_conv(
             self.chat_data, "content_words", "content_word_mimicry")
 
         # Drop the function / content word columns -- we don't need them in the output
