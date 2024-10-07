@@ -1,4 +1,5 @@
 name: Deploy Website on Commit
+run-name: ${{ github.actor }} is deploying the website
 
 on:
   push:
