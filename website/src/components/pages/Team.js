@@ -25,10 +25,6 @@ const current = [
   {
     name: 'Amy Zheng',
     image: `${process.env.PUBLIC_URL}/amy.png`
-  },
-  {
-    name: 'Helena Zhou',
-    image: `${process.env.PUBLIC_URL}/helena.png`
   }
 ];
 
@@ -52,6 +48,10 @@ const alumni = [
   {
     name: 'Eric Zhong',
     image: `${process.env.PUBLIC_URL}/eric.jfif`
+  },
+  {
+    name: 'Helena Zhou',
+    image: `${process.env.PUBLIC_URL}/helena.png`
   }
 ];
 
