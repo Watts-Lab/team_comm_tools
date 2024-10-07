@@ -182,7 +182,7 @@ class ChatLevelFeaturesCalculator:
         :rtype: None
         """
         # Naive hedge (contains the word or not)
-        self.chat_data["hedge_naive"] = self.chat_data["hedge_words_lexical_per_100"].apply(is_hedged_sentence_1)
+        self.chat_data["hedge_naive"] = self.chat_data["hedge_words_lexical_wordcount"].apply(is_hedged_sentence_1)
 
     def calculate_textblob_sentiment(self) -> None:
         """
