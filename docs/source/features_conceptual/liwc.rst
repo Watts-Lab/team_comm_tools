@@ -21,9 +21,17 @@ Implementation
 ****************
 For each word in the LIWC lexicon, we use a regular expression to count the number of times the word appears. The regular expression captures word stems where relevant; for example, "certain*" would capture "certainty," "certainly," etc.
 
-All word counts are represented as a scaled rate of **number of words / 100 words**, per `Yeomans et al. (2023) <https://journals.sagepub.com/doi/pdf/10.1177/25152459231183919>`_, as this makes it easier to compare across conversations and utterances of varying lengths. We compute this as follows:
+**Note:** 
 
-Rate of word use / 100 words = count / utterance length * (utterance length / 100)
+- **In v.1.0.3 and earlier:**  
+  Word counts were presented as a scaled rate of **number of words per 100 words**, computed using the following formula:
+
+  .. code-block:: text
+
+      Rate of word use per 100 words = (count / utterance length) * (utterance length / 100)
+
+- **In v.1.0.4 and later:**  
+  Lexical values are represented as a **raw count** of the number of times they appear in the utteranc
 
 Interpreting the Feature 
 *************************

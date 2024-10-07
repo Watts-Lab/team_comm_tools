@@ -10,29 +10,26 @@ import pandas as pd
 import os
 from pathlib import Path
 
-def get_liwc_rate(regex, chat):
+def get_liwc_count(regex, chat):
 	""""
-	Computes the LIWC features as a rate per 100 words, per best practice (Yeomans et al. 2023; https://www.mikeyeomans.info/papers/PGCR_yeomans.pdf, p. 42)
-
-	We apply the following formula:
-	Rate of word use / 100 words = count / chat length * (chat length / 100)
+	Count the number of LIWC lexicon words
 
 	Args:
 		regex (str): The regular expression for the lexicon.
 		chat(str): The message (utterance) being analyzed.
 
 	Returns:
-		float: The rate at which the message uses words from a given lexicon.
+		float: The number of lexicon words present in the message
 	"""
 	if(len(chat) > 0):
-		return (len(re.findall(regex, chat))/(len(chat)))*(len(chat)/100)
+		return len(re.findall(regex, chat))
 	else:
 		return 0
 
 def liwc_features(chat_df: pd.DataFrame, message_col) -> pd.DataFrame:
 	"""
 		This function takes in the chat level input dataframe and computes lexical features 
-		(rates at which the message contains contains words from a given lexicon, such as LIWC).
+		(the number of words from a given lexicon, such as LIWC).
 			  
 	Args:
 		chat_df (pd.DataFrame): This is a pandas dataframe of the chat level features. Should contain 'message' column.
@@ -52,8 +49,8 @@ def liwc_features(chat_df: pd.DataFrame, message_col) -> pd.DataFrame:
 		# Return the lexical features stacked as columns
 		return pd.concat(
 			# Finding the # of occurrences of lexicons of each type for all the messages.
-			[pd.DataFrame(chat_df[message_col + "_original"].apply(lambda chat: get_liwc_rate(regex, chat)))\
-											.rename({message_col + "_original": lexicon_type + "_lexical_per_100"}, axis=1)\
+			[pd.DataFrame(chat_df[message_col + "_original"].apply(lambda chat: get_liwc_count(regex, chat)))\
+											.rename({message_col + "_original": lexicon_type + "_lexical_wordcount"}, axis=1)\
 				for lexicon_type, regex in lexicons_dict.items()], 
 			axis=1
 		)
