@@ -11,8 +11,8 @@ const current = [
     image: `${process.env.PUBLIC_URL}/priya.png`
   },
   {
-    name: 'Yashveer Singh Sohi',
-    image: `${process.env.PUBLIC_URL}/yashveer.png`
+    name: 'Evan Rowbotham',
+    image: `${process.env.PUBLIC_URL}/evan.png`
   },
   {
     name: 'Yuxuan Zhang',
@@ -21,6 +21,10 @@ const current = [
   {
     name: 'Amy Zheng',
     image: `${process.env.PUBLIC_URL}/amy.png`
+  },
+  {
+    name: 'Helena Zhou',
+    image: `${process.env.PUBLIC_URL}/helena.png`
   }
 ];
 
@@ -37,17 +41,13 @@ const alumni = [
     name: 'Nikhil Kumar',
     image: `${process.env.PUBLIC_URL}/nikhil.png`
   },
-    {
-    name: 'Evan Rowbotham',
-    image: `${process.env.PUBLIC_URL}/evan.png`
+  {
+    name: 'Yashveer Singh Sohi',
+    image: `${process.env.PUBLIC_URL}/yashveer.png`
   },
   {
     name: 'Eric Zhong',
     image: `${process.env.PUBLIC_URL}/eric.jfif`
-  },
-  {
-    name: 'Helena Zhou',
-    image: `${process.env.PUBLIC_URL}/helena.png`
   }
 ];
 
