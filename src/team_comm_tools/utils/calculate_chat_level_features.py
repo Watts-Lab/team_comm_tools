@@ -322,7 +322,7 @@ class ChatLevelFeaturesCalculator:
         :rtype: None
         """
         transformed_df = self.chat_data['message_lower_with_punc'].apply(get_politeness_strategies).apply(pd.Series)
-        transformed_df = transformed_df.rename(columns=lambda x: re.sub('^feature_politeness_==()','',x)[:-2].lower())
+        transformed_df = transformed_df.rename(columns=lambda x: re.sub('^feature_politeness_==()','', x)[:-2].lower() + "_politeness_convokit")
 
         # Concatenate the transformed dataframe with the original dataframe
         self.chat_data = pd.concat([self.chat_data, transformed_df], axis=1)
@@ -339,7 +339,9 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data = pd.concat([self.chat_data, get_politeness_v2(self.chat_data, 'message_lower_with_punc')], axis=1) 
+        receptiveness_df = get_politeness_v2(self.chat_data, 'message_lower_with_punc')
+        receptiveness_df = receptiveness_df.rename(columns=lambda x: f"{x}_receptiveness_yeomans")
+        self.chat_data = pd.concat([self.chat_data, receptiveness_df], axis=1) 
 
     def get_forward_flow(self) -> None:
         """
