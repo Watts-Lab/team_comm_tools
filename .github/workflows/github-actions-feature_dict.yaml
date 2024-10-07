@@ -1,4 +1,5 @@
 name: Deploy feature_dict to AWS Lambda
+run-name: ${{ github.actor }} is deploying the feature dictionary to AWS
 
 on:
   push:
