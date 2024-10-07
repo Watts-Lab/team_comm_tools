@@ -5,16 +5,6 @@
   "proxy": "https://5f9vk2anlb.execute-api.us-east-2.amazonaws.com/team-comm-tools-features/team-comm-tools",
   "private": true,
   "dependencies": {
-    "@babel/plugin-transform-class-properties": "^7.25.7",
-    "@babel/plugin-transform-nullish-coalescing-operator": "^7.25.7",
-    "@babel/plugin-transform-numeric-separator": "^7.25.7",
-    "@babel/plugin-transform-optional-chaining": "^7.25.7",
-    "@babel/plugin-transform-private-methods": "^7.25.7",
-    "@babel/plugin-transform-private-property-in-object": "^7.25.7",
-    "@eslint/config-array": "^0.18.0",
-    "@eslint/object-schema": "^2.1.4",
-    "glob": "^11.0.0",
-    "npm-force-resolutions": "^0.0.10",
     "react": "^18.3.1",
     "react-burger-menu": "^3.0.9",
     "react-dom": "^18.3.1",
@@ -25,7 +15,6 @@
     "web-vitals": "^4.2.3"
   },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
     "predeploy": "npm run build",
     "add-domain": "echo 'teamcommtools.seas.upenn.edu' > build/CNAME",
     "deploy": "gh-pages -d build",
@@ -53,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "gh-pages": "^6.1.1"
   }
 }
