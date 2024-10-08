@@ -56,11 +56,10 @@ from team_comm_tools import FeatureBuilder
 Once you import the tool, you will be able to declare a FeatureBuilder object, which is the heart of our tool. Here is some sample syntax:
 
 ```python
-# this section of code declares a FeatureBuilder object
 my_feature_builder = FeatureBuilder(
    input_df = my_pandas_dataframe,
    # this means there's a column in your data called 'conversation_id' that uniquely identifies a conversation
-   conversation_id_col = "conversation_id",  
+   conversation_id_col = "conversation_id",
    # this means there's a column in your data called 'speaker_id' that uniquely identifies a speaker
    speaker_id_col = "speaker_id",
    # this means there's a column in your data called 'messagae' that contains the content you want to featurize
@@ -69,14 +68,13 @@ my_feature_builder = FeatureBuilder(
    timestamp_col= "timestamp",
    # this is where we'll cache things like sentence vectors; this directory doesn't have to exist; we'll create it for you!
    vector_directory = "./vector_data/",
-   # give us names for the utterance (chat), speaker (user), and conversation-level outputs
-   output_file_path_chat_level = "./my_output_chat_level.csv", 
-   output_file_path_user_level = "./my_output_user_level.csv",
-   output_file_path_conv_level = "./my_output_conversation_level.csv",
-   # if true, this will combine successive turns by the same speaker.
+   # this will be the base file path for which we generate the three outputs;
+   # you will get your outputs in output/chat/my_output_chat_level.csv; output/conv/my_output_conv_level.csv; and output/user/my_output_user_level.
+   output_file_base = "my_output"
+   # it will also store the output into output/turns/my_output_chat_level.csv
    turns = False,
    # these features depend on sentence vectors, so they take longer to generate on larger datasets. Add them in manually if you are interested in adding them to your output!
-   custom_features = [  
+   custom_features = [
          "(BERT) Mimicry",
          "Moving Mimicry",
          "Forward Flow",
@@ -104,7 +102,7 @@ Notably, not all communication features are made equal, as they can be defined a
 2. The **speaker**, and
 3. The **conversation**
 
-**We generate a separate output file for each level.** When you declare a FeatureBuilder, you will need to specify an output path for each level of analysis.
+**We generate a separate output file for each level.** When you declare a FeatureBuilder, you can use the `output_file_base` to define a base path shared among all three levels, and an output path will be automatically generated for each level of analysis.
 
 For more information, please refer to the [Introduction on our Read the Docs Page](https://conversational-featurizer.readthedocs.io/en/latest/intro.html#intro).
 
