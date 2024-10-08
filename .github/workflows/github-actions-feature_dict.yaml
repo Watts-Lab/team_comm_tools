@@ -1,0 +1,60 @@
+name: Deploy feature_dict to AWS Lambda
+run-name: ${{ github.actor }} is deploying the feature dictionary to AWS
+
+on:
+  push:
+    branches:
+      - 'dev'
+    paths:
+      - 'src/team_comm_tools/feature_dict.py'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set Up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        ./setup.sh
+        pip install flask
+        pip install awscli
+
+    - name: Install package
+      run: pip install .
+
+    # Run the feature_dict.py file to generate filtered_dict.json
+    - name: Run feature_dict.py
+      run: |
+        cd src
+        cd team_comm_tools
+        python feature_dict.py
+  
+    - name: Package Lambda function
+      run: |
+        mkdir package
+        pip install --target ./package flask
+        cp src/team_comm_tools/feature_dict.py ./package  # Copies feature_dict.py
+        cp src/team_comm_tools/lambda_function.py ./package  # Copies lambda_function.py
+        cp src/team_comm_tools/filtered_dict.json ./package  # Copies filtered_dict.json
+        cd package
+        zip -r ../function.zip .  # Packages the Lambda function
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+  
+    - name: Update Lambda function
+      run: |
+        aws lambda update-function-code --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} --zip-file fileb://function.zip
