@@ -125,11 +125,10 @@
    <span class="n">timestamp_col</span><span class="o">=</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
    <span class="c1"># this is where we&#39;ll cache things like sentence vectors; this directory doesn&#39;t have to exist; we&#39;ll create it for you!</span>
    <span class="n">vector_directory</span> <span class="o">=</span> <span class="s2">&quot;./vector_data/&quot;</span><span class="p">,</span>
-   <span class="c1"># give us names for the utterance (chat), speaker (user), and conversation-level outputs</span>
-   <span class="n">output_file_path_chat_level</span> <span class="o">=</span> <span class="s2">&quot;./my_output_chat_level.csv&quot;</span><span class="p">,</span>
-   <span class="n">output_file_path_user_level</span> <span class="o">=</span> <span class="s2">&quot;./my_output_user_level.csv&quot;</span><span class="p">,</span>
-   <span class="n">output_file_path_conv_level</span> <span class="o">=</span> <span class="s2">&quot;./my_output_conversation_level.csv&quot;</span><span class="p">,</span>
-   <span class="c1"># if true, this will combine successive turns by the same speaker.</span>
+   <span class="c1"># this will be the base file path for which we generate the three outputs;</span>
+   <span class="c1"># you will get your outputs in output/chat/my_output_chat_level.csv; output/conv/my_output_conv_level.csv; and output/user/my_output_user_level.</span>
+   <span class="n">output_file_base</span> <span class="o">=</span> <span class="s2">&quot;my_output&quot;</span>
+   <span class="c1"># it will also store the output into output/turns/my_output_chat_level.csv</span>
    <span class="n">turns</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
    <span class="c1"># these features depend on sentence vectors, so they take longer to generate on larger datasets. Add them in manually if you are interested in adding them to your output!</span>
    <span class="n">custom_features</span> <span class="o">=</span> <span class="p">[</span>

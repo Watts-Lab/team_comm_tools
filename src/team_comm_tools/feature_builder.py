@@ -8,6 +8,7 @@ import numpy as np
 from pathlib import Path
 import time
 import itertools
+import warnings
 
 # Imports from feature files and classes
 from team_comm_tools.utils.download_resources import download
@@ -28,16 +29,19 @@ class FeatureBuilder:
     :param input_df: A pandas DataFrame containing the conversation data that you wish to featurize.
     :type input_df: pd.DataFrame 
     
-    :param vector_directory: Directory path where the vectors are to be cached.
+    :param vector_directory: Directory path where the vectors are to be cached. Defaults to "./vector_data/"
     :type vector_directory: str
+
+    :param output_file_base: Base name for the output files, which will be used to auto-generate filenames for each of the three levels. Defaults to "output."
+    :type output_file_base: str
     
-    :param output_file_path_chat_level: Path where the chat (utterance)-level output csv file is to be generated.
+    :param output_file_path_chat_level: Path where the chat (utterance)-level output csv file is to be generated. (This parameter will override the base name.)
     :type output_file_path_chat_level: str
 
-    :param output_file_path_user_level: Path where the user (speaker)-level output csv file is to be generated.
+    :param output_file_path_user_level: Path where the user (speaker)-level output csv file is to be generated. (This parameter will override the base name.)
     :type output_file_path_user_level: str
 
-    :param output_file_path_conv_level: Path where the conversation-level output csv file is to be generated.
+    :param output_file_path_conv_level: Path where the conversation-level output csv file is to be generated. (This parameter will override the base name.)
     :type output_file_path_conv_level: str
 
     :param custom_features: A list of additional features outside of the default features that should be calculated.
@@ -95,12 +99,13 @@ class FeatureBuilder:
     def __init__(
             self, 
             input_df: pd.DataFrame, 
-            vector_directory: str,
-            output_file_path_chat_level: str, 
-            output_file_path_user_level: str,
-            output_file_path_conv_level: str,
+            vector_directory: "./vector_data/",
+            output_file_base = "output",
+            output_file_path_chat_level = None, 
+            output_file_path_user_level = None,
+            output_file_path_conv_level = None,
             custom_features: list = [],
-            analyze_first_pct: list = [1.0], 
+            analyze_first_pct: list = [1.0],
             turns: bool=False,
             conversation_id_col: str = "conversation_num",
             speaker_id_col: str = "speaker_nickname",
@@ -115,15 +120,13 @@ class FeatureBuilder:
             compute_vectors_from_preprocessed: bool = False
         ) -> None:
 
-        #  Defining input and output paths.
+        # Defining input and output paths.
         self.chat_data = input_df.copy()
         self.orig_data = input_df.copy()
         self.ner_training = ner_training_df
         self.vector_directory = vector_directory
 
         print("Initializing Featurization...")
-        self.output_file_path_conv_level = output_file_path_conv_level
-        self.output_file_path_user_level = output_file_path_user_level
 
         # Set features to generate
         # TODO --- think through more carefully which ones we want to exclude and why
@@ -194,13 +197,6 @@ class FeatureBuilder:
                 if func not in self.feature_methods_conv:
                     self.feature_methods_conv.append(func)
 
-        # Basic error detetection
-        # user didn't specify a file name, or specified one with only nonalphanumeric chars
-        if not bool(self.output_file_path_conv_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_conv_level)):
-            raise ValueError("ERROR: Improper conversation-level output file name detected.")
-        if not bool(self.output_file_path_user_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_user_level)):
-            raise ValueError("ERROR: Improper user (speaker)-level output file name detected.")
-
         # drop all columns that are in our generated feature set --- we don't want to create confusion!
         chat_features = list(itertools.chain(*[self.feature_dict[feature]["columns"] for feature in self.feature_dict.keys() if self.feature_dict[feature]["level"] == "Chat"]))
         columns_to_drop = [col for col in chat_features if col in self.chat_data.columns]
@@ -240,23 +236,23 @@ class FeatureBuilder:
                 raise ValueError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
             raise ValueError("Conversation identifier not present in data.")
         if self.cumulative_grouping and len(grouping_keys) == 0:
-            print("WARNING: No grouping keys provided. Ignoring `cumulative_grouping` argument.")
+            warnings.warn("WARNING: No grouping keys provided. Ignoring `cumulative_grouping` argument.")
             self.cumulative_grouping = False
         if self.cumulative_grouping and len(grouping_keys) != 3:
-            print("WARNING: Can only perform cumulative grouping for three-layer nesting. Ignoring cumulative command and grouping by unique combinations in the grouping_keys.")
+            warnings.warn("WARNING: Can only perform cumulative grouping for three-layer nesting. Ignoring cumulative command and grouping by unique combinations in the grouping_keys.")
             self.cumulative_grouping = False
             self.conversation_id_col = "conversation_num"
         if self.cumulative_grouping and self.conversation_id_col not in self.grouping_keys:
             raise ValueError("Conversation identifier for cumulative grouping must be one of the grouping keys.")
         if self.grouping_keys and not self.cumulative_grouping and self.conversation_id_col != "conversation_num":
-            print("WARNING: When grouping by the unique combination of a list of keys (`grouping_keys`), the conversation identifier must be auto-generated (`conversation_num`) rather than a user-provided column. Resetting conversation_id.")
+            warnings.warn("WARNING: When grouping by the unique combination of a list of keys (`grouping_keys`), the conversation identifier must be auto-generated (`conversation_num`) rather than a user-provided column. Resetting conversation_id.")
             self.conversation_id_col = "conversation_num"
         
         self.preprocess_chat_data()
 
         # set new identifier column for cumulative grouping.
         if self.cumulative_grouping and len(grouping_keys) == 3:
-            print("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative conversations.")
+            warnings.warn("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative conversations.")
             self.conversation_id_col = "conversation_num"
 
         # Input columns are the columns that come in the raw chat data
@@ -284,8 +280,33 @@ class FeatureBuilder:
         - The inputted file name must be a valid, non-empty string
         - The inputted file name must not contain only special characters with no alphanumeric component
         """
+
+        # Use the output_file_base parameter to auto-generate paths (since we have a lot of assumptions in how the output path looks)
+        self.output_file_path_chat_level = output_file_path_chat_level
+        self.output_file_path_conv_level = output_file_path_conv_level
+        self.output_file_path_user_level = output_file_path_user_level
+
+        # Ensure output_file_base is alphanumeric + hyphens
+        if(re.sub('[^A-Za-z0-9_]', '', output_file_base) != output_file_base):
+            print('here1')
+            output_file_base = re.sub('[^A-Za-z0-9_]', '', output_file_base)
+            warnings.warn("WARNING: Special characters detected in output_file_base. These characters have been automatically removed.")
+
+        if self.output_file_path_chat_level is None:
+            self.output_file_path_chat_level = "./" + output_file_base + "_chat_level.csv"
+        if self.output_file_path_conv_level is None:
+            self.output_file_path_conv_level = "./" + output_file_base + "_conv_level.csv"
+        if self.output_file_path_user_level is None:
+            self.output_file_path_user_level = "./" + output_file_base + "_user_level.csv"
+
+        # Basic error detetection
+        if not bool(self.output_file_path_conv_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_conv_level)):
+            raise ValueError("ERROR: Improper conversation-level output file name detected.")
+        if not bool(self.output_file_path_user_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_user_level)):
+            raise ValueError("ERROR: Improper user (speaker)-level output file name detected.")
+
         # We assume that the base file name is the last item in the output path; we will use this to name the stored vectors.
-        if ('/' not in output_file_path_chat_level or 
+        if ('/' not in self.output_file_path_chat_level or 
             '/' not in self.output_file_path_conv_level or 
             '/' not in self.output_file_path_user_level):
             raise ValueError(
@@ -298,7 +319,7 @@ class FeatureBuilder:
             )
 
         try:
-            base_file_name = output_file_path_chat_level.split("/")[-1]
+            base_file_name = self.output_file_path_chat_level.split("/")[-1]
         except:
             raise ValueError("ERROR: Improper chat-level output file name detected.") 
 
@@ -306,18 +327,18 @@ class FeatureBuilder:
             raise ValueError("ERROR: Improper chat-level output file name detected.")
 
         try:
-            folder_type_name = output_file_path_chat_level.split("/")[-2]
+            folder_type_name = self.output_file_path_chat_level.split("/")[-2]
         except IndexError: # user didn't specify a folder, so we will have to append it for them
             folder_type_name = "turn" if self.turns else "chat"
-            output_file_path_chat_level = '/'.join(output_file_path_chat_level.split("/")[:-1]) + '/' + folder_type_name + '/' + base_file_name
+            self.output_file_path_chat_level = '/'.join(self.output_file_path_chat_level.split("/")[:-1]) + '/' + folder_type_name + '/' + base_file_name
 
         # We check whether the second to last item is a "folder type": either chat or turn.
         if folder_type_name not in ["chat", "turn"]: # user didn't specify the folder type, so we will append it for them
             folder_type_name = "turn" if self.turns else "chat"
-            output_file_path_chat_level = '/'.join(output_file_path_chat_level.split("/")[:-1]) + '/' + folder_type_name + '/' + base_file_name
+            self.output_file_path_chat_level = '/'.join(self.output_file_path_chat_level.split("/")[:-1]) + '/' + folder_type_name + '/' + base_file_name
 
         # Set file paths, ensuring correct subfolder type is added.
-        self.output_file_path_chat_level = re.sub(r'chat', r'turn', output_file_path_chat_level) if self.turns else output_file_path_chat_level
+        self.output_file_path_chat_level = re.sub(r'chat', r'turn', self.output_file_path_chat_level) if self.turns else self.output_file_path_chat_level
         if self.output_file_path_chat_level.split(".")[-1] != "csv": 
             self.output_file_path_chat_level = self.output_file_path_chat_level + ".csv"
         if not re.match(r"(.*\/|^)conv\/", self.output_file_path_conv_level):

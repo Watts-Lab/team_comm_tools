@@ -62,11 +62,10 @@ Once you import the tool, you will be able to declare a FeatureBuilder object, w
       timestamp_col= "timestamp",
       # this is where we'll cache things like sentence vectors; this directory doesn't have to exist; we'll create it for you!
       vector_directory = "./vector_data/",
-      # give us names for the utterance (chat), speaker (user), and conversation-level outputs
-      output_file_path_chat_level = "./my_output_chat_level.csv", 
-      output_file_path_user_level = "./my_output_user_level.csv",
-      output_file_path_conv_level = "./my_output_conversation_level.csv",
-      # if true, this will combine successive turns by the same speaker.
+      # this will be the base file path for which we generate the three outputs;
+      # you will get your outputs in output/chat/my_output_chat_level.csv; output/conv/my_output_conv_level.csv; and output/user/my_output_user_level.
+      output_file_base = "my_output"
+      # it will also store the output into output/turns/my_output_chat_level.csv
       turns = False,
       # these features depend on sentence vectors, so they take longer to generate on larger datasets. Add them in manually if you are interested in adding them to your output!
       custom_features = [  
