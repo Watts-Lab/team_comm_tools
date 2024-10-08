@@ -176,10 +176,16 @@ class FeatureBuilder:
             invalid_features_str = ', '.join(invalid_features)
             print(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
 
+        # keep track of which features we are generating
+        self.feature_names = self.default_features + self.custom_features
+        # remove named entities if we didn't pass in the column
+        if(self.ner_training is None):
+            self.feature_names.remove("Named Entity Recognition")
+
         # deduplicate functions and append them into a list for calculation
         self.feature_methods_chat = []
         self.feature_methods_conv = []
-        for feature in self.default_features + self.custom_features:
+        for feature in self.feature_names:
             level, func = self.feature_dict[feature]["level"], self.feature_dict[feature]['function']
             if level == 'Chat':
                 if func not in self.feature_methods_chat:
@@ -472,6 +478,12 @@ class FeatureBuilder:
             
             # Step 4. Write the feartures into the files defined in the output paths.
             print("All Done!")
+            
+            # Store column names of what we generated, so that the user can easily access them
+            self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
+            self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
+            self.conv_features_all =  [col for col in self.conv_data if col not in self.orig_data and col != 'conversation_num']
+            
             self.save_features()
 
     def preprocess_chat_data(self) -> None:
