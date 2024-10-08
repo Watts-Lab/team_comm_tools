@@ -3,7 +3,7 @@ convokit==3.0.0
 emoji==1.7.0
 flask==3.0.3
 gensim>=4.3.3
-nltk==3.8.1
+nltk==3.9.1
 numpy<2.0.0
 pandas==2.2.2
 pyphen==0.14.0
@@ -25,5 +25,6 @@ torch==2.4.1
 torchaudio==2.4.1
 torchvision==0.19.1
 transformers==4.44.0
+tqdm>=4.66.5
 tzdata>=2023.3
 tzlocal==5.2
