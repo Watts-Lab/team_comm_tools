@@ -48,14 +48,14 @@ Package Assumptions
 7. **Additional Columns**: Columns not required as inputs (conversation identifier, speaker identifier, message, and timestamp column(s)) are assumed to be metadata and won't be summarized in the featurization process.
 
 8. **Vector Data Cache**: Your data's vector data will be cached in **vector_directory**. This directory will be created if it doesn’t exist, but its contents should be reserved for cached vector files.
+   
+   * This parameter defaults to "vector_data/".
 
    * Note: v0.1.3 and earlier compute vectors using _preprocessed_ text by default, which drops capitalization and punctuation. However, this can affect the interpretation of sentiment vectors; for example, "Hello!" has more positive sentiment than "hello." Consequently, from v0.1.4 onwards, we compute vectors using the raw input text, including punctuation and capitalization. To restore this behavior, please set **compute_vectors_from_preprocessed** to True.
 
    * Additionally, we assume that empty messages are equivalent to "NaN vector," defined `here <https://raw.githubusercontent.com/Watts-Lab/team_comm_tools/refs/heads/main/src/team_comm_tools/features/assets/nan_vector.txt>`_.
 
-9. **Output Files**: We generate three outputs: **output_file_path_chat_level** (Utterance- or Chat-Level Features), **output_file_path_user_level** (Speaker- or User-Level Features), and **output_file_path_conv_level** (Conversation-Level Features).
-
-   * This should be a *path*, not just a filename. For example, "./my_file.csv", not just "my_file.csv."
+9. **Output File Base**: We generate three output files at different levels of analysis. (Utterance/Chat, Speaker/User, and Conversation). We recommend using the **output_file_base** parameter to give them all a common naming scheme (a string that will be used to automatically name all files). You can also name each of them individually, but there's some complexity (for now) that we explain in :ref:`output_file_details`.
 
 10. **Custom Features**: To save time, we exclude features that require computing sentence vectors by default. To access these features, use the **custom_features** parameter in your FeatureBuilder:
 

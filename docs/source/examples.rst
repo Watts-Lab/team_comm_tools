@@ -85,15 +85,16 @@ Now we are ready to call the FeatureBuilder on our data. All we need to do is de
 		timestamp_col = "timestamp",
 		grouping_keys = ["batch_num", "round_num"],
 		vector_directory = "./vector_data/",
-		output_file_path_chat_level = "./jury_output_chat_level.csv",
-		output_file_path_user_level = "./jury_output_user_level.csv",
-		output_file_path_conv_level = "./jury_output_conversation_level.csv",
+		output_file_base = "jury_output",
 		turns = True
 	)
 	jury_feature_builder.featurize()
 
 Basic Input Columns
 ^^^^^^^^^^^^^^^^^^^^
+
+Conversation Parameters
+"""""""""""""""""""""""""
 
 * The **input_df** parameter is where you pass in your dataframe. In this case, we want to run the FeatureBuilder on the juries data that we read in!
 
@@ -104,6 +105,8 @@ Basic Input Columns
 * The **message_col** refers to the name of the column containing the utterances/messages that you want to featurize. In our data, the name of this column is "message."
 
 	* If you do not pass anything in, "message" is the default value for this parameter.
+
+	* We assume that all messages are ordered chronologically.
 
 * The **timestamp_col** refers to the name of the column containing when each utterance was said. In this case, we have exactly one timestamp for each message, stored in "timestamp." 
 
@@ -125,7 +128,12 @@ Basic Input Columns
 
 		conversation_id_col = "batch_num"
 
+Vector Directory
+""""""""""""""""""
+
 * The **vector_directory** is the name of a directory in which we will store some pre-processed information. Some features require running inference from HuggingFace's `RoBERTa-based sentiment model <https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment>`_, and others require generating `SBERT vectors <https://sbert.net/>`_. These processes take time, and we cache the outputs so that subsequent runs of the FeatureBuilder on the same dataset will not take as much time. Therefore, we require you to pass in a location where you'd like us to save these outputs.
+
+	* By default, the directory is named "vector_data/."
 
 	* **Note that we do not require the name of the vector directory to be a folder that already exists**; if it doesn't exist, we will create it for you.
 
@@ -133,13 +141,26 @@ Basic Input Columns
 
 	* The **turns** parameter, which we will discuss later, controls whether or not you'd like the FeatureBuilder to treat successive utterances by the same individual as a single "turn," or whether you'd like them to be treated separately. We will cache different versions of outputs based on this parameter; we use a subfolder called "chats" (when **turns=False**) or "turns" (when **turns=True**).
 
-* There are three output files for each run of the FeatureBuilder, which mirror the three levels of analysis: utterance-, speaker-, and conversation-level. (Please see the section on `Generating Features: Utterance-, Speaker-, and Conversation-Level <intro#generating_features>`_ for more details.) However, this means that we require you to provide a path for where you would like us to store each of the output files; **output_file_path_chat_level** (Utterance- or Chat-Level Features), **output_file_path_user_level** (Speaker- or User-Level Features), and **output_file_path_conv_level** (Conversation-Level Features).
+.. _output_file_details:
+
+Output File Naming Details 
+""""""""""""""""""""""""""""
+
+* There are three output files for each run of the FeatureBuilder, which mirror the three levels of analysis: utterance-, speaker-, and conversation-level. (Please see the section on `Generating Features: Utterance-, Speaker-, and Conversation-Level <intro#generating_features>`_ for more details.) These are generated using the **output_file_base** parameter.
+
+	* **All of the outputs will be generated in a folder called "output."**
+
+	* Within the "output" folder, **we generate sub-folders such that the three files will be located in subfolders called "chat," "user," and "conv," respectively.**
+
+	* Similar to the **vector_directory** parameter, the "chat" directory will be renamed to "turn" depending on the value of the **turns** parameter.
+
+* It is possible to generate different names for each of the three output files, rather than using the same base file path by modifying **output_file_path_chat_level** (Utterance- or Chat-Level Features), **output_file_path_user_level** (Speaker- or User-Level Features), and **output_file_path_conv_level** (Conversation-Level Features). However, because outputs are organized in the specific locations described above, **we have specific requirements for inputting the output paths, and we will modify the path under the hood to match our file naming schema,** rather than saving the file directly to the specified location.
 
 	* We expect that you pass in a **path**, not just a filename. For example, the path needs to be "./my_file.csv", and not just "my_file.csv"; you will get an error if you pass in only a name without the "/".
 
-	* Regardless of your path location, we will automatically append the name "output" to the fornt of your file path, such that **all of the outputs will be generated in a folder called "output."**
+	* Regardless of your path location, we will automatically append the name "output" to the fornt of your file path.
 
-	* Within the "output" folder, **we will also generate sub-folders such that the three files will be located in subfolders called "chat," "user," and "conv," respectively.**
+	* Within the "output" folder, **we will also generate the chat/user/conv sub-folders.**
 
 	* If you pass in a path that already contains the above automatically-generated elements (for example, "./output/chat/my_chat_features.csv"), we will skip these steps and directly save it in the relevant folder.
 
@@ -153,13 +174,17 @@ Basic Input Columns
 
 		output_file_path_chat_level = "./output/chat/jury_output_chat_level.csv"
 
-	* And these two ways of specifying an output path are equivalent, assumign that turns=True:
+	* And these two ways of specifying an output path are equivalent, assuming that turns=True:
 
 	.. code-block:: python
 
 		output_file_path_chat_level = "./jury_output_turn_level.csv"
 
 		output_file_path_chat_level = "./output/turn/jury_output_turn_level.csv"
+
+
+Turns
+""""""
 
 * The **turns** parameter controls whether we want to treat successive messages from the same person as a single turn. For example, in a text conversation, sometimes individuals will send many message in rapid succession, as follows:
 
@@ -277,3 +302,62 @@ Here are some additional design details of the FeatureBuilder that you may wish 
 		* The only caveat to this rule is if you happen to have a column that is named exactly the same as one of the conversation features that we generate. In that case, your column will be overwritten. Please refer to `<https://teamcommtools.seas.upenn.edu/HowItWorks>`_ for a list of all the features we generate, along with their column names.
 
 	* **When summarizing features from the utterance level to the conversation and speaker level, we only consider numeric features.** This is perhaps a simplifying assumption more than anything else; although we do extract non-numeric information (for example, a Dale-Chall label of whether an utterance is "Easy" to ready or not; a list of named entities identified), we cannot summarize these efficiently, so they are not considered.
+
+Inspecting Generated Features
+++++++++++++++++++++++++++++++
+
+Feature Information
+^^^^^^^^^^^^^^^^^^^^^
+Every FeatureBuilder object has an underlying property called the **feature_dict**, which lists information and references about the features included in the toolkit. Assuming that **jury_feature_builder** is the name of your FeatureBuilder, you can access the feature dictionary as follows:
+
+.. code-block:: python
+
+   jury_feature_builder.feature_dict
+
+The keys of this dictionary are the formal feature names, and the value is a JSON blob with information about the feature or collection of features. A more nicely-displayed version of this dictionary is also available on our `website <https://teamcommtools.seas.upenn.edu/HowItWorks>`_.
+
+**New in v.0.1.4**: To access a list of the formal feature names that a FeatureBuilder will generate, you can use the **feature_names** property: 
+
+.. code-block:: python
+   
+   jury_feature_builder.feature_names # a list of formal feature names included in featurization (e.g., "Team Burstiness")
+
+You can also use the **feature_names** property in tandem with the **feature_dict** to learn more about a specific feature; for example, the following code will show the dictionary entry for the first feature in **feature_names**:
+
+.. code-block:: python
+
+	jury_feature_builder.feature_dict[jury_feature_builder.feature_names[0]]
+
+Here is some example output (for the RoBERTa sentiment feature):
+
+.. code-block:: text
+	
+	{'columns': ['positive_bert', 'negative_bert', 'neutral_bert'],
+	 'file': './utils/check_embeddings.py',
+	 'level': 'Chat',
+	 'semantic_grouping': 'Emotion',
+	 'description': 'The extent to which a statement is positive, negative, or neutral, as assigned by Cardiffnlp/twitter-roberta-base-sentiment-latest. The total scores (Positive, Negative, Neutral) sum to 1.',
+	 'references': '(Hugging Face, 2023)',
+	 'wiki_link': 'https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/positivity_bert.html',
+	 'function': <function team_comm_tools.utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.concat_bert_features(self) -> None>,
+	 'dependencies': [],
+	 'preprocess': [],
+	 'vect_data': False,
+	 'bert_sentiment_data': True}
+
+Feature Column Names
+^^^^^^^^^^^^^^^^^^^^^
+
+Once you call **.featurize()**, you can also obtain a convenient list of the feature columns generated by the toolkit:
+
+.. code-block:: python
+   
+   jury_feature_builder.chat_features # a list of the feature columns generated at the chat (utterance) level
+   jury_feature_builder.conv_features_base # a list of the base (non-aggregated) feature columns at the conversation level
+   jury_feature_builder.conv_features_all # a list of all feature columns at the conversation level, including aggregates
+
+These lists may be useful to you if you'd like to inspect which features in the output dataframe come from the FeatureBuilder; for example:
+
+.. code-block:: python
+
+	jury_output_chat_level[jury_feature_builder.chat_features]

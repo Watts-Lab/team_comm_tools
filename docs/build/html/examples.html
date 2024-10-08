@@ -66,6 +66,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#additional-featurebuilder-considerations">Additional FeatureBuilder Considerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspecting-generated-features">Inspecting Generated Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#feature-information">Feature Information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#feature-column-names">Feature Column Names</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -155,9 +160,7 @@
         <span class="n">timestamp_col</span> <span class="o">=</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
         <span class="n">grouping_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;batch_num&quot;</span><span class="p">,</span> <span class="s2">&quot;round_num&quot;</span><span class="p">],</span>
         <span class="n">vector_directory</span> <span class="o">=</span> <span class="s2">&quot;./vector_data/&quot;</span><span class="p">,</span>
-        <span class="n">output_file_path_chat_level</span> <span class="o">=</span> <span class="s2">&quot;./jury_output_chat_level.csv&quot;</span><span class="p">,</span>
-        <span class="n">output_file_path_user_level</span> <span class="o">=</span> <span class="s2">&quot;./jury_output_user_level.csv&quot;</span><span class="p">,</span>
-        <span class="n">output_file_path_conv_level</span> <span class="o">=</span> <span class="s2">&quot;./jury_output_conversation_level.csv&quot;</span><span class="p">,</span>
+        <span class="n">output_file_base</span> <span class="o">=</span> <span class="s2">&quot;jury_output&quot;</span><span class="p">,</span>
         <span class="n">turns</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="p">)</span>
 <span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">featurize</span><span class="p">()</span>
@@ -165,6 +168,8 @@
 </div>
 <section id="basic-input-columns">
 <h4>Basic Input Columns<a class="headerlink" href="#basic-input-columns" title="Link to this heading"></a></h4>
+<section id="conversation-parameters">
+<h5>Conversation Parameters<a class="headerlink" href="#conversation-parameters" title="Link to this heading"></a></h5>
 <ul>
 <li><p>The <strong>input_df</strong> parameter is where you pass in your dataframe. In this case, we want to run the FeatureBuilder on the juries data that we read in!</p></li>
 <li><p>The <strong>speaker_id_col</strong> refers to the name of the column containing a unique identifier for each speaker / participant in the conversation. Here, in the data, the name of our columns is called “speaker_nickname.”</p>
@@ -178,6 +183,7 @@
 <blockquote>
 <div><ul class="simple">
 <li><p>If you do not pass anything in, “message” is the default value for this parameter.</p></li>
+<li><p>We assume that all messages are ordered chronologically.</p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -203,21 +209,41 @@
 </div>
 </div></blockquote>
 </li>
+</ul>
+</section>
+<section id="vector-directory">
+<h5>Vector Directory<a class="headerlink" href="#vector-directory" title="Link to this heading"></a></h5>
+<ul>
 <li><p>The <strong>vector_directory</strong> is the name of a directory in which we will store some pre-processed information. Some features require running inference from HuggingFace’s <a class="reference external" href="https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment">RoBERTa-based sentiment model</a>, and others require generating <a class="reference external" href="https://sbert.net/">SBERT vectors</a>. These processes take time, and we cache the outputs so that subsequent runs of the FeatureBuilder on the same dataset will not take as much time. Therefore, we require you to pass in a location where you’d like us to save these outputs.</p>
 <blockquote>
 <div><ul class="simple">
+<li><p>By default, the directory is named “vector_data/.”</p></li>
 <li><p><strong>Note that we do not require the name of the vector directory to be a folder that already exists</strong>; if it doesn’t exist, we will create it for you.</p></li>
 <li><p>Inside the folder, we will store the RoBERTa outputs in a subfolder called “sentiment”, and the SBERT vectors in a subfolder called “sentence.” We will create both of these subfolders for you.</p></li>
 <li><p>The <strong>turns</strong> parameter, which we will discuss later, controls whether or not you’d like the FeatureBuilder to treat successive utterances by the same individual as a single “turn,” or whether you’d like them to be treated separately. We will cache different versions of outputs based on this parameter; we use a subfolder called “chats” (when <strong>turns=False</strong>) or “turns” (when <strong>turns=True</strong>).</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p>There are three output files for each run of the FeatureBuilder, which mirror the three levels of analysis: utterance-, speaker-, and conversation-level. (Please see the section on <a class="reference external" href="intro#generating_features">Generating Features: Utterance-, Speaker-, and Conversation-Level</a> for more details.) However, this means that we require you to provide a path for where you would like us to store each of the output files; <strong>output_file_path_chat_level</strong> (Utterance- or Chat-Level Features), <strong>output_file_path_user_level</strong> (Speaker- or User-Level Features), and <strong>output_file_path_conv_level</strong> (Conversation-Level Features).</p>
+</ul>
+</section>
+<section id="output-file-naming-details">
+<span id="output-file-details"></span><h5>Output File Naming Details<a class="headerlink" href="#output-file-naming-details" title="Link to this heading"></a></h5>
+<ul>
+<li><p>There are three output files for each run of the FeatureBuilder, which mirror the three levels of analysis: utterance-, speaker-, and conversation-level. (Please see the section on <a class="reference external" href="intro#generating_features">Generating Features: Utterance-, Speaker-, and Conversation-Level</a> for more details.) These are generated using the <strong>output_file_base</strong> parameter.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>All of the outputs will be generated in a folder called “output.”</strong></p></li>
+<li><p>Within the “output” folder, <strong>we generate sub-folders such that the three files will be located in subfolders called “chat,” “user,” and “conv,” respectively.</strong></p></li>
+<li><p>Similar to the <strong>vector_directory</strong> parameter, the “chat” directory will be renamed to “turn” depending on the value of the <strong>turns</strong> parameter.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>It is possible to generate different names for each of the three output files, rather than using the same base file path by modifying <strong>output_file_path_chat_level</strong> (Utterance- or Chat-Level Features), <strong>output_file_path_user_level</strong> (Speaker- or User-Level Features), and <strong>output_file_path_conv_level</strong> (Conversation-Level Features). However, because outputs are organized in the specific locations described above, <strong>we have specific requirements for inputting the output paths, and we will modify the path under the hood to match our file naming schema,</strong> rather than saving the file directly to the specified location.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>We expect that you pass in a <strong>path</strong>, not just a filename. For example, the path needs to be “./my_file.csv”, and not just “my_file.csv”; you will get an error if you pass in only a name without the “/”.</p></li>
-<li><p>Regardless of your path location, we will automatically append the name “output” to the fornt of your file path, such that <strong>all of the outputs will be generated in a folder called “output.”</strong></p></li>
-<li><p>Within the “output” folder, <strong>we will also generate sub-folders such that the three files will be located in subfolders called “chat,” “user,” and “conv,” respectively.</strong></p></li>
+<li><p>Regardless of your path location, we will automatically append the name “output” to the fornt of your file path.</p></li>
+<li><p>Within the “output” folder, <strong>we will also generate the chat/user/conv sub-folders.</strong></p></li>
 <li><p>If you pass in a path that already contains the above automatically-generated elements (for example, “./output/chat/my_chat_features.csv”), we will skip these steps and directly save it in the relevant folder.</p></li>
 <li><p>Similar to the <strong>vector_directory</strong> parameter, the “chat” directory will be renamed to “turn” depending on the value of the <strong>turns</strong> parameter.</p></li>
 <li><p>This means that the following two ways of specifying an output path are equivalent, assuming that turns=False:</p></li>
@@ -228,7 +254,7 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>And these two ways of specifying an output path are equivalent, assumign that turns=True:</p></li>
+<li><p>And these two ways of specifying an output path are equivalent, assuming that turns=True:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">output_file_path_chat_level</span> <span class="o">=</span> <span class="s2">&quot;./jury_output_turn_level.csv&quot;</span>
 
@@ -237,6 +263,11 @@
 </div>
 </div></blockquote>
 </li>
+</ul>
+</section>
+<section id="turns">
+<h5>Turns<a class="headerlink" href="#turns" title="Link to this heading"></a></h5>
+<ul>
 <li><p>The <strong>turns</strong> parameter controls whether we want to treat successive messages from the same person as a single turn. For example, in a text conversation, sometimes individuals will send many message in rapid succession, as follows:</p>
 <blockquote>
 <div><ul>
@@ -254,6 +285,7 @@
 </div></blockquote>
 </li>
 </ul>
+</section>
 </section>
 <section id="advanced-configuration-columns">
 <h4>Advanced Configuration Columns<a class="headerlink" href="#advanced-configuration-columns" title="Link to this heading"></a></h4>
@@ -372,6 +404,53 @@
 <li><p><strong>When summarizing features from the utterance level to the conversation and speaker level, we only consider numeric features.</strong> This is perhaps a simplifying assumption more than anything else; although we do extract non-numeric information (for example, a Dale-Chall label of whether an utterance is “Easy” to ready or not; a list of named entities identified), we cannot summarize these efficiently, so they are not considered.</p></li>
 </ul>
 </div></blockquote>
+</section>
+<section id="inspecting-generated-features">
+<h3>Inspecting Generated Features<a class="headerlink" href="#inspecting-generated-features" title="Link to this heading"></a></h3>
+<section id="feature-information">
+<h4>Feature Information<a class="headerlink" href="#feature-information" title="Link to this heading"></a></h4>
+<p>Every FeatureBuilder object has an underlying property called the <strong>feature_dict</strong>, which lists information and references about the features included in the toolkit. Assuming that <strong>jury_feature_builder</strong> is the name of your FeatureBuilder, you can access the feature dictionary as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">feature_dict</span>
+</pre></div>
+</div>
+<p>The keys of this dictionary are the formal feature names, and the value is a JSON blob with information about the feature or collection of features. A more nicely-displayed version of this dictionary is also available on our <a class="reference external" href="https://teamcommtools.seas.upenn.edu/HowItWorks">website</a>.</p>
+<p><strong>New in v.0.1.4</strong>: To access a list of the formal feature names that a FeatureBuilder will generate, you can use the <strong>feature_names</strong> property:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">feature_names</span> <span class="c1"># a list of formal feature names included in featurization (e.g., &quot;Team Burstiness&quot;)</span>
+</pre></div>
+</div>
+<p>You can also use the <strong>feature_names</strong> property in tandem with the <strong>feature_dict</strong> to learn more about a specific feature; for example, the following code will show the dictionary entry for the first feature in <strong>feature_names</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">feature_dict</span><span class="p">[</span><span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">feature_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>Here is some example output (for the RoBERTa sentiment feature):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{&#39;columns&#39;: [&#39;positive_bert&#39;, &#39;negative_bert&#39;, &#39;neutral_bert&#39;],
+ &#39;file&#39;: &#39;./utils/check_embeddings.py&#39;,
+ &#39;level&#39;: &#39;Chat&#39;,
+ &#39;semantic_grouping&#39;: &#39;Emotion&#39;,
+ &#39;description&#39;: &#39;The extent to which a statement is positive, negative, or neutral, as assigned by Cardiffnlp/twitter-roberta-base-sentiment-latest. The total scores (Positive, Negative, Neutral) sum to 1.&#39;,
+ &#39;references&#39;: &#39;(Hugging Face, 2023)&#39;,
+ &#39;wiki_link&#39;: &#39;https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/positivity_bert.html&#39;,
+ &#39;function&#39;: &lt;function team_comm_tools.utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.concat_bert_features(self) -&gt; None&gt;,
+ &#39;dependencies&#39;: [],
+ &#39;preprocess&#39;: [],
+ &#39;vect_data&#39;: False,
+ &#39;bert_sentiment_data&#39;: True}
+</pre></div>
+</div>
+</section>
+<section id="feature-column-names">
+<h4>Feature Column Names<a class="headerlink" href="#feature-column-names" title="Link to this heading"></a></h4>
+<p>Once you call <strong>.featurize()</strong>, you can also obtain a convenient list of the feature columns generated by the toolkit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">chat_features</span> <span class="c1"># a list of the feature columns generated at the chat (utterance) level</span>
+<span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">conv_features_base</span> <span class="c1"># a list of the base (non-aggregated) feature columns at the conversation level</span>
+<span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">conv_features_all</span> <span class="c1"># a list of all feature columns at the conversation level, including aggregates</span>
+</pre></div>
+</div>
+<p>These lists may be useful to you if you’d like to inspect which features in the output dataframe come from the FeatureBuilder; for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jury_output_chat_level</span><span class="p">[</span><span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">chat_features</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 </section>

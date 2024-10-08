@@ -31,6 +31,7 @@ MANIFEST
 .DS_Store
 
 # unwanted files
+*/filtered_dict.json
 src/team_comm_tools/features/lexicons/liwc_lexicons/*
 src/team_comm_tools/features/lexicons/liwc_lexicons_small_test/*
 src/team_comm_tools/features/lexicons/certainty.txt
