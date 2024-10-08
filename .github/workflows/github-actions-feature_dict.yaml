@@ -36,7 +36,7 @@ jobs:
       run: |
         cd src
         cd team_comm_tools
-        python feature_dict.py
+        python feature_dict.py run
   
     - name: Package Lambda function
       run: |
