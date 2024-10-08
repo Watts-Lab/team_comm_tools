@@ -102,6 +102,9 @@ Basic Input Columns
 Conversation Parameters
 **************************
 
+Conversation Parameters
+"""""""""""""""""""""""""
+
 * The **input_df** parameter is where you pass in your dataframe. In this case, we want to run the FeatureBuilder on the juries data that we read in!
 
 * The **speaker_id_col** refers to the name of the column containing a unique identifier for each speaker / participant in the conversation. Here, in the data, the name of our columns is called "speaker_nickname."
