@@ -58,5 +58,6 @@ node_modules/
 /vector_data
 test.py
 
-
+james/all_utterances.csv
+james/vector_data/*
 
