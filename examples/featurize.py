@@ -41,7 +41,6 @@ if __name__ == "__main__":
 	tiny_juries_feature_builder = FeatureBuilder(
 		input_df = tiny_juries_df,
 		grouping_keys = ["batch_num", "round_num"],
-		vector_directory = "./vector_data/",
 		output_file_base = "jury_TINY_output", # Naming output files using the output_file_base parameter (recommended)
 		turns = False,
 		custom_features = [
@@ -56,7 +55,6 @@ if __name__ == "__main__":
 	tiny_multi_task_feature_builder = FeatureBuilder(
 		input_df = tiny_multi_task_df,
 		conversation_id_col = "stageId",
-		vector_directory = "./vector_data/",
 		# alternatively, you can name each output file separately. NOTE, however, that we don't directly use this path;
 		# we modify the path to place outputs within the `output/chat`, `output/conv`, and `output/user` folders.
 		output_file_path_chat_level = "./multi_task_TINY_output_chat_level_stageId_cumulative.csv",
