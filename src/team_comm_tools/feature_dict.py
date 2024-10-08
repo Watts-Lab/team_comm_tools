@@ -4,6 +4,7 @@ from team_comm_tools.utils.preprocess import *
 
 from flask import Flask, jsonify
 import json
+import sys
 
 app = Flask(__name__)
 
@@ -607,10 +608,15 @@ feature_dict = { # TODO: customize preprocess methods
   }
 }
 
-keys_to_keep = ["columns", "file", "level", "semantic_grouping", "description", "references", "wiki_link"]
+def generate_filtered_dict():
 
-filtered_dict = {feature_name: {key: value for key, value in feature_data.items() if key in keys_to_keep}
+  keys_to_keep = ["columns", "file", "level", "semantic_grouping", "description", "references", "wiki_link"]
+
+  filtered_dict = {feature_name: {key: value for key, value in feature_data.items() if key in keys_to_keep}
                  for feature_name, feature_data in feature_dict.items()}
+  with open('./filtered_dict.json', 'w') as json_file:
+    json.dump(filtered_dict, json_file, indent=4)
 
-with open('./filtered_dict.json', 'w') as json_file:
-  json.dump(filtered_dict, json_file, indent=4)
+if __name__ == "__main__":
+  if len(sys.argv) > 1 and sys.argv[1] == 'run':
+      generate_filtered_dict()
