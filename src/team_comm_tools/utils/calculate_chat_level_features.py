@@ -225,7 +225,7 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data['dale_chall_score'] = self.chat_data[self.message_col].apply(
+        self.chat_data['dale_chall_score'] = self.chat_data["message_lower_with_punc"].apply(
             lambda x: dale_chall_helper(x, easy_words=self.easy_dale_chall_words))
         self.chat_data['dale_chall_classification'] = self.chat_data['dale_chall_score'].apply(
             classify_text_dalechall)

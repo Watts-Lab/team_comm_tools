@@ -5,20 +5,48 @@ import pyphen
 
 from .basic_features import count_words
 
+# Source: https://datascience.stackexchange.com/questions/23376/how-to-get-the-number-of-syllables-in-a-word/89312#89312
 # Define the function to calculate the Dale-Chall score
-def count_syllables(word):
-    """
-    Count the number of syllables in a word.
-    
-    Args:
-        word(str): The input word.
+VOWEL_RUNS = re.compile("[aeiouy]+", flags=re.I)
+EXCEPTIONS = re.compile(
+    # fixes trailing e issues:
+    # smite, scared
+    "[^aeiou]e[sd]?$|"
+    # fixes adverbs:
+    # nicely
+    + "[^e]ely$",
+    flags=re.I
+)
+ADDITIONAL = re.compile(
+    # fixes incorrect subtractions from exceptions:
+    # smile, scarred, raises, fated
+    "[^aeioulr][lr]e[sd]?$|[csgz]es$|[td]ed$|"
+    # fixes miscellaneous issues:
+    # flying, piano, video, prism, fire, evaluate
+    + ".y[aeiou]|ia(?!n$)|eo|ism$|[^aeiou]ire$|[^gq]ua",
+    flags=re.I
+)
 
-    Returns:
-        int: The number of syllables in the word.
-    """
-    dic = pyphen.Pyphen(lang='en')
-    pyphen_result = dic.inserted(word)
-    return len(re.findall(r"-", pyphen_result))
+def count_syllables(word):
+    vowel_runs = len(VOWEL_RUNS.findall(word))
+    exceptions = len(EXCEPTIONS.findall(word))
+    additional = len(ADDITIONAL.findall(word))
+    return max(1, vowel_runs - exceptions + additional)
+
+
+# def count_syllables(word):
+#     """
+#     Count the number of syllables in a word.
+    
+#     Args:
+#         word(str): The input word.
+
+#     Returns:
+#         int: The number of syllables in the word.
+#     """
+#     dic = pyphen.Pyphen(lang='en')
+#     pyphen_result = dic.inserted(word)
+#     return len(re.findall(r"-", pyphen_result))
 
 def count_difficult_words(text, easy_words):
     """
@@ -72,7 +100,14 @@ def dale_chall_helper(text, **easy_words):
     """
 
     num_words = count_words(text)
-    num_sentences = len(re.split(r'[.?!]\s*', text)) 
+    sentences = re.split(r'[.?!]\s*', text)
+    # print(text)
+    sentences = [x for x in sentences if x]
+    num_sentences = len(sentences)
+
+
+    if num_sentences == 0:
+        return 0
     avg_sentence_length = num_words/num_sentences
     num_difficult_words = count_difficult_words(text, easy_words)
 

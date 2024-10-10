@@ -29,5 +29,11 @@ def get_info_exchange_wordcount(df, first_person, message_col):
 
   '''
   first_person_regex = " | ".join(first_person)
+  # TODO: fix join statement to include start and end of sentence characters
+  # print(first_person_regex)
+  # for entry in df[message_col]:
+  #   print(entry)
+  #   print(re.findall(first_person_regex, entry))
   df['first_person_raw'] = df[message_col].apply(lambda chat: len(re.findall(first_person_regex, chat)))
+  # print(df['first_person_raw'])
   return (df["num_words"] - df["first_person_raw"])

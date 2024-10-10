@@ -7,6 +7,8 @@ import logging
 import itertools
 
 test_chat_df = pd.read_csv("./output/chat/test_chat_level_chat.csv")
+test_info_exchange_zscore_df = pd.read_csv("./output/chat/info_exchange_zscore_chats.csv")
+test_chat_df = pd.concat([test_chat_df, test_info_exchange_zscore_df], axis=0)
 test_conv_df = pd.read_csv("./output/conv/test_conv_level_conv.csv")
 test_chat_complex_df = pd.read_csv(
     "./output/chat/test_chat_level_chat_complex.csv")
@@ -58,7 +60,10 @@ def test_chat_unit_equality(row):
         tested_features[row[1]['expected_column']] = {'passed': 0, 'failed': 0}
 
     try:
-        assert round(float(actual), 3) == round(float(expected), 3)
+        if (type(actual) == str):
+            assert actual == expected
+        else:
+            assert round(float(actual), 3) == round(float(expected), 3)
         tested_features[row[1]['expected_column']]['passed'] += 1
     except AssertionError:
         tested_features[row[1]['expected_column']]['failed'] += 1
