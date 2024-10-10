@@ -609,7 +609,7 @@ feature_dict = { # TODO: customize preprocess methods
 }
 
 def generate_filtered_dict():
-
+  
   keys_to_keep = ["columns", "file", "level", "semantic_grouping", "description", "references", "wiki_link"]
 
   filtered_dict = {feature_name: {key: value for key, value in feature_data.items() if key in keys_to_keep}
