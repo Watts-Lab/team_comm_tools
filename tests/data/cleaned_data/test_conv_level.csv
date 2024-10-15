@@ -82,15 +82,3 @@ F, A,, ill just keep talking!,gini_coefficient_sum_num_ chars,0.75
 F, X,,,gini_coefficient_sum_num_chars,0.75
 F, Y,,,gini_coefficient_sum_num_chars,0.75
 F, Z,,,gini_coefficient_sum_num_chars,0.75
-00,1,,first,sum_num_messages,3
-00,1,,first,sum_num_messages,3
-00,1,,first,sum_num_messages,3
-01,2,,second,sum_num_messages,4
-01,2,,second,sum_num_messages,4
-01,2,,second,sum_num_messages,4
-01,2,,second,sum_num_messages,4
-02,3,,third,sum_num_messages,5
-02,3,,third,sum_num_messages,5
-02,3,,third,sum_num_messages,5
-02,3,,third,sum_num_messages,5
-02,3,,third,sum_num_messages,5

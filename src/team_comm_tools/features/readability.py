@@ -64,8 +64,8 @@ def count_difficult_words(text, easy_words):
     difficult_words = 0
     # recall that words are already pre-processed; substitute punctuation here for words only
     words = re.sub(r"[^a-zA-Z0-9 ]+", '',text).split()
-
     remaining_words = [i for i in words if not i in easy_words]
+    # print(remaining_words)
 
     for word in remaining_words:
         # words with more than 3 syllables are difficult
@@ -74,7 +74,7 @@ def count_difficult_words(text, easy_words):
     
     return difficult_words
 
-def dale_chall_helper(text, **easy_words):
+def dale_chall_helper(text, easy_words):
     """
      Calculate the Dale-Chall readability score of a text. The Dale-Chall score are defined as:
 
@@ -101,7 +101,6 @@ def dale_chall_helper(text, **easy_words):
 
     num_words = count_words(text)
     sentences = re.split(r'[.?!]\s*', text)
-    # print(text)
     sentences = [x for x in sentences if x]
     num_sentences = len(sentences)
 

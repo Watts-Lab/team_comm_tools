@@ -1,15 +1,4 @@
 conversation_num,speaker_nickname,message,expected_column,expected_value
-1,A,Hello I like fish.,num_words,4.0
-1,B,This sentence has five words.,num_words,5.0
-2,A,Hello??,num_words,1.0
-2,B,Is 4 a word?,num_words,4.0
-3,A,.,num_words,0.0
-4,test_A,"HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI""",num_all_caps,9.0
-4,test_B,ONE TWO THREE. four five six. sEvEn EiGhT nInE.,num_all_caps,3.0
-4,test_A,Check out this [link](https://example.com) and this one http://example.org,num_links,2.0
-4,test_B,I like google.com and wikipedia.org but not amazon.com,num_links,3.0
-4,test_A,why don't you read everything at https://www.example.com and https://www.example.org and https://www.example.net and https://www.example.ca and https://www.example.co.uk,num_links,5.0
-conversation_num,speaker_nickname,chat,expected_column,expected_value
 1,A,Hello I like fish.,num_words,4
 1,B,This sentence has five words.,num_words,5
 2,A,Hello??,num_words,1
@@ -735,10 +724,13 @@ G,1,what is going on,word_TTR,1
 G,3,what what,word_TTR,0.5
 G,2,what what is that,word_TTR,0.75
 H,1,fantastic difficulty,dale_chall_score,19.5257
-H,3,discover direction different,dale_chall_score,19.5753
+H,3,discover direction different,dale_chall_score,0.1488
 H,3,trying quote random,dale_chall_score,0.1488
+H,3,erase eraser errand every even dig dim dime dine computer,dale_chall_score,5.7115
 H,2,even this is magnificent!,dale_chall_score,7.7824
 H,4,even this is magnificent! even this is magnificent!,dale_chall_score,7.7824
 H,1,fantastic difficulty,dale_chall_classification,difficult
-H,3,discover direction different,dale_chall_classification,difficult
+H,3,trying quote random,dale_chall_classification,easy
+H,3,erase eraser errand every even dig dim dime dine computer,dale_chall_classification,medium
+H,3,discover direction different,dale_chall_classification,easy
 H,4,even this is magnificent! even this is magnificent!,dale_chall_classification,difficult

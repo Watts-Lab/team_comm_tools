@@ -45,8 +45,7 @@ if __name__ == "__main__":
             "Discursive Diversity"
         ],
 		turns = False,
-		regenerate_vectors = True,
-		message_col="chat"
+		regenerate_vectors = True
 	)
 	testing_chat.featurize()
 
@@ -63,25 +62,26 @@ if __name__ == "__main__":
     #         "Discursive Diversity"
     #     ],
 	# 	turns = False,
-	#	regenerate_vectors = True
+	# 	regenerate_vectors = True
 	# )
 	# testing_info_exchange.featurize()
 
-	# testing_conv = FeatureBuilder(
-	# 	input_df = conv_df,
-	# 	vector_directory = "./vector_data/",
-	# 	output_file_path_chat_level = "./output/chat/test_conv_level_chat.csv",
-	# 	output_file_path_user_level = "./output/user/test_conv_level_user.csv",
-	# 	output_file_path_conv_level = "./output/conv/test_conv_level_conv.csv",
-	# 	custom_features = [
-    #         "(BERT) Mimicry",
-    #         "Moving Mimicry",
-    #         "Forward Flow",
-    #         "Discursive Diversity"
-    #     ],
-	# 	turns = False
-	# )
-	# testing_conv.featurize()
+	testing_conv = FeatureBuilder(
+		input_df = conv_df,
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_conv_level_chat.csv",
+		output_file_path_user_level = "./output/user/test_conv_level_user.csv",
+		output_file_path_conv_level = "./output/conv/test_conv_level_conv.csv",
+		custom_features = [
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Forward Flow",
+            "Discursive Diversity"
+        ],
+		turns = False,
+		regenerate_vectors = True
+	)
+	testing_conv.featurize()
 
 	# test_ner_feature_builder = FeatureBuilder(
 	# 	input_df = test_ner_df,
@@ -96,7 +96,8 @@ if __name__ == "__main__":
     #         "Forward Flow",
     #         "Discursive Diversity"
     #     ],
-	# 	turns = False
+	# 	turns = False,
+	# 	regenerate_vectors = True
 	# )
 	# test_ner_feature_builder.featurize()
 
@@ -113,26 +114,28 @@ if __name__ == "__main__":
     #         "Forward Flow",
     #         "Discursive Diversity"
     #     ],
-	# 	turns = False
+	# 	turns = False,
+	# 	regenerate_vectors = True
 	# )
 	# testing_chat_complex.featurize()
 
-	# # testing conv features
-	# testing_conv_complex = FeatureBuilder(
-	# 	input_df = conv_complex_df,
-	# 	vector_directory = "./vector_data/",
-	# 	output_file_path_chat_level = "./output/chat/test_conv_level_chat_complex.csv",
-	# 	output_file_path_user_level = "./output/user/test_conv_level_user_complex.csv",
-	# 	output_file_path_conv_level = "./output/conv/test_conv_level_conv_complex.csv",
-	# 	custom_features = [
-    #         "(BERT) Mimicry",
-    #         "Moving Mimicry",
-    #         "Forward Flow",
-    #         "Discursive Diversity"
-    #     ],
-	# 	turns = False
-	# )
-	# testing_conv_complex.featurize()
+	# testing conv features
+	testing_conv_complex = FeatureBuilder(
+		input_df = conv_complex_df,
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_conv_level_chat_complex.csv",
+		output_file_path_user_level = "./output/user/test_conv_level_user_complex.csv",
+		output_file_path_conv_level = "./output/conv/test_conv_level_conv_complex.csv",
+		custom_features = [
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Forward Flow",
+            "Discursive Diversity"
+        ],
+		turns = False,
+		regenerate_vectors = True
+	)
+	testing_conv_complex.featurize()
 
 	# testing_conv_complex_ts = FeatureBuilder(
 	# 	input_df = conv_complex_timestamps_df,
@@ -146,11 +149,12 @@ if __name__ == "__main__":
     #         "Forward Flow",
     #         "Discursive Diversity"
     #     ],
-	# 	turns = False
+	# 	turns = False,
+	# 	regenerate_vectors = True
 	# )
 	# testing_conv_complex_ts.featurize()
 
-	# # testing forward flow
+	# testing forward flow
 	# testing_forward_flow = FeatureBuilder(
 	# 	input_df = test_forward_flow_df,
 	# 	vector_directory = "./vector_data/",
@@ -163,7 +167,8 @@ if __name__ == "__main__":
 	# 		"Forward Flow",
 	# 		"Discursive Diversity"
 	# 	],
-	# 	turns = False
+	# 	turns = False,
+	# 	regenerate_vectors = True
 	# )
 
 	# testing_forward_flow.featurize()
