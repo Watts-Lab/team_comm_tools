@@ -56,7 +56,7 @@ class UserLevelFeaturesCalculator:
             self.columns_to_summarize = [column for column in self.chat_data.columns \
                                         if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
         else:
-            if user_aggregation == True and len(user_columns) == 0:
+            if user_aggregation == True and (len(user_columns) == 0 or len(user_methods) == 0):
                 print("Warning: user_aggregation is True but no user_columns specified. Defaulting user_aggregation to False.")
                 self.user_aggregation = False
             else:
@@ -80,26 +80,28 @@ class UserLevelFeaturesCalculator:
                             print(i, "not found in data and no close match.")
 
                 self.columns_to_summarize = user_columns_in_data
+                
+                # ensure all lowercase
+                self.user_methods = [col.lower() for col in self.user_methods]
+                self.columns_to_summarize = [col.lower() for col in self.columns_to_summarize]
+                
+                # replace interchangable words in columns_to_summarize
+                for i in range(len(self.user_methods)):
+                    if self.user_methods[i] == "average":
+                        self.user_methods[i] = "mean"
+                    if self.user_methods[i] == "maximum":
+                        self.user_methods[i] = "max"
+                    if self.user_methods[i] == "minimum":
+                        self.user_methods[i] = "min"
+                    if self.user_methods[i] == "standard deviation":
+                        self.user_methods[i] = "stdev"
+                    if self.user_methods[i] == "sd":
+                        self.user_methods[i] = "stdev"
+                    if self.user_methods[i] == "std":
+                        self.user_methods[i] = "stdev"
 
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
-        
-        # ensure all lowercase
-        self.user_methods = [col.lower() for col in self.user_methods]
-        self.columns_to_summarize = [col.lower() for col in self.columns_to_summarize]
-        
-        # replace interchangable words in columns_to_summarize
-        for i in range(len(self.user_methods)):
-            if self.user_methods[i] == "average":
-                self.user_methods[i] = "mean"
-            elif self.user_methods[i] == "maximum":
-                self.user_methods[i] = "max"
-            elif self.user_methods[i] == "minimum":
-                self.user_methods[i] = "min"
-            elif self.user_methods[i] == "standard deviation":
-                self.user_methods[i] = "stdev"
-            elif self.user_methods[i] == "sd":
-                self.user_methods = "stdev"
-
+                
     def calculate_user_level_features(self) -> pd.DataFrame:
         """
         Main driver function for creating user-level features.
