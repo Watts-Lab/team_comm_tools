@@ -7,6 +7,7 @@ from team_comm_tools.features.information_diversity import *
 from team_comm_tools.utils.summarize_features import *
 from team_comm_tools.utils.gini_coefficient import *
 from team_comm_tools.utils.preprocess import *
+from fuzzywuzzy import process
 
 class ConversationLevelFeaturesCalculator:
     """
@@ -29,13 +30,13 @@ class ConversationLevelFeaturesCalculator:
     :type input_columns: list
     :param convo_aggregation: If true, will aggregate features at the conversational level
     :type convo_aggregation: bool
-    :param convo_methods: Specifies which functions users want to aggregate with (e.g., mean, std...)
+    :param convo_methods: Specifies which functions users want to aggregate with (e.g., mean, stdev...)
     :type convo_methods: list
     :param convo_columns: Specifies which columns (at the chat level) users want aggregated
     :type convo_columns: list
     :param user_aggregation: If true, will aggregate features at the user level
     :type convo_aggregation: bool
-    :param user_methods: Specifies which functions users want to aggregate with (e.g., mean, std...) at the user level
+    :param user_methods: Specifies which functions users want to aggregate with (e.g., mean, stdev...) at the user level
     :type user_methods: list
     :param user_columns: Specifies which columns (at the chat level) users want aggregated for the user level
     :type user_columns: list
@@ -78,12 +79,13 @@ class ConversationLevelFeaturesCalculator:
         if 'conversation_num' not in self.input_columns:
             self.input_columns.append('conversation_num')
 
+        # check if user inputted convo_columns is None
         if convo_columns is None:
             self.columns_to_summarize = [column for column in self.chat_data.columns \
                                         if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
         else:
             if convo_aggregation == True and len(convo_columns) == 0:
-                warnings.warn(
+                print(
                     "Warning: convo_aggregation is True but no convo_columns specified. Defaulting convo_aggregation to False."
                 )
                 self.convo_aggregation = False
@@ -91,13 +93,74 @@ class ConversationLevelFeaturesCalculator:
                 convo_columns_in_data = list(set(convo_columns).intersection(set(self.chat_data.columns)))
 
                 if(len(convo_columns_in_data) != len(convo_columns)):
-                    warnings.warn(
+                    print(
                         "Warning: One or more requested user columns are not present in the data. Ignoring them."
                     )
                     
+                    for i in convo_columns:
+                        matches = process.extract(i, self.chat_data.columns, limit=3)
+                        best_match, similarity = matches[0]
+                        
+                        if similarity == 100:
+                            continue
+                        elif similarity >= 80:
+                            print("Did you mean", best_match, "instead of", i, "?")
+                        else:
+                            print(i, "not found in data and no close match.")
+
+                    
                 self.columns_to_summarize = convo_columns_in_data
+                
+        # check if user inputted user_columns is None 
+        if user_columns is None:
+            self.user_columns = [column for column in self.chat_data.columns \
+                                        if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
+        else:
+            if user_aggregation == True and len(user_columns) == 0:
+                print("Warning: user_aggregation is True but no user_columns specified. Defaulting user_aggregation to False.")
+                self.user_aggregation = False
+            else:
+                user_columns_in_data = list(set(user_columns).intersection(set(self.chat_data.columns)))
+                if(len(user_columns_in_data) != len(user_columns)):
+                    print(
+                        "Warning: One or more requested user columns are not present in the data. Ignoring them."
+                    )
+                    
+                    print(user_columns_in_data, user_columns)
+                    
+                    for i in user_columns:
+                        matches = process.extract(i, self.chat_data.columns, limit=3)
+                        best_match, similarity = matches[0]
+                        
+                        if similarity == 100:
+                            continue
+                        elif similarity >= 80:
+                            print("Did you mean", best_match, "instead of", i, "?")
+                        else:
+                            print(i, "not found in data and no close match.")
+
+                self.user_columns = user_columns_in_data
 
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
+        
+        # ensure all lowercase
+        self.convo_methods = [col.lower() for col in self.convo_methods]
+        self.user_methods = [col.lower() for col in self.user_methods]
+        self.columns_to_summarize = [col.lower() for col in self.columns_to_summarize]
+        self.user_columns = [col.lower() for col in self.user_columns]
+        
+        # replace interchangable words in columns_to_summarize
+        for i in range(len(self.convo_methods)):
+            if self.convo_methods[i] == "average":
+                self.convo_methods[i] = "mean"
+            elif self.convo_methods[i] == "maximum":
+                self.convo_methods[i] = "max"
+            elif self.convo_methods[i] == "minimum":
+                self.convo_methods[i] = "min"
+            elif self.convo_methods[i] == "standard deviation":
+                self.convo_methods[i] = "stdev"
+            elif self.convo_methods[i] == "sd":
+                self.convo_methods = "stdev"
         
     def calculate_conversation_level_features(self, feature_methods: list) -> pd.DataFrame:
         """
@@ -185,7 +248,7 @@ class ConversationLevelFeaturesCalculator:
                     )
 
                 # Standard Deviation of feature across the Conversation
-                if 'std' in self.convo_methods:
+                if 'stdev' in self.convo_methods:
                     self.conv_data = pd.merge(
                         left=self.conv_data,
                         right=get_stdev(self.chat_data.copy(), column, 'stdev_'+column, self.conversation_id_col),
@@ -207,6 +270,15 @@ class ConversationLevelFeaturesCalculator:
                     self.conv_data = pd.merge(
                         left=self.conv_data,
                         right=get_max(self.chat_data.copy(), column, 'max_'+column, self.conversation_id_col),
+                        on=[self.conversation_id_col],
+                        how="inner"
+                    )
+                    
+                # Median for the feature across the Conversation
+                if 'median' in self.convo_methods:
+                    self.conv_data = pd.merge(
+                        left=self.conv_data,
+                        right=get_median(self.chat_data.copy(), column, 'median_'+column, self.conversation_id_col),
                         on=[self.conversation_id_col],
                         how="inner"
                     )
@@ -242,7 +314,7 @@ class ConversationLevelFeaturesCalculator:
 
         if self.convo_aggregation == True and self.user_aggregation == True:
             
-            # this may be right??
+            # aggregates from the user level based on conversation methods
             if 'mean' in self.convo_methods:
                 for user_column in self.user_columns:
                     for user_method in self.user_methods:
@@ -254,7 +326,7 @@ class ConversationLevelFeaturesCalculator:
                             how="inner"
                         )
 
-            if 'std' in self.convo_methods:
+            if 'stdev' in self.convo_methods:
                 for user_column in self.user_columns:
                     for user_method in self.user_methods:
                         # Standard Deviation of User-Level Feature
@@ -286,95 +358,17 @@ class ConversationLevelFeaturesCalculator:
                             on=[self.conversation_id_col],
                             how="inner"
                         )
-
-
-            # Sum Columns were created using self.get_user_level_summed_features()
-            # for column in self.columns_to_summarize:
-            #     # change to self.user_columns
-            #     # should be summable_columns
-
-            #     # for method in self.user_methods:
-            #     #     self.conv_data = pd.merge(
-            #     #         left=self.conv_data,
-            #     #         right=get_average(self.user_data.copy(), method+"_"+column, 'average_user_' + method + "_" +column, self.conversation_id_col),
-            #     #         on=[self.conversation_id_col],
-            #     #         how="inner"
-            #     #     )
-
-            #     if 'mean' in self.convo_methods:
-            #         # Average/Mean of User-Level Feature
-            #         self.conv_data = pd.merge(
-            #             left=self.conv_data,
-            #             right=get_average(self.user_data.copy(), "sum_"+column, 'average_user_sum_'+column, self.conversation_id_col),
-            #             on=[self.conversation_id_col],
-            #             how="inner"
-            #         )
-
-            #     if 'std' in self.convo_methods:
-            #         # Standard Deviation of User-Level Feature
-            #         self.conv_data = pd.merge(
-            #             left=self.conv_data,
-            #             right=get_stdev(self.user_data.copy(), "sum_"+column, 'stdev_user_sum_'+column, self.conversation_id_col),
-            #             on=[self.conversation_id_col],
-            #             how="inner"
-            #         )
-
-            #     if 'min' in self.convo_methods:
-            #         # Minima of User-Level Feature
-            #         self.conv_data = pd.merge(
-            #             left=self.conv_data,
-            #             right=get_min(self.user_data.copy(), "sum_"+column, 'min_user_sum_'+column, self.conversation_id_col),
-            #             on=[self.conversation_id_col],
-            #             how="inner"
-            #         )
-                
-            #     if 'max' in self.convo_methods:
-            #         # Maxima of User-Level Feature
-            #         self.conv_data = pd.merge(
-            #             left=self.conv_data,
-            #             right=get_max(self.user_data.copy(), "sum_"+column, 'max_user_sum_'+column, self.conversation_id_col),
-            #             on=[self.conversation_id_col],
-            #             how="inner"
-            #         )
-
-            # Average Columns were created using self.get_user_level_mean_features()
-            for column in self.columns_to_summarize:
-                
-                if 'mean' in self.convo_methods:
-                    # Average/Mean of User-Level Feature
-                    self.conv_data = pd.merge(
-                        left=self.conv_data,
-                        right=get_mean(self.user_data.copy(), "mean_"+column, 'mean_user_avg_'+column, self.conversation_id_col),
-                        on=[self.conversation_id_col],
-                        how="inner"
-                    )
-
-                if 'std' in self.convo_methods:
-                    # Standard Deviation of User-Level Feature
-                    self.conv_data = pd.merge(
-                        left=self.conv_data,
-                        right=get_stdev(self.user_data.copy(), "mean_"+column, 'stdev_user_avg_'+column, self.conversation_id_col),
-                        on=[self.conversation_id_col],
-                        how="inner"
-                    )
-
-                if 'min' in self.convo_methods:
-                    # Minima of User-Level Feature
-                    self.conv_data = pd.merge(
-                        left=self.conv_data,
-                        right=get_min(self.user_data.copy(), "mean_"+column, 'min_user_avg_'+column, self.conversation_id_col),
-                        on=[self.conversation_id_col],
-                        how="inner"
-                    )
-
-                if 'max' in self.convo_methods:
-                    # Maxima of User-Level Feature
-                    self.conv_data = pd.merge(
-                        left=self.conv_data,
-                        right=get_max(self.user_data.copy(), "mean_"+column, 'max_user_avg_'+column, self.conversation_id_col),
-                        on=[self.conversation_id_col],
-                        how="inner"
-                    )
+                        
+            if 'median' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                        # Median of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_median(self.user_data.copy(), user_method + "_" + user_column, 'median_user_' + user_method + "_" + user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
 
 
     def get_discursive_diversity_features(self) -> None:
