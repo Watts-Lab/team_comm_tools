@@ -1,8 +1,8 @@
 # Importing modules from features
-from team_comm_tools.utils.summarize_features import get_user_sum_dataframe, get_user_mean_dataframe, get_user_max_dataframe
+from team_comm_tools.utils.summarize_features import get_user_sum_dataframe, get_user_mean_dataframe, get_user_max_dataframe, get_user_min_dataframe, get_user_stdev_dataframe, get_user_median_dataframe
 from team_comm_tools.features.get_user_network import *
 from team_comm_tools.features.user_centroids import *
-import warnings
+from fuzzywuzzy import process
 
 class UserLevelFeaturesCalculator:
     """
@@ -25,7 +25,7 @@ class UserLevelFeaturesCalculator:
     :type input_columns: list
     :param user_aggregation: If true, will aggregate features at the user level
     :type user_aggregation: bool
-    :param user_methods: Specifies which functions users want to aggregate with (e.g., mean, std...) at the user level
+    :param user_methods: Specifies which functions users want to aggregate with (e.g., mean, stdev...) at the user level
     :type user_methods: list
     :param user_columns: Specifies which columns (at the chat level) users want aggregated for the user level
     :type user_columns: list
@@ -57,21 +57,48 @@ class UserLevelFeaturesCalculator:
                                         if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
         else:
             if user_aggregation == True and len(user_columns) == 0:
-                warnings.warn(
-                    "Warning: user_aggregation is True but no user_columns specified. Defaulting user_aggregation to False."
-                )
+                print("Warning: user_aggregation is True but no user_columns specified. Defaulting user_aggregation to False.")
                 self.user_aggregation = False
             else:
                 user_columns_in_data = list(set(user_columns).intersection(set(self.chat_data.columns)))
-
                 if(len(user_columns_in_data) != len(user_columns)):
-                    warnings.warn(
+                    print(
                         "Warning: One or more requested user columns are not present in the data. Ignoring them."
                     )
+                    
+                    # print(user_columns_in_data, user_columns)
+                    
+                    for i in user_columns:
+                        matches = process.extract(i, self.chat_data.columns, limit=3)
+                        best_match, similarity = matches[0]
+                        
+                        if similarity == 100:
+                            continue
+                        elif similarity >= 80:
+                            print("Did you mean", best_match, "instead of", i, "?")
+                        else:
+                            print(i, "not found in data and no close match.")
 
                 self.columns_to_summarize = user_columns_in_data
 
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
+        
+        # ensure all lowercase
+        self.user_methods = [col.lower() for col in self.user_methods]
+        self.columns_to_summarize = [col.lower() for col in self.columns_to_summarize]
+        
+        # replace interchangable words in columns_to_summarize
+        for i in range(len(self.user_methods)):
+            if self.user_methods[i] == "average":
+                self.user_methods[i] = "mean"
+            elif self.user_methods[i] == "maximum":
+                self.user_methods[i] = "max"
+            elif self.user_methods[i] == "minimum":
+                self.user_methods[i] = "min"
+            elif self.user_methods[i] == "standard deviation":
+                self.user_methods[i] = "stdev"
+            elif self.user_methods[i] == "sd":
+                self.user_methods = "stdev"
 
     def calculate_user_level_features(self) -> pd.DataFrame:
         """
@@ -85,12 +112,12 @@ class UserLevelFeaturesCalculator:
         """
 
         # Get mean features for all features
-        self.get_user_level_mean_features()
+        # self.get_user_level_mean_features()
         
         # Get total counts for all features
         self.get_user_level_summed_features()
         
-        # Get user summary statistics for all features
+        # Get user summary statistics for all features (e.g. mean, min, max, stdev)
         self.get_user_level_summary_statistics_features()
         
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
@@ -119,40 +146,48 @@ class UserLevelFeaturesCalculator:
             # For each summarizable feature
             for column in self.columns_to_summarize:
                 
-            #     # Average/Mean of feature across the Conversation
-            #     if 'mean' in self.user_methods:
-            #         self.conv_data = pd.merge(
-            #             left=self.conv_data,
-            #             right=get_mean(self.chat_data.copy(), column, 'mean_'+column, self.conversation_id_col),
-            #             on=[self.conversation_id_col],
-            #             how="inner"
-            #         )
-
-            #     # Standard Deviation of feature across the Conversation
-            #     if 'std' in self.convo_methods:
-            #         self.conv_data = pd.merge(
-            #             left=self.conv_data,
-            #             right=get_stdev(self.chat_data.copy(), column, 'stdev_'+column, self.conversation_id_col),
-            #             on=[self.conversation_id_col],
-            #             how="inner"
-            #         )
-
-            #     # Minima for the feature across the Conversation
-            #     if 'min' in self.convo_methods:
-            #         self.conv_data = pd.merge(
-            #             left=self.conv_data,
-            #             right=get_min(self.chat_data.copy(), column, 'min_'+column, self.conversation_id_col),
-            #             on=[self.conversation_id_col],
-            #             how="inner"
-            #         )
-
-                # Maxima for the feature across the Conversation
+                # Average/Mean of feature across the User
+                if 'mean' in self.user_methods:
+                    self.user_data = pd.merge(
+                        left=self.user_data,
+                        right=get_user_mean_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+                        on=[self.conversation_id_col, self.speaker_id_col],
+                        how="inner"
+                    )
+                    
+                # Maxima for the feature across the User
                 if 'max' in self.user_methods:
-                    # print('HELLO')
                     self.user_data = pd.merge(
                         left=self.user_data,
                         right=get_user_max_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
-                        on=[self.conversation_id_col],
+                        on=[self.conversation_id_col, self.speaker_id_col],
+                        how="inner"
+                    )
+                    
+                # Minima for the feature across the User
+                if 'min' in self.user_methods:
+                    self.user_data = pd.merge(
+                        left=self.user_data,
+                        right=get_user_min_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+                        on=[self.conversation_id_col, self.speaker_id_col],
+                        how="inner"
+                    )
+                    
+                # Standard Deviation of feature across the User
+                if 'stdev' in self.user_methods:
+                    self.user_data = pd.merge(
+                        left=self.user_data,
+                        right=get_user_stdev_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+                        on=[self.conversation_id_col, self.speaker_id_col],
+                        how="inner"
+                    )
+                    
+                # Median of feature across the User
+                if 'median' in self.user_methods:
+                    self.user_data = pd.merge(
+                        left=self.user_data,
+                        right=get_user_median_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+                        on=[self.conversation_id_col, self.speaker_id_col],
                         how="inner"
                     )
 
@@ -172,33 +207,39 @@ class UserLevelFeaturesCalculator:
         :rtype: None
         """
         
-
-        if self.user_aggregation == True:
-
-            print("summable: ", self.summable_columns)
-
-            # For each summarizable feature
-            for column in self.summable_columns:
+        # For each summarizable feature
+        for column in self.summable_columns:
                 
-                # Sum of feature across the Conversation
-                self.user_data = pd.merge(
-                    left=self.user_data,
-                    right=get_user_sum_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
-                    on=[self.conversation_id_col, self.speaker_id_col],
-                    how="inner"
-                )
+            # Sum of feature across the Conversation
+            self.user_data = pd.merge(
+                left=self.user_data,
+                right=get_user_sum_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+                on=[self.conversation_id_col, self.speaker_id_col],
+                how="inner"
+            )
 
-            print("user columns: ", self.columns_to_summarize)
+        # if self.user_aggregation == True:
 
-            for column in self.columns_to_summarize: # TODO --- Gini depends on the summation happening; something is happening here where it's causing Gini to break.
-                if column not in self.summable_columns:
-                    # Sum of feature across the Conversation
-                    self.user_data = pd.merge(
-                        left=self.user_data,
-                        right=get_user_sum_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
-                        on=[self.conversation_id_col, self.speaker_id_col],
-                        how="inner"
-                    )
+        #     # For each summarizable feature
+        #     for column in self.summable_columns:
+                
+        #         # Sum of feature across the Conversation
+        #         self.user_data = pd.merge(
+        #             left=self.user_data,
+        #             right=get_user_sum_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+        #             on=[self.conversation_id_col, self.speaker_id_col],
+        #             how="inner"
+        #         )
+
+            # for column in self.columns_to_summarize: # TODO --- Gini depends on the summation happening; something is happening here where it's causing Gini to break.
+            #     if column not in self.summable_columns:
+            #         # Sum of feature across the Conversation
+            #         self.user_data = pd.merge(
+            #             left=self.user_data,
+            #             right=get_user_sum_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+            #             on=[self.conversation_id_col, self.speaker_id_col],
+            #             how="inner"
+            #         )
 
     def get_user_level_mean_features(self) -> None:
         """
@@ -215,7 +256,7 @@ class UserLevelFeaturesCalculator:
             for column in self.columns_to_summarize:
 
                 if 'mean' in self.user_methods:
-                    # Average/Mean of feature across the Conversation
+                    # Average/Mean of feature across the User
                     self.user_data = pd.merge(
                         left=self.user_data,
                         right=get_user_mean_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),

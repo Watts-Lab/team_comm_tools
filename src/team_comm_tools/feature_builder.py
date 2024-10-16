@@ -98,7 +98,7 @@ class FeatureBuilder:
     :param convo_aggregation: If true, will aggregate features at the conversational level. Defaults to True.
     :type convo_aggregation: bool, optional
 
-    :param convo_methods: Specifies which functions that you want to aggregate with (e.g., mean, std...) at the conversational level. Defaults to ['mean', 'max', 'min', 'std'].
+    :param convo_methods: Specifies which functions that you want to aggregate with (e.g., mean, stdev...) at the conversational level. Defaults to ['mean', 'max', 'min', 'stdev'].
     :type convo_methods: list, optional
 
     :param convo_columns: Specifies which columns (at the utterance/chat level) that you want aggregated for the conversational level. Defauts to all all numeric columns.
@@ -107,7 +107,7 @@ class FeatureBuilder:
     :param user_aggregation: If true, will aggregate features at the speaker/user level. Defaults to True.
     :type convo_aggregation: bool, optional
 
-    :param user_methods: Specifies which functions that you want to aggregate with (e.g., mean, std...) at the speaker/user level. Defaults to ['mean', 'max', 'min', 'std'].
+    :param user_methods: Specifies which functions that you want to aggregate with (e.g., mean, stdev...) at the speaker/user level. Defaults to ['mean', 'max', 'min', 'stdev'].
     :type convo_methods: list, optional
 
     :param user_columns: Specifies which columns (at the utterance/chat level) that you want aggregated for the speaker/user level. Defauts to all all numeric columns.
@@ -141,10 +141,10 @@ class FeatureBuilder:
             compute_vectors_from_preprocessed: bool = False
             custom_vect_path: str = None,
             convo_aggregation = True,
-            convo_methods: list = ['mean', 'max', 'min', 'std'],
+            convo_methods: list = ['mean', 'max', 'min', 'stdev'],
             convo_columns: list = None,
             user_aggregation = True,
-            user_methods: list = ['mean', 'max', 'min', 'std'],
+            user_methods: list = ['mean', 'max', 'min', 'stdev'],
             user_columns: list = None
         ) -> None:
 
