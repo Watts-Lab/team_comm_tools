@@ -71,7 +71,7 @@ if __name__ == "__main__":
 	# )
 	# tiny_juries_feature_builder_custom.featurize(col="message")
 
-	# Tiny Juries with NO aggregations
+	#Tiny Juries with NO aggregations
 	# print("Tiny Juries with No Aggregation...")
 	# tiny_juries_feature_builder_no_aggregation = FeatureBuilder(
 	# 	input_df = tiny_juries_df,
@@ -87,38 +87,38 @@ if __name__ == "__main__":
 	# tiny_juries_feature_builder_no_aggregation.featurize(col="message")
 
 	# Tiny Juries with custom Aggregations
-	# print("Tiny Juries with Custom Aggregation...")
-	# tiny_juries_feature_builder_custom_aggregation = FeatureBuilder(
-	# 	input_df = tiny_juries_df,
-	# 	grouping_keys = ["batch_num", "round_num"],
-	# 	vector_directory = "./vector_data/",
-	# 	output_file_path_chat_level = "./jury_TINY_output_chat_level_custom_agg.csv",
-	# 	output_file_path_user_level = "./jury_TINY_output_user_level_custom_agg.csv",
-	# 	output_file_path_conv_level = "./jury_TINY_output_conversation_level_custom_agg.csv",
-	# 	convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean; it will aggregate ONLY "negative_bert" at the speaker/user level, using max.
-	# 	convo_columns = ['positive_bert'],
-	# 	user_methods = ['max', 'mean', 'min', 'median'],
-	# 	user_columns = ['positive_bert', 'negative_bert'],
-	# 	turns = False,
-	# )
-	# tiny_juries_feature_builder_custom_aggregation.featurize(col="message")	
- 
-	# Testing package aggregation
-	print("Testing package aggregation...")
-	testing_feature_builder_custom_aggregation = FeatureBuilder(
-		input_df = test_df,
+	print("Tiny Juries with Custom Aggregation...")
+	tiny_juries_feature_builder_custom_aggregation = FeatureBuilder(
+		input_df = tiny_juries_df,
 		grouping_keys = ["batch_num", "round_num"],
 		vector_directory = "./vector_data/",
-		output_file_path_chat_level = "./test_package_TINY_chat_level_custom_agg.csv",
-		output_file_path_user_level = "./test_package_TINY_user_level_custom_agg.csv",
-		output_file_path_conv_level = "./test_package_TINY_conversation_level_custom_agg.csv",
-  		convo_methods = ['max'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean; it will aggregate ONLY "negative_bert" at the speaker/user level, using max.
-		convo_columns = ['positive_bert', 'negativity_bert'],
-		user_methods = ['MAX'],
-		user_columns = ['negative_bert'],
+		output_file_path_chat_level = "./jury_TINY_output_chat_level_custom_agg.csv",
+		output_file_path_user_level = "./jury_TINY_output_user_level_custom_agg.csv",
+		output_file_path_conv_level = "./jury_TINY_output_conversation_level_custom_agg.csv",
+		# convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean; it will aggregate ONLY "negative_bert" at the speaker/user level, using max.
+		# convo_columns = ['positive_bert'],
+		# user_methods = ['max', 'mean', 'min', 'median'],
+		# user_columns = ['positive_bert', 'negative_bert'],
 		turns = False,
 	)
-	testing_feature_builder_custom_aggregation.featurize(col="message")	
+	tiny_juries_feature_builder_custom_aggregation.featurize(col="message")	
+ 
+	# Testing package aggregation
+	# print("Testing package aggregation...")
+	# testing_feature_builder_custom_aggregation = FeatureBuilder(
+	# 	input_df = test_df,
+	# 	grouping_keys = ["batch_num", "round_num"],
+	# 	vector_directory = "./vector_data/",
+	# 	output_file_path_chat_level = "./test_package_TINY_chat_level_custom_agg.csv",
+	# 	output_file_path_user_level = "./test_package_TINY_user_level_custom_agg.csv",
+	# 	output_file_path_conv_level = "./test_package_TINY_conversation_level_custom_agg.csv",
+  	# 	# convo_methods = ['max'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean; it will aggregate ONLY "negative_bert" at the speaker/user level, using max.
+	# 	# convo_columns = ['num_words'],
+	# 	# user_methods = ['MAX', 'std'],
+	# 	# user_columns = [],
+	# 	turns = False,
+	# )
+	# testing_feature_builder_custom_aggregation.featurize(col="message")	
 
 
 	# # Tiny multi-task

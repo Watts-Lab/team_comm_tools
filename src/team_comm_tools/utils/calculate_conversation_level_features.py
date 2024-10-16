@@ -84,7 +84,7 @@ class ConversationLevelFeaturesCalculator:
             self.columns_to_summarize = [column for column in self.chat_data.columns \
                                         if (column not in self.input_columns) and pd.api.types.is_numeric_dtype(self.chat_data[column])]
         else:
-            if convo_aggregation == True and len(convo_columns) == 0:
+            if convo_aggregation == True and (len(convo_columns) == 0 or len(convo_methods) == 0):
                 print(
                     "Warning: convo_aggregation is True but no convo_columns specified. Defaulting convo_aggregation to False."
                 )
@@ -110,6 +110,26 @@ class ConversationLevelFeaturesCalculator:
 
                     
                 self.columns_to_summarize = convo_columns_in_data
+                
+                # ensure all lowercase
+                self.convo_methods = [col.lower() for col in self.convo_methods]
+                self.columns_to_summarize = [col.lower() for col in self.columns_to_summarize]
+                
+                # replace interchangable words in columns_to_summarize
+                for i in range(len(self.convo_methods)):
+                    if self.convo_methods[i] == "average":
+                        self.convo_methods[i] = "mean"
+                    if self.convo_methods[i] == "maximum":
+                        self.convo_methods[i] = "max"
+                    if self.convo_methods[i] == "minimum":
+                        self.convo_methods[i] = "min"
+                    if self.convo_methods[i] == "standard deviation":
+                        self.convo_methods[i] = "stdev"
+                    if self.convo_methods[i] == "sd":
+                        self.convo_methods[i] = "stdev"
+                    if self.convo_methods[i] == "std":
+                        self.convo_methods[i] = "stdev"
+
                 
         # check if user inputted user_columns is None 
         if user_columns is None:
@@ -140,27 +160,29 @@ class ConversationLevelFeaturesCalculator:
                             print(i, "not found in data and no close match.")
 
                 self.user_columns = user_columns_in_data
+                
+                # ensure all lowercase
+                self.user_methods = [col.lower() for col in self.user_methods]
+                self.user_columns = [col.lower() for col in self.user_columns]
+                
+                # replace interchangable words in columns_to_summarize
+                for i in range(len(self.user_methods)):
+                    if self.user_methods[i] == "average":
+                        self.user_methods[i] = "mean"
+                    if self.user_methods[i] == "maximum":
+                        self.user_methods[i] = "max"
+                    if self.user_methods[i] == "minimum":
+                        self.user_methods[i] = "min"
+                    if self.user_methods[i] == "standard deviation":
+                        self.user_methods[i] = "stdev"
+                    if self.user_methods[i] == "sd":
+                        self.user_methods[i] = "stdev"
+                    if self.user_methods[i] == "std":
+                        self.user_methods[i] = "stdev"
 
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
         
-        # ensure all lowercase
-        self.convo_methods = [col.lower() for col in self.convo_methods]
-        self.user_methods = [col.lower() for col in self.user_methods]
-        self.columns_to_summarize = [col.lower() for col in self.columns_to_summarize]
-        self.user_columns = [col.lower() for col in self.user_columns]
-        
-        # replace interchangable words in columns_to_summarize
-        for i in range(len(self.convo_methods)):
-            if self.convo_methods[i] == "average":
-                self.convo_methods[i] = "mean"
-            elif self.convo_methods[i] == "maximum":
-                self.convo_methods[i] = "max"
-            elif self.convo_methods[i] == "minimum":
-                self.convo_methods[i] = "min"
-            elif self.convo_methods[i] == "standard deviation":
-                self.convo_methods[i] = "stdev"
-            elif self.convo_methods[i] == "sd":
-                self.convo_methods = "stdev"
+                
         
     def calculate_conversation_level_features(self, feature_methods: list) -> pd.DataFrame:
         """
