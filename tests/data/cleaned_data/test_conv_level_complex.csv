@@ -270,3 +270,145 @@ U,A, 2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
 U,B, 2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
 U,A, 2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
 U,B, 2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
+conversation_1, speaker_1,, Have you checked out the latest developments in blockchain tech?,info_diversity
+conversation_1, speaker_2,, Yeah the advancements are pretty incredible especially with DeFi.,info_diversity
+conversation_1, speaker_3,, I’ve been really into how NFTs are being used for digital identity verification.,info_diversity
+conversation_1, speaker_1,, NFTs are definitely evolving. It's amazing how they started just with art.,info_diversity
+conversation_1, speaker_2,, Right? Now they’re branching out into real estate and even intellectual property.,info_diversity
+conversation_1, speaker_3,, The possibilities are endless. I’m curious to see how governments will regulate it though.,info_diversity
+conversation_1, speaker_1,, That’s a big question. Regulation could either stifle innovation or provide the structure it needs to grow.,info_diversity
+conversation_1, speaker_2,, I think we’ll see a mix. Some countries are embracing it while others are more cautious.,info_diversity
+conversation_1, speaker_3,, It’ll be interesting to see which approach works best. I’m also wondering about the environmental impact of all this.,info_diversity
+conversation_1, speaker_1,, That’s a good point. The shift to more energy-efficient consensus algorithms is crucial.,info_diversity
+conversation_2, speaker_1,, I just finished the machine learning course you recommended. It was awesome!,info_diversity
+conversation_2, speaker_2,, That’s great to hear! Did you do all the assignments?,info_diversity
+conversation_2, speaker_3,, I’m still working through it but the concepts are starting to click.,info_diversity
+conversation_2, speaker_1,, The assignments really help solidify the knowledge. The neural networks part was a bit tough though.,info_diversity
+conversation_2, speaker_2,, Neural networks can be tricky at first but once you get it it’s really powerful.,info_diversity
+conversation_2, speaker_3,, I’m excited to apply what I’ve learned to some real-world data sets.,info_diversity
+conversation_2, speaker_1,, Same here. I’m thinking of starting a side project to predict stock prices.,info_diversity
+conversation_2, speaker_2,, That’s ambitious! But it’s a great way to put your skills to the test.,info_diversity
+conversation_2, speaker_3,, I might join you on that! It’ll be cool to collaborate and see what we come up with.,info_diversity
+conversation_2, speaker_1,, Let’s do it! We can brainstorm ideas this weekend.,info_diversity
+conversation_5, speaker_1,, Did you catch the latest episode of that show everyone’s talking about?,info_diversity
+conversation_5, speaker_2,, Yeah it was intense! But I had to pause halfway to finish my assignment.,info_diversity
+conversation_5, speaker_3,, I haven’t started watching it yet. Is it really that good?,info_diversity
+conversation_5, speaker_1,, Definitely worth it. But speaking of assignments how’s your machine learning course going?,info_diversity
+conversation_5, speaker_2,, It’s going well! I’m almost done with the neural networks module.,info_diversity
+conversation_5, speaker_3,, Neural networks? That’s tough. I’m still stuck on the earlier parts.,info_diversity
+conversation_5, speaker_1,, You’ll get there. Just take it one step at a time. Also are you guys thinking about internships yet?,info_diversity
+conversation_5, speaker_2,, I am! I’m applying to a few tech companies next week.,info_diversity
+conversation_5, speaker_3,, I should probably start looking too. I’m just so caught up with other things.,info_diversity
+conversation_5, speaker_1,, Same here. Between school shows and job applications it’s hard to find balance.,info_diversity
+conversation_3, speaker_1,, Are you ready to start applying for internships?,info_diversity
+conversation_3, speaker_2,, Almost. I’m just finalizing my resume and polishing up my GitHub.,info_diversity
+conversation_3, speaker_3,, Same here. I’m focusing on tech companies that have strong mentorship programs.,info_diversity
+conversation_3, speaker_1,, That’s smart. I’ve been looking at roles in fintech but I’m open to other sectors too.,info_diversity
+conversation_3, speaker_2,, Fintech is hot right now. There’s so much innovation happening.,info_diversity
+conversation_3, speaker_3,, I’m leaning towards something in AI or machine learning. There’s a lot of demand in those areas.,info_diversity
+conversation_3, speaker_1,, Definitely. It’s a great time to be in tech. Have you guys started preparing for interviews?,info_diversity
+conversation_3, speaker_2,, I’ve done a few Leetcode problems but I need to ramp up.,info_diversity
+conversation_3, speaker_3,, Same I’m planning to do at least one problem a day until interview season.,info_diversity
+conversation_3, speaker_1,, Sounds like a solid plan. We should do mock interviews together to practice.,info_diversity
+conversation_4, speaker_1,, I’ve been using React for a new project and it’s going pretty well so far.,info_diversity
+conversation_4, speaker_2,, Nice! What are you building?,info_diversity
+conversation_4, speaker_3,, I’m curious too. React is great for building dynamic user interfaces.,info_diversity
+conversation_4, speaker_1,, It’s a course review platform where students can rate and review their classes.,info_diversity
+conversation_4, speaker_2,, That sounds really useful! Are you handling both the frontend and backend?,info_diversity
+conversation_4, speaker_3,, I love that idea. What stack are you using for the backend?,info_diversity
+conversation_4, speaker_1,, I’m using Node.js with Express for the backend and MySQL for the database.,info_diversity
+conversation_4, speaker_2,, Solid choices. How are you planning to handle scalability if the platform grows?,info_diversity
+conversation_4, speaker_3,, AWS could be a good option for scaling. Have you looked into that?,info_diversity
+conversation_4, speaker_1,, Yeah I’m considering AWS for deployment. I want the platform to be scalable from the start.,info_diversity
+conversation_6, speaker_1,, I just started a new book on AI ethics and it’s really eye-opening.,info_diversity
+conversation_6, speaker_2,, That sounds interesting. What’s it about?,info_diversity
+conversation_6, speaker_3,, AI ethics is such an important topic especially with all the recent developments.,info_diversity
+conversation_6, speaker_1,, It explores how AI is impacting society both positively and negatively.,info_diversity
+conversation_6, speaker_3,, I did! I’m planning to integrate one of them into my next project.,info_diversity
+conversation_6, speaker_1,, That’s awesome. By the way are you still going to the gym regularly?,info_diversity
+conversation_6, speaker_2,, I’ve been slacking off lately to be honest. Too much work.,info_diversity
+conversation_6, speaker_3,, Same here. I’ve been prioritizing coding over everything else.,info_diversity
+conversation_6, speaker_1,, We should do a workout session together. It’s good to take breaks from all the tech stuff.,info_diversity
+conversation_15, speaker_1,, Have you ever thought about how artificial intelligence is changing our daily lives It’s everywhere now,info_diversity
+conversation_15, speaker_2,, Artificial intelligence is integrated into so many aspects of life from virtual assistants to smart homes,info_diversity
+conversation_15, speaker_3,, AI in smart homes is incredible It automates so many tasks and makes life easier,info_diversity
+conversation_15, speaker_1,, The AI in virtual assistants like Siri and Alexa has gotten so much smarter too,info_diversity
+conversation_15, speaker_2,, Virtual assistants are learning to understand natural language better thanks to advancements in AI,info_diversity
+conversation_15, speaker_3,, And AI-driven recommendations on streaming services are spot on They know what we like,info_diversity
+conversation_15, speaker_1,, AI really personalizes our experiences whether it’s shopping online or watching movies,info_diversity
+conversation_15, speaker_2,, Exactly AI uses data to tailor services to our preferences which makes everything more convenient,info_diversity
+conversation_15, speaker_3,, The impact of artificial intelligence on our daily lives is only going to grow It’s an exciting time,info_diversity
+conversation_15, speaker_1,, Definitely AI is shaping the future in ways we’re only beginning to understand,info_diversity
+conversation_16, speaker_1,, I’ve been really diving into cloud computing recently It’s amazing how it’s transforming businesses,info_diversity
+conversation_16, speaker_2,, Cloud computing is revolutionizing how companies operate The scalability it offers is unparalleled,info_diversity
+conversation_16, speaker_3,, The flexibility of cloud computing allows businesses to adapt quickly to changing demands,info_diversity
+conversation_16, speaker_1,, And the cost savings with cloud computing are significant You only pay for what you use,info_diversity
+conversation_16, speaker_2,, That’s a huge advantage for startups Cloud computing gives them access to resources they couldn’t afford otherwise,info_diversity
+conversation_16, speaker_3,, Security in cloud computing has also improved a lot with encryption and other safeguards,info_diversity
+conversation_16, speaker_1,, Cloud computing security is critical especially with sensitive data being stored remotely,info_diversity
+conversation_16, speaker_2,, Exactly With the right cloud computing provider businesses can ensure their data is safe,info_diversity
+conversation_16, speaker_3,, The future of cloud computing looks bright It’s becoming the backbone of modern IT infrastructure,info_diversity
+conversation_16, speaker_1,, I agree Cloud computing is essential for any business looking to stay competitive,info_diversity
+conversation_9, speaker_1,, I’ve been thinking about starting a garden but I have no idea where to begin,info_diversity
+conversation_9, speaker_2,, Gardening is super relaxing You should start with some easy plants like herbs,info_diversity
+conversation_9, speaker_3,, That sounds fun I’ve always wanted to grow my own vegetables but space is an issue,info_diversity
+conversation_9, speaker_1,, I hear you I’m also limited on space but I’m thinking of trying container gardening,info_diversity
+conversation_9, speaker_2,, That’s a great idea You can grow a lot in containers if you’re strategic,info_diversity
+conversation_9, speaker_3,, Speaking of strategy has anyone been following the latest chess tournaments,info_diversity
+conversation_9, speaker_1,, I have The level of play this year has been incredible,info_diversity
+conversation_9, speaker_2,, I’m not a chess expert but I enjoy watching the matches They’re so intense,info_diversity
+conversation_9, speaker_3,, It’s amazing how much thought goes into each move It’s like a mental workout,info_diversity
+conversation_9, speaker_1,, Definitely I find that playing chess really sharpens my focus,info_diversity
+AA, A,, this is four words,gini_coefficient_sum_num_words
+AA, A,, what about this also i think,gini_coefficient_sum_num_words
+AA, B,, i think it is,gini_coefficient_sum_num_words
+AA, B,, just some random words,gini_coefficient_sum_num_words
+AA, C,, hello hello hello hello helloooo,gini_coefficient_sum_num_words
+AA, C,, what is up ok,gini_coefficient_sum_num_words
+AAA, A,, this is six words i think,gini_coefficient_sum_num_words
+AAA, A,, what about this being five,gini_coefficient_sum_num_words
+AAA, B,, i only have four,gini_coefficient_sum_num_words
+AAA, B,, but then i get seven words woohoo,gini_coefficient_sum_num_words
+AAA, C,, i think this is even,gini_coefficient_sum_num_words
+AAA, C,, lets see the results though,gini_coefficient_sum_num_words
+AAAA, A,, im going to be talking the absolute most right now,gini_coefficient_sum_num_words
+AAAA, A,, its because i want to raise our gini score woohooo,gini_coefficient_sum_num_words
+AAAA, B,, ok,gini_coefficient_sum_num_words
+AAAA, B,, i can talk,gini_coefficient_sum_num_words
+AAAA, C,, hello,gini_coefficient_sum_num_words
+AAAA, C,, i dont want to talk,gini_coefficient_sum_num_words
+BB, A,, this is same character count,gini_coefficient_sum_num_chars
+BB, A,, this similar similar counts,gini_coefficient_sum_num_chars
+BB, B,, this is roughly same character,gini_coefficient_sum_num_chars
+BB, B,, hello how are we doing blah,gini_coefficient_sum_num_chars
+BB, C,, number of characteros,gini_coefficient_sum_num_chars
+BB, C,, i want to get some good after,gini_coefficient_sum_num_chars
+BBB, A,, what is your name,gini_coefficient_sum_num_chars
+BBB, A,, my name is shruti,gini_coefficient_sum_num_chars
+BBB, B,, his name is evan,gini_coefficient_sum_num_chars
+BBB, B,, her name is priya dcosta,gini_coefficient_sum_num_chars
+BBB, C,, we were on penn today,gini_coefficient_sum_num_chars
+BBB, C,, team communication toolkit,gini_coefficient_sum_num_chars
+BBBB, A,, this is same character count but an insane amount of characters,gini_coefficient_sum_num_chars
+BBBB, A,, i am going to keep on saying things until i get fired,gini_coefficient_sum_num_chars
+BBBB, B,, ok,gini_coefficient_sum_num_chars
+BBBB, B,, lets see,gini_coefficient_sum_num_chars
+BBBB, C,, curious for this,gini_coefficient_sum_num_chars
+BBBB, C,, results should be good,gini_coefficient_sum_num_chars
+CC, A,, this is same message count,gini_coefficient_sum_num_messages
+CC, B,, this is same message count,gini_coefficient_sum_num_messages
+CC, C,, this is same message count,gini_coefficient_sum_num_messages
+CC, D,, this is same message count,gini_coefficient_sum_num_messages
+CC, E,, this is same message count,gini_coefficient_sum_num_messages
+CC, F,, this is same message count,gini_coefficient_sum_num_messages
+CCC, A,, this is same message count,gini_coefficient_sum_num_messages
+CCC, A,, this is same message count,gini_coefficient_sum_num_messages
+CCC, C,, this is same message count,gini_coefficient_sum_num_messages
+CCC, D,, this is same message count,gini_coefficient_sum_num_messages
+CCC, E,, this is same message count,gini_coefficient_sum_num_messages
+CCC, E,, this is same message count,gini_coefficient_sum_num_messages
+CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
+CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
+CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
+CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
+CCCC, E,, this is different message count,gini_coefficient_sum_num_messages
