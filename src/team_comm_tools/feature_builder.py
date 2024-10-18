@@ -92,6 +92,9 @@ class FeatureBuilder:
     :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation). Defaults to False.
     :type compute_vectors_from_preprocessed: bool, optional
 
+    :param custom_liwc_dictionary_path: This is the path of the user's own LIWC dictionary file (.dic). Defaults to empty string.
+    :type custom_liwc_dictionary_path: str, optional
+
     :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
     :rtype: None
 
@@ -117,7 +120,8 @@ class FeatureBuilder:
             ner_training_df: pd.DataFrame = None,
             ner_cutoff: int = 0.9,
             regenerate_vectors: bool = False,
-            compute_vectors_from_preprocessed: bool = False
+            compute_vectors_from_preprocessed: bool = False,
+            custom_liwc_dictionary_path: str = ''
         ) -> None:
 
         # Defining input and output paths.
@@ -128,6 +132,23 @@ class FeatureBuilder:
 
         print("Initializing Featurization...")
 
+        if not custom_liwc_dictionary_path:
+            self.custom_liwc_dictionary = {}
+        else:
+            # Read .dic file if the path is provided
+            custom_liwc_dictionary_path = Path(custom_liwc_dictionary_path)
+            if not custom_liwc_dictionary_path.suffix == '.dic':
+                print(f"WARNING: The custom LIWC dictionary file is not a .dic file: {custom_liwc_dictionary_path}")
+                self.custom_liwc_dictionary = {}
+            else:
+                with open(custom_liwc_dictionary_path, 'r', encoding='utf-8-sig') as file:
+                    dicText = file.read()
+                    try:
+                        self.custom_liwc_dictionary = load_liwc_dict(dicText)
+                    except Exception as e:
+                        print(f"WARNING: Failed loading custom liwc dictionary: {e}")
+                        self.custom_liwc_dictionary = {}
+        
         # Set features to generate
         # TODO --- think through more carefully which ones we want to exclude and why
         self.feature_dict = feature_dict
@@ -564,7 +585,8 @@ class FeatureBuilder:
             ner_cutoff = self.ner_cutoff,
             conversation_id_col = self.conversation_id_col,
             message_col = self.message_col,
-            timestamp_col = self.timestamp_col
+            timestamp_col = self.timestamp_col,
+            custom_liwc_dictionary = self.custom_liwc_dictionary
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features(self.feature_methods_chat)
