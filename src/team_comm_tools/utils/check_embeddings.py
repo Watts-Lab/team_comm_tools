@@ -210,13 +210,14 @@ def load_liwc_dict(dicText: str) -> dict:
         dicTerm = dicTerm.strip()
         if dicTerm == '':
             continue
-        if '*' not in dicTerm:
-            dicTerm = r"\b" + dicTerm.replace("\n", "") + r"\b"
-        else:
+
+        if '*' in dicTerm:
             # Replace consecutive asterisks with a single asterisk -- e.g., '**'->'*'
             pattern = re.compile(r'\*+')
             dicTerm = pattern.sub('*', dicTerm)
             dicTerm = r"\b" + dicTerm.replace("\n", "").replace("*", "") + r"\S*\b"
+        else:
+            dicTerm = r"\b" + dicTerm.replace("\n", "").replace('(', r'\(').replace(')', r'\)') + r"\b"
 
         for catNum in catNums:
             cat = catNameNumberMap[catNum]

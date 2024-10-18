@@ -60,6 +60,7 @@ def liwc_features(chat_df: pd.DataFrame, message_col: str, custom_liwc_dictionar
 											.rename({message_col + "_original": lexicon_type + "_lexical_wordcount_custom"}, axis=1)\
 				for lexicon_type, regex in custom_liwc_dictionary.items()]
 		return pd.concat(df_lst, axis=1)
-	
-	except:
+	except FileNotFoundError:
 		print("WARNING: Lexicons not found. Skipping feature...")
+	except Exception as e:
+		print(f'WARNING: Failed to generate lexicons due to unexpected error: {e}')
