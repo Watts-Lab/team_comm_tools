@@ -50,7 +50,6 @@ def count_difficult_words(text, easy_words):
     # recall that words are already pre-processed; substitute punctuation here for words only
     words = re.sub(r"[^a-zA-Z0-9 ]+", '',text).split()
     remaining_words = [i for i in words if not i in easy_words]
-    # print(remaining_words)
 
     for word in remaining_words:
         # words with more than 3 syllables are difficult
