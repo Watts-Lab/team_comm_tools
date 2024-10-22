@@ -33,21 +33,6 @@ def count_syllables(word):
     additional = len(ADDITIONAL.findall(word))
     return max(1, vowel_runs - exceptions + additional)
 
-
-# def count_syllables(word):
-#     """
-#     Count the number of syllables in a word.
-    
-#     Args:
-#         word(str): The input word.
-
-#     Returns:
-#         int: The number of syllables in the word.
-#     """
-#     dic = pyphen.Pyphen(lang='en')
-#     pyphen_result = dic.inserted(word)
-#     return len(re.findall(r"-", pyphen_result))
-
 def count_difficult_words(text, easy_words):
     """
     Count the number of difficult words in a text. The difficult words are those that are not in

@@ -125,7 +125,8 @@ def computeTF(column_mimc, frequency_dict):
 
 def Content_mimicry_score(df, column_count_frequency, column_count_mimic):
     """
-    Combine the steps to compute the content word mimicry score.
+    Combine the steps to compute the content word mimicry score. Normalizes
+    the frequency of words by how much they appear across the *entire dataset*.
 
     Args:
         df (DataFrame): The input dataframe.
@@ -143,7 +144,11 @@ def Content_mimicry_score(df, column_count_frequency, column_count_mimic):
 
 def Content_mimicry_score_per_conv(df, column_count_frequency, column_count_mimic, conversation_id):
     """
-    Combine the steps to compute the content word mimicry score.
+    Computes the content word mimicry score, but normalizes the term frequency of the words
+    by how often they appear *within* a given conversation. This version of the score may
+    be more useful in cases where different conversations in the dataset cover very 
+    different subject matter, and therefore one may not wish to normalize across the
+    full dataset.
 
     Args:
         df (DataFrame): The input dataframe.
