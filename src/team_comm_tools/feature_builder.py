@@ -522,6 +522,7 @@ class FeatureBuilder:
             print("All Done!")
             
             # Store column names of what we generated, so that the user can easily access them
+            # TODO --- this needs to be updated if the user brings their own LIWC, because the custom LIWC features are not in `self.chat_features`.
             self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
             self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
             self.conv_features_all =  [col for col in self.conv_data if col not in self.orig_data and col != 'conversation_num']

@@ -48,13 +48,10 @@ def liwc_features(chat_df: pd.DataFrame, message_col: str, custom_liwc_dictionar
 			lexicons_dict = pickle.load(lexicons_pickle_file)
 		
 		# Return the lexical features stacked as columns
-		# return pd.concat(
-			# Finding the # of occurrences of lexicons of each type for all the messages.
 		df_lst = [pd.DataFrame(chat_df[message_col + "_original"].apply(lambda chat: get_liwc_count(regex, chat)))\
 											.rename({message_col + "_original": lexicon_type + "_lexical_wordcount"}, axis=1)\
 				for lexicon_type, regex in lexicons_dict.items()]
-			# , axis=1
-		# )
+
 		if custom_liwc_dictionary:
 			df_lst += [pd.DataFrame(chat_df[message_col + "_original"].apply(lambda chat: get_liwc_count(regex, chat)))\
 											.rename({message_col + "_original": lexicon_type + "_lexical_wordcount_custom"}, axis=1)\

@@ -86,3 +86,5 @@ Here are some parameters that can be customized. For more details, refer to the 
 5. **regenerate_vectors**: Force-regenerate vector data even if it already exists.
 
 6. **compute_vectors_from_preprocessed**: Computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation), and this parameter now defaults to False.
+
+7. **custom_liwc_dictionary_path**: Allows the user to "bring their own" LIWC dictionary, and thereby access more recent versions of the LIWC features. Our default version of LIWC is 2007, but users can obtain more recent versions of the lexicon by contacting `Ryan Boyd <https://www.ryanboyd.io/>`_ and `Jamie Pennebaker <https://liberalarts.utexas.edu/psychology/faculty/pennebak>`_. For more information on using the custom LIWC dictionary, please see :ref:`liwc`.
