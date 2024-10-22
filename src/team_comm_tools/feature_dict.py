@@ -229,11 +229,11 @@ feature_dict = { # TODO: customize preprocess methods
     "bert_sentiment_data": False
   },
   "Content Word Accommodation": {
-    "columns": ["content_word_accommodation"],
+    "columns": ["content_word_accommodation", "content_word_accommodation_per_conv"],
     "file": "./features/word_mimicry.py",
     "level": "Chat",
     "semantic_grouping": "Variance",
-    "description": "The total number of non-function words used in a given turn that were also used in the previous turn, normalized by the inverse document frequency of each content word.",
+    "description": "The total number of non-function words used in a given turn that were also used in the previous turn, normalized by the inverse document frequency of each content word. `content_word_accommodation` computes the frequency of the content words with respect to the entire dataset; `content_word_accommodation_per_conv` does so with respect to each conversation.",
     "references": "(Ranganath et al., 2013)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/content_word_accommodation.html",
     "function": ChatLevelFeaturesCalculator.calculate_word_mimicry,
