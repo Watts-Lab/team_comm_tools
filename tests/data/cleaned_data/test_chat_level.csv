@@ -1,14 +1,14 @@
 conversation_num,speaker_nickname,message,expected_column,expected_value
-1,A,Hello I like fish.,num_words,4.0
-1,B,This sentence has five words.,num_words,5.0
-2,A,Hello??,num_words,1.0
-2,B,Is 4 a word?,num_words,4.0
-3,A,.,num_words,0.0
-4,test_A,"HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI""",num_all_caps,9.0
-4,test_B,ONE TWO THREE. four five six. sEvEn EiGhT nInE.,num_all_caps,3.0
-4,test_A,Check out this [link](https://example.com) and this one http://example.org,num_links,2.0
-4,test_B,I like google.com and wikipedia.org but not amazon.com,num_links,3.0
-4,test_A,why don't you read everything at https://www.example.com and https://www.example.org and https://www.example.net and https://www.example.ca and https://www.example.co.uk,num_links,5.0
+1,A,Hello I like fish.,num_words,4
+1,B,This sentence has five words.,num_words,5
+2,A,Hello??,num_words,1
+2,B,Is 4 a word?,num_words,4
+3,A,.,num_words,0
+4,test_A,"HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI""",num_all_caps,9
+4,test_B,ONE TWO THREE. four five six. sEvEn EiGhT nInE.,num_all_caps,3
+4,test_A,Check out this [link](https://example.com) and this one http://example.org,num_links,2
+4,test_B,I like google.com and wikipedia.org but not amazon.com,num_links,3
+4,test_A,why don't you read everything at https://www.example.com and https://www.example.org and https://www.example.net and https://www.example.ca and https://www.example.co.uk,num_links,5
 4,test_B,"why don't you read everything at 
 - https://www.example.com 
 - https://www.example.org 
@@ -679,3 +679,58 @@ I respond to that too",num_block_quote_responses,2.0
 0,0,a little possibly I think sort of probably,hedge_words_lexical_wordcount,5
 0,0,probably sort of,hedge_words_lexical_wordcount,2
 0,0,I think,hedge_words_lexical_wordcount,1
+0,0,,num_chars,0
+0,0,a,num_chars,1
+0,0,ab,num_chars,2
+0,0,abc,num_chars,3
+0,0,abcd,num_chars,4
+0,0,abcde,num_chars,5
+0,0,abcdef,num_chars,6
+0,1,first,num_messages,1
+0,0,Who is this,num_question_naive,1
+0,0,Who is this. Why is this,num_question_naive,2
+0,0,Who what when where why is this,num_question_naive,1
+0,0,Who is this?,num_question_naive,1
+A,1,able am are,function_word_accommodation,0
+A,2,able am are hello,function_word_accommodation,3
+A,3,able am hello,function_word_accommodation,2
+A,2,able get got,function_word_accommodation,1
+A,5,get,function_word_accommodation,1
+B,1,able am are,content_word_accommodation,0
+B,2,able am are hello,content_word_accommodation,0
+B,3,able am hello yoyo,content_word_accommodation_per_conv,0.3333333
+B,2,hello yoyo,content_word_accommodation_per_conv,0.8333333
+C,1,i i i,first_pronouns_proportion,1
+C,2,i i taco taco,first_pronouns_proportion,0.5
+C,3,.,first_pronouns_proportion,0
+D,1,I went to the store,info_exchange_zscore_conversation,0
+D,2,Bought some groceries for dinner,info_exchange_zscore_conversation,1.2247
+D,3,It's raining today,info_exchange_zscore_conversation,-1.2247
+E,1,I sort of like this,hedge_naive,1
+E,2,I guess this is a little awesome,hedge_naive,1
+E,3,It's raining today,hedge_naive,0
+F,1,what??,NTRI,1
+F,3,sorry excuse me what's your name again?,NTRI,1
+F,1,huh?,NTRI,1
+F,3,pardon?,NTRI,1
+F,3,pardon,NTRI,0
+F,3,say what again?,NTRI,1
+F,3,say again?,NTRI,1
+F,3,say again,NTRI,1
+F,3,what's that?,NTRI,1
+F,3,what is that,NTRI,1
+F,2,this is not funny,NTRI,0
+G,1,what is going on,word_TTR,1
+G,3,what what,word_TTR,0.5
+G,2,what what is that,word_TTR,0.75
+H,1,fantastic difficulty,dale_chall_score,19.5257
+H,3,discover direction different,dale_chall_score,0.1488
+H,3,trying quote random,dale_chall_score,0.1488
+H,3,erase eraser errand every even dig dim dime dine computer,dale_chall_score,5.7115
+H,2,even this is magnificent!,dale_chall_score,7.7824
+H,4,even this is magnificent! even this is magnificent!,dale_chall_score,7.7824
+H,1,fantastic difficulty,dale_chall_classification,difficult
+H,3,trying quote random,dale_chall_classification,easy
+H,3,erase eraser errand every even dig dim dime dine computer,dale_chall_classification,medium
+H,3,discover direction different,dale_chall_classification,easy
+H,4,even this is magnificent! even this is magnificent!,dale_chall_classification,difficult
