@@ -117,7 +117,7 @@ class ConversationLevelFeaturesCalculator:
                 
                 # check if columns are numeric
                 for col in self.columns_to_summarize:
-                    if pd.api.types.is_numeric_dtype(self.columns_to_summarize[col]) is False:
+                    if pd.api.types.is_numeric_dtype(self.chat_data[col]) is False:
                         print("WARNING: ", col, " is not numeric. Ignoring them.")
                 
                 # replace interchangable words in convo_methods and remove invalid methods
@@ -175,7 +175,7 @@ class ConversationLevelFeaturesCalculator:
                 
                 # check if columns are numeric
                 for col in self.user_columns:
-                    if pd.api.types.is_numeric_dtype(self.user_columns[col]) is False:
+                    if pd.api.types.is_numeric_dtype(self.chat_data[col]) is False:
                         print("WARNING: ", col, " is not numeric. Ignoring them.")
                 
                 # replace interchangable words in user_methods and remove invalid methods
