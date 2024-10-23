@@ -115,7 +115,12 @@ class ConversationLevelFeaturesCalculator:
                 self.convo_methods = [col.lower() for col in self.convo_methods]
                 self.columns_to_summarize = [col.lower() for col in self.columns_to_summarize]
                 
-                # replace interchangable words in columns_to_summarize
+                # check if columns are numeric
+                for col in self.columns_to_summarize:
+                    if pd.api.types.is_numeric_dtype(self.columns_to_summarize[col]) is False:
+                        print("WARNING: ", col, " is not numeric. Ignoring them.")
+                
+                # replace interchangable words in convo_methods and remove invalid methods
                 for i in range(len(self.convo_methods)):
                     if self.convo_methods[i] == "average":
                         self.convo_methods[i] = "mean"
@@ -129,6 +134,10 @@ class ConversationLevelFeaturesCalculator:
                         self.convo_methods[i] = "stdev"
                     if self.convo_methods[i] == "std":
                         self.convo_methods[i] = "stdev"
+                        
+                    current = self.convo_methods[i]
+                    if current != "mean" and current != "max" and current != "min" and current != "stdev" and current != "median":
+                        print("Warning: ", current, "is not a valid user method. Ignoring them.")
 
                 
         # check if user inputted user_columns is None 
@@ -146,7 +155,6 @@ class ConversationLevelFeaturesCalculator:
                         "Warning: One or more requested user columns are not present in the data. Ignoring them."
                     )
                     
-                    print(user_columns_in_data, user_columns)
                     
                     for i in user_columns:
                         matches = process.extract(i, self.chat_data.columns, limit=3)
@@ -165,7 +173,12 @@ class ConversationLevelFeaturesCalculator:
                 self.user_methods = [col.lower() for col in self.user_methods]
                 self.user_columns = [col.lower() for col in self.user_columns]
                 
-                # replace interchangable words in columns_to_summarize
+                # check if columns are numeric
+                for col in self.user_columns:
+                    if pd.api.types.is_numeric_dtype(self.user_columns[col]) is False:
+                        print("WARNING: ", col, " is not numeric. Ignoring them.")
+                
+                # replace interchangable words in user_methods and remove invalid methods
                 for i in range(len(self.user_methods)):
                     if self.user_methods[i] == "average":
                         self.user_methods[i] = "mean"
@@ -179,7 +192,13 @@ class ConversationLevelFeaturesCalculator:
                         self.user_methods[i] = "stdev"
                     if self.user_methods[i] == "std":
                         self.user_methods[i] = "stdev"
-
+                        
+                    current = self.user_methods[i]
+                    if current != "mean" and current != "max" and current != "min" and current != "stdev" and current != "median":
+                        print("Warning: ", current, "is not a valid user method. Ignoring them.")
+                        self.user_methods.remove(current)
+                
+                
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
         
                 
