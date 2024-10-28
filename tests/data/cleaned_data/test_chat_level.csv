@@ -734,3 +734,13 @@ H,3,trying quote random,dale_chall_classification,easy
 H,3,erase eraser errand every even dig dim dime dine computer,dale_chall_classification,medium
 H,3,discover direction different,dale_chall_classification,easy
 H,4,even this is magnificent! even this is magnificent!,dale_chall_classification,difficult
+I,1,I am enjoying the weather today!,positivity_zscore_conversation,0.855868
+I,2,Likewise it's beautiful.,positivity_zscore_conversation,0.8156
+I,3,I'm not a fan of the rain.,positivity_zscore_conversation,-1.2577
+I,1,I think it's enchanting.,positivity_zscore_conversation,0.7766
+I,3,Agree to disagree.,positivity_zscore_conversation,-1.19044
+J,1,This conversation is more neutral.,positivity_zscore_conversation,-0.002217
+J,2,How are you doing?,positivity_zscore_conversation,-0.443621
+J,3,I am mainly studying today.,positivity_zscore_conversation,-0.704912
+J,1,Anything fun planned?,positivity_zscore_conversation,1.925224
+J,3,Mostly a trip to the library.,positivity_zscore_conversation,-0.774473

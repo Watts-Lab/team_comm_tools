@@ -29,8 +29,27 @@ if __name__ == "__main__":
 	test_forward_flow_df = pd.read_csv("data/cleaned_data/fflow.csv", encoding=chat_encoding['encoding'])
 	conv_complex_timestamps_df = pd.read_csv("data/cleaned_data/test_conv_level_complex_timestamps.csv", encoding=chat_encoding['encoding'])
 
+	positivity_zscore = pd.read_csv("data/cleaned_data/positivity_zscore_chats.csv", encoding=chat_encoding['encoding'])
+
 		
 	# TESTING DATASETS -------------------------------
+
+	test_positivity = FeatureBuilder(
+		input_df = positivity_zscore,
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_positivity_chat_level.csv",
+		output_file_path_user_level = "./output/user/test_positivity_user_level.csv",
+		output_file_path_conv_level = "./output/conv/test_positivity_conv_level.csv",
+		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
+			"(BERT) Mimicry",
+			"Moving Mimicry",
+			"Forward Flow",
+			"Discursive Diversity"
+		],
+		turns = False,
+		regenerate_vectors = True
+	)
+	test_positivity.featurize()
 
 	testing_chat = FeatureBuilder(
 		input_df = chat_df,

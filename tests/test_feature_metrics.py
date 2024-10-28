@@ -8,7 +8,8 @@ import itertools
 
 test_chat_df = pd.read_csv("./output/chat/test_chat_level_chat.csv")
 test_info_exchange_zscore_df = pd.read_csv("./output/chat/info_exchange_zscore_chats.csv")
-test_chat_df = pd.concat([test_chat_df, test_info_exchange_zscore_df], axis=0)
+test_pos = pd.read_csv("./output/chat/test_positivity_chat_level.csv")
+test_chat_df = pd.concat([test_chat_df, test_info_exchange_zscore_df, test_pos], axis=0)
 test_conv_df = pd.read_csv("./output/conv/test_conv_level_conv.csv")
 test_chat_complex_df = pd.read_csv(
     "./output/chat/test_chat_level_chat_complex.csv")
