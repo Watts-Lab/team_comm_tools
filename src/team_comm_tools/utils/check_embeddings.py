@@ -3,7 +3,7 @@ import numpy as np
 import re
 import os
 import pickle
-
+import warnings
 from tqdm import tqdm
 from pathlib import Path
 
@@ -176,6 +176,36 @@ def fix_abbreviations(dicTerm: str) -> str:
     else:
         return dicTerm
 
+def is_valid_term(dicTerm):
+    """
+    Check if a dictionary term is valid.
+
+    This functions returns True if the term matches the regex pattern and Flase otherwise.
+    The regex pattern matches:
+    - Alphanumeric characters (a-zA-Z0-9)
+    - Valid symbols: -, ', *, /
+    - The * symbol can only appear once at the end of a word
+    - Emojis are valid only when they appear alone
+    - The / symbol can only appear once after alphanumeric characters
+    - Spaces are allowed between valid words
+
+    :param dicTerm: The dictionary term
+    :type dicTerm: str
+
+    :return: True/False
+    :rtype: bool
+    """
+    # List of emojis to preserve
+    emojis_to_preserve = {
+        "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
+    }
+    emoji_pattern = '|'.join(re.escape(emoji) for emoji in emojis_to_preserve)
+    alphanumeric_pattern = (
+        fr"^([a-zA-Z0-9\-']+(\*|\/[a-zA-Z0-9\*]*)?|({emoji_pattern})\*?)( [a-zA-Z0-9\-']+(\*|\/[a-zA-Z0-9\*]*)?)*$"
+    )
+    
+    return bool(re.match(alphanumeric_pattern, dicTerm))
+
 def load_liwc_dict(dicText: str) -> dict:
     """
     Loads up a dictionary that is in the LIWC 2007/2015 format.
@@ -210,14 +240,17 @@ def load_liwc_dict(dicText: str) -> dict:
         dicTerm = dicTerm.strip()
         if dicTerm == '':
             continue
-
+        if not is_valid_term(dicTerm):
+            warnings.warn(f"WARNING: invalid dict term: {dicTerm}, skipped")
         if '*' in dicTerm:
             # Replace consecutive asterisks with a single asterisk -- e.g., '**'->'*'
             pattern = re.compile(r'\*+')
             dicTerm = pattern.sub('*', dicTerm)
             dicTerm = r"\b" + dicTerm.replace("\n", "").replace("*", "") + r"\S*\b"
+        elif '(' in dicTerm or ')' in dicTerm or '/' in dicTerm:
+            dicTerm = dicTerm.replace("\n", "").replace('(', r'\(').replace(')', r'\)').replace('/', r'\/')
         else:
-            dicTerm = r"\b" + dicTerm.replace("\n", "").replace('(', r'\(').replace(')', r'\)') + r"\b"
+            dicTerm = r"\b" + dicTerm.replace("\n", "") + r"\b"
 
         for catNum in catNums:
             cat = catNameNumberMap[catNum]

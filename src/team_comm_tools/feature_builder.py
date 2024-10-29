@@ -220,6 +220,8 @@ class FeatureBuilder:
 
         # drop all columns that are in our generated feature set --- we don't want to create confusion!
         chat_features = list(itertools.chain(*[self.feature_dict[feature]["columns"] for feature in self.feature_dict.keys() if self.feature_dict[feature]["level"] == "Chat"]))
+        if self.custom_liwc_dictionary:
+            chat_features += [lexicon_type + "_lexical_wordcount_custom" for lexicon_type in self.custom_liwc_dictionary.keys()]
         columns_to_drop = [col for col in chat_features if col in self.chat_data.columns]
         self.chat_data = self.chat_data.drop(columns=columns_to_drop)
         self.orig_data = self.orig_data.drop(columns=columns_to_drop)
@@ -524,6 +526,8 @@ class FeatureBuilder:
             # Store column names of what we generated, so that the user can easily access them
             # TODO --- this needs to be updated if the user brings their own LIWC, because the custom LIWC features are not in `self.chat_features`.
             self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
+            if self.custom_liwc_dictionary:
+                self.chat_features += [lexicon_type + "_lexical_wordcount_custom" for lexicon_type in self.custom_liwc_dictionary.keys()]
             self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
             self.conv_features_all =  [col for col in self.conv_data if col not in self.orig_data and col != 'conversation_num']
             
