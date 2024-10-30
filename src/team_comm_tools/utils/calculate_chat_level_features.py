@@ -198,7 +198,7 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data = pd.concat([self.chat_data, liwc_features(self.chat_data, self.message_col, self.custom_liwc_dictionary)], axis = 1)
+        self.chat_data = pd.concat([self.chat_data, liwc_features(self.chat_data, self.message_col + "_original", self.custom_liwc_dictionary)], axis = 1)
         
     def calculate_hedge_features(self) -> None:
         """

@@ -26,7 +26,7 @@ def get_liwc_count(regex, chat):
 	else:
 		return 0
 
-def liwc_features(chat_df: pd.DataFrame, message_col: str, custom_liwc_dictionary: dict={}) -> pd.DataFrame:
+def liwc_features(chat_df: pd.DataFrame, message_col_original: str, custom_liwc_dictionary: dict={}) -> pd.DataFrame:
 	"""
 		This function takes in the chat level input dataframe and computes lexical features 
 		(the number of words from a given lexicon, such as LIWC).
@@ -48,13 +48,13 @@ def liwc_features(chat_df: pd.DataFrame, message_col: str, custom_liwc_dictionar
 			lexicons_dict = pickle.load(lexicons_pickle_file)
 		
 		# Return the lexical features stacked as columns
-		df_lst = [pd.DataFrame(chat_df[message_col + "_original"].apply(lambda chat: get_liwc_count(regex, chat)))\
-											.rename({message_col + "_original": lexicon_type + "_lexical_wordcount"}, axis=1)\
+		df_lst = [pd.DataFrame(chat_df[message_col_original].apply(lambda chat: get_liwc_count(regex, chat)))\
+											.rename({message_col_original: lexicon_type + "_lexical_wordcount"}, axis=1)\
 				for lexicon_type, regex in lexicons_dict.items()]
 
 		if custom_liwc_dictionary:
-			df_lst += [pd.DataFrame(chat_df[message_col + "_original"].apply(lambda chat: get_liwc_count(regex, chat)))\
-											.rename({message_col + "_original": lexicon_type + "_lexical_wordcount_custom"}, axis=1)\
+			df_lst += [pd.DataFrame(chat_df[message_col_original].apply(lambda chat: get_liwc_count(regex, chat)))\
+											.rename({message_col_original: lexicon_type + "_lexical_wordcount_custom"}, axis=1)\
 				for lexicon_type, regex in custom_liwc_dictionary.items()]
 		return pd.concat(df_lst, axis=1)
 	except FileNotFoundError:
