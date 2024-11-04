@@ -58,22 +58,26 @@ def test_chat_unit_equality(row):
     # if expected_column doesn't exist in tested_features, add an entry for it
     if row[1]['expected_column'] not in tested_features:
         tested_features[row[1]['expected_column']] = {'passed': 0, 'failed': 0}
-
-    try:
-        if (type(actual) == str):
-            assert actual == expected
-        else:
-            assert round(float(actual), 3) == round(float(expected), 3)
-        tested_features[row[1]['expected_column']]['passed'] += 1
-    except AssertionError:
-        tested_features[row[1]['expected_column']]['failed'] += 1
-        with open('test.log', 'a') as file:
-            file.write("\n")
-            file.write("------TEST FAILED------\n")
-            file.write(
-                f"Testing {row[1]['expected_column']} for message: {row[1]['message_original']}\n")
-            file.write(f"Expected value: {expected}\n")
-            file.write(f"Actual value: {actual}\n")
+        try:
+            if (pd.isnull(actual) and pd.isnull(expected)):
+                assert True
+            elif (type(actual) == str):
+                # file.write("both are strings")
+                assert actual == expected
+            else:
+                # file.write("both are numbers")
+                assert round(float(actual), 3) == round(float(expected), 3)
+            tested_features[row[1]['expected_column']]['passed'] += 1
+        except AssertionError:
+            
+            tested_features[row[1]['expected_column']]['failed'] += 1
+            with open('test.log', 'a') as file:
+                file.write("\n")
+                file.write("------TEST FAILED------\n")
+                file.write(
+                    f"Testing {row[1]['expected_column']} for message: {row[1]['message_original']}\n")
+                file.write(f"Expected value: {expected}\n")
+                file.write(f"Actual value: {actual}\n")
 
 
 test_ner = pd.read_csv('./output/chat/test_named_entity_chat_level.csv')
