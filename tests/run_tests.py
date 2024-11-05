@@ -28,9 +28,29 @@ if __name__ == "__main__":
 	conv_complex_df = pd.read_csv("data/cleaned_data/test_conv_level_complex.csv", encoding=chat_encoding['encoding'])
 	test_forward_flow_df = pd.read_csv("data/cleaned_data/fflow.csv", encoding=chat_encoding['encoding'])
 	conv_complex_timestamps_df = pd.read_csv("data/cleaned_data/test_conv_level_complex_timestamps.csv", encoding=chat_encoding['encoding'])
+	temporal  = pd.read_csv("data/cleaned_data/test_time_pairs.csv", encoding=chat_encoding['encoding'])
 
 		
 	# TESTING DATASETS -------------------------------
+
+	# testing time pairs features
+	testing_temporal = FeatureBuilder(
+		input_df = temporal,
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_temporal_level_chat.csv",
+		output_file_path_user_level = "./output/user/test_temporal_level_user.csv",
+		output_file_path_conv_level = "./output/conv/test_temporal_level_conv.csv",
+		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Forward Flow",
+            "Discursive Diversity"
+        ],
+		turns = False,
+		regenerate_vectors = True,
+		timestamp_col=("timestamp_start", "timestamp_end")
+	)
+	testing_temporal.featurize()
 
 	testing_chat = FeatureBuilder(
 		input_df = chat_df,
@@ -79,7 +99,8 @@ if __name__ == "__main__":
             "Discursive Diversity"
         ],
 		turns = False,
-		regenerate_vectors = True
+		regenerate_vectors = True,
+		timestamp_col="timestamp"
 	)
 	testing_conv.featurize()
 

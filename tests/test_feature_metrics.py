@@ -7,6 +7,7 @@ import logging
 import itertools
 
 test_chat_df = pd.read_csv("./output/chat/test_chat_level_chat.csv")
+test_time_pairs = pd.read_csv("./output/chat/test_temporal_level_chat.csv")
 test_info_exchange_zscore_df = pd.read_csv("./output/chat/info_exchange_zscore_chats.csv")
 test_chat_df = pd.concat([test_chat_df, test_info_exchange_zscore_df], axis=0)
 test_conv_df = pd.read_csv("./output/conv/test_conv_level_conv.csv")
@@ -51,6 +52,32 @@ with open('test.log', 'w') as f:
 
 @pytest.mark.parametrize("row", test_chat_df.iterrows())
 def test_chat_unit_equality(row):
+    actual = row[1][row[1]['expected_column']]
+    expected = row[1]['expected_value']
+
+    # if expected_column doesn't exist in tested_features, add an entry for it
+    if row[1]['expected_column'] not in tested_features:
+        tested_features[row[1]['expected_column']] = {'passed': 0, 'failed': 0}
+
+    try:
+        if (type(actual) == str):
+            assert actual == expected
+        else:
+            assert round(float(actual), 3) == round(float(expected), 3)
+        tested_features[row[1]['expected_column']]['passed'] += 1
+    except AssertionError:
+        tested_features[row[1]['expected_column']]['failed'] += 1
+        with open('test.log', 'a') as file:
+            file.write("\n")
+            file.write("------TEST FAILED------\n")
+            file.write(
+                f"Testing {row[1]['expected_column']} for message: {row[1]['message_original']}\n")
+            file.write(f"Expected value: {expected}\n")
+            file.write(f"Actual value: {actual}\n")
+
+
+@pytest.mark.parametrize("row", test_time_pairs.iterrows())
+def test_time_pairs_equality(row):
     actual = row[1][row[1]['expected_column']]
     expected = row[1]['expected_value']
 
