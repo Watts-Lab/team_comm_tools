@@ -138,7 +138,7 @@ class FeatureBuilder:
             ner_training_df: pd.DataFrame = None,
             ner_cutoff: int = 0.9,
             regenerate_vectors: bool = False,
-            compute_vectors_from_preprocessed: bool = False
+            compute_vectors_from_preprocessed: bool = False,
             custom_vect_path: str = None,
             convo_aggregation = True,
             convo_methods: list = ['mean', 'max', 'min', 'stdev'],
@@ -531,7 +531,12 @@ class FeatureBuilder:
             Path(self.output_file_path_user_level).parent.mkdir(parents=True, exist_ok=True)
             Path(self.output_file_path_chat_level).parent.mkdir(parents=True, exist_ok=True)
             Path(self.output_file_path_conv_level).parent.mkdir(parents=True, exist_ok=True)
-
+            
+            # Store column names of what we generated, so that the user can easily access them
+            self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
+            self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
+            self.conv_features_all =  [col for col in self.conv_data if col not in self.orig_data and col != 'conversation_num']
+            
             # Step 3a. Create user level features.
             print("Generating User Level Features ...")
             self.user_level_features()
@@ -541,13 +546,8 @@ class FeatureBuilder:
             self.conv_level_features()
             self.merge_conv_data_with_original()
             
-            # Step 4. Write the feartures into the files defined in the output paths.
+            # Step 4. Write the features into the files defined in the output paths.
             print("All Done!")
-            
-            # Store column names of what we generated, so that the user can easily access them
-            self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
-            self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
-            self.conv_features_all =  [col for col in self.conv_data if col not in self.orig_data and col != 'conversation_num']
             
             self.save_features()
 
@@ -654,7 +654,8 @@ class FeatureBuilder:
             input_columns = self.input_columns,
             user_aggregation = self.user_aggregation,
             user_methods = self.user_methods,
-            user_columns = self.user_columns
+            user_columns = self.user_columns,
+            chat_features = self.chat_features
         )
         self.user_data = user_feature_builder.calculate_user_level_features()
         # Remove special characters in column names
@@ -686,7 +687,8 @@ class FeatureBuilder:
             convo_columns = self.convo_columns,
             user_aggregation = self.user_aggregation,
             user_methods = self.user_methods,
-            user_columns = self.user_columns
+            user_columns = self.user_columns,
+            chat_features = self.chat_features,
         )
         # Calling the driver inside this class to create the features.
         self.conv_data = conv_feature_builder.calculate_conversation_level_features(self.feature_methods_conv)
