@@ -401,6 +401,15 @@ class FeatureBuilder:
         
         self.original_vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
         
+        if custom_vect_path is not None:
+            print("Detected that user has requested custom vectors...")
+            print("We will generate features using custom vectors rather than default SBERT")
+            self.vect_path = custom_vect_path
+        else:
+            self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
+        
+        self.original_vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
+        
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
@@ -417,6 +426,8 @@ class FeatureBuilder:
             if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
                 need_sentiment = True
 
+        # preprocess chat data again
+        self.preprocess_chat_data()
         # preprocess chat data again
         self.preprocess_chat_data()
         check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, self.message_col)

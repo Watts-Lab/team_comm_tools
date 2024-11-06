@@ -15,6 +15,8 @@ from transformers import AutoModelForSequenceClassification
 from scipy.special import softmax
 from transformers import logging
 
+from team_comm_tools.utils.preprocess import *
+
 logging.set_verbosity(40) # only log errors
 
 model_vect = SentenceTransformer('all-MiniLM-L6-v2')
@@ -24,7 +26,7 @@ model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Check if embeddings exist
-def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentiment, regenerate_vectors, message_col = "message"):
+def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentiment, regenerate_vectors, original_vect_path, message_col = "message"):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
@@ -43,6 +45,8 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
     :type need_sentiment: bool
     :param regenerate_vectors: If true, will regenerate vector data even if it already exists
     :type regenerate_vectors: bool, optional
+    :param original_vect_path: Default vector path if users do not provide custom vectors
+    :type original_vect_path: str, optional
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
 
@@ -59,10 +63,33 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
         # check whether the given vector and bert data matches length of chat data 
         if len(vector_df) != len(chat_data):
             print("ERROR: The length of the vector data does not match the length of the chat data. Regenerating...")
-            generate_vect(chat_data, vect_path, message_col)
+            if vect_path == original_vect_path:
+                print("WARNING: custom_vect_path and vector_directory are the same. Overwriting custom_vect_path...")
+            generate_vect(chat_data, original_vect_path, message_col)
+
+        if "message_embedding" not in vector_df.columns:
+            print("ERROR: The provided vectors do not contain a message_embedding column. Regenerating...")
+            if vect_path == original_vect_path:
+                print("WARNING: custom_vect_path and vector_directory are the same. Overwriting custom_vect_path...")
+            generate_vect(chat_data, original_vect_path, message_col)
+        else:
+            if vector_df['message_embedding'].apply(lambda x: isinstance(x, list) and all(isinstance(i, (int, float, np.number)) for i in x)).all() == False:
+                print("ERROR: message_embedding columns does not only contain numeric lists. Regenerating...")
+                if vect_path == original_vect_path:
+                    print("WARNING: custom_vect_path and vector_directory are the same. Overwriting custom_vect_path...")
+                generate_vect(chat_data, original_vect_path, message_col)
+
+        preprocess_vect_data(vector_df, message_col)
+
+        if vector_df["message"].equals(chat_data["message"]) == False:
+            print("ERROR: The provided vectors do not match the chat data. Regenerating...")
+            if vect_path == original_vect_path:
+                print("WARNING: custom_vect_path and vector_directory are the same. Overwriting custom_vect_path...")
+            generate_vect(chat_data, original_vect_path, message_col)
+
     except FileNotFoundError: # It's OK if we don't have the path, if the sentence vectors are not necessary
         if need_sentence:
-            generate_vect(chat_data, vect_path, message_col)
+            generate_vect(chat_data, original_vect_path, message_col)
 
     try:
         bert_df = pd.read_csv(bert_path)

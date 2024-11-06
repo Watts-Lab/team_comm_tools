@@ -18,6 +18,9 @@ if __name__ == "__main__":
 	juries_df = pd.read_csv("./example_data/full_empirical_datasets/jury_conversations_with_outcome_var.csv", encoding='utf-8')
 	csop_df = pd.read_csv("./example_data/full_empirical_datasets/csop_conversations_withblanks.csv", encoding='utf-8')
 	csopII_df = pd.read_csv("./example_data/full_empirical_datasets/csopII_conversations_withblanks.csv", encoding='utf-8')
+	test_df = pd.read_csv("C:/Users/amyta/Documents/GitHub/team_comm_tools/tests/data/cleaned_data/test_package_aggregation.csv", encoding='utf-8')
+ 
+	# C:/Users/amyta/Documents/GitHub/team_comm_tools/tests/data/cleaned_data/test_package_aggregation.csv
 	
 	"""
 	TINY / TEST DATASETS -------------------------------

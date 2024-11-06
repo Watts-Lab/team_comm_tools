@@ -8,6 +8,7 @@ from team_comm_tools.utils.summarize_features import *
 from team_comm_tools.utils.gini_coefficient import *
 from team_comm_tools.utils.preprocess import *
 from fuzzywuzzy import process
+from fuzzywuzzy import process
 
 class ConversationLevelFeaturesCalculator:
     """
@@ -245,6 +246,8 @@ class ConversationLevelFeaturesCalculator:
         self.summable_columns = ["num_words", "num_chars", "num_messages"]
                 
         
+                
+        
     def calculate_conversation_level_features(self, feature_methods: list) -> pd.DataFrame:
         """
         Main driver function for creating conversation-level features.
@@ -329,6 +332,18 @@ class ConversationLevelFeaturesCalculator:
                         on=[self.conversation_id_col],
                         how="inner"
                     )
+        if self.convo_aggregation == True:
+            # For each summarizable feature
+            for column in self.columns_to_summarize:
+                
+                # Average/Mean of feature across the Conversation
+                if 'mean' in self.convo_methods:
+                    self.conv_data = pd.merge(
+                        left=self.conv_data,
+                        right=get_mean(self.chat_data.copy(), column, 'mean_'+column, self.conversation_id_col),
+                        on=[self.conversation_id_col],
+                        how="inner"
+                    )
 
                 # Standard Deviation of feature across the Conversation
                 if 'stdev' in self.convo_methods:
@@ -338,7 +353,23 @@ class ConversationLevelFeaturesCalculator:
                         on=[self.conversation_id_col],
                         how="inner"
                     )
+                # Standard Deviation of feature across the Conversation
+                if 'stdev' in self.convo_methods:
+                    self.conv_data = pd.merge(
+                        left=self.conv_data,
+                        right=get_stdev(self.chat_data.copy(), column, 'stdev_'+column, self.conversation_id_col),
+                        on=[self.conversation_id_col],
+                        how="inner"
+                    )
 
+                # Minima for the feature across the Conversation
+                if 'min' in self.convo_methods:
+                    self.conv_data = pd.merge(
+                        left=self.conv_data,
+                        right=get_min(self.chat_data.copy(), column, 'min_'+column, self.conversation_id_col),
+                        on=[self.conversation_id_col],
+                        how="inner"
+                    )
                 # Minima for the feature across the Conversation
                 if 'min' in self.convo_methods:
                     self.conv_data = pd.merge(
@@ -367,6 +398,25 @@ class ConversationLevelFeaturesCalculator:
                     )
 
         # Do this only for the columns that make sense (e.g., countable things); we do this regardless of aggregation, as it's necessary for gini.
+                # Maxima for the feature across the Conversation
+                if 'max' in self.convo_methods:
+                    self.conv_data = pd.merge(
+                        left=self.conv_data,
+                        right=get_max(self.chat_data.copy(), column, 'max_'+column, self.conversation_id_col),
+                        on=[self.conversation_id_col],
+                        how="inner"
+                    )
+                    
+                # Median for the feature across the Conversation
+                if 'median' in self.convo_methods:
+                    self.conv_data = pd.merge(
+                        left=self.conv_data,
+                        right=get_median(self.chat_data.copy(), column, 'median_'+column, self.conversation_id_col),
+                        on=[self.conversation_id_col],
+                        how="inner"
+                    )
+
+        # Do this only for the columns that make sense (e.g., countable things); we do this regardless of aggregation, as it's necessary for gini.
         for column in self.summable_columns:
             # Sum for the feature across the Conversation
             self.conv_data = pd.merge(
@@ -375,6 +425,7 @@ class ConversationLevelFeaturesCalculator:
                 on=[self.conversation_id_col],
                 how="inner"
             )
+
 
     def get_user_level_aggregates(self) -> None:
         """
@@ -391,12 +442,25 @@ class ConversationLevelFeaturesCalculator:
         - Maximum of averaged user-level features
 
 
+
         :return: None
         :rtype: None
         """
 
         if self.convo_aggregation == True and self.user_aggregation == True:
+        if self.convo_aggregation == True and self.user_aggregation == True:
             
+            # aggregates from the user level based on conversation methods
+            if 'mean' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                         # Average/Mean of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_mean(self.user_data.copy(), user_method + "_" +user_column, "mean_user_" + user_method + "_" +user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
             # aggregates from the user level based on conversation methods
             if 'mean' in self.convo_methods:
                 for user_column in self.user_columns:
@@ -419,7 +483,49 @@ class ConversationLevelFeaturesCalculator:
                             on=[self.conversation_id_col],
                             how="inner"
                         )
+            if 'stdev' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                        # Standard Deviation of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_stdev(self.user_data.copy(), user_method + "_" + user_column, 'stdev_user_' + user_method + "_" + user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
 
+            if 'min' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                        # Minima of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_min(self.user_data.copy(), user_method + "_" + user_column, 'min_user_' + user_method + "_" + user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
+                
+            if 'max' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                        # Maxima of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_max(self.user_data.copy(), user_method + "_" + user_column, 'max_user_' + user_method + "_" + user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
+                        
+            if 'median' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                        # Median of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_median(self.user_data.copy(), user_method + "_" + user_column, 'median_user_' + user_method + "_" + user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
             if 'min' in self.convo_methods:
                 for user_column in self.user_columns:
                     for user_method in self.user_methods:
