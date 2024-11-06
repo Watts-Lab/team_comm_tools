@@ -14,6 +14,7 @@ from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification
 from scipy.special import softmax
 from transformers import logging
+from team_comm_tools.utils.preprocess import *
 
 logging.set_verbosity(40) # only log errors
 
@@ -38,6 +39,8 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
     :type vect_path: str
     :param bert_path: Path to the RoBERTa sentiment inference output file
     :type bert_path: str
+    :param original_vect_path: Path to the DEFAULT vector embeddings file (SBERT vectors; embeddings for each utterance.)
+    :type original_vect_path: str
     :param need_sentence: Whether at least one feature will require SBERT vectors; we will not need to calculate them otherwise.
     :type need_sentence: bool
     :param need_sentiment: Whether at least one feature will require the RoBERTa sentiments; we will not need to calculate them otherwise.
@@ -60,7 +63,25 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
         # check whether the given vector and bert data matches length of chat data 
         if len(vector_df) != len(chat_data):
             print("ERROR: The length of the vector data does not match the length of the chat data. Regenerating...")
-            generate_vect(chat_data, vect_path, message_col)
+            # reset vector path to default/original
+            generate_vect(chat_data, original_vect_path, message_col)
+            
+        # check that message in vector data matches chat data
+        preprocessed_chat = chat_data[message_col].astype(str).apply(preprocess_text)
+        preprocessed_vector = vector_df[message_col].astype(str).apply(preprocess_text)
+        
+        mismatches = chat_data[preprocessed_chat != preprocessed_vector]
+        if len(mismatches) != 0:
+            print("Messages in the vector data do not match the chat data. Regenerating...")
+            generate_vect(chat_data, original_vect_path, message_col)
+            
+        # check that message_embedding is numeric list
+        if pd.api.types.is_numeric_dtype(vector_df["message_embedding"]) is False:
+            print("message_embedding is not a numeric list. Regenerating ...")
+            generate_vect(chat_data, original_vect_path, message_col)
+        
+        # check turns 
+    
     except FileNotFoundError: # It's OK if we don't have the path, if the sentence vectors are not necessary
         if need_sentence:
             generate_vect(chat_data, vect_path, message_col)
