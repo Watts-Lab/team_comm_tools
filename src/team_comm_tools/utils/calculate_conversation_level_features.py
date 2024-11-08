@@ -98,7 +98,7 @@ class ConversationLevelFeaturesCalculator:
                 convo_columns_in_data = list(set(convo_columns).intersection(set(self.chat_data.columns)))
                 if(len(convo_columns_in_data) != len(convo_columns)):
                     print(
-                        "Warning: One or more requested user columns are not present in the data. Ignoring them."
+                        "Warning: One or more requested user columns are not present in the DATA. Ignoring them."
                     )
                     
                     for i in convo_columns:
@@ -116,7 +116,7 @@ class ConversationLevelFeaturesCalculator:
                 convo_columns_in_features = list(set(convo_columns).intersection(set(self.chat_features)))
                 if(len(convo_columns_in_features) != len(convo_columns)):
                     print(
-                        "Warning: One or more requested user columns are not present in the feature list. Ignoring them."
+                        "Warning: One or more requested user columns are not present in the FEATURE LIST. Ignoring them."
                     )
                     
                     for i in convo_columns:

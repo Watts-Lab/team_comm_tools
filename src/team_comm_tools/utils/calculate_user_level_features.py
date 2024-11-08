@@ -69,7 +69,7 @@ class UserLevelFeaturesCalculator:
                 
                 if(len(user_columns_in_data) != len(user_columns)):
                     print(
-                        "Warning: One or more requested user columns are not present in the data. Ignoring them."
+                        "Warning: One or more requested user columns are not present in the DATA. Ignoring them."
                     )
                     
                     for i in user_columns:
@@ -88,7 +88,7 @@ class UserLevelFeaturesCalculator:
                 
                 if(len(user_columns_in_features) != len(user_columns)):
                     print(
-                        "Warning: One or more requested user columns are not present in the feature list. Ignoring them."
+                        "Warning: One or more requested user columns are not present in the FEATURE LIST. Ignoring them."
                     )
                     
                     for i in user_columns:
