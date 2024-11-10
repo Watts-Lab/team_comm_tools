@@ -190,6 +190,8 @@ def generate_vect(chat_data, output_path, message_col, batch_size = 64):
     :type output_path: str
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
+    :param batch_size: The size of each batch for processing sentiment analysis. Defaults to 64.
+    :type batch_size: int
     :raises FileNotFoundError: If the output path is invalid.
     :return: None
     :rtype: None
