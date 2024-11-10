@@ -1,0 +1,11 @@
+conversation_num,speaker_nickname,timestamp,message,feature
+conversation_5, speaker_1,, Did you catch the latest episode of that show everyone’s talking about?,info_diversity
+conversation_5, speaker_2,, Yeah it was intense! But I had to pause halfway to finish my assignment.,info_diversity
+conversation_5, speaker_3,, I haven’t started watching it yet. Is it really that good?,info_diversity
+conversation_5, speaker_1,, Definitely worth it. But speaking of assignments how’s your machine learning course going?,info_diversity
+conversation_5, speaker_2,, It’s going well! I’m almost done with the neural networks module.,info_diversity
+conversation_5, speaker_3,, Neural networks? That’s tough. I’m still stuck on the earlier parts.,info_diversity
+conversation_5, speaker_1,, You’ll get there. Just take it one step at a time. Also are you guys thinking about internships yet?,info_diversity
+conversation_5, speaker_2,, I am! I’m applying to a few tech companies next week.,info_diversity
+conversation_5, speaker_3,, I should probably start looking too. I’m just so caught up with other things.,info_diversity
+conversation_5, speaker_1,, Same here. Between school shows and job applications it’s hard to find balance.,info_diversity
