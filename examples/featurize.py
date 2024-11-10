@@ -43,8 +43,8 @@ if __name__ == "__main__":
 		input_df = tiny_juries_df,
 		grouping_keys = ["batch_num", "round_num"],
 		output_file_base = "jury_TINY_output", # Naming output files using the output_file_base parameter (recommended)
-		# turns = False, -- ERROR: with turns being true
-		turns = True,
+		turns = False, -- ERROR: with turns being true
+		# turns = True,
 		custom_features = [
 			"(BERT) Mimicry",
 			"Moving Mimicry",
