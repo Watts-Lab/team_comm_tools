@@ -37,22 +37,21 @@ if __name__ == "__main__":
 
 	"""
 
-	# Tiny Juries
-	tiny_juries_feature_builder = FeatureBuilder(
-		input_df = tiny_juries_df,
-		grouping_keys = ["batch_num", "round_num"],
-		output_file_base = "jury_TINY_output", # Naming output files using the output_file_base parameter (recommended)
-		turns = False, -- ERROR: with turns being true
-		# turns = True,
-		custom_features = [
-			"(BERT) Mimicry",
-			"Moving Mimicry",
-			"Forward Flow",
-			"Discursive Diversity"]
-	)
-	tiny_juries_feature_builder.featurize()
+	# # Tiny Juries
+	# tiny_juries_feature_builder = FeatureBuilder(
+	# 	input_df = tiny_juries_df,
+	# 	grouping_keys = ["batch_num", "round_num"],
+	# 	output_file_base = "jury_TINY_output", # Naming output files using the output_file_base parameter (recommended)
+	# 	turns = False,
+	# 	custom_features = [
+	# 		"(BERT) Mimicry",
+	# 		"Moving Mimicry",
+	# 		"Forward Flow",
+	# 		"Discursive Diversity"]
+	# )
+	# tiny_juries_feature_builder.featurize()
 
-	# Tiny multi-task
+	# # Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
 	# 	input_df = tiny_multi_task_df,
 	# 	conversation_id_col = "stageId",
@@ -68,21 +67,21 @@ if __name__ == "__main__":
 	# FULL DATASETS BELOW ------------------------------------- #
 	
 	# Juries
-	# jury_feature_builder = FeatureBuilder(
-	# 	input_df = juries_df,
-	# 	grouping_keys = ["batch_num", "round_num"],
-	# 	vector_directory = "./vector_data/",
-	# 	output_file_path_chat_level = "./jury_output_chat_level.csv",
-	# 	output_file_path_user_level = "./jury_output_user_level.csv",
-	# 	output_file_path_conv_level = "./jury_output_conversation_level.csv",
-	# 	turns = True,
-	# 	custom_features = [
-	# 		"(BERT) Mimicry",
-	# 		"Moving Mimicry",
-	# 		"Forward Flow",
-	# 		"Discursive Diversity"]
-	# )
-	# jury_feature_builder.featurize()
+	jury_feature_builder = FeatureBuilder(
+		input_df = juries_df,
+		grouping_keys = ["batch_num", "round_num"],
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./jury_output_chat_level.csv",
+		output_file_path_user_level = "./jury_output_user_level.csv",
+		output_file_path_conv_level = "./jury_output_conversation_level.csv",
+		turns = True,
+		custom_features = [
+			"(BERT) Mimicry",
+			"Moving Mimicry",
+			"Forward Flow",
+			"Discursive Diversity"]
+	)
+	jury_feature_builder.featurize()
 
 	# # CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
