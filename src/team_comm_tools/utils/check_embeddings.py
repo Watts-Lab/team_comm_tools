@@ -205,7 +205,7 @@ def generate_vect(chat_data, output_path, message_col, batch_size = 64):
     embeddings = np.tile(nan_vector, (len(empty_to_nan), 1)) # default embeddings to the NAN vector
     non_empty_index = 0
     for idx, text in enumerate(empty_to_nan):
-        if text is not None: # if it's a real text, fill it in with its actual embeding
+        if text is not None: # if it's a real text, fill it in with its actual embedding
             embeddings[idx] = all_embeddings[non_empty_index]
             non_empty_index += 1
     embedding_arr = [emb.tolist() for emb in embeddings]
