@@ -734,18 +734,3 @@ H,3,2024-11-04,trying quote random,dale_chall_classification,easy
 H,3,2024-11-04,erase eraser errand every even dig dim dime dine computer,dale_chall_classification,medium
 H,3,2024-11-04,discover direction different,dale_chall_classification,easy
 H,4,2024-11-04,even this is magnificent! even this is magnificent!,dale_chall_classification,difficult
-I,A,2023-01-15,hello,time_diff,0
-I,A,2023-01-16,hello,time_diff,86400
-I,A,2023-01-17,hello,time_diff,86400
-I,A,2023-01-18,hello,time_diff,86400
-I,A,2023-01-19,hello,time_diff,86400
-J,A,2023-01-15,hello,time_diff,0
-J,A,2023-01-15,hello,time_diff,0
-J,A,2023-01-16,hello,time_diff,86400
-J,A,2023-01-18,hello,time_diff,172800
-J,A,2023-01-19,hello,time_diff,86400
-K,A,1234567,hello,time_diff,0
-K,A,1234567,hello,time_diff,0
-K,A,1234567,hello,time_diff,0
-K,A,1234567,hello,time_diff,0
-K,A,1234567,hello,time_diff,0

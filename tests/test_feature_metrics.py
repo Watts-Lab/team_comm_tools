@@ -25,6 +25,8 @@ test_conv_complex_df = pd.read_csv(
 test_conv_complex_df_ts = pd.read_csv(
     "./output/conv/test_conv_level_conv_complex_ts.csv")
 test_forward_flow_df = pd.read_csv("./output/chat/test_forward_flow_chat.csv")
+test_ner = pd.read_csv('./output/chat/test_named_entity_chat_level.csv')
+
 
 # Import the Feature Dictionary
 
@@ -37,20 +39,27 @@ num_features_chat = len(list(itertools.chain(*chat_features)))
 num_features_conv = len(list(itertools.chain(*conversation_features)))
 
 
-num_tested_chat = test_chat_df['expected_column'].nunique(
-) + test_chat_complex_df['feature'].nunique() + test_forward_flow_df['feature'].nunique()
-test_chat = test_chat_df['expected_column'] + \
-    test_chat_complex_df['feature'] + test_forward_flow_df['feature']
-tested_chat = set(test_chat.tolist())
+num_tested_chat = test_chat_df['expected_column'].nunique() + test_chat_complex_df['feature'].nunique() + test_forward_flow_df['feature'].nunique()
+test_chat = test_chat_df['expected_column'].unique().tolist() + test_chat_complex_df['feature'].unique().tolist() + \
+            test_forward_flow_df['feature'].unique().tolist() + ["named_entities"] + ["time_diff"]
+tested_chat = len(set(test_chat))
 
 
 num_tested_conv = len(set(test_conv_df['expected_column'].unique().tolist() + test_conv_complex_df['feature'].unique().tolist()))
-
 tested_features = {}
 
 
+#remove elements from list x that are in list y
+# def remove_elements(x, y):
+#     for i in y:
+#         if i in x:
+#             x.remove(i)
+#     return x
+
 with open('test.log', 'w') as f:
-    f.write(f'Tested {num_tested_chat} features out of {num_features_chat} chat level features: {num_tested_chat/num_features_chat * 100:.2f}% Coverage!\n')
+    # f.write(f'{remove_elements(list(itertools.chain(*chat_features)), list(set(test_chat)))}\n')
+    # f.write(f'{remove_elements(list(set(test_chat)), list(itertools.chain(*chat_features)))}\n')
+    f.write(f'Tested {tested_chat} features out of {num_features_chat} chat level features: {tested_chat/num_features_chat * 100:.2f}% Coverage!\n')
     f.write(f'Tested {num_tested_conv} features out of {num_features_conv} conv level features: {num_tested_conv/num_features_conv * 100:.2f}% Coverage!\n')
     pass
 
@@ -111,7 +120,6 @@ def test_time_pairs_equality(df):
                 file.write(f"Actual value: {actual}\n")
 
 
-test_ner = pd.read_csv('./output/chat/test_named_entity_chat_level.csv')
 tested_features['Named Entity Recognition'] = {'passed': 0, 'failed': 0}
 
 
