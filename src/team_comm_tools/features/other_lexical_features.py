@@ -18,7 +18,7 @@ def classify_NTRI(text):
     int: The number of matches for repair indicators.
 
   """
-  return 1 if re.match(NTRI_regex, text) else 0
+  return 1 if re.match(NTRI_regex, str(text)) else 0
   
 ## Calculate the word type-to-token ratio
 def get_word_TTR(text):
@@ -37,8 +37,7 @@ def get_word_TTR(text):
 
   """
   # remove punctuations
-  new_text = re.sub(r"[^a-zA-Z0-9 ]+", '',text)
-  # calculate the number of unique words
+  new_text = re.sub(r"[^a-zA-Z0-9 ]+", '', str(text))
   num_unique_words = len(set(new_text.split()))
   # calculate the word type-to-token ratio
   if count_words(new_text) == 0:
