@@ -66,7 +66,9 @@ def test_time_pairs_equality(df):
             tested_features[row[1]['expected_column']] = {'passed': 0, 'failed': 0}
 
         try:
-            if (type(actual) == str):
+            if (pd.isnull(actual) and pd.isnull(expected)):
+                assert True
+            elif (type(actual) == str):
                 assert actual == expected
             else:
                 assert round(float(actual), 3) == round(float(expected), 3)
