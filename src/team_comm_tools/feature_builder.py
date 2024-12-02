@@ -66,6 +66,9 @@ class FeatureBuilder:
     :param timestamp_col: A string representing the column name that should be selected as the message. Defaults to "timestamp".
     :type timestamp_col: str, optional
 
+    :param timestamp_unit: A string representing the unit of the timestamp (if the timestamp is numeric). Default to the unit 'ms' (milliseconds). Other options (D,s,ms,us,ns) can be found on the Pandas reference: https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html
+    :type timestamp_unit: str, optional
+
     :param grouping_keys: A list of multiple identifiers that collectively identify a conversation. If non-empty, we will group by all of the keys in the list and use the grouped key as the unique "conversational identifier."
         Defaults to an empty list.
     :type grouping_keys: list, optional
@@ -111,6 +114,7 @@ class FeatureBuilder:
             speaker_id_col: str = "speaker_nickname",
             message_col: str = "message",
             timestamp_col: str | tuple[str, str] = "timestamp",
+            timestamp_unit = "ms",
             grouping_keys: list = [],
             cumulative_grouping = False, 
             within_task = False,
@@ -213,6 +217,7 @@ class FeatureBuilder:
         self.speaker_id_col = speaker_id_col
         self.message_col = message_col
         self.timestamp_col = timestamp_col
+        self.timestamp_unit = timestamp_unit
         self.column_names = {
             'conversation_id_col': conversation_id_col,
             'speaker_id_col': speaker_id_col,
@@ -564,7 +569,8 @@ class FeatureBuilder:
             ner_cutoff = self.ner_cutoff,
             conversation_id_col = self.conversation_id_col,
             message_col = self.message_col,
-            timestamp_col = self.timestamp_col
+            timestamp_col = self.timestamp_col,
+            timestamp_unit = self.timestamp_unit
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features(self.feature_methods_chat)

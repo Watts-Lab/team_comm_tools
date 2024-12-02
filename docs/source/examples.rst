@@ -8,7 +8,11 @@ Demo / Sample Code
 
 After following the "Getting Started" steps below, the Team Communication Toolkit can be imported at the top of any Python script. We have provided a simple example file, "featurize.py", and a demo notebook, "demo.ipynb," under our `examples folder <https://github.com/Watts-Lab/team_comm_tools/tree/main/examples>`_ on GitHub.
 
-You can also `access our demo notebook on Google Colab <https://colab.research.google.com/drive/1e8D5h_prRJsGs_N563EvpoQK0uZIAYsJ?usp=sharing>`_, where you can make a copy and run it on your own.
+We also have demos available on Google Colab that you can copy and run on your own:
+
+- `Demo 1: Overview of Team Communication Toolkit and 3 Levels of Features <https://colab.research.google.com/drive/1e8D5h_prRJsGs_N563EvpoQK0uZIAYsJ?usp=sharing>`_
+
+- `Demo 2: Sample Analysis with the Group Affect and Performance Corpus <https://colab.research.google.com/drive/1wnuUC5yg6uQH0TYP1AXVPGRgfp2-npgJ?usp=sharing>`_
 
 Finally, this page will walk you through a case study, highlighting top use cases and considerations when using the toolkit.
 
