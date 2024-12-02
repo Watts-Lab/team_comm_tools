@@ -20,6 +20,7 @@ if __name__ == "__main__":
 		conv_encoding = chardet.detect(file.read())
 
 	chat_df = pd.read_csv("data/cleaned_data/test_chat_level.csv", encoding=chat_encoding['encoding'])
+	info_exchange_df = pd.read_csv("data/cleaned_data/info_exchange_zscore_chats.csv", encoding=chat_encoding['encoding'])
 	conv_df = pd.read_csv("data/cleaned_data/test_conv_level.csv", encoding=conv_encoding['encoding'])
 	test_ner_df = pd.read_csv("data/cleaned_data/test_named_entity.csv", encoding='utf-8')
 	test_ner_training_df = pd.read_csv("data/cleaned_data/train_named_entity.csv")
@@ -28,8 +29,27 @@ if __name__ == "__main__":
 	test_forward_flow_df = pd.read_csv("data/cleaned_data/fflow.csv", encoding=chat_encoding['encoding'])
 	conv_complex_timestamps_df = pd.read_csv("data/cleaned_data/test_conv_level_complex_timestamps.csv", encoding=chat_encoding['encoding'])
 
+	positivity_zscore = pd.read_csv("data/cleaned_data/positivity_zscore_chats.csv", encoding=chat_encoding['encoding'])
+
 		
 	# TESTING DATASETS -------------------------------
+
+	test_positivity = FeatureBuilder(
+		input_df = positivity_zscore,
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_positivity_chat_level.csv",
+		output_file_path_user_level = "./output/user/test_positivity_user_level.csv",
+		output_file_path_conv_level = "./output/conv/test_positivity_conv_level.csv",
+		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
+			"(BERT) Mimicry",
+			"Moving Mimicry",
+			"Forward Flow",
+			"Discursive Diversity"
+		],
+		turns = False,
+		regenerate_vectors = True
+	)
+	test_positivity.featurize()
 
 	testing_chat = FeatureBuilder(
 		input_df = chat_df,
@@ -44,9 +64,26 @@ if __name__ == "__main__":
             "Discursive Diversity"
         ],
 		turns = False,
-		regenerate_vectors=True
+		regenerate_vectors = True
 	)
 	testing_chat.featurize()
+
+	testing_info_exchange = FeatureBuilder(
+		input_df = info_exchange_df,
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/info_exchange_zscore_chats.csv",
+		output_file_path_user_level = "./output/user/info_exchange_zscore_chats.csv",
+		output_file_path_conv_level = "./output/conv/info_exchange_zscore_chats.csv",
+		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
+            "(BERT) Mimicry",
+            "Moving Mimicry",
+            "Forward Flow",
+            "Discursive Diversity"
+        ],
+		turns = False,
+		regenerate_vectors = True
+	)
+	testing_info_exchange.featurize()
 
 	testing_conv = FeatureBuilder(
 		input_df = conv_df,
@@ -60,7 +97,8 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False
+		turns = False,
+		regenerate_vectors = True
 	)
 	testing_conv.featurize()
 
@@ -77,7 +115,8 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False
+		turns = False,
+		regenerate_vectors = True
 	)
 	test_ner_feature_builder.featurize()
 
@@ -94,7 +133,8 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False
+		turns = False,
+		regenerate_vectors = True
 	)
 	testing_chat_complex.featurize()
 
@@ -111,7 +151,8 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False
+		turns = False,
+		regenerate_vectors = True
 	)
 	testing_conv_complex.featurize()
 
@@ -127,7 +168,8 @@ if __name__ == "__main__":
             "Forward Flow",
             "Discursive Diversity"
         ],
-		turns = False
+		turns = False,
+		regenerate_vectors = True
 	)
 	testing_conv_complex_ts.featurize()
 
@@ -144,7 +186,8 @@ if __name__ == "__main__":
 			"Forward Flow",
 			"Discursive Diversity"
 		],
-		turns = False
+		turns = False,
+		regenerate_vectors = True
 	)
 
 	testing_forward_flow.featurize()

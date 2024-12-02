@@ -28,6 +28,8 @@ def get_info_exchange_wordcount(df, first_person, message_col):
     pd.Series: A column containing the difference in total words and first-person singular pronouns.
 
   '''
-  first_person_regex = " | ".join(first_person)
-  df['first_person_raw'] = df[message_col].apply(lambda chat: len(re.findall(first_person_regex, chat)))
+  first_person_regex = "\\b|\\b".join(first_person)
+  first_person_regex = "\\b" + first_person_regex + "\\b" 
+
+  df['first_person_raw'] = df[message_col].apply(lambda chat: len(re.findall(first_person_regex, str(chat))))
   return (df["num_words"] - df["first_person_raw"])

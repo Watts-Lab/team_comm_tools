@@ -83,3 +83,30 @@ X, C,Quesadillas are my favorite food in the whole world.,forward_flow,inv/dir
 X, D,Let's go shopping this weekend.,forward_flow,inv/dir
 X, D,Parties are so overrated.,forward_flow,inv/dir
 X, D,Did you watch the latest political debate?,forward_flow,inv/dir
+AA,A,I am going to walk my dog today.,mimicry_bert,inv/dir
+AA,A,I am going to walk my pet today.,mimicry_bert,inv/dir
+BB,A,The weather is gorgeous outside today.,mimicry_bert,inv/dir
+BB,A,It's so sunny outside!,mimicry_bert,inv/dir
+CC,A,The weather is gorgeous outside today.,mimicry_bert,inv/dir
+CC,A,Does anyone want to play chess?,mimicry_bert,inv/dir
+DD,A,I am going to walk my dog today.,mimicry_bert,unit_eq
+DD,A,I am going to walk my pet today.,mimicry_bert,unit_eq
+EE,A,I am going to walk my dog today.,mimicry_bert,unit_eq
+EE,A,I am going to walk my pet today.,mimicry_bert,unit_eq
+FF,A,The weather is gorgeous outside today.,mimicry_bert,unit_eq
+FF,A,Does anyone want to play chess?,mimicry_bert,unit_eq
+GG,A,This is the same sentence.,moving_mimicry,unit_eq
+GG,A,This is the same sentence.,moving_mimicry,unit_eq
+HH,A,This is the same sentence.,moving_mimicry,unit_eq
+HH,A,This is the same sentence.,moving_mimicry,unit_eq
+II,A,This is the same sentence.,moving_mimicry,unit_eq
+II,A,I'm trying something new.,moving_mimicry,unit_eq
+JJ,A,I want to eat something.,moving_mimicry,inv/dir
+JJ,A,I've been meaning to try this restaurant.,moving_mimicry,inv/dir
+JJ,A,Does the restaurant serve quesadillas?,moving_mimicry,inv/dir
+KK,A,Let's go to the amusement park.,moving_mimicry,inv/dir
+KK,A,Does it have roller coasters?,moving_mimicry,inv/dir
+KK,A,I'm scared of roller coasters I can't go!,moving_mimicry,inv/dir
+LL,A,Let me get on the dance floor.,moving_mimicry,inv/dir
+LL,A,I've been meaning to try this restaurant.,moving_mimicry,inv/dir
+LL,A,Bust some moves!,moving_mimicry,inv/dir
