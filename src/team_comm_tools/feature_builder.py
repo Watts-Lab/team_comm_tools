@@ -546,7 +546,6 @@ class FeatureBuilder:
             # Store column names of what we generated, so that the user can easily access them
             self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
             self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
-            self.conv_features_all =  [col for col in self.conv_data if col not in self.orig_data and col != 'conversation_num']
             
             # Step 3a. Create user level features.
             print("Generating User Level Features ...")
@@ -558,6 +557,7 @@ class FeatureBuilder:
             self.merge_conv_data_with_original()
             
             # Step 4. Write the features into the files defined in the output paths.
+            self.conv_features_all =  [col for col in self.conv_data if col not in list(self.orig_data.columns) + ["conversation_num", self.message_col + "_original", "message_lower_with_punc"]] # save the column names that we generated!
             print("All Done!")
             
             self.save_features()
