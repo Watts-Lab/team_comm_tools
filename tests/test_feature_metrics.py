@@ -62,10 +62,8 @@ def test_chat_unit_equality(row):
             if (pd.isnull(actual) and pd.isnull(expected)):
                 assert True
             elif (type(actual) == str):
-                # file.write("both are strings")
                 assert actual == expected
             else:
-                # file.write("both are numbers")
                 assert round(float(actual), 3) == round(float(expected), 3)
             tested_features[row[1]['expected_column']]['passed'] += 1
         except AssertionError:
