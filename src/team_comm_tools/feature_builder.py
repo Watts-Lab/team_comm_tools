@@ -428,8 +428,6 @@ class FeatureBuilder:
 
         # preprocess chat data again
         self.preprocess_chat_data()
-        # preprocess chat data again
-        self.preprocess_chat_data()
         check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, self.message_col)
 
         if(need_sentence):
