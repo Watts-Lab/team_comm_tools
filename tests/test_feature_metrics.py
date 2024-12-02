@@ -14,10 +14,9 @@ test_timediff_numeric_unit = pd.read_csv("./output/chat/test_timediff_num_unit_l
 test_time_pairs_dt = pd.read_csv("./output/chat/test_time_pairs_dt_level_chat.csv")
 test_time_pairs_numeric = pd.read_csv("./output/chat/test_time_pairs_num_level_chat.csv")
 test_time_pairs_numeric_unit = pd.read_csv("./output/chat/test_time_pairs_num_unit_level_chat.csv")
-
 test_info_exchange_zscore_df = pd.read_csv("./output/chat/info_exchange_zscore_chats.csv")
 test_pos = pd.read_csv("./output/chat/test_positivity_chat_level.csv")
-test_chat_df = pd.concat([test_chat_df, test_info_exchange_zscore_df, test_pos], axis=0)
+
 test_conv_df = pd.read_csv("./output/conv/test_conv_level_conv.csv")
 test_chat_complex_df = pd.read_csv(
     "./output/chat/test_chat_level_chat_complex.csv")
@@ -27,7 +26,6 @@ test_conv_complex_df_ts = pd.read_csv(
     "./output/conv/test_conv_level_conv_complex_ts.csv")
 test_forward_flow_df = pd.read_csv("./output/chat/test_forward_flow_chat.csv")
 test_ner = pd.read_csv('./output/chat/test_named_entity_chat_level.csv')
-
 
 # Import the Feature Dictionary
 
@@ -53,10 +51,10 @@ with open('test.log', 'w') as f:
     pass
 
 # ---- MAIN TESTS ------
-df = [test_chat_df, test_timediff_dt, test_timediff_numeric, test_timediff_numeric_unit, test_time_pairs_dt, test_time_pairs_numeric, test_time_pairs_numeric_unit]
 
-@pytest.mark.parametrize("df", df)
-def test_time_pairs_equality(df):
+main_tests = [test_chat_df, test_timediff_dt, test_timediff_numeric, test_timediff_numeric_unit, test_time_pairs_dt, test_time_pairs_numeric, test_time_pairs_numeric_unit, test_info_exchange_zscore_df, test_pos]
+@pytest.mark.parametrize("df", main_tests)
+def test_chat_unit_equality(df):
     for row in df.iterrows():
         actual = row[1][row[1]['expected_column']]
         expected = row[1]['expected_value']
@@ -86,7 +84,6 @@ def test_time_pairs_equality(df):
             raise AssertionError # Re-raise the AssertionError to mark the test as failed
 
 tested_features['Named Entity Recognition'] = {'passed': 0, 'failed': 0}
-
 @pytest.mark.parametrize("row", test_ner.iterrows())
 def test_named_entity_recognition(row):
 
@@ -172,20 +169,13 @@ def test_conv_unit_equality(conversation_num, conversation_rows):
 
         raise AssertionError # Re-raise the AssertionError to mark the test as failed
 
-
-# testing complex features
-test_chat_complex_df = pd.read_csv(
-    "./output/chat/test_chat_level_chat_complex.csv")
-
-# Helper function to generate batches of three rows
-
+# Helper function for batches of 3 rows (INV/DIR)
 def get_batches(dataframe, batch_size=3):
     batches = []
     rows = list(dataframe.iterrows())
     for i in range(0, len(rows), batch_size):
         batches.append(rows[i:i + batch_size])
     return batches
-
 
 def get_conversation_batches(dataframe, batch_size=3):
     # group by conversation_num and get the last row from the group
@@ -199,11 +189,7 @@ def get_conversation_batches(dataframe, batch_size=3):
     return batches
 
 
-# Assuming test_chat_complex_df is your DataFrame
-batches = get_batches(test_chat_complex_df, batch_size=3)
-
-
-@pytest.mark.parametrize("batch", batches)
+@pytest.mark.parametrize("batch", get_batches(test_chat_complex_df, batch_size=3))
 def test_chat_complex(batch):
     feature = batch[0][1]['feature']
     if feature not in tested_features:
@@ -245,11 +231,10 @@ def test_chat_complex(batch):
         raise AssertionError # Re-raise the AssertionError to mark the test as failed
 
 
-batches = get_batches(test_conv_complex_df, batch_size=3) + get_conversation_batches(
+conversation_complex_batches = get_batches(test_conv_complex_df, batch_size=3) + get_conversation_batches(
     test_forward_flow_df, batch_size=3) + get_batches(test_conv_complex_df_ts, batch_size=3)
 
-
-@pytest.mark.parametrize("batch", batches)
+@pytest.mark.parametrize("batch", conversation_complex_batches)
 def test_conv_complex(batch):
     feature = batch[0][1]['feature']
     if feature not in tested_features:
@@ -298,11 +283,7 @@ def test_conv_complex(batch):
 
         # we don't raise an AssertionError here because it's not a perfect feature
 
-
-batches = get_conversation_batches(test_forward_flow_df, batch_size=3)
-
-
-@pytest.mark.parametrize("batch", batches)
+@pytest.mark.parametrize("batch", get_conversation_batches(test_forward_flow_df, batch_size=3))
 def test_forward_flow_unit(batch):
     if (batch[0][1]['test_type'] != 'unit_eq'):
         return
