@@ -32,10 +32,8 @@ if __name__ == "__main__":
 
 	timediff_datetime  = pd.read_csv("data/cleaned_data/test_timediff_datetime.csv", encoding=chat_encoding['encoding'])
 	timediff_numeric = pd.read_csv("data/cleaned_data/test_timediff_numeric.csv", encoding=chat_encoding['encoding'])
-	timediff_numeric_unit = pd.read_csv("data/cleaned_data/test_timediff_numeric_unit.csv", encoding=chat_encoding['encoding'])
 	time_pairs_datetime  = pd.read_csv("data/cleaned_data/test_time_pairs_datetime.csv", encoding=chat_encoding['encoding'])
 	time_pairs_numeric = pd.read_csv("data/cleaned_data/test_time_pairs_numeric.csv", encoding=chat_encoding['encoding'])
-	time_pairs_numeric_unit = pd.read_csv("data/cleaned_data/test_time_pairs_numeric_unit.csv", encoding=chat_encoding['encoding'])
 		
 	# TESTING DATASETS -------------------------------
 
@@ -79,7 +77,7 @@ if __name__ == "__main__":
 
 	# testing timediff numeric with unit parameter
 	testing_timediff_numeric_unit = FeatureBuilder(
-		input_df = timediff_numeric_unit,
+		input_df = timediff_numeric,
 		vector_directory = "./vector_data/",
 		output_file_path_chat_level = "./output/chat/test_timediff_num_unit_level_chat.csv",
 		output_file_path_user_level = "./output/user/test_timediff_num_unit_user.csv",
@@ -92,6 +90,7 @@ if __name__ == "__main__":
         ],
 		turns = False,
 		regenerate_vectors = True,
+		timestamp_unit = 'h'
 	)
 	testing_timediff_numeric_unit.featurize()
 
@@ -135,7 +134,7 @@ if __name__ == "__main__":
 
 	# testing time pairs numeric unit
 	testing_time_pairs_numeric_unit = FeatureBuilder(
-		input_df = time_pairs_numeric_unit,
+		input_df = time_pairs_numeric,
 		vector_directory = "./vector_data/",
 		output_file_path_chat_level = "./output/chat/test_time_pairs_num_unit_level_chat.csv",
 		output_file_path_user_level = "./output/user/test_time_pairs_num_unit_user.csv",
@@ -148,7 +147,8 @@ if __name__ == "__main__":
         ],
 		turns = False,
 		regenerate_vectors = True,
-		timestamp_col=("timestamp_start", "timestamp_end")
+		timestamp_col=("timestamp_start", "timestamp_end"),
+		timestamp_unit = 's'
 	)
 	testing_time_pairs_numeric_unit.featurize()
 

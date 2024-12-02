@@ -22,7 +22,7 @@ def coerce_to_date_or_number(value):
         except (ValueError, TypeError):
             raise ValueError("Incorrect timestamp format: " + str(value))
 
-def get_time_diff(df, on_column, conversation_id_col):
+def get_time_diff(df, on_column, conversation_id_col, timestamp_unit):
     """
     Obtains the time difference between messages, assuming there is only a *single* timestamp column
     representing the time of each utterance.
@@ -31,6 +31,7 @@ def get_time_diff(df, on_column, conversation_id_col):
         df (pd.DataFrame): This is a pandas dataframe of the chat level features.
         on_column (str): The column name for the timestamp columns.
         conversation_id_col(str): A string representing the column name that should be selected as the unique conversation identifier.
+        timestamp_unit (str): A string representing the unit of a timestamp. Defaults to 'ms'.
 
     Returns:
         pd.Series: A column representing the time difference between messages.
@@ -44,7 +45,7 @@ def get_time_diff(df, on_column, conversation_id_col):
         if(isinstance(df[on_column][0], str)): # String datetime, e.g., '2023-02-20 09:00:00'
             df[on_column] = pd.to_datetime(df[on_column])
         elif(isinstance(df[on_column][0], np.int64)):             
-            unit = df["unit"][0] if 'unit' in df.columns else 'ms'
+            unit = timestamp_unit
             df[on_column] = pd.to_datetime(df[on_column], unit=unit)
         
         # set and zero time_diff column
@@ -61,7 +62,7 @@ def get_time_diff(df, on_column, conversation_id_col):
 
     return df['time_diff']
 
-def get_time_diff_startend(df, timestamp_start, timestamp_end, conversation_id_col):
+def get_time_diff_startend(df, timestamp_start, timestamp_end, conversation_id_col, timestamp_unit):
     """
     Obtains the time difference between messages, assuming there are *two* timestamp columns, one representing
     the start of a message and one representing the end of a message.
@@ -74,6 +75,7 @@ def get_time_diff_startend(df, timestamp_start, timestamp_end, conversation_id_c
         timestamp_start(str): A string representing the column name that should be selected as the start timestamp.
         timestamp_end(str): A string representing the column name that should be selected as the end timestamp.
         conversation_id_col(str): A string representing the column name that should be selected as the conversation ID.
+        timestamp_unit (str): A string representing the unit of a timestamp. Defaults to 'ms'.
 
     Returns:
         pd.Series: A column representing the time difference between messages.
@@ -88,7 +90,7 @@ def get_time_diff_startend(df, timestamp_start, timestamp_end, conversation_id_c
             df[timestamp_start] = pd.to_datetime(df[timestamp_start])
             df[timestamp_end] = pd.to_datetime(df[timestamp_end])
         elif(isinstance(df[timestamp_start][0], np.int64)):             
-            unit = df["unit"][0] if 'unit' in df.columns else 'ms'
+            unit = timestamp_unit
             df[timestamp_start] = pd.to_datetime(df[timestamp_start], unit=unit)
             df[timestamp_end] = pd.to_datetime(df[timestamp_end], unit=unit)
         # set and zero time_diff column
