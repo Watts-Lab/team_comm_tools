@@ -49,48 +49,12 @@ num_tested_conv = len(set(test_conv_df['expected_column'].unique().tolist() + te
 tested_features = {}
 
 
-#remove elements from list x that are in list y
-# def remove_elements(x, y):
-#     for i in y:
-#         if i in x:
-#             x.remove(i)
-#     return x
-
 with open('test.log', 'w') as f:
-    # f.write(f'{remove_elements(list(itertools.chain(*chat_features)), list(set(test_chat)))}\n')
-    # f.write(f'{remove_elements(list(set(test_chat)), list(itertools.chain(*chat_features)))}\n')
     f.write(f'Tested {tested_chat} features out of {num_features_chat} chat level features: {tested_chat/num_features_chat * 100:.2f}% Coverage!\n')
     f.write(f'Tested {num_tested_conv} features out of {num_features_conv} conv level features: {num_tested_conv/num_features_conv * 100:.2f}% Coverage!\n')
     pass
 
 # generate coverage for tests
-
-
-# @pytest.mark.parametrize("row", test_chat_df.iterrows())
-# def test_chat_unit_equality(row):
-#     actual = row[1][row[1]['expected_column']]
-#     expected = row[1]['expected_value']
-
-#     # if expected_column doesn't exist in tested_features, add an entry for it
-#     if row[1]['expected_column'] not in tested_features:
-#         tested_features[row[1]['expected_column']] = {'passed': 0, 'failed': 0}
-
-#     try:
-#         if (type(actual) == str):
-#             assert actual == expected
-#         else:
-#             assert round(float(actual), 3) == round(float(expected), 3)
-#         tested_features[row[1]['expected_column']]['passed'] += 1
-#     except AssertionError:
-#         tested_features[row[1]['expected_column']]['failed'] += 1
-#         with open('test.log', 'a') as file:
-#             file.write("\n")
-#             file.write("------TEST FAILED------\n")
-#             file.write(
-#                 f"Testing {row[1]['expected_column']} for message: {row[1]['message_original']}\n")
-#             file.write(f"Expected value: {expected}\n")
-#             file.write(f"Actual value: {actual}\n")
-
 df = [test_chat_df, test_timediff_dt, test_timediff_numeric, test_timediff_numeric_unit, test_time_pairs_dt, test_time_pairs_numeric, test_time_pairs_numeric_unit]
 
 @pytest.mark.parametrize("df", df)
@@ -119,6 +83,7 @@ def test_time_pairs_equality(df):
                 file.write(f"Expected value: {expected}\n")
                 file.write(f"Actual value: {actual}\n")
 
+            raise AssertionError # Re-raise the AssertionError to mark the test as failed
 
 tested_features['Named Entity Recognition'] = {'passed': 0, 'failed': 0}
 
@@ -172,7 +137,7 @@ def test_named_entity_recognition(row):
                 file.write(f"Expected value: {expected}\n")
                 file.write(f"Actual value: {actual}\n")
 
-            # raise  # Re-raise the AssertionError to mark the test as failed
+            raise AssertionError # Re-raise the AssertionError to mark the test as failed
 
 
 @pytest.mark.parametrize("conversation_num, conversation_rows", test_conv_df.groupby('conversation_num'))
@@ -212,7 +177,6 @@ test_chat_complex_df = pd.read_csv(
     "./output/chat/test_chat_level_chat_complex.csv")
 
 # Helper function to generate batches of three rows
-
 
 def get_batches(dataframe, batch_size=3):
     batches = []
@@ -277,7 +241,7 @@ def test_chat_complex(batch):
             file.write(f"Dir message: {batch[2][1]['message']}\n")
             file.write(f"Ratio (DIR / INV): {ratio}\n")
 
-        raise  # Re-raise the AssertionError to mark the test as failed
+        raise AssertionError # Re-raise the AssertionError to mark the test as failed
 
 
 batches = get_batches(test_conv_complex_df, batch_size=3) + get_conversation_batches(
@@ -331,7 +295,7 @@ def test_conv_complex(batch):
                 f"Dir conversation: {batch[2][1]['conversation_num']}\n")
             file.write(f"Ratio (DIR / INV): {ratio}\n")
 
-        # raise  # Re-raise the AssertionError to mark the test as failed
+        raise AssertionError # Re-raise the AssertionError to mark the test as failed
 
 
 batches = get_conversation_batches(test_forward_flow_df, batch_size=3)
