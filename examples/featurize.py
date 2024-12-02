@@ -70,22 +70,7 @@ if __name__ == "__main__":
 	)
 	tiny_juries_feature_builder_custom_agg.featurize()
  
- 	# tiny_juries_feature_builder_custom_aggregation = FeatureBuilder(
-	# 	input_df = tiny_juries_df,
-	# 	grouping_keys = ["batch_num", "round_num"],
-	# 	vector_directory = "./vector_data/",
-	# 	output_file_path_chat_level = "./jury_TINY_output_chat_level_custom_agg.csv",
-	# 	output_file_path_user_level = "./jury_TINY_output_user_level_custom_agg.csv",
-	# 	output_file_path_conv_level = "./jury_TINY_output_conversation_level_custom_agg.csv",
-	# 	convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean; it will aggregate ONLY "negative_bert" at the speaker/user level, using max.
-	# 	convo_columns = ['positive_bert'],
-	# 	user_methods = ['max', 'mean', 'min', 'median', 'help'],
-	# 	user_columns = ['positive_bert', 'negative_bert'],
-	# 	turns = False,
-	# )
-	# tiny_juries_feature_builder_custom_aggregation.featurize()
-
-	# # Tiny multi-task
+	# Tiny multi-task
 	tiny_multi_task_feature_builder = FeatureBuilder(
 		input_df = tiny_multi_task_df,
 		conversation_id_col = "stageId",
