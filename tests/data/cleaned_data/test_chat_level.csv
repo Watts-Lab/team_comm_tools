@@ -680,6 +680,18 @@ I respond to that too",num_block_quote_responses,2
 0,0,a little possibly I think sort of probably,hedge_words_lexical_wordcount,5
 0,0,probably sort of,hedge_words_lexical_wordcount,2
 0,0,I think,hedge_words_lexical_wordcount,1
+0,0,I love dogs,positive_bert,0.932
+0,0,I love dogs!!!,positive_bert,0.980
+0,0,I love dogs,negative_bert,0.012
+0,0,I love dogs!!!,negative_bert,0.004
+0,0,This is relatively neutral,neutral_bert,0.470
+0,0,This is relatively neutral,positive_bert,0.505
+0,0,This is relatively neutral...,neutral_bert,0.492
+0,0,What the heck is going on,negative_bert,0.541
+0,0,What the heck is going on??,negative_bert,0.730
+0,0,!!!,positive_bert,0.917
+0,0,.,neutral_bert,0.577
+0,0,???,neutral_bert,0.713
 0,0,,num_chars,0
 0,0,a,num_chars,1
 0,0,ab,num_chars,2
