@@ -92,8 +92,6 @@ class FeatureBuilder:
 
     :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation). Defaults to False.
     :type compute_vectors_from_preprocessed: bool, optional
-    :param custom_vect_path: If provided, features will be generated using custom vectors rather than default SBERT.  Defaults to None.
-    :type custom_vect_path: str, optional
 
     :param convo_aggregation: If true, will aggregate features at the conversational level. Defaults to True.
     :type convo_aggregation: bool, optional
@@ -139,7 +137,6 @@ class FeatureBuilder:
             ner_cutoff: int = 0.9,
             regenerate_vectors: bool = False,
             compute_vectors_from_preprocessed: bool = False,
-            custom_vect_path: str = None,
             convo_aggregation = True,
             convo_methods: list = ['mean', 'max', 'min', 'stdev'],
             convo_columns: list = None,
@@ -147,6 +144,12 @@ class FeatureBuilder:
             user_methods: list = ['mean', 'max', 'min', 'stdev'],
             user_columns: list = None
         ) -> None:
+
+        # Some error catching
+        if type(input_df) != pd.DataFrame:
+            raise ValueError("You must pass in a valid dataframe as the input_df!")
+        if not vector_directory:
+            raise ValueError("You must pass in a valid directory to cache vectors! For example: ./vector_data/")
 
         # Defining input and output paths.
         self.chat_data = input_df.copy()
@@ -392,24 +395,8 @@ class FeatureBuilder:
         if not re.match(r"(.*\/|^)output\/", self.output_file_path_user_level):
             self.output_file_path_user_level = re.sub(r'/user/', r'/output/user/', self.output_file_path_user_level)
 
-        if custom_vect_path is not None:
-            print("Detected that user has requested custom vectors...")
-            print("We will generate features using custom vectors rather than default SBERT")
-            self.vect_path = custom_vect_path
-        else:
-            self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
-        
-        self.original_vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
-        
-        if custom_vect_path is not None:
-            print("Detected that user has requested custom vectors...")
-            print("We will generate features using custom vectors rather than default SBERT")
-            self.vect_path = custom_vect_path
-        else:
-            self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
-        
-        self.original_vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
-        
+        # Logic for processing vector cache
+        self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name        
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
