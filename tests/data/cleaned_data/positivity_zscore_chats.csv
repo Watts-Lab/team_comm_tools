@@ -1,0 +1,11 @@
+conversation_num,speaker_nickname,message,expected_column,expected_value
+I,1,I am enjoying the weather today!,positivity_zscore_chats,1.4346980995217895
+I,2,Likewise it's beautiful.,positivity_zscore_chats,1.3862275774841195
+I,3,I'm not a fan of the rain.,positivity_zscore_chats,-1.1105762978767422
+I,1,I think it's enchanting.,positivity_zscore_chats,1.3393376638185834
+I,3,Agree to disagree.,positivity_zscore_chats,-1.0295558496422406
+J,1,This conversation is more neutral.,positivity_zscore_chats,-0.4050742076501151
+J,2,How are you doing?,positivity_zscore_chats,-0.613670825442067
+J,3,I am mainly studying today.,positivity_zscore_chats,-0.7371504869897708
+J,1,Anything fun planned?,positivity_zscore_chats,0.5057873469055534
+J,3,Mostly a trip to the library.,positivity_zscore_chats,-0.77002302012911

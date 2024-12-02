@@ -16,7 +16,8 @@ test_time_pairs_numeric = pd.read_csv("./output/chat/test_time_pairs_num_level_c
 test_time_pairs_numeric_unit = pd.read_csv("./output/chat/test_time_pairs_num_unit_level_chat.csv")
 
 test_info_exchange_zscore_df = pd.read_csv("./output/chat/info_exchange_zscore_chats.csv")
-test_chat_df = pd.concat([test_chat_df, test_info_exchange_zscore_df], axis=0)
+test_pos = pd.read_csv("./output/chat/test_positivity_chat_level.csv")
+test_chat_df = pd.concat([test_chat_df, test_info_exchange_zscore_df, test_pos], axis=0)
 test_conv_df = pd.read_csv("./output/conv/test_conv_level_conv.csv")
 test_chat_complex_df = pd.read_csv(
     "./output/chat/test_chat_level_chat_complex.csv")
@@ -38,23 +39,20 @@ conversation_features = [feature_dict[feature]["columns"] for feature in feature
 num_features_chat = len(list(itertools.chain(*chat_features)))
 num_features_conv = len(list(itertools.chain(*conversation_features)))
 
-
+# Print the test coverage
 num_tested_chat = test_chat_df['expected_column'].nunique() + test_chat_complex_df['feature'].nunique() + test_forward_flow_df['feature'].nunique()
 test_chat = test_chat_df['expected_column'].unique().tolist() + test_chat_complex_df['feature'].unique().tolist() + \
             test_forward_flow_df['feature'].unique().tolist() + ["named_entities"] + ["time_diff"]
 tested_chat = len(set(test_chat))
-
-
 num_tested_conv = len(set(test_conv_df['expected_column'].unique().tolist() + test_conv_complex_df['feature'].unique().tolist()))
 tested_features = {}
-
 
 with open('test.log', 'w') as f:
     f.write(f'Tested {tested_chat} features out of {num_features_chat} chat level features: {tested_chat/num_features_chat * 100:.2f}% Coverage!\n')
     f.write(f'Tested {num_tested_conv} features out of {num_features_conv} conv level features: {num_tested_conv/num_features_conv * 100:.2f}% Coverage!\n')
     pass
 
-# generate coverage for tests
+# ---- MAIN TESTS ------
 df = [test_chat_df, test_timediff_dt, test_timediff_numeric, test_timediff_numeric_unit, test_time_pairs_dt, test_time_pairs_numeric, test_time_pairs_numeric_unit]
 
 @pytest.mark.parametrize("df", df)
@@ -86,7 +84,6 @@ def test_time_pairs_equality(df):
             raise AssertionError # Re-raise the AssertionError to mark the test as failed
 
 tested_features['Named Entity Recognition'] = {'passed': 0, 'failed': 0}
-
 
 @pytest.mark.parametrize("row", test_ner.iterrows())
 def test_named_entity_recognition(row):

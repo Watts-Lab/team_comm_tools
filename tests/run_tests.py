@@ -28,18 +28,34 @@ if __name__ == "__main__":
 	conv_complex_df = pd.read_csv("data/cleaned_data/test_conv_level_complex.csv", encoding=chat_encoding['encoding'])
 	test_forward_flow_df = pd.read_csv("data/cleaned_data/fflow.csv", encoding=chat_encoding['encoding'])
 	conv_complex_timestamps_df = pd.read_csv("data/cleaned_data/test_conv_level_complex_timestamps.csv", encoding=chat_encoding['encoding'])
-
-
 	timediff_datetime  = pd.read_csv("data/cleaned_data/test_timediff_datetime.csv", encoding=chat_encoding['encoding'])
 	timediff_numeric = pd.read_csv("data/cleaned_data/test_timediff_numeric.csv", encoding=chat_encoding['encoding'])
 	timediff_numeric_unit = pd.read_csv("data/cleaned_data/test_timediff_numeric_unit.csv", encoding=chat_encoding['encoding'])
 	time_pairs_datetime  = pd.read_csv("data/cleaned_data/test_time_pairs_datetime.csv", encoding=chat_encoding['encoding'])
 	time_pairs_numeric = pd.read_csv("data/cleaned_data/test_time_pairs_numeric.csv", encoding=chat_encoding['encoding'])
 	time_pairs_numeric_unit = pd.read_csv("data/cleaned_data/test_time_pairs_numeric_unit.csv", encoding=chat_encoding['encoding'])
+	positivity_zscore = pd.read_csv("data/cleaned_data/positivity_zscore_chats.csv", encoding=chat_encoding['encoding'])
 
 	# TESTING DATASETS -------------------------------
 
-
+	# testing positivity zscore
+	test_positivity = FeatureBuilder(
+		input_df = positivity_zscore,
+		vector_directory = "./vector_data/",
+		output_file_path_chat_level = "./output/chat/test_positivity_chat_level.csv",
+		output_file_path_user_level = "./output/user/test_positivity_user_level.csv",
+		output_file_path_conv_level = "./output/conv/test_positivity_conv_level.csv",
+		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
+			"(BERT) Mimicry",
+			"Moving Mimicry",
+			"Forward Flow",
+			"Discursive Diversity"
+		],
+		turns = False,
+		regenerate_vectors = True,
+	)
+	test_positivity.featurize()
+	
 	# testing timediff datetime
 	testing_timediff_datetime = FeatureBuilder(
 		input_df = timediff_datetime,
@@ -154,6 +170,7 @@ if __name__ == "__main__":
 	)
 	testing_time_pairs_numeric_unit.featurize()
 
+	# general chat level features
 	testing_chat = FeatureBuilder(
 		input_df = chat_df,
 		vector_directory = "./vector_data/",
