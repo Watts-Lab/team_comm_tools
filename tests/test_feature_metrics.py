@@ -8,7 +8,8 @@ import itertools
 
 test_chat_df = pd.read_csv("./output/chat/test_chat_level_chat.csv")
 test_info_exchange_zscore_df = pd.read_csv("./output/chat/info_exchange_zscore_chats.csv")
-test_chat_df = pd.concat([test_chat_df, test_info_exchange_zscore_df], axis=0)
+test_pos = pd.read_csv("./output/chat/test_positivity_chat_level.csv")
+test_chat_df = pd.concat([test_chat_df, test_info_exchange_zscore_df, test_pos], axis=0)
 test_conv_df = pd.read_csv("./output/conv/test_conv_level_conv.csv")
 test_chat_complex_df = pd.read_csv(
     "./output/chat/test_chat_level_chat_complex.csv")
@@ -57,22 +58,24 @@ def test_chat_unit_equality(row):
     # if expected_column doesn't exist in tested_features, add an entry for it
     if row[1]['expected_column'] not in tested_features:
         tested_features[row[1]['expected_column']] = {'passed': 0, 'failed': 0}
-
-    try:
-        if (type(actual) == str):
-            assert actual == expected
-        else:
-            assert round(float(actual), 3) == round(float(expected), 3)
-        tested_features[row[1]['expected_column']]['passed'] += 1
-    except AssertionError:
-        tested_features[row[1]['expected_column']]['failed'] += 1
-        with open('test.log', 'a') as file:
-            file.write("\n")
-            file.write("------TEST FAILED------\n")
-            file.write(
-                f"Testing {row[1]['expected_column']} for message: {row[1]['message_original']}\n")
-            file.write(f"Expected value: {expected}\n")
-            file.write(f"Actual value: {actual}\n")
+        try:
+            if (pd.isnull(actual) and pd.isnull(expected)):
+                assert True
+            elif (type(actual) == str):
+                assert actual == expected
+            else:
+                assert round(float(actual), 3) == round(float(expected), 3)
+            tested_features[row[1]['expected_column']]['passed'] += 1
+        except AssertionError:
+            
+            tested_features[row[1]['expected_column']]['failed'] += 1
+            with open('test.log', 'a') as file:
+                file.write("\n")
+                file.write("------TEST FAILED------\n")
+                file.write(
+                    f"Testing {row[1]['expected_column']} for message: {row[1]['message_original']}\n")
+                file.write(f"Expected value: {expected}\n")
+                file.write(f"Actual value: {actual}\n")
 
 
 test_ner = pd.read_csv('./output/chat/test_named_entity_chat_level.csv')
