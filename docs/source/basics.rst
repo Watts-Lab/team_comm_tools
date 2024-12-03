@@ -93,3 +93,38 @@ Here are some parameters that can be customized. For more details, refer to the 
 5. ``regenerate_vectors``: Force-regenerate vector data even if it already exists.
 
 6. ``compute_vectors_from_preprocessed``: Computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation), and this parameter now defaults to False.
+
+7. **Custom Aggregation of Utterance (Chat)-Level Attributes**: By default, all numeric attributes generated at the utterance (chat) level are aggregated using the functions ``mean``, ``max``, ``min``, and ``stdev``. For example, in a conversation with messages containing 5, 10, and 15 words, we calculate statistics such as the mean number of words per utterance (10) and the maximum number of words in any utterance (15). We also compute similar statistics at the speaker (user) level, such as the mean number of words per message by a particular speaker. Finally, we aggregate speaker-level attributes to the conversation level (generating metrics that can be interpreted as "the average number of words for the most talkative speaker").
+
+Given that there are multiple default aggregation functions and numerous utterance-level attributes, an (overwhelmingly) large number of aggregation statistics can be produced. As of **v.0.1.5**, aggregation behavior can be customized using the following parameters:
+
+- ``convo_aggregation``: A boolean that defaults to ``True``; when turned to ``False``, aggregation at the conversation level is disabled **[NOTE 1]**.
+- ``convo_methods``: A list specifying which aggregation methods to use at the conversation level. Options include ``mean``, ``max``, ``min``, ``stdev``, ``median``, and ``sum`` **[NOTE 2]; [NOTE 3]**.
+- ``convo_columns``: A list specifying which utterance-level attributes to aggregate to the conversation level. 
+
+Equivalent parameters for the speaker (user) level are:
+- ``user_aggregation``: A boolean that defaults to ``True``; when turned to ``False``, aggregation at the speaker (user) level is disabled **[NOTE 1]**.
+- ``user_methods``: A list specifying which aggregation methods to use at the speaker/user level (with the same options as the conversation level).
+- ``user_columns``: A list specifying which utterance-level attributes to aggregate at the speaker/user level.
+
+Example Usage of Custom Aggregation Parameters:
+
+.. code-block:: python
+
+     convo_methods = ['max', 'median']  # This aggregates ONLY "positive_bert" at the conversation level using max and median.
+     convo_columns = ['positive_bert'],
+     user_methods = ['mean']            # This aggregates ONLY "negative_bert" at the speaker/user level using mean.
+     user_columns = ['negative_bert']
+
+To turn off aggregation, set the following parameters to ``False``. By default, both are ``True`` as aggregation is performed automatically:
+
+.. code-block:: python
+
+     convo_aggregation = False
+     user_aggregation = False
+
+- **[NOTE 1]** Even when aggregation is disabled, totals of words, messages, and characters are still summarized, as these are required for calculating the Gini Coefficient features.
+- **[NOTE 2]** Be careful when choosing the "sum" aggregation method, as it is not always appropriate to use the "sum" as an aggregation function. While it is a sensible choice for utterance-level attributes that are *countable* (for example, the total number of words, or other lexical wordcounts), it is a less sensible choice for others (for example, it does not make sense to sum sentiment scores for each utterance in a conversation). Consequently, using the "sum" feature will come with an associated warning.
+- **[NOTE 3]** In addition to aggregating from the utterance (chat) level to the conversation level, we also aggregate from the speaker (user) level to the conversation level, using the same methods specified in ``convo_methods`` to do so.
+
+Additional information on custom aggregation is provided in our Worked Example (see :ref:`custom_aggregation`.)

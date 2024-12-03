@@ -21,101 +21,98 @@ from team_comm_tools.utils.check_embeddings import *
 from team_comm_tools.feature_dict import feature_dict
 
 class FeatureBuilder:
-    """The FeatureBuilder is the main engine that reads in the user's inputs and specifications and generates 
-    conversational features. The FeatureBuilder separately calls the classes (the ChatLevelFeaturesCalculator,
-    ConversationLevelFeaturesCalculator, and UserLevelFeaturesCalculator) to generate conversational features at
-    different levels.
+    """
+    The FeatureBuilder is the main engine that reads in the user's inputs and specifications and generates 
+    conversational features. The FeatureBuilder separately calls the classes 
+    (ChatLevelFeaturesCalculator, ConversationLevelFeaturesCalculator, and 
+    UserLevelFeaturesCalculator) to generate conversational features at different levels.
 
     :param input_df: A pandas DataFrame containing the conversation data that you wish to featurize.
     :type input_df: pd.DataFrame 
-    
-    :param vector_directory: Directory path where the vectors are to be cached. Defaults to "./vector_data/"
+    :param vector_directory: Directory path where the vectors are to be cached. Defaults to "./vector_data/".
     :type vector_directory: str
-
-    :param output_file_base: Base name for the output files, which will be used to auto-generate filenames for each of the three levels. Defaults to "output."
+    :param output_file_base: Base name for the output files, used to auto-generate filenames for each 
+        of the three levels. Defaults to "output."
     :type output_file_base: str
-    
-    :param output_file_path_chat_level: Path where the chat (utterance)-level output csv file is to be generated. (This parameter will override the base name.)
+    :param output_file_path_chat_level: Path where the chat (utterance)-level output csv file is 
+        to be generated. This parameter will override the base name.
     :type output_file_path_chat_level: str
-
-    :param output_file_path_user_level: Path where the user (speaker)-level output csv file is to be generated. (This parameter will override the base name.)
+    :param output_file_path_user_level: Path where the user (speaker)-level output csv file is 
+        to be generated. This parameter will override the base name.
     :type output_file_path_user_level: str
-
-    :param output_file_path_conv_level: Path where the conversation-level output csv file is to be generated. (This parameter will override the base name.)
+    :param output_file_path_conv_level: Path where the conversation-level output csv file is to be 
+        generated. This parameter will override the base name.
     :type output_file_path_conv_level: str
-
-    :param custom_features: A list of additional features outside of the default features that should be calculated.
-        Defaults to an empty list (i.e., no additional features beyond the defaults will be computed).
+    :param custom_features: A list of additional features outside of the default features that should 
+        be calculated. Defaults to an empty list (i.e., no additional features beyond the defaults will 
+        be computed).
     :type custom_features: list, optional
-    
-    :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the earlier stages of the conversation may be more predictive than the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data and compare the performance with using the full dataset. Defaults to [1.0].
+    :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the 
+        earlier stages of the conversation may be more predictive than the later stages. Defaults to [1.0].
     :type analyze_first_pct: list(float), optional
-
-    :param turns: If true, collapses multiple "chats"/messages by the same speaker in a row into a single "turn." Defaults to False.
+    :param turns: If true, collapses multiple "chats"/messages by the same speaker in a row into a 
+        single "turn." Defaults to False.
     :type turns: bool, optional
-    
-    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :param conversation_id_col: A string representing the column name that should be selected as 
+        the conversation ID. Defaults to "conversation_num".
     :type conversation_id_col: str, optional
-
-    :param speaker_id_col: A string representing the column name that should be selected as the speaker ID. Defaults to "speaker_nickname".
+    :param speaker_id_col: A string representing the column name that should be selected as the speaker ID. 
+        Defaults to "speaker_nickname".
     :type speaker_id_col: str, optional
-
-    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :param message_col: A string representing the column name that should be selected as the message. 
+        Defaults to "message".
     :type message_col: str, optional
-
-    :param timestamp_col: A string representing the column name that should be selected as the message. Defaults to "timestamp".
+    :param timestamp_col: A string representing the column name that should be selected as the message. 
+        Defaults to "timestamp".
     :type timestamp_col: str, optional
-
-    :param timestamp_unit: A string representing the unit of the timestamp (if the timestamp is numeric). Default to the unit 'ms' (milliseconds). Other options (D,s,ms,us,ns) can be found on the Pandas reference: https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html
+    :param timestamp_unit: A string representing the unit of the timestamp (if the timestamp is numeric). 
+        Defaults to 'ms' (milliseconds). Other options (D, s, ms, us, ns) can be found on the Pandas 
+        reference: https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html
     :type timestamp_unit: str, optional
-
-    :param grouping_keys: A list of multiple identifiers that collectively identify a conversation. If non-empty, we will group by all of the keys in the list and use the
-    grouped key as the unique "conversational identifier."
+    :param grouping_keys: A list of multiple identifiers that collectively identify a conversation. If 
+        non-empty, the data will be grouped by all keys in the list and use the grouped key as the unique 
+        "conversational identifier."
     :type grouping_keys: list, optional
-    
-    :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) 
-        NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). 
-        It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
-        group/conversation has one High-level identifier, which contains one or more Mid-level identifiers, which contains one or more Low-level identifiers.
-        Defaults to False.
+    :param cumulative_grouping: If true, uses a cumulative way of grouping chats (looking not just within 
+        a single ID, but also at what happened before). NOTE: This parameter and the following one 
+        (`within_grouping`) were created in the context of a multi-stage Empirica game (see: 
+        https://github.com/Watts-Lab/multi-task-empirica). Assumes exactly 3 nested columns at different 
+        levels: a High, Mid, and Low level; that are temporally nested. Defaults to False.
     :type cumulative_grouping: bool, optional
-    
-    :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same "task" (Mid-level identifier). Defaults to False.
+    :param within_task: If true, groups cumulatively such that only prior chats of the same "task" 
+        (Mid-level identifier) are considered. Defaults to False.
     :type within_task: bool, optional
-    
-    :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature. Defaults to None, and will not generate named entity featuers if it does not exist.
-    :type ner_training_df: pd.DataFrame
-    
-    :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity. Defaults to 0.9.
+    :param ner_training_df: A pandas DataFrame of training data for named entity recognition features. 
+        Defaults to None and will not generate named entity features if it does not exist.
+    :type ner_training_df: pd.DataFrame, optional
+    :param ner_cutoff: The cutoff value for the confidence of prediction for each named entity. 
+        Defaults to 0.9.
     :type ner_cutoff: int
-
-    :param regenerate_vectors: If true, will regenerate vector data even if it already exists.  Defaults to False.
+    :param regenerate_vectors: If true, regenerates vector data even if it already exists. Defaults to False.
     :type regenerate_vectors: bool, optional
-
-    :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation). Defaults to False.
+    :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (with 
+        capitalization and punctuation removed). Defaults to False.
     :type compute_vectors_from_preprocessed: bool, optional
-
-    :param convo_aggregation: If true, will aggregate features at the conversational level. Defaults to True.
+    :param convo_aggregation: If true, aggregates features at the conversational level. Defaults to True.
     :type convo_aggregation: bool, optional
-
-    :param convo_methods: Specifies which functions that you want to aggregate with (e.g., mean, stdev...) at the conversational level. Defaults to ['mean', 'max', 'min', 'stdev'].
+    :param convo_methods: Specifies which aggregation functions (e.g., mean, stdev) to use at the 
+        conversational level. Defaults to ['mean', 'max', 'min', 'stdev'].
     :type convo_methods: list, optional
-
-    :param convo_columns: Specifies which columns (at the utterance/chat level) that you want aggregated for the conversational level. Defauts to all all numeric columns.
+    :param convo_columns: Specifies which columns (at the utterance/chat level) to aggregate for the 
+        conversational level. Defaults to all numeric columns.
     :type convo_columns: list, optional
+    :param user_aggregation: If true, aggregates features at the speaker/user level. Defaults to True.
+    :type user_aggregation: bool, optional
+    :param user_methods: Specifies which functions to aggregate with (e.g., mean, stdev) at the user level. 
+        Defaults to ['mean', 'max', 'min', 'stdev'].
+    :type user_methods: list, optional
+    :param user_columns: Specifies which columns (at the utterance/chat level) to aggregate for the 
+        speaker/user level. Defaults to all numeric columns.
+    :type user_columns: list, optional
 
-    :param user_aggregation: If true, will aggregate features at the speaker/user level. Defaults to True.
-    :type convo_aggregation: bool, optional
-
-    :param user_methods: Specifies which functions that you want to aggregate with (e.g., mean, stdev...) at the speaker/user level. Defaults to ['mean', 'max', 'min', 'stdev'].
-    :type convo_methods: list, optional
-
-    :param user_columns: Specifies which columns (at the utterance/chat level) that you want aggregated for the speaker/user level. Defauts to all all numeric columns.
-    :type convo_columns: list, optional
-
-    :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
+    :return: The FeatureBuilder writes the generated features to files in the specified paths. The progress 
+        will be printed in the terminal, indicating completion with "All Done!".
     :rtype: None
-
     """
     def __init__(
             self, 

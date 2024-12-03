@@ -64,9 +64,9 @@ if __name__ == "__main__":
 			"Moving Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"],
-		convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean and median.
+		convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using max and median.
 		convo_columns = ['positive_bert'],
-		user_methods = ['max'], # This will aggregate ONLY "negative_bert" at the speaker/user level, using max.
+		user_methods = ['mean'], # This will aggregate ONLY "negative_bert" at the speaker/user level, using mean.
 		user_columns = ['negative_bert'],
 	)
 	tiny_juries_feature_builder_custom_agg.featurize()
