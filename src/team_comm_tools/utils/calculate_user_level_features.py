@@ -87,13 +87,9 @@ class UserLevelFeaturesCalculator:
                             
                 current = aggregation_method_names[i]
 
+                # don't print warnings here, since we already print them in the conversation_level_features equivalent
                 if current != "mean" and current != "max" and current != "min" and current != "stdev" and current != "median" and current != "sum":
-                    print("Warning: ", current, "is not a valid user method. Valid methods are: [mean, max, min, stdev, median, sum]. Ignoring...")
                     aggregation_method_names.remove(current)
-
-                # print a warning for sum, since not all sums make sense; e.g., it makes sense to sum the total number of words, but not to sum the positivity scores
-                if current == "sum":
-                    print("INFO: User requested 'sum'. Ensure summing is appropriate; it is helpful for countable metrics like word counts. For non-countable metrics, such as sentiment ratings, consider using the mean instead.")
 
             return aggregation_method_names
 
@@ -101,6 +97,8 @@ class UserLevelFeaturesCalculator:
             
             """
             An error checking function to ensure that the columns inputted by the user are present in the data.
+
+            Does not print warnings, since equivalent warnings are already printed at the conversation level.
 
             :param user_inputted_columns: The list of columns requested by the user for aggregation
             :type user_inputted_columns: list
@@ -112,22 +110,6 @@ class UserLevelFeaturesCalculator:
             :rtype: list
             """
             columns_in_data = list(set(user_inputted_columns).intersection(set(self.chat_features).intersection(set(self.chat_data.columns))))
-            if(len(columns_in_data) != len(user_inputted_columns)):
-                print(
-                    f"Warning: One or more columns requested for aggregation using the {agg_param} parameter are not valid. Ignoring..."
-                )
-                # help the user fix their error
-                for i in user_inputted_columns:
-                    matches = process.extract(i, self.chat_data.columns, limit=3)
-                    best_match, similarity = matches[0]
-                    
-                    if similarity == 100:
-                        continue
-                    elif similarity >= 80:
-                        print("Did you mean", best_match, "instead of", i, "?")
-                    else:
-                        print(i, "not found in data and no close match.")
-
             return columns_in_data
         
         # check if user inputted user_columns is None
@@ -137,7 +119,6 @@ class UserLevelFeaturesCalculator:
                                         if pd.api.types.is_numeric_dtype(self.chat_data[column])]
         else:
             if user_aggregation == True and (len(user_columns) == 0 or len(user_methods) == 0):
-                print("Warning: user_aggregation is True but no user_columns specified. Defaulting user_aggregation to False.")
                 self.user_aggregation = False
             else:
                 # to check if columns are in the data
@@ -151,8 +132,7 @@ class UserLevelFeaturesCalculator:
                 # check if columns are numeric
                 for col in self.columns_to_summarize:
                     if pd.api.types.is_numeric_dtype(self.chat_data[col]) is False:
-                        print("WARNING: ", col, " is not numeric. Ignoring...")
-                        self.user_columns.remove(col)
+                        self.columns_to_summarize.remove(col)
                 
         # replace interchangable words in user_methods and remove invalid methods
         self.user_methods = clean_up_aggregation_method_names(aggregation_method_names = self.user_methods)
