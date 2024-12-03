@@ -38,6 +38,7 @@ if __name__ == "__main__":
 	"""
 
 	# Tiny Juries
+	print("Tiny Juries Example...")
 	tiny_juries_feature_builder = FeatureBuilder(
 		input_df = tiny_juries_df,
 		grouping_keys = ["batch_num", "round_num"],
@@ -51,7 +52,7 @@ if __name__ == "__main__":
 	)
 	tiny_juries_feature_builder.featurize()
 
-	# Tiny Juries with custom Aggregations
+	# Tiny Juries with custom aggregations
 	print("Tiny Juries with Custom Aggregation...")
 	tiny_juries_feature_builder_custom_agg = FeatureBuilder(
 		input_df = tiny_juries_df,
@@ -63,10 +64,10 @@ if __name__ == "__main__":
 			"Moving Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"],
-		convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean; it will aggregate ONLY "negative_bert" at the speaker/user level, using max.
+		convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean and median.
 		convo_columns = ['positive_bert'],
-		user_methods = ['max', 'mean', 'min', 'median'],
-		user_columns = ['positive_bert', 'negative_bert', 'named_entity_recognition'],
+		user_methods = ['max'], # This will aggregate ONLY "negative_bert" at the speaker/user level, using max.
+		user_columns = ['negative_bert'],
 	)
 	tiny_juries_feature_builder_custom_agg.featurize()
  
