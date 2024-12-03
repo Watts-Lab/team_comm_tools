@@ -294,7 +294,7 @@ class UserLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        if self.vect_data: # only do this if we have vector data for each user
+        if self.vect_data is not None: # only do this if we have vector data for each user
             self.user_data['mean_embedding'] = get_user_centroids(self.chat_data, self.vect_data, self.conversation_id_col, self.speaker_id_col)
 
     def get_user_network(self) -> None:

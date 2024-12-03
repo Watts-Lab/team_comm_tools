@@ -19,7 +19,7 @@ if __name__ == "__main__":
 	csop_df = pd.read_csv("./example_data/full_empirical_datasets/csop_conversations_withblanks.csv", encoding='utf-8')
 	csopII_df = pd.read_csv("./example_data/full_empirical_datasets/csopII_conversations_withblanks.csv", encoding='utf-8')
  
- 	"""
+	"""
 	TINY / TEST DATASETS -------------------------------
 	
 	These are smaller versions of (real) empirical datasets for the purpose of testing and demonstration.
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 			"Moving Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"],
-  		convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean; it will aggregate ONLY "negative_bert" at the speaker/user level, using max.
+		convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using mean; it will aggregate ONLY "negative_bert" at the speaker/user level, using max.
 		convo_columns = ['positive_bert'],
 		user_methods = ['max', 'mean', 'min', 'median'],
 		user_columns = ['positive_bert', 'negative_bert', 'named_entity_recognition'],
