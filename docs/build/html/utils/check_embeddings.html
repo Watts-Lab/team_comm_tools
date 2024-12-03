@@ -46,11 +46,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#driver-classes-utterance-conversation-and-speaker-level-features">“Driver” Classes: Utterance-, Conversation-, and Speaker-Level Features</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#other-utilities">Other Utilities</a><ul class="current">
@@ -65,8 +65,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.generate_certainty_pkl"><code class="docutils literal notranslate"><span class="pre">generate_certainty_pkl()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.generate_lexicon_pkl"><code class="docutils literal notranslate"><span class="pre">generate_lexicon_pkl()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.generate_vect"><code class="docutils literal notranslate"><span class="pre">generate_vect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.get_nan_vector"><code class="docutils literal notranslate"><span class="pre">get_nan_vector()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.get_sentiment"><code class="docutils literal notranslate"><span class="pre">get_sentiment()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.read_in_lexicons"><code class="docutils literal notranslate"><span class="pre">read_in_lexicons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.str_to_vec"><code class="docutils literal notranslate"><span class="pre">str_to_vec()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="gini_coefficient.html">gini_coefficient module</a></li>
@@ -201,7 +203,7 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.generate_vect">
-<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_vect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_vect" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_vect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_vect" title="Link to this definition"></a></dt>
 <dd><p>Generates sentence vectors for the given chat data and saves them to a CSV file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -209,6 +211,7 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 <li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Contains message data to be vectorized.</p></li>
 <li><p><strong>output_path</strong> (<em>str</em>) – Path to save the CSV file containing message embeddings.</p></li>
 <li><p><strong>message_col</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the message. Defaults to “message”.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – The size of each batch for processing sentiment analysis. Defaults to 64.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -221,6 +224,12 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.check_embeddings.get_nan_vector">
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">get_nan_vector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.get_nan_vector" title="Link to this definition"></a></dt>
+<dd><p>Get a default value for an empty string (the “NaN vector”) and returns it as a 1D np array.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -244,6 +253,12 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 <dt class="sig sig-object py" id="utils.check_embeddings.read_in_lexicons">
 <span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">read_in_lexicons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lexicons_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.read_in_lexicons" title="Link to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.check_embeddings.str_to_vec">
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">str_to_vec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str_vec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.str_to_vec" title="Link to this definition"></a></dt>
+<dd><p>Takes a string representation of a vector and returns it as a 1D np array.</p>
+</dd></dl>
 
 </section>
 

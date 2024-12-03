@@ -102,7 +102,7 @@ if __name__ == "__main__":
 	# )
 	# jury_feature_builder.featurize()
 
-	# # CSOP (Abdullah)
+	# CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
 	# 	input_df = csop_df,
 	# 	vector_directory = "./vector_data/",
@@ -114,7 +114,7 @@ if __name__ == "__main__":
 	# csop_feature_builder.featurize()
 
 
-	# # CSOP II (Nak Won Rim)
+	# CSOP II (Nak Won Rim)
 	# csopII_feature_builder = FeatureBuilder(
 	# 	input_df = csopII_df,
 	# 	vector_directory = "./vector_data/",
