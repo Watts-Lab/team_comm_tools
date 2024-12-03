@@ -150,10 +150,10 @@ Use the Table of Contents below to learn more about our tool. We recommend that 
    
    intro
    basics
-   feature_builder
+   examples
    features/index
    features_conceptual/index
-   examples
+   feature_builder
    utils/index
 
 Indices and Tables

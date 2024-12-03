@@ -39,7 +39,8 @@ dependencies = [
   "transformers==4.44.0",
   "tqdm>=4.66.5",
   "tzdata>=2023.3",
-  "tzlocal==5.2"
+  "tzlocal==5.2",
+  "fuzzywuzzy==0.18.0"
 ]
 authors = [
   {name = "Xinlan Emily Hu", email = "xehu@wharton.upenn.edu"},

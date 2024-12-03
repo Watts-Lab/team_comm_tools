@@ -180,21 +180,23 @@ def is_valid_term(dicTerm):
     """
     Check if a dictionary term is valid.
 
-    This functions returns True if the term matches the regex pattern and Flase otherwise.
+    This function returns `True` if the term matches the regex pattern and `False` otherwise.
     The regex pattern matches:
-    - Alphanumeric characters (a-zA-Z0-9)
-    - Valid symbols: -, ', *, /
-    - The * symbol can only appear once at the end of a word
+
+    - Alphanumeric characters (a-z, A-Z, 0-9)
+    - Valid symbols: `-`, `'`, `*`, `/`
+    - The `*` symbol can appear only once at the end of a word
     - Emojis are valid only when they appear alone
-    - The / symbol can only appear once after alphanumeric characters
+    - The `/` symbol can appear only once after alphanumeric characters
     - Spaces are allowed between valid words
 
-    :param dicTerm: The dictionary term
+    :param dicTerm: The dictionary term to validate.
     :type dicTerm: str
 
-    :return: True/False
+    :return: `True` if the term is valid, `False` otherwise.
     :rtype: bool
     """
+    
     # List of emojis to preserve
     emojis_to_preserve = {
         "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
@@ -289,8 +291,25 @@ def generate_certainty_pkl():
     except:
         print("WARNING: Certainty lexicon not found. Skipping pickle generation...")
 
+def str_to_vec(str_vec):
+    """
+    Takes a string representation of a vector and returns it as a 1D np array.
+    """
+    vector_list = [float(e) for e in str_vec[1:-1].split(',')]
+    return np.array(vector_list)
 
-def generate_vect(chat_data, output_path, message_col):
+def get_nan_vector():
+    """
+    Get a default value for an empty string (the "NaN vector") and returns it as a 1D np array.
+    """
+    current_dir = os.path.dirname(__file__)
+    nan_vector_file_path = os.path.join(current_dir, '../features/assets/nan_vector.txt')
+    nan_vector_file_path = os.path.abspath(nan_vector_file_path)
+
+    with open(nan_vector_file_path, "r") as f:
+        return str_to_vec(f.read())
+
+def generate_vect(chat_data, output_path, message_col, batch_size = 64):
     """
     Generates sentence vectors for the given chat data and saves them to a CSV file.
 
@@ -300,17 +319,25 @@ def generate_vect(chat_data, output_path, message_col):
     :type output_path: str
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
+    :param batch_size: The size of each batch for processing sentiment analysis. Defaults to 64.
+    :type batch_size: int
     :raises FileNotFoundError: If the output path is invalid.
     :return: None
     :rtype: None
     """
-
     print(f"Generating SBERT sentence vectors...")
 
-    # Ensure empty strings are encoded as NaN
-    empty_to_nan = [text if text and text.strip() else np.nan for text in chat_data[message_col].tolist()]
-    embeddings = model_vect.encode(empty_to_nan)
-    embedding_arr = [row.tolist() for row in tqdm(embeddings, total=len(chat_data[message_col]))]
+    nan_vector = get_nan_vector()
+    empty_to_nan = [text if text and text.strip() else None for text in chat_data[message_col].tolist()]
+    non_empty_texts = [text for text in empty_to_nan if text is not None]
+    all_embeddings = [emb for i in tqdm(range(0, len(non_empty_texts), batch_size)) for emb in model_vect.encode(non_empty_texts[i:i + batch_size])]
+    embeddings = np.tile(nan_vector, (len(empty_to_nan), 1)) # default embeddings to the NAN vector
+    non_empty_index = 0
+    for idx, text in enumerate(empty_to_nan):
+        if text is not None: # if it's a real text, fill it in with its actual embedding
+            embeddings[idx] = all_embeddings[non_empty_index]
+            non_empty_index += 1
+    embedding_arr = [emb.tolist() for emb in embeddings]
     embedding_df = pd.DataFrame({'message': chat_data[message_col], 'message_embedding': embedding_arr})
 
     # Create directories along the path if they don't exist

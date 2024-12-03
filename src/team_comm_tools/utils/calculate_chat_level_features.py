@@ -68,8 +68,9 @@ class ChatLevelFeaturesCalculator:
             conversation_id_col: str,
             message_col: str,
             timestamp_col: str | tuple[str, str],
+            timestamp_unit: str,
             custom_liwc_dictionary: dict
-            ) -> None:
+    ) -> None:
 
         self.chat_data = chat_data
         self.vect_data = vect_data
@@ -78,6 +79,7 @@ class ChatLevelFeaturesCalculator:
         self.ner_cutoff = ner_cutoff
         self.conversation_id_col = conversation_id_col
         self.timestamp_col = timestamp_col
+        self.timestamp_unit = timestamp_unit
         self.message_col = message_col
         self.custom_liwc_dictionary = custom_liwc_dictionary
         self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
@@ -356,12 +358,12 @@ class ChatLevelFeaturesCalculator:
         """
         if type(self.timestamp_col) is str and {self.timestamp_col}.issubset(self.chat_data.columns):
             self.chat_data["time_diff"] = get_time_diff(
-                self.chat_data, self.timestamp_col, self.conversation_id_col)
+                self.chat_data, self.timestamp_col, self.conversation_id_col, self.timestamp_unit)
         elif type(self.timestamp_col) is tuple:
             timestamp_start, timestamp_end = self.timestamp_col
             if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
                 self.chat_data["time_diff"] = get_time_diff_startend(
-                    self.chat_data, timestamp_start, timestamp_end, self.conversation_id_col)
+                    self.chat_data, timestamp_start, timestamp_end, self.conversation_id_col, self.timestamp_unit)
 
     def calculate_politeness_sentiment(self) -> None:
         """
