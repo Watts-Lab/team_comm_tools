@@ -166,7 +166,10 @@ class FeatureBuilder:
         else:
             # Read .dic file if the path is provided
             custom_liwc_dictionary_path = Path(custom_liwc_dictionary_path)
-            if not custom_liwc_dictionary_path.suffix == '.dic':
+            if not custom_liwc_dictionary_path.exists():
+                print(f"WARNING: The custom LIWC dictionary file does not exist: {custom_liwc_dictionary_path}")
+                self.custom_liwc_dictionary = {}
+            elif not custom_liwc_dictionary_path.suffix == '.dic':
                 print(f"WARNING: The custom LIWC dictionary file is not a .dic file: {custom_liwc_dictionary_path}")
                 self.custom_liwc_dictionary = {}
             else:

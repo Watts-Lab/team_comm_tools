@@ -97,7 +97,6 @@ def read_in_lexicons(directory, lexicons_dict):
                     lines.append(r"\b" + lexicon.replace("\n", "") + r"\b")
                 else:
                     # get rid of any cases of multiple repeat -- e.g., '**'
-                    # lexicon = lexicon.replace('\**', '\*'); this will throw Invalid syntax error
                     pattern = re.compile(r'\*+')
                     lexicon = pattern.sub('*', lexicon)
                     lexicon = r"\b" + lexicon.replace("\n", "").replace("*", "") + r"\S*\b"
