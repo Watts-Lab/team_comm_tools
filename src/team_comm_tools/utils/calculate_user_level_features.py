@@ -78,12 +78,22 @@ class UserLevelFeaturesCalculator:
                     aggregation_method_names[i] = "stdev"
                 if aggregation_method_names[i] == "std":
                     aggregation_method_names[i] = "stdev"
+                if aggregation_method_names[i] == "total":
+                    aggregation_method_names[i] = "sum"
+                if aggregation_method_names[i] == "add":
+                    aggregation_method_names[i] = "sum"
+                if aggregation_method_names[i] == "summing":
+                    aggregation_method_names[i] = "sum"
                             
                 current = aggregation_method_names[i]
 
-                if current != "mean" and current != "max" and current != "min" and current != "stdev" and current != "median":
-                    print("Warning: ", current, "is not a valid user method. Ignoring...")
+                if current != "mean" and current != "max" and current != "min" and current != "stdev" and current != "median" and current != "sum":
+                    print("Warning: ", current, "is not a valid user method. Valid methods are: [mean, max, min, stdev, median, sum]. Ignoring...")
                     aggregation_method_names.remove(current)
+
+                # print a warning for sum, since not all sums make sense; e.g., it makes sense to sum the total number of words, but not to sum the positivity scores
+                if current == "sum":
+                    print("INFO: User requested 'sum'. Ensure summing is appropriate; it is helpful for countable metrics like word counts. For non-countable metrics, such as sentiment ratings, consider using the mean instead.")
 
             return aggregation_method_names
 
@@ -161,17 +171,14 @@ class UserLevelFeaturesCalculator:
         :rtype: pd.DataFrame
         """
 
-        # Get mean features for all features
-        # self.get_user_level_mean_features()
-        
-        # Get total counts for all features
+        # Get total counts for features that need to be summed, regardless of what the user specified
         self.get_user_level_summed_features()
         
         # Get user summary statistics for all features (e.g. mean, min, max, stdev)
         self.get_user_level_summary_statistics_features()
         
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
-        # self.get_centroids()
+        self.get_centroids()
 
         # Get list of other users in a given conversation
         self.get_user_network()
@@ -193,6 +200,7 @@ class UserLevelFeaturesCalculator:
         """
                 
         if self.user_aggregation == True:
+            
             # For each summarizable feature
             for column in self.columns_to_summarize:
                 
@@ -241,6 +249,16 @@ class UserLevelFeaturesCalculator:
                         how="inner"
                     )
 
+                # Sum of feature across the User
+                if column not in self.summable_columns: # do this only for things we are not already auto-summarizing
+                    if 'sum' in self.user_methods:
+                        self.user_data = pd.merge(
+                            left=self.user_data,
+                            right=get_user_sum_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
+                            on=[self.conversation_id_col, self.speaker_id_col],
+                            how="inner"
+                        )
+
     def get_user_level_summed_features(self) -> None:
         """
         Aggregate summary statistics from chat-level features that need to be summed together.
@@ -249,7 +267,6 @@ class UserLevelFeaturesCalculator:
         - Word count (total number of words)
         - Character count
         - Message count
-        - Function word accommodation
 
         This function calculates and merges the summed features into the user-level data.
 
@@ -268,55 +285,6 @@ class UserLevelFeaturesCalculator:
                 how="inner"
             )
 
-        ### TODO --- figure out what's happening here; also, add tests for all the functionality!!
-
-        # if self.user_aggregation == True:
-
-        #     # For each summarizable feature
-        #     for column in self.summable_columns:
-                
-        #         # Sum of feature across the Conversation
-        #         self.user_data = pd.merge(
-        #             left=self.user_data,
-        #             right=get_user_sum_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
-        #             on=[self.conversation_id_col, self.speaker_id_col],
-        #             how="inner"
-        #         )
-
-            # for column in self.columns_to_summarize: # TODO --- Gini depends on the summation happening; something is happening here where it's causing Gini to break.
-            #     if column not in self.summable_columns:
-            #         # Sum of feature across the Conversation
-            #         self.user_data = pd.merge(
-            #             left=self.user_data,
-            #             right=get_user_sum_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
-            #             on=[self.conversation_id_col, self.speaker_id_col],
-            #             how="inner"
-            #         )
-
-    def get_user_level_mean_features(self) -> None:
-        """
-        Aggregate summary statistics by calculating mean user-level features from chat-level features.
-
-        This function calculates and merges the mean features into the user-level data.
-
-        :return: None
-        :rtype: None
-        """
-        
-        if self.user_aggregation == True:
-            # For each summarizable feature
-            for column in self.columns_to_summarize:
-
-                if 'mean' in self.user_methods:
-                    # Average/Mean of feature across the User
-                    self.user_data = pd.merge(
-                        left=self.user_data,
-                        right=get_user_mean_dataframe(self.chat_data, column, self.conversation_id_col, self.speaker_id_col),
-                        on=[self.conversation_id_col, self.speaker_id_col],
-                        how="inner"
-                    )
-                
-
     def get_centroids(self) -> None:
         """
         Calculate the centroid of each user's chats in a given conversation for future discursive metric calculations.
@@ -326,7 +294,8 @@ class UserLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.user_data['mean_embedding'] = get_user_centroids(self.chat_data, self.vect_data, self.conversation_id_col, self.speaker_id_col)
+        if self.vect_data: # only do this if we have vector data for each user
+            self.user_data['mean_embedding'] = get_user_centroids(self.chat_data, self.vect_data, self.conversation_id_col, self.speaker_id_col)
 
     def get_user_network(self) -> None:
         """

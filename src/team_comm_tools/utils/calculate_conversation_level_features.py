@@ -104,12 +104,22 @@ class ConversationLevelFeaturesCalculator:
                     aggregation_method_names[i] = "stdev"
                 if aggregation_method_names[i] == "std":
                     aggregation_method_names[i] = "stdev"
+                if aggregation_method_names[i] == "total":
+                    aggregation_method_names[i] = "sum"
+                if aggregation_method_names[i] == "add":
+                    aggregation_method_names[i] = "sum"
+                if aggregation_method_names[i] == "summing":
+                    aggregation_method_names[i] = "sum"
                             
                 current = aggregation_method_names[i]
 
-                if current != "mean" and current != "max" and current != "min" and current != "stdev" and current != "median":
-                    print("Warning: ", current, "is not a valid user method. Ignoring...")
+                if current != "mean" and current != "max" and current != "min" and current != "stdev" and current != "median" and current != "sum":
+                    print("Warning: ", current, "is not a valid user method. Valid methods are: [mean, max, min, stdev, median, sum]. Ignoring...")
                     aggregation_method_names.remove(current)
+
+                # print a warning for sum, since not all sums make sense; e.g., it makes sense to sum the total number of words, but not to sum the positivity scores
+                if current == "sum":
+                    print("INFO: User requested 'sum'. Ensure summing is appropriate; it is helpful for countable metrics like word counts. For non-countable metrics, such as sentiment ratings, consider using the mean instead.")
 
             return aggregation_method_names
 
@@ -250,7 +260,6 @@ class ConversationLevelFeaturesCalculator:
         - Word count
         - Character count
         - Message count
-        - Function word accommodation
 
         The Gini index is then merged into the conversation-level data.
 
@@ -330,7 +339,17 @@ class ConversationLevelFeaturesCalculator:
                         how="inner"
                     )
 
-        # Do this only for the columns that make sense (e.g., countable things); we do this regardless of aggregation, as it's necessary for gini.
+                # Sum for the feature across the Conversation
+                if column not in self.summable_columns: # do this only for things we are not already auto-summarizing
+                    if 'sum' in self.convo_methods:
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_sum(self.chat_data.copy(), column, 'sum_'+column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
+
+        # Compute some sums regardless of user specifications, as it's necessary for gini.
         for column in self.summable_columns:
             # Sum for the feature across the Conversation
             self.conv_data = pd.merge(
@@ -417,6 +436,16 @@ class ConversationLevelFeaturesCalculator:
                             how="inner"
                         )
 
+            if 'sum' in self.convo_methods:
+                for user_column in self.user_columns:
+                    for user_method in self.user_methods:
+                        # Sum of User-Level Feature
+                        self.conv_data = pd.merge(
+                            left=self.conv_data,
+                            right=get_sum(self.user_data.copy(), user_method + "_" + user_column, 'sum_user_' + user_method + "_" + user_column, self.conversation_id_col),
+                            on=[self.conversation_id_col],
+                            how="inner"
+                        )
 
     def get_discursive_diversity_features(self) -> None:
         """
