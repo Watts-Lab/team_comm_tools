@@ -149,7 +149,7 @@ class ConversationLevelFeaturesCalculator:
         # check if user inputted convo_columns is None
         # If 'None', the default behavior is to summarize all numeric columns generated at the chat level
         if convo_columns is None:
-            self.columns_to_summarize = [column for column in self.chat_features \
+            self.columns_to_summarize = [column for column in set(self.chat_features).intersection(set(self.chat_data.columns)) \
                                         if pd.api.types.is_numeric_dtype(self.chat_data[column])]
         else:
             if convo_aggregation == True and (len(convo_columns) == 0 or len(convo_methods) == 0):
@@ -175,7 +175,7 @@ class ConversationLevelFeaturesCalculator:
         # check if user inputted user_columns is None
         # as with the conversation level, we default to aggregating all generated chat-level features
         if user_columns is None:
-            self.user_columns = [column for column in self.chat_features \
+            self.user_columns = [column for column in set(self.chat_features).intersection(set(self.chat_data.columns)) \
                                         if pd.api.types.is_numeric_dtype(self.chat_data[column])]
         else:
             if user_aggregation == True and len(user_columns) == 0:

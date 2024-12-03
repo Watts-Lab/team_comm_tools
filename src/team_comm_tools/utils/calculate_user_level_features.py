@@ -123,7 +123,7 @@ class UserLevelFeaturesCalculator:
         # check if user inputted user_columns is None
         # we default to aggregating all generated chat-level features
         if user_columns is None:
-            self.columns_to_summarize = [column for column in self.chat_features \
+            self.columns_to_summarize = [column for column in set(self.chat_features).intersection(set(self.chat_data.columns)) \
                                         if pd.api.types.is_numeric_dtype(self.chat_data[column])]
         else:
             if user_aggregation == True and (len(user_columns) == 0 or len(user_methods) == 0):
@@ -268,7 +268,7 @@ class UserLevelFeaturesCalculator:
                 how="inner"
             )
 
-        ### TODO --- figure out what's happening here; also, add tests for the functionality!!
+        ### TODO --- figure out what's happening here; also, add tests for all the functionality!!
 
         # if self.user_aggregation == True:
 
