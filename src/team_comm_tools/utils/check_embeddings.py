@@ -3,7 +3,7 @@ import numpy as np
 import re
 import os
 import pickle
-
+import warnings
 from tqdm import tqdm
 from pathlib import Path
 
@@ -24,7 +24,8 @@ model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Check if embeddings exist
-def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentiment, regenerate_vectors, message_col = "message"):
+def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, need_sentence: bool, 
+                     need_sentiment: bool, regenerate_vectors: bool, message_col: str = "message"):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
@@ -90,15 +91,15 @@ def read_in_lexicons(directory, lexicons_dict):
                 continue
             lines = []
             for lexicon in lexicons:
-                # get rid of parentheses
                 lexicon = lexicon.strip()
-                lexicon = lexicon.replace('(', '')
-                lexicon = lexicon.replace(')', '')
+
                 if '*' not in lexicon:
                     lines.append(r"\b" + lexicon.replace("\n", "") + r"\b")
                 else:
                     # get rid of any cases of multiple repeat -- e.g., '**'
-                    lexicon = lexicon.replace('\**', '\*')
+                    pattern = re.compile(r'\*+')
+                    lexicon = pattern.sub('*', lexicon)
+                    lexicon = r"\b" + lexicon.replace("\n", "").replace("*", "") + r"\S*\b"
 
                     # build the final lexicon
                     lines.append(r"\b" + lexicon.replace("\n", "").replace("*", "") + r"\S*\b")
@@ -133,6 +134,130 @@ def generate_lexicon_pkl():
             pickle.dump(lexicons_dict, lexicons_pickle_file)
     except:
         print("WARNING: Lexicons not found. Skipping pickle generation...")
+
+def fix_abbreviations(dicTerm: str) -> str:
+    """
+    Helper function to fix abbreviations with punctuations.
+    src: https://github.com/ryanboyd/ContentCoder-Py/blob/main/ContentCodingDictionary.py#L714
+
+    This function goes over a list of hardcoded exceptions for the tokenizer / sentence parser 
+    built into LIWC so that it doesn't convert them into separate strings 
+    (e.g., we want "i.e." to not be seen as two  words and two sentences [i, e]).
+
+    :param dicTerm: The lexicon term
+    :type dicTerm: str
+
+    :return: dicTerm
+    :rtype: str
+    """
+    
+    AbbreviationList = ['ie.', 'i.e.', 'eg.', 'e.g.', 'vs.', 'ph.d.', 'phd.', 'm.d.', 'd.d.s.', 'b.a.', 
+                    'b.s.', 'm.s.', 'u.s.a.', 'u.s.', 'u.t.', 'attn.', 'prof.', 'mr.', 'dr.', 'mrs.', 
+                    'ms.', 'a.i.', 'a.g.i.', 'tl;dr', 't.t', 't_t']
+    AbbreviationDict = {}
+    for item in AbbreviationList:
+        itemClean = item.replace('.', '-').replace(';', '-').replace('_', '-')
+
+        if len(itemClean) > 2 and itemClean.endswith('-'):
+            numTrailers = len(itemClean)
+            itemClean = itemClean.strip('-')
+            numTrailers = numTrailers - len(itemClean)
+            itemClean = itemClean[:-1] + ''.join(['-'] * numTrailers) + itemClean[-1:]
+
+        AbbreviationDict[item] = itemClean
+        AbbreviationDict[item + ','] = itemClean
+
+    if dicTerm in AbbreviationDict.keys():
+        return AbbreviationDict[dicTerm]
+    else:
+        return dicTerm
+
+def is_valid_term(dicTerm):
+    """
+    Check if a dictionary term is valid.
+
+    This function returns `True` if the term matches the regex pattern and `False` otherwise.
+    The regex pattern matches:
+
+    - Alphanumeric characters (a-z, A-Z, 0-9)
+    - Valid symbols: `-`, `'`, `*`, `/`
+    - The `*` symbol can appear only once at the end of a word
+    - Emojis are valid only when they appear alone
+    - The `/` symbol can appear only once after alphanumeric characters
+    - Spaces are allowed between valid words
+
+    :param dicTerm: The dictionary term to validate.
+    :type dicTerm: str
+
+    :return: `True` if the term is valid, `False` otherwise.
+    :rtype: bool
+    """
+
+    # List of emojis to preserve
+    emojis_to_preserve = {
+        "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
+    }
+    emoji_pattern = '|'.join(re.escape(emoji) for emoji in emojis_to_preserve)
+    alphanumeric_pattern = (
+        fr"^([a-zA-Z0-9\-']+(\*|\/[a-zA-Z0-9\*]*)?|({emoji_pattern})\*?)( [a-zA-Z0-9\-']+(\*|\/[a-zA-Z0-9\*]*)?)*$"
+    )
+    
+    return bool(re.match(alphanumeric_pattern, dicTerm))
+
+def load_liwc_dict(dicText: str) -> dict:
+    """
+    Loads up a dictionary that is in the LIWC 2007/2015 format.
+    src: https://github.com/ryanboyd/ContentCoder-Py/blob/main/ContentCodingDictionary.py#L81
+
+    This functions reads the content of a LIWC dictionary file in the official format,
+    and convert it to a dictionary with lexicon: regular expression format.
+    We assume the dicText has two parts: the header, which maps numbers to "category names," 
+    and the body, which maps words in the lexicon to different category numbers, separated by a '%' sign.
+
+    :param dicText: The content of a .dic file
+    :type dicText: str
+
+    :return: dicCategories
+    :rtype: dict
+    """
+    dicSplit = dicText.split('%', 2)
+    dicHeader, dicBody = dicSplit[1], dicSplit[2]
+    # read headers
+    catNameNumberMap = {}
+    for line in dicHeader.splitlines():
+        if line.strip() == '':
+            continue
+        lineSplit = line.strip().split('\t')
+        catNameNumberMap[lineSplit[0]] = lineSplit[1]
+    # read body
+    dicCategories = {}
+    for line in dicBody.splitlines():
+        lineSplit = line.strip().split('\t')
+        dicTerm, catNums = lineSplit[0], lineSplit[1:]
+        dicTerm = fix_abbreviations(dicTerm=' '.join(lineSplit[0].lower().strip().split()))
+        dicTerm = dicTerm.strip()
+        if dicTerm == '':
+            continue
+        if not is_valid_term(dicTerm):
+            warnings.warn(f"WARNING: invalid dict term: {dicTerm}, skipped")
+        if '*' in dicTerm:
+            # Replace consecutive asterisks with a single asterisk -- e.g., '**'->'*'
+            pattern = re.compile(r'\*+')
+            dicTerm = pattern.sub('*', dicTerm)
+            dicTerm = r"\b" + dicTerm.replace("\n", "").replace("*", "") + r"\S*\b"
+        elif '(' in dicTerm or ')' in dicTerm or '/' in dicTerm:
+            dicTerm = dicTerm.replace("\n", "").replace('(', r'\(').replace(')', r'\)').replace('/', r'\/')
+        else:
+            dicTerm = r"\b" + dicTerm.replace("\n", "") + r"\b"
+
+        for catNum in catNums:
+            cat = catNameNumberMap[catNum]
+            if cat not in dicCategories:
+                dicCategories[cat] = dicTerm
+            else:
+                cur_dicTerm = dicCategories[cat]
+                dicCategories[cat] = cur_dicTerm + "|" + dicTerm
+    return dicCategories
 
 def generate_certainty_pkl():
     """

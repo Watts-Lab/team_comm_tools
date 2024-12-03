@@ -93,6 +93,8 @@ class FeatureBuilder:
     :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (with 
         capitalization and punctuation removed). Defaults to False.
     :type compute_vectors_from_preprocessed: bool, optional
+    :param custom_liwc_dictionary_path: This is the path of the user's own LIWC dictionary file (.dic). Defaults to empty string.
+    :type custom_liwc_dictionary_path: str, optional
     :param convo_aggregation: If true, aggregates features at the conversational level. Defaults to True.
     :type convo_aggregation: bool, optional
     :param convo_methods: Specifies which aggregation functions (e.g., mean, stdev) to use at the 
@@ -109,7 +111,6 @@ class FeatureBuilder:
     :param user_columns: Specifies which columns (at the utterance/chat level) to aggregate for the 
         speaker/user level. Defaults to all numeric columns.
     :type user_columns: list, optional
-
     :return: The FeatureBuilder writes the generated features to files in the specified paths. The progress 
         will be printed in the terminal, indicating completion with "All Done!".
     :rtype: None
@@ -137,6 +138,7 @@ class FeatureBuilder:
             ner_cutoff: int = 0.9,
             regenerate_vectors: bool = False,
             compute_vectors_from_preprocessed: bool = False,
+            custom_liwc_dictionary_path: str = '',
             convo_aggregation = True,
             convo_methods: list = ['mean', 'max', 'min', 'stdev'],
             convo_columns: list = None,
@@ -159,6 +161,26 @@ class FeatureBuilder:
 
         print("Initializing Featurization...")
 
+        if not custom_liwc_dictionary_path:
+            self.custom_liwc_dictionary = {}
+        else:
+            # Read .dic file if the path is provided
+            custom_liwc_dictionary_path = Path(custom_liwc_dictionary_path)
+            if not custom_liwc_dictionary_path.exists():
+                print(f"WARNING: The custom LIWC dictionary file does not exist: {custom_liwc_dictionary_path}")
+                self.custom_liwc_dictionary = {}
+            elif not custom_liwc_dictionary_path.suffix == '.dic':
+                print(f"WARNING: The custom LIWC dictionary file is not a .dic file: {custom_liwc_dictionary_path}")
+                self.custom_liwc_dictionary = {}
+            else:
+                with open(custom_liwc_dictionary_path, 'r', encoding='utf-8-sig') as file:
+                    dicText = file.read()
+                    try:
+                        self.custom_liwc_dictionary = load_liwc_dict(dicText)
+                    except Exception as e:
+                        print(f"WARNING: Failed loading custom liwc dictionary: {e}")
+                        self.custom_liwc_dictionary = {}
+        
         # Set features to generate
         # TODO --- think through more carefully which ones we want to exclude and why
         self.feature_dict = feature_dict
@@ -230,6 +252,8 @@ class FeatureBuilder:
 
         # drop all columns that are in our generated feature set --- we don't want to create confusion!
         chat_features = list(itertools.chain(*[self.feature_dict[feature]["columns"] for feature in self.feature_dict.keys() if self.feature_dict[feature]["level"] == "Chat"]))
+        if self.custom_liwc_dictionary:
+            chat_features += [lexicon_type + "_lexical_wordcount_custom" for lexicon_type in self.custom_liwc_dictionary.keys()]
         columns_to_drop = [col for col in chat_features if col in self.chat_data.columns]
         self.chat_data = self.chat_data.drop(columns=columns_to_drop)
         self.orig_data = self.orig_data.drop(columns=columns_to_drop)
@@ -526,6 +550,8 @@ class FeatureBuilder:
             
             # Store column names of what we generated, so that the user can easily access them
             self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
+            if self.custom_liwc_dictionary:
+                self.chat_features += [lexicon_type + "_lexical_wordcount_custom" for lexicon_type in self.custom_liwc_dictionary.keys()]
             self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
             
             # Step 3a. Create user level features.
@@ -601,7 +627,8 @@ class FeatureBuilder:
             conversation_id_col = self.conversation_id_col,
             message_col = self.message_col,
             timestamp_col = self.timestamp_col,
-            timestamp_unit = self.timestamp_unit
+            timestamp_unit = self.timestamp_unit,
+            custom_liwc_dictionary = self.custom_liwc_dictionary
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features(self.feature_methods_chat)
