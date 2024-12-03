@@ -292,9 +292,6 @@ class FeatureBuilder:
             warnings.warn("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative conversations.")
             self.conversation_id_col = "conversation_num"
 
-        # Input columns are the columns that come in the raw chat data
-        self.input_columns = self.chat_data.columns
-
         # Set all paths for vector retrieval (contingent on turns)
         df_type = "turns" if self.turns else "chats"
         if(self.cumulative_grouping): # create special vector paths for cumulative groupings
@@ -645,7 +642,6 @@ class FeatureBuilder:
             vect_data= self.vect_data,
             conversation_id_col = self.conversation_id_col,
             speaker_id_col = self.speaker_id_col,
-            input_columns = self.input_columns,
             user_aggregation = self.user_aggregation,
             user_methods = self.user_methods,
             user_columns = self.user_columns,
@@ -675,7 +671,6 @@ class FeatureBuilder:
             speaker_id_col = self.speaker_id_col,
             message_col = self.message_col,
             timestamp_col = self.timestamp_col,
-            input_columns = self.input_columns,
             convo_aggregation = self.convo_aggregation,
             convo_methods = self.convo_methods,
             convo_columns = self.convo_columns,
