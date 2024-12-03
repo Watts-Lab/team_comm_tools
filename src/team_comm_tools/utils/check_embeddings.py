@@ -92,10 +92,7 @@ def read_in_lexicons(directory, lexicons_dict):
             lines = []
             for lexicon in lexicons:
                 lexicon = lexicon.strip()
-                # get rid of parentheses; comment out to keep the emojis like :)
-                # TODO: compare the difference if we keep ()
-                # lexicon = lexicon.replace('(', '')
-                # lexicon = lexicon.replace(')', '')
+
                 if '*' not in lexicon:
                     lines.append(r"\b" + lexicon.replace("\n", "") + r"\b")
                 else:
@@ -196,7 +193,7 @@ def is_valid_term(dicTerm):
     :return: `True` if the term is valid, `False` otherwise.
     :rtype: bool
     """
-    
+
     # List of emojis to preserve
     emojis_to_preserve = {
         "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
