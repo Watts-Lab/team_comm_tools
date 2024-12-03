@@ -93,3 +93,21 @@ Here are some parameters that can be customized. For more details, refer to the 
 5. ``regenerate_vectors``: Force-regenerate vector data even if it already exists.
 
 6. ``compute_vectors_from_preprocessed``: Computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation), and this parameter now defaults to False.
+
+7. **Custom Aggregation of Utterance (Chat)-Level Attributes** (``convo_aggregation``, ``convo_methods``, ``convo_columns``, ``user_aggregation``, ``user_methods``, and ``user_columns``): Customize the ways in which attributes at a lower level of analysis (for example, the number of words in a given message) get aggregated to a higher level of analysis (for example, the total number of words in an entire conversation.) See the Worked Example (:ref:`custom_aggregation`) for details.
+
+Example Usage:
+
+.. code-block:: python
+
+     convo_methods = ['max', 'median']  # This aggregates ONLY "positive_bert" at the conversation level using max and median.
+     convo_columns = ['positive_bert'],
+     user_methods = ['mean']            # This aggregates ONLY "negative_bert" at the speaker/user level using mean.
+     user_columns = ['negative_bert']
+
+To turn off aggregation, set the following parameters to ``False``. By default, both are ``True`` as aggregation is performed automatically:
+
+.. code-block:: python
+
+     convo_aggregation = False
+     user_aggregation = False

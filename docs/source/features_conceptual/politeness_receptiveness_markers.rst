@@ -41,46 +41,46 @@ Interpreting the Feature
 
 The SECR module contains the following 39 features.
 
-Impersonal_Pronoun
-First_Person_Single
-Hedges
-Negation
-Subjectivity
-Negative_Emotion
-Reasoning
-Agreement
-Second_Person
-Adverb_Limiter
-Disagreement
-Acknowledgement
-First_Person_Plural
-For_Me
-WH_Questions
-YesNo_Questions
-Bare_Command
-Truth_Intensifier
-Apology
-Ask_Agency
-By_The_Way
-Can_You
-Conjunction_Start
-Could_You
-Filler_Pause
-For_You
-Formal_Title
-Give_Agency
-Affirmation
-Gratitude
-Hello
-Informal_Title
-Let_Me_Know
-Swearing
-Reassurance
-Please
-Positive_Emotion
-Goodbye
-Token_count
+- Impersonal_Pronoun
+- First_Person_Single
+- Hedges
+- Negation
+- Subjectivity
+- Negative_Emotion
+- Reasoning
+- Agreement
+- Second_Person
+- Adverb_Limiter
+- Disagreement
+- Acknowledgement
+- First_Person_Plural
+- For_Me
+- WH_Questions
+- YesNo_Questions
+- Bare_Command
+- Truth_Intensifier
+- Apology
+- Ask_Agency
+- By_The_Way
+- Can_You
+- Conjunction_Start
+- Could_You
+- Filler_Pause
+- For_You
+- Formal_Title
+- Give_Agency
+- Affirmation
+- Gratitude
+- Hello
+- Informal_Title
+- Let_Me_Know
+- Swearing
+- Reassurance
+- Please
+- Positive_Emotion
+- Goodbye
+- Token_count
 
 Related Features 
 *****************
-Politness Strategies
+:ref:`politeness_strategies` contains a list of related conversational markers from an older paper (Danescu-Niculescu-Mizil et al., 2013).
