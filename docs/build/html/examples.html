@@ -283,11 +283,12 @@
 </li>
 </ul>
 </section>
+</section>
 <section id="advanced-configuration-columns">
-<h6>Advanced Configuration Columns<a class="headerlink" href="#advanced-configuration-columns" title="Link to this heading"></a></h6>
+<h5>Advanced Configuration Columns<a class="headerlink" href="#advanced-configuration-columns" title="Link to this heading"></a></h5>
 <p>More advanced users of the FeatureBuilder should consider the following optional parameters, depending on their needs.</p>
 <section id="regenerating-vector-cache">
-<h6 aria-level="7">Regenerating Vector Cache<a class="headerlink" href="#regenerating-vector-cache" title="Link to this heading"></a></h6>
+<h6>Regenerating Vector Cache<a class="headerlink" href="#regenerating-vector-cache" title="Link to this heading"></a></h6>
 <ul>
 <li><p>The <strong>regenerate_vectors</strong> parameter controls whether you’d like the FeatureBuilder to re-generate the content in the <strong>vector_directory</strong>, even if we have already cached the output of a previous run. It is useful if the underlying data has changed, but you want to give the output file the same name as a previous run of the FeatureBuilder.</p>
 <blockquote>
@@ -299,7 +300,7 @@
 </ul>
 </section>
 <section id="custom-features">
-<h6 aria-level="7">Custom Features<a class="headerlink" href="#custom-features" title="Link to this heading"></a></h6>
+<h6>Custom Features<a class="headerlink" href="#custom-features" title="Link to this heading"></a></h6>
 <ul>
 <li><p>The <strong>custom_features</strong> parameter allows you to specify features that do not exist within our default set. <strong>We default to NOT generating four features that depend on SBERT vectors, as the process for generating the vectors tends to be slow.</strong> However, these features can provide interesting insights into the extent to which individuals in a conversation speak “similarly” or not, based on a vector similarity metric. To access these features, simply use the <strong>custom_features</strong> parameter:</p>
 <blockquote>
@@ -320,7 +321,7 @@
 </ul>
 </section>
 <section id="analyzing-first-percentage">
-<h6 aria-level="7">Analyzing First Percentage (%)<a class="headerlink" href="#analyzing-first-percentage" title="Link to this heading"></a></h6>
+<h6>Analyzing First Percentage (%)<a class="headerlink" href="#analyzing-first-percentage" title="Link to this heading"></a></h6>
 <ul>
 <li><p>The <strong>analyze_first_pct</strong> parameter allows you to “cut off” and separately analyze the first X% of a conversation, in case you wish to separately study different sections of a conversation as it progresses. For example, you may be interested in knowing how the attributes of the first 50% of a conversation differ from the attributes of the entire conversation. Then you can sepcify the following:</p>
 <blockquote>
@@ -336,15 +337,16 @@
 </ul>
 </section>
 <section id="named-entity-recognition">
-<h6 aria-level="7">Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Link to this heading"></a></h6>
+<h6>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Link to this heading"></a></h6>
 <ul class="simple">
 <li><p>The parameters <strong>ner_training_df</strong> and <strong>ner_cutoff</strong> are required if you would like the FeatureBuilder to identify named entities in your conversations. For example, the sentence, “John, did you talk to Michael this morning?” has two named entities: “John” and “Michael.” The FeatureBuilder includes a tool that automatically detects these named entities, but it requires the user (you!) to specify some training data with examples of the types of named entities you’d like to recognize. This is because proper nouns can take many forms, from standard Western-style names (e.g., “John”) to pseudonymous online nicknames (like “littleHorse”). More information about these parameters can be found in <a class="reference internal" href="features_conceptual/named_entity_recognition.html#named-entity-recognition"><span class="std std-ref">Named Entity Recognition</span></a>.</p></li>
 </ul>
 </section>
 <section id="custom-aggregation">
-<span id="id1"></span><h6 aria-level="7">Custom Aggregation<a class="headerlink" href="#custom-aggregation" title="Link to this heading"></a></h6>
-<p>Imagine that you, as a researcher, are interested in high-level characteristics of the entire conversation, but you have measures at the (lower) level of each individual utterance in a conversation. How would you “aggregate” information from the lower level to the higher level?</p>
-<p>To address this problem, the FeautureBuilder includes built-in functionality to perform aggregations across different levels of analysis. By default, all numeric attributes generated at the utterance (chat) level are aggregated using the functions <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, and <code class="docutils literal notranslate"><span class="pre">stdev</span></code>.</p>
+<span id="id1"></span><h6>Custom Aggregation<a class="headerlink" href="#custom-aggregation" title="Link to this heading"></a></h6>
+<p>Imagine that you, as a researcher, are interested in high-level characteristics of the entire conversation (for example, how much is said), but you only have measures at the (lower) level of each individual utterance (for example, the number of words in each message). How would you “aggregate” information from the lower level to the higher level?</p>
+<p>A simple solution is to sum up to the total number of words per utterance, and group by the conversation identifier. Then, you would have the total number of words for the entire conversation. You can imagine doing similar aggregations for other types of statistics — for example, the average number of words, the variance in the number of words, and so on.</p>
+<p>The FeautureBuilder includes built-in functionality to perform aggregations across different levels of analysis. By default, all numeric attributes generated at the utterance (chat) level are aggregated using the functions <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, and <code class="docutils literal notranslate"><span class="pre">stdev</span></code>.</p>
 <p>We perform three types of aggregations. Consider, for example, a conversation with messages containing 5, 10, and 15 words. Then we would have the following:</p>
 <ul class="simple">
 <li><p><strong>Conversation-Level Aggregates</strong> transform statistics at the level of an utterance (chat) to the level of a conversation. An example is the mean number of words per utterance (10) and the maximum number of words in any utterance (15).</p></li>
@@ -413,7 +415,7 @@
 </tbody>
 </table>
 <section id="example-usage-of-custom-aggregation-parameters">
-<h6 aria-level="8">Example Usage of Custom Aggregation Parameters<a class="headerlink" href="#example-usage-of-custom-aggregation-parameters" title="Link to this heading"></a></h6>
+<h6 aria-level="7">Example Usage of Custom Aggregation Parameters<a class="headerlink" href="#example-usage-of-custom-aggregation-parameters" title="Link to this heading"></a></h6>
 <p>To customize aggregation behavior, simply add the following when constructing your FeatureBuilder:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">convo_methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">]</span>  <span class="c1"># This aggregates ONLY &quot;positive_bert&quot; at the conversation level using max and median.</span>
 <span class="n">convo_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;positive_bert&#39;</span><span class="p">],</span>
@@ -428,7 +430,7 @@
 </div>
 </section>
 <section id="important-notes-and-caveats">
-<h6 aria-level="8">Important Notes and Caveats<a class="headerlink" href="#important-notes-and-caveats" title="Link to this heading"></a></h6>
+<h6 aria-level="7">Important Notes and Caveats<a class="headerlink" href="#important-notes-and-caveats" title="Link to this heading"></a></h6>
 <ul class="simple">
 <li><p><strong>[NOTE 1]</strong> Even when aggregation is disabled, totals of words, messages, and characters are still summarized, as these are required for calculating the Gini Coefficient features.</p></li>
 <li><p><strong>[NOTE 2]</strong> Be careful when choosing the “sum” aggregation method, as it is not always appropriate to use the “sum” as an aggregation function. While it is a sensible choice for utterance-level attributes that are <em>countable</em> (for example, the total number of words, or other lexical wordcounts), it is a less sensible choice for others (for example, it does not make sense to sum sentiment scores for each utterance in a conversation). Consequently, using the “sum” feature will come with an associated warning.</p></li>
@@ -437,7 +439,7 @@
 </section>
 </section>
 <section id="cumulative-grouping">
-<h6 aria-level="7">Cumulative Grouping<a class="headerlink" href="#cumulative-grouping" title="Link to this heading"></a></h6>
+<h6>Cumulative Grouping<a class="headerlink" href="#cumulative-grouping" title="Link to this heading"></a></h6>
 <ul>
 <li><p>The parameters <strong>cumulative_grouping</strong> and <strong>within_task</strong> address a special case of having multiple conversational identifiers; <strong>they assume that the same team has multiple sequential conversations, and that, in each conversation, they perform one or more separate activities</strong>. This was originally created as a companion to a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>). For example, imagine that a team must complete 3 different tasks, each with 3 different subparts. Then we can model this event in terms of 1 team (High level), 3 tasks (Mid level), and 3 subparts per task (Low level).</p>
 <blockquote>
@@ -500,7 +502,6 @@
 </div></blockquote>
 </li>
 </ul>
-</section>
 </section>
 </section>
 </section>

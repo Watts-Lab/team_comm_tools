@@ -206,19 +206,19 @@ Turns
 
 
 Advanced Configuration Columns
-*********************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 More advanced users of the FeatureBuilder should consider the following optional parameters, depending on their needs.
 
 Regenerating Vector Cache
-+++++++++++++++++++++++++++
+***************************
 
 * The **regenerate_vectors** parameter controls whether you'd like the FeatureBuilder to re-generate the content in the **vector_directory**, even if we have already cached the output of a previous run. It is useful if the underlying data has changed, but you want to give the output file the same name as a previous run of the FeatureBuilder.
 
 	* By default, **we assume that, if your output file is named the same, that the underlying vectors are the same**. If this isn't true, you should set **regenerate_vectors = True** in order to clear out the cache and re-generate the RoBERTa and SBERT outputs.
 
 Custom Features
-+++++++++++++++++++
+*****************
 
 * The **custom_features** parameter allows you to specify features that do not exist within our default set. **We default to NOT generating four features that depend on SBERT vectors, as the process for generating the vectors tends to be slow.** However, these features can provide interesting insights into the extent to which individuals in a conversation speak "similarly" or not, based on a vector similarity metric. To access these features, simply use the **custom_features** parameter:
 
@@ -234,7 +234,7 @@ Custom Features
     * You can chose to add any of these features depending on your preference.
 
 Analyzing First Percentage (%)
-+++++++++++++++++++++++++++++++
+********************************
 
 * The **analyze_first_pct** parameter allows you to "cut off" and separately analyze the first X% of a conversation, in case you wish to separately study different sections of a conversation as it progresses. For example, you may be interested in knowing how the attributes of the first 50% of a conversation differ from the attributes of the entire conversation. Then you can sepcify the following:
 
@@ -247,18 +247,20 @@ Analyzing First Percentage (%)
 	* By default, we will simply analyze 100% of each conversation.
 
 Named Entity Recognition
-+++++++++++++++++++++++++++
+**************************
 
 * The parameters **ner_training_df** and **ner_cutoff** are required if you would like the FeatureBuilder to identify named entities in your conversations. For example, the sentence, "John, did you talk to Michael this morning?" has two named entities: "John" and "Michael." The FeatureBuilder includes a tool that automatically detects these named entities, but it requires the user (you!) to specify some training data with examples of the types of named entities you'd like to recognize. This is because proper nouns can take many forms, from standard Western-style names (e.g., "John") to pseudonymous online nicknames (like "littleHorse"). More information about these parameters can be found in :ref:`named_entity_recognition`.
 
 .. _custom_aggregation:
 
 Custom Aggregation
-+++++++++++++++++++++
+********************
 
-Imagine that you, as a researcher, are interested in high-level characteristics of the entire conversation, but you have measures at the (lower) level of each individual utterance in a conversation. How would you "aggregate" information from the lower level to the higher level?
+Imagine that you, as a researcher, are interested in high-level characteristics of the entire conversation (for example, how much is said), but you only have measures at the (lower) level of each individual utterance (for example, the number of words in each message). How would you "aggregate" information from the lower level to the higher level?
 
-To address this problem, the FeautureBuilder includes built-in functionality to perform aggregations across different levels of analysis. By default, all numeric attributes generated at the utterance (chat) level are aggregated using the functions ``mean``, ``max``, ``min``, and ``stdev``.
+A simple solution is to sum up to the total number of words per utterance, and group by the conversation identifier. Then, you would have the total number of words for the entire conversation. You can imagine doing similar aggregations for other types of statistics --- for example, the average number of words, the variance in the number of words, and so on.
+
+The FeautureBuilder includes built-in functionality to perform aggregations across different levels of analysis. By default, all numeric attributes generated at the utterance (chat) level are aggregated using the functions ``mean``, ``max``, ``min``, and ``stdev``.
 
 We perform three types of aggregations. Consider, for example, a conversation with messages containing 5, 10, and 15 words. Then we would have the following:
 
@@ -315,7 +317,7 @@ The table below summarizes the different types of aggregation, and the ways in w
 
 
 Example Usage of Custom Aggregation Parameters
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++++++++++++++++++++++
 
 To customize aggregation behavior, simply add the following when constructing your FeatureBuilder:
 
@@ -334,14 +336,14 @@ To turn off aggregation, set the following parameters to ``False``. By default, 
      user_aggregation = False
 
 Important Notes and Caveats
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++
 
 - **[NOTE 1]** Even when aggregation is disabled, totals of words, messages, and characters are still summarized, as these are required for calculating the Gini Coefficient features.
 - **[NOTE 2]** Be careful when choosing the "sum" aggregation method, as it is not always appropriate to use the "sum" as an aggregation function. While it is a sensible choice for utterance-level attributes that are *countable* (for example, the total number of words, or other lexical wordcounts), it is a less sensible choice for others (for example, it does not make sense to sum sentiment scores for each utterance in a conversation). Consequently, using the "sum" feature will come with an associated warning.
 - **[NOTE 3]** In addition to aggregating from the utterance (chat) level to the conversation level, we also aggregate from the speaker (user) level to the conversation level, using the same methods specified in ``convo_methods`` to do so.
 
 Cumulative Grouping
-+++++++++++++++++++++
+*********************
 
 * The parameters **cumulative_grouping** and **within_task** address a special case of having multiple conversational identifiers; **they assume that the same team has multiple sequential conversations, and that, in each conversation, they perform one or more separate activities**. This was originally created as a companion to a multi-stage Empirica game (see: `<https://github.com/Watts-Lab/multi-task-empirica>`_). For example, imagine that a team must complete 3 different tasks, each with 3 different subparts. Then we can model this event in terms of 1 team (High level), 3 tasks (Mid level), and 3 subparts per task (Low level).
 
