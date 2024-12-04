@@ -49,15 +49,17 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basics.html">The Basics (Get Started Here!)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Worked Example</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#demo-sample-code">Demo / Sample Code</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#import-recommendations-virtual-environment-and-pip">Import Recommendations: Virtual Environment and Pip</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#importing-the-package">Importing the Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#demo-sample-code">Demo / Sample Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-recommendations-virtual-environment-and-pip">Import Recommendations: Virtual Environment and Pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importing-the-package">Importing the Package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#walkthrough-running-the-featurebuilder-on-your-data">Walkthrough: Running the FeatureBuilder on Your Data</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#configuring-the-featurebuilder">Configuring the FeatureBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#walkthrough-running-the-featurebuilder-on-your-data">Walkthrough: Running the FeatureBuilder on Your Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-featurebuilder">Configuring the FeatureBuilder</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#basic-input-columns">Basic Input Columns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#advanced-configuration-columns">Advanced Configuration Columns</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#additional-featurebuilder-considerations">Additional FeatureBuilder Considerations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#inspecting-generated-features">Inspecting Generated Features</a></li>
 </ul>
@@ -107,15 +109,16 @@
 <li><p><a class="reference external" href="https://colab.research.google.com/drive/1wnuUC5yg6uQH0TYP1AXVPGRgfp2-npgJ?usp=sharing">Demo 2: Sample Analysis with the Group Affect and Performance Corpus</a></p></li>
 </ul>
 <p>Finally, this page will walk you through a case study, highlighting top use cases and considerations when using the toolkit.</p>
+</section>
 <section id="getting-started">
-<h3>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h3>
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
 <p>To use our tool, please ensure that you have Python &gt;= 3.10 installed and a working version of <a class="reference external" href="https://pypi.org/project/pip/">pip</a>, which is Python’s package installer. Then, in your local environment, run the following:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>team_comm_tools
 </pre></div>
 </div>
 <p>This command will automatically install our package and all required dependencies.</p>
 <section id="troubleshooting">
-<h4>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h4>
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h3>
 <p>In the event that some dependency installations fail (for example, you may get an error that <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code> from Spacy is not found, or that there is a missing NLTK resource), please run this simple one-line command in your terminal, which will force the installation of Spacy and NLTK dependencies:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>download_resources
 </pre></div>
@@ -124,12 +127,12 @@
 <p>You can also find a full list of our requirements <a class="reference external" href="https://github.com/Watts-Lab/team_comm_tools/blob/main/requirements.txt">here</a>.</p>
 </section>
 <section id="import-recommendations-virtual-environment-and-pip">
-<h4>Import Recommendations: Virtual Environment and Pip<a class="headerlink" href="#import-recommendations-virtual-environment-and-pip" title="Link to this heading"></a></h4>
+<h3>Import Recommendations: Virtual Environment and Pip<a class="headerlink" href="#import-recommendations-virtual-environment-and-pip" title="Link to this heading"></a></h3>
 <p><strong>We strongly recommend using a virtual environment in Python to run the package.</strong> We have several specific dependency requirements. One important one is that we are currently only compatible with numpy &lt; 2.0.0 because <a class="reference external" href="https://numpy.org/devdocs/release/2.0.0-notes.html#changes">numpy 2.0.0 and above</a> made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.</p>
 <p><strong>We also strongly recommend that your version of pip is up-to-date (&gt;=24.0).</strong> There have been reports in which users have had trouble downloading dependencies (specifically, the Spacy package) with older versions of pip. If you get an error with downloading <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code>, we recommend updating pip.</p>
 </section>
 <section id="importing-the-package">
-<h4>Importing the Package<a class="headerlink" href="#importing-the-package" title="Link to this heading"></a></h4>
+<h3>Importing the Package<a class="headerlink" href="#importing-the-package" title="Link to this heading"></a></h3>
 <p>After you import the package and install dependencies, you can then use our tool in your Python script as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">team_comm_tools</span> <span class="kn">import</span> <span class="n">FeatureBuilder</span>
 </pre></div>
@@ -139,10 +142,10 @@
 </section>
 </section>
 <section id="walkthrough-running-the-featurebuilder-on-your-data">
-<h3>Walkthrough: Running the FeatureBuilder on Your Data<a class="headerlink" href="#walkthrough-running-the-featurebuilder-on-your-data" title="Link to this heading"></a></h3>
+<h2>Walkthrough: Running the FeatureBuilder on Your Data<a class="headerlink" href="#walkthrough-running-the-featurebuilder-on-your-data" title="Link to this heading"></a></h2>
 <p>Next, we’ll go through the details of running the FeatureBuilder on your data, discussing each of the specific options / parameters at your disposal.</p>
 <section id="configuring-the-featurebuilder">
-<h4>Configuring the FeatureBuilder<a class="headerlink" href="#configuring-the-featurebuilder" title="Link to this heading"></a></h4>
+<h3>Configuring the FeatureBuilder<a class="headerlink" href="#configuring-the-featurebuilder" title="Link to this heading"></a></h3>
 <p>The FeatureBuilder accepts any Pandas DataFrame as the input, so you can read in data in whatever format you like. For the purposes of this walkthrough, we’ll be using some jury deliberation data from <a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/3411764.3445433?casa_token=d-b5sCdwpNcAAAAA:-U-ePTSSE3rY1_BLXy1-0spFN_i4gOJqy8D0CeXHLAJna5bFRTee9HEnM0TnK_R-g0BOqOn35mU">Hu et al. (2021)</a>.</p>
 <p>We first import Pandas and read in the dataframe:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -164,9 +167,9 @@
 </pre></div>
 </div>
 <section id="basic-input-columns">
-<h5>Basic Input Columns<a class="headerlink" href="#basic-input-columns" title="Link to this heading"></a></h5>
+<h4>Basic Input Columns<a class="headerlink" href="#basic-input-columns" title="Link to this heading"></a></h4>
 <section id="conversation-parameters">
-<h6>Conversation Parameters<a class="headerlink" href="#conversation-parameters" title="Link to this heading"></a></h6>
+<h5>Conversation Parameters<a class="headerlink" href="#conversation-parameters" title="Link to this heading"></a></h5>
 <ul>
 <li><p>The <strong>input_df</strong> parameter is where you pass in your dataframe. In this case, we want to run the FeatureBuilder on the juries data that we read in!</p></li>
 <li><p>The <strong>speaker_id_col</strong> refers to the name of the column containing a unique identifier for each speaker / participant in the conversation. Here, in the data, the name of our columns is called “speaker_nickname.”</p>
@@ -207,7 +210,6 @@
 </div></blockquote>
 </li>
 </ul>
-</section>
 <section id="vector-directory">
 <h6>Vector Directory<a class="headerlink" href="#vector-directory" title="Link to this heading"></a></h6>
 <ul>
@@ -284,11 +286,12 @@
 </ul>
 </section>
 </section>
+</section>
 <section id="advanced-configuration-columns">
-<h5>Advanced Configuration Columns<a class="headerlink" href="#advanced-configuration-columns" title="Link to this heading"></a></h5>
+<h4>Advanced Configuration Columns<a class="headerlink" href="#advanced-configuration-columns" title="Link to this heading"></a></h4>
 <p>More advanced users of the FeatureBuilder should consider the following optional parameters, depending on their needs.</p>
 <section id="regenerating-vector-cache">
-<h6>Regenerating Vector Cache<a class="headerlink" href="#regenerating-vector-cache" title="Link to this heading"></a></h6>
+<h5>Regenerating Vector Cache<a class="headerlink" href="#regenerating-vector-cache" title="Link to this heading"></a></h5>
 <ul>
 <li><p>The <strong>regenerate_vectors</strong> parameter controls whether you’d like the FeatureBuilder to re-generate the content in the <strong>vector_directory</strong>, even if we have already cached the output of a previous run. It is useful if the underlying data has changed, but you want to give the output file the same name as a previous run of the FeatureBuilder.</p>
 <blockquote>
@@ -300,7 +303,7 @@
 </ul>
 </section>
 <section id="custom-features">
-<h6>Custom Features<a class="headerlink" href="#custom-features" title="Link to this heading"></a></h6>
+<h5>Custom Features<a class="headerlink" href="#custom-features" title="Link to this heading"></a></h5>
 <ul>
 <li><p>The <strong>custom_features</strong> parameter allows you to specify features that do not exist within our default set. <strong>We default to NOT generating four features that depend on SBERT vectors, as the process for generating the vectors tends to be slow.</strong> However, these features can provide interesting insights into the extent to which individuals in a conversation speak “similarly” or not, based on a vector similarity metric. To access these features, simply use the <strong>custom_features</strong> parameter:</p>
 <blockquote>
@@ -321,7 +324,7 @@
 </ul>
 </section>
 <section id="analyzing-first-percentage">
-<h6>Analyzing First Percentage (%)<a class="headerlink" href="#analyzing-first-percentage" title="Link to this heading"></a></h6>
+<h5>Analyzing First Percentage (%)<a class="headerlink" href="#analyzing-first-percentage" title="Link to this heading"></a></h5>
 <ul>
 <li><p>The <strong>analyze_first_pct</strong> parameter allows you to “cut off” and separately analyze the first X% of a conversation, in case you wish to separately study different sections of a conversation as it progresses. For example, you may be interested in knowing how the attributes of the first 50% of a conversation differ from the attributes of the entire conversation. Then you can sepcify the following:</p>
 <blockquote>
@@ -337,13 +340,13 @@
 </ul>
 </section>
 <section id="named-entity-recognition">
-<h6>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Link to this heading"></a></h6>
+<h5>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p>The parameters <strong>ner_training_df</strong> and <strong>ner_cutoff</strong> are required if you would like the FeatureBuilder to identify named entities in your conversations. For example, the sentence, “John, did you talk to Michael this morning?” has two named entities: “John” and “Michael.” The FeatureBuilder includes a tool that automatically detects these named entities, but it requires the user (you!) to specify some training data with examples of the types of named entities you’d like to recognize. This is because proper nouns can take many forms, from standard Western-style names (e.g., “John”) to pseudonymous online nicknames (like “littleHorse”). More information about these parameters can be found in <a class="reference internal" href="features_conceptual/named_entity_recognition.html#named-entity-recognition"><span class="std std-ref">Named Entity Recognition</span></a>.</p></li>
 </ul>
 </section>
 <section id="custom-aggregation">
-<span id="id1"></span><h6>Custom Aggregation<a class="headerlink" href="#custom-aggregation" title="Link to this heading"></a></h6>
+<span id="id1"></span><h5>Custom Aggregation<a class="headerlink" href="#custom-aggregation" title="Link to this heading"></a></h5>
 <p>Imagine that you, as a researcher, are interested in high-level characteristics of the entire conversation (for example, how much is said), but you only have measures at the (lower) level of each individual utterance (for example, the number of words in each message). How would you “aggregate” information from the lower level to the higher level?</p>
 <p>A simple solution is to sum up to the total number of words per utterance, and group by the conversation identifier. Then, you would have the total number of words for the entire conversation. You can imagine doing similar aggregations for other types of statistics — for example, the average number of words, the variance in the number of words, and so on.</p>
 <p>The FeautureBuilder includes built-in functionality to perform aggregations across different levels of analysis. By default, all numeric attributes generated at the utterance (chat) level are aggregated using the functions <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, and <code class="docutils literal notranslate"><span class="pre">stdev</span></code>.</p>
@@ -415,7 +418,7 @@
 </tbody>
 </table>
 <section id="example-usage-of-custom-aggregation-parameters">
-<h6 aria-level="7">Example Usage of Custom Aggregation Parameters<a class="headerlink" href="#example-usage-of-custom-aggregation-parameters" title="Link to this heading"></a></h6>
+<h6>Example Usage of Custom Aggregation Parameters<a class="headerlink" href="#example-usage-of-custom-aggregation-parameters" title="Link to this heading"></a></h6>
 <p>To customize aggregation behavior, simply add the following when constructing your FeatureBuilder:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">convo_methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">]</span>  <span class="c1"># This aggregates ONLY &quot;positive_bert&quot; at the conversation level using max and median.</span>
 <span class="n">convo_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;positive_bert&#39;</span><span class="p">],</span>
@@ -430,7 +433,7 @@
 </div>
 </section>
 <section id="important-notes-and-caveats">
-<h6 aria-level="7">Important Notes and Caveats<a class="headerlink" href="#important-notes-and-caveats" title="Link to this heading"></a></h6>
+<h6>Important Notes and Caveats<a class="headerlink" href="#important-notes-and-caveats" title="Link to this heading"></a></h6>
 <ul class="simple">
 <li><p><strong>[NOTE 1]</strong> Even when aggregation is disabled, totals of words, messages, and characters are still summarized, as these are required for calculating the Gini Coefficient features.</p></li>
 <li><p><strong>[NOTE 2]</strong> Be careful when choosing the “sum” aggregation method, as it is not always appropriate to use the “sum” as an aggregation function. While it is a sensible choice for utterance-level attributes that are <em>countable</em> (for example, the total number of words, or other lexical wordcounts), it is a less sensible choice for others (for example, it does not make sense to sum sentiment scores for each utterance in a conversation). Consequently, using the “sum” feature will come with an associated warning.</p></li>
@@ -439,7 +442,7 @@
 </section>
 </section>
 <section id="cumulative-grouping">
-<h6>Cumulative Grouping<a class="headerlink" href="#cumulative-grouping" title="Link to this heading"></a></h6>
+<h5>Cumulative Grouping<a class="headerlink" href="#cumulative-grouping" title="Link to this heading"></a></h5>
 <ul>
 <li><p>The parameters <strong>cumulative_grouping</strong> and <strong>within_task</strong> address a special case of having multiple conversational identifiers; <strong>they assume that the same team has multiple sequential conversations, and that, in each conversation, they perform one or more separate activities</strong>. This was originally created as a companion to a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>). For example, imagine that a team must complete 3 different tasks, each with 3 different subparts. Then we can model this event in terms of 1 team (High level), 3 tasks (Mid level), and 3 subparts per task (Low level).</p>
 <blockquote>
@@ -502,7 +505,6 @@
 </div></blockquote>
 </li>
 </ul>
-</section>
 </section>
 </section>
 <section id="additional-featurebuilder-considerations">
