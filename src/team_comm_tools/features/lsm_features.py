@@ -1,11 +1,18 @@
 import pandas as pd
 
 def calculate_lsm(chat_df):
+    
     """ 
     This function calculates Language Style Matching (LSM) scores for the Team Communication Toolkit.
     
     Source: Language Style Matching as a Predictor of Social Dynamics in Small Groups by Amy L. Gonzales, Jeffrey T. Hancock, and James W. Pennebaker.
 
+     Args:
+        chat_df (pd.DataFrame): A pandas DataFrame with columns for conversation_id, speaker_id, 
+            and various word-level counts (e.g., num_words, conjunction_lexical_wordcount, etc.).
+
+    Returns:
+        pd.DataFrame: A pandas DataFrame with additional columns for LSM scores and related calculations.
     """
     
     # Create a new column with the sum of all pronouns (first person singular, first person plural, second person, third person)
