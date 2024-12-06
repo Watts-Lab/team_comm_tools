@@ -80,11 +80,7 @@ function Team() {
       <div className="current">
         {current.map((member, index) => {
           let title = 'Undergraduate Student, UPenn';
-
-          if (member.name === 'Gina Chen') {
-            title = 'Data Scientist';
-          }
-          else if (member.name === 'Yuxuan Zhang') {
+          if (member.name === 'Yuxuan Zhang') {
             title = 'Data Scientist';
           }
           else if (member.name === 'Priya DCosta') {
@@ -116,7 +112,9 @@ function Team() {
           else if (member.name === 'Evan Rowbotham') {
             title = 'Undergraduate Student, NYU';
           }
-
+          else if (member.name === 'Gina Chen') {
+            title = 'Data Scientist';
+          }
           return (<div key={index} className='alumni-member'>
             <img src={member.image} alt={member.name} className="alumni-image" />
             <h2>{member.name}</h2>
