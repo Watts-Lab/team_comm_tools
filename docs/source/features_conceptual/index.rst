@@ -49,3 +49,4 @@ Conversation-Level Features
    team_burstiness
    discursive_diversity
    information_diversity
+   lsm

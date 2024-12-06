@@ -1,7 +1,7 @@
 .. _LSM:
 
 LANGUAGE STYLE MATCHING
-============
+========================
 
 High-Level Intuition
 *********************
@@ -9,7 +9,7 @@ Language Style Matching (LSM) measures the degree to which individuals in a conv
 
 Citation
 *********
-Gonzales, A. L., Hancock, J. T., & Pennebaker, J. W. (2010). Language style matching as a predictor of social dynamics in small groups. Communication Research, 37(1), 3–19. https://doi.org/10.1177/0093650209351468
+`Gonzales, A. L., Hancock, J. T., & Pennebaker, J. W. (2010). Language style matching as a predictor of social dynamics in small groups. Communication Research, 37(1), 3–19. <https://doi.org/10.1177/0093650209351468>`_
 
 Implementation Basics 
 **********************
@@ -25,12 +25,11 @@ Interpreting the Feature
 *************************
 Read the code associated with this feature and answer the following questions, if applicable:
 
-1. What are the bounds of the score? What does a high versus low score mean? (How should you read this score?) LSM scores range from 0 to 1, where 1 indicates perfect linguistic alignment and 0 indicates no alignment.
-2. **Concrete Example:** 
-2. Give a concrete example (e.g., negative score versus positive score) A high LSM score (e.g., 0.85) for pronouns suggests that a speaker's pronoun usage closely matches the average usage by other group members. A low LSM score (e.g., 0.2) suggests less alignment in pronoun usage.
-3. What DOESN’T the score measure? That is, what does the score take into account, and what are some ways that it might not capture the high-level social science concept? LSM does not capture the content or context of conversations. It focuses purely on function word alignment and may not reflect deeper social or relational dynamics.
-4. Are there any edge cases that we should be aware of? (e.g., if the conversation contains only one chat?) To the best of your knowledge, how does the code handle it? If a conversation has only one speaker, no LSM score is calculated.
+- LSM scores range from 0 to 1, where 1 indicates perfect linguistic alignment and 0 indicates no alignment. 
+- The LSM scores for each sub-category of function words (e.g., pronouns) can be interpreted individually. Thus, for example, a high LSM score (e.g., 0.85) for pronouns suggests that a speaker's pronoun usage closely matches the average usage by other group members. A low LSM score (e.g., 0.2) suggests less alignment in pronoun usage.
+- LSM does not capture the content or context of conversations. It focuses purely on function word alignment and may not reflect deeper social or relational dynamics.
+- If a conversation has only one speaker, no LSM score is calculated.
 
 Related Features 
 *****************
-Are there any related/similar features to this one? Is this part of an "umbrella" or group of features? Write about them here, and do your best to explain how they are different. Why would you use one implementation over the other? This might be similar to the mimicry score, but is different in that it hones in on the repetition of function words instead of overall mimicry.
+This feature bears similarities with measures of mimicry (e.g., :ref:`mimicry_bert`, :ref:`moving_mimicry`), but focuses specifically on function words rather than semantic mimicry (similar to :ref:`function_word_accommodation`, but operationalized at the level of an overall conversation).

@@ -45,6 +45,7 @@ Once utterance-level features are computed, we compute conversation-level featur
    variance_in_DD
    within_person_discursive_range
    turn_taking_features
+   lsm
 
 Speaker- (User) Level Features
 *********************************
