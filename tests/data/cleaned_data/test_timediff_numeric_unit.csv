@@ -1,0 +1,10 @@
+conversation_num,speaker_nickname,timestamp,timestamp_unit,message,expected_column,expected_value
+A,A,1,h,hello,time_diff,0
+A,A,1,h,hello!!!,time_diff,0
+A,A,1,h,hello!!!!!!!,time_diff,0
+B,A,1,h,hello,time_diff,0
+B,A,2,h,hello!!!,time_diff,3600
+B,A,2,h,hello!!!!!!!,time_diff,0
+C,A,1,h,hello,time_diff,0
+C,A,3,h,hello!!!,time_diff,7200
+C,A,5,h,hello!!!!!!!,time_diff,7200

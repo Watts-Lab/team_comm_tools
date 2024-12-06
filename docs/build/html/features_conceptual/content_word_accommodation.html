@@ -47,8 +47,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Conceptual Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
@@ -90,7 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#conversation-level-features">Conversation-Level Features</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 </ul>
 
@@ -131,10 +131,15 @@
 </section>
 <section id="implementation-basics">
 <h2>Implementation Basics<a class="headerlink" href="#implementation-basics" title="Link to this heading"></a></h2>
-<p>To compute the feature, we count the number of shared content words (defined as anything that is not on the function word list) between the current and previous utterance in a conversation, then normalize it by the frequency of the word across all inputs in the dataset. This follows the original authors’ method:</p>
+<p>To compute the feature, we count the number of shared content words (defined as anything that is not on the function word list) between the current and previous utterance in a conversation, normalized by the frequency at which the word appears. This follows the original authors’ method:</p>
 <blockquote>
 <div><p>Content words are defined as any word that is not a function word. For each content word w in a given speaker’s turn, if w also occurs in the immediately preceding turn of the other, we count w as an accommodated content word. The raw count of accommodated content words is be the total number of these accommodated content words over every turn in the conversation side. Because content words vary widely in frequency, we normalized our counts by the frequency of each word.</p>
 </div></blockquote>
+<p>For completeness, we interprete “the frequency of each word” in two distinct ways:</p>
+<ol class="arabic simple">
+<li><p><strong>The frequency of each word across the entire dataset (`content_word_accommodation`)</strong>: here, we normalize non-function words with respect to the language used across all conversations in the dataset. This version of accommodation is useful if the entire dataset consists of similar conversations, or conversations about the same topic. Normalizing with respect to a larger dataset will be useful in establishing better estimates in identifying (and appropriately weigting) whichs words carry meaningful content in a particular domain.</p></li>
+<li><p><strong>The frequency of each word within a given conversation (`content_word_accommodation_per_conv`)</strong>: here, we normalize non-function words with respect only to the language in a given conversation. This version of accommodation is useful if the dataset consists of very distinct conversations, for which it may not make sense to assume that the distribution of which words are “important” will hold across different domains.</p></li>
+</ol>
 <p>The feature requires a reference list of function words, which are defined by the original authors as follows.</p>
 <dl class="simple">
 <dt><strong>Auxiliary and copular verbs</strong></dt><dd><p>able, am, are, aren’t, be, been, being, can, can’t, cannot, could, couldn’t, did, didn’t, do, don’t, get, got, gotta, had, hadn’t, hasn’t, have, haven’t, is, isn’t, may, should, should’ve, shouldn’t, was, were, will, won’t, would, would’ve, wouldn’t</p>

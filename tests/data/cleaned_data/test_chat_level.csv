@@ -1,32 +1,33 @@
 conversation_num,speaker_nickname,message,expected_column,expected_value
-1,A,Hello I like fish.,num_words,4.0
-1,B,This sentence has five words.,num_words,5.0
-2,A,Hello??,num_words,1.0
-2,B,Is 4 a word?,num_words,4.0
-3,A,.,num_words,0.0
-4,test_A,"HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI""",num_all_caps,9.0
-4,test_B,ONE TWO THREE. four five six. sEvEn EiGhT nInE.,num_all_caps,3.0
-4,test_A,Check out this [link](https://example.com) and this one http://example.org,num_links,2.0
-4,test_B,I like google.com and wikipedia.org but not amazon.com,num_links,3.0
-4,test_A,why don't you read everything at https://www.example.com and https://www.example.org and https://www.example.net and https://www.example.ca and https://www.example.co.uk,num_links,5.0
+1,A,Hello I like fish.,num_words,4
+1,B,This sentence has five words.,num_words,5
+2,A,Hello??,num_words,1
+2,A,1234,num_words,1
+2,B,Is 4 a word?,num_words,4
+3,A,.,num_words,0
+4,test_A,"HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI""",num_all_caps,9
+4,test_B,ONE TWO THREE. four five six. sEvEn EiGhT nInE.,num_all_caps,3
+4,test_A,Check out this [link](https://example.com) and this one http://example.org,num_links,2
+4,test_B,I like google.com and wikipedia.org but not amazon.com,num_links,3
+4,test_A,why don't you read everything at https://www.example.com and https://www.example.org and https://www.example.net and https://www.example.ca and https://www.example.co.uk,num_links,5
 4,test_B,"why don't you read everything at 
 - https://www.example.com 
 - https://www.example.org 
 - https://www.example.net 
 - https://www.example.ca 
-- https://www.example.co.uk",num_links,5.0
-4,test_A,"Hello u/user1 and u/user2, hi hi hi?",num_reddit_users,2.0
-4,test_B,I don't like u/user_1_test but I like u/user2Test,num_reddit_users,2.0
-4,test_A,"This is **bold**, *italics*, and this is not. This is ***bolded and italicized***",num_emphasis,3.0
-4,test_B,This is **uneven* in terms of *the emphasis**,num_emphasis,2.0
-4,test_A,* item 1\n* item 2\n- item 3,num_bullet_points,3.0
+- https://www.example.co.uk",num_links,5
+4,test_A,"Hello u/user1 and u/user2, hi hi hi?",num_reddit_users,2
+4,test_B,I don't like u/user_1_test but I like u/user2Test,num_reddit_users,2
+4,test_A,"This is **bold**, *italics*, and this is not. This is ***bolded and italicized***",num_emphasis,3
+4,test_B,This is **uneven* in terms of *the emphasis**,num_emphasis,2
+4,test_A,* item 1\n* item 2\n- item 3,num_bullet_points,3
 4,test_B,"Here are all my arguments:
 - point 1
 - point 2
 - point 3
-- point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines",num_bullet_points,4.0
-4,test_A,1. First\n2. Second\n3. Third,num_numbered_points,3.0
-4,test_B,This is the first line.\nThis is the second line.\nThis is the third line.,num_line_breaks,3.0
+- point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines point 4 is super long and takes up multiple lines",num_bullet_points,4
+4,test_A,1. First\n2. Second\n3. Third,num_numbered_points,3
+4,test_B,This is the first line.\nThis is the second line.\nThis is the third line.,num_line_breaks,3
 4,test_A,"I have a line
 
 
@@ -35,28 +36,28 @@ conversation_num,speaker_nickname,message,expected_column,expected_value
 here is a new line
 
 
-here is a third line",num_line_breaks,3.0
-4,test_B,this is a line with\rA different kind of return value\rUsing carriage return instead of the newline character,num_line_breaks,3.0
-4,test_A,"""This is a quote."" She said, ""Here's another.""",num_quotes,2.0
-4,test_B,"""You miss 100% of the shots you don't take"" -- Wayne Gretzky",num_quotes,1.0
-4,test_A,"""I can't believe you use single quotes to quote people,"" she said. ""Well, he replied, 'sometimes single quotes are useful when you nest quotes inside other quotes,' according to my English teacher"" Then she said: 'okay'",num_quotes,4.0
-4,test_B,> Quoting someone else\nThis is my reply.,num_block_quote_responses,1.0
-4,test_A,&gt; Quoting someone else\nThis is my reply.,num_block_quote_responses,1.0
-4,test_B,>>>> This is a quote but I went overboard with the carat character,num_block_quote_responses,1.0
-4,test_A,&gt;&gt; This is one where I put too many of the gt's,num_block_quote_responses,1.0
+here is a third line",num_line_breaks,3
+4,test_B,this is a line with\rA different kind of return value\rUsing carriage return instead of the newline character,num_line_breaks,3
+4,test_A,"""This is a quote."" She said, ""Here's another.""",num_quotes,2
+4,test_B,"""You miss 100% of the shots you don't take"" -- Wayne Gretzky",num_quotes,1
+4,test_A,"""I can't believe you use single quotes to quote people,"" she said. ""Well, he replied, 'sometimes single quotes are useful when you nest quotes inside other quotes,' according to my English teacher"" Then she said: 'okay'",num_quotes,4
+4,test_B,> Quoting someone else\nThis is my reply.,num_block_quote_responses,1
+4,test_A,&gt; Quoting someone else\nThis is my reply.,num_block_quote_responses,1
+4,test_B,>>>> This is a quote but I went overboard with the carat character,num_block_quote_responses,1
+4,test_A,&gt;&gt; This is one where I put too many of the gt's,num_block_quote_responses,1
 4,test_B,"> Hello!
-Goodbye!",num_block_quote_responses,1.0
+Goodbye!",num_block_quote_responses,1
 4,test_B,"> here I am making a quote
 I respond to it
 > I quote again
-I respond to that too",num_block_quote_responses,2.0
-4,test_A,Well... I'm not sure... Maybe...,num_ellipses,3.0
-4,test_B,hm..what if I only use two periods.............or many periods............,num_ellipses,2.0
-4,test_B,This is a sentence (with some text in parentheses).,num_parentheses,1.0
-4,test_A,"""Sure,"" I said confidently (thiking to myself: no way!) This was definitely (not) one of my best moments.",num_parentheses,2.0
-4,test_B,(((((these parentheses are not properly closed.),num_parentheses,1.0
-4,test_B,((there are multiple parentheses here)),num_parentheses,2.0
-4,test_A,((1+(1+3+4)^2)+7+(9+8)),num_parentheses,4.0
+I respond to that too",num_block_quote_responses,2
+4,test_A,Well... I'm not sure... Maybe...,num_ellipses,3
+4,test_B,hm..what if I only use two periods.............or many periods............,num_ellipses,2
+4,test_B,This is a sentence (with some text in parentheses).,num_parentheses,1
+4,test_A,"""Sure,"" I said confidently (thiking to myself: no way!) This was definitely (not) one of my best moments.",num_parentheses,2
+4,test_B,(((((these parentheses are not properly closed.),num_parentheses,1
+4,test_B,((there are multiple parentheses here)),num_parentheses,2
+4,test_A,((1+(1+3+4)^2)+7+(9+8)),num_parentheses,4
 5,test1,I think that I think that I think,certainty_rocklage,4.5
 5,test2,I am a little confused,certainty_rocklage,2.47
 5,test2,I don't really know the answer,certainty_rocklage,1.33
@@ -84,71 +85,71 @@ I respond to that too",num_block_quote_responses,2.0
 5,test1,"I don't think the guy is wrong in asking her to learn more english being that she lives in America, but he has to understand she is older and may not have the patience or capacity to learn a lot of english.",certainty_rocklage,5.472
 5,test2,"Learning a second language is easiest when you're a child for a reason. Your brain is wired differently then, which makes it easier.",certainty_rocklage,5.4
 5,test2,I think he tried to help her.� He gave her resources to use and she apparently didn't use them.,certainty_rocklage,4.32
-1,A,hello,Hello_receptiveness_yeomans,1.0
-1,B,So how should we answer this,Token_count_receptiveness_yeomans,6.0
-1,A,We can start here. What is the question?,YesNo_Questions_receptiveness_yeomans,0.0
-1,B,I am not sure. Where is the rest of our team?,WH_Questions_receptiveness_yeomans,1.0
-1,B,"Please help me figure this out, I really want to do well on this please",Please_receptiveness_yeomans,2.0
-2,C,Hey,Hello_receptiveness_yeomans,1.0
-2,C,Okay bro lets split it 50/50,Impersonal_Pronoun_receptiveness_yeomans,1.0
-2,D,Maybe but how about 60/40? I doubt its fair otherwise,Hedges_receptiveness_yeomans,2.0
-2,C,Seems fair,Hedges_receptiveness_yeomans,1.0
-1,B,I am not sure. Where is the rest of our team?,First_Person_Single_receptiveness_yeomans,1.0
-1,B,"Well please help me figure this out, I really want to do well on this please okay",factuality_politeness_convokit,1.0
-2,C,Seems possible,hashedge_politeness_convokit,1.0
-2,E,I see what youre thinking but I disagree,Acknowledgement_receptiveness_yeomans,1.0
-2,E,We get only one chance so we should understand how to split it,Acknowledgement_receptiveness_yeomans,2.0
-2,D,"I just don't agree, I'm making the 60/40 split",Adverb_Limiter_receptiveness_yeomans,1.0
-3,G,hey,indirect_greeting_politeness_convokit,1.0
-3,G,I think we should try something else,1st_person_start_politeness_convokit,1.0
-3,F,Ok whatever. You should leave the team then,2nd_person_start_politeness_convokit,1.0
-4,H,Honestly thank you so so much,factuality_politeness_convokit,1.0
-4,H,What's the plan?,direct_question_politeness_convokit,1.0
-4,I,That is the dumbest idea I've heard; youre actually dumb af,hasnegative_politeness_convokit,1.0
-4,H,What's ur problem here?,hasnegative_politeness_convokit,1.0
-5,J,Pleasure and an honor to meet you all,haspositive_politeness_convokit,1.0
-5,K,We should try that next,haspositive_politeness_convokit,0.0
-5,J,Could you please explain why? I don't really understand why you are thinking that,subjunctive_politeness_convokit,1.0
-5,K,Sorry sorry I didn't mean to,apologizing_politeness_convokit,1.0
-6,L,I don't really want to work with you all but let's get this over with,Impersonal_Pronoun_receptiveness_yeomans,1.0
-6,J,Fine by me,Affirmation_receptiveness_yeomans,1.0
-6,K,Ok so which part should we do first? the first or second?,YesNo_Questions_receptiveness_yeomans,1.0
-7,L,Please don't do that?,please_start_politeness_convokit,1.0
-7,L,I don't think that will work,hashedge_politeness_convokit,1.0
-7,M,I'm exhuasted rn,hasnegative_politeness_convokit,0.0
-7,M,i don't really care please just finish this up,haspositive_politeness_convokit,0.0
-7,N,Please don't do that?,Please_receptiveness_yeomans,1.0
-7,N,I don't think that will work,Hedges_receptiveness_yeomans,0.0
-7,O,I'm exhuasted rn,Negative_Emotion_receptiveness_yeomans,0.0
-7,O,i don't really care please just finish this up,Positive_Emotion_receptiveness_yeomans,0.0
-8,P,i appreciate all this from you,gratitude_politeness_convokit,1.0
-8,P,"well we should start rn, our part is long",1st_person_pl_politeness_convokit,1.0
-8,Q,ok forgive me for this error but,apologizing_politeness_convokit,1.0
-8,Q,you have to redo the whole thing,2nd_person_politeness_convokit,0.0
-8,R,ok so who will work with me? where should we begin?,direct_question_politeness_convokit,0.0
-8,S,i appreciate all this from you,Gratitude_receptiveness_yeomans,1.0
-8,S,"well we should start rn, our part is long",First_Person_Plural_receptiveness_yeomans,2.0
-8,T,ok forgive us for this error but,Apology_receptiveness_yeomans,0.0
-8,T,you have to redo the whole thing,Second_Person_receptiveness_yeomans,1.0
-8,U,ok so who will work with me? where should we begin?,WH_Questions_receptiveness_yeomans,2.0
-9,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Impersonal_Pronoun_receptiveness_yeomans,12.0
-10,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",First_Person_Single_receptiveness_yeomans,5.0
-11,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Hedges_receptiveness_yeomans,3.0
-12,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Negation_receptiveness_yeomans,3.0
-13,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Subjectivity_receptiveness_yeomans,3.0
-14,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Negative_Emotion_receptiveness_yeomans,3.0
-15,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Reasoning_receptiveness_yeomans,1.0
-16,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Agreement_receptiveness_yeomans,1.0
-17,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Second_Person_receptiveness_yeomans,1.0
-18,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Adverb_Limiter_receptiveness_yeomans,1.0
-19,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Disagreement_receptiveness_yeomans,1.0
-20,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Acknowledgement_receptiveness_yeomans,1.0
-21,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",First_Person_Plural_receptiveness_yeomans,1.0
-22,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",For_Me_receptiveness_yeomans,0.0
-23,A,And I will always love you,Conjunction_Start_receptiveness_yeomans,1.0
-23,B,"Can you help me, can you please?",Can_You_receptiveness_yeomans,2.0
-23,C,"Can you, will you, could you please be mine?",Could_You_receptiveness_yeomans,1.0
-23,D,"This land is your land, this land is my land; this land was made for you and for me",For_You_receptiveness_yeomans,1.0
+1,A,hello,Hello_receptiveness_yeomans,1
+1,B,So how should we answer this,Token_count_receptiveness_yeomans,6
+1,A,We can start here. What is the question?,YesNo_Questions_receptiveness_yeomans,0
+1,B,I am not sure. Where is the rest of our team?,WH_Questions_receptiveness_yeomans,1
+1,B,"Please help me figure this out, I really want to do well on this please",Please_receptiveness_yeomans,2
+2,C,Hey,Hello_receptiveness_yeomans,1
+2,C,Okay bro lets split it 50/50,Impersonal_Pronoun_receptiveness_yeomans,1
+2,D,Maybe but how about 60/40? I doubt its fair otherwise,Hedges_receptiveness_yeomans,2
+2,C,Seems fair,Hedges_receptiveness_yeomans,1
+1,B,I am not sure. Where is the rest of our team?,First_Person_Single_receptiveness_yeomans,1
+1,B,"Well please help me figure this out, I really want to do well on this please okay",factuality_politeness_convokit,1
+2,C,Seems possible,hashedge_politeness_convokit,1
+2,E,I see what youre thinking but I disagree,Acknowledgement_receptiveness_yeomans,1
+2,E,We get only one chance so we should understand how to split it,Acknowledgement_receptiveness_yeomans,2
+2,D,"I just don't agree, I'm making the 60/40 split",Adverb_Limiter_receptiveness_yeomans,1
+3,G,hey,indirect_greeting_politeness_convokit,1
+3,G,I think we should try something else,1st_person_start_politeness_convokit,1
+3,F,Ok whatever. You should leave the team then,2nd_person_start_politeness_convokit,1
+4,H,Honestly thank you so so much,factuality_politeness_convokit,1
+4,H,What's the plan?,direct_question_politeness_convokit,1
+4,I,That is the dumbest idea I've heard; youre actually dumb af,hasnegative_politeness_convokit,1
+4,H,What's ur problem here?,hasnegative_politeness_convokit,1
+5,J,Pleasure and an honor to meet you all,haspositive_politeness_convokit,1
+5,K,We should try that next,haspositive_politeness_convokit,0
+5,J,Could you please explain why? I don't really understand why you are thinking that,subjunctive_politeness_convokit,1
+5,K,Sorry sorry I didn't mean to,apologizing_politeness_convokit,1
+6,L,I don't really want to work with you all but let's get this over with,Impersonal_Pronoun_receptiveness_yeomans,1
+6,J,Fine by me,Affirmation_receptiveness_yeomans,1
+6,K,Ok so which part should we do first? the first or second?,YesNo_Questions_receptiveness_yeomans,1
+7,L,Please don't do that?,please_start_politeness_convokit,1
+7,L,I don't think that will work,hashedge_politeness_convokit,1
+7,M,I'm exhuasted rn,hasnegative_politeness_convokit,0
+7,M,i don't really care please just finish this up,haspositive_politeness_convokit,0
+7,N,Please don't do that?,Please_receptiveness_yeomans,1
+7,N,I don't think that will work,Hedges_receptiveness_yeomans,0
+7,O,I'm exhuasted rn,Negative_Emotion_receptiveness_yeomans,0
+7,O,i don't really care please just finish this up,Positive_Emotion_receptiveness_yeomans,0
+8,P,i appreciate all this from you,gratitude_politeness_convokit,1
+8,P,"well we should start rn, our part is long",1st_person_pl_politeness_convokit,1
+8,Q,ok forgive me for this error but,apologizing_politeness_convokit,1
+8,Q,you have to redo the whole thing,2nd_person_politeness_convokit,0
+8,R,ok so who will work with me? where should we begin?,direct_question_politeness_convokit,0
+8,S,i appreciate all this from you,Gratitude_receptiveness_yeomans,1
+8,S,"well we should start rn, our part is long",First_Person_Plural_receptiveness_yeomans,2
+8,T,ok forgive us for this error but,Apology_receptiveness_yeomans,0
+8,T,you have to redo the whole thing,Second_Person_receptiveness_yeomans,1
+8,U,ok so who will work with me? where should we begin?,WH_Questions_receptiveness_yeomans,2
+9,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Impersonal_Pronoun_receptiveness_yeomans,12
+10,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",First_Person_Single_receptiveness_yeomans,5
+11,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Hedges_receptiveness_yeomans,3
+12,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Negation_receptiveness_yeomans,3
+13,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Subjectivity_receptiveness_yeomans,3
+14,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Negative_Emotion_receptiveness_yeomans,3
+15,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Reasoning_receptiveness_yeomans,1
+16,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Agreement_receptiveness_yeomans,1
+17,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Second_Person_receptiveness_yeomans,1
+18,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Adverb_Limiter_receptiveness_yeomans,1
+19,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Disagreement_receptiveness_yeomans,1
+20,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",Acknowledgement_receptiveness_yeomans,1
+21,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",First_Person_Plural_receptiveness_yeomans,1
+22,A,"I understand your perspective and agree that I would not want to have resentment in the workplace against women, as that would further compound the issue we are looking at. I do think that it is true that women are underrepresented in STEM careers and am a believer that something should be done to address this discrepancy, even if that is not implementing a priority for women in hiring decisions. While I don\'t think that companies should explicitly hire simply because of their gender, I do think that they should be mindful of the gender gap in STEM and look to address those issues through their hiring practices.",For_Me_receptiveness_yeomans,0
+23,A,And I will always love you,Conjunction_Start_receptiveness_yeomans,1
+23,B,"Can you help me, can you please?",Can_You_receptiveness_yeomans,2
+23,C,"Can you, will you, could you please be mine?",Could_You_receptiveness_yeomans,1
+23,D,"This land is your land, this land is my land; this land was made for you and for me",For_You_receptiveness_yeomans,1
 0,0,unneccessagf shoulds shouldve should'nt,discrepancies_lexical_wordcount,4
 0,0,wouldnt unneedofek want must've should'nt,discrepancies_lexical_wordcount,5
 0,0,hopes wish,discrepancies_lexical_wordcount,2
@@ -679,3 +680,85 @@ I respond to that too",num_block_quote_responses,2.0
 0,0,a little possibly I think sort of probably,hedge_words_lexical_wordcount,5
 0,0,probably sort of,hedge_words_lexical_wordcount,2
 0,0,I think,hedge_words_lexical_wordcount,1
+0,0,I love dogs,positive_bert,0.932
+0,0,I love dogs!!!,positive_bert,0.980
+0,0,I love dogs,negative_bert,0.012
+0,0,I love dogs!!!,negative_bert,0.004
+0,0,This is relatively neutral,neutral_bert,0.470
+0,0,This is relatively neutral,positive_bert,0.505
+0,0,This is relatively neutral...,neutral_bert,0.492
+0,0,What the heck is going on,negative_bert,0.541
+0,0,What the heck is going on??,negative_bert,0.730
+0,0,!!!,positive_bert,0.917
+0,0,.,neutral_bert,0.577
+0,0,???,neutral_bert,0.713
+0,0,,num_chars,0
+0,0,a,num_chars,1
+0,0,ab,num_chars,2
+0,0,abc,num_chars,3
+0,0,abcd,num_chars,4
+0,0,abcde,num_chars,5
+0,0,abcdef,num_chars,6
+0,1,first,num_messages,1
+0,0,Who is this,num_question_naive,1
+0,0,Who is this. Why is this,num_question_naive,2
+0,0,Who what when where why is this,num_question_naive,1
+0,0,Who is this?,num_question_naive,1
+A,1,able am are,function_word_accommodation,0
+A,2,able am are hello,function_word_accommodation,3
+A,3,able am hello,function_word_accommodation,2
+A,2,able get got,function_word_accommodation,1
+A,5,get,function_word_accommodation,1
+B,1,able am are,content_word_accommodation,0
+B,2,able am are hello,content_word_accommodation,0
+B,3,able am hello yoyo,content_word_accommodation_per_conv,0.3333333
+B,2,hello yoyo,content_word_accommodation_per_conv,0.8333333
+C,1,i i i,first_pronouns_proportion,1
+C,2,i i taco taco,first_pronouns_proportion,0.5
+C,3,.,first_pronouns_proportion,0
+D,1,I went to the store,info_exchange_zscore_conversation,0
+D,2,Bought some groceries for dinner,info_exchange_zscore_conversation,1.2247
+D,3,It's raining today,info_exchange_zscore_conversation,-1.2247
+E,1,I sort of like this,hedge_naive,1
+E,2,I guess this is a little awesome,hedge_naive,1
+E,3,It's raining today,hedge_naive,0
+F,1,what??,NTRI,1
+F,3,sorry excuse me what's your name again?,NTRI,1
+F,1,huh?,NTRI,1
+F,3,pardon?,NTRI,1
+F,3,pardon,NTRI,0
+F,3,say what again?,NTRI,1
+F,3,say again?,NTRI,1
+F,3,say again,NTRI,1
+F,3,what's that?,NTRI,1
+F,3,what is that,NTRI,1
+F,2,this is not funny,NTRI,0
+G,1,what is going on,word_TTR,1
+G,3,what what,word_TTR,0.5
+G,2,what what is that,word_TTR,0.75
+H,1,fantastic difficulty,dale_chall_score,19.5257
+H,3,discover direction different,dale_chall_score,0.1488
+H,3,trying quote random,dale_chall_score,0.1488
+H,3,erase eraser errand every even dig dim dime dine computer,dale_chall_score,5.7115
+H,2,even this is magnificent!,dale_chall_score,7.7824
+H,4,even this is magnificent! even this is magnificent!,dale_chall_score,7.7824
+H,1,fantastic difficulty,dale_chall_classification,difficult
+H,3,trying quote random,dale_chall_classification,easy
+H,3,erase eraser errand every even dig dim dime dine computer,dale_chall_classification,medium
+H,3,discover direction different,dale_chall_classification,easy
+H,4,even this is magnificent! even this is magnificent!,dale_chall_classification,difficult
+I,1,I am enjoying the weather today!,positivity_zscore_conversation,0.855868
+I,2,Likewise it's beautiful.,positivity_zscore_conversation,0.8156
+I,3,I'm not a fan of the rain.,positivity_zscore_conversation,-1.2577
+I,1,I think it's enchanting.,positivity_zscore_conversation,0.7766
+I,3,Agree to disagree.,positivity_zscore_conversation,-1.19044
+J,1,This conversation is more neutral.,positivity_zscore_conversation,-0.002217
+J,2,How are you doing?,positivity_zscore_conversation,-0.443621
+J,3,I am mainly studying today.,positivity_zscore_conversation,-0.704912
+J,1,Anything fun planned?,positivity_zscore_conversation,1.925224
+J,3,Mostly a trip to the library.,positivity_zscore_conversation,-0.774473
+K,1,This is the same text.,positivity_zscore_conversation,
+K,1,This is the same text.,positivity_zscore_conversation,
+K,1,This is the same text.,positivity_zscore_conversation,
+K,1,This is the same text.,positivity_zscore_conversation,
+K,1,This is the same text.,positivity_zscore_conversation,

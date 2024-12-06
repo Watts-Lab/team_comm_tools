@@ -1,0 +1,89 @@
+conversation_num,speaker_nickname,timestamp,message,feature
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_1, speaker_1,, Have you noticed the weather?, low  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high   
+conversation_2, speaker_1,, Did you finish the book we were reading for class?, high  
+conversation_3, speaker_2,, Not yet but I did bake cookies yesterday!, high  
+conversation_3, speaker_1,, Oh that sounds fun! What kind of cookies?, high  
+conversation_3, speaker_2,, Chocolate chip! But I still need to find time for that book., high  
+conversation_3, speaker_1,, Yeah reading is tough with everything going on. Have you seen the new movie that came out last week?, high  
+conversation_3, speaker_2,, No I haven’t! I’ve been too busy reorganizing my room., high  
+conversation_3, speaker_1,, Reorganizing? I just bought some new plants for my room. Makes it feel fresh!, high  
+conversation_3, speaker_2,, That’s great! I’ve been thinking about getting a pet fish actually., high  
+conversation_3, speaker_1,, Fish are fun! Do you know what kind you want?, high  
+conversation_3, speaker_2,, Not sure yet but maybe something colorful. Oh speaking of colorful I’m painting my room too!, high 
+conversation_4, speaker_1,, Have you seen the new park they built nearby, low  
+conversation_4, speaker_2,, Yes I walked through it yesterday it’s so scenic, low  
+conversation_4, speaker_1,, I love how there’s so much space for picnics, low  
+conversation_4, speaker_2,, And the playground is perfect kids it was packed, low  
+conversation_4, speaker_1,, I noticed that too lots of families seem to love it, low  
+conversation_4, speaker_2,, It’s great to have such a community space close to home, low  
+conversation_4, speaker_2,, That’s a good idea there are plenty of shady spots under the trees, low  
+conversation_4, speaker_1,, I might even bring a picnic lunch next time, low  
+conversation_4, speaker_2,, Sounds perfect it’s such a peaceful place to relax, low  
+conversation_5, speaker_1,, Have you seen the new park they opened nearby, low  
+conversation_5, speaker_2,, Yes I went for a walk there the other day, low  
+conversation_5, speaker_1,, It’s so well designed with lots of walking paths, low  
+conversation_5, speaker_2,, I agree the flowers they planted are beautiful too, low  
+conversation_5, speaker_1,, I love how quiet it is despite being in the city, low  
+conversation_5, speaker_1,, I’m planning to take my bike there this weekend, low  
+conversation_5, speaker_2,, Good idea the paths are great for cycling too, low  
+conversation_5, speaker_1,, I might bring a bike and just hang out for a while, low  
+conversation_5, speaker_2,, Sounds like a perfect weekend plan, low  
+conversation_6, speaker_1,, Did you hear about the new sandwich shop downtown, high  
+conversation_6, speaker_2,, No but I just adopted a cat, high  
+conversation_6, speaker_2,, Her name is Luna she’s so playful, high  
+conversation_6, speaker_1,, I love that name I bet she’s cute, high  
+conversation_6, speaker_2,, She is and she’s already exploring every corner of the house, high  
+conversation_6, speaker_1,, I’ve been thinking about trying that new shop this weekend, high  
+conversation_6, speaker_2,, You should do it and let me know if it’s good I’ve been craving some clothes, high  
+conversation_6, speaker_1,, For sure I’ll grab one after my yoga class, high  
+conversation_6, speaker_2,, Oh you’re into yoga I’ve been thinking of starting it too, high  
+conversation_7, speaker_1,, Did you catch the game last night, low  
+conversation_7, speaker_2,, Yeah it was so close the whole time, low  
+conversation_7, speaker_1,, I know right the last quarter was so intense, low  
+conversation_7, speaker_2,, I thought our team had it for a second, low  
+conversation_7, speaker_1,, Same here that final play was crazy, low  
+conversation_7, speaker_2,, It’s been a while since a game kept me on the edge like that, low  
+conversation_7, speaker_1,, It makes you appreciate how skilled the players are, low  
+conversation_7, speaker_2,, Definitely they train so hard for moments like that, low  
+conversation_7, speaker_1,, I’m excited for the next game it’s going to be another tough one, low  
+conversation_7, speaker_2,, Me too can’t wait to see how it turns out, low  
+conversation_8, speaker_1,, Did you catch the game last night, low  
+conversation_8, speaker_2,, Yes it was so intense especially toward the end, low  
+conversation_8, speaker_1,, I know right I was on the edge of my seat, low  
+conversation_8, speaker_2,, The way our team came back in the second half was amazing, low  
+conversation_8, speaker_1,, That defense was on point they really stepped up, low  
+conversation_8, speaker_2,, For sure it was a great team effort, low  
+conversation_8, speaker_1,, I can’t wait for the next match it’s going to be exciting, low  
+conversation_8, speaker_2,, Me neither hopefully we’ll win this time, low  
+conversation_8, speaker_1,, Fingers crossed I’m already looking forward to it, low  
+conversation_8, speaker_2,, Same here I’m definitely going to watch, low  
+conversation_9, speaker_1,, Do you want to go to the concert this weekend, high  
+conversation_9, speaker_2,, I’m not sure but I did just finish a 500 piece puzzle, high  
+conversation_9, speaker_1,, That’s impressive puzzles are so relaxing, high  
+conversation_9, speaker_2,, They really are it took me a few hours but it was worth it, high  
+conversation_9, speaker_1,, Speaking of relaxing I’ve been getting into meditation, high  
+conversation_9, speaker_2,, Oh that sounds great I’ve always wanted to try that, high  
+conversation_9, speaker_1,, You should it really helps clear your mind, high  
+conversation_9, speaker_2,, Maybe I’ll give it a shot after finishing this new book I started, high  
+conversation_9, speaker_1,, What book are you reading, high  
+conversation_9, speaker_2,, It’s a mystery novel so good I can’t put it down, high  

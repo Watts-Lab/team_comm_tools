@@ -18,7 +18,7 @@ if __name__ == "__main__":
 	juries_df = pd.read_csv("./example_data/full_empirical_datasets/jury_conversations_with_outcome_var.csv", encoding='utf-8')
 	csop_df = pd.read_csv("./example_data/full_empirical_datasets/csop_conversations_withblanks.csv", encoding='utf-8')
 	csopII_df = pd.read_csv("./example_data/full_empirical_datasets/csopII_conversations_withblanks.csv", encoding='utf-8')
-	
+ 
 	"""
 	TINY / TEST DATASETS -------------------------------
 	
@@ -38,6 +38,7 @@ if __name__ == "__main__":
 	"""
 
 	# Tiny Juries
+	print("Tiny Juries Example...")
 	tiny_juries_feature_builder = FeatureBuilder(
 		input_df = tiny_juries_df,
 		grouping_keys = ["batch_num", "round_num"],
@@ -51,6 +52,25 @@ if __name__ == "__main__":
 	)
 	tiny_juries_feature_builder.featurize()
 
+	# Tiny Juries with custom aggregations
+	print("Tiny Juries with Custom Aggregation...")
+	tiny_juries_feature_builder_custom_agg = FeatureBuilder(
+		input_df = tiny_juries_df,
+		grouping_keys = ["batch_num", "round_num"],
+		output_file_base = "jury_TINY_output_custom_agg", # Naming output files using the output_file_base parameter (recommended)
+		turns = False,
+		custom_features = [
+			"(BERT) Mimicry",
+			"Moving Mimicry",
+			"Forward Flow",
+			"Discursive Diversity"],
+		convo_methods = ['max', 'median'], # This will aggregate ONLY the "positive_bert" at the conversation level, using max and median.
+		convo_columns = ['positive_bert'],
+		user_methods = ['mean'], # This will aggregate ONLY "negative_bert" at the speaker/user level, using mean.
+		user_columns = ['negative_bert'],
+	)
+	tiny_juries_feature_builder_custom_agg.featurize()
+ 
 	# Tiny multi-task
 	tiny_multi_task_feature_builder = FeatureBuilder(
 		input_df = tiny_multi_task_df,
@@ -83,7 +103,7 @@ if __name__ == "__main__":
 	# )
 	# jury_feature_builder.featurize()
 
-	# # CSOP (Abdullah)
+	# CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
 	# 	input_df = csop_df,
 	# 	vector_directory = "./vector_data/",
@@ -95,7 +115,7 @@ if __name__ == "__main__":
 	# csop_feature_builder.featurize()
 
 
-	# # CSOP II (Nak Won Rim)
+	# CSOP II (Nak Won Rim)
 	# csopII_feature_builder = FeatureBuilder(
 	# 	input_df = csopII_df,
 	# 	vector_directory = "./vector_data/",

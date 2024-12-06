@@ -13,6 +13,7 @@ import pandas as pd
 if __name__ == "__main__":
 
 	tiny_multi_task_renamed_df = pd.read_csv("data/cleaned_data/multi_task_TINY_cols_renamed.csv", encoding='utf-8')
+	package_agg_df = pd.read_csv("data/cleaned_data/test_package_aggregation.csv", encoding='utf-8')
 
 	"""
 	Testing Package Task 1
@@ -190,3 +191,43 @@ if __name__ == "__main__":
 	)
 	test_vectors.featurize()
 
+	"""
+	Test correctness of the custom aggregation pipeline:
+
+	- Aggregate with all the functions for conversation level: [mean, max, min, stdev, median, sum]
+	- Specify 'mean' as 'average' instead and ensure it shows up correctly
+	- Aggregate with "mean" for the user level + a fake method (e.g., "foo")
+	- Aggregate only "second_person_lexical_wordcount" at the conversation level
+	- Aggregate "positive_bert" at the user level + a fake column (e.g., "bar") + a non-numeric column (e.g., "dale_chall_classification")
+	"""
+
+	print("Testing custom aggregation...")
+	custom_agg_fb = FeatureBuilder(
+        input_df = package_agg_df,
+        grouping_keys = ["batch_num", "round_num"],
+        vector_directory = "./vector_data/",
+        output_file_base = "custom_agg_test" ,
+        convo_methods = ['average', 'max', 'min', 'stdev', 'median', 'sum'],
+        convo_columns = ['second_person_lexical_wordcount'], # testing functionality in case of typo
+        user_methods = ['mean', 'foo'],
+        user_columns = ['positive_bert', 'bar', 'dale_chall_classification'], # testing functionality in case of typo
+	)
+	custom_agg_fb.featurize()
+
+
+	"""
+	Test aggregation piepline when we switch aggregation to false
+
+	(We should only get the default num words, num chars, and num messages aggregated).
+	"""
+
+	print("Testing aggregation turned off...")
+	custom_agg_fb_no_agg = FeatureBuilder(
+        input_df = package_agg_df,
+        grouping_keys = ["batch_num", "round_num"],
+        vector_directory = "./vector_data/",
+        output_file_base = "custom_agg_test_no_agg" ,
+        convo_aggregation = False,
+        user_aggregation = False,
+	)
+	custom_agg_fb_no_agg.featurize()

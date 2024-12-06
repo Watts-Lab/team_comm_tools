@@ -13,9 +13,15 @@ Citation
 
 Implementation Basics 
 **********************
-To compute the feature, we count the number of shared content words (defined as anything that is not on the function word list) between the current and previous utterance in a conversation, then normalize it by the frequency of the word across all inputs in the dataset. This follows the original authors' method:
+To compute the feature, we count the number of shared content words (defined as anything that is not on the function word list) between the current and previous utterance in a conversation, normalized by the frequency at which the word appears. This follows the original authors' method:
 
 	Content words are defined as any word that is not a function word. For each content word w in a given speaker’s turn, if w also occurs in the immediately preceding turn of the other, we count w as an accommodated content word. The raw count of accommodated content words is be the total number of these accommodated content words over every turn in the conversation side. Because content words vary widely in frequency, we normalized our counts by the frequency of each word.
+
+For completeness, we interprete "the frequency of each word" in two distinct ways:
+
+1. **The frequency of each word across the entire dataset (`content_word_accommodation`)**: here, we normalize non-function words with respect to the language used across all conversations in the dataset. This version of accommodation is useful if the entire dataset consists of similar conversations, or conversations about the same topic. Normalizing with respect to a larger dataset will be useful in establishing better estimates in identifying (and appropriately weigting) whichs words carry meaningful content in a particular domain.
+
+2. **The frequency of each word within a given conversation (`content_word_accommodation_per_conv`)**: here, we normalize non-function words with respect only to the language in a given conversation. This version of accommodation is useful if the dataset consists of very distinct conversations, for which it may not make sense to assume that the distribution of which words are "important" will hold across different domains.
 
 The feature requires a reference list of function words, which are defined by the original authors as follows.
 
