@@ -47,8 +47,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Technical Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="basic_features.html">basic_features module</a></li>
@@ -80,7 +80,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 </ul>
 
@@ -128,7 +128,7 @@ that can be interpreted as a time elapsed; otherwise, sets it equal to none.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="features.temporal_features.get_time_diff">
-<span class="sig-prename descclassname"><span class="pre">features.temporal_features.</span></span><span class="sig-name descname"><span class="pre">get_time_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.temporal_features.get_time_diff" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.temporal_features.</span></span><span class="sig-name descname"><span class="pre">get_time_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_unit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.temporal_features.get_time_diff" title="Link to this definition"></a></dt>
 <dd><p>Obtains the time difference between messages, assuming there is only a <em>single</em> timestamp column
 representing the time of each utterance.</p>
 <dl class="field-list simple">
@@ -137,6 +137,7 @@ representing the time of each utterance.</p>
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – This is a pandas dataframe of the chat level features.</p></li>
 <li><p><strong>on_column</strong> (<em>str</em>) – The column name for the timestamp columns.</p></li>
 <li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the unique conversation identifier.</p></li>
+<li><p><strong>timestamp_unit</strong> (<em>str</em>) – A string representing the unit of a timestamp. Defaults to ‘ms’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -150,7 +151,7 @@ representing the time of each utterance.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="features.temporal_features.get_time_diff_startend">
-<span class="sig-prename descclassname"><span class="pre">features.temporal_features.</span></span><span class="sig-name descname"><span class="pre">get_time_diff_startend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.temporal_features.get_time_diff_startend" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.temporal_features.</span></span><span class="sig-name descname"><span class="pre">get_time_diff_startend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_unit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.temporal_features.get_time_diff_startend" title="Link to this definition"></a></dt>
 <dd><p>Obtains the time difference between messages, assuming there are <em>two</em> timestamp columns, one representing
 the start of a message and one representing the end of a message.</p>
 <p>Currently assumes that the start and end columns are named “timestamp_start” and “timestamp_end”, although
@@ -162,6 +163,7 @@ this should be made more generalizable in a future commit.</p>
 <li><p><strong>timestamp_start</strong> (<em>str</em>) – A string representing the column name that should be selected as the start timestamp.</p></li>
 <li><p><strong>timestamp_end</strong> (<em>str</em>) – A string representing the column name that should be selected as the end timestamp.</p></li>
 <li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID.</p></li>
+<li><p><strong>timestamp_unit</strong> (<em>str</em>) – A string representing the unit of a timestamp. Defaults to ‘ms’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

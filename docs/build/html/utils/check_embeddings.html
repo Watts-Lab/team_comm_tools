@@ -46,11 +46,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#driver-classes-utterance-conversation-and-speaker-level-features">“Driver” Classes: Utterance-, Conversation-, and Speaker-Level Features</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#other-utilities">Other Utilities</a><ul class="current">
@@ -61,12 +61,17 @@
 <li class="toctree-l3"><a class="reference internal" href="assign_chunk_nums.html">assign_chunk_nums module</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">check_embeddings module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.check_embeddings"><code class="docutils literal notranslate"><span class="pre">check_embeddings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.fix_abbreviations"><code class="docutils literal notranslate"><span class="pre">fix_abbreviations()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.generate_bert"><code class="docutils literal notranslate"><span class="pre">generate_bert()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.generate_certainty_pkl"><code class="docutils literal notranslate"><span class="pre">generate_certainty_pkl()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.generate_lexicon_pkl"><code class="docutils literal notranslate"><span class="pre">generate_lexicon_pkl()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.generate_vect"><code class="docutils literal notranslate"><span class="pre">generate_vect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.get_nan_vector"><code class="docutils literal notranslate"><span class="pre">get_nan_vector()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.get_sentiment"><code class="docutils literal notranslate"><span class="pre">get_sentiment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.is_valid_term"><code class="docutils literal notranslate"><span class="pre">is_valid_term()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.load_liwc_dict"><code class="docutils literal notranslate"><span class="pre">load_liwc_dict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.read_in_lexicons"><code class="docutils literal notranslate"><span class="pre">read_in_lexicons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.str_to_vec"><code class="docutils literal notranslate"><span class="pre">str_to_vec()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="gini_coefficient.html">gini_coefficient module</a></li>
@@ -105,7 +110,7 @@
 <span id="check-embeddings-module"></span><h1>check_embeddings module<a class="headerlink" href="#module-utils.check_embeddings" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.check_embeddings">
-<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">check_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bert_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_sentence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_sentiment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regenerate_vectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.check_embeddings" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">check_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bert_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_sentence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_sentiment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regenerate_vectors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'message'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.check_embeddings" title="Link to this definition"></a></dt>
 <dd><p>Check if embeddings and required lexicons exist, and generate them if they don’t.</p>
 <p>This function ensures the necessary vector and BERT embeddings are available.
 It also checks for the presence of certainty and lexicon files, generating them if needed.</p>
@@ -126,6 +131,27 @@ It also checks for the presence of certainty and lexicon files, generating them 
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.check_embeddings.fix_abbreviations">
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">fix_abbreviations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dicTerm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#utils.check_embeddings.fix_abbreviations" title="Link to this definition"></a></dt>
+<dd><p>Helper function to fix abbreviations with punctuations.
+src: <a class="reference external" href="https://github.com/ryanboyd/ContentCoder-Py/blob/main/ContentCodingDictionary.py#L714">https://github.com/ryanboyd/ContentCoder-Py/blob/main/ContentCodingDictionary.py#L714</a></p>
+<p>This function goes over a list of hardcoded exceptions for the tokenizer / sentence parser
+built into LIWC so that it doesn’t convert them into separate strings
+(e.g., we want “i.e.” to not be seen as two  words and two sentences [i, e]).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dicTerm</strong> (<em>str</em>) – The lexicon term</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dicTerm</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -201,7 +227,7 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.generate_vect">
-<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_vect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_vect" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">generate_vect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.generate_vect" title="Link to this definition"></a></dt>
 <dd><p>Generates sentence vectors for the given chat data and saves them to a CSV file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -209,6 +235,7 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 <li><p><strong>chat_data</strong> (<em>pd.DataFrame</em>) – Contains message data to be vectorized.</p></li>
 <li><p><strong>output_path</strong> (<em>str</em>) – Path to save the CSV file containing message embeddings.</p></li>
 <li><p><strong>message_col</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the column name that should be selected as the message. Defaults to “message”.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – The size of each batch for processing sentiment analysis. Defaults to 64.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -221,6 +248,12 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.check_embeddings.get_nan_vector">
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">get_nan_vector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.get_nan_vector" title="Link to this definition"></a></dt>
+<dd><p>Get a default value for an empty string (the “NaN vector”) and returns it as a 1D np array.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -241,9 +274,64 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="utils.check_embeddings.is_valid_term">
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">is_valid_term</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dicTerm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.is_valid_term" title="Link to this definition"></a></dt>
+<dd><p>Check if a dictionary term is valid.</p>
+<p>This function returns <cite>True</cite> if the term matches the regex pattern and <cite>False</cite> otherwise.
+The regex pattern matches:</p>
+<ul class="simple">
+<li><p>Alphanumeric characters (a-z, A-Z, 0-9)</p></li>
+<li><p>Valid symbols: <cite>-</cite>, <cite>‘</cite>, <cite>*</cite>, <cite>/</cite></p></li>
+<li><p>The <cite>*</cite> symbol can appear only once at the end of a word</p></li>
+<li><p>Emojis are valid only when they appear alone</p></li>
+<li><p>The <cite>/</cite> symbol can appear only once after alphanumeric characters</p></li>
+<li><p>Spaces are allowed between valid words</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dicTerm</strong> (<em>str</em>) – The dictionary term to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>True</cite> if the term is valid, <cite>False</cite> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.check_embeddings.load_liwc_dict">
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">load_liwc_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dicText</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#utils.check_embeddings.load_liwc_dict" title="Link to this definition"></a></dt>
+<dd><p>Loads up a dictionary that is in the LIWC 2007/2015 format.
+src: <a class="reference external" href="https://github.com/ryanboyd/ContentCoder-Py/blob/main/ContentCodingDictionary.py#L81">https://github.com/ryanboyd/ContentCoder-Py/blob/main/ContentCodingDictionary.py#L81</a></p>
+<p>This functions reads the content of a LIWC dictionary file in the official format,
+and convert it to a dictionary with lexicon: regular expression format.
+We assume the dicText has two parts: the header, which maps numbers to “category names,”
+and the body, which maps words in the lexicon to different category numbers, separated by a ‘%’ sign.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dicText</strong> (<em>str</em>) – The content of a .dic file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dicCategories</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.read_in_lexicons">
 <span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">read_in_lexicons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lexicons_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.read_in_lexicons" title="Link to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.check_embeddings.str_to_vec">
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">str_to_vec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str_vec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.str_to_vec" title="Link to this definition"></a></dt>
+<dd><p>Takes a string representation of a vector and returns it as a 1D np array.</p>
+</dd></dl>
 
 </section>
 
