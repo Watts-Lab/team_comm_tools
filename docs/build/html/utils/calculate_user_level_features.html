@@ -47,11 +47,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#driver-classes-utterance-conversation-and-speaker-level-features">“Driver” Classes: Utterance-, Conversation-, and Speaker-Level Features</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="calculate_chat_level_features.html">calculate_chat_level_features module</a></li>
@@ -96,7 +96,7 @@
 <span id="calculate-user-level-features-module"></span><span id="user-level-features"></span><h1>calculate_user_level_features module<a class="headerlink" href="#module-utils.calculate_user_level_features" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="utils.calculate_user_level_features.UserLevelFeaturesCalculator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.calculate_user_level_features.</span></span><span class="sig-name descname"><span class="pre">UserLevelFeaturesCalculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speaker_id_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.calculate_user_level_features.UserLevelFeaturesCalculator" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.calculate_user_level_features.</span></span><span class="sig-name descname"><span class="pre">UserLevelFeaturesCalculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vect_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speaker_id_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_aggregation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_methods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chat_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.calculate_user_level_features.UserLevelFeaturesCalculator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Initialize variables and objects used by the UserLevelFeaturesCalculator class.</p>
 <p>This class uses various feature modules to define user- (speaker) level features. It reads input data and
@@ -109,7 +109,10 @@ initializes variables required to compute the features.</p>
 <li><p><strong>vect_data</strong> (<em>pd.DataFrame</em>) – Pandas dataframe of message embeddings corresponding to each instance of the chat data</p></li>
 <li><p><strong>conversation_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the conversation ID. Defaults to “conversation_num”.</p></li>
 <li><p><strong>speaker_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the speaker ID. Defaults to “speaker_nickname”.</p></li>
-<li><p><strong>input_columns</strong> (<em>list</em>) – List of columns in the chat-level features dataframe that should not be summarized</p></li>
+<li><p><strong>user_aggregation</strong> (<em>bool</em>) – If true, will aggregate features at the user level</p></li>
+<li><p><strong>user_methods</strong> (<em>list</em>) – Specifies which functions users want to aggregate with (e.g., mean, stdev…) at the user level</p></li>
+<li><p><strong>user_columns</strong> (<em>list</em>) – Specifies which columns (at the chat level) users want aggregated for the user level</p></li>
+<li><p><strong>chat_features</strong> (<em>list</em>) – Tracks all the chat-level features generated by the toolkit</p></li>
 </ul>
 </dd>
 </dl>
@@ -145,21 +148,6 @@ and appends them as new columns to the input user-level data.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_level_averaged_features">
-<span class="sig-name descname"><span class="pre">get_user_level_averaged_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_level_averaged_features" title="Link to this definition"></a></dt>
-<dd><p>Aggregate summary statistics by calculating average user-level features from chat-level features.</p>
-<p>This function calculates and merges the average features into the user-level data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_level_summary_statistics_features">
 <span class="sig-name descname"><span class="pre">get_user_level_summary_statistics_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_level_summary_statistics_features" title="Link to this definition"></a></dt>
 <dd><p>This function is used to aggregate the summary statistics from
@@ -179,8 +167,7 @@ chat level features to user level features.</p>
 <p>Features for which summing makes sense include:
 - Word count (total number of words)
 - Character count
-- Message count
-- Function word accommodation</p>
+- Message count</p>
 <p>This function calculates and merges the summed features into the user-level data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>

@@ -44,11 +44,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Worked Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils/index.html">Utilities</a></li>
 </ul>
 
@@ -178,6 +178,8 @@
 </li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.compute_frequency">compute_frequency() (in module features.word_mimicry)</a>
 </li>
+      <li><a href="features/word_mimicry.html#features.word_mimicry.compute_frequency_per_conv">compute_frequency_per_conv() (in module features.word_mimicry)</a>
+</li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.computeTF">computeTF() (in module features.word_mimicry)</a>
 </li>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.concat_bert_features">concat_bert_features() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
@@ -187,6 +189,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="features/word_mimicry.html#features.word_mimicry.Content_mimicry_score">Content_mimicry_score() (in module features.word_mimicry)</a>
+</li>
+      <li><a href="features/word_mimicry.html#features.word_mimicry.Content_mimicry_score_per_conv">Content_mimicry_score_per_conv() (in module features.word_mimicry)</a>
 </li>
       <li><a href="feature_builder.html#feature_builder.FeatureBuilder.conv_level_features">conv_level_features() (feature_builder.FeatureBuilder method)</a>
 </li>
@@ -446,6 +450,8 @@
       </ul></li>
       <li><a href="feature_builder.html#feature_builder.FeatureBuilder.featurize">featurize() (feature_builder.FeatureBuilder method)</a>
 </li>
+      <li><a href="utils/check_embeddings.html#utils.check_embeddings.fix_abbreviations">fix_abbreviations() (in module utils.check_embeddings)</a>
+</li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.function_mimicry_score">function_mimicry_score() (in module features.word_mimicry)</a>
 </li>
   </ul></td>
@@ -461,8 +467,6 @@
       <li><a href="utils/check_embeddings.html#utils.check_embeddings.generate_lexicon_pkl">generate_lexicon_pkl() (in module utils.check_embeddings)</a>
 </li>
       <li><a href="utils/check_embeddings.html#utils.check_embeddings.generate_vect">generate_vect() (in module utils.check_embeddings)</a>
-</li>
-      <li><a href="utils/summarize_features.html#utils.summarize_features.get_average">get_average() (in module utils.summarize_features)</a>
 </li>
       <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_centroids">get_centroids() (utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
 </li>
@@ -516,18 +520,26 @@
 </li>
       <li><a href="utils/summarize_features.html#utils.summarize_features.get_max">get_max() (in module utils.summarize_features)</a>
 </li>
+      <li><a href="utils/summarize_features.html#utils.summarize_features.get_mean">get_mean() (in module utils.summarize_features)</a>
+</li>
+      <li><a href="utils/summarize_features.html#utils.summarize_features.get_median">get_median() (in module utils.summarize_features)</a>
+</li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.get_mimicry_bert">get_mimicry_bert() (in module features.word_mimicry)</a>
 </li>
       <li><a href="utils/summarize_features.html#utils.summarize_features.get_min">get_min() (in module utils.summarize_features)</a>
 </li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.get_moving_mimicry">get_moving_mimicry() (in module features.word_mimicry)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_named_entity">get_named_entity() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="features/within_person_discursive_range.html#features.within_person_discursive_range.get_nan_vector">get_nan_vector() (in module features.within_person_discursive_range)</a>
+
+      <ul>
+        <li><a href="utils/check_embeddings.html#utils.check_embeddings.get_nan_vector">(in module utils.check_embeddings)</a>
 </li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="features/textblob_sentiment_analysis.html#features.textblob_sentiment_analysis.get_polarity_score">get_polarity_score() (in module features.textblob_sentiment_analysis)</a>
 </li>
       <li><a href="features/politeness_features.html#features.politeness_features.get_politeness_strategies">get_politeness_strategies() (in module features.politeness_features)</a>
@@ -564,15 +576,19 @@
 </li>
       <li><a href="features/discursive_diversity.html#features.discursive_diversity.get_unique_pairwise_combos">get_unique_pairwise_combos() (in module features.discursive_diversity)</a>
 </li>
-      <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_average_dataframe">get_user_average_dataframe() (in module utils.summarize_features)</a>
-</li>
       <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.get_user_level_aggregates">get_user_level_aggregates() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
-</li>
-      <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_level_averaged_features">get_user_level_averaged_features() (utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_level_summary_statistics_features">get_user_level_summary_statistics_features() (utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_level_summed_features">get_user_level_summed_features() (utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
+</li>
+      <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_max_dataframe">get_user_max_dataframe() (in module utils.summarize_features)</a>
+</li>
+      <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_mean_dataframe">get_user_mean_dataframe() (in module utils.summarize_features)</a>
+</li>
+      <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_median_dataframe">get_user_median_dataframe() (in module utils.summarize_features)</a>
+</li>
+      <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_min_dataframe">get_user_min_dataframe() (in module utils.summarize_features)</a>
 </li>
       <li><a href="features/get_user_network.html#features.get_user_network.get_user_network">get_user_network() (in module features.get_user_network)</a>
 
@@ -580,6 +596,8 @@
         <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_network">(utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
 </li>
       </ul></li>
+      <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_stdev_dataframe">get_user_stdev_dataframe() (in module utils.summarize_features)</a>
+</li>
       <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_sum_dataframe">get_user_sum_dataframe() (in module utils.summarize_features)</a>
 </li>
       <li><a href="features/variance_in_DD.html#features.variance_in_DD.get_variance_in_DD">get_variance_in_DD() (in module features.variance_in_DD)</a>
@@ -602,11 +620,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="features/information_diversity.html#features.information_diversity.info_diversity">info_diversity() (in module features.information_diversity)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.info_exchange">info_exchange() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="features/hedge.html#features.hedge.is_hedged_sentence_1">is_hedged_sentence_1() (in module features.hedge)</a>
+</li>
+      <li><a href="utils/check_embeddings.html#utils.check_embeddings.is_valid_term">is_valid_term() (in module utils.check_embeddings)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -617,6 +637,8 @@
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.lexical_features">lexical_features() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="features/lexical_features_v2.html#features.lexical_features_v2.liwc_features">liwc_features() (in module features.lexical_features_v2)</a>
+</li>
+      <li><a href="utils/check_embeddings.html#utils.check_embeddings.load_liwc_dict">load_liwc_dict() (in module utils.check_embeddings)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -795,13 +817,15 @@
 </li>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.sentence_pad">sentence_pad() (in module features.politeness_v2_helper)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.sentence_split">sentence_split() (in module features.politeness_v2_helper)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.sentenciser">sentenciser() (in module features.politeness_v2_helper)</a>
 </li>
       <li><a href="feature_builder.html#feature_builder.FeatureBuilder.set_self_conv_data">set_self_conv_data() (feature_builder.FeatureBuilder method)</a>
+</li>
+      <li><a href="utils/check_embeddings.html#utils.check_embeddings.str_to_vec">str_to_vec() (in module utils.check_embeddings)</a>
 </li>
   </ul></td>
 </tr></table>

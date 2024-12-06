@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="basic_features module" href="basic_features.html" />
-    <link rel="prev" title="feature_builder module" href="../feature_builder.html" /> 
+    <link rel="prev" title="Worked Example" href="../examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,8 +47,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Features: Technical Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="basic_features.html">basic_features module</a></li>
@@ -71,14 +71,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#conversation-level-features">Conversation-Level Features</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="burstiness.html">burstiness module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="information_diversity.html">information_diversity module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/gini_coefficient.html">gini_coefficient module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="get_all_DD_features.html">get_all_DD_features module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="discursive_diversity.html">discursive_diversity module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="variance_in_DD.html">variance_in_DD module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="within_person_discursive_range.html">within_person_discursive_range module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="turn_taking_features.html">turn_taking_features module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#base-conversation-level-features">Base Conversation-Level Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="burstiness.html">burstiness module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="information_diversity.html">information_diversity module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/gini_coefficient.html">gini_coefficient module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get_all_DD_features.html">get_all_DD_features module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="discursive_diversity.html">discursive_diversity module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="variance_in_DD.html">variance_in_DD module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="within_person_discursive_range.html">within_person_discursive_range module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="turn_taking_features.html">turn_taking_features module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conversation-level-aggregates">Conversation-Level Aggregates</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#speaker-user-level-features">Speaker- (User) Level Features</a><ul>
@@ -88,7 +92,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 </ul>
 
@@ -146,7 +150,9 @@
 </section>
 <section id="conversation-level-features">
 <h2>Conversation-Level Features<a class="headerlink" href="#conversation-level-features" title="Link to this heading"></a></h2>
-<p>Once utterance-level features are computed, we compute conversation-level features; some of these features represent an aggregation of utterance-level information (for example, the “average level of positivity” in a conversation is simply the mean positivity score for each utterance). Other conversation-level features are constructs that are defined only at the conversation-level, such as the level of “burstiness” in a team’s communication patterns.</p>
+<section id="base-conversation-level-features">
+<h3>Base Conversation-Level Features<a class="headerlink" href="#base-conversation-level-features" title="Link to this heading"></a></h3>
+<p>The following features are constructs that are defined only at the conversation-level, such as the level of “burstiness” in a team’s communication patterns. We call these the “base” conversation-level features, and they can be accessed using a property of the <code class="docutils literal notranslate"><span class="pre">FeatureBuilder</span></code> object: <code class="docutils literal notranslate"><span class="pre">FeatureBuilder.conv_features_base</span></code>.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="burstiness.html">burstiness module</a></li>
@@ -160,10 +166,16 @@
 </ul>
 </div>
 </section>
+<section id="conversation-level-aggregates">
+<h3>Conversation-Level Aggregates<a class="headerlink" href="#conversation-level-aggregates" title="Link to this heading"></a></h3>
+<p>Once utterance-level features are computed, we compute conversation-level features; some of these features represent an aggregation of utterance-level information (for example, the “average level of positivity” in a conversation is simply the mean positivity score for each utterance).</p>
+<p>By default, all numeric attributes generated at the utterance (chat) level are aggregated using the functions <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, and <code class="docutils literal notranslate"><span class="pre">stdev</span></code>. However, this behavior can be customized, with details in the Worked Example (see <a class="reference internal" href="../examples.html#custom-aggregation"><span class="std std-ref">Custom Aggregation</span></a>).</p>
+</section>
+</section>
 <section id="speaker-user-level-features">
 <h2>Speaker- (User) Level Features<a class="headerlink" href="#speaker-user-level-features" title="Link to this heading"></a></h2>
 <p>User-level features generally represent an aggregation of features at the utterance- level (for example, the average number of words spoken <em>by a particular user</em>). There is therefore limited speaker-level feature documentation, other than a function used to compute the “network” of other speakers that an individual interacts with in a conversation.</p>
-<p>You may reference the <a class="reference internal" href="../utils/calculate_user_level_features.html#user-level-features"><span class="std std-ref">Speaker (User)-Level Features Page</span></a> for more information.</p>
+<p>You may reference the <a class="reference internal" href="../utils/calculate_user_level_features.html#user-level-features"><span class="std std-ref">Speaker (User)-Level Features Page</span></a> for more information, as well as the details in the Worked Example (see <a class="reference internal" href="../examples.html#custom-aggregation"><span class="std std-ref">Custom Aggregation</span></a>).</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="get_user_network.html">get_user_network module</a></li>
@@ -176,7 +188,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../feature_builder.html" class="btn btn-neutral float-left" title="feature_builder module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../examples.html" class="btn btn-neutral float-left" title="Worked Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="basic_features.html" class="btn btn-neutral float-right" title="basic_features module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
