@@ -11,6 +11,10 @@ const current = [
     image: `${process.env.PUBLIC_URL}/priya.png`
   },
   {
+    name: 'Pradnaya Pathak',
+    image: `${process.env.PUBLIC_URL}/pradnaya.png`
+  },
+  {
     name: 'Yashveer Singh Sohi',
     image: `${process.env.PUBLIC_URL}/yashveer.png`
   },
@@ -76,17 +80,18 @@ function Team() {
       <div className="current">
         {current.map((member, index) => {
           let title = 'Undergraduate Student, UPenn';
-          if (member.name === 'Evan Rowbotham') {
-            title = 'Undergraduate Student, FSU';
-          }
-          else if (member.name === 'Gina Chen') {
-            title = 'Graduate Student, UPenn';
+
+          if (member.name === 'Gina Chen') {
+            title = 'Data Scientist';
           }
           else if (member.name === 'Yuxuan Zhang') {
             title = 'Data Scientist';
           }
           else if (member.name === 'Priya DCosta') {
-            title = 'Graduate Student, UPenn';
+            title = 'Graduate Alumna, UPenn';
+          }
+          else if (member.name === 'Yashveer Singh Sohi') {
+            title = 'Graduate Alumnus, UPenn';
           }
 
           return (<div key={index} className='current-member'>
@@ -105,11 +110,11 @@ function Team() {
           if (member.name === 'Yuluan Cao') {
             title = 'Graduate Student, UPenn';
           }
-          else if (member.name === 'Yashveer Singh Sohi') {
-            title = 'Data Scientist';
-          }
           else if (member.name === 'Eric Zhong') {
             title = 'Undergraduate Student, Cornell';
+          }
+          else if (member.name === 'Evan Rowbotham') {
+            title = 'Undergraduate Student, NYU';
           }
 
           return (<div key={index} className='alumni-member'>
