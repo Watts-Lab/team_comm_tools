@@ -354,31 +354,6 @@ feature_dict = { # TODO: customize preprocess methods
     "vect_data": False,
     "bert_sentiment_data": False
   },
-"Language Style Matching (LSM)": {
-    "columns": [
-        "total_pronouns_lsm",
-        "conjunction_lexical_wordcount_lsm",
-        "adverbs_lexical_wordcount_lsm",
-        "article_lexical_wordcount_lsm",
-        "quantifier_lexical_wordcount_lsm",
-        "negation_lexical_wordcount_lsm",
-        "preposition_lexical_wordcount_lsm",
-        "indefinite_pronoun_lexical_wordcount_lsm",
-        "auxiliary_verbs_lexical_wordcount_lsm"
-    ],
-    "file": "./features/lsm_features.py",
-    "level": "Conversation",
-    "semantic_grouping": "Language Style",
-    "description": "Measures the alignment of linguistic styles among group members by calculating LSM scores for various function word categories.",
-    "references": "(Gonzales, Hancock, and Pennebaker, 2010)",
-    "wiki_link": "https://github.com/Watts-Lab/team-process-map/wiki/Language-Style-Matching-(LSM)",
-    "function": "calculate_lsm",
-    "dependencies": [],
-    "preprocess": [],
-    "vect_data": False,
-    "bert_sentiment_data": False
-  }
-
   "Politeness Strategies": {
     "columns": [
       "please_politeness_convokit",
@@ -626,6 +601,30 @@ feature_dict = { # TODO: customize preprocess methods
     "references": "(Reidl and Wooley, 2017)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/information_diversity.html",
     "function": ConversationLevelFeaturesCalculator.calculate_info_diversity,
+    "dependencies": [],
+    "preprocess": [],
+    "vect_data": False,
+    "bert_sentiment_data": False
+  },
+  "Language Style Matching (LSM)": {
+    "columns": [
+        "total_pronouns_lsm",
+        "conjunction_lexical_wordcount_lsm",
+        "adverbs_lexical_wordcount_lsm",
+        "article_lexical_wordcount_lsm",
+        "quantifier_lexical_wordcount_lsm",
+        "negation_lexical_wordcount_lsm",
+        "preposition_lexical_wordcount_lsm",
+        "indefinite_pronoun_lexical_wordcount_lsm",
+        "auxiliary_verbs_lexical_wordcount_lsm"
+    ],
+    "file": "./features/lsm_features.py",
+    "level": "Conversation",
+    "semantic_grouping": "Language Style",
+    "description": "Measures the alignment of linguistic styles among group members by calculating LSM scores for various function word categories.",
+    "references": "(Gonzales, Hancock, and Pennebaker, 2010)",
+    "wiki_link": "https://github.com/Watts-Lab/team-process-map/wiki/Language-Style-Matching-(LSM)",
+    "function": "calculate_lsm",
     "dependencies": [],
     "preprocess": [],
     "vect_data": False,
