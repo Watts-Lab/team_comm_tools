@@ -41,7 +41,6 @@ src/team_comm_tools/ipython_notebooks/.ipynb_checkpoints/
 tests/ipython_notebooks/.ipynb_checkpoints/
 tests/data/vector_data/
 tests/test.log
-tests/helper.ipynb
 tests/output/*
 tests/vector_data/*
 src/utils/__pycache__/
