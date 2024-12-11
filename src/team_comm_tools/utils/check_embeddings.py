@@ -10,6 +10,8 @@ from pathlib import Path
 import torch
 from sentence_transformers import SentenceTransformer, util
 
+import ast
+
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification
 from scipy.special import softmax
@@ -60,27 +62,46 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
 
     try:
         vector_df = pd.read_csv(vect_path)
+        
         # check whether the given vector and bert data matches length of chat data 
         if len(vector_df) != len(chat_data):
             print("ERROR: The length of the vector data does not match the length of the chat data. Regenerating...")
             # reset vector path to default/original
             generate_vect(chat_data, original_vect_path, message_col)
+        else:     
+            # check that message in vector data matches chat data
+            preprocessed_chat = chat_data[message_col].astype(str).apply(preprocess_text)
             
-        # check that message in vector data matches chat data
-        preprocessed_chat = chat_data[message_col].astype(str).apply(preprocess_text)
-        preprocessed_vector = vector_df[message_col].astype(str).apply(preprocess_text)
-        
-        mismatches = chat_data[preprocessed_chat != preprocessed_vector]
-        if len(mismatches) != 0:
-            print("Messages in the vector data do not match the chat data. Regenerating...")
-            generate_vect(chat_data, original_vect_path, message_col)
+            # removed _original from message_col
+            preprocessed_vector = vector_df[message_col[:-9]].astype(str).apply(preprocess_text)
+
+            mismatches = chat_data[preprocessed_chat != preprocessed_vector]
+            if len(mismatches) != 0:
+                print("Messages in the vector data do not match the chat data. Regenerating...")
+                generate_vect(chat_data, original_vect_path, message_col)
             
-        # check that message_embedding is numeric list
-        if pd.api.types.is_numeric_dtype(vector_df["message_embedding"]) is False:
-            print("message_embedding is not a numeric list. Regenerating ...")
-            generate_vect(chat_data, original_vect_path, message_col)
-        
-        # check turns 
+            if "message_embedding" in vector_df.columns:
+                # check that message_embedding is numeric list
+                if not vector_df["message_embedding"].apply(is_numeric_list).all():
+                    print("message_embedding is not a numeric list. Regenerating ...")
+                    generate_vect(chat_data, original_vect_path, message_col)
+                else:    
+                    # check if length of all vectors is the same
+                    vect_lengths = vector_df["message_embedding"].apply(lambda x: ast.literal_eval(x)).apply(lambda x : len(x))                
+                    
+                    if (vect_lengths == 0).any():
+                        print("One or more value in message_embedding are null. Regenerating ...")
+                        generate_vect(chat_data, original_vect_path, message_col)
+                            
+                    if len(vect_lengths.unique()) > 1:
+                        print("Not all vectors have the same length. Regenerating ...")
+                        generate_vect(chat_data, original_vect_path, message_col)
+                    
+            else:
+                print("no message_embedding column. Regenerating ...")
+                generate_vect(chat_data, original_vect_path, message_col)
+                
+            # check if vectors have a 1-1 mapping with the text
     
     except FileNotFoundError: # It's OK if we don't have the path, if the sentence vectors are not necessary
         if need_sentence:
@@ -104,6 +125,22 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
     if (not os.path.isfile(CERTAINTY_PATH_STATIC)):
         generate_certainty_pkl()
 
+# checks if column is only numeric elements
+def is_numeric_list(value):
+    if isinstance(value, str):
+        # try to convert string representations to actual lists
+        try:
+            value = ast.literal_eval(value)
+        except (ValueError, SyntaxError):
+            return False 
+                
+    # ensure the value is a list
+    if not isinstance(value, list):
+        return False
+                
+    # ensure all elements in the list are numeric
+    return all(isinstance(x, (int, float)) for x in value)
+            
 # Read in the lexicons (helper function for generating the pickle file)
 def read_in_lexicons(directory, lexicons_dict):
     for filename in os.listdir(directory):

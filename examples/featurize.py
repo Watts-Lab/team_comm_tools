@@ -13,7 +13,10 @@ if __name__ == "__main__":
 	# These two are small datasets for empirical purposes ("are the lights on?")
 	tiny_juries_df = pd.read_csv("./example_data/tiny_data/juries_tiny_for_testing.csv", encoding='utf-8')
 	tiny_multi_task_df = pd.read_csv("./example_data/tiny_data/multi_task_TINY.csv", encoding='utf-8')
-
+ 
+	# test vector dataset
+	test_vector_df = pd.read_csv("../tests/data/cleaned_data/test_vector.csv", encoding='utf-8')
+ 
 	# These three are full datasets from published papers
 	juries_df = pd.read_csv("./example_data/full_empirical_datasets/jury_conversations_with_outcome_var.csv", encoding='utf-8')
 	csop_df = pd.read_csv("./example_data/full_empirical_datasets/csop_conversations_withblanks.csv", encoding='utf-8')
@@ -91,8 +94,11 @@ if __name__ == "__main__":
 	# jury_feature_builder = FeatureBuilder(
 	# 	input_df = juries_df,
 	# 	grouping_keys = ["batch_num", "round_num"],
+  	# 	vector_directory = "./vector_data/",
+    # 	# custom_vect_path = "C:/Users/amyta/Documents/GitHub/team_comm_tools/examples/vector_data/sentence/turns/jury_TINY_output_chat_level.csv", # testing turns = False but data mismatch
 	# 	output_file_base = "jury_TINY_output", # Naming output files using the output_file_base parameter (recommended)
-	# 	turns = False,
+	# 	# turns = False, # want to turn turns off but then test with data that have turns -- CHECK THIS
+	# 	turns = True, # this is og
 	# 	custom_features = [
 	# 		"(BERT) Mimicry",
 	# 		"Moving Mimicry",
@@ -101,37 +107,39 @@ if __name__ == "__main__":
 	# )
 	# tiny_juries_feature_builder.featurize()
 
-	# # Tiny multi-task
+	# Tiny multi-task
 	# tiny_multi_task_feature_builder = FeatureBuilder(
 	# 	input_df = tiny_multi_task_df,
 	# 	conversation_id_col = "stageId",
+  	# 	vector_directory = "./vector_data/",
 	# 	# alternatively, you can name each output file separately. NOTE, however, that we don't directly use this path;
 	# 	# we modify the path to place outputs within the `output/chat`, `output/conv`, and `output/user` folders.
 	# 	output_file_path_chat_level = "./multi_task_TINY_output_chat_level_stageId_cumulative.csv",
 	# 	output_file_path_user_level = "./multi_task_TINY_output_user_level_stageId_cumulative.csv",
 	# 	output_file_path_conv_level = "./multi_task_TINY_output_conversation_level_stageId_cumulative.csv",
-	# 	turns = False
+	# 	# turns = False
+	# 	turns = True
 	# )
 	# tiny_multi_task_feature_builder.featurize()
 
 	# FULL DATASETS BELOW ------------------------------------- #
 	
 	# Juries
-	jury_feature_builder = FeatureBuilder(
-		input_df = juries_df,
-		grouping_keys = ["batch_num", "round_num"],
-		vector_directory = "./vector_data/",
-		output_file_path_chat_level = "./jury_output_chat_level.csv",
-		output_file_path_user_level = "./jury_output_user_level.csv",
-		output_file_path_conv_level = "./jury_output_conversation_level.csv",
-		turns = True,
-		custom_features = [
-			"(BERT) Mimicry",
-			"Moving Mimicry",
-			"Forward Flow",
-			"Discursive Diversity"]
-	)
-	jury_feature_builder.featurize()
+	# jury_feature_builder = FeatureBuilder(
+	# 	input_df = juries_df,
+	# 	grouping_keys = ["batch_num", "round_num"],
+	# 	vector_directory = "./vector_data/",
+	# 	output_file_path_chat_level = "./jury_output_chat_level.csv",
+	# 	output_file_path_user_level = "./jury_output_user_level.csv",
+	# 	output_file_path_conv_level = "./jury_output_conversation_level.csv",
+	# 	turns = True,
+	# 	custom_features = [
+	# 		"(BERT) Mimicry",
+	# 		"Moving Mimicry",
+	# 		"Forward Flow",
+	# 		"Discursive Diversity"]
+	# )
+	# jury_feature_builder.featurize()
 
 	# CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
