@@ -369,6 +369,20 @@ class FeatureBuilder:
         if custom_vect_path is not None:
             print("Detected that user has requested custom vectors...")
             print("We will generate features using custom vectors rather than default SBERT")
+
+            # check if inputted vector path is the same as default
+            if custom_vect_path == vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name:
+                print("WARNING: Custom vector path is the same as the default, will overwrite")
+                confirmation = input("Do you want to proceed with overwriting? (yes/no): ").strip().lower()
+                
+                if confirmation == "yes":
+                    print("Proceeding with overwriting...")
+                elif confirmation == "no":
+                    print("Operation aborted by the user.")
+                    raise Exception("User aborted the overwrite operation.")
+                else:
+                    print("Invalid input. Please type 'yes' or 'no'.")
+                
             self.vect_path = custom_vect_path
         else:
             self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
