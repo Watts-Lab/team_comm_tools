@@ -24,7 +24,7 @@ def get_function_words_in_message(text, function_word_reference):
         list: A list of function words found in the input text.
     """
 
-    return [x for x in text.split() if x in function_word_reference]
+    return [x for x in str(text).split() if x in function_word_reference]
 
 
 def get_content_words_in_message(text, function_word_reference):
@@ -38,7 +38,7 @@ def get_content_words_in_message(text, function_word_reference):
     Returns:
         list: A list of content words found in the input text.
     """
-    return [x for x in text.split() if x not in function_word_reference]
+    return [x for x in str(text).split() if x not in function_word_reference]
 
 
 def mimic_words(df, on_column, conversation_id):

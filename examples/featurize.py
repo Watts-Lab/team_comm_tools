@@ -21,7 +21,7 @@ if __name__ == "__main__":
 	juries_df = pd.read_csv("./example_data/full_empirical_datasets/jury_conversations_with_outcome_var.csv", encoding='utf-8')
 	csop_df = pd.read_csv("./example_data/full_empirical_datasets/csop_conversations_withblanks.csv", encoding='utf-8')
 	csopII_df = pd.read_csv("./example_data/full_empirical_datasets/csopII_conversations_withblanks.csv", encoding='utf-8')
-	
+ 
 	"""
 	TINY / TEST DATASETS -------------------------------
 	
@@ -164,7 +164,7 @@ if __name__ == "__main__":
 	# )
 	# jury_feature_builder.featurize()
 
-	# # CSOP (Abdullah)
+	# CSOP (Abdullah)
 	# csop_feature_builder = FeatureBuilder(
 	# 	input_df = csop_df,
 	# 	vector_directory = "./vector_data/",
@@ -176,7 +176,7 @@ if __name__ == "__main__":
 	# csop_feature_builder.featurize()
 
 
-	# # CSOP II (Nak Won Rim)
+	# CSOP II (Nak Won Rim)
 	# csopII_feature_builder = FeatureBuilder(
 	# 	input_df = csopII_df,
 	# 	vector_directory = "./vector_data/",

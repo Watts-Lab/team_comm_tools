@@ -1,0 +1,4 @@
+﻿batch_num,round_num,speaker_hash,speaker_nickname,timestamp,message,majority_pct,num_flipped,flipped_pct,num_votes
+0,0,5e7e1e0031f4e454e196c30b,niceRhino,2020-04-20T18:27:20.125Z,This is my message.,1,1,0.333333333,3
+0,0,5e31d6e4e31c5304c46f1413,culturedCow,2020-04-20T18:27:23.764Z,Hi!,1,1,0.333333333,3
+0,0,5e7e4f4c31f4e454e196c9c4,spryBison,2020-04-20T18:27:27.724Z,How are you?,1,1,0.333333333,3

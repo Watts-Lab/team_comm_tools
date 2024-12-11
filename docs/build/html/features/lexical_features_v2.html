@@ -47,8 +47,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Technical Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="basic_features.html">basic_features module</a></li>
@@ -79,7 +79,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 </ul>
 
@@ -136,7 +136,7 @@ Count the number of LIWC lexicon words</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="features.lexical_features_v2.liwc_features">
-<span class="sig-prename descclassname"><span class="pre">features.lexical_features_v2.</span></span><span class="sig-name descname"><span class="pre">liwc_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#features.lexical_features_v2.liwc_features" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.lexical_features_v2.</span></span><span class="sig-name descname"><span class="pre">liwc_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chat_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col_original</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_liwc_dictionary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#features.lexical_features_v2.liwc_features" title="Link to this definition"></a></dt>
 <dd><blockquote>
 <div><p>This function takes in the chat level input dataframe and computes lexical features
 (the number of words from a given lexicon, such as LIWC).</p>
@@ -146,6 +146,7 @@ Count the number of LIWC lexicon words</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>chat_df</strong> (<em>pd.DataFrame</em>) – This is a pandas dataframe of the chat level features. Should contain ‘message’ column.</p></li>
 <li><p><strong>message_col</strong> (<em>str</em>) – This is a string with the name of the column containing the message / text.</p></li>
+<li><p><strong>custom_liwc_dictionary</strong> (<em>dict</em>) – This is a dictionary of the user’s custom LIWC dic.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

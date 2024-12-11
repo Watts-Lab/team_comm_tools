@@ -32,14 +32,30 @@ class ChatLevelFeaturesCalculator:
 
     :param chat_data: Pandas dataframe of chat-level features read from the input dataset
     :type chat_data: pd.DataFrame
+
     :param vect_data: Pandas dataframe containing vector data
     :type vect_data: pd.DataFrame
+
     :param bert_sentiment_data: Pandas dataframe containing BERT sentiment data
     :type bert_sentiment_data: pd.DataFrame
-    :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature
-    :type ner_training_df: pd.DataFrame
+
+    :param ner_training: This is a pandas dataframe of training data for named entity recognition feature
+    :type ner_training: pd.DataFrame
+
     :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity
     :type ner_cutoff: int
+
+    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :type conversation_id_col: str
+
+    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :type message_col: str
+
+    :param timestamp_col: A string representing the column name that should be selected as the message. Defaults to "timestamp".
+    :type timestamp_col: str
+
+    :param custom_liwc_dictionary: This is the user's own LIWC dictionary. Defaults to empty dictionary.
+    :type custom_liwc_dictionary: dict
     """
 
     def __init__(
@@ -51,7 +67,9 @@ class ChatLevelFeaturesCalculator:
             ner_cutoff: int,
             conversation_id_col: str,
             message_col: str,
-            timestamp_col: str | tuple[str, str]
+            timestamp_col: str | tuple[str, str],
+            timestamp_unit: str,
+            custom_liwc_dictionary: dict
     ) -> None:
 
         self.chat_data = chat_data
@@ -61,13 +79,13 @@ class ChatLevelFeaturesCalculator:
         self.ner_cutoff = ner_cutoff
         self.conversation_id_col = conversation_id_col
         self.timestamp_col = timestamp_col
+        self.timestamp_unit = timestamp_unit
         self.message_col = message_col
-        # load easy Dale-Chall words exactly once.
-        self.easy_dale_chall_words = get_dale_chall_easy_words()
-        self.function_words = get_function_words()  # load function words exactly once
-        self.question_words = get_question_words()  # load question words exactly once
-        # load first person words exactly once
-        self.first_person = get_first_person_words()
+        self.custom_liwc_dictionary = custom_liwc_dictionary
+        self.easy_dale_chall_words = get_dale_chall_easy_words() # load easy Dale-Chall words exactly once.
+        self.function_words = get_function_words() # load function words exactly once
+        self.question_words = get_question_words() # load question words exactly once
+        self.first_person = get_first_person_words() # load first person words exactly once
 
     def calculate_chat_level_features(self, feature_methods: list) -> pd.DataFrame:
         """
@@ -182,9 +200,8 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        self.chat_data = pd.concat(
-            [self.chat_data, liwc_features(self.chat_data, self.message_col)], axis=1)
-
+        self.chat_data = pd.concat([self.chat_data, liwc_features(self.chat_data, self.message_col + "_original", self.custom_liwc_dictionary)], axis = 1)
+        
     def calculate_hedge_features(self) -> None:
         """
         Calculate features related to expressing hesitation (or 'hedge').
@@ -341,12 +358,12 @@ class ChatLevelFeaturesCalculator:
         """
         if type(self.timestamp_col) is str and {self.timestamp_col}.issubset(self.chat_data.columns):
             self.chat_data["time_diff"] = get_time_diff(
-                self.chat_data, self.timestamp_col, self.conversation_id_col)
+                self.chat_data, self.timestamp_col, self.conversation_id_col, self.timestamp_unit)
         elif type(self.timestamp_col) is tuple:
             timestamp_start, timestamp_end = self.timestamp_col
             if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
                 self.chat_data["time_diff"] = get_time_diff_startend(
-                    self.chat_data, timestamp_start, timestamp_end, self.conversation_id_col)
+                    self.chat_data, timestamp_start, timestamp_end, self.conversation_id_col, self.timestamp_unit)
 
     def calculate_politeness_sentiment(self) -> None:
         """

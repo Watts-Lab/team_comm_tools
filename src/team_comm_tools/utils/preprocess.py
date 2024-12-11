@@ -91,14 +91,31 @@ def preprocess_text(text):
 	"""Preprocess text by removing non-alphanumeric characters and converting to lowercase.
 
     This function takes a string, removes any characters that are not letters, numbers, or spaces,
-    and converts the remaining text to lowercase.
+	except certain emojis, and converts the remaining text to lowercase.
 
     :param text: The input text to process.
     :type text: str
     :return: The processed text containing only alphanumeric characters and spaces in lowercase.
     :rtype: str
     """
-	return(re.sub(r"[^a-zA-Z0-9 ]+", '',text).lower())
+	emojis_to_preserve = {
+		"(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
+	}
+
+	emoji_placeholders = {}
+	# Replace each emoji with a unique placeholder
+	for i, emoji in enumerate(emojis_to_preserve):
+		placeholder = f"EMOJI_{i}"
+		emoji_placeholders[placeholder] = emoji
+		text = text.replace(emoji, placeholder)
+
+	# Clean the text by removing unwanted characters, except placeholders
+	text = re.sub(r"[^a-zA-Z0-9 EMOJI_]+", '', text)
+	# Restore the preserved emojis by replacing placeholders back to original emojis
+	for placeholder, emoji in emoji_placeholders.items():
+		text = text.replace(placeholder, emoji)
+
+	return text.lower()
 
 def preprocess_naive_turns(chat_data, column_names):
 	"""Combine adjacent rows of the same speaker in the same conversation and compress messages into a "turn".
