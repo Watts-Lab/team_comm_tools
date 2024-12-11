@@ -21,80 +21,99 @@ from team_comm_tools.utils.check_embeddings import *
 from team_comm_tools.feature_dict import feature_dict
 
 class FeatureBuilder:
-    """The FeatureBuilder is the main engine that reads in the user's inputs and specifications and generates 
-    conversational features. The FeatureBuilder separately calls the classes (the ChatLevelFeaturesCalculator,
-    ConversationLevelFeaturesCalculator, and UserLevelFeaturesCalculator) to generate conversational features at
-    different levels.
+    """
+    The FeatureBuilder is the main engine that reads in the user's inputs and specifications and generates 
+    conversational features. The FeatureBuilder separately calls the classes 
+    (ChatLevelFeaturesCalculator, ConversationLevelFeaturesCalculator, and 
+    UserLevelFeaturesCalculator) to generate conversational features at different levels.
 
     :param input_df: A pandas DataFrame containing the conversation data that you wish to featurize.
     :type input_df: pd.DataFrame 
-    
-    :param vector_directory: Directory path where the vectors are to be cached. Defaults to "./vector_data/"
+    :param vector_directory: Directory path where the vectors are to be cached. Defaults to "./vector_data/".
     :type vector_directory: str
-
-    :param output_file_base: Base name for the output files, which will be used to auto-generate filenames for each of the three levels. Defaults to "output."
+    :param output_file_base: Base name for the output files, used to auto-generate filenames for each 
+        of the three levels. Defaults to "output."
     :type output_file_base: str
-    
-    :param output_file_path_chat_level: Path where the chat (utterance)-level output csv file is to be generated. (This parameter will override the base name.)
+    :param output_file_path_chat_level: Path where the chat (utterance)-level output csv file is 
+        to be generated. This parameter will override the base name.
     :type output_file_path_chat_level: str
-
-    :param output_file_path_user_level: Path where the user (speaker)-level output csv file is to be generated. (This parameter will override the base name.)
+    :param output_file_path_user_level: Path where the user (speaker)-level output csv file is 
+        to be generated. This parameter will override the base name.
     :type output_file_path_user_level: str
-
-    :param output_file_path_conv_level: Path where the conversation-level output csv file is to be generated. (This parameter will override the base name.)
+    :param output_file_path_conv_level: Path where the conversation-level output csv file is to be 
+        generated. This parameter will override the base name.
     :type output_file_path_conv_level: str
-
-    :param custom_features: A list of additional features outside of the default features that should be calculated.
-        Defaults to an empty list (i.e., no additional features beyond the defaults will be computed).
+    :param custom_features: A list of additional features outside of the default features that should 
+        be calculated. Defaults to an empty list (i.e., no additional features beyond the defaults will 
+        be computed).
     :type custom_features: list, optional
-    
-    :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the earlier stages of the conversation may be more predictive than the later stages. Thus, researchers may wish to analyze only the first X% of the conversation data and compare the performance with using the full dataset. Defaults to [1.0].
+    :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the 
+        earlier stages of the conversation may be more predictive than the later stages. Defaults to [1.0].
     :type analyze_first_pct: list(float), optional
-
-    :param turns: If true, collapses multiple "chats"/messages by the same speaker in a row into a single "turn." Defaults to False.
+    :param turns: If true, collapses multiple "chats"/messages by the same speaker in a row into a 
+        single "turn." Defaults to False.
     :type turns: bool, optional
-    
-    :param conversation_id_col: A string representing the column name that should be selected as the conversation ID. Defaults to "conversation_num".
+    :param conversation_id_col: A string representing the column name that should be selected as 
+        the conversation ID. Defaults to "conversation_num".
     :type conversation_id_col: str, optional
-
-    :param speaker_id_col: A string representing the column name that should be selected as the speaker ID. Defaults to "speaker_nickname".
+    :param speaker_id_col: A string representing the column name that should be selected as the speaker ID. 
+        Defaults to "speaker_nickname".
     :type speaker_id_col: str, optional
-
-    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
+    :param message_col: A string representing the column name that should be selected as the message. 
+        Defaults to "message".
     :type message_col: str, optional
-
-    :param timestamp_col: A string representing the column name that should be selected as the message. Defaults to "timestamp".
+    :param timestamp_col: A string representing the column name that should be selected as the message. 
+        Defaults to "timestamp".
     :type timestamp_col: str, optional
-
-    :param grouping_keys: A list of multiple identifiers that collectively identify a conversation. If non-empty, we will group by all of the keys in the list and use the grouped key as the unique "conversational identifier."
-        Defaults to an empty list.
+    :param timestamp_unit: A string representing the unit of the timestamp (if the timestamp is numeric). 
+        Defaults to 'ms' (milliseconds). Other options (D, s, ms, us, ns) can be found on the Pandas 
+        reference: https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html
+    :type timestamp_unit: str, optional
+    :param grouping_keys: A list of multiple identifiers that collectively identify a conversation. If 
+        non-empty, the data will be grouped by all keys in the list and use the grouped key as the unique 
+        "conversational identifier."
     :type grouping_keys: list, optional
-    
-    :param cumulative_grouping: If true, uses a cumulative way of grouping chats (not just looking within a single ID, but also at what happened before.) 
-        NOTE: This parameter and the following one (`within_grouping`) was created in the context of a multi-stage Empirica game (see: https://github.com/Watts-Lab/multi-task-empirica). 
-        It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
-        group/conversation has one High-level identifier, which contains one or more Mid-level identifiers, which contains one or more Low-level identifiers.
-        Defaults to False.
+    :param cumulative_grouping: If true, uses a cumulative way of grouping chats (looking not just within 
+        a single ID, but also at what happened before). NOTE: This parameter and the following one 
+        (`within_grouping`) were created in the context of a multi-stage Empirica game (see: 
+        https://github.com/Watts-Lab/multi-task-empirica). Assumes exactly 3 nested columns at different 
+        levels: a High, Mid, and Low level; that are temporally nested. Defaults to False.
     :type cumulative_grouping: bool, optional
-    
-    :param within_task: If true, groups cumulatively in such a way that we only look at prior chats that are of the same "task" (Mid-level identifier). Defaults to False.
+    :param within_task: If true, groups cumulatively such that only prior chats of the same "task" 
+        (Mid-level identifier) are considered. Defaults to False.
     :type within_task: bool, optional
-    
-    :param ner_training_df: This is a pandas dataframe of training data for named entity recognition feature. Defaults to None, and will not generate named entity featuers if it does not exist.
-    :type ner_training_df: pd.DataFrame
-    
-    :param ner_cutoff: This is the cutoff value for the confidence of prediction for each named entity. Defaults to 0.9.
+    :param ner_training_df: A pandas DataFrame of training data for named entity recognition features. 
+        Defaults to None and will not generate named entity features if it does not exist.
+    :type ner_training_df: pd.DataFrame, optional
+    :param ner_cutoff: The cutoff value for the confidence of prediction for each named entity. 
+        Defaults to 0.9.
     :type ner_cutoff: int
-
-    :param regenerate_vectors: If true, will regenerate vector data even if it already exists. Defaults to False.
+    :param regenerate_vectors: If true, regenerates vector data even if it already exists. Defaults to False.
     :type regenerate_vectors: bool, optional
-
-    :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation). Defaults to False.
+    :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (with 
+        capitalization and punctuation removed). Defaults to False.
     :type compute_vectors_from_preprocessed: bool, optional
-
-    :return: The FeatureBuilder doesn't return anything; instead, it writes the generated features to files in the specified paths. It will also print out its progress, so you should see "All Done!" in the terminal, which will indicate that the features have been generated.
+    :param custom_liwc_dictionary_path: This is the path of the user's own LIWC dictionary file (.dic). Defaults to empty string.
+    :type custom_liwc_dictionary_path: str, optional
+    :param convo_aggregation: If true, aggregates features at the conversational level. Defaults to True.
+    :type convo_aggregation: bool, optional
+    :param convo_methods: Specifies which aggregation functions (e.g., mean, stdev) to use at the 
+        conversational level. Defaults to ['mean', 'max', 'min', 'stdev'].
+    :type convo_methods: list, optional
+    :param convo_columns: Specifies which columns (at the utterance/chat level) to aggregate for the 
+        conversational level. Defaults to all numeric columns.
+    :type convo_columns: list, optional
+    :param user_aggregation: If true, aggregates features at the speaker/user level. Defaults to True.
+    :type user_aggregation: bool, optional
+    :param user_methods: Specifies which functions to aggregate with (e.g., mean, stdev) at the user level. 
+        Defaults to ['mean', 'max', 'min', 'stdev'].
+    :type user_methods: list, optional
+    :param user_columns: Specifies which columns (at the utterance/chat level) to aggregate for the 
+        speaker/user level. Defaults to all numeric columns.
+    :type user_columns: list, optional
+    :return: The FeatureBuilder writes the generated features to files in the specified paths. The progress 
+        will be printed in the terminal, indicating completion with "All Done!".
     :rtype: None
-
     """
     def __init__(
             self, 
@@ -111,14 +130,28 @@ class FeatureBuilder:
             speaker_id_col: str = "speaker_nickname",
             message_col: str = "message",
             timestamp_col: str | tuple[str, str] = "timestamp",
+            timestamp_unit = "ms",
             grouping_keys: list = [],
             cumulative_grouping = False, 
             within_task = False,
             ner_training_df: pd.DataFrame = None,
             ner_cutoff: int = 0.9,
             regenerate_vectors: bool = False,
-            compute_vectors_from_preprocessed: bool = False
+            compute_vectors_from_preprocessed: bool = False,
+            custom_liwc_dictionary_path: str = '',
+            convo_aggregation = True,
+            convo_methods: list = ['mean', 'max', 'min', 'stdev'],
+            convo_columns: list = None,
+            user_aggregation = True,
+            user_methods: list = ['mean', 'max', 'min', 'stdev'],
+            user_columns: list = None
         ) -> None:
+
+        # Some error catching
+        if type(input_df) != pd.DataFrame:
+            raise ValueError("You must pass in a valid dataframe as the input_df!")
+        if not vector_directory:
+            raise ValueError("You must pass in a valid directory to cache vectors! For example: ./vector_data/")
 
         # Defining input and output paths.
         self.chat_data = input_df.copy()
@@ -128,6 +161,26 @@ class FeatureBuilder:
 
         print("Initializing Featurization...")
 
+        if not custom_liwc_dictionary_path:
+            self.custom_liwc_dictionary = {}
+        else:
+            # Read .dic file if the path is provided
+            custom_liwc_dictionary_path = Path(custom_liwc_dictionary_path)
+            if not custom_liwc_dictionary_path.exists():
+                print(f"WARNING: The custom LIWC dictionary file does not exist: {custom_liwc_dictionary_path}")
+                self.custom_liwc_dictionary = {}
+            elif not custom_liwc_dictionary_path.suffix == '.dic':
+                print(f"WARNING: The custom LIWC dictionary file is not a .dic file: {custom_liwc_dictionary_path}")
+                self.custom_liwc_dictionary = {}
+            else:
+                with open(custom_liwc_dictionary_path, 'r', encoding='utf-8-sig') as file:
+                    dicText = file.read()
+                    try:
+                        self.custom_liwc_dictionary = load_liwc_dict(dicText)
+                    except Exception as e:
+                        print(f"WARNING: Failed loading custom liwc dictionary: {e}")
+                        self.custom_liwc_dictionary = {}
+        
         # Set features to generate
         # TODO --- think through more carefully which ones we want to exclude and why
         self.feature_dict = feature_dict
@@ -199,6 +252,8 @@ class FeatureBuilder:
 
         # drop all columns that are in our generated feature set --- we don't want to create confusion!
         chat_features = list(itertools.chain(*[self.feature_dict[feature]["columns"] for feature in self.feature_dict.keys() if self.feature_dict[feature]["level"] == "Chat"]))
+        if self.custom_liwc_dictionary:
+            chat_features += [lexicon_type + "_lexical_wordcount_custom" for lexicon_type in self.custom_liwc_dictionary.keys()]
         columns_to_drop = [col for col in chat_features if col in self.chat_data.columns]
         self.chat_data = self.chat_data.drop(columns=columns_to_drop)
         self.orig_data = self.orig_data.drop(columns=columns_to_drop)
@@ -213,6 +268,7 @@ class FeatureBuilder:
         self.speaker_id_col = speaker_id_col
         self.message_col = message_col
         self.timestamp_col = timestamp_col
+        self.timestamp_unit = timestamp_unit
         self.column_names = {
             'conversation_id_col': conversation_id_col,
             'speaker_id_col': speaker_id_col,
@@ -224,6 +280,12 @@ class FeatureBuilder:
         self.within_task = within_task
         self.ner_cutoff = ner_cutoff
         self.regenerate_vectors = regenerate_vectors
+        self.convo_aggregation = convo_aggregation
+        self.convo_methods = convo_methods
+        self.convo_columns = convo_columns
+        self.user_aggregation = user_aggregation
+        self.user_methods = user_methods
+        self.user_columns = user_columns
 
         if(compute_vectors_from_preprocessed == True):
             self.vector_colname = self.message_col # because the message col will eventually get preprocessed
@@ -254,9 +316,6 @@ class FeatureBuilder:
         if self.cumulative_grouping and len(grouping_keys) == 3:
             warnings.warn("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative conversations.")
             self.conversation_id_col = "conversation_num"
-
-        # Input columns are the columns that come in the raw chat data
-        self.input_columns = self.chat_data.columns
 
         # Set all paths for vector retrieval (contingent on turns)
         df_type = "turns" if self.turns else "chats"
@@ -358,7 +417,8 @@ class FeatureBuilder:
         if not re.match(r"(.*\/|^)output\/", self.output_file_path_user_level):
             self.output_file_path_user_level = re.sub(r'/user/', r'/output/user/', self.output_file_path_user_level)
 
-        self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name
+        # Logic for processing vector cache
+        self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name        
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
@@ -487,7 +547,13 @@ class FeatureBuilder:
             Path(self.output_file_path_user_level).parent.mkdir(parents=True, exist_ok=True)
             Path(self.output_file_path_chat_level).parent.mkdir(parents=True, exist_ok=True)
             Path(self.output_file_path_conv_level).parent.mkdir(parents=True, exist_ok=True)
-
+            
+            # Store column names of what we generated, so that the user can easily access them
+            self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
+            if self.custom_liwc_dictionary:
+                self.chat_features += [lexicon_type + "_lexical_wordcount_custom" for lexicon_type in self.custom_liwc_dictionary.keys()]
+            self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
+            
             # Step 3a. Create user level features.
             print("Generating User Level Features ...")
             self.user_level_features()
@@ -497,13 +563,9 @@ class FeatureBuilder:
             self.conv_level_features()
             self.merge_conv_data_with_original()
             
-            # Step 4. Write the feartures into the files defined in the output paths.
+            # Step 4. Write the features into the files defined in the output paths.
+            self.conv_features_all =  [col for col in self.conv_data if col not in list(self.orig_data.columns) + ["conversation_num", self.message_col + "_original", "message_lower_with_punc"]] # save the column names that we generated!
             print("All Done!")
-            
-            # Store column names of what we generated, so that the user can easily access them
-            self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
-            self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
-            self.conv_features_all =  [col for col in self.conv_data if col not in self.orig_data and col != 'conversation_num']
             
             self.save_features()
 
@@ -564,7 +626,9 @@ class FeatureBuilder:
             ner_cutoff = self.ner_cutoff,
             conversation_id_col = self.conversation_id_col,
             message_col = self.message_col,
-            timestamp_col = self.timestamp_col
+            timestamp_col = self.timestamp_col,
+            timestamp_unit = self.timestamp_unit,
+            custom_liwc_dictionary = self.custom_liwc_dictionary
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features(self.feature_methods_chat)
@@ -607,7 +671,10 @@ class FeatureBuilder:
             vect_data= self.vect_data,
             conversation_id_col = self.conversation_id_col,
             speaker_id_col = self.speaker_id_col,
-            input_columns = self.input_columns
+            user_aggregation = self.user_aggregation,
+            user_methods = self.user_methods,
+            user_columns = self.user_columns,
+            chat_features = self.chat_features
         )
         self.user_data = user_feature_builder.calculate_user_level_features()
         # Remove special characters in column names
@@ -633,7 +700,13 @@ class FeatureBuilder:
             speaker_id_col = self.speaker_id_col,
             message_col = self.message_col,
             timestamp_col = self.timestamp_col,
-            input_columns = self.input_columns
+            convo_aggregation = self.convo_aggregation,
+            convo_methods = self.convo_methods,
+            convo_columns = self.convo_columns,
+            user_aggregation = self.user_aggregation,
+            user_methods = self.user_methods,
+            user_columns = self.user_columns,
+            chat_features = self.chat_features,
         )
         # Calling the driver inside this class to create the features.
         self.conv_data = conv_feature_builder.calculate_conversation_level_features(self.feature_methods_conv)

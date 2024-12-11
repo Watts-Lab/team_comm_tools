@@ -17,10 +17,19 @@ case3c_chatdf = pd.read_csv("./output/chat/tiny_multi_task_case3c_level_chat.csv
 impropercase_chatdf = pd.read_csv("./output/chat/tiny_multi_task_improper_level_chat.csv")
 sentiment_output = pd.read_csv('./vector_data/sentiment/chats/test_vectors_chat.csv') 
 sbert_output = pd.read_csv('./vector_data/sentence/chats/test_vectors_chat.csv')
-
+custom_agg_conv = pd.read_csv('./output/conv/custom_agg_test_conv_level.csv')
+custom_agg_user = pd.read_csv('./output/user/custom_agg_test_user_level.csv')
+custom_no_agg_conv = pd.read_csv('./output/conv/custom_agg_test_no_agg_conv_level.csv')
+custom_no_agg_user = pd.read_csv('./output/user/custom_agg_test_no_agg_user_level.csv')
 
 # Import the Feature Dictionary
 from team_comm_tools.feature_dict import feature_dict
+
+# get the base conversational features
+conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in feature_dict.keys() if feature_dict[feature]["level"] == "Conversation"]))
+
+# this is the dataframe used to get the package aggregations; required for comparison
+package_agg_df = pd.read_csv("data/cleaned_data/test_package_aggregation.csv", encoding='utf-8')
 
 def test_path_robustness():
     # case 1 was specified without the necessary 'output/', 'chat/', and '.csv' in its path. Ensure it works!
@@ -234,3 +243,69 @@ def test_empty_vectors_equal():
             file.write(f"Empty message vectors / sentence scores are not equal.\n")
 
         raise
+
+def test_custom_aggregation():
+
+    conv_columns = custom_agg_conv.columns
+    user_columns = custom_agg_user.columns
+
+    # aggregated columns: cols that are not in the OG data or in conv_features_base
+    conv_columns_agg = [col for col in conv_columns if col not in ["conversation_num", "message_original", "message_lower_with_punc"] + list(package_agg_df.columns) + conv_features_base]
+    user_columns_agg = [col for col in user_columns if col not in ["conversation_num", "user_list"] + list(package_agg_df.columns) + conv_features_base]
+
+    # default aggregations (sum_num_words, sum_num_chars, and sum_num_messages)
+    default_aggs = ["sum_num_words", "sum_num_chars", "sum_num_messages"]
+
+    # conv: for each of [mean, max, min, stdev, median, sum], we should get an aggregation for second_person_lexical_wordcount
+    agg_funcs = ["mean", "max", "min", "stdev", "median", "sum"]
+    agg_func_cols = [f"{agg}_second_person_lexical_wordcount" for agg in agg_funcs]
+
+    # user: we should get mean_positive_bert
+    user_agg_col = ["mean_positive_bert"]
+
+    # conv: for each of [mean, max, min, stdev, median, sum], we should get an aggregation of mean_user_positive_bert
+    conv_user_agg_func_cols = [f"{agg}_user_mean_positive_bert" for agg in agg_funcs]
+
+    try:
+        # assert that we have all the aggregations we expect at the conv level
+        assert(len(set(conv_columns_agg).difference(set(default_aggs+agg_func_cols+conv_user_agg_func_cols)))==0)
+
+        # assert that we have all the aggregations we expect at the user level
+        assert(len(set(user_columns_agg).difference(set(default_aggs+user_agg_col)))==0)
+
+    except AssertionError:
+        with open('test.log', 'a') as file:
+            file.write("\n")
+            file.write("------TEST FAILED------\n")
+            file.write(f"Custom aggregated columns are not what we expect.\n")
+
+        raise
+
+def test_custom_aggregation_turned_off():
+
+    # we should get only sum_num_words, sum_num_chars, and sum_num_messages in both user and conv
+    conv_columns = custom_no_agg_conv.columns
+    user_columns = custom_no_agg_user.columns
+    
+    # aggregated columns: cols that are not in the OG data or in conv_features_base
+    conv_columns_agg = [col for col in conv_columns if col not in ["conversation_num", "message_original", "message_lower_with_punc"] + list(package_agg_df.columns) + conv_features_base]
+    user_columns_agg = [col for col in user_columns if col not in ["conversation_num", "user_list"] + list(package_agg_df.columns) + conv_features_base]
+
+    # default aggregations (sum_num_words, sum_num_chars, and sum_num_messages)
+    default_aggs = ["sum_num_words", "sum_num_chars", "sum_num_messages"]
+    
+    try:
+        # assert that we have ONLY the default_aggs at the conv level
+        assert(len(set(conv_columns_agg).difference(set(default_aggs)))==0)
+
+        # assert that we have ONLY the default_aggs at the user level
+        assert(len(set(user_columns_agg).difference(set(default_aggs)))==0)
+
+    except AssertionError:
+        with open('test.log', 'a') as file:
+            file.write("\n")
+            file.write("------TEST FAILED------\n")
+            file.write(f"Default aggregated columns are NOT the only aggregated columns present in the dataframe when aggregations are off.\n")
+
+        raise
+    
