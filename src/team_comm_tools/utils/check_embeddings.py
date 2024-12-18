@@ -27,7 +27,8 @@ model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Check if embeddings exist
-def check_embeddings(chat_data, vect_path, bert_path, original_vect_path, need_sentence, need_sentiment, regenerate_vectors, message_col = "message"):
+def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, original_vect_path: str, need_sentence: bool, 
+                     need_sentiment: bool, regenerate_vectors: bool, message_col: str = "message"):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
