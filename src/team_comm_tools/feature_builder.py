@@ -465,7 +465,7 @@ class FeatureBuilder:
                 need_sentiment = True
 
         # check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname)
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path, self.original_vect_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname)
+        check_embeddings(self.chat_data, self.vect_path, self.bert_path, self.original_vect_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname, custom_vect = custom_vect_path is not None)
         
         if(need_sentence):
             self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
