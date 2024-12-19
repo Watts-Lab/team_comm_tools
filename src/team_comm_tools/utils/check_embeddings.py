@@ -22,6 +22,9 @@ MODEL  = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+EMOJIS_TO_PRESERVE = {
+    "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
+} 
 
 # Check if embeddings exist
 def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, need_sentence: bool, 
@@ -86,25 +89,11 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
 # Read in the lexicons (helper function for generating the pickle file)
 def read_in_lexicons(directory, lexicons_dict):
     for filename in os.listdir(directory):
+        if filename.startswith("."):
+            continue
         with open(directory/filename, encoding = "mac_roman") as lexicons:
-            if filename.startswith("."):
-                continue
-            lines = []
-            for lexicon in lexicons:
-                lexicon = lexicon.strip()
-
-                if '*' not in lexicon:
-                    lines.append(r"\b" + lexicon.replace("\n", "") + r"\b")
-                else:
-                    # get rid of any cases of multiple repeat -- e.g., '**'
-                    pattern = re.compile(r'\*+')
-                    lexicon = pattern.sub('*', lexicon)
-                    lexicon = r"\b" + lexicon.replace("\n", "").replace("*", "") + r"\S*\b"
-
-                    # build the final lexicon
-                    lines.append(r"\b" + lexicon.replace("\n", "").replace("*", "") + r"\S*\b")
-        clean_name = re.sub('.txt', '', filename)
-        lexicons_dict[clean_name] = "|".join(lines)
+            clean_name = re.sub('.txt', '', filename)
+            lexicons_dict[clean_name] = sort_words(lexicons)
 
 def generate_lexicon_pkl():
     """
@@ -172,37 +161,79 @@ def fix_abbreviations(dicTerm: str) -> str:
     else:
         return dicTerm
 
-def is_valid_term(dicTerm):
+def is_valid_term(dicTerm: str) -> bool:
     """
     Check if a dictionary term is valid.
 
-    This function returns `True` if the term matches the regex pattern and `False` otherwise.
+    This functions returns True if the term matches the regex pattern and Flase otherwise.
     The regex pattern matches:
-
-    - Alphanumeric characters (a-z, A-Z, 0-9)
-    - Valid symbols: `-`, `'`, `*`, `/`
-    - The `*` symbol can appear only once at the end of a word
-    - Emojis are valid only when they appear alone
-    - The `/` symbol can appear only once after alphanumeric characters
+    - Alphanumeric characters (a-zA-Z0-9)
+    - Valid symbols: -, ', *, /
+    - The * symbol can only appear once at the end of a word
+    - 8 emojis are valid only when they appear alone
+    - The / symbol can only appear once after alphanumeric characters
     - Spaces are allowed between valid words
 
-    :param dicTerm: The dictionary term to validate.
+    :param dicTerm: The dictionary term
     :type dicTerm: str
 
-    :return: `True` if the term is valid, `False` otherwise.
+    hi:) 120
+
+    :return: True/False
     :rtype: bool
     """
-
-    # List of emojis to preserve
-    emojis_to_preserve = {
-        "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
-    }
-    emoji_pattern = '|'.join(re.escape(emoji) for emoji in emojis_to_preserve)
+    emoji_pattern = '|'.join(re.escape(emoji) for emoji in EMOJIS_TO_PRESERVE)
     alphanumeric_pattern = (
         fr"^([a-zA-Z0-9\-']+(\*|\/[a-zA-Z0-9\*]*)?|({emoji_pattern})\*?)( [a-zA-Z0-9\-']+(\*|\/[a-zA-Z0-9\*]*)?)*$"
     )
     
     return bool(re.match(alphanumeric_pattern, dicTerm))
+
+def sort_words(lexicons: list) -> str:
+    """
+    Sorts the dictionary terms in a list.
+
+    This function sorts the dictionary terms in a list by their length in descending order.
+    The hyphenated words are sorted first, followed by the non-hyphenated words.
+
+    :param dicTerms: List of dictionary terms
+    :type dicTerms: list
+
+    :return: dicTerms
+    :rtype: str
+    """
+    hyphenated_words = []
+    non_hyphenated_words = []
+    for lexicon in lexicons:
+        lexicon = lexicon.strip()
+        lexicon = lexicon.replace("\n", "")
+        if lexicon == '':
+            continue
+        length = len(lexicon)
+        # no word boundaries for emojis
+        if any(emoji in lexicon for emoji in EMOJIS_TO_PRESERVE):
+            lexicon = lexicon.replace('(', r'\(').replace(')', r'\)') #.replace('/', r'\/')
+        else:
+            lexicon = lexicon.replace('(', r'\(').replace(')', r'\)')
+            word_boundaries = r"\b", r"\b"
+            if lexicon[-1] == "*":
+                pattern = re.compile(r'\*+')
+                lexicon = pattern.sub('*', lexicon)
+                if not lexicon[-2].isalnum():
+                    word_boundaries = r"(?<!\w)", r"(?!\w)"
+                lexicon = lexicon.replace("*", r"\S*")
+            elif not lexicon[-1].isalnum():
+                word_boundaries = r"(?<!\w)", r"(?!\w)"  
+            lexicon = lexicon.join(word_boundaries)
+        if '-' in lexicon:
+            hyphenated_words.append((lexicon, length))
+        else:
+            non_hyphenated_words.append((lexicon, length))
+    hyphenated_words.sort(key=lambda x: x[1], reverse=True)
+    non_hyphenated_words.sort(key=lambda x: x[1], reverse=True)
+    sorted_words = hyphenated_words + non_hyphenated_words
+    sorted_words = [lexicon for lexicon, _ in sorted_words]
+    return '|'.join(sorted_words)
 
 def load_liwc_dict(dicText: str) -> dict:
     """
@@ -212,7 +243,18 @@ def load_liwc_dict(dicText: str) -> dict:
     This functions reads the content of a LIWC dictionary file in the official format,
     and convert it to a dictionary with lexicon: regular expression format.
     We assume the dicText has two parts: the header, which maps numbers to "category names," 
-    and the body, which maps words in the lexicon to different category numbers, separated by a '%' sign.
+    and the body, which maps words in the lexicon to different category numbers, separated by '%'. 
+    Below is an example:
+    '''
+    %
+    1	function
+    2	pronoun
+    3	ppron
+    %
+    again	1	2
+    against	1	2	3
+    '''
+    Note that the elements in each line are separated by '\t'.
 
     :param dicText: The content of a .dic file
     :type dicText: str
@@ -221,6 +263,9 @@ def load_liwc_dict(dicText: str) -> dict:
     :rtype: dict
     """
     dicSplit = dicText.split('%', 2)
+    # check 2 '%' symbols
+    if len(dicSplit) != 3:
+        raise ValueError("Invalid dictionary file.")
     dicHeader, dicBody = dicSplit[1], dicSplit[2]
     # read headers
     catNameNumberMap = {}
@@ -228,35 +273,35 @@ def load_liwc_dict(dicText: str) -> dict:
         if line.strip() == '':
             continue
         lineSplit = line.strip().split('\t')
+        # check header format: 1	function
+        if len(lineSplit) != 2 or not lineSplit[0].isdigit():
+            raise ValueError("Invalid dictionary file.")
         catNameNumberMap[lineSplit[0]] = lineSplit[1]
     # read body
     dicCategories = {}
     for line in dicBody.splitlines():
         lineSplit = line.strip().split('\t')
-        dicTerm, catNums = lineSplit[0], lineSplit[1:]
-        dicTerm = fix_abbreviations(dicTerm=' '.join(lineSplit[0].lower().strip().split()))
-        dicTerm = dicTerm.strip()
-        if dicTerm == '':
+        # check body format: again	1	2
+        if lineSplit != [''] and len(lineSplit) < 2:
             continue
-        if not is_valid_term(dicTerm):
-            warnings.warn(f"WARNING: invalid dict term: {dicTerm}, skipped")
-        if '*' in dicTerm:
-            # Replace consecutive asterisks with a single asterisk -- e.g., '**'->'*'
-            pattern = re.compile(r'\*+')
-            dicTerm = pattern.sub('*', dicTerm)
-            dicTerm = r"\b" + dicTerm.replace("\n", "").replace("*", "") + r"\S*\b"
-        elif '(' in dicTerm or ')' in dicTerm or '/' in dicTerm:
-            dicTerm = dicTerm.replace("\n", "").replace('(', r'\(').replace(')', r'\)').replace('/', r'\/')
-        else:
-            dicTerm = r"\b" + dicTerm.replace("\n", "") + r"\b"
-
+        lexicon, catNums = lineSplit[0], lineSplit[1:]
+        lexicon = fix_abbreviations(dicTerm=' '.join(lineSplit[0].lower().strip().split()))
+        lexicon = lexicon.strip()
+        if lexicon == '':
+            continue
+        if not is_valid_term(lexicon):
+            warnings.warn(f"WARNING: invalid lexicon: {lexicon}, skipped")
+            continue
+        
         for catNum in catNums:
             cat = catNameNumberMap[catNum]
             if cat not in dicCategories:
-                dicCategories[cat] = dicTerm
+                dicCategories[cat] = [lexicon]
             else:
-                cur_dicTerm = dicCategories[cat]
-                dicCategories[cat] = cur_dicTerm + "|" + dicTerm
+                dicCategories[cat].append(lexicon)
+    # sort the words in the dictionary
+    for cat, lexicons in dicCategories.items():
+        dicCategories[cat] = sort_words(lexicons)
     return dicCategories
 
 def generate_certainty_pkl():
