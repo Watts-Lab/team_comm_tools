@@ -1,0 +1,12 @@
+conversation_num,speaker_nickname,timestamp,message,expected_column,expected_value
+A,A,2023-01-15 02:30:00,hello,time_diff,0
+A,A,2023-01-15 02:30:10,hello!!!,time_diff,10
+A,A,2023-01-15 02:30:30,hello!!!!!!!,time_diff,20
+B,A,2023-01-15 02:30:00,hello,time_diff,0
+B,A,2023-01-15 02:31:00,hello!!!,time_diff,60
+B,A,2023-01-15 02:33:00,hello!!!!!!!,time_diff,120
+C,A,2023-01-15 02:30:00,hello,time_diff,0
+C,A,2023-01-15 03:30:00,hello!!!,time_diff,3600
+C,A,2023-01-15 05:30:00,hello!!!!!!!,time_diff,7200
+D,A,2023-01-15 02:30:00,hello,time_diff,0
+D,A,2023-01-16 02:30:00,hello!!!,time_diff,86400

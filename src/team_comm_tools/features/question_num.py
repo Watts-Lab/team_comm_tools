@@ -22,7 +22,7 @@ def calculate_num_question_naive(text, question_words):
         int: The number of questions (Sentences ending with question marks or starting with question words) in the text.
     """
     # step 1: tokenize sentence
-    sentences = sent_tokenize(text)
+    sentences = sent_tokenize(str(text))
     num_q = 0
     for sentence in sentences:
         # Only proceed if the sentence contains letters or numbers

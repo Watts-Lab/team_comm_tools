@@ -10,10 +10,13 @@ from pathlib import Path
 import torch
 from sentence_transformers import SentenceTransformer, util
 
+import ast
+
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification
 from scipy.special import softmax
 from transformers import logging
+from team_comm_tools.utils.preprocess import *
 
 logging.set_verbosity(40) # only log errors
 
@@ -24,7 +27,8 @@ model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Check if embeddings exist
-def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentiment, regenerate_vectors, message_col = "message"):
+def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, original_vect_path: str, need_sentence: bool, 
+                     need_sentiment: bool, regenerate_vectors: bool, message_col: str = "message", custom_vect: bool = False):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
@@ -37,6 +41,8 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
     :type vect_path: str
     :param bert_path: Path to the RoBERTa sentiment inference output file
     :type bert_path: str
+    :param original_vect_path: Path to the DEFAULT vector embeddings file (SBERT vectors; embeddings for each utterance.)
+    :type original_vect_path: str
     :param need_sentence: Whether at least one feature will require SBERT vectors; we will not need to calculate them otherwise.
     :type need_sentence: bool
     :param need_sentiment: Whether at least one feature will require the RoBERTa sentiments; we will not need to calculate them otherwise.
@@ -45,6 +51,8 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
     :type regenerate_vectors: bool, optional
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
+    :param custom_vect: Whether the user has passed in custom vectors
+    :type custom_vect: bool, optional
 
     :return: None
     :rtype: None
@@ -55,11 +63,65 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
         generate_bert(chat_data, bert_path, message_col)
 
     try:
-        vector_df = pd.read_csv(vect_path)
-        # check whether the given vector and bert data matches length of chat data 
-        if len(vector_df) != len(chat_data):
-            print("ERROR: The length of the vector data does not match the length of the chat data. Regenerating...")
-            generate_vect(chat_data, vect_path, message_col)
+        if custom_vect == True:
+            vector_df = pd.read_csv(vect_path)
+            
+            # check whether the given vector and bert data matches length of chat data 
+            if len(vector_df) != len(chat_data):
+                print("ERROR: The length of the vector data does not match the length of the chat data. Regenerating...")
+                # reset vector path to default/original
+                generate_vect(chat_data, original_vect_path, message_col)
+            else:     
+                # check that message in vector data matches chat data
+                preprocessed_chat = chat_data[message_col].astype(str).apply(preprocess_text).fillna("")
+                
+                # preprocess vector data, remove _original if message_col contains to preprocess the text
+                while '_original' in message_col:
+                    message_col = message_col.replace('_original', '')
+
+                # print(message_col)
+                preprocessed_vector = vector_df[message_col].astype(str).apply(preprocess_text).fillna("")
+                
+                mismatches = chat_data[preprocessed_chat != preprocessed_vector]
+                if len(mismatches) != 0:
+                    print("Messages in the vector data do not match the chat data. Regenerating...")
+                    generate_vect(chat_data, original_vect_path, message_col)
+                
+                if "message_embedding" in vector_df.columns:
+                    # check that message_embedding is numeric list
+                    if not vector_df["message_embedding"].apply(is_numeric_list).all():
+                        print("message_embedding is not a numeric list. Regenerating ...")
+                        generate_vect(chat_data, original_vect_path, message_col)
+                    else:    
+                        # check if length of all vectors is the same
+                        vect_lengths = vector_df["message_embedding"].apply(lambda x: ast.literal_eval(x)).apply(lambda x : len(x))                
+                        
+                        if (vect_lengths == 0).any():
+                            print("One or more value in message_embedding are null. Regenerating ...")
+                            generate_vect(chat_data, original_vect_path, message_col)
+                                
+                        if len(vect_lengths.unique()) > 1:
+                            print("Not all vectors have the same length. Regenerating ...")
+                            generate_vect(chat_data, original_vect_path, message_col)
+                    
+                    # check if vectors have a 1-1 mapping with the text
+                    embedding_message_map = {}
+                    for _, row in vector_df.iterrows():
+                        embedding = row['message_embedding']
+                        message = row['message']
+                        
+                        if embedding in embedding_message_map:
+                            if message != embedding_message_map[embedding]:
+                                print("Same embedding maps to multiple unique messages. Regenerating ...")
+                                generate_vect(chat_data, original_vect_path, message_col)
+                                break
+                        else:
+                            embedding_message_map[embedding] = message
+                        
+                else:
+                    print("no message_embedding column. Regenerating ...")
+                    generate_vect(chat_data, original_vect_path, message_col)
+                
     except FileNotFoundError: # It's OK if we don't have the path, if the sentence vectors are not necessary
         if need_sentence:
             generate_vect(chat_data, vect_path, message_col)
@@ -82,6 +144,22 @@ def check_embeddings(chat_data, vect_path, bert_path, need_sentence, need_sentim
     if (not os.path.isfile(CERTAINTY_PATH_STATIC)):
         generate_certainty_pkl()
 
+# checks if column is only numeric elements
+def is_numeric_list(value):
+    if isinstance(value, str):
+        # try to convert string representations to actual lists
+        try:
+            value = ast.literal_eval(value)
+        except (ValueError, SyntaxError):
+            return False 
+                
+    # ensure the value is a list
+    if not isinstance(value, list):
+        return False
+                
+    # ensure all elements in the list are numeric
+    return all(isinstance(x, (int, float)) for x in value)
+            
 # Read in the lexicons (helper function for generating the pickle file)
 def read_in_lexicons(directory, lexicons_dict):
     for filename in os.listdir(directory):
@@ -162,8 +240,25 @@ def generate_certainty_pkl():
     except:
         print("WARNING: Certainty lexicon not found. Skipping pickle generation...")
 
+def str_to_vec(str_vec):
+    """
+    Takes a string representation of a vector and returns it as a 1D np array.
+    """
+    vector_list = [float(e) for e in str_vec[1:-1].split(',')]
+    return np.array(vector_list)
 
-def generate_vect(chat_data, output_path, message_col):
+def get_nan_vector():
+    """
+    Get a default value for an empty string (the "NaN vector") and returns it as a 1D np array.
+    """
+    current_dir = os.path.dirname(__file__)
+    nan_vector_file_path = os.path.join(current_dir, '../features/assets/nan_vector.txt')
+    nan_vector_file_path = os.path.abspath(nan_vector_file_path)
+
+    with open(nan_vector_file_path, "r") as f:
+        return str_to_vec(f.read())
+
+def generate_vect(chat_data, output_path, message_col, batch_size = 64):
     """
     Generates sentence vectors for the given chat data and saves them to a CSV file.
 
@@ -173,17 +268,25 @@ def generate_vect(chat_data, output_path, message_col):
     :type output_path: str
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
+    :param batch_size: The size of each batch for processing sentiment analysis. Defaults to 64.
+    :type batch_size: int
     :raises FileNotFoundError: If the output path is invalid.
     :return: None
     :rtype: None
     """
-
     print(f"Generating SBERT sentence vectors...")
 
-    # Ensure empty strings are encoded as NaN
-    empty_to_nan = [text if text and text.strip() else np.nan for text in chat_data[message_col].tolist()]
-    embeddings = model_vect.encode(empty_to_nan)
-    embedding_arr = [row.tolist() for row in tqdm(embeddings, total=len(chat_data[message_col]))]
+    nan_vector = get_nan_vector()
+    empty_to_nan = [text if text and text.strip() else None for text in chat_data[message_col].tolist()]
+    non_empty_texts = [text for text in empty_to_nan if text is not None]
+    all_embeddings = [emb for i in tqdm(range(0, len(non_empty_texts), batch_size)) for emb in model_vect.encode(non_empty_texts[i:i + batch_size])]
+    embeddings = np.tile(nan_vector, (len(empty_to_nan), 1)) # default embeddings to the NAN vector
+    non_empty_index = 0
+    for idx, text in enumerate(empty_to_nan):
+        if text is not None: # if it's a real text, fill it in with its actual embeding
+            embeddings[idx] = all_embeddings[non_empty_index]
+            non_empty_index += 1
+    embedding_arr = [emb.tolist() for emb in embeddings]
     embedding_df = pd.DataFrame({'message': chat_data[message_col], 'message_embedding': embedding_arr})
 
     # Create directories along the path if they don't exist

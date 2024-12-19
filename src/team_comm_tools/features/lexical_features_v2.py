@@ -26,7 +26,7 @@ def get_liwc_count(regex, chat):
 	else:
 		return 0
 
-def liwc_features(chat_df: pd.DataFrame, message_col) -> pd.DataFrame:
+def liwc_features(chat_df: pd.DataFrame, message_col_original: str, custom_liwc_dictionary: dict={}) -> pd.DataFrame:
 	"""
 		This function takes in the chat level input dataframe and computes lexical features 
 		(the number of words from a given lexicon, such as LIWC).
@@ -34,6 +34,7 @@ def liwc_features(chat_df: pd.DataFrame, message_col) -> pd.DataFrame:
 	Args:
 		chat_df (pd.DataFrame): This is a pandas dataframe of the chat level features. Should contain 'message' column.
 		message_col (str): This is a string with the name of the column containing the message / text.
+		custom_liwc_dictionary (dict): This is a dictionary of the user's custom LIWC dic. 
 
 	Returns:
 		pd.DataFrame: Dataframe of the lexical features stacked as columns.
@@ -47,12 +48,16 @@ def liwc_features(chat_df: pd.DataFrame, message_col) -> pd.DataFrame:
 			lexicons_dict = pickle.load(lexicons_pickle_file)
 		
 		# Return the lexical features stacked as columns
-		return pd.concat(
-			# Finding the # of occurrences of lexicons of each type for all the messages.
-			[pd.DataFrame(chat_df[message_col + "_original"].apply(lambda chat: get_liwc_count(regex, chat)))\
-											.rename({message_col + "_original": lexicon_type + "_lexical_wordcount"}, axis=1)\
-				for lexicon_type, regex in lexicons_dict.items()], 
-			axis=1
-		)
-	except:
+		df_lst = [pd.DataFrame(chat_df[message_col_original].apply(lambda chat: get_liwc_count(regex, chat)))\
+											.rename({message_col_original: lexicon_type + "_lexical_wordcount"}, axis=1)\
+				for lexicon_type, regex in lexicons_dict.items()]
+
+		if custom_liwc_dictionary:
+			df_lst += [pd.DataFrame(chat_df[message_col_original].apply(lambda chat: get_liwc_count(regex, chat)))\
+											.rename({message_col_original: lexicon_type + "_lexical_wordcount_custom"}, axis=1)\
+				for lexicon_type, regex in custom_liwc_dictionary.items()]
+		return pd.concat(df_lst, axis=1)
+	except FileNotFoundError:
 		print("WARNING: Lexicons not found. Skipping feature...")
+	except Exception as e:
+		print(f'WARNING: Failed to generate lexicons due to unexpected error: {e}')

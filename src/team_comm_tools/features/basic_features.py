@@ -11,7 +11,7 @@ def count_words(text):
 	Returns:
 		int: number of words
 	"""
-	return len(text.split())
+	return len(str(text).split())
 
 def count_characters(text):
 	""" Counts the number of characters in a message.

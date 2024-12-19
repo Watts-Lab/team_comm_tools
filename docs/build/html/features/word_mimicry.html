@@ -47,8 +47,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Technical Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="basic_features.html">basic_features module</a></li>
@@ -68,8 +68,10 @@
 <li class="toctree-l3"><a class="reference internal" href="reddit_tags.html">reddit_tags module</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">word_mimicry module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#features.word_mimicry.Content_mimicry_score"><code class="docutils literal notranslate"><span class="pre">Content_mimicry_score()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#features.word_mimicry.Content_mimicry_score_per_conv"><code class="docutils literal notranslate"><span class="pre">Content_mimicry_score_per_conv()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#features.word_mimicry.computeTF"><code class="docutils literal notranslate"><span class="pre">computeTF()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#features.word_mimicry.compute_frequency"><code class="docutils literal notranslate"><span class="pre">compute_frequency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#features.word_mimicry.compute_frequency_per_conv"><code class="docutils literal notranslate"><span class="pre">compute_frequency_per_conv()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#features.word_mimicry.function_mimicry_score"><code class="docutils literal notranslate"><span class="pre">function_mimicry_score()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#features.word_mimicry.get_content_words_in_message"><code class="docutils literal notranslate"><span class="pre">get_content_words_in_message()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#features.word_mimicry.get_function_words_in_message"><code class="docutils literal notranslate"><span class="pre">get_function_words_in_message()</span></code></a></li>
@@ -86,7 +88,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 </ul>
 
@@ -120,7 +122,33 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="features.word_mimicry.Content_mimicry_score">
 <span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">Content_mimicry_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_count_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_count_mimic</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.Content_mimicry_score" title="Link to this definition"></a></dt>
-<dd><p>Combine the steps to compute the content word mimicry score.</p>
+<dd><p>Combine the steps to compute the content word mimicry score. Normalizes
+the frequency of words by how much they appear across the <em>entire dataset</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – The input dataframe.</p></li>
+<li><p><strong>column_count_frequency</strong> (<em>str</em>) – The column with content words to calculate frequency.</p></li>
+<li><p><strong>column_count_mimic</strong> (<em>str</em>) – The column with content word mimicry.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A series with content word accommodation scores.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.Content_mimicry_score_per_conv">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">Content_mimicry_score_per_conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_count_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_count_mimic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.Content_mimicry_score_per_conv" title="Link to this definition"></a></dt>
+<dd><p>Computes the content word mimicry score, but normalizes the term frequency of the words
+by how often they appear <em>within</em> a given conversation. This version of the score may
+be more useful in cases where different conversations in the dataset cover very
+different subject matter, and therefore one may not wish to normalize across the
+full dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -161,6 +189,26 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="features.word_mimicry.compute_frequency">
 <span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">compute_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.compute_frequency" title="Link to this definition"></a></dt>
+<dd><p>Compute the frequency of each content word across the whole dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – The input dataframe.</p></li>
+<li><p><strong>on_column</strong> (<em>str</em>) – The column with which we calculate content word frequency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary with content words as keys and their frequencies as values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="features.word_mimicry.compute_frequency_per_conv">
+<span class="sig-prename descclassname"><span class="pre">features.word_mimicry.</span></span><span class="sig-name descname"><span class="pre">compute_frequency_per_conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.word_mimicry.compute_frequency_per_conv" title="Link to this definition"></a></dt>
 <dd><p>Compute the frequency of each content word across the whole dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

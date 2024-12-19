@@ -1,0 +1,7 @@
+conversation_num,speaker_nickname,message,expected_column,expected_value
+D,1,I went to the store,info_exchange_zscore_chats,0
+D,2,Bought some groceries for dinner,info_exchange_zscore_chats,1.73205
+D,3,It's raining today,info_exchange_zscore_chats,-1.73205
+E,1,I went to the store,info_exchange_zscore_chats,0
+E,1,I went to the store,info_exchange_zscore_chats,0
+E,1,I went to the store,info_exchange_zscore_chats,0

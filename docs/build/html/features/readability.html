@@ -47,8 +47,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Features: Technical Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#utterance-chat-level-features">Utterance- (Chat) Level Features</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="basic_features.html">basic_features module</a></li>
@@ -81,7 +81,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 </ul>
 
@@ -155,23 +155,11 @@ an “easy words” list (passed in from the ChatLevelFeaturesCalculator, and or
 <dl class="py function">
 <dt class="sig sig-object py" id="features.readability.count_syllables">
 <span class="sig-prename descclassname"><span class="pre">features.readability.</span></span><span class="sig-name descname"><span class="pre">count_syllables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.readability.count_syllables" title="Link to this definition"></a></dt>
-<dd><p>Count the number of syllables in a word.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>word</strong> (<em>str</em>) – The input word.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The number of syllables in the word.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="features.readability.dale_chall_helper">
-<span class="sig-prename descclassname"><span class="pre">features.readability.</span></span><span class="sig-name descname"><span class="pre">dale_chall_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">easy_words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.readability.dale_chall_helper" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">features.readability.</span></span><span class="sig-name descname"><span class="pre">dale_chall_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">easy_words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.readability.dale_chall_helper" title="Link to this definition"></a></dt>
 <dd><p>Calculate the Dale-Chall readability score of a text. The Dale-Chall score are defined as:</p>
 <blockquote>
 <div><p>0.1579 * ((difficult_words / words) * 100) + 0.0496 * (words / sentences)</p>
