@@ -290,7 +290,8 @@ class FeatureBuilder:
         self.user_methods = user_methods
         self.user_columns = user_columns
 
-        if(compute_vectors_from_preprocessed == True):
+        if(compute_vectors_from_preprocessed == True) or custom_vect_path is not None:
+            # if provided custom vector path then will preprocess
             self.vector_colname = self.message_col # because the message col will eventually get preprocessed
         else:
             self.vector_colname = self.message_col + "_original" # because this contains the original message

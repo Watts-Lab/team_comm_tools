@@ -72,8 +72,8 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, or
             # check that message in vector data matches chat data
             preprocessed_chat = chat_data[message_col].astype(str).apply(preprocess_text)
             
-            # removed _original from message_col
-            preprocessed_vector = vector_df[message_col[:-9]].astype(str).apply(preprocess_text)
+            # preprocess vector data
+            preprocessed_vector = vector_df[message_col].astype(str).apply(preprocess_text)
 
             mismatches = chat_data[preprocessed_chat != preprocessed_vector]
             if len(mismatches) != 0:

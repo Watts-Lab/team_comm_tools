@@ -91,7 +91,7 @@ if __name__ == "__main__":
 		"Vectors Not of Same Length": vector_data_mismatch_df,
 		"Vectors Null": vect_null,
 		"Vectors Nan": vect_nan,
-  		"Custom File Equals Default Dir": valid_df,
+  		# "Custom File Equals Default Dir": valid_df,
 		"No 1-1 Mapping": vect_no_one_to_one,
 	}
  
