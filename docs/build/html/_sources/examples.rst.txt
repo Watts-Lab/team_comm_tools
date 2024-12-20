@@ -18,8 +18,9 @@ We also have demos available on Google Colab that you can copy and run on your o
 
 Finally, this page will walk you through a case study, highlighting top use cases and considerations when using the toolkit.
 
+----------------
 Getting Started
-=================
+----------------
 
 To use our tool, please ensure that you have Python >= 3.10 installed and a working version of `pip <https://pypi.org/project/pip/>`_, which is Python's package installer. Then, in your local environment, run the following:
 
@@ -30,7 +31,7 @@ To use our tool, please ensure that you have Python >= 3.10 installed and a work
 This command will automatically install our package and all required dependencies.
 
 Troubleshooting
------------------
+================
 
 In the event that some dependency installations fail (for example, you may get an error that ``en_core_web_sm`` from Spacy is not found, or that there is a missing NLTK resource), please run this simple one-line command in your terminal, which will force the installation of Spacy and NLTK dependencies:
 
@@ -43,14 +44,14 @@ If you encounter a further issue in which the 'wordnet' package from NLTK is not
 You can also find a full list of our requirements `here <https://github.com/Watts-Lab/team_comm_tools/blob/main/requirements.txt>`_.
 
 Import Recommendations: Virtual Environment and Pip
------------------------------------------------------
+=====================================================
 
 **We strongly recommend using a virtual environment in Python to run the package.** We have several specific dependency requirements. One important one is that we are currently only compatible with numpy < 2.0.0 because `numpy 2.0.0 and above <https://numpy.org/devdocs/release/2.0.0-notes.html#changes>`_ made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.
 
 **We also strongly recommend that your version of pip is up-to-date (>=24.0).** There have been reports in which users have had trouble downloading dependencies (specifically, the Spacy package) with older versions of pip. If you get an error with downloading ``en_core_web_sm``, we recommend updating pip.
 
 Importing the Package
------------------------
+======================
 
 After you import the package and install dependencies, you can then use our tool in your Python script as follows:
 
@@ -62,13 +63,14 @@ Now you have access to the :ref:`feature_builder`. This is the main class that y
 
 *Note*: PyPI treats hyphens and underscores equally, so "pip install team_comm_tools" and "pip install team-comm-tools" are equivalent. However, Python does NOT treat them equally, and **you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder**.
 
+-------------------------------------------------------
 Walkthrough: Running the FeatureBuilder on Your Data
-=======================================================
+-------------------------------------------------------
 
 Next, we'll go through the details of running the FeatureBuilder on your data, discussing each of the specific options / parameters at your disposal.
 
 Configuring the FeatureBuilder
---------------------------------
+================================
 
 The FeatureBuilder accepts any Pandas DataFrame as the input, so you can read in data in whatever format you like. For the purposes of this walkthrough, we'll be using some jury deliberation data from `Hu et al. (2021) <https://dl.acm.org/doi/pdf/10.1145/3411764.3445433?casa_token=d-b5sCdwpNcAAAAA:-U-ePTSSE3rY1_BLXy1-0spFN_i4gOJqy8D0CeXHLAJna5bFRTee9HEnM0TnK_R-g0BOqOn35mU>`_. 
 
@@ -97,10 +99,10 @@ Now we are ready to call the FeatureBuilder on our data. All we need to do is de
 	jury_feature_builder.featurize()
 
 Basic Input Columns
-~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 Conversation Parameters
-**************************
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * The **input_df** parameter is where you pass in your dataframe. In this case, we want to run the FeatureBuilder on the juries data that we read in!
 
@@ -206,19 +208,19 @@ Turns
 
 
 Advanced Configuration Columns
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------
 
 More advanced users of the FeatureBuilder should consider the following optional parameters, depending on their needs.
 
 Regenerating Vector Cache
-***************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * The **regenerate_vectors** parameter controls whether you'd like the FeatureBuilder to re-generate the content in the **vector_directory**, even if we have already cached the output of a previous run. It is useful if the underlying data has changed, but you want to give the output file the same name as a previous run of the FeatureBuilder.
 
 	* By default, **we assume that, if your output file is named the same, that the underlying vectors are the same**. If this isn't true, you should set **regenerate_vectors = True** in order to clear out the cache and re-generate the RoBERTa and SBERT outputs.
 
 Custom Features
-*****************
+~~~~~~~~~~~~~~~~~
 
 * The **custom_features** parameter allows you to specify features that do not exist within our default set. **We default to NOT generating four features that depend on SBERT vectors, as the process for generating the vectors tends to be slow.** However, these features can provide interesting insights into the extent to which individuals in a conversation speak "similarly" or not, based on a vector similarity metric. To access these features, simply use the **custom_features** parameter:
 
@@ -234,7 +236,7 @@ Custom Features
     * You can chose to add any of these features depending on your preference.
 
 Analyzing First Percentage (%)
-********************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * The **analyze_first_pct** parameter allows you to "cut off" and separately analyze the first X% of a conversation, in case you wish to separately study different sections of a conversation as it progresses. For example, you may be interested in knowing how the attributes of the first 50% of a conversation differ from the attributes of the entire conversation. Then you can sepcify the following:
 
@@ -247,14 +249,14 @@ Analyzing First Percentage (%)
 	* By default, we will simply analyze 100% of each conversation.
 
 Named Entity Recognition
-**************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * The parameters **ner_training_df** and **ner_cutoff** are required if you would like the FeatureBuilder to identify named entities in your conversations. For example, the sentence, "John, did you talk to Michael this morning?" has two named entities: "John" and "Michael." The FeatureBuilder includes a tool that automatically detects these named entities, but it requires the user (you!) to specify some training data with examples of the types of named entities you'd like to recognize. This is because proper nouns can take many forms, from standard Western-style names (e.g., "John") to pseudonymous online nicknames (like "littleHorse"). More information about these parameters can be found in :ref:`named_entity_recognition`.
 
 .. _custom_aggregation:
 
 Custom Aggregation
-********************
+~~~~~~~~~~~~~~~~~~~
 
 Imagine that you, as a researcher, are interested in high-level characteristics of the entire conversation (for example, how much is said), but you only have measures at the (lower) level of each individual utterance (for example, the number of words in each message). How would you "aggregate" information from the lower level to the higher level?
 
@@ -317,7 +319,7 @@ The table below summarizes the different types of aggregation, and the ways in w
 
 
 Example Usage of Custom Aggregation Parameters
-+++++++++++++++++++++++++++++++++++++++++++++++
+************************************************
 
 To customize aggregation behavior, simply add the following when constructing your FeatureBuilder:
 
@@ -336,14 +338,14 @@ To turn off aggregation, set the following parameters to ``False``. By default, 
      user_aggregation = False
 
 Important Notes and Caveats
-++++++++++++++++++++++++++++
+*****************************
 
 - **[NOTE 1]** Even when aggregation is disabled, totals of words, messages, and characters are still summarized, as these are required for calculating the Gini Coefficient features.
 - **[NOTE 2]** Be careful when choosing the "sum" aggregation method, as it is not always appropriate to use the "sum" as an aggregation function. While it is a sensible choice for utterance-level attributes that are *countable* (for example, the total number of words, or other lexical wordcounts), it is a less sensible choice for others (for example, it does not make sense to sum sentiment scores for each utterance in a conversation). Consequently, using the "sum" feature will come with an associated warning.
 - **[NOTE 3]** In addition to aggregating from the utterance (chat) level to the conversation level, we also aggregate from the speaker (user) level to the conversation level, using the same methods specified in ``convo_methods`` to do so.
 
 Cumulative Grouping
-*********************
+~~~~~~~~~~~~~~~~~~~~
 
 * The parameters **cumulative_grouping** and **within_task** address a special case of having multiple conversational identifiers; **they assume that the same team has multiple sequential conversations, and that, in each conversation, they perform one or more separate activities**. This was originally created as a companion to a multi-stage Empirica game (see: `<https://github.com/Watts-Lab/multi-task-empirica>`_). For example, imagine that a team must complete 3 different tasks, each with 3 different subparts. Then we can model this event in terms of 1 team (High level), 3 tasks (Mid level), and 3 subparts per task (Low level).
 
@@ -460,7 +462,7 @@ Here is some example output (for the RoBERTa sentiment feature):
 	 'bert_sentiment_data': True}
 
 Feature Column Names
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 Once you call **.featurize()**, you can also obtain a convenient list of the feature columns generated by the toolkit:
 
