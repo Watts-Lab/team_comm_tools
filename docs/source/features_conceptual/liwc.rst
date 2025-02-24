@@ -20,14 +20,6 @@ Positive Word Lexicon: `Hu and Liu (2004) <https://www.cs.uic.edu/~liub/publicat
 Implementation 
 ****************
 For each word in the LIWC lexicon, we use a regular expression to count the number of times the word appears. The regular expression captures word stems where relevant; for example, "certain*" would capture "certainty," "certainly," etc.
-In each regex pattern, the lexicons are separated by `|` and wrapped by word boundaries `\b` to ensure that we are capturing whole words, except for the following exceptions:
-
-1. We preserve 8 emojis from LIWC-2015: `"(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"` so that they can be counted even when they are not separated by spaces.
-
-2. Words end with non-alphanumeric characters, such as `bachelor'` are wrapped by `(?<!\w)` and `(?!\w)` because `\b` doesn't work properly.
-
-Furthermore, all parentheses are escaped to ensure that they are treated as literals. After processing these, we put hyphenated words at the beginning of the list and sort it based on the raw length of each lexicon.
-As a caveat, words containing underscores are not recognized by the LIWC dictionary, and are not counted.
 
 **Note:** 
 

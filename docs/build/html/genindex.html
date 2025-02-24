@@ -132,9 +132,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_chat_level_features">calculate_chat_level_features() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
 </li>
+      <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.calculate_conversation_level_features">calculate_conversation_level_features() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
+</li>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_hedge_features">calculate_hedge_features() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="features/information_diversity.html#features.information_diversity.calculate_ID_score">calculate_ID_score() (in module features.information_diversity)</a>
+</li>
+      <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.calculate_info_diversity">calculate_info_diversity() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="features/named_entity_recognition_features.html#features.named_entity_recognition_features.calculate_named_entities">calculate_named_entities() (in module features.named_entity_recognition_features)</a>
 </li>
@@ -144,11 +148,17 @@
 </li>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_politeness_v2">calculate_politeness_v2() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
 </li>
+      <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.calculate_team_burstiness">calculate_team_burstiness() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
+</li>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_textblob_sentiment">calculate_textblob_sentiment() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
+</li>
+      <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.calculate_user_level_features">calculate_user_level_features() (utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_vector_word_mimicry">calculate_vector_word_mimicry() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.calculate_word_mimicry">calculate_word_mimicry() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
+</li>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder.chat_level_features">chat_level_features() (feature_builder.FeatureBuilder method)</a>
 </li>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator">ChatLevelFeaturesCalculator (class in utils.calculate_chat_level_features)</a>
 </li>
@@ -176,13 +186,17 @@
 </li>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.conjection_seperator">conjection_seperator() (in module features.politeness_v2_helper)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="features/word_mimicry.html#features.word_mimicry.Content_mimicry_score">Content_mimicry_score() (in module features.word_mimicry)</a>
 </li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.Content_mimicry_score_per_conv">Content_mimicry_score_per_conv() (in module features.word_mimicry)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder.conv_level_features">conv_level_features() (feature_builder.FeatureBuilder method)</a>
+</li>
       <li><a href="features/get_all_DD_features.html#features.get_all_DD_features.conv_to_float_arr">conv_to_float_arr() (in module features.get_all_DD_features)</a>
+</li>
+      <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator">ConversationLevelFeaturesCalculator (class in utils.calculate_conversation_level_features)</a>
 </li>
       <li><a href="features/reddit_tags.html#features.reddit_tags.count_all_caps">count_all_caps() (in module features.reddit_tags)</a>
 </li>
@@ -247,6 +261,15 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.feat_counts">feat_counts() (in module features.politeness_v2_helper)</a>
+</li>
+      <li>
+    feature_builder
+
+      <ul>
+        <li><a href="feature_builder.html#module-feature_builder">module</a>
+</li>
+      </ul></li>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder">FeatureBuilder (class in feature_builder)</a>
 </li>
       <li>
     features.basic_features
@@ -332,6 +355,8 @@
         <li><a href="features/named_entity_recognition_features.html#module-features.named_entity_recognition_features">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     features.other_lexical_features
 
@@ -339,8 +364,6 @@
         <li><a href="features/other_lexical_features.html#module-features.other_lexical_features">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     features.politeness_features
 
@@ -425,6 +448,8 @@
         <li><a href="features/word_mimicry.html#module-features.word_mimicry">module</a>
 </li>
       </ul></li>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder.featurize">featurize() (feature_builder.FeatureBuilder method)</a>
+</li>
       <li><a href="utils/check_embeddings.html#utils.check_embeddings.fix_abbreviations">fix_abbreviations() (in module utils.check_embeddings)</a>
 </li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.function_mimicry_score">function_mimicry_score() (in module features.word_mimicry)</a>
@@ -443,11 +468,15 @@
 </li>
       <li><a href="utils/check_embeddings.html#utils.check_embeddings.generate_vect">generate_vect() (in module utils.check_embeddings)</a>
 </li>
+      <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_centroids">get_centroids() (utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
+</li>
       <li><a href="features/certainty.html#features.certainty.get_certainty">get_certainty() (in module features.certainty)</a>
 </li>
       <li><a href="utils/calculate_chat_level_features.html#utils.calculate_chat_level_features.ChatLevelFeaturesCalculator.get_certainty_score">get_certainty_score() (utils.calculate_chat_level_features.ChatLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.get_content_words_in_message">get_content_words_in_message() (in module features.word_mimicry)</a>
+</li>
+      <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.get_conversation_level_aggregates">get_conversation_level_aggregates() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="features/discursive_diversity.html#features.discursive_diversity.get_cosine_similarity">get_cosine_similarity() (in module features.discursive_diversity)</a>
 </li>
@@ -463,6 +492,10 @@
 </li>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.get_dep_pairs_noneg">get_dep_pairs_noneg() (in module features.politeness_v2_helper)</a>
 </li>
+      <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.get_discursive_diversity_features">get_discursive_diversity_features() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
+</li>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder.get_first_pct_of_chat">get_first_pct_of_chat() (feature_builder.FeatureBuilder method)</a>
+</li>
       <li><a href="utils/preload_word_lists.html#utils.preload_word_lists.get_first_person_words">get_first_person_words() (in module utils.preload_word_lists)</a>
 </li>
       <li><a href="features/fflow.html#features.fflow.get_forward_flow">get_forward_flow() (in module features.fflow)</a>
@@ -476,6 +509,8 @@
       <li><a href="features/word_mimicry.html#features.word_mimicry.get_function_words_in_message">get_function_words_in_message() (in module features.word_mimicry)</a>
 </li>
       <li><a href="utils/gini_coefficient.html#utils.gini_coefficient.get_gini">get_gini() (in module utils.gini_coefficient)</a>
+</li>
+      <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.get_gini_features">get_gini_features() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="features/information_diversity.html#features.information_diversity.get_info_diversity">get_info_diversity() (in module features.information_diversity)</a>
 </li>
@@ -537,7 +572,15 @@
 </li>
       <li><a href="utils/preprocess.html#utils.preprocess.get_turn_id">get_turn_id() (in module utils.preprocess)</a>
 </li>
+      <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.get_turn_taking_features">get_turn_taking_features() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
+</li>
       <li><a href="features/discursive_diversity.html#features.discursive_diversity.get_unique_pairwise_combos">get_unique_pairwise_combos() (in module features.discursive_diversity)</a>
+</li>
+      <li><a href="utils/calculate_conversation_level_features.html#utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator.get_user_level_aggregates">get_user_level_aggregates() (utils.calculate_conversation_level_features.ConversationLevelFeaturesCalculator method)</a>
+</li>
+      <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_level_summary_statistics_features">get_user_level_summary_statistics_features() (utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
+</li>
+      <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_level_summed_features">get_user_level_summed_features() (utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
 </li>
       <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_max_dataframe">get_user_max_dataframe() (in module utils.summarize_features)</a>
 </li>
@@ -548,7 +591,11 @@
       <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_min_dataframe">get_user_min_dataframe() (in module utils.summarize_features)</a>
 </li>
       <li><a href="features/get_user_network.html#features.get_user_network.get_user_network">get_user_network() (in module features.get_user_network)</a>
+
+      <ul>
+        <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator.get_user_network">(utils.calculate_user_level_features.UserLevelFeaturesCalculator method)</a>
 </li>
+      </ul></li>
       <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_stdev_dataframe">get_user_stdev_dataframe() (in module utils.summarize_features)</a>
 </li>
       <li><a href="utils/summarize_features.html#utils.summarize_features.get_user_sum_dataframe">get_user_sum_dataframe() (in module utils.summarize_features)</a>
@@ -607,12 +654,16 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder.merge_conv_data_with_original">merge_conv_data_with_original() (feature_builder.FeatureBuilder method)</a>
+</li>
       <li><a href="features/word_mimicry.html#features.word_mimicry.mimic_words">mimic_words() (in module features.word_mimicry)</a>
 </li>
       <li>
     module
 
       <ul>
+        <li><a href="feature_builder.html#module-feature_builder">feature_builder</a>
+</li>
         <li><a href="features/basic_features.html#module-features.basic_features">features.basic_features</a>
 </li>
         <li><a href="features/burstiness.html#module-features.burstiness">features.burstiness</a>
@@ -667,6 +718,10 @@
 </li>
         <li><a href="utils/calculate_chat_level_features.html#module-utils.calculate_chat_level_features">utils.calculate_chat_level_features</a>
 </li>
+        <li><a href="utils/calculate_conversation_level_features.html#module-utils.calculate_conversation_level_features">utils.calculate_conversation_level_features</a>
+</li>
+        <li><a href="utils/calculate_user_level_features.html#module-utils.calculate_user_level_features">utils.calculate_user_level_features</a>
+</li>
         <li><a href="utils/check_embeddings.html#module-utils.check_embeddings">utils.check_embeddings</a>
 </li>
         <li><a href="utils/gini_coefficient.html#module-utils.gini_coefficient">utils.gini_coefficient</a>
@@ -714,10 +769,12 @@
 </li>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.prep_whole">prep_whole() (in module features.politeness_v2_helper)</a>
 </li>
-      <li><a href="utils/preprocess.html#utils.preprocess.preprocess_conversation_columns">preprocess_conversation_columns() (in module utils.preprocess)</a>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder.preprocess_chat_data">preprocess_chat_data() (feature_builder.FeatureBuilder method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils/preprocess.html#utils.preprocess.preprocess_conversation_columns">preprocess_conversation_columns() (in module utils.preprocess)</a>
+</li>
       <li><a href="utils/preprocess.html#utils.preprocess.preprocess_naive_turns">preprocess_naive_turns() (in module utils.preprocess)</a>
 </li>
       <li><a href="utils/preprocess.html#utils.preprocess.preprocess_text">preprocess_text() (in module utils.preprocess)</a>
@@ -756,6 +813,8 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder.save_features">save_features() (feature_builder.FeatureBuilder method)</a>
+</li>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.sentence_pad">sentence_pad() (in module features.politeness_v2_helper)</a>
 </li>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.sentence_split">sentence_split() (in module features.politeness_v2_helper)</a>
@@ -764,7 +823,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="features/politeness_v2_helper.html#features.politeness_v2_helper.sentenciser">sentenciser() (in module features.politeness_v2_helper)</a>
 </li>
-      <li><a href="utils/check_embeddings.html#utils.check_embeddings.sort_words">sort_words() (in module utils.check_embeddings)</a>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder.set_self_conv_data">set_self_conv_data() (feature_builder.FeatureBuilder method)</a>
 </li>
       <li><a href="utils/check_embeddings.html#utils.check_embeddings.str_to_vec">str_to_vec() (in module utils.check_embeddings)</a>
 </li>
@@ -788,6 +847,10 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="feature_builder.html#feature_builder.FeatureBuilder.user_level_features">user_level_features() (feature_builder.FeatureBuilder method)</a>
+</li>
+      <li><a href="utils/calculate_user_level_features.html#utils.calculate_user_level_features.UserLevelFeaturesCalculator">UserLevelFeaturesCalculator (class in utils.calculate_user_level_features)</a>
+</li>
       <li>
     utils.assign_chunk_nums
 
@@ -803,12 +866,28 @@
 </li>
       </ul></li>
       <li>
+    utils.calculate_conversation_level_features
+
+      <ul>
+        <li><a href="utils/calculate_conversation_level_features.html#module-utils.calculate_conversation_level_features">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.calculate_user_level_features
+
+      <ul>
+        <li><a href="utils/calculate_user_level_features.html#module-utils.calculate_user_level_features">module</a>
+</li>
+      </ul></li>
+      <li>
     utils.check_embeddings
 
       <ul>
         <li><a href="utils/check_embeddings.html#module-utils.check_embeddings">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     utils.gini_coefficient
 
@@ -816,8 +895,6 @@
         <li><a href="utils/gini_coefficient.html#module-utils.gini_coefficient">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     utils.preload_word_lists
 
