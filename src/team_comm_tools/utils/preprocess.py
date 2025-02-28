@@ -28,7 +28,7 @@ def assert_key_columns_present(df: pd.DataFrame, column_names: dict) -> None:
         if role == 'timestamp_col':
             continue # skip timestamp column
         if col not in df.columns:
-            raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})")
+            raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})\n Columns available: {df.columns}")
         else:
             print(f"Confirmed that data has {role} column: {col}!")
 
