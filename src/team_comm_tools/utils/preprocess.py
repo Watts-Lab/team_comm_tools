@@ -21,8 +21,7 @@ def assert_key_columns_present(df: pd.DataFrame, column_names: dict) -> None:
     # message_col = column_names['message_col']
 
     # remove all special characters from df
-    # df.columns = df.columns.str.replace('[^A-Za-z0-9_]', '', regex=True) # NOTE: This is moved to preprocess_conversation_columns
-
+    df.columns = df.columns.str.replace('[^A-Za-z0-9_]', '', regex=True)
     # Assert that key columns are present
     for role, col in column_names.items():
         if role == 'timestamp_col':
@@ -31,6 +30,7 @@ def assert_key_columns_present(df: pd.DataFrame, column_names: dict) -> None:
             raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})\n Columns available: {df.columns}")
         else:
             print(f"Confirmed that data has {role} column: {col}!")
+            df[col] = df[col].fillna('')
 
     # if {conversation_id_col, speaker_id_col, message_col}.issubset(df.columns):
     # 	print(f"Confirmed that data has conversation_id: {conversation_id_col}, speaker_id: {speaker_id_col} and message: {message_col} columns!")
@@ -66,14 +66,6 @@ def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, groupi
     :return: The preprocessed DataFrame with a conversation number column.
     :rtype: pd.DataFrame
     """
-
-    # remove all special characters from df
-    df.columns = df.columns.str.replace('[^A-Za-z0-9_]', '', regex=True)
-    # fillna
-    for role, col in column_names.items():
-        if role == 'timestamp_col':
-            continue
-        df[col] = df[col].fillna('')
     
     if not grouping_keys: # case 1: single identifier
         return df
