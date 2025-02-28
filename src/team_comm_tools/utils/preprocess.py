@@ -37,15 +37,6 @@ def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, groupi
     else: # case 2: grouping multiple keys, or case 3 but not 3 layers
         df['conversation_num'] = df.groupby(grouping_keys).ngroup()
         df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
-    # assert key columns are present
-    for role, col in column_names.items():
-        if role == 'timestamp_col':
-            continue # skip timestamp column
-        if col not in df.columns:
-            raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})\n Columns available: {df.columns}")
-        else:
-            print(f"Confirmed that data has {role} column: {col}!")
-            df[col] = df[col].fillna('')
 
     return df
 

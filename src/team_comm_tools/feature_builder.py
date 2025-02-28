@@ -560,7 +560,7 @@ class FeatureBuilder:
 
         # create the appropriate grouping variables and assert the columns are present
         self.chat_data = preprocess_conversation_columns(self.chat_data, self.column_names, self.grouping_keys, self.cumulative_grouping, self.within_task)
-        # assert_key_columns_present(self.chat_data, self.column_names)
+        assert_key_columns_present(self.chat_data, self.column_names)
         self.chat_data = remove_unhashable_cols(self.chat_data, self.column_names)
 
         # save original column with no preprocessing
