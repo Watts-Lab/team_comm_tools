@@ -71,6 +71,8 @@ def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, groupi
     df.columns = df.columns.str.replace('[^A-Za-z0-9_]', '', regex=True)
     # fillna
     for role, col in column_names.items():
+        if role == 'timestamp_col':
+            continue
         df[col] = df[col].fillna('')
     
     if not grouping_keys: # case 1: single identifier
