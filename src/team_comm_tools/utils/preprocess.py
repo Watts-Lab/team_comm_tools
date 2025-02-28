@@ -119,18 +119,18 @@ def remove_unhashable_cols(df: pd.DataFrame, column_names: dict) -> pd.DataFrame
         df = df.drop(columns=removable_cols)
     return df
 
-# def preprocess_text_lowercase_but_retain_punctuation(text): #NOTE: This function is deprecated 
-#     """Convert the input text to lowercase while retaining punctuation.
+def preprocess_text_lowercase_but_retain_punctuation(text):
+    """Convert the input text to lowercase while retaining punctuation.
 
-#     This function takes a string and converts all characters to lowercase,
-#     keeping any punctuation marks intact.
+    This function takes a string and converts all characters to lowercase,
+    keeping any punctuation marks intact.
 
-#     :param text: The input text to process.
-#     :type text: str
-#     :return: The processed text with all characters in lowercase.
-#     :rtype: str
-#     """
-#     return(text.lower())
+    :param text: The input text to process.
+    :type text: str
+    :return: The processed text with all characters in lowercase.
+    :rtype: str
+    """
+    return(text.lower())
 
 def preprocess_text(text: str) -> str:
     """Preprocess text by removing non-alphanumeric characters and converting to lowercase.

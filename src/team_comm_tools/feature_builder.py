@@ -571,7 +571,7 @@ class FeatureBuilder:
         self.chat_data[self.message_col + "_original"] = self.chat_data[self.message_col]
 
         # create new column that retains punctuation
-        self.chat_data["message_lower_with_punc"] = self.chat_data[self.message_col].astype(str).apply(lambda x: x.lower())
+        self.chat_data["message_lower_with_punc"] = self.chat_data[self.message_col].astype(str).apply(preprocess_text_lowercase_but_retain_punctuation)
     
         # Preprocessing the text in `message_col` and then overwriting the column `message_col`.
         # TODO: We should probably use classes to abstract preprocessing module as well?
