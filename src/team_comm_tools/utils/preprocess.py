@@ -2,47 +2,7 @@ import re
 import pandas as pd
 import warnings
 
-def assert_key_columns_present(df: pd.DataFrame, column_names: dict) -> None:
-    """Ensure that the DataFrame has essential columns and handle missing values.
-    
-    This function  if the essential columns `conversation_id_col`, `speaker_id_col`, and 
-    `message_col` are present. If any of these columns are missing, a 
-    KeyError is raised. 
 
-    :param df: The DataFrame to check and process.
-    :type df: pandas.DataFrame
-    :param column_names: Columns to preprocess.
-    :type column_names: dict
-    :raises KeyError: If one of `conversation_id_col`, `speaker_id_col`, and `message_col` columns is missing.
-    """
-
-    # conversation_id_col = column_names['conversation_id_col']
-    # speaker_id_col = column_names['speaker_id_col']
-    # message_col = column_names['message_col']
-
-    # remove all special characters from df
-    df.columns = df.columns.str.replace('[^A-Za-z0-9_]', '', regex=True)
-    # Assert that key columns are present
-    for role, col in column_names.items():
-        if role == 'timestamp_col':
-            continue # skip timestamp column
-        if col not in df.columns:
-            raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})\n Columns available: {df.columns}")
-        else:
-            print(f"Confirmed that data has {role} column: {col}!")
-            df[col] = df[col].fillna('')
-
-    # if {conversation_id_col, speaker_id_col, message_col}.issubset(df.columns):
-    # 	print(f"Confirmed that data has conversation_id: {conversation_id_col}, speaker_id: {speaker_id_col} and message: {message_col} columns!")
-    # 	# ensure no NA's in essential columns #NOTE: This is moved to preprocess_conversation_columns
-    # 	df[conversation_id_col] = df[conversation_id_col].fillna(0)
-    # 	df[speaker_id_col] = df[speaker_id_col].fillna(0)
-    # 	df[message_col] = df[message_col].fillna('')
-    # else:
-    # 	print("One or more of conversation_id, speaker_id or message columns are missing! Raising error...")
-    # 	print("Columns available: ")
-    # 	print(df.columns)
-    # 	raise KeyError
 
 def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, grouping_keys: list, 
                                     cumulative_grouping: bool = False, within_task: bool = False) -> pd.DataFrame:
@@ -66,7 +26,8 @@ def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, groupi
     :return: The preprocessed DataFrame with a conversation number column.
     :rtype: pd.DataFrame
     """
-    
+    # remove all special characters from df
+    df.columns = df.columns.str.replace('[^A-Za-z0-9_]', '', regex=True)
     if not grouping_keys: # case 1: single identifier
         return df
     if not set(grouping_keys).issubset(df.columns):
@@ -76,8 +37,41 @@ def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, groupi
     else: # case 2: grouping multiple keys, or case 3 but not 3 layers
         df['conversation_num'] = df.groupby(grouping_keys).ngroup()
         df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
+    # assert key columns are present
+    for role, col in column_names.items():
+        if role == 'timestamp_col':
+            continue # skip timestamp column
+        if col not in df.columns:
+            raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})\n Columns available: {df.columns}")
+        else:
+            print(f"Confirmed that data has {role} column: {col}!")
+            df[col] = df[col].fillna('')
 
     return df
+
+def assert_key_columns_present(df: pd.DataFrame, column_names: dict) -> None:
+    """Ensure that the DataFrame has essential columns and handle missing values.
+    
+    This function  if the essential columns `conversation_id_col`, `speaker_id_col`, and 
+    `message_col` are present. If any of these columns are missing, a 
+    KeyError is raised. 
+
+    :param df: The DataFrame to check and process.
+    :type df: pandas.DataFrame
+    :param column_names: Columns to preprocess.
+    :type column_names: dict
+    :raises KeyError: If one of `conversation_id_col`, `speaker_id_col`, and `message_col` columns is missing.
+    """
+    
+    # Assert that key columns are present
+    for role, col in column_names.items():
+        if role == 'timestamp_col':
+            continue # skip timestamp column
+        if col not in df.columns:
+            raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})\n Columns available: {df.columns}")
+        else:
+            print(f"Confirmed that data has {role} column: {col}!")
+            df[col] = df[col].fillna('')
 
 def remove_unhashable_cols(df: pd.DataFrame, column_names: dict) -> pd.DataFrame:
     """

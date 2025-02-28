@@ -557,14 +557,10 @@ class FeatureBuilder:
         if self.grouping_keys and not self.cumulative_grouping and self.conversation_id_col != "conversation_num":
             warnings.warn("WARNING: When grouping by the unique combination of a list of keys (`grouping_keys`), the conversation identifier must be auto-generated (`conversation_num`) rather than a user-provided column. Resetting conversation_id.")
             self.conversation_id_col = "conversation_num"
-        # set new identifier column for cumulative grouping.
-        if self.cumulative_grouping and len(self.grouping_keys) == 3:
-            warnings.warn("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative conversations.")
-            self.conversation_id_col = "conversation_num"
 
         # create the appropriate grouping variables and assert the columns are present
-        assert_key_columns_present(self.chat_data, self.column_names)
         self.chat_data = preprocess_conversation_columns(self.chat_data, self.column_names, self.grouping_keys, self.cumulative_grouping, self.within_task)
+        # assert_key_columns_present(self.chat_data, self.column_names)
         self.chat_data = remove_unhashable_cols(self.chat_data, self.column_names)
 
         # save original column with no preprocessing
@@ -582,6 +578,11 @@ class FeatureBuilder:
 
         # Save the preprocessed data (so we don't have to do this again)
         self.preprocessed_data = self.chat_data
+
+        # set new identifier column for cumulative grouping.
+        if self.cumulative_grouping and len(self.grouping_keys) == 3:
+            warnings.warn("NOTE: User has requested cumulative grouping. Auto-generating the key `conversation_num` as the conversation identifier for cumulative conversations.")
+            self.conversation_id_col = "conversation_num"
 
     def chat_level_features(self) -> None:
         """
