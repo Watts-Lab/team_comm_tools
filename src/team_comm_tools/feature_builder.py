@@ -151,9 +151,6 @@ class FeatureBuilder:
         if not isinstance(input_df, pd.DataFrame):
             raise TypeError(f"Expected a Pandas DataFrame as input_df, but got {type(df).__name__})")
         
-        # if not vector_directory:
-        #     raise ValueError("You must pass in a valid directory to cache vectors! For example: ./vector_data/") # NOTE: This is redundant because we have a default value
-        
         print("Initializing Featurization...")
 
         ###### Set all parameters ######

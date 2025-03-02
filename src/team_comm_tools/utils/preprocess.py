@@ -80,8 +80,23 @@ def remove_unhashable_cols(df: pd.DataFrame, column_names: dict) -> pd.DataFrame
     """
     # Check cols with unhashable types
     unhashable_cols = {}
+
+    def is_unhashable(obj):
+        """
+        Small function to test whether a data type is hashable, without storing a hard-coded list of hashable types.
+        
+        :param obj: an object to test hashability
+        :return: Whether or not the object is unhashable
+        :rtype: bool
+        """
+        try:
+            hash(obj)
+            return False
+        except TypeError:
+            return True
+
     for col in df.columns:
-        unhashable_values = df[col].apply(lambda x: isinstance(x, (set, list, dict)))
+        unhashable_values = df[col].apply(lambda x: is_unhashable(x))
         if unhashable_values.any():
             unique_types = df[col][unhashable_values].apply(lambda x: type(x)).unique()
             unhashable_cols[col] = unique_types

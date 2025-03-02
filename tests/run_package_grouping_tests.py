@@ -8,6 +8,8 @@ on the proper input format and performs grouping correctly.
 # Importing the Feature Generating Class
 from team_comm_tools import FeatureBuilder
 import pandas as pd
+import warnings
+warnings.simplefilter("always", category=UserWarning)
 
 # Main Function
 if __name__ == "__main__":
@@ -231,3 +233,46 @@ if __name__ == "__main__":
         user_aggregation = False,
 	)
 	custom_agg_fb_no_agg.featurize()
+
+
+	"""
+	Test that it's possible to run the FB with unhashable types that are NOT required columns.
+	"""
+
+	print("Testing unhashable types on non-required columns...")	
+	test_df_with_nonrequired_unhashables = pd.DataFrame({
+		"conversation_id": [1, 1, 2, 2, 2],
+		"text": ["test1", "test2", "test3", "test4", "test5"],
+		"speaker_id": [1, 2, 1, 2, 1],
+		"unhashable_col": [{}, set(), ["foo", "bar"], {"foo": "bar"}, {"foo": ["bar1", "bar2", "bar3"]}]
+		})
+
+	fb_nonrequred_unhashable_test = FeatureBuilder(
+			input_df = test_df_with_nonrequired_unhashables,
+			conversation_id_col = "conversation_id",
+			message_col = "text",
+			speaker_id_col = "speaker_id"
+		)
+
+	"""
+	Test that, if we have unhashable types as required columns, we throw a ValueError as expected. 
+	"""
+
+	print("Testing unhashable types on required columns...")
+	test_df_with_required_unhashables = pd.DataFrame({
+		"conversation_id": [[1], [1], [2], [2], [2]], # conversation_id is a required col and contains lists
+		"text": ["test1", "test2", "test3", "test4", "test5"],
+		"speaker_id": [1, 2, 1, 2, 1]		
+		})
+
+	try:
+		fb_required_unhashable_test = FeatureBuilder(
+			input_df = test_df_with_required_unhashables,
+			conversation_id_col = "conversation_id",
+			message_col = "text",
+			speaker_id_col = "speaker_id"
+		)
+	except ValueError as e:
+		assert('has unhashable data types' in str(e)) # make sure we caught the right error!
+		print("Test has properly exited with error.")
+
