@@ -165,21 +165,19 @@ def is_valid_term(dicTerm: str) -> bool:
     """
     Check if a dictionary term is valid.
 
-    This functions returns True if the term matches the regex pattern and Flase otherwise.
-    The regex pattern matches:
+    This function returns True if the term matches the regex pattern and False otherwise.
+    The pattern matches the following criteria:
+
     - Alphanumeric characters (a-zA-Z0-9)
-    - Valid symbols: -, ', *, /
-    - The * symbol can only appear once at the end of a word
+    - Valid symbols: -, ', \*, /
+    - The \* symbol can only appear once at the end of a word
     - 8 emojis are valid only when they appear alone
     - The / symbol can only appear once after alphanumeric characters
     - Spaces are allowed between valid words
 
     :param dicTerm: The dictionary term
     :type dicTerm: str
-
-    hi:) 120
-
-    :return: True/False
+    :return: True if the term is valid, False otherwise
     :rtype: bool
     """
     emoji_pattern = '|'.join(re.escape(emoji) for emoji in EMOJIS_TO_PRESERVE)

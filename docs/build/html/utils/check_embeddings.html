@@ -71,6 +71,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.is_valid_term"><code class="docutils literal notranslate"><span class="pre">is_valid_term()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.load_liwc_dict"><code class="docutils literal notranslate"><span class="pre">load_liwc_dict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.read_in_lexicons"><code class="docutils literal notranslate"><span class="pre">read_in_lexicons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.sort_words"><code class="docutils literal notranslate"><span class="pre">sort_words()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.check_embeddings.str_to_vec"><code class="docutils literal notranslate"><span class="pre">str_to_vec()</span></code></a></li>
 </ul>
 </li>
@@ -275,24 +276,24 @@ and appends the cleaned lexicon patterns to a dictionary.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.is_valid_term">
-<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">is_valid_term</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dicTerm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.is_valid_term" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">is_valid_term</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dicTerm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#utils.check_embeddings.is_valid_term" title="Link to this definition"></a></dt>
 <dd><p>Check if a dictionary term is valid.</p>
-<p>This function returns <cite>True</cite> if the term matches the regex pattern and <cite>False</cite> otherwise.
-The regex pattern matches:</p>
+<p>This function returns True if the term matches the regex pattern and False otherwise.
+The pattern matches the following criteria:</p>
 <ul class="simple">
-<li><p>Alphanumeric characters (a-z, A-Z, 0-9)</p></li>
-<li><p>Valid symbols: <cite>-</cite>, <cite>‘</cite>, <cite>*</cite>, <cite>/</cite></p></li>
-<li><p>The <cite>*</cite> symbol can appear only once at the end of a word</p></li>
-<li><p>Emojis are valid only when they appear alone</p></li>
-<li><p>The <cite>/</cite> symbol can appear only once after alphanumeric characters</p></li>
+<li><p>Alphanumeric characters (a-zA-Z0-9)</p></li>
+<li><p>Valid symbols: -, ‘, *, /</p></li>
+<li><p>The * symbol can only appear once at the end of a word</p></li>
+<li><p>8 emojis are valid only when they appear alone</p></li>
+<li><p>The / symbol can only appear once after alphanumeric characters</p></li>
 <li><p>Spaces are allowed between valid words</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dicTerm</strong> (<em>str</em>) – The dictionary term to validate.</p>
+<dd class="field-odd"><p><strong>dicTerm</strong> (<em>str</em>) – The dictionary term</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><cite>True</cite> if the term is valid, <cite>False</cite> otherwise.</p>
+<dd class="field-even"><p>True if the term is valid, False otherwise</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
@@ -308,7 +309,18 @@ src: <a class="reference external" href="https://github.com/ryanboyd/ContentCode
 <p>This functions reads the content of a LIWC dictionary file in the official format,
 and convert it to a dictionary with lexicon: regular expression format.
 We assume the dicText has two parts: the header, which maps numbers to “category names,”
-and the body, which maps words in the lexicon to different category numbers, separated by a ‘%’ sign.</p>
+and the body, which maps words in the lexicon to different category numbers, separated by ‘%’.
+Below is an example:
+‘’’
+%
+1   function
+2   pronoun
+3   ppron
+%
+again       1       2
+against     1       2       3
+‘’’
+Note that the elements in each line are separated by ‘      ‘.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>dicText</strong> (<em>str</em>) – The content of a .dic file</p>
@@ -326,6 +338,25 @@ and the body, which maps words in the lexicon to different category numbers, sep
 <dt class="sig sig-object py" id="utils.check_embeddings.read_in_lexicons">
 <span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">read_in_lexicons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lexicons_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.check_embeddings.read_in_lexicons" title="Link to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.check_embeddings.sort_words">
+<span class="sig-prename descclassname"><span class="pre">utils.check_embeddings.</span></span><span class="sig-name descname"><span class="pre">sort_words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lexicons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#utils.check_embeddings.sort_words" title="Link to this definition"></a></dt>
+<dd><p>Sorts the dictionary terms in a list.</p>
+<p>This function sorts the dictionary terms in a list by their length in descending order.
+The hyphenated words are sorted first, followed by the non-hyphenated words.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dicTerms</strong> (<em>list</em>) – List of dictionary terms</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dicTerms</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.check_embeddings.str_to_vec">
