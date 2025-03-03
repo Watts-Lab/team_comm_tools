@@ -21,8 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Utilities" href="utils/index.html" />
-    <link rel="prev" title="Information Diversity" href="features_conceptual/information_diversity.html" /> 
+    <link rel="next" title="Features: Technical Documentation" href="features/index.html" />
+    <link rel="prev" title="The Basics (Get Started Here!)" href="basics.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,10 +47,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="feature_builder.html">feature_builder module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features/index.html">Features: Technical Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">The Basics (Get Started Here!)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Worked Example</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#demo-sample-code">Demo / Sample Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a><ul>
@@ -63,18 +60,17 @@
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-featurebuilder">Configuring the FeatureBuilder</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#basic-input-columns">Basic Input Columns</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#advanced-configuration-columns">Advanced Configuration Columns</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#additional-featurebuilder-considerations">Additional FeatureBuilder Considerations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#inspecting-generated-features">Inspecting Generated Features</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#feature-information">Feature Information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#feature-column-names">Feature Column Names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-featurebuilder-considerations">Additional FeatureBuilder Considerations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inspecting-generated-features">Inspecting Generated Features</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="features/index.html">Features: Technical Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features_conceptual/index.html">Features: Conceptual Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils/index.html">Utilities</a></li>
 </ul>
 
@@ -107,7 +103,11 @@
 <section id="demo-sample-code">
 <h2>Demo / Sample Code<a class="headerlink" href="#demo-sample-code" title="Link to this heading"></a></h2>
 <p>After following the “Getting Started” steps below, the Team Communication Toolkit can be imported at the top of any Python script. We have provided a simple example file, “featurize.py”, and a demo notebook, “demo.ipynb,” under our <a class="reference external" href="https://github.com/Watts-Lab/team_comm_tools/tree/main/examples">examples folder</a> on GitHub.</p>
-<p>You can also <a class="reference external" href="https://colab.research.google.com/drive/1e8D5h_prRJsGs_N563EvpoQK0uZIAYsJ?usp=sharing">access our demo notebook on Google Colab</a>, where you can make a copy and run it on your own.</p>
+<p>We also have demos available on Google Colab that you can copy and run on your own:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://colab.research.google.com/drive/1e8D5h_prRJsGs_N563EvpoQK0uZIAYsJ?usp=sharing">Demo 1: Overview of Team Communication Toolkit and 3 Levels of Features</a></p></li>
+<li><p><a class="reference external" href="https://colab.research.google.com/drive/1wnuUC5yg6uQH0TYP1AXVPGRgfp2-npgJ?usp=sharing">Demo 2: Sample Analysis with the Group Affect and Performance Corpus</a></p></li>
+</ul>
 <p>Finally, this page will walk you through a case study, highlighting top use cases and considerations when using the toolkit.</p>
 </section>
 <section id="getting-started">
@@ -210,9 +210,8 @@
 </div></blockquote>
 </li>
 </ul>
-</section>
 <section id="vector-directory">
-<h5>Vector Directory<a class="headerlink" href="#vector-directory" title="Link to this heading"></a></h5>
+<h6>Vector Directory<a class="headerlink" href="#vector-directory" title="Link to this heading"></a></h6>
 <ul>
 <li><p>The <strong>vector_directory</strong> is the name of a directory in which we will store some pre-processed information. Some features require running inference from HuggingFace’s <a class="reference external" href="https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment">RoBERTa-based sentiment model</a>, and others require generating <a class="reference external" href="https://sbert.net/">SBERT vectors</a>. These processes take time, and we cache the outputs so that subsequent runs of the FeatureBuilder on the same dataset will not take as much time. Therefore, we require you to pass in a location where you’d like us to save these outputs.</p>
 <blockquote>
@@ -227,7 +226,7 @@
 </ul>
 </section>
 <section id="output-file-naming-details">
-<span id="output-file-details"></span><h5>Output File Naming Details<a class="headerlink" href="#output-file-naming-details" title="Link to this heading"></a></h5>
+<span id="output-file-details"></span><h6>Output File Naming Details<a class="headerlink" href="#output-file-naming-details" title="Link to this heading"></a></h6>
 <ul>
 <li><p>There are three output files for each run of the FeatureBuilder, which mirror the three levels of analysis: utterance-, speaker-, and conversation-level. (Please see the section on <a class="reference external" href="intro#generating_features">Generating Features: Utterance-, Speaker-, and Conversation-Level</a> for more details.) These are generated using the <strong>output_file_base</strong> parameter.</p>
 <blockquote>
@@ -266,7 +265,7 @@
 </ul>
 </section>
 <section id="turns">
-<h5>Turns<a class="headerlink" href="#turns" title="Link to this heading"></a></h5>
+<h6>Turns<a class="headerlink" href="#turns" title="Link to this heading"></a></h6>
 <ul>
 <li><p>The <strong>turns</strong> parameter controls whether we want to treat successive messages from the same person as a single turn. For example, in a text conversation, sometimes individuals will send many message in rapid succession, as follows:</p>
 <blockquote>
@@ -287,9 +286,12 @@
 </ul>
 </section>
 </section>
+</section>
 <section id="advanced-configuration-columns">
 <h4>Advanced Configuration Columns<a class="headerlink" href="#advanced-configuration-columns" title="Link to this heading"></a></h4>
 <p>More advanced users of the FeatureBuilder should consider the following optional parameters, depending on their needs.</p>
+<section id="regenerating-vector-cache">
+<h5>Regenerating Vector Cache<a class="headerlink" href="#regenerating-vector-cache" title="Link to this heading"></a></h5>
 <ul>
 <li><p>The <strong>regenerate_vectors</strong> parameter controls whether you’d like the FeatureBuilder to re-generate the content in the <strong>vector_directory</strong>, even if we have already cached the output of a previous run. It is useful if the underlying data has changed, but you want to give the output file the same name as a previous run of the FeatureBuilder.</p>
 <blockquote>
@@ -298,6 +300,11 @@
 </ul>
 </div></blockquote>
 </li>
+</ul>
+</section>
+<section id="custom-features">
+<h5>Custom Features<a class="headerlink" href="#custom-features" title="Link to this heading"></a></h5>
+<ul>
 <li><p>The <strong>custom_features</strong> parameter allows you to specify features that do not exist within our default set. <strong>We default to NOT generating four features that depend on SBERT vectors, as the process for generating the vectors tends to be slow.</strong> However, these features can provide interesting insights into the extent to which individuals in a conversation speak “similarly” or not, based on a vector similarity metric. To access these features, simply use the <strong>custom_features</strong> parameter:</p>
 <blockquote>
 <div><blockquote>
@@ -314,6 +321,11 @@
 </ul>
 </div></blockquote>
 </li>
+</ul>
+</section>
+<section id="analyzing-first-percentage">
+<h5>Analyzing First Percentage (%)<a class="headerlink" href="#analyzing-first-percentage" title="Link to this heading"></a></h5>
+<ul>
 <li><p>The <strong>analyze_first_pct</strong> parameter allows you to “cut off” and separately analyze the first X% of a conversation, in case you wish to separately study different sections of a conversation as it progresses. For example, you may be interested in knowing how the attributes of the first 50% of a conversation differ from the attributes of the entire conversation. Then you can sepcify the following:</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">analyze_first_pct</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
@@ -325,7 +337,113 @@
 </ul>
 </div></blockquote>
 </li>
+</ul>
+</section>
+<section id="named-entity-recognition">
+<h5>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Link to this heading"></a></h5>
+<ul class="simple">
 <li><p>The parameters <strong>ner_training_df</strong> and <strong>ner_cutoff</strong> are required if you would like the FeatureBuilder to identify named entities in your conversations. For example, the sentence, “John, did you talk to Michael this morning?” has two named entities: “John” and “Michael.” The FeatureBuilder includes a tool that automatically detects these named entities, but it requires the user (you!) to specify some training data with examples of the types of named entities you’d like to recognize. This is because proper nouns can take many forms, from standard Western-style names (e.g., “John”) to pseudonymous online nicknames (like “littleHorse”). More information about these parameters can be found in <a class="reference internal" href="features_conceptual/named_entity_recognition.html#named-entity-recognition"><span class="std std-ref">Named Entity Recognition</span></a>.</p></li>
+</ul>
+</section>
+<section id="custom-aggregation">
+<span id="id1"></span><h5>Custom Aggregation<a class="headerlink" href="#custom-aggregation" title="Link to this heading"></a></h5>
+<p>Imagine that you, as a researcher, are interested in high-level characteristics of the entire conversation (for example, how much is said), but you only have measures at the (lower) level of each individual utterance (for example, the number of words in each message). How would you “aggregate” information from the lower level to the higher level?</p>
+<p>A simple solution is to sum up to the total number of words per utterance, and group by the conversation identifier. Then, you would have the total number of words for the entire conversation. You can imagine doing similar aggregations for other types of statistics — for example, the average number of words, the variance in the number of words, and so on.</p>
+<p>The FeautureBuilder includes built-in functionality to perform aggregations across different levels of analysis. By default, all numeric attributes generated at the utterance (chat) level are aggregated using the functions <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, and <code class="docutils literal notranslate"><span class="pre">stdev</span></code>.</p>
+<p>We perform three types of aggregations. Consider, for example, a conversation with messages containing 5, 10, and 15 words. Then we would have the following:</p>
+<ul class="simple">
+<li><p><strong>Conversation-Level Aggregates</strong> transform statistics at the level of an utterance (chat) to the level of a conversation. An example is the mean number of words per utterance (10) and the maximum number of words in any utterance (15).</p></li>
+<li><p><strong>Speaker(User)-Level Aggregates</strong> transform statistics at the level of an utterance (chat) to the level of a given speaker (user; participant) in a conversation. An example is the mean number of words per message by a particular speaker.</p></li>
+<li><p><strong>Conversation-Level Aggregates of Speaker-Level Information</strong>: transform information about the speakers (users; participants) to the level of a conversation. An example is the average number of words for the most talkative speaker.</p></li>
+</ul>
+<p>Given that there are multiple default aggregation functions and numerous utterance-level attributes, an (overwhelmingly) large number of aggregation statistics can be produced. As of <strong>v.0.1.5</strong>, aggregation behavior can be customized using the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">convo_aggregation</span></code>: A boolean that defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>; when turned to <code class="docutils literal notranslate"><span class="pre">False</span></code>, aggregation at the conversation level is disabled <strong>[NOTE 1]</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">convo_methods</span></code>: A list specifying which aggregation methods to use at the conversation level. Options include <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">stdev</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, and <code class="docutils literal notranslate"><span class="pre">sum</span></code> <strong>[NOTE 2]; [NOTE 3]</strong>. We default to using <code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, and <code class="docutils literal notranslate"><span class="pre">stdev</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">convo_columns</span></code>: A list specifying which utterance-level attributes to aggregate to the conversation level. These should be valid columns in the utterance (chat)-level data. This defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>, which is configured to aggregate all available numeric outputs.</p></li>
+</ul>
+<p>Equivalent parameters for the speaker (user) level are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">user_aggregation</span></code>: A boolean that defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>; when turned to <code class="docutils literal notranslate"><span class="pre">False</span></code>, aggregation at the speaker (user) level is disabled <strong>[NOTE 1]</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_methods</span></code>: A list specifying which aggregation methods to use at the speaker/user level (with the same options as the conversation level).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_columns</span></code>: A list specifying which utterance-level attributes to aggregate at the speaker/user level.</p></li>
+</ul>
+<p>The table below summarizes the different types of aggregation, and the ways in which they can be customized:</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Aggregation Overview</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 16.0%" />
+<col style="width: 12.0%" />
+<col style="width: 16.0%" />
+<col style="width: 16.0%" />
+<col style="width: 8.0%" />
+<col style="width: 12.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Aggregation Type</p></th>
+<th class="head"><p>Default Methods</p></th>
+<th class="head"><p>Methods Available</p></th>
+<th class="head"><p>Customization Parameters</p></th>
+<th class="head"><p>Output DataFrame</p></th>
+<th class="head"><p>Example Aggregation</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Utterance (Chat) -&gt; Conversation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">stdev</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">stdev</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">sum</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">convo_aggregation</span></code>, <code class="docutils literal notranslate"><span class="pre">convo_methods</span></code>, <code class="docutils literal notranslate"><span class="pre">convo_columns</span></code></p></td>
+<td><p>Conversation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean_num_words</span></code></p></td>
+<td><p>Average number of words per utterance in the conversation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Utterance (Chat) -&gt; Speaker/User</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">stdev</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">stdev</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">sum</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">user_aggregation</span></code>, <code class="docutils literal notranslate"><span class="pre">user_methods</span></code>, <code class="docutils literal notranslate"><span class="pre">user_columns</span></code></p></td>
+<td><p>Speaker/User</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean_num_words</span></code></p></td>
+<td><p>Average number of words per utterance for a given individual</p></td>
+</tr>
+<tr class="row-even"><td><p>Speaker (User) -&gt; Conversation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">stdev</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">stdev</span></code>, <code class="docutils literal notranslate"><span class="pre">median</span></code>, <code class="docutils literal notranslate"><span class="pre">sum</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">convo_aggregation</span></code>, <code class="docutils literal notranslate"><span class="pre">convo_methods</span></code>, <code class="docutils literal notranslate"><span class="pre">convo_columns</span></code></p></td>
+<td><p>Conversation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max_user_mean_num_words</span></code></p></td>
+<td><p>Average number of words per utterance for the person who talked the most</p></td>
+</tr>
+</tbody>
+</table>
+<section id="example-usage-of-custom-aggregation-parameters">
+<h6>Example Usage of Custom Aggregation Parameters<a class="headerlink" href="#example-usage-of-custom-aggregation-parameters" title="Link to this heading"></a></h6>
+<p>To customize aggregation behavior, simply add the following when constructing your FeatureBuilder:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">convo_methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">]</span>  <span class="c1"># This aggregates ONLY &quot;positive_bert&quot; at the conversation level using max and median.</span>
+<span class="n">convo_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;positive_bert&#39;</span><span class="p">],</span>
+<span class="n">user_methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span>            <span class="c1"># This aggregates ONLY &quot;negative_bert&quot; at the speaker/user level using mean.</span>
+<span class="n">user_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;negative_bert&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>To turn off aggregation, set the following parameters to <code class="docutils literal notranslate"><span class="pre">False</span></code>. By default, both are <code class="docutils literal notranslate"><span class="pre">True</span></code> as aggregation is performed automatically:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">convo_aggregation</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">user_aggregation</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</section>
+<section id="important-notes-and-caveats">
+<h6>Important Notes and Caveats<a class="headerlink" href="#important-notes-and-caveats" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p><strong>[NOTE 1]</strong> Even when aggregation is disabled, totals of words, messages, and characters are still summarized, as these are required for calculating the Gini Coefficient features.</p></li>
+<li><p><strong>[NOTE 2]</strong> Be careful when choosing the “sum” aggregation method, as it is not always appropriate to use the “sum” as an aggregation function. While it is a sensible choice for utterance-level attributes that are <em>countable</em> (for example, the total number of words, or other lexical wordcounts), it is a less sensible choice for others (for example, it does not make sense to sum sentiment scores for each utterance in a conversation). Consequently, using the “sum” feature will come with an associated warning.</p></li>
+<li><p><strong>[NOTE 3]</strong> In addition to aggregating from the utterance (chat) level to the conversation level, we also aggregate from the speaker (user) level to the conversation level, using the same methods specified in <code class="docutils literal notranslate"><span class="pre">convo_methods</span></code> to do so.</p></li>
+</ul>
+</section>
+</section>
+<section id="cumulative-grouping">
+<h5>Cumulative Grouping<a class="headerlink" href="#cumulative-grouping" title="Link to this heading"></a></h5>
+<ul>
 <li><p>The parameters <strong>cumulative_grouping</strong> and <strong>within_task</strong> address a special case of having multiple conversational identifiers; <strong>they assume that the same team has multiple sequential conversations, and that, in each conversation, they perform one or more separate activities</strong>. This was originally created as a companion to a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>). For example, imagine that a team must complete 3 different tasks, each with 3 different subparts. Then we can model this event in terms of 1 team (High level), 3 tasks (Mid level), and 3 subparts per task (Low level).</p>
 <blockquote>
 <div><ul>
@@ -390,7 +508,7 @@
 </section>
 </section>
 <section id="additional-featurebuilder-considerations">
-<h3>Additional FeatureBuilder Considerations<a class="headerlink" href="#additional-featurebuilder-considerations" title="Link to this heading"></a></h3>
+<h4>Additional FeatureBuilder Considerations<a class="headerlink" href="#additional-featurebuilder-considerations" title="Link to this heading"></a></h4>
 <p>Here are some additional design details of the FeatureBuilder that you may wish to keep in mind:</p>
 <blockquote>
 <div><ul>
@@ -406,9 +524,9 @@
 </div></blockquote>
 </section>
 <section id="inspecting-generated-features">
-<h3>Inspecting Generated Features<a class="headerlink" href="#inspecting-generated-features" title="Link to this heading"></a></h3>
+<h4>Inspecting Generated Features<a class="headerlink" href="#inspecting-generated-features" title="Link to this heading"></a></h4>
 <section id="feature-information">
-<h4>Feature Information<a class="headerlink" href="#feature-information" title="Link to this heading"></a></h4>
+<h5>Feature Information<a class="headerlink" href="#feature-information" title="Link to this heading"></a></h5>
 <p>Every FeatureBuilder object has an underlying property called the <strong>feature_dict</strong>, which lists information and references about the features included in the toolkit. Assuming that <strong>jury_feature_builder</strong> is the name of your FeatureBuilder, you can access the feature dictionary as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">feature_dict</span>
 </pre></div>
@@ -439,7 +557,7 @@
 </div>
 </section>
 <section id="feature-column-names">
-<h4>Feature Column Names<a class="headerlink" href="#feature-column-names" title="Link to this heading"></a></h4>
+<h5>Feature Column Names<a class="headerlink" href="#feature-column-names" title="Link to this heading"></a></h5>
 <p>Once you call <strong>.featurize()</strong>, you can also obtain a convenient list of the feature columns generated by the toolkit:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">chat_features</span> <span class="c1"># a list of the feature columns generated at the chat (utterance) level</span>
 <span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">conv_features_base</span> <span class="c1"># a list of the base (non-aggregated) feature columns at the conversation level</span>
@@ -454,13 +572,14 @@
 </section>
 </section>
 </section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="features_conceptual/information_diversity.html" class="btn btn-neutral float-left" title="Information Diversity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="utils/index.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="basics.html" class="btn btn-neutral float-left" title="The Basics (Get Started Here!)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="features/index.html" class="btn btn-neutral float-right" title="Features: Technical Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

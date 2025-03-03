@@ -35,12 +35,14 @@ MANIFEST
 src/team_comm_tools/features/lexicons/liwc_lexicons/*
 src/team_comm_tools/features/lexicons/liwc_lexicons_small_test/*
 src/team_comm_tools/features/lexicons/certainty.txt
+src/team_comm_tools/features/lexicons/liwc_2015.dic
 src/team_comm_tools/modules/
 src/team_comm_tools/output/*
 src/team_comm_tools/ipython_notebooks/.ipynb_checkpoints/
 tests/ipython_notebooks/.ipynb_checkpoints/
 tests/data/vector_data/
 tests/test.log
+tests/helper.ipynb
 tests/output/*
 tests/vector_data/*
 src/utils/__pycache__/
@@ -57,6 +59,3 @@ node_modules/
 /output
 /vector_data
 test.py
-
-
-

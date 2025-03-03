@@ -1,19 +1,21 @@
 [build-system]
 requires = [
-  "setuptools >= 42", "wheel"
+  "setuptools >= 42", "wheel", "toml"
 ]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "team_comm_tools"
-version = "0.1.4.post2"
+version = "0.1.5"
 requires-python = ">= 3.10"
 dependencies = [
   "chardet>=3.0.4",
   "convokit==3.0.0",
   "emoji==1.7.0",
   "flask==3.0.3",
+  "fuzzywuzzy==0.18.0",
   "gensim>=4.3.3",
+  "matplotlib>=3.0.0",
   "nltk==3.9.1",
   "numpy<2.0.0",
   "pandas==2.2.2",

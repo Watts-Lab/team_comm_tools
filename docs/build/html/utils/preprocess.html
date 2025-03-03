@@ -47,11 +47,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics.html">The Basics (Get Started Here!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features/index.html">Features: Technical Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features_conceptual/index.html">Features: Conceptual Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Worked Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../feature_builder.html">feature_builder module</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#driver-classes-utterance-conversation-and-speaker-level-features">“Driver” Classes: Utterance-, Conversation-, and Speaker-Level Features</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#other-utilities">Other Utilities</a><ul class="current">
@@ -65,6 +65,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.preprocess_naive_turns"><code class="docutils literal notranslate"><span class="pre">preprocess_naive_turns()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.preprocess_text"><code class="docutils literal notranslate"><span class="pre">preprocess_text()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.preprocess_text_lowercase_but_retain_punctuation"><code class="docutils literal notranslate"><span class="pre">preprocess_text_lowercase_but_retain_punctuation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.remove_unhashable_cols"><code class="docutils literal notranslate"><span class="pre">remove_unhashable_cols()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="summarize_features.html">summarize_features module</a></li>
@@ -107,20 +108,20 @@
 <span id="preprocess-module"></span><h1>preprocess module<a class="headerlink" href="#module-utils.preprocess" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.assert_key_columns_present">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">assert_key_columns_present</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.assert_key_columns_present" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">assert_key_columns_present</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.preprocess.assert_key_columns_present" title="Link to this definition"></a></dt>
 <dd><p>Ensure that the DataFrame has essential columns and handle missing values.</p>
-<p>This function removes all special characters from the DataFrame column names
-and checks if the essential columns <cite>conversation_num</cite>, <cite>message</cite>, and
-<cite>speaker_nickname</cite> are present. If any of these columns are missing, a
-KeyError is raised. It also fills missing values in the essential columns
-with default values.</p>
+<p>This function  if the essential columns <cite>conversation_id_col</cite>, <cite>speaker_id_col</cite>, and
+<cite>message_col</cite> are present. If any of these columns are missing, a
+KeyError is raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame
-:param column_names: Columns to preprocess.</em>) – The DataFrame to check and process.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame to check and process.</p></li>
+<li><p><strong>column_names</strong> (<em>dict</em>) – Columns to preprocess.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>KeyError</strong> – If one of <cite>conversation_num</cite>, <cite>message</cite>, or <cite>speaker_nickname</cite> columns is missing.</p>
+<dd class="field-even"><p><strong>KeyError</strong> – If one of <cite>conversation_id_col</cite>, <cite>speaker_id_col</cite>, and <cite>message_col</cite> columns is missing.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -134,8 +135,10 @@ concatenates their ‘message’ and ‘message_lower_with_punc’ columns into
 single strings if there are multiple messages in the same turn.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>turn_df</strong> (<em>pandas.DataFrame
-:param message_col: A string representing the column name that should be selected as the message.</em>) – The DataFrame containing messages in a single turn.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>turn_df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing messages in a single turn.</p></li>
+<li><p><strong>message_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the message.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A Series with combined messages for the turn.</p>
@@ -154,13 +157,11 @@ single strings if there are multiple messages in the same turn.</p>
 in the context of preceding chats. It enables the inclusion of chats from previous stages or tasks within
 the same conversation.</p>
 <p>NOTE: This function was created in the context of a multi-stage Empirica game (see: <a class="reference external" href="https://github.com/Watts-Lab/multi-task-empirica">https://github.com/Watts-Lab/multi-task-empirica</a>).</p>
-<blockquote>
-<div><p>It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
+<p>It assumes that there are exactly 3 nested columns at different levels: a High, Mid, and Low level; further, it assumes that these levels are temporally nested: that is, each
 group/conversation has one High-level identifier, which contains one or more Mid-level identifiers, which contains one or more Low-level identifiers.</p>
 <p>This is specifically applicable to a hierachical conversation in which the same group of pairing does a series of different activities, each of which
 may have one or more subparts. Thus, the group as a whole will have a “high-level” identiifer; each activity will have a “mid-level” identifier, and each
 sub-part will have a “low-level” identifier.</p>
-</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -191,8 +192,10 @@ are one or more items at the lowest level.</p></li>
 and then assigns a unique ‘turn_id’ that increments whenever the speaker changes within the conversation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame
-:param speaker_id_col: A string representing the column name that should be selected as the speaker ID.</em>) – The DataFrame containing chat data for a single conversation.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing chat data for a single conversation.</p></li>
+<li><p><strong>speaker_id_col</strong> (<em>str</em>) – A string representing the column name that should be selected as the speaker ID.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A Series containing the turn IDs.</p>
@@ -205,7 +208,7 @@ and then assigns a unique ‘turn_id’ that increments whenever the speaker cha
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.preprocess_conversation_columns">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_conversation_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouping_keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative_grouping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_conversation_columns" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_conversation_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouping_keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative_grouping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utils.preprocess.preprocess_conversation_columns" title="Link to this definition"></a></dt>
 <dd><p>Preprocesses conversation data by removing special characters from column names and assigning a conversation number.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -238,8 +241,10 @@ indicating turns taken by the active speaker. It then combines messages with the
 within each conversation to compress repeated messages from the same speaker.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>chat_data</strong> (<em>pandas.DataFrame
-:param column_names: Columns to preprocess.</em>) – The chat data to process.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chat_data</strong> (<em>pandas.DataFrame</em>) – The chat data to process.</p></li>
+<li><p><strong>column_names</strong> (<em>dict</em>) – Columns to preprocess.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The processed chat data with combined message turns.</p>
@@ -252,10 +257,10 @@ within each conversation to compress repeated messages from the same speaker.</p
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.preprocess_text">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.preprocess_text" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">preprocess_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#utils.preprocess.preprocess_text" title="Link to this definition"></a></dt>
 <dd><p>Preprocess text by removing non-alphanumeric characters and converting to lowercase.</p>
 <p>This function takes a string, removes any characters that are not letters, numbers, or spaces,
-and converts the remaining text to lowercase.</p>
+except certain emojis, and converts the remaining text to lowercase.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The input text to process.</p>
@@ -284,6 +289,30 @@ keeping any punctuation marks intact.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.remove_unhashable_cols">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">remove_unhashable_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utils.preprocess.remove_unhashable_cols" title="Link to this definition"></a></dt>
+<dd><p>If a required column contains unhashable types, raise an error.
+Otherwise, remove those columns from the DataFrame and print a warning message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Pandas DataFrame to validate</p></li>
+<li><p><strong>column_names</strong> (<em>dict</em>) – Dictionary of 4 required columns that must not contain unhashable types</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cleaned DataFrame (if columns were removed)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if a required column contains unhashable types</p>
 </dd>
 </dl>
 </dd></dl>

@@ -8,11 +8,14 @@ on the proper input format and performs grouping correctly.
 # Importing the Feature Generating Class
 from team_comm_tools import FeatureBuilder
 import pandas as pd
+import warnings
+warnings.simplefilter("always", category=UserWarning)
 
 # Main Function
 if __name__ == "__main__":
 
 	tiny_multi_task_renamed_df = pd.read_csv("data/cleaned_data/multi_task_TINY_cols_renamed.csv", encoding='utf-8')
+	package_agg_df = pd.read_csv("data/cleaned_data/test_package_aggregation.csv", encoding='utf-8')
 
 	"""
 	Testing Package Task 1
@@ -189,4 +192,87 @@ if __name__ == "__main__":
 		regenerate_vectors = True
 	)
 	test_vectors.featurize()
+
+	"""
+	Test correctness of the custom aggregation pipeline:
+
+	- Aggregate with all the functions for conversation level: [mean, max, min, stdev, median, sum]
+	- Specify 'mean' as 'average' instead and ensure it shows up correctly
+	- Aggregate with "mean" for the user level + a fake method (e.g., "foo")
+	- Aggregate only "second_person_lexical_wordcount" at the conversation level
+	- Aggregate "positive_bert" at the user level + a fake column (e.g., "bar") + a non-numeric column (e.g., "dale_chall_classification")
+	"""
+
+	print("Testing custom aggregation...")
+	custom_agg_fb = FeatureBuilder(
+        input_df = package_agg_df,
+        grouping_keys = ["batch_num", "round_num"],
+        vector_directory = "./vector_data/",
+        output_file_base = "custom_agg_test" ,
+        convo_methods = ['average', 'max', 'min', 'stdev', 'median', 'sum'],
+        convo_columns = ['second_person_lexical_wordcount'], # testing functionality in case of typo
+        user_methods = ['mean', 'foo'],
+        user_columns = ['positive_bert', 'bar', 'dale_chall_classification'], # testing functionality in case of typo
+	)
+	custom_agg_fb.featurize()
+
+
+	"""
+	Test aggregation piepline when we switch aggregation to false
+
+	(We should only get the default num words, num chars, and num messages aggregated).
+	"""
+
+	print("Testing aggregation turned off...")
+	custom_agg_fb_no_agg = FeatureBuilder(
+        input_df = package_agg_df,
+        grouping_keys = ["batch_num", "round_num"],
+        vector_directory = "./vector_data/",
+        output_file_base = "custom_agg_test_no_agg" ,
+        convo_aggregation = False,
+        user_aggregation = False,
+	)
+	custom_agg_fb_no_agg.featurize()
+
+
+	"""
+	Test that it's possible to run the FB with unhashable types that are NOT required columns.
+	"""
+
+	print("Testing unhashable types on non-required columns...")	
+	test_df_with_nonrequired_unhashables = pd.DataFrame({
+		"conversation_id": [1, 1, 2, 2, 2],
+		"text": ["test1", "test2", "test3", "test4", "test5"],
+		"speaker_id": [1, 2, 1, 2, 1],
+		"unhashable_col": [{}, set(), ["foo", "bar"], {"foo": "bar"}, {"foo": ["bar1", "bar2", "bar3"]}]
+		})
+
+	fb_nonrequred_unhashable_test = FeatureBuilder(
+			input_df = test_df_with_nonrequired_unhashables,
+			conversation_id_col = "conversation_id",
+			message_col = "text",
+			speaker_id_col = "speaker_id"
+		)
+
+	"""
+	Test that, if we have unhashable types as required columns, we throw a ValueError as expected. 
+	"""
+
+	print("Testing unhashable types on required columns...")
+	test_df_with_required_unhashables = pd.DataFrame({
+		"conversation_id": [[1], [1], [2], [2], [2]], # conversation_id is a required col and contains lists
+		"text": ["test1", "test2", "test3", "test4", "test5"],
+		"speaker_id": [1, 2, 1, 2, 1]		
+		})
+
+	try:
+		fb_required_unhashable_test = FeatureBuilder(
+			input_df = test_df_with_required_unhashables,
+			conversation_id_col = "conversation_id",
+			message_col = "text",
+			speaker_id_col = "speaker_id"
+		)
+	except ValueError as e:
+		assert('has unhashable data types' in str(e)) # make sure we caught the right error!
+		print("Test has properly exited with error.")
 
