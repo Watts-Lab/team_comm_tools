@@ -173,9 +173,19 @@ def preprocess_naive_turns(chat_data, column_names):
     conversation_id_col = column_names['conversation_id_col']
     message_col = column_names['message_col']
     speaker_id_col = column_names['speaker_id_col']
-    turn_id_per_conv = chat_data.groupby([conversation_id_col], sort=False).apply(lambda df : get_turn_id(df, speaker_id_col))
-    turn_id_per_conv = turn_id_per_conv.to_frame().reset_index().rename(columns={0:'turn_id'})
-    chat_data = pd.concat([chat_data, turn_id_per_conv["turn_id"]], axis=1)
+    turn_id_per_conv = (
+        chat_data.groupby([conversation_id_col], sort=False)
+        .apply(lambda df : get_turn_id(df, speaker_id_col))
+        .reset_index(level=0, drop=True)  # Ensures long format
+    )
+    if len(chat_data[conversation_id_col].unique()) == 1:
+        turn_id_per_conv = turn_id_per_conv.T
+    else:
+        turn_id_per_conv = turn_id_per_conv.to_frame()
+    turn_id_per_conv = turn_id_per_conv.rename(columns={0:'turn_id'})
+    turn_id_per_conv["turn_id"] = turn_id_per_conv["turn_id"].astype(str)
+    # chat_data = pd.concat([chat_data, turn_id_per_conv["turn_id"]], axis=1)
+    chat_data = chat_data.merge(turn_id_per_conv, left_index=True, right_index=True, how="left") # merge with index to preserve order
     
     # Use turn_id to compress messages with the same turn id per conversation
     chat_data = chat_data.groupby(conversation_id_col, sort=False).apply(
