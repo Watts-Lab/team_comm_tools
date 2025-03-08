@@ -227,6 +227,7 @@ def compress(turn_df, message_col):
     if (len(turn_df) > 1):
         result[message_col] = turn_df[message_col].str.cat(sep=' ')
         result['message_lower_with_punc'] = turn_df['message_lower_with_punc'].str.cat(sep=' ')
+        result[message_col + "_original"] = turn_df[message_col + "_original"].str.cat(sep=' ')
     return result
 
 def create_cumulative_rows(input_df, conversation_id, timestamp_col, grouping_keys, within_task = False):
