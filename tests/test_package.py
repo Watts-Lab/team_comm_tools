@@ -21,6 +21,8 @@ custom_agg_conv = pd.read_csv('./output/conv/custom_agg_test_conv_level.csv')
 custom_agg_user = pd.read_csv('./output/user/custom_agg_test_user_level.csv')
 custom_no_agg_conv = pd.read_csv('./output/conv/custom_agg_test_no_agg_conv_level.csv')
 custom_no_agg_user = pd.read_csv('./output/user/custom_agg_test_no_agg_user_level.csv')
+turn_concatenation = pd.read_csv('./output/turn/turns_concat_output_turn_level.csv')
+turn_concatenation_conv = pd.read_csv('./output/conv/turns_concat_output_conv_level.csv')
 
 # Import the Feature Dictionary
 from team_comm_tools.feature_dict import feature_dict
@@ -308,4 +310,23 @@ def test_custom_aggregation_turned_off():
             file.write(f"Default aggregated columns are NOT the only aggregated columns present in the dataframe when aggregations are off.\n")
 
         raise
-    
+
+def test_turn_concatenation():
+
+    try:
+        # ensure that all successive utterances by speaker B in conversation I are concatenated
+        conversation_i = turn_concatenation[turn_concatenation["conversation_num"]=="I"]
+        last_utterance = conversation_i.tail(1)["message_original"].values
+        assert(last_utterance == "Agree to disagree. I love the magical mist. I think it's enchanting. I love to dance in the rain. Sunshine is boring. Rainy days should not go away.")
+
+        # assert that turn_taking_index is always 1
+        turn_taking_index = turn_concatenation_conv["turn_taking_index"]
+        assert(set(turn_taking_index) == {1})
+
+    except AssertionError:
+        with open('test.log', 'a') as file:
+            file.write("\n")
+            file.write("------TEST FAILED------\n")
+            file.write(f"Concatenating successive columns with turns = True failed.\n")
+
+        raise
