@@ -16,6 +16,7 @@ if __name__ == "__main__":
 
 	tiny_multi_task_renamed_df = pd.read_csv("data/cleaned_data/multi_task_TINY_cols_renamed.csv", encoding='utf-8')
 	package_agg_df = pd.read_csv("data/cleaned_data/test_package_aggregation.csv", encoding='utf-8')
+	df_test_turn_concat = pd.read_csv("data/cleaned_data/test_turns.csv")
 
 	"""
 	Testing Package Task 1
@@ -276,3 +277,15 @@ if __name__ == "__main__":
 		assert('has unhashable data types' in str(e)) # make sure we caught the right error!
 		print("Test has properly exited with error.")
 
+	"""
+	Test that running with turns = True works as expected.
+	"""
+	turn_concat_tester = FeatureBuilder(
+		input_df = df_test_turn_concat,
+		conversation_id_col = "conversation_num",
+		speaker_id_col = "speaker_nickname",
+		message_col = "message",
+		output_file_base = "turns_concat_output", # Naming output files using the output_file_base parameter (recommended)
+		turns = True
+	)
+	turn_concat_tester.featurize()

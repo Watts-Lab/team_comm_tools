@@ -1,0 +1,16 @@
+conversation_num,speaker_nickname,message,timestamp
+I,A,How are you doing?,1
+I,B,Likewise it's beautiful.,2
+I,A,I'm not a fan of the rain.,3
+I,A,It's way too cold!,4
+I,B,Agree to disagree.,5
+I,B,I love the magical mist.,6
+I,B,I think it's enchanting.,7
+J,A,Hey --,1
+J,A,How are you doing?,2
+J,B,I am mainly studying today.,3
+J,B,It's not a fun day.,4
+J,B,I'm taking a trip to the library because I have an exam.,5
+I,B,I love to dance in the rain.,8
+I,B,Sunshine is boring.,9
+I,B,Rainy days should not go away.,10
