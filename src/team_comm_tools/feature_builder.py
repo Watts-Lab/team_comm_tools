@@ -216,10 +216,9 @@ class FeatureBuilder:
             ### Conversation Level
             "Turn-Taking Index",
             "Equal Participation",
-            "Team Burstiness",
+            "Team Burstiness", #TODO add dependencies
             "Conversation Level Aggregates",
             "User Level Aggregates",
-            "Team Burstiness",
             "Information Diversity",
             "Conversation Level Aggregates",
             "User Level Aggregates"
@@ -240,6 +239,22 @@ class FeatureBuilder:
         # remove named entities if we didn't pass in the column
         if(self.ner_training is None):
             self.feature_names.remove("Named Entity Recognition")
+        # remove timestamp-related features if we didn't pass in the column
+        if isinstance(self.timestamp_col, str):
+            if self.timestamp_col not in self.chat_data.columns:
+                self.feature_names.remove("Time Difference")
+            else:
+                # verify timestamp format
+                self.verify_timestamp_format(self.timestamp_col)
+        elif isinstance(self.timestamp_col, tuple):
+            timestamp_start, timestamp_end = self.timestamp_col
+            if not {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
+                self.feature_names.remove("Time Difference")
+            else:
+                # verify timestamp format
+                self.verify_timestamp_format(timestamp_start)
+                self.verify_timestamp_format(timestamp_end)
+            
         # deduplicate functions and append them into a list for calculation
         self.feature_methods_chat = []
         self.feature_methods_conv = []
@@ -731,3 +746,36 @@ class FeatureBuilder:
                     except Exception as e:
                         warnings.warn(f"WARNING: Failed loading custom liwc dictionary: {e}")
                         return {}
+    
+    def verify_timestamp_format(self, timestamp_col) -> None:
+        """
+        Verifies that a column in a DataFrame is composed of values that can be parsed
+        either as datetime or as numeric values suitable for time difference calculations.
+
+        :param timestamp_col: The name of the column to verify
+        :type timestamp_col: str
+
+        :return: None
+        :rtype: None
+        :raises ValueError: If the column contains values that cannot be parsed as datetime or numeric.
+        """
+        series = self.chat_data[timestamp_col]
+        if series.isnull().any():
+            raise ValueError(f"Timestamp column '{timestamp_col}' contains null values")
+        
+        try:
+            pd.to_datetime(series)
+            return
+        except Exception:
+            pass
+
+        try:
+            pd.to_numeric(series)
+            return
+        except Exception:
+            pass
+
+        raise ValueError(
+            f"Column '{timestamp_col}' contains values that are neither parseable as datetime "
+            f"nor convertible to numeric format."
+        )
