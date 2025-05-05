@@ -19,8 +19,7 @@ def count_all_caps(text):
         1 for word in words 
         if word.strip(string.punctuation).isupper()  
         and word.strip(string.punctuation).isalpha() 
-        and len(word.strip(string.punctuation)) > 1 
-        or (word.strip(string.punctuation) != "I" and len(word.strip(string.punctuation)) == 1)
+        and len(word.strip(string.punctuation)) > 1
     ) 
     return all_caps_count
 
