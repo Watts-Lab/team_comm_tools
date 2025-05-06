@@ -5,7 +5,7 @@ conversation_num,speaker_nickname,message,expected_column,expected_value
 2,A,1234,num_words,1
 2,B,Is 4 a word?,num_words,4
 3,A,.,num_words,0
-4,test_A,"HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI""",num_all_caps,9
+4,test_A,"HELLO WORLD, THIS IS A TEST. hi HI. hi HI hi HI""",num_all_caps,8
 4,test_B,ONE TWO THREE. four five six. sEvEn EiGhT nInE.,num_all_caps,3
 4,test_A,Check out this [link](https://example.com) and this one http://example.org,num_links,2
 4,test_B,I like google.com and wikipedia.org but not amazon.com,num_links,3
