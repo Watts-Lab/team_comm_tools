@@ -189,7 +189,7 @@ class FeatureBuilder:
         # Set features to generate
         # TODO --- think through more carefully which ones we want to exclude and why
         self.feature_dict = feature_dict
-        self.default_features = [
+        self.feature_names = [
             ### Chat Level
             "Named Entity Recognition",
             "Sentiment (RoBERTa)",
@@ -224,32 +224,32 @@ class FeatureBuilder:
             "User Level Aggregates"
         ]
         # warning if user added invalid custom/exclude features
-        self.custom_features = []
         invalid_features = set()
         for feat in custom_features:
-            if feat in self.feature_dict:
-                self.custom_features.append(feat)
+            if feat in self.feature_dict: # TODO: check dependencies
+                self.feature_names.append(feat)
             else:
                 invalid_features.add(feat)
         if invalid_features:
             invalid_features_str = ', '.join(invalid_features)
             warnings.warn(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
-        # keep track of which features we are generating
-        self.feature_names = self.default_features + self.custom_features
         # remove named entities if we didn't pass in the column
-        if(self.ner_training is None):
+        if self.ner_training is None:
             self.feature_names.remove("Named Entity Recognition")
         # remove timestamp-related features if we didn't pass in the column
+        timestamp_features = ['Time Difference', "Team Burstiness"]
         if isinstance(self.timestamp_col, str):
             if self.timestamp_col not in self.chat_data.columns:
-                self.feature_names.remove("Time Difference")
+                for feat in timestamp_features:
+                    self.feature_names.remove(feat)
             else:
                 # verify timestamp format
                 self.verify_timestamp_format(self.timestamp_col)
         elif isinstance(self.timestamp_col, tuple):
             timestamp_start, timestamp_end = self.timestamp_col
             if not {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
-                self.feature_names.remove("Time Difference")
+                for feat in timestamp_features:
+                    self.feature_names.remove(feat)
             else:
                 # verify timestamp format
                 self.verify_timestamp_format(timestamp_start)
@@ -258,7 +258,13 @@ class FeatureBuilder:
         # deduplicate functions and append them into a list for calculation
         self.feature_methods_chat = []
         self.feature_methods_conv = []
+        need_sentence = False
+        need_sentiment = False
         for feature in self.feature_names:
+            if(not need_sentence and feature_dict[feature]["vect_data"]):
+                need_sentence = True
+            if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
+                need_sentiment = True
             level, func = self.feature_dict[feature]["level"], self.feature_dict[feature]['function']
             if level == 'Chat':
                 if func not in self.feature_methods_chat:
@@ -387,18 +393,18 @@ class FeatureBuilder:
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
         # Check + generate embeddings
-        need_sentence = False
-        need_sentiment = False
+        # need_sentence = False
+        # need_sentiment = False
         
-        for feature in self.default_features + self.custom_features:
-            if(need_sentiment and need_sentence):
-                break # if we confirm that both are needed, break (we're done!)
+        # for feature in self.default_features + self.custom_features:
+        #     if(need_sentiment and need_sentence):
+        #         break # if we confirm that both are needed, break (we're done!)
 
-            # else, keep checking the requirements of each feature to confirm embeddings are needed
-            if(not need_sentence and feature_dict[feature]["vect_data"]):
-                need_sentence = True
-            if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
-                need_sentiment = True
+        #     # else, keep checking the requirements of each feature to confirm embeddings are needed
+        #     if(not need_sentence and feature_dict[feature]["vect_data"]):
+        #         need_sentence = True
+        #     if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
+        #         need_sentiment = True
 
         check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname)
 
