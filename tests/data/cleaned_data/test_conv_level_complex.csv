@@ -1,414 +1,414 @@
 conversation_num,speaker_nickname,timestamp,message,feature
-A, John, 2020-04-20T18:27:20.125Z, I'm curious how do you all feel about using flashcards?,team_burstiness
-A, Mary, 2020-04-20T18:27:40.125Z, I think flashcards are a great way to memorize information.,team_burstiness
-A, John, 2020-04-20T18:28:00.125Z, I agree I've found them to be really helpful.,team_burstiness
-A, Jessica, 2020-04-20T18:28:20.125Z, I'm not a big fan of flashcards I find them to be boring and ineffective.,team_burstiness
-A, Mary, 2020-04-20T18:28:40.125Z, I think it really depends on the individual and how they learn best.,team_burstiness
-A, John, 2020-04-20T18:29:00.125Z, That's true I know some people who prefer to use other methods like spaced repetition.,team_burstiness
-A, Jessica, 2020-04-20T18:29:20.125Z, I've heard of spaced repetition but I've never tried it.,team_burstiness
-A, John, 2020-04-20T18:29:40.125Z, It's a great way to improve your long-term memory.,team_burstiness
-A, Mary, 2020-04-20T18:30:00.125Z, I'll have to give it a try.,team_burstiness
-A, Jessica, 2020-04-20T18:30:20.125Z, Do you have any tips for studying effectively?,team_burstiness
-A, John, 2020-04-20T18:30:40.125Z, I find that studying in short bursts is more effective than trying to cram everything in at once.,team_burstiness
-A, Mary, 2020-04-20T18:31:00.125Z, I agree it's also important to take breaks and get enough sleep.,team_burstiness
-A, Jessica, 2020-04-20T18:31:20.125Z, I'm always struggling to stay motivated any tips?,team_burstiness
-A, John, 2020-04-20T18:31:40.125Z, I find it helpful to set realistic goals and break down large tasks into smaller ones.,team_burstiness
-A, Mary, 2020-04-20T18:32:00.125Z, It's also important to find a study buddy or group to help you stay accountable.,team_burstiness
-A, Jessica, 2020-04-20T18:32:20.125Z, Thanks for the advice I'll definitely try it out.,team_burstiness
-B, A, 2020-04-20T18:27:20.125Z, Hi everyone what are your favorite study habits?,team_burstiness
-B, B, 2020-04-20T18:27:40.956Z, I like to study in a quiet place where I can focus.,team_burstiness
-B, C, 2020-04-20T18:28:01.789Z, I prefer to study with a group of friends so we can help each other.,team_burstiness
-B, D, 2020-04-20T18:28:23.621Z, I like to study by myself so I can go at my own pace.,team_burstiness
-B, A, 2020-04-20T18:28:45.452Z, I think it's important to find a study method that works for you.,team_burstiness
-B, B, 2020-04-20T18:29:07.284Z, I agree.,team_burstiness
-B, C, 2020-04-20T18:29:29.116Z, I also think it's important to take breaks while you're studying.,team_burstiness
-B, D, 2020-04-20T18:29:50.947Z, Yes it's important to give your brain a chance to rest.,team_burstiness
-B, A, 2020-04-20T18:30:12.778Z, I find that it's helpful to set a timer and study for 25 minutes then take a 5 minute break.,team_burstiness
-B, B, 2020-04-20T18:30:34.610Z, That's a good idea I'll try that.,team_burstiness
-B, C, 2020-04-20T18:30:56.441Z, I like to listen to music while I study it helps me to concentrate.,team_burstiness
-B, D, 2020-04-20T18:31:18.273Z, I prefer to study in silence so I can focus on the material.,team_burstiness
-B, A, 2020-04-20T18:31:40.105Z, I find that it's helpful to create a study schedule and stick to it.,team_burstiness
-B, B, 2020-04-20T18:32:01.936Z, I agree it's important to be consistent with your studying.,team_burstiness
-B, C, 2020-04-20T18:32:23.768Z, I also think it's important to reward yourself for your hard work.,team_burstiness
-B, D, 2020-04-20T18:32:45.599Z, Yes it's important to stay motivated while you're studying.,team_burstiness
-C, A, 2020-04-20T18:27:20.125Z, I'm really struggling to stay focused when I study,team_burstiness
-C, B, 2020-04-20T18:27:32.456Z, I know what you mean. I have the same problem.,team_burstiness
-C, C, 2020-04-20T18:27:44.567Z, I've been trying to find a study method that works for me but I haven't had much luck. Do you have any tips?,team_burstiness
-C, B, 2020-04-20T18:29:22.456Z, I've found that it helps to break down my study material into smaller chunks.,team_burstiness
-C, C, 2020-04-20T18:29:44.567Z, That's a good idea. I'll try that.,team_burstiness
-C, A, 2020-04-20T18:29:52.456Z, I've also found that it helps to study in a quiet place where I can focus.,team_burstiness
-C, D, 2020-04-20T18:31:24.567Z, I agree. It's hard to concentrate when there's a lot of noise around.,team_burstiness
-C, A, 2020-04-20T19:31:32.456Z, Another thing that I've found helpful is to set a timer for myself when I study.,team_burstiness
-C, B, 2020-04-20T19:31:34.567Z, That's a good idea. It helps me to stay on task.,team_burstiness
-C, C, 2020-04-20T19:33:22.456Z, I'm going to try that too.,team_burstiness
-C, D, 2020-04-20T19:33:24.567Z, I've also found that it helps to reward myself when I finish a study session.,team_burstiness
-C, A, 2020-04-20T19:33:32.456Z, That's a good idea. It gives me something to look forward to.,team_burstiness
-C, B, 2020-04-20T19:33:44.567Z, I agree. It helps me to stay motivated.,team_burstiness
-C, C, 2020-04-20T20:35:32.456Z, I've found that it's also important to take breaks when you're studying.,team_burstiness
-C, D, 2020-04-20T20:35:44.567Z, I agree. It helps me to stay focused and avoid burnout.,team_burstiness
-C, A, 2020-04-20T20:35:52.456Z, I've also found that it helps to study with a friend or classmate.,team_burstiness
-C, B, 2020-04-20T20:35:56.567Z, That's a good idea. It can help you to stay motivated and on track.,team_burstiness
-D,Adam,, I just saw the craziest thing on the way to work,discursive_diversity
-D,Brad,, Did you hear about the new restaurant opening up downtown? I've heard nothing but good things,discursive_diversity
-D,Chris,, Hey team we need to finalize the plans for the client presentation by tomorrow,discursive_diversity
-D,Brad,, I'm so excited to try the new sushi place,discursive_diversity
-D,Chris,, Please let me know if you have any questions,discursive_diversity
-D,Adam,, It was like something out of a movie,discursive_diversity
-D,Chris,, We should aim to have a draft ready for review by the end of the day,discursive_diversity
-D,Adam,, I couldn't believe my eyes,discursive_diversity
-D,Brad,, The reviews say the ambiance is amazing too,discursive_diversity
-D,Adam,, I had to stop and take a picture,discursive_diversity
-E,person a,,I love my new job.,discursive_diversity
-E,person a,,I think this is the most money I've ever made.,discursive_diversity
-E,person a,,Working with like-minded people is great.,discursive_diversity
-E,person a,,I'm so happy I found this job.,discursive_diversity
-E,person b,,Painting is my passion.,discursive_diversity
-E,person b,,I love painting landscapes.,discursive_diversity
-E,person b,,I'm going to buy new brushes soon.,discursive_diversity
-E,person b,,I'm going to start getting into art more often.,discursive_diversity
-E,person c,,What should I cook for dinner?,discursive_diversity
-E,person c,,I'm thinking of making spaghetti.,discursive_diversity
-E,person c,,I'm going to make a salad too.,discursive_diversity
-E,person c,,I'm going to make a cake for dessert.,discursive_diversity
-E,person d,,I'm going to the gym today.,discursive_diversity
-E,person d,,I'm going to work on my legs.,discursive_diversity
-E,person d,,I'm going to do some cardio.,discursive_diversity
-E,person d,,I'll finish off with some weight lifting.,discursive_diversity
-F, Amy,, I'm really excited for the party tomorrow night.,discursive_diversity
-F, Bob,, Me too! I can't wait to see everyone and dance the night away.,discursive_diversity
-F, Carol,, I'm bringing a new dish to the party. It's a secret family recipe.,discursive_diversity
-F, Dave,, That sounds delicious Carol. I can't wait to try it.,discursive_diversity
-F, Amy,, I'm sure it will be a hit. You're such a good cook.,discursive_diversity
-F, Bob,, I agree. Carol's cooking is always amazing.,discursive_diversity
-F, Carol,, Thanks guys. I'm glad you're all excited.,discursive_diversity
-F, Dave,, So what time should we meet at the party?,discursive_diversity
-F, Amy,, Let's say 8 pm. That way we can all have some time to mingle before the music starts.,discursive_diversity
-F, Bob,, Sounds good to me. I'll see you guys there.,discursive_diversity
-F, Carol,, Me too. Can't wait!,discursive_diversity
-F, Dave,, I just realized I don't have anything to wear.,discursive_diversity
-F, Amy,, Don't worry I have a spare dress you can borrow.,discursive_diversity
-F, Bob,, That's so nice of you Amy.,discursive_diversity
-F, Carol,, I'm sure it will look great on you Dave.,discursive_diversity
-F, Dave,, Thanks everyone. I really appreciate it.,discursive_diversity
-G,A, 2024-07-15T23:09:36.125Z, I love eating.,variance_in_DD
-G,B, 2024-07-15T23:10:36.125Z, What's your favorite place to eat?,variance_in_DD
-G,A, 2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,variance_in_DD
-G,B, 2024-07-15T23:12:36.125Z, I could go for some pasta and pizza right now.,variance_in_DD
-G,B, 2024-07-15T23:14:36.125Z, Anyways what are your vacation plans?,variance_in_DD
-G,A, 2024-07-15T23:15:36.125Z, I'm going to start cooking more.,variance_in_DD
-G,B, 2024-07-15T23:16:36.125Z, Greg and I are flying to Panama tomorrow.,variance_in_DD
-G,A, 2024-07-15T23:17:36.125Z, I'm thinking of publishing my own recipe book.,variance_in_DD
-G,B, 2024-07-15T23:18:36.125Z, We're excited to go on a vacation together.,variance_in_DD
-G,A, 2024-07-15T23:19:36.125Z, Is this your first trip abroad?,variance_in_DD
-G,B, 2024-07-15T23:20:36.125Z, Yes we've never travelled outside the country before.,variance_in_DD
-G,A, 2024-07-15T23:21:36.125Z, Travelling abroad is a different type of fun.,variance_in_DD
-H,A, 2024-07-15T23:09:36.125Z, I love eating.,variance_in_DD
-H,B, 2024-07-15T23:10:36.125Z, I'm going for a run.,variance_in_DD
-H,A, 2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,variance_in_DD
-H,B, 2024-07-15T23:12:36.125Z, I'm running my first race in a few days.,variance_in_DD
-H,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
-H,B, 2024-07-15T23:14:36.125Z, Yes I've been going to the gym everday for 6 months now.,variance_in_DD
-H,A, 2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
-H,B, 2024-07-15T23:16:36.125Z, Sports and running are great options.,variance_in_DD
-H,A, 2024-07-15T23:19:36.125Z, I want to eat something.,variance_in_DD
-H,B, 2024-07-15T23:20:36.125Z, Exercising is my passion.,variance_in_DD
-H,A, 2024-07-15T23:21:36.125Z, Let's go get food.,variance_in_DD
-H,B, 2024-07-15T23:22:36.125Z, I think I'm going to just run.,variance_in_DD
-I,A, 2024-07-15T23:09:36.125Z, I love exercising.,variance_in_DD
-I,B, 2024-07-15T23:10:36.125Z, I'm going for a run.,variance_in_DD
-I,A, 2024-07-15T23:11:36.125Z, I play sports like tennis and baseball too.,variance_in_DD
-I,B, 2024-07-15T23:12:36.125Z, I'm running my first race in a few days.,variance_in_DD
-I,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
-I,B, 2024-07-15T23:14:36.125Z, Yes I've been going to the gym everday for 6 months now.,variance_in_DD
-I,A, 2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
-I,B, 2024-07-15T23:16:36.125Z, Sports and running are great options.,variance_in_DD
-I,A, 2024-07-15T23:17:36.125Z, I want to exercise more frequently.,variance_in_DD
-I,B, 2024-07-15T23:18:36.125Z, You can join me during my runs.,variance_in_DD
-I,A, 2024-07-15T23:19:36.125Z, How athletic are you?,variance_in_DD
-I,B, 2024-07-15T23:20:36.125Z, Exercising is my passion.,variance_in_DD
-J,A, 2024-07-15T23:09:36.125Z, I love exercising.,variance_in_DD
-J,B, 2024-07-15T23:10:36.125Z, I'm going for a run.,variance_in_DD
-J,A, 2024-07-15T23:11:36.125Z, I play sports like tennis and baseball too.,variance_in_DD
-J,B, 2024-07-15T23:12:36.125Z, I'm running my first race in a few days.,variance_in_DD
-J,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
-J,B, 2024-07-15T23:14:36.125Z, Yes I've been going to the gym everday for 6 months now.,variance_in_DD
-J,A, 2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
-J,B, 2024-07-15T23:16:36.125Z, Sports and running are great options.,variance_in_DD
-J,A, 2024-07-15T23:17:36.125Z, I want to exercise more frequently.,variance_in_DD
-J,B, 2024-07-15T23:18:36.125Z, You can join me during my runs.,variance_in_DD
-J,A, 2024-07-15T23:19:36.125Z, How athletic are you?,variance_in_DD
-J,B, 2024-07-15T23:20:36.125Z, Exercising is my passion.,variance_in_DD
-K,A, 2024-07-15T23:09:36.125Z, I love exercising.,variance_in_DD
-K,B, 2024-07-15T23:10:36.125Z, I don't see the point in partying.,variance_in_DD
-K,A, 2024-07-15T23:11:36.125Z, I play sports like tennis and baseball too.,variance_in_DD
-K,B, 2024-07-15T23:12:36.125Z, Partying isn't productive at all.,variance_in_DD
-K,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
-K,B, 2024-07-15T23:14:36.125Z, Dirty basements and uncomfortable music ugh.,variance_in_DD
-K,A, 2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
-K,B, 2024-07-15T23:16:36.125Z, I don't enjoy alcohol either,variance_in_DD
-K,A, 2024-07-15T23:17:36.125Z, I want to exercise more frequently.,variance_in_DD
-K,B, 2024-07-15T23:18:36.125Z, Thank god my friends hate partying too.,variance_in_DD
-K,A, 2024-07-15T23:19:36.125Z, How athletic are you?,variance_in_DD
-K,B, 2024-07-15T23:20:36.125Z, I barely even party on my birthday!,variance_in_DD
-L,A, 2024-07-15T23:09:36.125Z, I love eating.,variance_in_DD
-L,B, 2024-07-15T23:10:36.125Z, I'm going for a run.,variance_in_DD
-L,A, 2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,variance_in_DD
-L,B, 2024-07-15T23:12:36.125Z, I'm running my first race in a few days.,variance_in_DD
-L,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
-L,B, 2024-07-15T23:14:36.125Z, Yes I've been going to the gym everday for 6 months now.,variance_in_DD
-L,A, 2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
-L,B, 2024-07-15T23:16:36.125Z, Sports and running are great options.,variance_in_DD
-L,A, 2024-07-15T23:19:36.125Z, I want to eat something.,variance_in_DD
-L,B, 2024-07-15T23:20:36.125Z, Exercising is my passion.,variance_in_DD
-L,A, 2024-07-15T23:21:36.125Z, Let's go get food.,variance_in_DD
-L,B, 2024-07-15T23:22:36.125Z, I think I'm going to just run.,variance_in_DD
-M,A, 2024-07-15T23:09:36.125Z, I love eating.,within_person_disc_range
-M,B, 2024-07-15T23:10:36.125Z, I love eating.,within_person_disc_range
-M,A, 2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,within_person_disc_range
-M,B, 2024-07-15T23:12:36.125Z, I love anything that's serving Italian food.,within_person_disc_range
-M,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,within_person_disc_range
-M,B, 2024-07-15T23:14:36.125Z, Do you exercise a lot!,within_person_disc_range
-M,A, 2024-07-15T23:15:36.125Z, Sports and running are great options.,within_person_disc_range
-M,B, 2024-07-15T23:16:36.125Z, Sports and running are great options.,within_person_disc_range
-M,A, 2024-07-15T23:19:36.125Z, I want to eat something.,within_person_disc_range
-M,B, 2024-07-15T23:20:36.125Z, I want to eat something.,within_person_disc_range
-M,A, 2024-07-15T23:21:36.125Z, Let's go get food.,within_person_disc_range
-M,B, 2024-07-15T23:22:36.125Z, Let's go get food.,within_person_disc_range
-N,A, 2024-07-15T23:09:36.125Z, I love sports.,within_person_disc_range
-N,B, 2024-07-15T23:10:36.125Z, I love sports.,within_person_disc_range
-N,A, 2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,within_person_disc_range
-N,B, 2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,within_person_disc_range
-N,A, 2024-07-15T23:13:36.125Z, Do you enjoy Mexican food?,within_person_disc_range
-N,B, 2024-07-15T23:14:36.125Z, Do you enjoy Mexican food?,within_person_disc_range
-N,A, 2024-07-15T23:15:36.125Z, My favorite food is quesadillas.,within_person_disc_range
-N,B, 2024-07-15T23:16:36.125Z, My favorite food is quesadillas.,within_person_disc_range
-N,A, 2024-07-15T23:19:36.125Z, I want to go on a run.,within_person_disc_range
-N,B, 2024-07-15T23:20:36.125Z, I want to play some sports.,within_person_disc_range
-N,A, 2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,within_person_disc_range
-N,B, 2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,within_person_disc_range
-O,A, 2024-07-15T23:09:36.125Z, I love sports.,within_person_disc_range
-O,B, 2024-07-15T23:10:36.125Z, I love sports.,within_person_disc_range
-O,A, 2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,within_person_disc_range
-O,B, 2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,within_person_disc_range
-O,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,within_person_disc_range
-O,B, 2024-07-15T23:14:36.125Z, Do you exercise a lot!,within_person_disc_range
-O,A, 2024-07-15T23:15:36.125Z, Sports and running are great options.,within_person_disc_range
-O,B, 2024-07-15T23:16:36.125Z, Sports and running are great options.,within_person_disc_range
-O,A, 2024-07-15T23:19:36.125Z, I want to go on a run.,within_person_disc_range
-O,B, 2024-07-15T23:20:36.125Z, I want to play some sports.,within_person_disc_range
-O,A, 2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,within_person_disc_range
-O,B, 2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,within_person_disc_range
-P,A, 2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
-P,B, 2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
-P,A, 2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
-P,B, 2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
-P,A, 2024-07-15T23:13:36.125Z, Do you enjoy Mexican food?,incongruent_modulation
-P,B, 2024-07-15T23:14:36.125Z, Sports is my passion.,incongruent_modulation
-P,A, 2024-07-15T23:15:36.125Z, My favorite food is quesadillas.,incongruent_modulation
-P,B, 2024-07-15T23:16:36.125Z, I think running is my favorite exercise.,incongruent_modulation
-P,A, 2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
-P,B, 2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
-P,A, 2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
-P,B, 2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
-Q,A, 2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
-Q,B, 2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
-Q,A, 2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
-Q,B, 2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
-Q,A, 2024-07-15T23:13:36.125Z, Sports is my passion.,incongruent_modulation
-Q,B, 2024-07-15T23:14:36.125Z, Do you enjoy Mexican food?,incongruent_modulation
-Q,A, 2024-07-15T23:15:36.125Z, .I think running is my favorite exercise.,incongruent_modulation
-Q,B, 2024-07-15T23:16:36.125Z, My favorite food is quesadillas,incongruent_modulation
-Q,A, 2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
-Q,B, 2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
-Q,A, 2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
-Q,B, 2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
-R,A, 2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
-R,B, 2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
-R,A, 2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
-R,B, 2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
-R,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,incongruent_modulation
-R,B, 2024-07-15T23:14:36.125Z, Do you exercise a lot!,incongruent_modulation
-R,A, 2024-07-15T23:15:36.125Z, Sports and running are great options.,incongruent_modulation
-R,B, 2024-07-15T23:16:36.125Z, Sports and running are great options.,incongruent_modulation
-R,A, 2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
-R,B, 2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
-R,A, 2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
-R,B, 2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
-S,A, 2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
-S,B, 2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
-S,A, 2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
-S,B, 2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
-S,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,incongruent_modulation
-S,B, 2024-07-15T23:14:36.125Z, Do you exercise a lot!,incongruent_modulation
-S,A, 2024-07-15T23:15:36.125Z, Sports and running are great options.,incongruent_modulation
-S,B, 2024-07-15T23:16:36.125Z, Sports and running are great options.,incongruent_modulation
-S,A, 2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
-S,B, 2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
-S,A, 2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
-S,B, 2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
-T,A, 2024-07-15T23:09:36.125Z, I love eating.,incongruent_modulation
-T,B, 2024-07-15T23:10:36.125Z, I love eating.,incongruent_modulation
-T,A, 2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,incongruent_modulation
-T,B, 2024-07-15T23:12:36.125Z, I love anything that's serving Italian food.,incongruent_modulation
-T,A, 2024-07-15T23:13:36.125Z, Do you exercise a lot!,incongruent_modulation
-T,B, 2024-07-15T23:14:36.125Z, Do you exercise a lot!,incongruent_modulation
-T,A, 2024-07-15T23:15:36.125Z, Sports and running are great options.,incongruent_modulation
-T,B, 2024-07-15T23:16:36.125Z, Sports and running are great options.,incongruent_modulation
-T,A, 2024-07-15T23:19:36.125Z, I want to eat something.,incongruent_modulation
-T,B, 2024-07-15T23:20:36.125Z, I want to eat something.,incongruent_modulation
-T,A, 2024-07-15T23:21:36.125Z, Let's go get food.,incongruent_modulation
-T,B, 2024-07-15T23:22:36.125Z, Let's go get food.,incongruent_modulation
-U,A, 2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
-U,B, 2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
-U,A, 2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
-U,B, 2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
-U,A, 2024-07-15T23:13:36.125Z, Do you enjoy Mexican food?,incongruent_modulation
-U,B, 2024-07-15T23:14:36.125Z, Sports is my passion.,incongruent_modulation
-U,A, 2024-07-15T23:15:36.125Z, My favorite food is quesadillas.,incongruent_modulation
-U,B, 2024-07-15T23:16:36.125Z, I think running is my favorite exercise.,incongruent_modulation
-U,A, 2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
-U,B, 2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
-U,A, 2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
-U,B, 2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
-conversation_1, speaker_1,, Have you checked out the latest developments in blockchain tech?,info_diversity
-conversation_1, speaker_2,, Yeah the advancements are pretty incredible especially with DeFi.,info_diversity
-conversation_1, speaker_3,, I’ve been really into how NFTs are being used for digital identity verification.,info_diversity
-conversation_1, speaker_1,, NFTs are definitely evolving. It's amazing how they started just with art.,info_diversity
-conversation_1, speaker_2,, Right? Now they’re branching out into real estate and even intellectual property.,info_diversity
-conversation_1, speaker_3,, The possibilities are endless. I’m curious to see how governments will regulate it though.,info_diversity
-conversation_1, speaker_1,, That’s a big question. Regulation could either stifle innovation or provide the structure it needs to grow.,info_diversity
-conversation_1, speaker_2,, I think we’ll see a mix. Some countries are embracing it while others are more cautious.,info_diversity
-conversation_1, speaker_3,, It’ll be interesting to see which approach works best. I’m also wondering about the environmental impact of all this.,info_diversity
-conversation_1, speaker_1,, That’s a good point. The shift to more energy-efficient consensus algorithms is crucial.,info_diversity
-conversation_2, speaker_1,, I just finished the machine learning course you recommended. It was awesome!,info_diversity
-conversation_2, speaker_2,, That’s great to hear! Did you do all the assignments?,info_diversity
-conversation_2, speaker_3,, I’m still working through it but the concepts are starting to click.,info_diversity
-conversation_2, speaker_1,, The assignments really help solidify the knowledge. The neural networks part was a bit tough though.,info_diversity
-conversation_2, speaker_2,, Neural networks can be tricky at first but once you get it it’s really powerful.,info_diversity
-conversation_2, speaker_3,, I’m excited to apply what I’ve learned to some real-world data sets.,info_diversity
-conversation_2, speaker_1,, Same here. I’m thinking of starting a side project to predict stock prices.,info_diversity
-conversation_2, speaker_2,, That’s ambitious! But it’s a great way to put your skills to the test.,info_diversity
-conversation_2, speaker_3,, I might join you on that! It’ll be cool to collaborate and see what we come up with.,info_diversity
-conversation_2, speaker_1,, Let’s do it! We can brainstorm ideas this weekend.,info_diversity
-conversation_5, speaker_1,, Did you catch the latest episode of that show everyone’s talking about?,info_diversity
-conversation_5, speaker_2,, Yeah it was intense! But I had to pause halfway to finish my assignment.,info_diversity
-conversation_5, speaker_3,, I haven’t started watching it yet. Is it really that good?,info_diversity
-conversation_5, speaker_1,, Definitely worth it. But speaking of assignments how’s your machine learning course going?,info_diversity
-conversation_5, speaker_2,, It’s going well! I’m almost done with the neural networks module.,info_diversity
-conversation_5, speaker_3,, Neural networks? That’s tough. I’m still stuck on the earlier parts.,info_diversity
-conversation_5, speaker_1,, You’ll get there. Just take it one step at a time. Also are you guys thinking about internships yet?,info_diversity
-conversation_5, speaker_2,, I am! I’m applying to a few tech companies next week.,info_diversity
-conversation_5, speaker_3,, I should probably start looking too. I’m just so caught up with other things.,info_diversity
-conversation_5, speaker_1,, Same here. Between school shows and job applications it’s hard to find balance.,info_diversity
-conversation_3, speaker_1,, Are you ready to start applying for internships?,info_diversity
-conversation_3, speaker_2,, Almost. I’m just finalizing my resume and polishing up my GitHub.,info_diversity
-conversation_3, speaker_3,, Same here. I’m focusing on tech companies that have strong mentorship programs.,info_diversity
-conversation_3, speaker_1,, That’s smart. I’ve been looking at roles in fintech but I’m open to other sectors too.,info_diversity
-conversation_3, speaker_2,, Fintech is hot right now. There’s so much innovation happening.,info_diversity
-conversation_3, speaker_3,, I’m leaning towards something in AI or machine learning. There’s a lot of demand in those areas.,info_diversity
-conversation_3, speaker_1,, Definitely. It’s a great time to be in tech. Have you guys started preparing for interviews?,info_diversity
-conversation_3, speaker_2,, I’ve done a few Leetcode problems but I need to ramp up.,info_diversity
-conversation_3, speaker_3,, Same I’m planning to do at least one problem a day until interview season.,info_diversity
-conversation_3, speaker_1,, Sounds like a solid plan. We should do mock interviews together to practice.,info_diversity
-conversation_4, speaker_1,, I’ve been using React for a new project and it’s going pretty well so far.,info_diversity
-conversation_4, speaker_2,, Nice! What are you building?,info_diversity
-conversation_4, speaker_3,, I’m curious too. React is great for building dynamic user interfaces.,info_diversity
-conversation_4, speaker_1,, It’s a course review platform where students can rate and review their classes.,info_diversity
-conversation_4, speaker_2,, That sounds really useful! Are you handling both the frontend and backend?,info_diversity
-conversation_4, speaker_3,, I love that idea. What stack are you using for the backend?,info_diversity
-conversation_4, speaker_1,, I’m using Node.js with Express for the backend and MySQL for the database.,info_diversity
-conversation_4, speaker_2,, Solid choices. How are you planning to handle scalability if the platform grows?,info_diversity
-conversation_4, speaker_3,, AWS could be a good option for scaling. Have you looked into that?,info_diversity
-conversation_4, speaker_1,, Yeah I’m considering AWS for deployment. I want the platform to be scalable from the start.,info_diversity
-conversation_6, speaker_1,, I just started a new book on AI ethics and it’s really eye-opening.,info_diversity
-conversation_6, speaker_2,, That sounds interesting. What’s it about?,info_diversity
-conversation_6, speaker_3,, AI ethics is such an important topic especially with all the recent developments.,info_diversity
-conversation_6, speaker_1,, It explores how AI is impacting society both positively and negatively.,info_diversity
-conversation_6, speaker_3,, I did! I’m planning to integrate one of them into my next project.,info_diversity
-conversation_6, speaker_1,, That’s awesome. By the way are you still going to the gym regularly?,info_diversity
-conversation_6, speaker_2,, I’ve been slacking off lately to be honest. Too much work.,info_diversity
-conversation_6, speaker_3,, Same here. I’ve been prioritizing coding over everything else.,info_diversity
-conversation_6, speaker_1,, We should do a workout session together. It’s good to take breaks from all the tech stuff.,info_diversity
-conversation_15, speaker_1,, Have you ever thought about how artificial intelligence is changing our daily lives It’s everywhere now,info_diversity
-conversation_15, speaker_2,, Artificial intelligence is integrated into so many aspects of life from virtual assistants to smart homes,info_diversity
-conversation_15, speaker_3,, AI in smart homes is incredible It automates so many tasks and makes life easier,info_diversity
-conversation_15, speaker_1,, The AI in virtual assistants like Siri and Alexa has gotten so much smarter too,info_diversity
-conversation_15, speaker_2,, Virtual assistants are learning to understand natural language better thanks to advancements in AI,info_diversity
-conversation_15, speaker_3,, And AI-driven recommendations on streaming services are spot on They know what we like,info_diversity
-conversation_15, speaker_1,, AI really personalizes our experiences whether it’s shopping online or watching movies,info_diversity
-conversation_15, speaker_2,, Exactly AI uses data to tailor services to our preferences which makes everything more convenient,info_diversity
-conversation_15, speaker_3,, The impact of artificial intelligence on our daily lives is only going to grow It’s an exciting time,info_diversity
-conversation_15, speaker_1,, Definitely AI is shaping the future in ways we’re only beginning to understand,info_diversity
-conversation_16, speaker_1,, I’ve been really diving into cloud computing recently It’s amazing how it’s transforming businesses,info_diversity
-conversation_16, speaker_2,, Cloud computing is revolutionizing how companies operate The scalability it offers is unparalleled,info_diversity
-conversation_16, speaker_3,, The flexibility of cloud computing allows businesses to adapt quickly to changing demands,info_diversity
-conversation_16, speaker_1,, And the cost savings with cloud computing are significant You only pay for what you use,info_diversity
-conversation_16, speaker_2,, That’s a huge advantage for startups Cloud computing gives them access to resources they couldn’t afford otherwise,info_diversity
-conversation_16, speaker_3,, Security in cloud computing has also improved a lot with encryption and other safeguards,info_diversity
-conversation_16, speaker_1,, Cloud computing security is critical especially with sensitive data being stored remotely,info_diversity
-conversation_16, speaker_2,, Exactly With the right cloud computing provider businesses can ensure their data is safe,info_diversity
-conversation_16, speaker_3,, The future of cloud computing looks bright It’s becoming the backbone of modern IT infrastructure,info_diversity
-conversation_16, speaker_1,, I agree Cloud computing is essential for any business looking to stay competitive,info_diversity
-conversation_9, speaker_1,, I’ve been thinking about starting a garden but I have no idea where to begin,info_diversity
-conversation_9, speaker_2,, Gardening is super relaxing You should start with some easy plants like herbs,info_diversity
-conversation_9, speaker_3,, That sounds fun I’ve always wanted to grow my own vegetables but space is an issue,info_diversity
-conversation_9, speaker_1,, I hear you I’m also limited on space but I’m thinking of trying container gardening,info_diversity
-conversation_9, speaker_2,, That’s a great idea You can grow a lot in containers if you’re strategic,info_diversity
-conversation_9, speaker_3,, Speaking of strategy has anyone been following the latest chess tournaments,info_diversity
-conversation_9, speaker_1,, I have The level of play this year has been incredible,info_diversity
-conversation_9, speaker_2,, I’m not a chess expert but I enjoy watching the matches They’re so intense,info_diversity
-conversation_9, speaker_3,, It’s amazing how much thought goes into each move It’s like a mental workout,info_diversity
-conversation_9, speaker_1,, Definitely I find that playing chess really sharpens my focus,info_diversity
-AA, A,, this is four words,gini_coefficient_sum_num_words
-AA, A,, what about this also i think,gini_coefficient_sum_num_words
-AA, B,, i think it is,gini_coefficient_sum_num_words
-AA, B,, just some random words,gini_coefficient_sum_num_words
-AA, C,, hello hello hello hello helloooo,gini_coefficient_sum_num_words
-AA, C,, what is up ok,gini_coefficient_sum_num_words
-AAA, A,, this is six words i think,gini_coefficient_sum_num_words
-AAA, A,, what about this being five,gini_coefficient_sum_num_words
-AAA, B,, i only have four,gini_coefficient_sum_num_words
-AAA, B,, but then i get seven words woohoo,gini_coefficient_sum_num_words
-AAA, C,, i think this is even,gini_coefficient_sum_num_words
-AAA, C,, lets see the results though,gini_coefficient_sum_num_words
-AAAA, A,, im going to be talking the absolute most right now,gini_coefficient_sum_num_words
-AAAA, A,, its because i want to raise our gini score woohooo,gini_coefficient_sum_num_words
-AAAA, B,, ok,gini_coefficient_sum_num_words
-AAAA, B,, i can talk,gini_coefficient_sum_num_words
-AAAA, C,, hello,gini_coefficient_sum_num_words
-AAAA, C,, i dont want to talk,gini_coefficient_sum_num_words
-BB, A,, this is same character count,gini_coefficient_sum_num_chars
-BB, A,, this similar similar counts,gini_coefficient_sum_num_chars
-BB, B,, this is roughly same character,gini_coefficient_sum_num_chars
-BB, B,, hello how are we doing blah,gini_coefficient_sum_num_chars
-BB, C,, number of characteros,gini_coefficient_sum_num_chars
-BB, C,, i want to get some good after,gini_coefficient_sum_num_chars
-BBB, A,, what is your name,gini_coefficient_sum_num_chars
-BBB, A,, my name is shruti,gini_coefficient_sum_num_chars
-BBB, B,, his name is evan,gini_coefficient_sum_num_chars
-BBB, B,, her name is priya dcosta,gini_coefficient_sum_num_chars
-BBB, C,, we were on penn today,gini_coefficient_sum_num_chars
-BBB, C,, team communication toolkit,gini_coefficient_sum_num_chars
-BBBB, A,, this is same character count but an insane amount of characters,gini_coefficient_sum_num_chars
-BBBB, A,, i am going to keep on saying things until i get fired,gini_coefficient_sum_num_chars
-BBBB, B,, ok,gini_coefficient_sum_num_chars
-BBBB, B,, lets see,gini_coefficient_sum_num_chars
-BBBB, C,, curious for this,gini_coefficient_sum_num_chars
-BBBB, C,, results should be good,gini_coefficient_sum_num_chars
-CC, A,, this is same message count,gini_coefficient_sum_num_messages
-CC, B,, this is same message count,gini_coefficient_sum_num_messages
-CC, C,, this is same message count,gini_coefficient_sum_num_messages
-CC, D,, this is same message count,gini_coefficient_sum_num_messages
-CC, E,, this is same message count,gini_coefficient_sum_num_messages
-CC, F,, this is same message count,gini_coefficient_sum_num_messages
-CCC, A,, this is same message count,gini_coefficient_sum_num_messages
-CCC, A,, this is same message count,gini_coefficient_sum_num_messages
-CCC, C,, this is same message count,gini_coefficient_sum_num_messages
-CCC, D,, this is same message count,gini_coefficient_sum_num_messages
-CCC, E,, this is same message count,gini_coefficient_sum_num_messages
-CCC, E,, this is same message count,gini_coefficient_sum_num_messages
-CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
-CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
-CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
-CCCC, A,, this is different message count,gini_coefficient_sum_num_messages
-CCCC, E,, this is different message count,gini_coefficient_sum_num_messages
+A, John,2020-04-20T18:27:20.125Z, I'm curious how do you all feel about using flashcards?,team_burstiness
+A, Mary,2020-04-20T18:27:40.125Z, I think flashcards are a great way to memorize information.,team_burstiness
+A, John,2020-04-20T18:28:00.125Z, I agree I've found them to be really helpful.,team_burstiness
+A, Jessica,2020-04-20T18:28:20.125Z, I'm not a big fan of flashcards I find them to be boring and ineffective.,team_burstiness
+A, Mary,2020-04-20T18:28:40.125Z, I think it really depends on the individual and how they learn best.,team_burstiness
+A, John,2020-04-20T18:29:00.125Z, That's true I know some people who prefer to use other methods like spaced repetition.,team_burstiness
+A, Jessica,2020-04-20T18:29:20.125Z, I've heard of spaced repetition but I've never tried it.,team_burstiness
+A, John,2020-04-20T18:29:40.125Z, It's a great way to improve your long-term memory.,team_burstiness
+A, Mary,2020-04-20T18:30:00.125Z, I'll have to give it a try.,team_burstiness
+A, Jessica,2020-04-20T18:30:20.125Z, Do you have any tips for studying effectively?,team_burstiness
+A, John,2020-04-20T18:30:40.125Z, I find that studying in short bursts is more effective than trying to cram everything in at once.,team_burstiness
+A, Mary,2020-04-20T18:31:00.125Z, I agree it's also important to take breaks and get enough sleep.,team_burstiness
+A, Jessica,2020-04-20T18:31:20.125Z, I'm always struggling to stay motivated any tips?,team_burstiness
+A, John,2020-04-20T18:31:40.125Z, I find it helpful to set realistic goals and break down large tasks into smaller ones.,team_burstiness
+A, Mary,2020-04-20T18:32:00.125Z, It's also important to find a study buddy or group to help you stay accountable.,team_burstiness
+A, Jessica,2020-04-20T18:32:20.125Z, Thanks for the advice I'll definitely try it out.,team_burstiness
+B, A,2020-04-20T18:27:20.125Z, Hi everyone what are your favorite study habits?,team_burstiness
+B, B,2020-04-20T18:27:40.956Z, I like to study in a quiet place where I can focus.,team_burstiness
+B, C,2020-04-20T18:28:01.789Z, I prefer to study with a group of friends so we can help each other.,team_burstiness
+B, D,2020-04-20T18:28:23.621Z, I like to study by myself so I can go at my own pace.,team_burstiness
+B, A,2020-04-20T18:28:45.452Z, I think it's important to find a study method that works for you.,team_burstiness
+B, B,2020-04-20T18:29:07.284Z, I agree.,team_burstiness
+B, C,2020-04-20T18:29:29.116Z, I also think it's important to take breaks while you're studying.,team_burstiness
+B, D,2020-04-20T18:29:50.947Z, Yes it's important to give your brain a chance to rest.,team_burstiness
+B, A,2020-04-20T18:30:12.778Z, I find that it's helpful to set a timer and study for 25 minutes then take a 5 minute break.,team_burstiness
+B, B,2020-04-20T18:30:34.610Z, That's a good idea I'll try that.,team_burstiness
+B, C,2020-04-20T18:30:56.441Z, I like to listen to music while I study it helps me to concentrate.,team_burstiness
+B, D,2020-04-20T18:31:18.273Z, I prefer to study in silence so I can focus on the material.,team_burstiness
+B, A,2020-04-20T18:31:40.105Z, I find that it's helpful to create a study schedule and stick to it.,team_burstiness
+B, B,2020-04-20T18:32:01.936Z, I agree it's important to be consistent with your studying.,team_burstiness
+B, C,2020-04-20T18:32:23.768Z, I also think it's important to reward yourself for your hard work.,team_burstiness
+B, D,2020-04-20T18:32:45.599Z, Yes it's important to stay motivated while you're studying.,team_burstiness
+C, A,2020-04-20T18:27:20.125Z, I'm really struggling to stay focused when I study,team_burstiness
+C, B,2020-04-20T18:27:32.456Z, I know what you mean. I have the same problem.,team_burstiness
+C, C,2020-04-20T18:27:44.567Z, I've been trying to find a study method that works for me but I haven't had much luck. Do you have any tips?,team_burstiness
+C, B,2020-04-20T18:29:22.456Z, I've found that it helps to break down my study material into smaller chunks.,team_burstiness
+C, C,2020-04-20T18:29:44.567Z, That's a good idea. I'll try that.,team_burstiness
+C, A,2020-04-20T18:29:52.456Z, I've also found that it helps to study in a quiet place where I can focus.,team_burstiness
+C, D,2020-04-20T18:31:24.567Z, I agree. It's hard to concentrate when there's a lot of noise around.,team_burstiness
+C, A,2020-04-20T19:31:32.456Z, Another thing that I've found helpful is to set a timer for myself when I study.,team_burstiness
+C, B,2020-04-20T19:31:34.567Z, That's a good idea. It helps me to stay on task.,team_burstiness
+C, C,2020-04-20T19:33:22.456Z, I'm going to try that too.,team_burstiness
+C, D,2020-04-20T19:33:24.567Z, I've also found that it helps to reward myself when I finish a study session.,team_burstiness
+C, A,2020-04-20T19:33:32.456Z, That's a good idea. It gives me something to look forward to.,team_burstiness
+C, B,2020-04-20T19:33:44.567Z, I agree. It helps me to stay motivated.,team_burstiness
+C, C,2020-04-20T20:35:32.456Z, I've found that it's also important to take breaks when you're studying.,team_burstiness
+C, D,2020-04-20T20:35:44.567Z, I agree. It helps me to stay focused and avoid burnout.,team_burstiness
+C, A,2020-04-20T20:35:52.456Z, I've also found that it helps to study with a friend or classmate.,team_burstiness
+C, B,2020-04-20T20:35:56.567Z, That's a good idea. It can help you to stay motivated and on track.,team_burstiness
+D,Adam,2020-04-20T20:36:56.567Z, I just saw the craziest thing on the way to work,discursive_diversity
+D,Brad,2020-04-20T20:37:56.567Z, Did you hear about the new restaurant opening up downtown? I've heard nothing but good things,discursive_diversity
+D,Chris,2020-04-20T20:38:56.567Z, Hey team we need to finalize the plans for the client presentation by tomorrow,discursive_diversity
+D,Brad,2020-04-20T20:39:56.567Z, I'm so excited to try the new sushi place,discursive_diversity
+D,Chris,2020-04-20T20:40:56.567Z, Please let me know if you have any questions,discursive_diversity
+D,Adam,2020-04-20T20:41:56.567Z, It was like something out of a movie,discursive_diversity
+D,Chris,2020-04-20T20:42:56.567Z, We should aim to have a draft ready for review by the end of the day,discursive_diversity
+D,Adam,2020-04-20T20:43:56.567Z, I couldn't believe my eyes,discursive_diversity
+D,Brad,2020-04-20T20:44:56.567Z, The reviews say the ambiance is amazing too,discursive_diversity
+D,Adam,2020-04-20T20:45:56.567Z, I had to stop and take a picture,discursive_diversity
+E,person a,2020-04-20T20:46:56.567Z,I love my new job.,discursive_diversity
+E,person a,2020-04-20T20:47:56.567Z,I think this is the most money I've ever made.,discursive_diversity
+E,person a,2020-04-20T20:48:56.567Z,Working with like-minded people is great.,discursive_diversity
+E,person a,2020-04-20T20:49:56.567Z,I'm so happy I found this job.,discursive_diversity
+E,person b,2020-04-20T20:50:56.567Z,Painting is my passion.,discursive_diversity
+E,person b,2020-04-20T20:51:56.567Z,I love painting landscapes.,discursive_diversity
+E,person b,2020-04-20T20:52:56.567Z,I'm going to buy new brushes soon.,discursive_diversity
+E,person b,2020-04-20T20:53:56.567Z,I'm going to start getting into art more often.,discursive_diversity
+E,person c,2020-04-20T20:54:56.567Z,What should I cook for dinner?,discursive_diversity
+E,person c,2020-04-20T20:55:56.567Z,I'm thinking of making spaghetti.,discursive_diversity
+E,person c,2020-04-20T20:56:56.567Z,I'm going to make a salad too.,discursive_diversity
+E,person c,2020-04-20T20:57:56.567Z,I'm going to make a cake for dessert.,discursive_diversity
+E,person d,2020-04-20T20:58:56.567Z,I'm going to the gym today.,discursive_diversity
+E,person d,2020-04-20T20:59:56.567Z,I'm going to work on my legs.,discursive_diversity
+E,person d,2020-04-20T21:00:56.567Z,I'm going to do some cardio.,discursive_diversity
+E,person d,2020-04-20T21:01:56.567Z,I'll finish off with some weight lifting.,discursive_diversity
+F, Amy,2020-04-20T21:02:56.567Z, I'm really excited for the party tomorrow night.,discursive_diversity
+F, Bob,2020-04-20T21:03:56.567Z, Me too! I can't wait to see everyone and dance the night away.,discursive_diversity
+F, Carol,2020-04-20T21:04:56.567Z, I'm bringing a new dish to the party. It's a secret family recipe.,discursive_diversity
+F, Dave,2020-04-20T21:05:56.567Z, That sounds delicious Carol. I can't wait to try it.,discursive_diversity
+F, Amy,2020-04-20T21:06:56.567Z, I'm sure it will be a hit. You're such a good cook.,discursive_diversity
+F, Bob,2020-04-20T21:07:56.567Z, I agree. Carol's cooking is always amazing.,discursive_diversity
+F, Carol,2020-04-20T21:08:56.567Z, Thanks guys. I'm glad you're all excited.,discursive_diversity
+F, Dave,2020-04-20T21:09:56.567Z, So what time should we meet at the party?,discursive_diversity
+F, Amy,2020-04-20T21:10:56.567Z, Let's say 8 pm. That way we can all have some time to mingle before the music starts.,discursive_diversity
+F, Bob,2020-04-20T21:11:56.567Z, Sounds good to me. I'll see you guys there.,discursive_diversity
+F, Carol,2020-04-20T21:12:56.567Z, Me too. Can't wait!,discursive_diversity
+F, Dave,2020-04-20T21:13:56.567Z, I just realized I don't have anything to wear.,discursive_diversity
+F, Amy,2020-04-20T21:14:56.567Z, Don't worry I have a spare dress you can borrow.,discursive_diversity
+F, Bob,2020-04-20T21:15:56.567Z, That's so nice of you Amy.,discursive_diversity
+F, Carol,2020-04-20T21:16:56.567Z, I'm sure it will look great on you Dave.,discursive_diversity
+F, Dave,2020-04-20T21:17:56.567Z, Thanks everyone. I really appreciate it.,discursive_diversity
+G,A,2024-07-15T23:09:36.125Z, I love eating.,variance_in_DD
+G,B,2024-07-15T23:10:36.125Z, What's your favorite place to eat?,variance_in_DD
+G,A,2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,variance_in_DD
+G,B,2024-07-15T23:12:36.125Z, I could go for some pasta and pizza right now.,variance_in_DD
+G,B,2024-07-15T23:14:36.125Z, Anyways what are your vacation plans?,variance_in_DD
+G,A,2024-07-15T23:15:36.125Z, I'm going to start cooking more.,variance_in_DD
+G,B,2024-07-15T23:16:36.125Z, Greg and I are flying to Panama tomorrow.,variance_in_DD
+G,A,2024-07-15T23:17:36.125Z, I'm thinking of publishing my own recipe book.,variance_in_DD
+G,B,2024-07-15T23:18:36.125Z, We're excited to go on a vacation together.,variance_in_DD
+G,A,2024-07-15T23:19:36.125Z, Is this your first trip abroad?,variance_in_DD
+G,B,2024-07-15T23:20:36.125Z, Yes we've never travelled outside the country before.,variance_in_DD
+G,A,2024-07-15T23:21:36.125Z, Travelling abroad is a different type of fun.,variance_in_DD
+H,A,2024-07-15T23:09:36.125Z, I love eating.,variance_in_DD
+H,B,2024-07-15T23:10:36.125Z, I'm going for a run.,variance_in_DD
+H,A,2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,variance_in_DD
+H,B,2024-07-15T23:12:36.125Z, I'm running my first race in a few days.,variance_in_DD
+H,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
+H,B,2024-07-15T23:14:36.125Z, Yes I've been going to the gym everday for 6 months now.,variance_in_DD
+H,A,2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
+H,B,2024-07-15T23:16:36.125Z, Sports and running are great options.,variance_in_DD
+H,A,2024-07-15T23:19:36.125Z, I want to eat something.,variance_in_DD
+H,B,2024-07-15T23:20:36.125Z, Exercising is my passion.,variance_in_DD
+H,A,2024-07-15T23:21:36.125Z, Let's go get food.,variance_in_DD
+H,B,2024-07-15T23:22:36.125Z, I think I'm going to just run.,variance_in_DD
+I,A,2024-07-15T23:09:36.125Z, I love exercising.,variance_in_DD
+I,B,2024-07-15T23:10:36.125Z, I'm going for a run.,variance_in_DD
+I,A,2024-07-15T23:11:36.125Z, I play sports like tennis and baseball too.,variance_in_DD
+I,B,2024-07-15T23:12:36.125Z, I'm running my first race in a few days.,variance_in_DD
+I,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
+I,B,2024-07-15T23:14:36.125Z, Yes I've been going to the gym everday for 6 months now.,variance_in_DD
+I,A,2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
+I,B,2024-07-15T23:16:36.125Z, Sports and running are great options.,variance_in_DD
+I,A,2024-07-15T23:17:36.125Z, I want to exercise more frequently.,variance_in_DD
+I,B,2024-07-15T23:18:36.125Z, You can join me during my runs.,variance_in_DD
+I,A,2024-07-15T23:19:36.125Z, How athletic are you?,variance_in_DD
+I,B,2024-07-15T23:20:36.125Z, Exercising is my passion.,variance_in_DD
+J,A,2024-07-15T23:09:36.125Z, I love exercising.,variance_in_DD
+J,B,2024-07-15T23:10:36.125Z, I'm going for a run.,variance_in_DD
+J,A,2024-07-15T23:11:36.125Z, I play sports like tennis and baseball too.,variance_in_DD
+J,B,2024-07-15T23:12:36.125Z, I'm running my first race in a few days.,variance_in_DD
+J,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
+J,B,2024-07-15T23:14:36.125Z, Yes I've been going to the gym everday for 6 months now.,variance_in_DD
+J,A,2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
+J,B,2024-07-15T23:16:36.125Z, Sports and running are great options.,variance_in_DD
+J,A,2024-07-15T23:17:36.125Z, I want to exercise more frequently.,variance_in_DD
+J,B,2024-07-15T23:18:36.125Z, You can join me during my runs.,variance_in_DD
+J,A,2024-07-15T23:19:36.125Z, How athletic are you?,variance_in_DD
+J,B,2024-07-15T23:20:36.125Z, Exercising is my passion.,variance_in_DD
+K,A,2024-07-15T23:09:36.125Z, I love exercising.,variance_in_DD
+K,B,2024-07-15T23:10:36.125Z, I don't see the point in partying.,variance_in_DD
+K,A,2024-07-15T23:11:36.125Z, I play sports like tennis and baseball too.,variance_in_DD
+K,B,2024-07-15T23:12:36.125Z, Partying isn't productive at all.,variance_in_DD
+K,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
+K,B,2024-07-15T23:14:36.125Z, Dirty basements and uncomfortable music ugh.,variance_in_DD
+K,A,2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
+K,B,2024-07-15T23:16:36.125Z, I don't enjoy alcohol either,variance_in_DD
+K,A,2024-07-15T23:17:36.125Z, I want to exercise more frequently.,variance_in_DD
+K,B,2024-07-15T23:18:36.125Z, Thank god my friends hate partying too.,variance_in_DD
+K,A,2024-07-15T23:19:36.125Z, How athletic are you?,variance_in_DD
+K,B,2024-07-15T23:20:36.125Z, I barely even party on my birthday!,variance_in_DD
+L,A,2024-07-15T23:09:36.125Z, I love eating.,variance_in_DD
+L,B,2024-07-15T23:10:36.125Z, I'm going for a run.,variance_in_DD
+L,A,2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,variance_in_DD
+L,B,2024-07-15T23:12:36.125Z, I'm running my first race in a few days.,variance_in_DD
+L,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,variance_in_DD
+L,B,2024-07-15T23:14:36.125Z, Yes I've been going to the gym everday for 6 months now.,variance_in_DD
+L,A,2024-07-15T23:15:36.125Z, How else do you stay fit?,variance_in_DD
+L,B,2024-07-15T23:16:36.125Z, Sports and running are great options.,variance_in_DD
+L,A,2024-07-15T23:19:36.125Z, I want to eat something.,variance_in_DD
+L,B,2024-07-15T23:20:36.125Z, Exercising is my passion.,variance_in_DD
+L,A,2024-07-15T23:21:36.125Z, Let's go get food.,variance_in_DD
+L,B,2024-07-15T23:22:36.125Z, I think I'm going to just run.,variance_in_DD
+M,A,2024-07-15T23:09:36.125Z, I love eating.,within_person_disc_range
+M,B,2024-07-15T23:10:36.125Z, I love eating.,within_person_disc_range
+M,A,2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,within_person_disc_range
+M,B,2024-07-15T23:12:36.125Z, I love anything that's serving Italian food.,within_person_disc_range
+M,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,within_person_disc_range
+M,B,2024-07-15T23:14:36.125Z, Do you exercise a lot!,within_person_disc_range
+M,A,2024-07-15T23:15:36.125Z, Sports and running are great options.,within_person_disc_range
+M,B,2024-07-15T23:16:36.125Z, Sports and running are great options.,within_person_disc_range
+M,A,2024-07-15T23:19:36.125Z, I want to eat something.,within_person_disc_range
+M,B,2024-07-15T23:20:36.125Z, I want to eat something.,within_person_disc_range
+M,A,2024-07-15T23:21:36.125Z, Let's go get food.,within_person_disc_range
+M,B,2024-07-15T23:22:36.125Z, Let's go get food.,within_person_disc_range
+N,A,2024-07-15T23:09:36.125Z, I love sports.,within_person_disc_range
+N,B,2024-07-15T23:10:36.125Z, I love sports.,within_person_disc_range
+N,A,2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,within_person_disc_range
+N,B,2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,within_person_disc_range
+N,A,2024-07-15T23:13:36.125Z, Do you enjoy Mexican food?,within_person_disc_range
+N,B,2024-07-15T23:14:36.125Z, Do you enjoy Mexican food?,within_person_disc_range
+N,A,2024-07-15T23:15:36.125Z, My favorite food is quesadillas.,within_person_disc_range
+N,B,2024-07-15T23:16:36.125Z, My favorite food is quesadillas.,within_person_disc_range
+N,A,2024-07-15T23:19:36.125Z, I want to go on a run.,within_person_disc_range
+N,B,2024-07-15T23:20:36.125Z, I want to play some sports.,within_person_disc_range
+N,A,2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,within_person_disc_range
+N,B,2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,within_person_disc_range
+O,A,2024-07-15T23:09:36.125Z, I love sports.,within_person_disc_range
+O,B,2024-07-15T23:10:36.125Z, I love sports.,within_person_disc_range
+O,A,2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,within_person_disc_range
+O,B,2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,within_person_disc_range
+O,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,within_person_disc_range
+O,B,2024-07-15T23:14:36.125Z, Do you exercise a lot!,within_person_disc_range
+O,A,2024-07-15T23:15:36.125Z, Sports and running are great options.,within_person_disc_range
+O,B,2024-07-15T23:16:36.125Z, Sports and running are great options.,within_person_disc_range
+O,A,2024-07-15T23:19:36.125Z, I want to go on a run.,within_person_disc_range
+O,B,2024-07-15T23:20:36.125Z, I want to play some sports.,within_person_disc_range
+O,A,2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,within_person_disc_range
+O,B,2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,within_person_disc_range
+P,A,2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
+P,B,2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
+P,A,2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
+P,B,2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
+P,A,2024-07-15T23:13:36.125Z, Do you enjoy Mexican food?,incongruent_modulation
+P,B,2024-07-15T23:14:36.125Z, Sports is my passion.,incongruent_modulation
+P,A,2024-07-15T23:15:36.125Z, My favorite food is quesadillas.,incongruent_modulation
+P,B,2024-07-15T23:16:36.125Z, I think running is my favorite exercise.,incongruent_modulation
+P,A,2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
+P,B,2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
+P,A,2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
+P,B,2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
+Q,A,2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
+Q,B,2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
+Q,A,2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
+Q,B,2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
+Q,A,2024-07-15T23:13:36.125Z, Sports is my passion.,incongruent_modulation
+Q,B,2024-07-15T23:14:36.125Z, Do you enjoy Mexican food?,incongruent_modulation
+Q,A,2024-07-15T23:15:36.125Z, .I think running is my favorite exercise.,incongruent_modulation
+Q,B,2024-07-15T23:16:36.125Z, My favorite food is quesadillas,incongruent_modulation
+Q,A,2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
+Q,B,2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
+Q,A,2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
+Q,B,2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
+R,A,2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
+R,B,2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
+R,A,2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
+R,B,2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
+R,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,incongruent_modulation
+R,B,2024-07-15T23:14:36.125Z, Do you exercise a lot!,incongruent_modulation
+R,A,2024-07-15T23:15:36.125Z, Sports and running are great options.,incongruent_modulation
+R,B,2024-07-15T23:16:36.125Z, Sports and running are great options.,incongruent_modulation
+R,A,2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
+R,B,2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
+R,A,2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
+R,B,2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
+S,A,2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
+S,B,2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
+S,A,2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
+S,B,2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
+S,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,incongruent_modulation
+S,B,2024-07-15T23:14:36.125Z, Do you exercise a lot!,incongruent_modulation
+S,A,2024-07-15T23:15:36.125Z, Sports and running are great options.,incongruent_modulation
+S,B,2024-07-15T23:16:36.125Z, Sports and running are great options.,incongruent_modulation
+S,A,2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
+S,B,2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
+S,A,2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
+S,B,2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
+T,A,2024-07-15T23:09:36.125Z, I love eating.,incongruent_modulation
+T,B,2024-07-15T23:10:36.125Z, I love eating.,incongruent_modulation
+T,A,2024-07-15T23:11:36.125Z, I love anything that's serving Italian food.,incongruent_modulation
+T,B,2024-07-15T23:12:36.125Z, I love anything that's serving Italian food.,incongruent_modulation
+T,A,2024-07-15T23:13:36.125Z, Do you exercise a lot!,incongruent_modulation
+T,B,2024-07-15T23:14:36.125Z, Do you exercise a lot!,incongruent_modulation
+T,A,2024-07-15T23:15:36.125Z, Sports and running are great options.,incongruent_modulation
+T,B,2024-07-15T23:16:36.125Z, Sports and running are great options.,incongruent_modulation
+T,A,2024-07-15T23:19:36.125Z, I want to eat something.,incongruent_modulation
+T,B,2024-07-15T23:20:36.125Z, I want to eat something.,incongruent_modulation
+T,A,2024-07-15T23:21:36.125Z, Let's go get food.,incongruent_modulation
+T,B,2024-07-15T23:22:36.125Z, Let's go get food.,incongruent_modulation
+U,A,2024-07-15T23:09:36.125Z, I love sports.,incongruent_modulation
+U,B,2024-07-15T23:10:36.125Z, I love sports.,incongruent_modulation
+U,A,2024-07-15T23:11:36.125Z, I love anything that has to do with basketball.,incongruent_modulation
+U,B,2024-07-15T23:12:36.125Z, I love anything that has to do with baseball.,incongruent_modulation
+U,A,2024-07-15T23:13:36.125Z, Do you enjoy Mexican food?,incongruent_modulation
+U,B,2024-07-15T23:14:36.125Z, Sports is my passion.,incongruent_modulation
+U,A,2024-07-15T23:15:36.125Z, My favorite food is quesadillas.,incongruent_modulation
+U,B,2024-07-15T23:16:36.125Z, I think running is my favorite exercise.,incongruent_modulation
+U,A,2024-07-15T23:19:36.125Z, I want to go on a run.,incongruent_modulation
+U,B,2024-07-15T23:20:36.125Z, I want to play some sports.,incongruent_modulation
+U,A,2024-07-15T23:21:36.125Z, Let's go to the basketball courts.,incongruent_modulation
+U,B,2024-07-15T23:22:36.125Z, Let's go to the soccer fields.,incongruent_modulation
+conversation_1, speaker_1,2024-07-15T23:23:36.125Z, Have you checked out the latest developments in blockchain tech?,info_diversity
+conversation_1, speaker_2,2024-07-15T23:24:36.125Z, Yeah the advancements are pretty incredible especially with DeFi.,info_diversity
+conversation_1, speaker_3,2024-07-15T23:25:36.125Z, I’ve been really into how NFTs are being used for digital identity verification.,info_diversity
+conversation_1, speaker_1,2024-07-15T23:26:36.125Z, NFTs are definitely evolving. It's amazing how they started just with art.,info_diversity
+conversation_1, speaker_2,2024-07-15T23:27:36.125Z, Right? Now they’re branching out into real estate and even intellectual property.,info_diversity
+conversation_1, speaker_3,2024-07-15T23:28:36.125Z, The possibilities are endless. I’m curious to see how governments will regulate it though.,info_diversity
+conversation_1, speaker_1,2024-07-15T23:29:36.125Z, That’s a big question. Regulation could either stifle innovation or provide the structure it needs to grow.,info_diversity
+conversation_1, speaker_2,2024-07-15T23:30:36.125Z, I think we’ll see a mix. Some countries are embracing it while others are more cautious.,info_diversity
+conversation_1, speaker_3,2024-07-15T23:31:36.125Z, It’ll be interesting to see which approach works best. I’m also wondering about the environmental impact of all this.,info_diversity
+conversation_1, speaker_1,2024-07-15T23:32:36.125Z, That’s a good point. The shift to more energy-efficient consensus algorithms is crucial.,info_diversity
+conversation_2, speaker_1,2024-07-15T23:33:36.125Z, I just finished the machine learning course you recommended. It was awesome!,info_diversity
+conversation_2, speaker_2,2024-07-15T23:34:36.125Z, That’s great to hear! Did you do all the assignments?,info_diversity
+conversation_2, speaker_3,2024-07-15T23:35:36.125Z, I’m still working through it but the concepts are starting to click.,info_diversity
+conversation_2, speaker_1,2024-07-15T23:36:36.125Z, The assignments really help solidify the knowledge. The neural networks part was a bit tough though.,info_diversity
+conversation_2, speaker_2,2024-07-15T23:37:36.125Z, Neural networks can be tricky at first but once you get it it’s really powerful.,info_diversity
+conversation_2, speaker_3,2024-07-15T23:38:36.125Z, I’m excited to apply what I’ve learned to some real-world data sets.,info_diversity
+conversation_2, speaker_1,2024-07-15T23:39:36.125Z, Same here. I’m thinking of starting a side project to predict stock prices.,info_diversity
+conversation_2, speaker_2,2024-07-15T23:40:36.125Z, That’s ambitious! But it’s a great way to put your skills to the test.,info_diversity
+conversation_2, speaker_3,2024-07-15T23:41:36.125Z, I might join you on that! It’ll be cool to collaborate and see what we come up with.,info_diversity
+conversation_2, speaker_1,2024-07-15T23:42:36.125Z, Let’s do it! We can brainstorm ideas this weekend.,info_diversity
+conversation_5, speaker_1,2024-07-15T23:43:36.125Z, Did you catch the latest episode of that show everyone’s talking about?,info_diversity
+conversation_5, speaker_2,2024-07-15T23:44:36.125Z, Yeah it was intense! But I had to pause halfway to finish my assignment.,info_diversity
+conversation_5, speaker_3,2024-07-15T23:45:36.125Z, I haven’t started watching it yet. Is it really that good?,info_diversity
+conversation_5, speaker_1,2024-07-15T23:46:36.125Z, Definitely worth it. But speaking of assignments how’s your machine learning course going?,info_diversity
+conversation_5, speaker_2,2024-07-15T23:47:36.125Z, It’s going well! I’m almost done with the neural networks module.,info_diversity
+conversation_5, speaker_3,2024-07-15T23:48:36.125Z, Neural networks? That’s tough. I’m still stuck on the earlier parts.,info_diversity
+conversation_5, speaker_1,2024-07-15T23:49:36.125Z, You’ll get there. Just take it one step at a time. Also are you guys thinking about internships yet?,info_diversity
+conversation_5, speaker_2,2024-07-15T23:50:36.125Z, I am! I’m applying to a few tech companies next week.,info_diversity
+conversation_5, speaker_3,2024-07-15T23:51:36.125Z, I should probably start looking too. I’m just so caught up with other things.,info_diversity
+conversation_5, speaker_1,2024-07-15T23:52:36.125Z, Same here. Between school shows and job applications it’s hard to find balance.,info_diversity
+conversation_3, speaker_1,2024-07-15T23:53:36.125Z, Are you ready to start applying for internships?,info_diversity
+conversation_3, speaker_2,2024-07-15T23:54:36.125Z, Almost. I’m just finalizing my resume and polishing up my GitHub.,info_diversity
+conversation_3, speaker_3,2024-07-15T23:55:36.125Z, Same here. I’m focusing on tech companies that have strong mentorship programs.,info_diversity
+conversation_3, speaker_1,2024-07-15T23:56:36.125Z, That’s smart. I’ve been looking at roles in fintech but I’m open to other sectors too.,info_diversity
+conversation_3, speaker_2,2024-07-15T23:57:36.125Z, Fintech is hot right now. There’s so much innovation happening.,info_diversity
+conversation_3, speaker_3,2024-07-15T23:58:36.125Z, I’m leaning towards something in AI or machine learning. There’s a lot of demand in those areas.,info_diversity
+conversation_3, speaker_1,2024-07-15T23:59:36.125Z, Definitely. It’s a great time to be in tech. Have you guys started preparing for interviews?,info_diversity
+conversation_3, speaker_2,2024-07-16T00:00:36.125Z, I’ve done a few Leetcode problems but I need to ramp up.,info_diversity
+conversation_3, speaker_3,2024-07-16T00:01:36.125Z, Same I’m planning to do at least one problem a day until interview season.,info_diversity
+conversation_3, speaker_1,2024-07-16T00:02:36.125Z, Sounds like a solid plan. We should do mock interviews together to practice.,info_diversity
+conversation_4, speaker_1,2024-07-16T00:03:36.125Z, I’ve been using React for a new project and it’s going pretty well so far.,info_diversity
+conversation_4, speaker_2,2024-07-16T00:04:36.125Z, Nice! What are you building?,info_diversity
+conversation_4, speaker_3,2024-07-16T00:05:36.125Z, I’m curious too. React is great for building dynamic user interfaces.,info_diversity
+conversation_4, speaker_1,2024-07-16T00:06:36.125Z, It’s a course review platform where students can rate and review their classes.,info_diversity
+conversation_4, speaker_2,2024-07-16T00:07:36.125Z, That sounds really useful! Are you handling both the frontend and backend?,info_diversity
+conversation_4, speaker_3,2024-07-16T00:08:36.125Z, I love that idea. What stack are you using for the backend?,info_diversity
+conversation_4, speaker_1,2024-07-16T00:09:36.125Z, I’m using Node.js with Express for the backend and MySQL for the database.,info_diversity
+conversation_4, speaker_2,2024-07-16T00:10:36.125Z, Solid choices. How are you planning to handle scalability if the platform grows?,info_diversity
+conversation_4, speaker_3,2024-07-16T00:11:36.125Z, AWS could be a good option for scaling. Have you looked into that?,info_diversity
+conversation_4, speaker_1,2024-07-16T00:12:36.125Z, Yeah I’m considering AWS for deployment. I want the platform to be scalable from the start.,info_diversity
+conversation_6, speaker_1,2024-07-16T00:13:36.125Z, I just started a new book on AI ethics and it’s really eye-opening.,info_diversity
+conversation_6, speaker_2,2024-07-16T00:14:36.125Z, That sounds interesting. What’s it about?,info_diversity
+conversation_6, speaker_3,2024-07-16T00:15:36.125Z, AI ethics is such an important topic especially with all the recent developments.,info_diversity
+conversation_6, speaker_1,2024-07-16T00:16:36.125Z, It explores how AI is impacting society both positively and negatively.,info_diversity
+conversation_6, speaker_3,2024-07-16T00:17:36.125Z, I did! I’m planning to integrate one of them into my next project.,info_diversity
+conversation_6, speaker_1,2024-07-16T00:18:36.125Z, That’s awesome. By the way are you still going to the gym regularly?,info_diversity
+conversation_6, speaker_2,2024-07-16T00:19:36.125Z, I’ve been slacking off lately to be honest. Too much work.,info_diversity
+conversation_6, speaker_3,2024-07-16T00:20:36.125Z, Same here. I’ve been prioritizing coding over everything else.,info_diversity
+conversation_6, speaker_1,2024-07-16T00:21:36.125Z, We should do a workout session together. It’s good to take breaks from all the tech stuff.,info_diversity
+conversation_15, speaker_1,2024-07-16T00:22:36.125Z, Have you ever thought about how artificial intelligence is changing our daily lives It’s everywhere now,info_diversity
+conversation_15, speaker_2,2024-07-16T00:23:36.125Z, Artificial intelligence is integrated into so many aspects of life from virtual assistants to smart homes,info_diversity
+conversation_15, speaker_3,2024-07-16T00:24:36.125Z, AI in smart homes is incredible It automates so many tasks and makes life easier,info_diversity
+conversation_15, speaker_1,2024-07-16T00:25:36.125Z, The AI in virtual assistants like Siri and Alexa has gotten so much smarter too,info_diversity
+conversation_15, speaker_2,2024-07-16T00:26:36.125Z, Virtual assistants are learning to understand natural language better thanks to advancements in AI,info_diversity
+conversation_15, speaker_3,2024-07-16T00:27:36.125Z, And AI-driven recommendations on streaming services are spot on They know what we like,info_diversity
+conversation_15, speaker_1,2024-07-16T00:28:36.125Z, AI really personalizes our experiences whether it’s shopping online or watching movies,info_diversity
+conversation_15, speaker_2,2024-07-16T00:29:36.125Z, Exactly AI uses data to tailor services to our preferences which makes everything more convenient,info_diversity
+conversation_15, speaker_3,2024-07-16T00:30:36.125Z, The impact of artificial intelligence on our daily lives is only going to grow It’s an exciting time,info_diversity
+conversation_15, speaker_1,2024-07-16T00:31:36.125Z, Definitely AI is shaping the future in ways we’re only beginning to understand,info_diversity
+conversation_16, speaker_1,2024-07-16T00:32:36.125Z, I’ve been really diving into cloud computing recently It’s amazing how it’s transforming businesses,info_diversity
+conversation_16, speaker_2,2024-07-16T00:33:36.125Z, Cloud computing is revolutionizing how companies operate The scalability it offers is unparalleled,info_diversity
+conversation_16, speaker_3,2024-07-16T00:34:36.125Z, The flexibility of cloud computing allows businesses to adapt quickly to changing demands,info_diversity
+conversation_16, speaker_1,2024-07-16T00:35:36.125Z, And the cost savings with cloud computing are significant You only pay for what you use,info_diversity
+conversation_16, speaker_2,2024-07-16T00:36:36.125Z, That’s a huge advantage for startups Cloud computing gives them access to resources they couldn’t afford otherwise,info_diversity
+conversation_16, speaker_3,2024-07-16T00:37:36.125Z, Security in cloud computing has also improved a lot with encryption and other safeguards,info_diversity
+conversation_16, speaker_1,2024-07-16T00:38:36.125Z, Cloud computing security is critical especially with sensitive data being stored remotely,info_diversity
+conversation_16, speaker_2,2024-07-16T00:39:36.125Z, Exactly With the right cloud computing provider businesses can ensure their data is safe,info_diversity
+conversation_16, speaker_3,2024-07-16T00:40:36.125Z, The future of cloud computing looks bright It’s becoming the backbone of modern IT infrastructure,info_diversity
+conversation_16, speaker_1,2024-07-16T00:41:36.125Z, I agree Cloud computing is essential for any business looking to stay competitive,info_diversity
+conversation_9, speaker_1,2024-07-16T00:42:36.125Z, I’ve been thinking about starting a garden but I have no idea where to begin,info_diversity
+conversation_9, speaker_2,2024-07-16T00:43:36.125Z, Gardening is super relaxing You should start with some easy plants like herbs,info_diversity
+conversation_9, speaker_3,2024-07-16T00:44:36.125Z, That sounds fun I’ve always wanted to grow my own vegetables but space is an issue,info_diversity
+conversation_9, speaker_1,2024-07-16T00:45:36.125Z, I hear you I’m also limited on space but I’m thinking of trying container gardening,info_diversity
+conversation_9, speaker_2,2024-07-16T00:46:36.125Z, That’s a great idea You can grow a lot in containers if you’re strategic,info_diversity
+conversation_9, speaker_3,2024-07-16T00:47:36.125Z, Speaking of strategy has anyone been following the latest chess tournaments,info_diversity
+conversation_9, speaker_1,2024-07-16T00:48:36.125Z, I have The level of play this year has been incredible,info_diversity
+conversation_9, speaker_2,2024-07-16T00:49:36.125Z, I’m not a chess expert but I enjoy watching the matches They’re so intense,info_diversity
+conversation_9, speaker_3,2024-07-16T00:50:36.125Z, It’s amazing how much thought goes into each move It’s like a mental workout,info_diversity
+conversation_9, speaker_1,2024-07-16T00:51:36.125Z, Definitely I find that playing chess really sharpens my focus,info_diversity
+AA, A,2024-07-16T00:52:36.125Z, this is four words,gini_coefficient_sum_num_words
+AA, A,2024-07-16T00:53:36.125Z, what about this also i think,gini_coefficient_sum_num_words
+AA, B,2024-07-16T00:54:36.125Z, i think it is,gini_coefficient_sum_num_words
+AA, B,2024-07-16T00:55:36.125Z, just some random words,gini_coefficient_sum_num_words
+AA, C,2024-07-16T00:56:36.125Z, hello hello hello hello helloooo,gini_coefficient_sum_num_words
+AA, C,2024-07-16T00:57:36.125Z, what is up ok,gini_coefficient_sum_num_words
+AAA, A,2024-07-16T00:58:36.125Z, this is six words i think,gini_coefficient_sum_num_words
+AAA, A,2024-07-16T00:59:36.125Z, what about this being five,gini_coefficient_sum_num_words
+AAA, B,2024-07-16T01:00:36.125Z, i only have four,gini_coefficient_sum_num_words
+AAA, B,2024-07-16T01:01:36.125Z, but then i get seven words woohoo,gini_coefficient_sum_num_words
+AAA, C,2024-07-16T01:02:36.125Z, i think this is even,gini_coefficient_sum_num_words
+AAA, C,2024-07-16T01:03:36.125Z, lets see the results though,gini_coefficient_sum_num_words
+AAAA, A,2024-07-16T01:04:36.125Z, im going to be talking the absolute most right now,gini_coefficient_sum_num_words
+AAAA, A,2024-07-16T01:05:36.125Z, its because i want to raise our gini score woohooo,gini_coefficient_sum_num_words
+AAAA, B,2024-07-16T01:06:36.125Z, ok,gini_coefficient_sum_num_words
+AAAA, B,2024-07-16T01:07:36.125Z, i can talk,gini_coefficient_sum_num_words
+AAAA, C,2024-07-16T01:08:36.125Z, hello,gini_coefficient_sum_num_words
+AAAA, C,2024-07-16T01:09:36.125Z, i dont want to talk,gini_coefficient_sum_num_words
+BB, A,2024-07-16T01:10:36.125Z, this is same character count,gini_coefficient_sum_num_chars
+BB, A,2024-07-16T01:11:36.125Z, this similar similar counts,gini_coefficient_sum_num_chars
+BB, B,2024-07-16T01:12:36.125Z, this is roughly same character,gini_coefficient_sum_num_chars
+BB, B,2024-07-16T01:13:36.125Z, hello how are we doing blah,gini_coefficient_sum_num_chars
+BB, C,2024-07-16T01:14:36.125Z, number of characteros,gini_coefficient_sum_num_chars
+BB, C,2024-07-16T01:15:36.125Z, i want to get some good after,gini_coefficient_sum_num_chars
+BBB, A,2024-07-16T01:16:36.125Z, what is your name,gini_coefficient_sum_num_chars
+BBB, A,2024-07-16T01:17:36.125Z, my name is shruti,gini_coefficient_sum_num_chars
+BBB, B,2024-07-16T01:18:36.125Z, his name is evan,gini_coefficient_sum_num_chars
+BBB, B,2024-07-16T01:19:36.125Z, her name is priya dcosta,gini_coefficient_sum_num_chars
+BBB, C,2024-07-16T01:20:36.125Z, we were on penn today,gini_coefficient_sum_num_chars
+BBB, C,2024-07-16T01:21:36.125Z, team communication toolkit,gini_coefficient_sum_num_chars
+BBBB, A,2024-07-16T01:22:36.125Z, this is same character count but an insane amount of characters,gini_coefficient_sum_num_chars
+BBBB, A,2024-07-16T01:23:36.125Z, i am going to keep on saying things until i get fired,gini_coefficient_sum_num_chars
+BBBB, B,2024-07-16T01:24:36.125Z, ok,gini_coefficient_sum_num_chars
+BBBB, B,2024-07-16T01:25:36.125Z, lets see,gini_coefficient_sum_num_chars
+BBBB, C,2024-07-16T01:26:36.125Z, curious for this,gini_coefficient_sum_num_chars
+BBBB, C,2024-07-16T01:27:36.125Z, results should be good,gini_coefficient_sum_num_chars
+CC, A,2024-07-16T01:28:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CC, B,2024-07-16T01:29:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CC, C,2024-07-16T01:30:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CC, D,2024-07-16T01:31:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CC, E,2024-07-16T01:32:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CC, F,2024-07-16T01:33:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CCC, A,2024-07-16T01:34:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CCC, A,2024-07-16T01:35:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CCC, C,2024-07-16T01:36:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CCC, D,2024-07-16T01:37:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CCC, E,2024-07-16T01:38:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CCC, E,2024-07-16T01:39:36.125Z, this is same message count,gini_coefficient_sum_num_messages
+CCCC, A,2024-07-16T01:40:36.125Z, this is different message count,gini_coefficient_sum_num_messages
+CCCC, A,2024-07-16T01:41:36.125Z, this is different message count,gini_coefficient_sum_num_messages
+CCCC, A,2024-07-16T01:42:36.125Z, this is different message count,gini_coefficient_sum_num_messages
+CCCC, A,2024-07-16T01:43:36.125Z, this is different message count,gini_coefficient_sum_num_messages
+CCCC, E,2024-07-16T01:44:36.125Z, this is different message count,gini_coefficient_sum_num_messages
