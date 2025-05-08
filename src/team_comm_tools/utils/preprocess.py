@@ -37,7 +37,8 @@ def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, groupi
     else: # case 2: grouping multiple keys, or case 3 but not 3 layers
         df['conversation_num'] = df.groupby(grouping_keys).ngroup()
         df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
-
+    for col in column_names.values():
+        df[col] = df[col].fillna('')
     return df
 
 def assert_key_columns_present(df: pd.DataFrame, column_names: dict) -> None:
