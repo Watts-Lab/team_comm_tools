@@ -561,13 +561,14 @@ class FeatureBuilder:
         # check grouping rules and assert the columns are present
         for role, col in self.column_names.items():
             if col not in self.chat_data.columns:
-                if role == 'conversation_id_col' and len(self.grouping_keys)==0:
-                    if self.conversation_id_col == "conversation_num":
-                        raise KeyError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
-                    raise KeyError("Conversation identifier not present in data.")
-            
-                elif role == 'timestamp_col' and self.cumulative_grouping and len(self.grouping_keys) == 3:
-                    raise KeyError(f"Timestamp column is required for cumulative grouping. Please provide a valid timestamp column.")
+                if role == 'conversation_id_col':
+                    if len(self.grouping_keys) == 0:
+                        if self.conversation_id_col == "conversation_num":
+                            raise KeyError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
+                        raise KeyError("Conversation identifier not present in data.")
+                elif role == 'timestamp_col':
+                    if self.cumulative_grouping and len(self.grouping_keys) == 3:
+                        raise KeyError(f"Timestamp column is required for cumulative grouping. Please provide a valid timestamp column.")
                 else:
                     raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})")
             else:
