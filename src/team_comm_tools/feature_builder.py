@@ -558,11 +558,24 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-        # check grouping rules
-        if self.conversation_id_col not in self.chat_data.columns and len(self.grouping_keys)==0:
-            if(self.conversation_id_col == "conversation_num"):
-                raise ValueError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
-            raise ValueError("Conversation identifier not present in data.")
+        # check grouping rules and assert the columns are present
+        for role, col in self.column_names.items():
+            if col not in self.chat_data.columns:
+                if role == 'conversation_id_col' and len(self.grouping_keys)==0:
+                    if self.conversation_id_col == "conversation_num":
+                        raise KeyError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
+                    raise KeyError("Conversation identifier not present in data.")
+            
+                elif role == 'timestamp_col' and self.cumulative_grouping and len(self.grouping_keys) == 3:
+                    raise KeyError(f"Timestamp column is required for cumulative grouping. Please provide a valid timestamp column.")
+                else:
+                    raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})")
+            else:
+                print(f"Confirmed that data has {role} column: {col}!")
+        # if self.conversation_id_col not in self.chat_data.columns and len(self.grouping_keys)==0:
+        #     if(self.conversation_id_col == "conversation_num"):
+        #         raise ValueError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
+        #     raise ValueError("Conversation identifier not present in data.")
         if self.cumulative_grouping and len(self.grouping_keys) == 0:
             warnings.warn("WARNING: No grouping keys provided. Ignoring `cumulative_grouping` argument.")
             self.cumulative_grouping = False
@@ -578,7 +591,7 @@ class FeatureBuilder:
 
         # create the appropriate grouping variables and assert the columns are present
         self.chat_data = preprocess_conversation_columns(self.chat_data, self.column_names, self.grouping_keys, self.cumulative_grouping, self.within_task)
-        assert_key_columns_present(self.chat_data, self.column_names)
+        # assert_key_columns_present(self.chat_data, self.column_names)
         self.chat_data = remove_unhashable_cols(self.chat_data, self.column_names)
 
         # save original column with no preprocessing
