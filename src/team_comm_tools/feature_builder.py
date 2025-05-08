@@ -573,6 +573,7 @@ class FeatureBuilder:
                     raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})")
             else:
                 print(f"Confirmed that data has {role} column: {col}!")
+                self.chat_data[col] = self.chat_data[col].fillna('')
         # if self.conversation_id_col not in self.chat_data.columns and len(self.grouping_keys)==0:
         #     if(self.conversation_id_col == "conversation_num"):
         #         raise ValueError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
