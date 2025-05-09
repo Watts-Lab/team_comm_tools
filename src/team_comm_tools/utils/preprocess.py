@@ -3,7 +3,6 @@ import pandas as pd
 import warnings
 
 
-
 def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, grouping_keys: list, 
                                     cumulative_grouping: bool = False, within_task: bool = False) -> pd.DataFrame:
     """
@@ -38,30 +37,6 @@ def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, groupi
         df['conversation_num'] = df.groupby(grouping_keys).ngroup()
         df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
     return df
-
-def assert_key_columns_present(df: pd.DataFrame, column_names: dict) -> None:
-    """Ensure that the DataFrame has essential columns and handle missing values.
-    
-    This function  if the essential columns `conversation_id_col`, `speaker_id_col`, and 
-    `message_col` are present. If any of these columns are missing, a 
-    KeyError is raised. 
-
-    :param df: The DataFrame to check and process.
-    :type df: pandas.DataFrame
-    :param column_names: Columns to preprocess.
-    :type column_names: dict
-    :raises KeyError: If one of `conversation_id_col`, `speaker_id_col`, and `message_col` columns is missing.
-    """
-    
-    # Assert that key columns are present
-    for role, col in column_names.items():
-        if role == 'timestamp_col':
-            continue # skip timestamp column
-        if col not in df.columns:
-            raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})\n Columns available: {df.columns}")
-        else:
-            print(f"Confirmed that data has {role} column: {col}!")
-            df[col] = df[col].fillna('')
 
 def remove_unhashable_cols(df: pd.DataFrame, column_names: dict) -> pd.DataFrame:
     """
