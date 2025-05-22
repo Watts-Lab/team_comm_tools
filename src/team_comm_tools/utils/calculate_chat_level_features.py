@@ -355,12 +355,11 @@ class ChatLevelFeaturesCalculator:
         :return: None
         :rtype: None
         """
-        if isinstance(self.timestamp_col, str): # and {self.timestamp_col}.issubset(self.chat_data.columns):
+        if isinstance(self.timestamp_col, str):
             self.chat_data["time_diff"] = get_time_diff(
                 self.chat_data, self.timestamp_col, self.conversation_id_col, self.timestamp_unit)
         elif isinstance(self.timestamp_col, tuple):
             timestamp_start, timestamp_end = self.timestamp_col
-            # if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
             self.chat_data["time_diff"] = get_time_diff_startend(
                 self.chat_data, timestamp_start, timestamp_end, self.conversation_id_col, self.timestamp_unit)
 
