@@ -392,20 +392,6 @@ class FeatureBuilder:
         self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name        
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
-        # Check + generate embeddings
-        # need_sentence = False
-        # need_sentiment = False
-        
-        # for feature in self.default_features + self.custom_features:
-        #     if(need_sentiment and need_sentence):
-        #         break # if we confirm that both are needed, break (we're done!)
-
-        #     # else, keep checking the requirements of each feature to confirm embeddings are needed
-        #     if(not need_sentence and feature_dict[feature]["vect_data"]):
-        #         need_sentence = True
-        #     if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
-        #         need_sentiment = True
-
         check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname)
 
         if(need_sentence):
@@ -590,7 +576,6 @@ class FeatureBuilder:
 
         # create the appropriate grouping variables and assert the columns are present
         self.chat_data = preprocess_conversation_columns(self.chat_data, self.column_names, self.grouping_keys, self.cumulative_grouping, self.within_task)
-        # assert_key_columns_present(self.chat_data, self.column_names)
         self.chat_data = remove_unhashable_cols(self.chat_data, self.column_names)
 
         # save original column with no preprocessing
