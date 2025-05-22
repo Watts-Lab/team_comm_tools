@@ -1,27 +1,6 @@
 import pandas as pd
 import numpy as np
 
-# def coerce_to_date_or_number(value): # This is handled in feature_builder.py
-#     """
-#     Helper function in which we check that the timestamp column contains either a datetime value or a number
-#     that can be interpreted as a time elapsed; otherwise, sets it equal to none.
-
-#     Args:
-#         value: The value to check; type can be anything
-#     Returns:
-#         Either the value itself (if it is a valid timestamp value) or None otherwise
-
-#     """
-#     try:
-#         pd.to_datetime(value)
-#         return value
-#     except (ValueError, TypeError):
-#         try:
-#             pd.to_numeric(value)
-#             return value
-#         except (ValueError, TypeError):
-#             raise ValueError("Incorrect timestamp format: " + str(value))
-
 def get_time_diff(df, on_column, conversation_id_col, timestamp_unit):
     """
     Obtains the time difference between messages, assuming there is only a *single* timestamp column
@@ -36,11 +15,6 @@ def get_time_diff(df, on_column, conversation_id_col, timestamp_unit):
     Returns:
         pd.Series: A column representing the time difference between messages.
     """
-
-    # Replace instances in which the time is a string that cannot be coerced into a date or number with None
-    # df[on_column] = df[on_column].apply(coerce_to_date_or_number)        
-
-    #convert timestamp column to datetime type (in minutes)
     try:
         if(isinstance(df[on_column][0], str)): # String datetime, e.g., '2023-02-20 09:00:00'
             df[on_column] = pd.to_datetime(df[on_column])
@@ -80,11 +54,6 @@ def get_time_diff_startend(df, timestamp_start, timestamp_end, conversation_id_c
     Returns:
         pd.Series: A column representing the time difference between messages.
     """
-
-    # df[timestamp_start] = df[timestamp_start].apply(coerce_to_date_or_number)
-    # df[timestamp_end] = df[timestamp_end].apply(coerce_to_date_or_number)
-
-    #convert timestamp column to datetime type (in minutes)
     try:
         if(isinstance(df[timestamp_start][0], str)): # String datetime, e.g., '2023-02-20 09:00:00'
             df[timestamp_start] = pd.to_datetime(df[timestamp_start])
