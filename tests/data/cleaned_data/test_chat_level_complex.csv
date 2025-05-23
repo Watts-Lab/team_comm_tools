@@ -1,4 +1,4 @@
-conversation_num, speaker_nickname, message,feature
+conversation_num,speaker_nickname,message,feature
 A,A,The food was delicious and the service was great.,positive_bert
 A,A,The food was excellent and the service was impeccable.,positive_bert
 A,A,The food was terrible and the service was awful.,positive_bert

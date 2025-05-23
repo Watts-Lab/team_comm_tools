@@ -350,20 +350,18 @@ class ChatLevelFeaturesCalculator:
         This function calculates and appends the following temporal feature to the chat data:
         - Time difference between messages sent
 
-        It checks whether the 'timestamp' column is available. If not, it tries to calculate 
-        using 'timestamp_start' and 'timestamp_end' columns.
+        It assumes the 'timestamp' column is available, which is checked in feature_builder.py.
 
         :return: None
         :rtype: None
         """
-        if type(self.timestamp_col) is str and {self.timestamp_col}.issubset(self.chat_data.columns):
+        if isinstance(self.timestamp_col, str):
             self.chat_data["time_diff"] = get_time_diff(
                 self.chat_data, self.timestamp_col, self.conversation_id_col, self.timestamp_unit)
-        elif type(self.timestamp_col) is tuple:
+        elif isinstance(self.timestamp_col, tuple):
             timestamp_start, timestamp_end = self.timestamp_col
-            if {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
-                self.chat_data["time_diff"] = get_time_diff_startend(
-                    self.chat_data, timestamp_start, timestamp_end, self.conversation_id_col, self.timestamp_unit)
+            self.chat_data["time_diff"] = get_time_diff_startend(
+                self.chat_data, timestamp_start, timestamp_end, self.conversation_id_col, self.timestamp_unit)
 
     def calculate_politeness_sentiment(self) -> None:
         """

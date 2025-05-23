@@ -189,7 +189,7 @@ class FeatureBuilder:
         # Set features to generate
         # TODO --- think through more carefully which ones we want to exclude and why
         self.feature_dict = feature_dict
-        self.default_features = [
+        self.feature_names = [
             ### Chat Level
             "Named Entity Recognition",
             "Sentiment (RoBERTa)",
@@ -216,34 +216,55 @@ class FeatureBuilder:
             ### Conversation Level
             "Turn-Taking Index",
             "Equal Participation",
-            "Team Burstiness",
+            "Team Burstiness", #TODO add dependencies
             "Conversation Level Aggregates",
             "User Level Aggregates",
-            "Team Burstiness",
             "Information Diversity",
             "Conversation Level Aggregates",
             "User Level Aggregates"
         ]
         # warning if user added invalid custom/exclude features
-        self.custom_features = []
         invalid_features = set()
         for feat in custom_features:
-            if feat in self.feature_dict:
-                self.custom_features.append(feat)
+            if feat in self.feature_dict: # TODO: check dependencies
+                self.feature_names.append(feat)
             else:
                 invalid_features.add(feat)
         if invalid_features:
             invalid_features_str = ', '.join(invalid_features)
             warnings.warn(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
-        # keep track of which features we are generating
-        self.feature_names = self.default_features + self.custom_features
         # remove named entities if we didn't pass in the column
-        if(self.ner_training is None):
+        if self.ner_training is None:
             self.feature_names.remove("Named Entity Recognition")
+        # remove timestamp-related features if we didn't pass in the column
+        timestamp_features = ['Time Difference', "Team Burstiness"]
+        if isinstance(self.timestamp_col, str):
+            if self.timestamp_col not in self.chat_data.columns:
+                for feat in timestamp_features:
+                    self.feature_names.remove(feat)
+            else:
+                # verify timestamp format
+                self.verify_timestamp_format(self.timestamp_col)
+        elif isinstance(self.timestamp_col, tuple):
+            timestamp_start, timestamp_end = self.timestamp_col
+            if not {timestamp_start, timestamp_end}.issubset(self.chat_data.columns):
+                for feat in timestamp_features:
+                    self.feature_names.remove(feat)
+            else:
+                # verify timestamp format
+                self.verify_timestamp_format(timestamp_start)
+                self.verify_timestamp_format(timestamp_end)
+            
         # deduplicate functions and append them into a list for calculation
         self.feature_methods_chat = []
         self.feature_methods_conv = []
+        need_sentence = False
+        need_sentiment = False
         for feature in self.feature_names:
+            if(not need_sentence and feature_dict[feature]["vect_data"]):
+                need_sentence = True
+            if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
+                need_sentiment = True
             level, func = self.feature_dict[feature]["level"], self.feature_dict[feature]['function']
             if level == 'Chat':
                 if func not in self.feature_methods_chat:
@@ -370,20 +391,6 @@ class FeatureBuilder:
         # Logic for processing vector cache
         self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name        
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
-
-        # Check + generate embeddings
-        need_sentence = False
-        need_sentiment = False
-        
-        for feature in self.default_features + self.custom_features:
-            if(need_sentiment and need_sentence):
-                break # if we confirm that both are needed, break (we're done!)
-
-            # else, keep checking the requirements of each feature to confirm embeddings are needed
-            if(not need_sentence and feature_dict[feature]["vect_data"]):
-                need_sentence = True
-            if(not need_sentiment and feature_dict[feature]["bert_sentiment_data"]):
-                need_sentiment = True
 
         check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname)
 
@@ -537,11 +544,23 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-        # check grouping rules
-        if self.conversation_id_col not in self.chat_data.columns and len(self.grouping_keys)==0:
-            if(self.conversation_id_col == "conversation_num"):
-                raise ValueError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
-            raise ValueError("Conversation identifier not present in data.")
+        # check grouping rules and assert the columns are present
+        for role, col in self.column_names.items():
+            if col not in self.chat_data.columns:
+                if role == 'conversation_id_col':
+                    if len(self.grouping_keys) == 0:
+                        if self.conversation_id_col == "conversation_num":
+                            raise KeyError("Conversation identifier not present in data. Did you perhaps forget to pass in a `conversation_id_col`?")
+                        raise KeyError("Conversation identifier not present in data.")
+                elif role == 'timestamp_col':
+                    if self.cumulative_grouping and len(self.grouping_keys) == 3:
+                        raise KeyError(f"Timestamp column is required for cumulative grouping. Please provide a valid timestamp column.")
+                else:
+                    raise KeyError(f"Missing required columns in DataFrame: '{col}' (expected for {role})")
+            else:
+                print(f"Confirmed that data has {role} column: {col}!")
+                self.chat_data[col] = self.chat_data[col].fillna('')
+
         if self.cumulative_grouping and len(self.grouping_keys) == 0:
             warnings.warn("WARNING: No grouping keys provided. Ignoring `cumulative_grouping` argument.")
             self.cumulative_grouping = False
@@ -557,7 +576,6 @@ class FeatureBuilder:
 
         # create the appropriate grouping variables and assert the columns are present
         self.chat_data = preprocess_conversation_columns(self.chat_data, self.column_names, self.grouping_keys, self.cumulative_grouping, self.within_task)
-        assert_key_columns_present(self.chat_data, self.column_names)
         self.chat_data = remove_unhashable_cols(self.chat_data, self.column_names)
 
         # save original column with no preprocessing
@@ -731,3 +749,36 @@ class FeatureBuilder:
                     except Exception as e:
                         warnings.warn(f"WARNING: Failed loading custom liwc dictionary: {e}")
                         return {}
+    
+    def verify_timestamp_format(self, timestamp_col) -> None:
+        """
+        Verifies that a column in a DataFrame is composed of values that can be parsed
+        either as datetime or as numeric values suitable for time difference calculations.
+
+        :param timestamp_col: The name of the column to verify
+        :type timestamp_col: str
+
+        :return: None
+        :rtype: None
+        :raises ValueError: If the column contains values that cannot be parsed as datetime or numeric.
+        """
+        series = self.chat_data[timestamp_col]
+        if series.isnull().any():
+            raise ValueError(f"Timestamp column '{timestamp_col}' contains null values")
+        
+        try:
+            pd.to_datetime(series)
+            return
+        except Exception:
+            pass
+
+        try:
+            pd.to_numeric(series)
+            return
+        except Exception:
+            pass
+
+        raise ValueError(
+            f"Column '{timestamp_col}' contains values that are neither parseable as datetime "
+            f"nor convertible to numeric format."
+        )
