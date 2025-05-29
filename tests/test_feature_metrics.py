@@ -41,14 +41,23 @@ num_features_conv = len(list(itertools.chain(*conversation_features)))
 num_tested_chat = test_chat_df['expected_column'].nunique() + test_chat_complex_df['feature'].nunique() + test_forward_flow_df['feature'].nunique()
 test_chat = test_chat_df['expected_column'].unique().tolist() + test_chat_complex_df['feature'].unique().tolist() + \
             test_forward_flow_df['feature'].unique().tolist() + ["named_entities"] + ["time_diff"]
-tested_chat = len(set(test_chat))
-num_tested_conv = len(set(test_conv_df['expected_column'].unique().tolist() + test_conv_complex_df['feature'].unique().tolist()))
+num_tested_chat = len(set(test_chat))
+test_conv = test_conv_df['expected_column'].unique().tolist() + test_conv_complex_df['feature'].unique().tolist()
+num_tested_conv = len(set(test_conv))
 tested_features = {}
 
 with open('test.log', 'w') as f:
-    f.write(f'Tested {tested_chat} features out of {num_features_chat} chat level features: {tested_chat/num_features_chat * 100:.2f}% Coverage!\n')
+    f.write(f'Tested {num_tested_chat} features out of {num_features_chat} chat level features: {num_tested_chat/num_features_chat * 100:.2f}% Coverage!\n')
+
+    if(num_tested_chat < num_features_chat):
+        untested_chat_features = set(itertools.chain(*chat_features)).difference(set(test_chat))
+        f.write(f"Currently untested chat features: {untested_chat_features}\n")
+
     f.write(f'Tested {num_tested_conv} features out of {num_features_conv} conv level features: {num_tested_conv/num_features_conv * 100:.2f}% Coverage!\n')
-    pass
+    
+    if(num_tested_conv < num_features_conv):
+        untested_conv_features = set(itertools.chain(*conversation_features)).difference(set(test_chat))
+        f.write(f"Currently untested chat features: {untested_conv_features}\n")
 
 # ---- MAIN TESTS ------
 
