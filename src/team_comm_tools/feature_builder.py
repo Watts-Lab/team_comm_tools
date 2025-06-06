@@ -577,6 +577,7 @@ class FeatureBuilder:
         # create the appropriate grouping variables and assert the columns are present
         self.chat_data = preprocess_conversation_columns(self.chat_data, self.column_names, self.grouping_keys, self.cumulative_grouping, self.within_task)
         self.chat_data = remove_unhashable_cols(self.chat_data, self.column_names)
+        self.orig_data = remove_unhashable_cols(self.orig_data, self.column_names, warning=False) # remove unhashable columns from the original data too to avoid issues with drop_duplicates
 
         # save original column with no preprocessing
         self.chat_data[self.message_col + "_original"] = self.chat_data[self.message_col]

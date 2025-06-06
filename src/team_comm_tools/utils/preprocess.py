@@ -38,7 +38,7 @@ def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, groupi
         df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
     return df
 
-def remove_unhashable_cols(df: pd.DataFrame, column_names: dict) -> pd.DataFrame:
+def remove_unhashable_cols(df: pd.DataFrame, column_names: dict, warning: bool=True) -> pd.DataFrame:
     """
     If a required column contains unhashable types, raise an error.
     Otherwise, remove those columns from the DataFrame and print a warning message.
@@ -81,8 +81,9 @@ def remove_unhashable_cols(df: pd.DataFrame, column_names: dict) -> pd.DataFrame
         if col in column_names.values():
             raise ValueError(error_message)
         else:
-            warnings.warn(f"WARNING: {error_message}. Removing '{col}' from the DataFrame.")
             removable_cols.append(col)
+            if warning:
+                print(f"WARNING: {error_message}. Removing '{col}' from the DataFrame.")
     if removable_cols:
         df = df.drop(columns=removable_cols)
     return df
