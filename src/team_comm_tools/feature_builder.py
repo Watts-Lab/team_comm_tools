@@ -152,7 +152,7 @@ class FeatureBuilder:
             raise TypeError(f"Expected a Pandas DataFrame as input_df, but got {type(df).__name__})")
         
         print("Initializing Featurization...")
-
+        input_df = input_df.reset_index(drop=True) # reset index to avoid issues with indexing later on
         ###### Set all parameters ######
         
         assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
