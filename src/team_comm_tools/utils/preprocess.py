@@ -1,7 +1,16 @@
 import re
 import pandas as pd
-import warnings
+# import warnings
 
+EMOJIS = {
+    "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)", # 8 emojis from LIWC 2017
+    ";(", # variants
+    ":-)", ":-(", ":-/", ";-)", # with noses
+    ":D", ":P", ":p", ":-D", ":-P", ":-p", # big grin & tongue out
+    ":O", ":-O", ":o", ":-o", # shock
+    "XD", "xD", "xd", # laughing variants
+    "<3", "</3", # hearts
+}
 
 def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, grouping_keys: list, 
                                     cumulative_grouping: bool = False, within_task: bool = False) -> pd.DataFrame:
@@ -112,13 +121,10 @@ def preprocess_text(text: str) -> str:
     :return: The processed text containing only alphanumeric characters and spaces in lowercase.
     :rtype: str
     """
-    emojis_to_preserve = {
-        "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
-    }
 
     emoji_placeholders = {}
     # Replace each emoji with a unique placeholder
-    for i, emoji in enumerate(emojis_to_preserve):
+    for i, emoji in enumerate(EMOJIS):
         placeholder = f"EMOJI_{i}"
         emoji_placeholders[placeholder] = emoji
         text = text.replace(emoji, placeholder)
@@ -126,7 +132,8 @@ def preprocess_text(text: str) -> str:
     # Clean the text by removing unwanted characters, except placeholders
     text = re.sub(r"[^a-zA-Z0-9 EMOJI_]+", '', text)
     # Restore the preserved emojis by replacing placeholders back to original emojis
-    for placeholder, emoji in emoji_placeholders.items():
+    for placeholder in sorted(emoji_placeholders.keys(), key=len, reverse=True):
+        emoji = emoji_placeholders[placeholder]
         text = text.replace(placeholder, emoji)
 
     return text.lower()
