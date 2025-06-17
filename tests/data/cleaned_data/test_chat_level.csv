@@ -1393,3 +1393,24 @@ emoji_test,emoji_user_a,I love this <3,num_emoji,1
 emoji_test,emoji_user_b,Broken heart </3,num_emoji,1
 emoji_test,emoji_user_a,Love and heartbreak: <3 </3,num_emoji,2
 emoji_test,emoji_user_b,Wow<3cool</3,num_emoji,2
+convokit_test,convokit_user_a,I really appreciate that you've done them.,gratitude_politeness_convokit,1
+convokit_test,convokit_user_b,Nice work so far on your rewrite.,deference_politeness_convokit,1
+convokit_test,convokit_user_a,"Hey, I just tried to reach out",indirect_greeting_politeness_convokit,1
+convokit_test,convokit_user_b,Wow! / This is a great way to deal with it,haspositive_politeness_convokit,1
+convokit_test,convokit_user_a,"If you're going to accuse me, I don't know what to say",hasnegative_politeness_convokit,1
+convokit_test,convokit_user_b,Sorry to bother you about this,apologizing_politeness_convokit,1
+convokit_test,convokit_user_a,Could you please say more about it,please_politeness_convokit,1
+convokit_test,convokit_user_b,Please do not remove warnings for it,please_start_politeness_convokit,1
+convokit_test,convokit_user_a,"By the way, where did you find it",indirect_btw_politeness_convokit,1
+convokit_test,convokit_user_b,What is your native language?,direct_question_politeness_convokit,1
+convokit_test,convokit_user_a,So can you retrieve it or not?,direct_start_politeness_convokit,1
+convokit_test,convokit_user_b,Could/Would you take a look at this?,subjunctive_politeness_convokit,1
+convokit_test,convokit_user_a,Can/Will you help with this?,indicative_politeness_convokit,1
+convokit_test,convokit_user_b,I have just put the article in the folder.,1st_person_start_politeness_convokit,1
+convokit_test,convokit_user_a,Could we find a less complex name for this?,1st_person_pl_politeness_convokit,1
+convokit_test,convokit_user_b,It is my view that this is a good idea.,1st_person_politeness_convokit,1
+convokit_test,convokit_user_a,But what's the good source you have in mind?,2nd_person_politeness_convokit,1
+convokit_test,convokit_user_b,You've reverted yourself to the previous version.,2nd_person_start_politeness_convokit,1
+convokit_test,convokit_user_a,I suggest we start with the basics.,hedges_politeness_convokit,1
+convokit_test,convokit_user_b,"In fact you did link, and it was a mistake.",factuality_politeness_convokit,1
+convokit_test,convokit_user_a,"We could meet tomorrow, or maybe not.",hashedge_politeness_convokit,1
