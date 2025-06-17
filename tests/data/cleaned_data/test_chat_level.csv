@@ -1414,3 +1414,15 @@ convokit_test,convokit_user_b,You've reverted yourself to the previous version.,
 convokit_test,convokit_user_a,I suggest we start with the basics.,hedges_politeness_convokit,1
 convokit_test,convokit_user_b,"In fact you did link, and it was a mistake.",factuality_politeness_convokit,1
 convokit_test,convokit_user_a,"We could meet tomorrow, or maybe not.",hashedge_politeness_convokit,1
+yeomans_test,yeomans_user_a,What the fuck are you doing?,Swearing_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,"Don’t worry, it's no big deal.",Reassurance_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,"This is, um, you know, a complicated scenario",Filler_Pause_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,Please let me know if you have any questions.,Let_Me_Know_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,"If you'd like, you could review this.",Give_Agency_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,"Honestly, I don't know",Truth_Intensifier_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,"Do me a favor, can you review this by tomorrow?",Ask_Agency_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,Send me the file.,Bare_Command_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,Bye I'll see you tomorrow,Goodbye_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,By the way how do you call this?,By_The_Way_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,"Dear Mr. Smith, thank you for your feedback.",Formal_Title_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,Dude that was dope,Informal_Title_receptiveness_yeomans,1
