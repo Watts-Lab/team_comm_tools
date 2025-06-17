@@ -26,29 +26,45 @@ test_conv_complex_df_ts = pd.read_csv(
     "./output/conv/test_conv_level_conv_complex_ts.csv")
 test_forward_flow_df = pd.read_csv("./output/chat/test_forward_flow_chat.csv")
 test_ner = pd.read_csv('./output/chat/test_named_entity_chat_level.csv')
-
+test_positivity_chat_df = pd.read_csv(
+    "./output/chat/test_positivity_chat_level.csv")
+info_exchange_zscore_chat_df = pd.read_csv(
+    "./output/chat/info_exchange_zscore_chats.csv")
+time_diff_chat_df = pd.read_csv(
+    './output/chat/test_time_pairs_dt_level_chat.csv')
 # Import the Feature Dictionary
 
-chat_features = [feature_dict[feature]["columns"]
-                 for feature in feature_dict.keys() if feature_dict[feature]["level"] == "Chat"]
-conversation_features = [feature_dict[feature]["columns"] for feature in feature_dict.keys(
-) if feature_dict[feature]["level"] == "Conversation"]
-
-num_features_chat = len(list(itertools.chain(*chat_features)))
-num_features_conv = len(list(itertools.chain(*conversation_features)))
+chat_features, conversation_features = [], []
+for feature in feature_dict.keys():
+    if feature_dict[feature]["level"] == "Chat":
+        chat_features.extend(feature_dict[feature]["columns"])
+    elif feature_dict[feature]["level"] == "Conversation":
+        conversation_features.extend(feature_dict[feature]["columns"])
+num_features_chat = len(chat_features)
+num_features_conv = len(conversation_features)
 
 # Print the test coverage
-num_tested_chat = test_chat_df['expected_column'].nunique() + test_chat_complex_df['feature'].nunique() + test_forward_flow_df['feature'].nunique()
 test_chat = test_chat_df['expected_column'].unique().tolist() + test_chat_complex_df['feature'].unique().tolist() + \
-            test_forward_flow_df['feature'].unique().tolist() + ["named_entities"] + ["time_diff"]
-tested_chat = len(set(test_chat))
-num_tested_conv = len(set(test_conv_df['expected_column'].unique().tolist() + test_conv_complex_df['feature'].unique().tolist()))
+            test_forward_flow_df['feature'].unique().tolist() + test_positivity_chat_df['expected_column'].unique().tolist() + \
+            info_exchange_zscore_chat_df['expected_column'].unique().tolist() + time_diff_chat_df['expected_column'].unique().tolist() + \
+            ["named_entities"] + ["num_named_entity"] # These 2 are tested in test_named_entity_recognition()
+num_tested_chat = len(set(test_chat))
+test_conv = test_conv_df['expected_column'].unique().tolist() + test_conv_complex_df['feature'].unique().tolist()
+num_tested_conv = len(set(test_conv))
 tested_features = {}
 
 with open('test.log', 'w') as f:
-    f.write(f'Tested {tested_chat} features out of {num_features_chat} chat level features: {tested_chat/num_features_chat * 100:.2f}% Coverage!\n')
+    f.write(f'Tested {num_tested_chat} features out of {num_features_chat} chat level features: {num_tested_chat/num_features_chat * 100:.2f}% Coverage!\n')
+
+    if(num_tested_chat < num_features_chat):
+        untested_chat_features = set(chat_features).difference(set(test_chat))
+        f.write(f"Currently untested chat features: {untested_chat_features}\n")
+
     f.write(f'Tested {num_tested_conv} features out of {num_features_conv} conv level features: {num_tested_conv/num_features_conv * 100:.2f}% Coverage!\n')
-    pass
+    
+    if(num_tested_conv < num_features_conv):
+        untested_conv_features = set(conversation_features).difference(set(test_chat))
+        f.write(f"Currently untested chat features: {untested_conv_features}\n")
 
 # ---- MAIN TESTS ------
 
@@ -110,6 +126,7 @@ def test_named_entity_recognition(row):
                 file.write(f"Actual value: {actual}\n")
     else:
         expected = row[1]['expected_value'].split(',')
+        num_named_entity = row[1]['num_named_entity']
         parsed_actual = row[1]['named_entities'].replace(
             " ", "").replace("(", "").replace(")", "").split(',')
         actual = parsed_actual[0::2]
@@ -119,7 +136,7 @@ def test_named_entity_recognition(row):
             actual.pop()
 
         try:
-            assert len(expected) == len(actual)
+            assert len(expected) == len(actual) == num_named_entity
             for named_entity in expected:
                 assert named_entity.lower().strip() in actual
             tested_features["Named Entity Recognition"]['passed'] += 1
@@ -130,8 +147,8 @@ def test_named_entity_recognition(row):
                 file.write("------TEST FAILED------\n")
                 file.write(
                     f"Testing NER for message: {row[1]['message_original']}\n")
-                file.write(f"Expected value: {expected}\n")
-                file.write(f"Actual value: {actual}\n")
+                file.write(f"Expected value: {expected}; Expected num: {len(expected)}\n")
+                file.write(f"Actual value: {actual}; Actual num: {len(actual)}; Num counted: {num_named_entity}\n")
 
             # we don't raise an AssertionError here because NER isn't a perfect feature
 

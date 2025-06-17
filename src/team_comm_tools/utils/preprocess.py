@@ -1,7 +1,16 @@
 import re
 import pandas as pd
-import warnings
+# import warnings
 
+EMOJIS = {
+    "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)", # 8 emojis from LIWC 2017
+    ";(", # variants
+    ":-)", ":-(", ":-/", ";-)", # with noses
+    ":D", ":P", ":p", ":-D", ":-P", ":-p", # big grin & tongue out
+    ":O", ":-O", ":o", ":-o", # shock
+    "XD", "xD", "xd", # laughing variants
+    "<3", "</3", # hearts
+}
 
 def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, grouping_keys: list, 
                                     cumulative_grouping: bool = False, within_task: bool = False) -> pd.DataFrame:
@@ -38,7 +47,7 @@ def preprocess_conversation_columns(df: pd.DataFrame, column_names: dict, groupi
         df = df[df.columns.tolist()[-1:] + df.columns.tolist()[0:-1]] # make the new column first
     return df
 
-def remove_unhashable_cols(df: pd.DataFrame, column_names: dict) -> pd.DataFrame:
+def remove_unhashable_cols(df: pd.DataFrame, column_names: dict, warning: bool=True) -> pd.DataFrame:
     """
     If a required column contains unhashable types, raise an error.
     Otherwise, remove those columns from the DataFrame and print a warning message.
@@ -81,8 +90,9 @@ def remove_unhashable_cols(df: pd.DataFrame, column_names: dict) -> pd.DataFrame
         if col in column_names.values():
             raise ValueError(error_message)
         else:
-            warnings.warn(f"WARNING: {error_message}. Removing '{col}' from the DataFrame.")
             removable_cols.append(col)
+            if warning:
+                print(f"WARNING: {error_message}. Removing '{col}' from the DataFrame.")
     if removable_cols:
         df = df.drop(columns=removable_cols)
     return df
@@ -111,13 +121,10 @@ def preprocess_text(text: str) -> str:
     :return: The processed text containing only alphanumeric characters and spaces in lowercase.
     :rtype: str
     """
-    emojis_to_preserve = {
-        "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
-    }
 
     emoji_placeholders = {}
     # Replace each emoji with a unique placeholder
-    for i, emoji in enumerate(emojis_to_preserve):
+    for i, emoji in enumerate(EMOJIS):
         placeholder = f"EMOJI_{i}"
         emoji_placeholders[placeholder] = emoji
         text = text.replace(emoji, placeholder)
@@ -125,7 +132,8 @@ def preprocess_text(text: str) -> str:
     # Clean the text by removing unwanted characters, except placeholders
     text = re.sub(r"[^a-zA-Z0-9 EMOJI_]+", '', text)
     # Restore the preserved emojis by replacing placeholders back to original emojis
-    for placeholder, emoji in emoji_placeholders.items():
+    for placeholder in sorted(emoji_placeholders.keys(), key=len, reverse=True):
+        emoji = emoji_placeholders[placeholder]
         text = text.replace(placeholder, emoji)
 
     return text.lower()

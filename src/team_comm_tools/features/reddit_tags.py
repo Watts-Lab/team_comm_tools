@@ -1,7 +1,7 @@
 import numpy as np
 import string
 import re
-
+from team_comm_tools.utils.preprocess import EMOJIS
 
 def count_all_caps(text):
     """
@@ -191,6 +191,9 @@ def count_emojis(text):
     Returns:
         int: The number of emojis in the input text.
     """
-    emoji_pattern = r'[:;]-?\)+'
-    emojis = re.findall(emoji_pattern, text)
+    # emoji_pattern = r'[:;]-?\)+'
+    emoji_list = sorted(EMOJIS, key=len, reverse=True)
+    emoji_pattern = "|".join(re.escape(e) for e in emoji_list)
+    compiled_pattern = re.compile(emoji_pattern)
+    emojis = re.findall(compiled_pattern, text)
     return len(emojis)

@@ -1332,3 +1332,97 @@ K,1,This is the same text.,positivity_zscore_conversation,
 10_mix,first_person,"belief% sed— forgot{ euismod£ dolor/ couldn't¥ ipsum^ amet— affectation] Lorem> ipsum} drank^ Lorem) sed' forever[ amet/ mailed? euismod< sed? mightve[ dolor[ sed; affect' dolor> sed\ consistently' Lorem| euismod: may: tempor, colon( ipsum# xanax¥ dolor] cruel, amet... think– dolor< tempor, strikingly% euismod< cocks£ ipsum~ insides! ipsum. aren't- Lorem. sandy% adipiscing... consectetur) illuminating+ amet# steadiness= euismod¥ sed( except~ consectetur' tempor) most} adipiscing? here's"" tempor' dolor# understand; sed{ ipsum",first_person_lexical_wordcount,0
 10_mix,nltk_english_stopwords,"belief% sed— forgot{ euismod£ dolor/ couldn't¥ ipsum^ amet— affectation] Lorem> ipsum} drank^ Lorem) sed' forever[ amet/ mailed? euismod< sed? mightve[ dolor[ sed; affect' dolor> sed\ consistently' Lorem| euismod: may: tempor, colon( ipsum# xanax¥ dolor] cruel, amet... think– dolor< tempor, strikingly% euismod< cocks£ ipsum~ insides! ipsum. aren't- Lorem. sandy% adipiscing... consectetur) illuminating+ amet# steadiness= euismod¥ sed( except~ consectetur' tempor) most} adipiscing? here's"" tempor' dolor# understand; sed{ ipsum",nltk_english_stopwords_lexical_wordcount,5
 10_mix,hedge_words,"belief% sed— forgot{ euismod£ dolor/ couldn't¥ ipsum^ amet— affectation] Lorem> ipsum} drank^ Lorem) sed' forever[ amet/ mailed? euismod< sed? mightve[ dolor[ sed; affect' dolor> sed\ consistently' Lorem| euismod: may: tempor, colon( ipsum# xanax¥ dolor] cruel, amet... think– dolor< tempor, strikingly% euismod< cocks£ ipsum~ insides! ipsum. aren't- Lorem. sandy% adipiscing... consectetur) illuminating+ amet# steadiness= euismod¥ sed( except~ consectetur' tempor) most} adipiscing? here's"" tempor' dolor# understand; sed{ ipsum",hedge_words_lexical_wordcount,0
+emoji_test,emoji_user_a,Hello :),num_emoji,1
+emoji_test,emoji_user_b,Nice to see you :-)),num_emoji,1
+emoji_test,emoji_user_a,Hey there ;-) How are you? :),num_emoji,2
+emoji_test,emoji_user_b,No emoji here.,num_emoji,0
+emoji_test,emoji_user_a,;) :) :-))),num_emoji,3
+emoji_test,emoji_user_b,Mixed emotions: :-( ;( :( ,num_emoji,3
+emoji_test,emoji_user_a,Too many smiles :) :) :),num_emoji,3
+emoji_test,emoji_user_b,Tricky one: :-)-),num_emoji,1
+emoji_test,emoji_user_a,Extra characters :-))abc:-),num_emoji,2
+emoji_test,emoji_user_b,Combo ;-):-);-),num_emoji,3
+emoji_test,emoji_user_a,Sad day :(,num_emoji,1
+emoji_test,emoji_user_b,Confused face :/,num_emoji,1
+emoji_test,emoji_user_a,Double smiles :) :),num_emoji,2
+emoji_test,emoji_user_b,This is fine :D,num_emoji,1
+emoji_test,emoji_user_a,Edge case :-):-):-D,num_emoji,3
+emoji_test,emoji_user_b,Broken smile :-))abc:-),num_emoji,2
+emoji_test,emoji_user_a,Mixed (: ;),num_emoji,2
+emoji_test,emoji_user_b,Only symbols $%&!,num_emoji,0
+emoji_test,emoji_user_a,Nested :)hello:),num_emoji,2
+emoji_test,emoji_user_b,Sad then happy :( :),num_emoji,2
+emoji_test,emoji_user_a,No spaces:;-):),num_emoji,2
+emoji_test,emoji_user_b,Triple threat :):):),num_emoji,3
+emoji_test,emoji_user_a,Reverse smile ): (:,num_emoji,2
+emoji_test,emoji_user_b,"Hey! I'm doing great :-), thanks for asking. How about you? ;)",num_emoji,2
+emoji_test,emoji_user_a,Ugh... today was rough :( Everything just kept going wrong :-(,num_emoji,2
+emoji_test,emoji_user_b,LOL! That was hilarious :D:D:D!! Can't stop laughing!,num_emoji,3
+emoji_test,emoji_user_a,Okay... so he said 'I'll be there :)' — and then never showed up.,num_emoji,1
+emoji_test,emoji_user_b,"Meeting recaD:
+- Client happy :)
+- Budget approved ;)
+- Launch on track :-D",num_emoji,3
+emoji_test,emoji_user_a,"Meeting recap:
+- Client happy :)
+- Budget approved ;)
+- Launch on track :-D",num_emoji,3
+emoji_test,emoji_user_b,Mixed signals: first he smiled :) then frowned :( then smiled again :)),num_emoji,3
+emoji_test,emoji_user_a,Edge-case test —;-):-(;-))... any of these match?,num_emoji,3
+emoji_test,emoji_user_b,"Email thread:
+> Sure, that works for me :)
+> Thanks! :-)
+> See you then ;)",num_emoji,3
+emoji_test,emoji_user_a,Total chaos!!! :(( :(( :(( — but at least coffee :-),num_emoji,4
+emoji_test,emoji_user_b,"He walked in and said, 'Good morning :-)' — like nothing happened!",num_emoji,1
+emoji_test,emoji_user_a,Haha :D that was funny!,num_emoji,1
+emoji_test,emoji_user_b,You got me :-P,num_emoji,1
+emoji_test,emoji_user_a,Just kidding :p :P,num_emoji,2
+emoji_test,emoji_user_b,All the reactions: :D :-D :P :-P,num_emoji,4
+emoji_test,emoji_user_a,Lowercase alert :-p :p,num_emoji,2
+emoji_test,emoji_user_b,No way! :O,num_emoji,1
+emoji_test,emoji_user_a,You're kidding :-O,num_emoji,1
+emoji_test,emoji_user_b,Mixed shock faces: :o :-o,num_emoji,2
+emoji_test,emoji_user_a,Wow :O :o :-O :-o,num_emoji,4
+emoji_test,emoji_user_b,OMG XD that cracked me up,num_emoji,1
+emoji_test,emoji_user_a,xD lol,num_emoji,1
+emoji_test,emoji_user_b,xd XD xD,num_emoji,3
+emoji_test,emoji_user_a,Try this combo: xdxd,num_emoji,2
+emoji_test,emoji_user_b,Real XDPro was here,num_emoji,1
+emoji_test,emoji_user_a,I love this <3,num_emoji,1
+emoji_test,emoji_user_b,Broken heart </3,num_emoji,1
+emoji_test,emoji_user_a,Love and heartbreak: <3 </3,num_emoji,2
+emoji_test,emoji_user_b,Wow<3cool</3,num_emoji,2
+convokit_test,convokit_user_a,I really appreciate that you've done them.,gratitude_politeness_convokit,1
+convokit_test,convokit_user_b,Nice work so far on your rewrite.,deference_politeness_convokit,1
+convokit_test,convokit_user_a,"Hey, I just tried to reach out",indirect_greeting_politeness_convokit,1
+convokit_test,convokit_user_b,Wow! / This is a great way to deal with it,haspositive_politeness_convokit,1
+convokit_test,convokit_user_a,"If you're going to accuse me, I don't know what to say",hasnegative_politeness_convokit,1
+convokit_test,convokit_user_b,Sorry to bother you about this,apologizing_politeness_convokit,1
+convokit_test,convokit_user_a,Could you please say more about it,please_politeness_convokit,1
+convokit_test,convokit_user_b,Please do not remove warnings for it,please_start_politeness_convokit,1
+convokit_test,convokit_user_a,"By the way, where did you find it",indirect_btw_politeness_convokit,1
+convokit_test,convokit_user_b,What is your native language?,direct_question_politeness_convokit,1
+convokit_test,convokit_user_a,So can you retrieve it or not?,direct_start_politeness_convokit,1
+convokit_test,convokit_user_b,Could/Would you take a look at this?,subjunctive_politeness_convokit,1
+convokit_test,convokit_user_a,Can/Will you help with this?,indicative_politeness_convokit,1
+convokit_test,convokit_user_b,I have just put the article in the folder.,1st_person_start_politeness_convokit,1
+convokit_test,convokit_user_a,Could we find a less complex name for this?,1st_person_pl_politeness_convokit,1
+convokit_test,convokit_user_b,It is my view that this is a good idea.,1st_person_politeness_convokit,1
+convokit_test,convokit_user_a,But what's the good source you have in mind?,2nd_person_politeness_convokit,1
+convokit_test,convokit_user_b,You've reverted yourself to the previous version.,2nd_person_start_politeness_convokit,1
+convokit_test,convokit_user_a,I suggest we start with the basics.,hedges_politeness_convokit,1
+convokit_test,convokit_user_b,"In fact you did link, and it was a mistake.",factuality_politeness_convokit,1
+convokit_test,convokit_user_a,"We could meet tomorrow, or maybe not.",hashedge_politeness_convokit,1
+yeomans_test,yeomans_user_a,What the fuck are you doing?,Swearing_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,"Don’t worry, it's no big deal.",Reassurance_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,"This is, um, you know, a complicated scenario",Filler_Pause_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,Please let me know if you have any questions.,Let_Me_Know_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,"If you'd like, you could review this.",Give_Agency_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,"Honestly, I don't know",Truth_Intensifier_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,"Do me a favor, can you review this by tomorrow?",Ask_Agency_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,Send me the file.,Bare_Command_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,Bye I'll see you tomorrow,Goodbye_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,By the way how do you call this?,By_The_Way_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,"Dear Mr. Smith, thank you for your feedback.",Formal_Title_receptiveness_yeomans,1
+yeomans_test,yeomans_user_b,Dude that was dope,Informal_Title_receptiveness_yeomans,1
