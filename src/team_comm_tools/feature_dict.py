@@ -480,6 +480,7 @@ feature_dict = { # TODO: customize preprocess methods
       "num_emphasis",
       "num_bullet_points",
       "num_numbered_points",
+      "num_line_breaks",
       "num_quotes",
       "num_block_quote_responses",
       "num_ellipses",
