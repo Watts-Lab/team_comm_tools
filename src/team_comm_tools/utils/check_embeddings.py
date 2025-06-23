@@ -402,16 +402,21 @@ def generate_bert(chat_data, output_path, message_col, batch_size=64):
     print(f"Generating RoBERTa sentiments...")
 
     messages = chat_data[message_col].tolist()
-    batch_sentiments_df = pd.DataFrame()
+    # batch_sentiments_df = pd.DataFrame()
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
+    first = True
     for i in tqdm(range(0, len(messages), batch_size)):
         batch = messages[i:i + batch_size]
         batch_df = get_sentiment(batch)
-        batch_sentiments_df = pd.concat([batch_sentiments_df, batch_df], ignore_index=True)
+        batch_df.to_csv(output_path, mode='a', header=first, index=False)
+        first = False
+        # batch_sentiments_df = pd.concat([batch_sentiments_df, batch_df], ignore_index=True)
 
+    # batch_sentiments_df = pd.concat(batch_sentiments_lst, ignore_index=True)
     # Create directories along the path if they don't exist
-    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-    batch_sentiments_df.to_csv(output_path, index=False)
+    
+    # batch_sentiments_df.to_csv(output_path, index=False)
 
 def get_sentiment(texts):
     """
@@ -432,7 +437,8 @@ def get_sentiment(texts):
         return pd.DataFrame(np.nan, index=texts_series.index, columns=['positive_bert', 'negative_bert', 'neutral_bert'])
 
     encoded = tokenizer(non_null_non_empty_texts, padding=True, truncation=True, max_length=512, return_tensors='pt')
-    output = model_bert(**encoded)
+    with torch.no_grad():
+        output = model_bert(**encoded)
 
     scores = output[0].detach().numpy()
     scores = softmax(scores, axis=1)
