@@ -17,7 +17,6 @@ from transformers import logging
 
 logging.set_verbosity(40) # only log errors
 
-model_vect = SentenceTransformer('all-MiniLM-L6-v2')
 MODEL  = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
@@ -28,7 +27,7 @@ EMOJIS_TO_PRESERVE = {
 
 # Check if embeddings exist
 def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, need_sentence: bool, 
-                     need_sentiment: bool, regenerate_vectors: bool, message_col: str = "message"):
+                     need_sentiment: bool, regenerate_vectors: bool, use_gpu: bool, message_col: str = "message"):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
@@ -47,14 +46,25 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
     :type need_sentiment: bool
     :param regenerate_vectors: If true, will regenerate vector data even if it already exists
     :type regenerate_vectors: bool, optional
+    :param use_gpu: If true, will use GPU for embeddings if available; otherwise, will use CPU.
+    :type use_gpu: bool
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
 
     :return: None
     :rtype: None
     """
+    device = "cpu"
+    if use_gpu:
+        if torch.cuda.is_available():
+            print("Using GPU for embeddings.")
+            device = "cuda"
+            model_bert.to(device)
+        else:
+            print("GPU not available, using CPU for embeddings.")
+
     if (regenerate_vectors or (not os.path.isfile(vect_path))) and need_sentence:
-        generate_vect(chat_data, vect_path, message_col)
+        generate_vect(chat_data, vect_path, message_col, device)
     if (regenerate_vectors or (not os.path.isfile(bert_path))) and need_sentiment:
         generate_bert(chat_data, bert_path, message_col)
 
@@ -63,10 +73,10 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
         # check whether the given vector and bert data matches length of chat data 
         if len(vector_df) != len(chat_data):
             print("ERROR: The length of the vector data does not match the length of the chat data. Regenerating...")
-            generate_vect(chat_data, vect_path, message_col)
+            generate_vect(chat_data, vect_path, message_col, device)
     except FileNotFoundError: # It's OK if we don't have the path, if the sentence vectors are not necessary
         if need_sentence:
-            generate_vect(chat_data, vect_path, message_col)
+            generate_vect(chat_data, vect_path, message_col, device)
 
     try:
         bert_df = pd.read_csv(bert_path)
@@ -348,7 +358,7 @@ def get_nan_vector():
     with open(nan_vector_file_path, "r") as f:
         return str_to_vec(f.read())
 
-def generate_vect(chat_data, output_path, message_col, batch_size = 64):
+def generate_vect(chat_data, output_path, message_col, device, batch_size=64):
     """
     Generates sentence vectors for the given chat data and saves them to a CSV file.
 
@@ -358,6 +368,8 @@ def generate_vect(chat_data, output_path, message_col, batch_size = 64):
     :type output_path: str
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
+    :param device: A string representing the device to use for computation, either "cpu" or "cuda".
+    :type device: str
     :param batch_size: The size of each batch for processing sentiment analysis. Defaults to 64.
     :type batch_size: int
     :raises FileNotFoundError: If the output path is invalid.
@@ -365,6 +377,7 @@ def generate_vect(chat_data, output_path, message_col, batch_size = 64):
     :rtype: None
     """
     print(f"Generating SBERT sentence vectors...")
+    model_vect = SentenceTransformer('all-MiniLM-L6-v2', device=device)
 
     nan_vector = get_nan_vector()
     empty_to_nan = [text if text and text.strip() else None for text in chat_data[message_col].tolist()]
