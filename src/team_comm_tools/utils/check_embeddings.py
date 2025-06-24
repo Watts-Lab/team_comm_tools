@@ -453,7 +453,7 @@ def get_sentiment(texts, model_bert, device):
     with torch.no_grad():
         output = model_bert(**encoded)
 
-    scores = output[0].detach().numpy()
+    scores = output[0].detach().cpu().numpy()
     scores = softmax(scores, axis=1)
 
     sent_dict = {
