@@ -19,7 +19,6 @@ logging.set_verbosity(40) # only log errors
 
 MODEL  = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
-model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 EMOJIS_TO_PRESERVE = {
     "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
@@ -59,14 +58,13 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
         if torch.cuda.is_available():
             print("Using GPU for embeddings.")
             device = "cuda"
-            model_bert.to(device)
         else:
             print("GPU not available, using CPU for embeddings.")
 
     if (regenerate_vectors or (not os.path.isfile(vect_path))) and need_sentence:
         generate_vect(chat_data, vect_path, message_col, device)
     if (regenerate_vectors or (not os.path.isfile(bert_path))) and need_sentiment:
-        generate_bert(chat_data, bert_path, message_col)
+        generate_bert(chat_data, bert_path, message_col, device)
 
     try:
         vector_df = pd.read_csv(vect_path)
@@ -82,10 +80,10 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
         bert_df = pd.read_csv(bert_path)
         if len(bert_df) != len(chat_data):
             print("ERROR: The length of the sentiment data does not match the length of the chat data. Regenerating...")
-            generate_bert(chat_data, bert_path, message_col)
+            generate_bert(chat_data, bert_path, message_col, device)
     except FileNotFoundError:
         if need_sentiment: # It's OK if we don't have the path, if the sentiment features are not necessary
-            generate_bert(chat_data, bert_path, message_col)
+            generate_bert(chat_data, bert_path, message_col, device)
     
     # Get the lexicon pickle(s) if they don't exist
     current_script_directory = Path(__file__).resolve().parent
@@ -396,7 +394,7 @@ def generate_vect(chat_data, output_path, message_col, device, batch_size=64):
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     embedding_df.to_csv(output_path, index=False)
 
-def generate_bert(chat_data, output_path, message_col, batch_size=64):
+def generate_bert(chat_data, output_path, message_col, device, batch_size=64):
     """
     Generates RoBERTa sentiment scores for the given chat data and saves them to a CSV file.
 
@@ -413,7 +411,8 @@ def generate_bert(chat_data, output_path, message_col, batch_size=64):
     :rtype: None
     """
     print(f"Generating RoBERTa sentiments...")
-
+    model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
+    model_bert.to(device)
     messages = chat_data[message_col].tolist()
     # batch_sentiments_df = pd.DataFrame()
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
@@ -421,7 +420,7 @@ def generate_bert(chat_data, output_path, message_col, batch_size=64):
     first = True
     for i in tqdm(range(0, len(messages), batch_size)):
         batch = messages[i:i + batch_size]
-        batch_df = get_sentiment(batch)
+        batch_df = get_sentiment(batch, model_bert, device)
         batch_df.to_csv(output_path, mode='a', header=first, index=False)
         first = False
         # batch_sentiments_df = pd.concat([batch_sentiments_df, batch_df], ignore_index=True)
@@ -431,7 +430,7 @@ def generate_bert(chat_data, output_path, message_col, batch_size=64):
     
     # batch_sentiments_df.to_csv(output_path, index=False)
 
-def get_sentiment(texts):
+def get_sentiment(texts, model_bert, device):
     """
     Analyzes the sentiment of the given list of texts using a BERT model and returns a DataFrame with scores for positive, negative, and neutral sentiments.
 
@@ -450,6 +449,7 @@ def get_sentiment(texts):
         return pd.DataFrame(np.nan, index=texts_series.index, columns=['positive_bert', 'negative_bert', 'neutral_bert'])
 
     encoded = tokenizer(non_null_non_empty_texts, padding=True, truncation=True, max_length=512, return_tensors='pt')
+    encoded = {k: v.to(device) for k, v in encoded.items()}
     with torch.no_grad():
         output = model_bert(**encoded)
 
