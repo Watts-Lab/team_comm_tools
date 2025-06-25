@@ -80,6 +80,7 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
         bert_df = pd.read_csv(bert_path)
         if len(bert_df) != len(chat_data):
             print("ERROR: The length of the sentiment data does not match the length of the chat data. Regenerating...")
+            # delete the file
             generate_bert(chat_data, bert_path, message_col, device)
     except FileNotFoundError:
         if need_sentiment: # It's OK if we don't have the path, if the sentiment features are not necessary
@@ -415,21 +416,16 @@ def generate_bert(chat_data, output_path, message_col, device, batch_size=64):
     model_bert.to(device)
     messages = chat_data[message_col].tolist()
     batch_sentiments_df = pd.DataFrame()
-    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
-    # first = True
     batch_sentiments_lst = []
     for i in tqdm(range(0, len(messages), batch_size)):
         batch = messages[i:i + batch_size]
         batch_df = get_sentiment(batch, model_bert, device)
-        # batch_df.to_csv(output_path, mode='a', header=first, index=False)
-        # first = False
-        # batch_sentiments_df = pd.concat([batch_sentiments_df, batch_df], ignore_index=True)
         batch_sentiments_lst.append(batch_df)
-
     batch_sentiments_df = pd.concat(batch_sentiments_lst, ignore_index=True)
-    # Create directories along the path if they don't exist
     
+    # Create directories along the path if they don't exist
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     batch_sentiments_df.to_csv(output_path, index=False)
 
 def get_sentiment(texts, model_bert, device):
