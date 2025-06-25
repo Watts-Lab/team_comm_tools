@@ -414,21 +414,23 @@ def generate_bert(chat_data, output_path, message_col, device, batch_size=64):
     model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
     model_bert.to(device)
     messages = chat_data[message_col].tolist()
-    # batch_sentiments_df = pd.DataFrame()
+    batch_sentiments_df = pd.DataFrame()
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
-    first = True
+    # first = True
+    batch_sentiments_lst = []
     for i in tqdm(range(0, len(messages), batch_size)):
         batch = messages[i:i + batch_size]
         batch_df = get_sentiment(batch, model_bert, device)
-        batch_df.to_csv(output_path, mode='a', header=first, index=False)
-        first = False
+        # batch_df.to_csv(output_path, mode='a', header=first, index=False)
+        # first = False
         # batch_sentiments_df = pd.concat([batch_sentiments_df, batch_df], ignore_index=True)
+        batch_sentiments_lst.append(batch_df)
 
-    # batch_sentiments_df = pd.concat(batch_sentiments_lst, ignore_index=True)
+    batch_sentiments_df = pd.concat(batch_sentiments_lst, ignore_index=True)
     # Create directories along the path if they don't exist
     
-    # batch_sentiments_df.to_csv(output_path, index=False)
+    batch_sentiments_df.to_csv(output_path, index=False)
 
 def get_sentiment(texts, model_bert, device):
     """
