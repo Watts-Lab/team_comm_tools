@@ -1426,3 +1426,29 @@ yeomans_test,yeomans_user_a,Bye I'll see you tomorrow,Goodbye_receptiveness_yeom
 yeomans_test,yeomans_user_b,By the way how do you call this?,By_The_Way_receptiveness_yeomans,1
 yeomans_test,yeomans_user_a,"Dear Mr. Smith, thank you for your feedback.",Formal_Title_receptiveness_yeomans,1
 yeomans_test,yeomans_user_b,Dude that was dope,Informal_Title_receptiveness_yeomans,1
+yeomans_test,yeomans_user_a,"Do me a favour, can you upload it for me? Just allow me to finish another task.",Ask_Agency_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,"You idiot, what the fuck is going on? That's absurd.",Negative_Emotion_receptiveness_yeomans,3
+yeomans_test,yeomans_user_a,"You simply just need to wait, it's only 5 minutes.",Adverb_Limiter_receptiveness_yeomans,3
+yeomans_test,yeomans_user_b,Send me the file. Fix this bug. Write a summary.,Bare_Command_receptiveness_yeomans,3
+yeomans_test,yeomans_user_a,"I feel like we could approach this differently. In my opinion, that solution might be risky.",Subjectivity_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,Explain it. Why we want that?,Reasoning_receptiveness_yeomans,2
+yeomans_test,yeomans_user_a,Why did you do it that way? Where did you go?,WH_Questions_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,I guess they almost complete it.,Hedges_receptiveness_yeomans,2
+yeomans_test,yeomans_user_a,"Ma'am, no my lady, do you know Mr. Smith?",Formal_Title_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,"I agree, this is correct",Agreement_receptiveness_yeomans,2
+yeomans_test,yeomans_user_a,This is for you. Why you don't understand it's for you?,For_You_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,"Thank you, I'm really grateful",Gratitude_receptiveness_yeomans,3
+yeomans_test,yeomans_user_a,We here you. We totally understand,Acknowledgement_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,"Shit. You dumb asshole, what the hell? Who's that bastard? Suck my dick.",Swearing_receptiveness_yeomans,7
+yeomans_test,yeomans_user_a,"Hey hello good morning, oh actually good evening.",Hello_receptiveness_yeomans,4
+yeomans_test,yeomans_user_b,Are you sure? Is this the guy? Did he lie to you?,YesNo_Questions_receptiveness_yeomans,3
+yeomans_test,yeomans_user_a,I'm sorry I sincerely apologize.,Apology_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,Wow! Amazing! Perfect!,Affirmation_receptiveness_yeomans,3
+yeomans_test,yeomans_user_a,I love you. My friend,First_Person_Single_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,This is for me? How can you say it's for me? It's not for me!,For_Me_receptiveness_yeomans,3
+yeomans_test,yeomans_user_a,"Honestly, It's actually really important",Truth_Intensifier_receptiveness_yeomans,3
+yeomans_test,yeomans_user_b,"So, what's the deal? And, what did they offer?",Conjunction_Start_receptiveness_yeomans,2
+yeomans_test,yeomans_user_a,Could you please help? Would you mind pause?,Could_You_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,It's a bad idea. I hate this terrible suggestion.,Disagreement_receptiveness_yeomans,2
+yeomans_test,yeomans_user_a,"Bud, that's so weird bro",Informal_Title_receptiveness_yeomans,2
+yeomans_test,yeomans_user_b,You can take your time. I'll let you work,Give_Agency_receptiveness_yeomans,2
