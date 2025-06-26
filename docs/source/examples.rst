@@ -91,10 +91,10 @@ Now we are ready to call the FeatureBuilder on our data. All we need to do is de
 		speaker_id_col = "speaker_nickname",
 		message_col = "message",
 		timestamp_col = "timestamp",
-		grouping_keys = ["batch_num", "round_num"],
+		grouping_keys = ["batch_num", "round_num"], # NOTE: This example demonstrates grouping. Use conversation_id_col if you have a single conversation identifier.
 		vector_directory = "./vector_data/",
 		output_file_base = "jury_output",
-		turns = True
+		turns = True # NOTE: This defaults to False. Decide whether you want to combine successive 'utterances' by the same person as a 'turn.'
 	)
 	jury_feature_builder.featurize()
 
@@ -218,6 +218,12 @@ Regenerating Vector Cache
 * The **regenerate_vectors** parameter controls whether you'd like the FeatureBuilder to re-generate the content in the **vector_directory**, even if we have already cached the output of a previous run. It is useful if the underlying data has changed, but you want to give the output file the same name as a previous run of the FeatureBuilder.
 
 	* By default, **we assume that, if your output file is named the same, that the underlying vectors are the same**. If this isn't true, you should set **regenerate_vectors = True** in order to clear out the cache and re-generate the RoBERTa and SBERT outputs.
+
+
+Generating Vectors using GPU
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+By default, we use the CPU to generate sentence vectors and cached RoBERTa sentimets. To override this feature and use a GPU when available (which will speed up the computation of the vectors), turn ``use_gpu`` to True.
+
 
 Custom Features
 ~~~~~~~~~~~~~~~~~

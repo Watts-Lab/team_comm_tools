@@ -57,7 +57,6 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#other-utilities">Other Utilities</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="preload_word_lists.html">preload_word_lists module</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">preprocess module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.assert_key_columns_present"><code class="docutils literal notranslate"><span class="pre">assert_key_columns_present()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.compress"><code class="docutils literal notranslate"><span class="pre">compress()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.create_cumulative_rows"><code class="docutils literal notranslate"><span class="pre">create_cumulative_rows()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.get_turn_id"><code class="docutils literal notranslate"><span class="pre">get_turn_id()</span></code></a></li>
@@ -106,26 +105,6 @@
              
   <section id="module-utils.preprocess">
 <span id="preprocess-module"></span><h1>preprocess module<a class="headerlink" href="#module-utils.preprocess" title="Link to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="utils.preprocess.assert_key_columns_present">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">assert_key_columns_present</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utils.preprocess.assert_key_columns_present" title="Link to this definition"></a></dt>
-<dd><p>Ensure that the DataFrame has essential columns and handle missing values.</p>
-<p>This function  if the essential columns <cite>conversation_id_col</cite>, <cite>speaker_id_col</cite>, and
-<cite>message_col</cite> are present. If any of these columns are missing, a
-KeyError is raised.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame to check and process.</p></li>
-<li><p><strong>column_names</strong> (<em>dict</em>) – Columns to preprocess.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>KeyError</strong> – If one of <cite>conversation_id_col</cite>, <cite>speaker_id_col</cite>, and <cite>message_col</cite> columns is missing.</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.compress">
 <span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">compress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">turn_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.compress" title="Link to this definition"></a></dt>
@@ -295,7 +274,7 @@ keeping any punctuation marks intact.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.preprocess.remove_unhashable_cols">
-<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">remove_unhashable_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utils.preprocess.remove_unhashable_cols" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">remove_unhashable_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warning</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utils.preprocess.remove_unhashable_cols" title="Link to this definition"></a></dt>
 <dd><p>If a required column contains unhashable types, raise an error.
 Otherwise, remove those columns from the DataFrame and print a warning message.</p>
 <dl class="field-list simple">
