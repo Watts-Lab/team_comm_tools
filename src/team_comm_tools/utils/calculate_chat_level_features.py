@@ -470,7 +470,8 @@ class ChatLevelFeaturesCalculator:
             count_ellipses)
         self.chat_data["num_parentheses"] = self.chat_data["message_lower_with_punc"].apply(
             count_parentheses)
-        self.chat_data["num_emoji"] = self.chat_data["message_lower_with_punc"].apply(
+        self.chat_data["num_emoji"] = self.chat_data[self.message_col +
+                                                        "_original"].apply(
             count_emojis)
 
     def get_named_entity(self) -> None:

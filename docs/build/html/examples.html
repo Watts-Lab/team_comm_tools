@@ -158,10 +158,10 @@
         <span class="n">speaker_id_col</span> <span class="o">=</span> <span class="s2">&quot;speaker_nickname&quot;</span><span class="p">,</span>
         <span class="n">message_col</span> <span class="o">=</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
         <span class="n">timestamp_col</span> <span class="o">=</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
-        <span class="n">grouping_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;batch_num&quot;</span><span class="p">,</span> <span class="s2">&quot;round_num&quot;</span><span class="p">],</span>
+        <span class="n">grouping_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;batch_num&quot;</span><span class="p">,</span> <span class="s2">&quot;round_num&quot;</span><span class="p">],</span> <span class="c1"># NOTE: This example demonstrates grouping. Use conversation_id_col if you have a single conversation identifier.</span>
         <span class="n">vector_directory</span> <span class="o">=</span> <span class="s2">&quot;./vector_data/&quot;</span><span class="p">,</span>
         <span class="n">output_file_base</span> <span class="o">=</span> <span class="s2">&quot;jury_output&quot;</span><span class="p">,</span>
-        <span class="n">turns</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">turns</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># NOTE: This defaults to False. Decide whether you want to combine successive &#39;utterances&#39; by the same person as a &#39;turn.&#39;</span>
 <span class="p">)</span>
 <span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">featurize</span><span class="p">()</span>
 </pre></div>
@@ -301,6 +301,10 @@
 </div></blockquote>
 </li>
 </ul>
+</section>
+<section id="generating-vectors-using-gpu">
+<h5>Generating Vectors using GPU<a class="headerlink" href="#generating-vectors-using-gpu" title="Link to this heading"></a></h5>
+<p>By default, we use the CPU to generate sentence vectors and cached RoBERTa sentimets. To override this feature and use a GPU when available (which will speed up the computation of the vectors), turn <code class="docutils literal notranslate"><span class="pre">use_gpu</span></code> to True.</p>
 </section>
 <section id="custom-features">
 <h5>Custom Features<a class="headerlink" href="#custom-features" title="Link to this heading"></a></h5>

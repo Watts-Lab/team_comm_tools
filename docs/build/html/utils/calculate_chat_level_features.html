@@ -348,8 +348,7 @@ and appends the forward flow score to the chat data.</p>
 <dd><p>Calculate features relevant to the timestamps of each chat.</p>
 <p>This function calculates and appends the following temporal feature to the chat data:
 - Time difference between messages sent</p>
-<p>It checks whether the ‘timestamp’ column is available. If not, it tries to calculate
-using ‘timestamp_start’ and ‘timestamp_end’ columns.</p>
+<p>It assumes the ‘timestamp’ column is available, which is checked in feature_builder.py.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
