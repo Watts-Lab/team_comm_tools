@@ -197,16 +197,16 @@ class FeatureBuilder:
             ### Chat Level
             "Named Entity Recognition",
             "Sentiment (RoBERTa)",
-            "Message Length",
-            "Message Quantity",
+            "Message Length/Quantity",
+            # "Message Quantity",
             "Information Exchange",
             "LIWC and Other Lexicons",
             "Questions",
             "Conversational Repair",
             "Word Type-Token Ratio",
             "Proportion of First-Person Pronouns",
-            "Function Word Accommodation",
-            "Content Word Accommodation",
+            "Lexical Mimicry",
+            # "Content Word Accommodation",
             "Hedge",
             "TextBlob Subjectivity",
             "TextBlob Polarity",
@@ -236,7 +236,7 @@ class FeatureBuilder:
                 invalid_features.add(feat)
         if invalid_features:
             invalid_features_str = ', '.join(invalid_features)
-            warnings.warn(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
+            print(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
         # remove named entities if we didn't pass in the column
         if self.ner_training is None:
             self.feature_names.remove("Named Entity Recognition")

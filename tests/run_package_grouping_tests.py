@@ -159,8 +159,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_chat_level_existing_user.csv",
 		output_file_path_conv_level = "./output/conv/test_chat_level_existing_conv.csv",
 		custom_features = [
-            "(BERT) Mimicry",
-            "Moving Mimicry",
+            # "(BERT) Mimicry",
+            # "Moving Mimicry",
+			"Vector Mimicry",
             "Forward Flow",
             "Discursive Diversity"
         ],
@@ -184,8 +185,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_vectors_user.csv",
 		output_file_path_conv_level = "./output/conv/test_vectors_conv.csv",
 		custom_features = [
-            "(BERT) Mimicry",
-            "Moving Mimicry",
+            # "(BERT) Mimicry",
+            # "Moving Mimicry",
+			"Vector Mimicry",
             "Forward Flow",
             "Discursive Diversity"
         ],

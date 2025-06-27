@@ -46,8 +46,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_positivity_user_level.csv",
 		output_file_path_conv_level = "./output/conv/test_positivity_conv_level.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -64,8 +65,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_timediff_dt_user.csv",
 		output_file_path_conv_level = "./output/conv/test_timediff_dt_conv.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -82,8 +84,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_timediff_num_user.csv",
 		output_file_path_conv_level = "./output/conv/test_timediff_num_conv.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -101,8 +104,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_timediff_num_unit_user.csv",
 		output_file_path_conv_level = "./output/conv/test_timediff_num_unit_conv.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -120,8 +124,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_time_pairs_dt_user.csv",
 		output_file_path_conv_level = "./output/conv/test_time_pairs_dt_conv.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -139,8 +144,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_time_pairs_num_user.csv",
 		output_file_path_conv_level = "./output/conv/test_time_pairs_num_conv.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -158,8 +164,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_time_pairs_num_unit_user.csv",
 		output_file_path_conv_level = "./output/conv/test_time_pairs_num_unit_conv.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -178,8 +185,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_chat_level_user.csv",
 		output_file_path_conv_level = "./output/conv/test_chat_level_conv.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -195,8 +203,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/info_exchange_zscore_chats.csv",
 		output_file_path_conv_level = "./output/conv/info_exchange_zscore_chats.csv",
 		custom_features = [ # these require vect_data, so they now need to be explicitly included in order to calculate them
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -212,8 +221,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_conv_level_user.csv",
 		output_file_path_conv_level = "./output/conv/test_conv_level_conv.csv",
 		custom_features = [
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -231,8 +241,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_named_entity_user_level.csv",
 		output_file_path_conv_level = "./output/conv/test_named_entity_conversation_level.csv",
 		custom_features = [
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -249,8 +260,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_chat_level_user_complex.csv",
 		output_file_path_conv_level = "./output/conv/test_chat_level_conv_complex.csv",
 		custom_features = [
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -267,8 +279,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_conv_level_user_complex.csv",
 		output_file_path_conv_level = "./output/conv/test_conv_level_conv_complex.csv",
 		custom_features = [
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -284,8 +297,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_conv_level_user_complex_ts.csv",
 		output_file_path_conv_level = "./output/conv/test_conv_level_conv_complex_ts.csv",
 		custom_features = [
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],
@@ -302,8 +316,9 @@ if __name__ == "__main__":
 		output_file_path_user_level = "./output/user/test_forward_flow_user.csv",
 		output_file_path_conv_level = "./output/conv/test_forward_flow_conv.csv",
 		custom_features = [
-			"(BERT) Mimicry",
-			"Moving Mimicry",
+			# "(BERT) Mimicry",
+			# "Moving Mimicry",
+			"Vector Mimicry",
 			"Forward Flow",
 			"Discursive Diversity"
 		],

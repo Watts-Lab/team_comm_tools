@@ -215,19 +215,29 @@ class ChatLevelFeaturesCalculator:
         # Naive hedge (contains the word or not)
         self.chat_data["hedge_naive"] = self.chat_data["hedge_words_lexical_wordcount"].apply(is_hedged_sentence_1)
 
-    def calculate_textblob_sentiment(self) -> None:
+    def get_textblob_subjectivity(self) -> None:
         """
         Calculate features related to sentiment using TextBlob.
 
-        This function calculates and appends the following TextBlob sentiment features to the chat data:
-        - Subjectivity score
-        - Polarity score
+        This function calculates and appends Subjectivity score to the chat data
 
         :return: None
         :rtype: None
         """
         self.chat_data["textblob_subjectivity"] = self.chat_data[self.message_col].apply(
             get_subjectivity_score)
+
+    def get_textblob_polarity(self) -> None:
+        """
+        Calculate features related to sentiment using TextBlob.
+
+        This function calculates and appends Polarity score to the chat data
+
+        :return: None
+        :rtype: None
+        """
+        # self.chat_data["textblob_subjectivity"] = self.chat_data[self.message_col].apply(
+        #     get_subjectivity_score)
         self.chat_data["textblob_polarity"] = self.chat_data[self.message_col].apply(
             get_polarity_score)
 
@@ -247,6 +257,61 @@ class ChatLevelFeaturesCalculator:
         self.chat_data['dale_chall_classification'] = self.chat_data['dale_chall_score'].apply(
             classify_text_dalechall)
 
+    def get_question_naive(self) -> None:
+        """
+        Extract the number of questions (naive approach using question marks and question words)
+
+        :return: None
+        :rtype: None
+        """
+        # Get the number of questions in each message
+        # naive: Number of Question Marks + Sentences that start with question words
+        self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(
+            lambda x: calculate_num_question_naive(x, question_words=self.question_words))
+    
+    def get_NIRI(self) -> None:
+        """
+        Classify whether the message contains clarification questions.
+
+        This function applies the NTRI classification to the chat messages and appends the result as a new column.
+
+        :return: None
+        :rtype: None
+        """
+        # Classify whether the message contains clarification questions
+        self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(
+            classify_NTRI)
+        
+    def get_word_TTR(self) -> None:
+        """
+        Calculate the word type-to-token ratio (TTR).
+
+        This function calculates and appends the word TTR to the chat data.
+
+        :return: None
+        :rtype: None
+        """
+        # Calculate the word type-to-token ratio
+        self.chat_data["word_TTR"] = self.chat_data[self.message_col].apply(
+            get_word_TTR)
+    
+    def get_proportion_first_pronouns(self) -> None:
+        """
+        Calculate the proportion of first-person pronouns from the chats.
+
+        This function calculates and appends the proportion of first-person pronouns to the chat data.
+        It also drops the raw number of first-person pronouns from the chat data as it is proportional to other columns.
+
+        :return: None
+        :rtype: None
+        """
+        # Calculate the proportion of first person pronouns from the chats
+        self.chat_data["first_pronouns_proportion"] = get_proportion_first_pronouns(
+            self.chat_data)
+
+        # drop the raw number of first pronouns -- unnecessary given this is proportional to other first-pronoun columns
+        self.chat_data = self.chat_data.drop(columns=['first_person_raw'])
+
     def other_lexical_features(self) -> None:
         """
         Extract various lexical features from the chats.
@@ -265,23 +330,23 @@ class ChatLevelFeaturesCalculator:
 
         # Get the number of questions in each message
         # naive: Number of Question Marks + Sentences that start with question words
-        self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(
-            lambda x: calculate_num_question_naive(x, question_words=self.question_words))
+        # self.chat_data["num_question_naive"] = self.chat_data["message_lower_with_punc"].apply(
+        #     lambda x: calculate_num_question_naive(x, question_words=self.question_words))
 
         # Classify whether the message contains clarification questions
-        self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(
-            classify_NTRI)
+        # self.chat_data["NTRI"] = self.chat_data["message_lower_with_punc"].apply(
+        #     classify_NTRI)
 
         # Calculate the word type-to-token ratio
-        self.chat_data["word_TTR"] = self.chat_data[self.message_col].apply(
-            get_word_TTR)
+        # self.chat_data["word_TTR"] = self.chat_data[self.message_col].apply(
+        #     get_word_TTR)
 
         # Calculate the proportion of first person pronouns from the chats
-        self.chat_data["first_pronouns_proportion"] = get_proportion_first_pronouns(
-            self.chat_data)
+        # self.chat_data["first_pronouns_proportion"] = get_proportion_first_pronouns(
+        #     self.chat_data)
 
-        # drop the raw number of first pronouns -- unnecessary given this is proportional to other first-pronoun columns
-        self.chat_data = self.chat_data.drop(columns=['first_person_raw'])
+        # # drop the raw number of first pronouns -- unnecessary given this is proportional to other first-pronoun columns
+        # self.chat_data = self.chat_data.drop(columns=['first_person_raw'])
 
     def calculate_word_mimicry(self) -> None:
         """
@@ -329,7 +394,7 @@ class ChatLevelFeaturesCalculator:
         # Drop the function / content word columns -- we don't need them in the output
         self.chat_data = self.chat_data.drop(columns=[
                                              'function_words', 'content_words', 'function_word_mimicry', 'content_word_mimicry'])
-
+        
     def calculate_vector_word_mimicry(self) -> None:
         """
         Compute the mimicry relative to the previous chat(s) using SBERT vectors.

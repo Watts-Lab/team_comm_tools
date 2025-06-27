@@ -43,34 +43,34 @@ feature_dict = { # TODO: customize preprocess methods
     "vect_data": False,
     "bert_sentiment_data": True
   },
-  "Message Length": {
-    "columns": ["num_words", "num_chars"],
+  "Message Length/Quantity": {
+    "columns": ["num_words", "num_chars", "num_messages"],
     "file": "./features/basic_features.py",
     "level": "Chat",
     "semantic_grouping": "Quantity",
-    "description": "The length of a message in words and characters.",
-    "references": "(Ranganath et al., 2013; Cao et al., 2021)",
-    "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/message_length.html",
+    "description": "The length of a message in words and characters and the total number of messages sent.",
+    "references": "(Ranganath et al., 2013; Cao et al., 2021), (Cao et al., 2021; Marlow et al., 2018, as objective communication frequency)",
+    "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/message_length.html", # TODO: update wiki link
     "function": ChatLevelFeaturesCalculator.text_based_features,
     "dependencies": [],
     "preprocess": [],
     "vect_data": False,
     "bert_sentiment_data": False
   },
-  "Message Quantity": {
-    "columns": ["num_messages"],
-    "file": "./features/basic_features.py",
-    "level": "Chat", # This was "Conversation, Speaker" in the database
-    "semantic_grouping": "Quantity",
-    "description": "The total number of messages sent.",
-    "references": "(Cao et al., 2021; Marlow et al., 2018, as objective communication frequency)",
-    "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/message_quantity.html",
-    "function": ChatLevelFeaturesCalculator.text_based_features,
-    "dependencies": [],
-    "preprocess": [],
-    "vect_data": False,
-    "bert_sentiment_data": False
-  },
+  # "Message Quantity": {
+  #   "columns": ["num_messages"],
+  #   "file": "./features/basic_features.py",
+  #   "level": "Chat", # This was "Conversation, Speaker" in the database
+  #   "semantic_grouping": "Quantity",
+  #   "description": "The total number of messages sent.",
+  #   "references": "(Cao et al., 2021; Marlow et al., 2018, as objective communication frequency)",
+  #   "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/message_quantity.html",
+  #   "function": ChatLevelFeaturesCalculator.text_based_features,
+  #   "dependencies": [],
+  #   "preprocess": [],
+  #   "vect_data": False,
+  #   "bert_sentiment_data": False
+  # },
   "Information Exchange": {
     "columns": [
       "info_exchange_zscore_chats",
@@ -166,7 +166,7 @@ feature_dict = { # TODO: customize preprocess methods
     "description": "Number of questions asked in an utterance. In the naive version, it counts the number of question marks (’?’).",
     "references": "(Ranganath et al., 2013)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/questions.html",
-    "function": ChatLevelFeaturesCalculator.other_lexical_features,
+    "function": ChatLevelFeaturesCalculator.get_question_naive,
     "dependencies": [ChatLevelFeaturesCalculator.text_based_features, ChatLevelFeaturesCalculator.lexical_features],
     "preprocess": [preprocess_text_lowercase_but_retain_punctuation], # "message_lower_with_punc"
     "vect_data": False,
@@ -180,7 +180,7 @@ feature_dict = { # TODO: customize preprocess methods
     "description": "A binary indicator of whether an utterance contains a repair indicator, defined as the following: - “what?” - “sorry” - “excuse me” - “huh?” - “who?” - “pardon?” - “say … again?” - “what’s that?” - “what is that”",
     "references": "(Ranganath et al., 2013)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/conversational_repair.html",
-    "function": ChatLevelFeaturesCalculator.other_lexical_features,
+    "function": ChatLevelFeaturesCalculator.get_NIRI,
     "dependencies": [ChatLevelFeaturesCalculator.text_based_features, ChatLevelFeaturesCalculator.lexical_features],
     "preprocess": [preprocess_text_lowercase_but_retain_punctuation], # "message_lower_with_punc"
     "vect_data": False,
@@ -194,7 +194,7 @@ feature_dict = { # TODO: customize preprocess methods
     "description": "The ratio of word types (the total number of unique words in an utterance) to tokens (the total number of words in an utterance).",
     "references": "(Reichel et al., 2015)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/word_ttr.html",
-    "function": ChatLevelFeaturesCalculator.other_lexical_features,
+    "function": ChatLevelFeaturesCalculator.get_word_TTR,
     "dependencies": [ChatLevelFeaturesCalculator.text_based_features, ChatLevelFeaturesCalculator.lexical_features],
     "preprocess": [preprocess_text_lowercase_but_retain_punctuation], # "message_lower_with_punc"
     "vect_data": False,
@@ -208,18 +208,18 @@ feature_dict = { # TODO: customize preprocess methods
     "description": "The proportion of words in an utterance that are first-person pronouns (e.g., “I,” “me,” “we,” “us”).",
     "references": "(Reichel et al., 2015)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/proportion_of_first_person_pronouns.html",
-    "function": ChatLevelFeaturesCalculator.other_lexical_features,
+    "function": ChatLevelFeaturesCalculator.get_proportion_first_pronouns,
     "dependencies": [ChatLevelFeaturesCalculator.text_based_features, ChatLevelFeaturesCalculator.lexical_features],
     "preprocess": [preprocess_text_lowercase_but_retain_punctuation], # "message_lower_with_punc"
     "vect_data": False,
     "bert_sentiment_data": False
   },
-  "Function Word Accommodation": {
-    "columns": ["function_word_accommodation"],
+  "Lexical Mimicry": {
+    "columns": ["function_word_accommodation", "content_word_accommodation", "content_word_accommodation_per_conv"],
     "file": "./features/word_mimicry.py",
     "level": "Chat",
     "semantic_grouping": "Variance",
-    "description": "The total number of function words used in a given turn that were also used in the previous turn. Function words are defined as a list of 190 words from the source paper.",
+    "description": "The total number of  words used in a given turn that were also used in the previous turn.",
     "references": "(Ranganath et al., 2013)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/function_word_accommodation.html",
     "function": ChatLevelFeaturesCalculator.calculate_word_mimicry,
@@ -228,26 +228,26 @@ feature_dict = { # TODO: customize preprocess methods
     "vect_data": False,
     "bert_sentiment_data": False
   },
-  "Content Word Accommodation": {
-    "columns": ["content_word_accommodation", "content_word_accommodation_per_conv"],
+  # "Content Word Accommodation": {
+  #   "columns": ["content_word_accommodation", "content_word_accommodation_per_conv"],
+  #   "file": "./features/word_mimicry.py",
+  #   "level": "Chat",
+  #   "semantic_grouping": "Variance",
+  #   "description": "The total number of non-function words used in a given turn that were also used in the previous turn, normalized by the inverse document frequency of each content word. `content_word_accommodation` computes the frequency of the content words with respect to the entire dataset; `content_word_accommodation_per_conv` does so with respect to each conversation.",
+  #   "references": "(Ranganath et al., 2013)",
+  #   "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/content_word_accommodation.html",
+  #   "function": ChatLevelFeaturesCalculator.calculate_word_mimicry,
+  #   "dependencies": [],
+  #   "preprocess": [],
+  #   "vect_data": False,
+  #   "bert_sentiment_data": False
+  # },
+  "Vector Mimicry": {
+    "columns": ["mimicry_bert", "moving_mimicry"],
     "file": "./features/word_mimicry.py",
     "level": "Chat",
     "semantic_grouping": "Variance",
-    "description": "The total number of non-function words used in a given turn that were also used in the previous turn, normalized by the inverse document frequency of each content word. `content_word_accommodation` computes the frequency of the content words with respect to the entire dataset; `content_word_accommodation_per_conv` does so with respect to each conversation.",
-    "references": "(Ranganath et al., 2013)",
-    "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/content_word_accommodation.html",
-    "function": ChatLevelFeaturesCalculator.calculate_word_mimicry,
-    "dependencies": [],
-    "preprocess": [],
-    "vect_data": False,
-    "bert_sentiment_data": False
-  },
-  "(BERT) Mimicry": {
-    "columns": ["mimicry_bert"],
-    "file": "./features/word_mimicry.py",
-    "level": "Chat",
-    "semantic_grouping": "Variance",
-    "description": "The cosine similarity of the SBERT vectors between the current utterance and the utterance in the previous turn.",
+    "description": "The cosine similarity of the SBERT vectors between the current utterance and the utterance in the previous turn. And, The running average of all BERT Mimicry scores computed so far in a conversation. Captures the extent to which all participants in a conversation mimic each other up until a given point.",
     "references": "Inspired by accommodation (Matarazzo & Wiens, 1977), language style matching (Tausczik & Pennebaker, 2013) and synchrony (Niederhoffer & Pennebaker, 2002), and implemented in a manner similar to forward flow (Gray et al., 2019)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/mimicry_bert.html",
     "function": ChatLevelFeaturesCalculator.calculate_vector_word_mimicry,
@@ -256,20 +256,20 @@ feature_dict = { # TODO: customize preprocess methods
     "vect_data": True,
     "bert_sentiment_data": False
   },
-  "Moving Mimicry": {
-    "columns": ["moving_mimicry"],
-    "file": "./features/word_mimicry.py",
-    "level": "Chat",
-    "semantic_grouping": "Variance",
-    "description": "The running average of all BERT Mimicry scores computed so far in a conversation. Captures the extent to which all participants in a conversation mimic each other up until a given point.",
-    "references": "Inspired by accommodation (Matarazzo & Wiens, 1977), language style matching (Tausczik & Pennebaker, 2013) and synchrony (Niederhoffer & Pennebaker, 2002), and implemented in a manner similar to forward flow (Gray et al., 2019)",
-    "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/moving_mimicry.html",
-    "function": ChatLevelFeaturesCalculator.calculate_vector_word_mimicry,
-    "dependencies": [],
-    "preprocess": [],
-    "vect_data": True,
-    "bert_sentiment_data": False
-  },
+  # "Moving Mimicry": {
+  #   "columns": ["moving_mimicry"],
+  #   "file": "./features/word_mimicry.py",
+  #   "level": "Chat",
+  #   "semantic_grouping": "Variance",
+  #   "description": "The running average of all BERT Mimicry scores computed so far in a conversation. Captures the extent to which all participants in a conversation mimic each other up until a given point.",
+  #   "references": "Inspired by accommodation (Matarazzo & Wiens, 1977), language style matching (Tausczik & Pennebaker, 2013) and synchrony (Niederhoffer & Pennebaker, 2002), and implemented in a manner similar to forward flow (Gray et al., 2019)",
+  #   "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/moving_mimicry.html",
+  #   "function": ChatLevelFeaturesCalculator.calculate_vector_word_mimicry,
+  #   "dependencies": [],
+  #   "preprocess": [],
+  #   "vect_data": True,
+  #   "bert_sentiment_data": False
+  # },
   "Hedge": {
     "columns": ["hedge_naive"],
     "file": "./features/hedge.py",
@@ -292,7 +292,7 @@ feature_dict = { # TODO: customize preprocess methods
     "description": "The extent to which a statement is “subjective” (containing personal information) or “objective” (containing factual information), as measured by TextBlob. Ranges from 0 (objective) to 1 (subjective).",
     "references": "(Cao et al., 2021)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/textblob_subjectivity.html",
-    "function": ChatLevelFeaturesCalculator.calculate_textblob_sentiment,
+    "function": ChatLevelFeaturesCalculator.get_textblob_subjectivity,
     "dependencies": [],
     "preprocess": [],
     "vect_data": False,
@@ -306,7 +306,7 @@ feature_dict = { # TODO: customize preprocess methods
     "description": "The extent to which a statement is positive or negative; ranges from -1 (negative) to 1 (positive); neutrality is assigned a score of 0.",
     "references": "(Cao et al., 2021)",
     "wiki_link": "https://conversational-featurizer.readthedocs.io/en/latest/features_conceptual/textblob_polarity.html",
-    "function": ChatLevelFeaturesCalculator.calculate_textblob_sentiment,
+    "function": ChatLevelFeaturesCalculator.get_textblob_polarity,
     "dependencies": [],
     "preprocess": [],
     "vect_data": False,
