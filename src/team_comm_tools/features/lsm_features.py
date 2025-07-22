@@ -1,18 +1,15 @@
 import pandas as pd
 
-def calculate_lsm(chat_df):
-    
+def calculate_lsm(chat_df: pd.DataFrame, conversation_id_col: str, speaker_id_col: str) -> pd.DataFrame:
     """ 
     This function calculates Language Style Matching (LSM) scores for the Team Communication Toolkit.
     
     Source: Language Style Matching as a Predictor of Social Dynamics in Small Groups by Amy L. Gonzales, Jeffrey T. Hancock, and James W. Pennebaker.
 
-     Args:
-        chat_df (pd.DataFrame): A pandas DataFrame with columns for conversation_id, speaker_id, 
-            and various word-level counts (e.g., num_words, conjunction_lexical_wordcount, etc.).
-
-    Returns:
-        pd.DataFrame: A pandas DataFrame with additional columns for LSM scores and related calculations.
+    :param chat_df: The DataFrame containing conversation data.
+    :type df: pd.DataFrame
+    :return: The pandas DataFrame with additional columns for LSM scores and related calculations.
+    :rtype: pd.DataFrame
     """
     
     # Create a new column with the sum of all pronouns (first person singular, first person plural, second person, third person)
@@ -24,7 +21,7 @@ def calculate_lsm(chat_df):
     )
 
     # Group by conversation_id and speaker_id to prepare for LSM calculations
-    grouped_df = chat_df.groupby(['conversation_id', 'speaker_id']).agg({
+    grouped_df = chat_df.groupby([conversation_id_col, speaker_id_col]).agg({
         'num_words': 'sum',
         'conjunction_lexical_wordcount': 'sum',
         'total_pronouns': 'sum',
@@ -58,8 +55,8 @@ def calculate_lsm(chat_df):
         grouped_df[f'{column}_percent'] = (grouped_df[column] / grouped_df['num_words']) * 100 
 
     # Compute group-level sums and counts for each conversation
-    group_sums = grouped_df.groupby('conversation_id')[function_word_columns].transform('sum')
-    group_counts = grouped_df.groupby('conversation_id')[function_word_columns].transform('count')
+    group_sums = grouped_df.groupby(conversation_id_col)[function_word_columns].transform('sum')
+    group_counts = grouped_df.groupby(conversation_id_col)[function_word_columns].transform('count')
 
     # Calculate group averages excluding the current speaker
     for column in function_word_columns:
@@ -68,5 +65,5 @@ def calculate_lsm(chat_df):
     # Calculate LSM score
     for column in function_word_columns:
         grouped_df[f'{column}_lsm'] = 1 - (abs(grouped_df[f'{column}_percent'] - grouped_df[f'{column}_group_avg']) / (grouped_df[f'{column}_percent'] + grouped_df[f'{column}_group_avg']))
-
+    # TODO: add total LSM score
     return grouped_df 
