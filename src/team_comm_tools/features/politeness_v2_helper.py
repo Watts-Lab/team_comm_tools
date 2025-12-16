@@ -218,29 +218,85 @@ def bare_command(doc):
 def Question(doc):
     """
     Counts the number of sentences containing question words and question marks.
-
+    Reference: https://github.com/bbevis/politenessPy/blob/main/strategy_extractor.py
     Args:
         doc (spacy.tokens.Doc): The spaCy Doc object containing the text to be analyzed.
-
     Returns:
         tuple: A tuple containing the counts of Yes/No questions and WH-questions.
     """
-
-    keywords = set([' who ', ' what ', ' where ', ' when ', ' why ', ' how ', ' which '])
-    tags = set(['WRB', 'WP', 'WDT'])
-
-    # doc = nlp(text)
-    sentences = [str(sent) for sent in doc.sents if '?' in str(sent)]
-    all_qs = len(sentences)
-
-    n = 0
-    for i in range(len(sentences)):
-        whq = [token.tag_ for token in nlp(sentences[i]) if token.tag_ in tags]
-
-        if len(whq) > 0:
-            n += 1
-
-    return all_qs - n, n
+    # POS tags for WH-words like who/what/where
+    search_tags = {'WRB', 'WP', 'WDT'}
+    # WH-words and common auxiliaries that follow them in real questions
+    wh_words = {'what', 'who', 'where', 'when', 'why', 'how', 'which'}
+    wh_followers = {
+        'what': {'are', 'is', 'do', 'does', 'can', 'should', 'might'},
+        'who': {'is', 'are', 'was', 'can', 'should'},
+        'where': {'is', 'are', 'can', 'should'},
+        'when': {'is', 'are', 'can', 'should'},
+        'why': {'is', 'are', 'do', 'does', 'can', 'might', 'would'},
+        'how': {'is', 'are', 'do', 'does', 'can', 'should', 'would'},
+        'which': {'is', 'are', 'was', 'can', 'should'}
+    }
+    # Auxiliaries that typically initiate Yes/No questions
+    yesno_aux = {'do', 'does', 'did', 'have', 'has', 'had',
+                #  'can', 'could', 'will', 'would', 
+                 'may', 'might', 'shall', 'should',
+                 'is', 'are', 'was', 'were', 'am'}
+    # Pronouns that often follow auxiliaries in Yes/No questions
+    pronoun_followers = {'i', 'you', 'we', 'he', 'she', 'they', 'it'}
+    # filler_words = {'ok', 'so', 'well', 'like', 'you know', 'i mean', 'actually', 'basically', 'right', 'just', 'uh', 'um', 'oh', 'hmm', 'like'}
+    
+    wh_count = 0
+    yesno_count = 0
+    counted_sentences = set()
+    for sent in doc.sents:
+        sent_text = sent.text.strip()
+        sent_tokens = list(sent)
+        if not sent_tokens:
+            continue
+        # Method 1: Find question sentences by checking for '?' at end
+        if sent_text.endswith('?'):
+            # try to find the first WH-word in the sentence
+            wh = False
+            for token in sent_tokens:
+                if token.text.lower() in wh_words and token.tag_ in search_tags and token.dep_ not in {"relcl", "acl"}\
+                and token.i < sent.root.i:
+                    wh = True
+                    break
+            if wh:
+                wh_count += 1
+            else:
+                # Fallback: no WH in the sentence → treat as Yes/No question
+                yesno_count += 1
+            counted_sentences.add(sent.start)
+            continue
+        # Method 2: For remaining sentences, apply lexical rule-based detection --- Extract tokens and their metadata for fast access
+        for i in range(len(sent_tokens) - 1):
+            tok1 = sent_tokens[i]
+            tok2 = sent_tokens[i + 1]
+            t1_lower = tok1.text.lower()
+            t2_lower = tok2.text.lower()
+            if sent.start in counted_sentences:
+                break  # already counted
+            # WH pattern
+            if t1_lower in wh_words and t2_lower in wh_followers.get(t1_lower, set()):
+                wh_count += 1
+                counted_sentences.add(sent.start)
+                break
+            # Yes/No pattern
+            if t1_lower in yesno_aux and t2_lower in pronoun_followers:
+                yesno_count += 1
+                counted_sentences.add(sent.start)
+                break
+    return yesno_count, wh_count
+    # sentences = [str(sent) for sent in doc.sents if '?' in str(sent)]
+    # all_qs = len(sentences)
+    # n = 0
+    # for i in range(len(sentences)):
+    #     whq = [token.tag_ for token in nlp(sentences[i]) if token.tag_ in tags]
+    #     if len(whq) > 0:
+    #         n += 1
+    # return all_qs - n, n
 
 
 def word_start(keywords, doc):
