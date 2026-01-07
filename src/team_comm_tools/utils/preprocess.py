@@ -1,4 +1,5 @@
 import re
+import logging
 import pandas as pd
 # import warnings
 
@@ -296,3 +297,25 @@ def create_cumulative_rows(input_df, conversation_id, timestamp_col, grouping_ke
               )
 
     return result_df
+
+def setup_logger(name: str, log_file_path: str, level: int=logging.INFO):
+    """Set up a logger
+
+    :param name: The name of the logger.
+    :type name: str
+    :param log_file_path: Path to the log file.
+    :type log_file_path: str
+    :param level: Logging level, defaults to logging.INFO. All levels: 0: NOTSET, 10: DEBUG, 20: INFO, 30: WARNING, 40: ERROR, 50: CRITICAL.
+    :type level: int, optional
+    :return: Configured logger.
+    :rtype: logging.Logger
+    """
+    formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
+    handler = logging.FileHandler(log_file_path)
+    handler.setFormatter(formatter)
+
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    logger.addHandler(handler)
+
+    return logger

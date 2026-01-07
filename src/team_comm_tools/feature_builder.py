@@ -6,7 +6,7 @@ pd.options.mode.chained_assignment = None
 import re
 import numpy as np
 from pathlib import Path
-import time
+from datetime import datetime
 import itertools
 import warnings
 
@@ -150,14 +150,22 @@ class FeatureBuilder:
             use_gpu: bool = False
         ) -> None:
 
-        # Some error catching
+        ###### Initialization ######
+        # Ensure output_file_base is alphanumeric + hyphens
+        self.output_file_base = re.sub('[^A-Za-z0-9_]', '', output_file_base)
+        if self.output_file_base != output_file_base:
+            output_file_base = re.sub('[^A-Za-z0-9_]', '', output_file_base)
+            warnings.warn("WARNING: Special characters detected in output_file_base. These characters have been automatically removed.")
+        # Set up logging
+        self.logger = setup_logger(name="feature_builder_logger", log_file_path=f"./{self.output_file_base}/logs/feature_builder.log", level=logging.INFO)
+        # Check that input is a dataframe
         if not isinstance(input_df, pd.DataFrame):
+            self.logger.error(f"Expected a Pandas DataFrame as input_df, but got {type(df).__name__}")
             raise TypeError(f"Expected a Pandas DataFrame as input_df, but got {type(df).__name__})")
-        
-        print("Initializing Featurization...")
         input_df = input_df.reset_index(drop=True) # reset index to avoid issues with indexing later on
-        ###### Set all parameters ######
         
+        
+        ###### Set all parameters ######
         assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
         self.first_pct = analyze_first_pct # Set first pct of conversation you want to analyze
         self.turns = turns
@@ -236,7 +244,7 @@ class FeatureBuilder:
                 invalid_features.add(feat)
         if invalid_features:
             invalid_features_str = ', '.join(invalid_features)
-            warnings.warn(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
+            self.logger.warning(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
         # remove named entities if we didn't pass in the column
         if self.ner_training is None:
             self.feature_names.remove("Named Entity Recognition")
@@ -320,29 +328,35 @@ class FeatureBuilder:
         self.output_file_path_conv_level = output_file_path_conv_level
         self.output_file_path_user_level = output_file_path_user_level
 
-        # Ensure output_file_base is alphanumeric + hyphens
-        if(re.sub('[^A-Za-z0-9_]', '', output_file_base) != output_file_base):
-            print('here1')
-            output_file_base = re.sub('[^A-Za-z0-9_]', '', output_file_base)
-            warnings.warn("WARNING: Special characters detected in output_file_base. These characters have been automatically removed.")
+        
 
         if self.output_file_path_chat_level is None:
-            self.output_file_path_chat_level = "./" + output_file_base + "_chat_level.csv"
+            self.output_file_path_chat_level = "./" + self.output_file_base + "_chat_level.csv"
         if self.output_file_path_conv_level is None:
-            self.output_file_path_conv_level = "./" + output_file_base + "_conv_level.csv"
+            self.output_file_path_conv_level = "./" + self.output_file_base + "_conv_level.csv"
         if self.output_file_path_user_level is None:
-            self.output_file_path_user_level = "./" + output_file_base + "_user_level.csv"
+            self.output_file_path_user_level = "./" + self.output_file_base + "_user_level.csv"
 
         # Basic error detetection
         if not bool(self.output_file_path_conv_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_conv_level)):
+            self.logger.error("ERROR: Improper conversation-level output file name detected.")
             raise ValueError("ERROR: Improper conversation-level output file name detected.")
         if not bool(self.output_file_path_user_level) or not bool(re.sub('[^A-Za-z0-9_]', '', self.output_file_path_user_level)):
+            self.logger.error("ERROR: Improper user (speaker)-level output file name detected.")
             raise ValueError("ERROR: Improper user (speaker)-level output file name detected.")
 
         # We assume that the base file name is the last item in the output path; we will use this to name the stored vectors.
         if ('/' not in self.output_file_path_chat_level or 
             '/' not in self.output_file_path_conv_level or 
             '/' not in self.output_file_path_user_level):
+            self.logger.error(
+                "We expect you to pass a path in for your output files "
+                "(output_file_path_chat_level, output_file_path_user_level, and "
+                "output_file_path_conv_level). If you would like the output to be "
+                "the current directory, please append './' to the beginning of your "
+                "filename(s). Your filename should be in the format: "
+                "path/to/output_name.csv or ./output_name.csv for the current working directory."
+            )
             raise ValueError(
                 "We expect you to pass a path in for your output files "
                 "(output_file_path_chat_level, output_file_path_user_level, and "
@@ -355,9 +369,11 @@ class FeatureBuilder:
         try:
             base_file_name = self.output_file_path_chat_level.split("/")[-1]
         except:
+            self.logger.error("ERROR: Improper chat-level output file name detected.")
             raise ValueError("ERROR: Improper chat-level output file name detected.") 
 
         if not bool(base_file_name) or not bool(re.sub('[^A-Za-z0-9_]', '', base_file_name)): # user didn't specify a file name, or specified one with only nonalphanumeric chars
+            self.logger.error("ERROR: Improper chat-level output file name detected.")
             raise ValueError("ERROR: Improper chat-level output file name detected.")
 
         try:
@@ -473,7 +489,14 @@ class FeatureBuilder:
         :return: None
         :rtype: None
         """
-
+        # Log start of run
+        dt = datetime.now().astimezone()
+        base = dt.strftime("%A, %B %-d, %Y %-I:%M:%S %p")
+        tz_name = dt.tzname()
+        offset = dt.strftime("%z")
+        offset = offset[:3] + ":" + offset[3:]
+        self.logger.info(f"Team Communication Toolkit FeatureBuilder Run initiated {base} {tz_name}{offset}")
+        
         # Step 1. Create chat level features.
         print("Chat Level Features ...")
         self.chat_level_features()
