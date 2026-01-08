@@ -238,14 +238,15 @@ def Question(doc):
         'which': {'is', 'are', 'was', 'can', 'should'}
     }
     # Auxiliaries that typically initiate Yes/No questions
-    yesno_aux = {'do', 'does', 'did', 'have', 'has', 'had',
-                #  'can', 'could', 'will', 'would', 
-                 'may', 'might', 'shall', 'should',
-                 'is', 'are', 'was', 'were', 'am'}
+    yesno_aux = {
+        'do', 'does', 'did', 'have', 'has', 'had',
+        'can', 'could', 'will', 'would', 
+        'may', 'might', 'shall', 'should',
+        'is', 'are', 'was', 'were', 'am'
+    }
     # Pronouns that often follow auxiliaries in Yes/No questions
     pronoun_followers = {'i', 'you', 'we', 'he', 'she', 'they', 'it'}
-    # filler_words = {'ok', 'so', 'well', 'like', 'you know', 'i mean', 'actually', 'basically', 'right', 'just', 'uh', 'um', 'oh', 'hmm', 'like'}
-    
+
     wh_count = 0
     yesno_count = 0
     counted_sentences = set()
@@ -278,25 +279,18 @@ def Question(doc):
             t2_lower = tok2.text.lower()
             if sent.start in counted_sentences:
                 break  # already counted
-            # WH pattern
-            if t1_lower in wh_words and t2_lower in wh_followers.get(t1_lower, set()):
-                wh_count += 1
-                counted_sentences.add(sent.start)
-                break
             # Yes/No pattern
             if t1_lower in yesno_aux and t2_lower in pronoun_followers:
                 yesno_count += 1
                 counted_sentences.add(sent.start)
                 break
+            # WH pattern
+            if t1_lower in wh_words and tok1.tag_ in search_tags and tok1.dep_ not in {"relcl", "acl"}\
+                and tok1.i < sent.root.i and t2_lower in wh_followers.get(t1_lower, set()):
+                wh_count += 1
+                counted_sentences.add(sent.start)
+                break
     return yesno_count, wh_count
-    # sentences = [str(sent) for sent in doc.sents if '?' in str(sent)]
-    # all_qs = len(sentences)
-    # n = 0
-    # for i in range(len(sentences)):
-    #     whq = [token.tag_ for token in nlp(sentences[i]) if token.tag_ in tags]
-    #     if len(whq) > 0:
-    #         n += 1
-    # return all_qs - n, n
 
 
 def word_start(keywords, doc):
