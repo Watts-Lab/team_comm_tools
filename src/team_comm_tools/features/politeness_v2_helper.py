@@ -230,7 +230,7 @@ def Question(doc):
     wh_words = {'what', 'who', 'where', 'when', 'why', 'how', 'which'}
     wh_followers = {
         'what': {'are', 'is', 'do', 'does', 'can', 'should', 'might'},
-        'who': {'is', 'are', 'was', 'can', 'should'},
+        'who': {'am', 'is', 'are', 'was', 'can', 'should'},
         'where': {'is', 'are', 'can', 'should'},
         'when': {'is', 'are', 'can', 'should'},
         'why': {'is', 'are', 'do', 'does', 'can', 'might', 'would'},
