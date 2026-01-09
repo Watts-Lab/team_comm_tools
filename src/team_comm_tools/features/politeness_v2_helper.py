@@ -229,13 +229,13 @@ def Question(doc):
     # WH-words and common auxiliaries that follow them in real questions
     wh_words = {'what', 'who', 'where', 'when', 'why', 'how', 'which'}
     wh_followers = {
-        'what': {'am', 'are', 'is', 'do', 'does', 'can', 'should', 'might'},
-        'who': {'am', 'is', 'are', 'was', 'can', 'should'},
-        'where': {'am', 'is', 'are', 'can', 'should'},
-        'when': {'am', 'is', 'are', 'can', 'should'},
-        'why': {'am', 'is', 'are', 'do', 'does', 'can', 'might', 'would'},
-        'how': {'am', 'is', 'are', 'do', 'does', 'can', 'should', 'would'},
-        'which': {'am', 'is', 'are', 'was', 'can', 'should'}
+        'what': {'am', 'was', 'were', 'are', 'is', 'do', 'does', 'can', 'should', 'might'},
+        'who': {'am', 'was', 'were', 'is', 'are', 'was', 'can', 'should'},
+        'where': {'am', 'was', 'were', 'is', 'are', 'can', 'should'},
+        'when': {'am', 'was', 'were', 'is', 'are', 'can', 'should'},
+        'why': {'am', 'was', 'were', 'is', 'are', 'do', 'does', 'can', 'might', 'would'},
+        'how': {'am', 'was', 'were', 'is', 'are', 'do', 'does', 'can', 'should', 'would'},
+        'which': {'am', 'was', 'were', 'is', 'are', 'was', 'can', 'should'}
     }
     # Auxiliaries that typically initiate Yes/No questions
     yesno_aux = {
@@ -259,9 +259,24 @@ def Question(doc):
         if sent_text.endswith('?'):
             # try to find the first WH-word in the sentence
             wh = False
-            for token in sent_tokens:
-                if token.text.lower() in wh_words and token.tag_ in search_tags and token.dep_ not in {"relcl", "acl"}\
-                and token.i < sent.root.i:
+            for i in range(len(sent_tokens) - 1):
+                tok1 = sent_tokens[i]
+                tok2 = sent_tokens[i + 1]
+                t1_lower = tok1.text.lower()
+                t2_lower = tok2.text.lower()
+                
+                # Rules for detecting WH-questions:
+                # tok2.dep_ != "relcl": catches relative clauses like "the book which is on the table"
+                # "any(t.text.lower() in wh_followers.get(t1_lower, set())" ... 
+                # catches WH-word and main verb having a noun clause in between (e.g., "which of these options is it")
+                if t1_lower in wh_words and tok1.tag_ in search_tags \
+                    and tok1.dep_ not in {"relcl", "acl"} \
+                    and tok2.dep_ != "relcl" \
+                    and any(
+                        t.text.lower() in wh_followers.get(t1_lower, set())
+                        for t in sent_tokens[i+1:]
+                    ):
+
                     wh = True
                     break
             if wh:
@@ -285,11 +300,17 @@ def Question(doc):
                 counted_sentences.add(sent.start)
                 break
             # WH pattern
-            if t1_lower in wh_words and tok1.tag_ in search_tags and tok1.dep_ not in {"relcl", "acl"}\
-                and tok1.i < sent.root.i and t2_lower in wh_followers.get(t1_lower, set()):
+            if t1_lower in wh_words and tok1.tag_ in search_tags \
+                and tok1.dep_ not in {"relcl", "acl"} \
+                and tok2.dep_ != "relcl" \
+                and any(
+                    t.text.lower() in wh_followers.get(t1_lower, set())
+                    for t in sent_tokens[i+1:]
+                ):
                 wh_count += 1
                 counted_sentences.add(sent.start)
                 break
+
     return yesno_count, wh_count
 
 
