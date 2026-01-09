@@ -7393,7 +7393,6 @@ kw = {
         "Gratitude": [
             " thank ",
             " thanks ",
-            #" thank you ",
             " grateful ",
             " gratitude ",
             " cheers "
