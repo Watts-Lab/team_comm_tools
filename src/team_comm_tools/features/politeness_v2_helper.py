@@ -229,13 +229,13 @@ def Question(doc):
     # WH-words and common auxiliaries that follow them in real questions
     wh_words = {'what', 'who', 'where', 'when', 'why', 'how', 'which'}
     wh_followers = {
-        'what': {'are', 'is', 'do', 'does', 'can', 'should', 'might'},
+        'what': {'am', 'are', 'is', 'do', 'does', 'can', 'should', 'might'},
         'who': {'am', 'is', 'are', 'was', 'can', 'should'},
-        'where': {'is', 'are', 'can', 'should'},
-        'when': {'is', 'are', 'can', 'should'},
-        'why': {'is', 'are', 'do', 'does', 'can', 'might', 'would'},
-        'how': {'is', 'are', 'do', 'does', 'can', 'should', 'would'},
-        'which': {'is', 'are', 'was', 'can', 'should'}
+        'where': {'am', 'is', 'are', 'can', 'should'},
+        'when': {'am', 'is', 'are', 'can', 'should'},
+        'why': {'am', 'is', 'are', 'do', 'does', 'can', 'might', 'would'},
+        'how': {'am', 'is', 'are', 'do', 'does', 'can', 'should', 'would'},
+        'which': {'am', 'is', 'are', 'was', 'can', 'should'}
     }
     # Auxiliaries that typically initiate Yes/No questions
     yesno_aux = {
