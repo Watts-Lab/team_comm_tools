@@ -233,6 +233,15 @@ def wh_is_real_question(tok, sent, auxiliaries, ends_with_question_mark=False):
     """
     Returns True if the WH-word token is part of a real main-clause question.
     """
+    # Check if sentence starts with auxiliary (not WH-word) - indicates Yes/No question
+    sent_tokens = list(sent)
+    if len(sent_tokens) >= 1:
+        first_tok = sent_tokens[0]
+        if first_tok.text.lower() in auxiliaries and first_tok.text.lower() not in {'what', 'who', 'where', 'when', 'why', 'how', 'which'}:
+            # Sentence starts with auxiliary - this is a Yes/No question
+            # Any WH-words are being used as content, not interrogatives
+            return False
+    
     # For WH-determiners (both with and without ?), use special logic
     if tok.dep_ == "det":
         noun = tok.head
@@ -277,7 +286,6 @@ def wh_is_real_question(tok, sent, auxiliaries, ends_with_question_mark=False):
             return False
     
     # Check if WH-word is attached to a verb that takes interrogative complements
-    # Verbs like: tell, ask, know, wonder, understand, explain, show, see, remember, etc.
     complement_taking_verbs = {
         'tell', 'ask', 'know', 'wonder', 'understand', 'explain', 
         'show', 'see', 'remember', 'forget', 'realize', 'figure',
