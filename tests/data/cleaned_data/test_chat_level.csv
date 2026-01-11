@@ -88,14 +88,38 @@ I respond to that too",num_block_quote_responses,2
 1,A,hello,Hello_receptiveness_yeomans,1
 1,B,So how should we answer this,Token_count_receptiveness_yeomans,6
 1,A,We can start here. What is the question?,YesNo_Questions_receptiveness_yeomans,0
-1,B,I am not sure. Where is the rest of our team?,WH_Questions_receptiveness_yeomans,1
 1,B,"Please help me figure this out, I really want to do well on this please",Please_receptiveness_yeomans,2
+1,B,I am not sure. Where is the rest of our team?,WH_Questions_receptiveness_yeomans,1
+1,B,I am not sure. Where is the rest of our team?,First_Person_Single_receptiveness_yeomans,1
+1,B,"Well please help me figure this out, I really want to do well on this please okay",factuality_politeness_convokit,1
+1B,A,is where different from why?,YesNo_Questions_receptiveness_yeomans,1
+1B,B,is where different from why?,WH_Questions_receptiveness_yeomans,0
+1B,A,could where be different from why?,YesNo_Questions_receptiveness_yeomans,1
+1B,B,could where be different from why?,WH_Questions_receptiveness_yeomans,0
+1B,A,ok so I don't really understand which one it is,YesNo_Questions_receptiveness_yeomans,0
+1B,B,ok so I don't really understand which one it is,WH_Questions_receptiveness_yeomans,0
+1B,A,"the book, which is on the table, is red",YesNo_Questions_receptiveness_yeomans,0
+1B,B,"the book, which is on the table, is red",WH_Questions_receptiveness_yeomans,0
+1B,A,"The love which we had long sought for has finally arrived.",YesNo_Questions_receptiveness_yeomans,0
+1B,B,"The love which we had long sought for has finally arrived.",WH_Questions_receptiveness_yeomans,0
+1B,A,alrighty so which was your favorite,YesNo_Questions_receptiveness_yeomans,0
+1B,B,alrighty so which was your favorite,WH_Questions_receptiveness_yeomans,1
+1B,A,"after trying all the cake, which ones were your favorites",YesNo_Questions_receptiveness_yeomans,0
+1B,B,"after trying all the cake, which ones were your favorites",WH_Questions_receptiveness_yeomans,1
+1B,A,are these the books which you were looking for,YesNo_Questions_receptiveness_yeomans,1
+1B,B,are these the books which you were looking for,WH_Questions_receptiveness_yeomans,0
+1B,A,are these the books which you were looking for?,YesNo_Questions_receptiveness_yeomans,1
+1B,B,are these the books which you were looking for?,WH_Questions_receptiveness_yeomans,0
+1B,A,"the book, which is on the table, is red?",YesNo_Questions_receptiveness_yeomans,1
+1B,B,"the book, which is on the table, is red?",WH_Questions_receptiveness_yeomans,0
+1B,A,can you tell me who it is? what is it? where?,YesNo_Questions_receptiveness_yeomans,1
+1B,B,can you tell me who it is? what is it? where?,WH_Questions_receptiveness_yeomans,2
+1B,A,with whom did Napoleon fight his first war?,YesNo_Questions_receptiveness_yeomans,0
+1B,B,with whom did Napoleon fight his first war?,WH_Questions_receptiveness_yeomans,1
 2,C,Hey,Hello_receptiveness_yeomans,1
 2,C,Okay bro lets split it 50/50,Impersonal_Pronoun_receptiveness_yeomans,1
 2,D,Maybe but how about 60/40? I doubt its fair otherwise,Hedges_receptiveness_yeomans,2
 2,C,Seems fair,Hedges_receptiveness_yeomans,1
-1,B,I am not sure. Where is the rest of our team?,First_Person_Single_receptiveness_yeomans,1
-1,B,"Well please help me figure this out, I really want to do well on this please okay",factuality_politeness_convokit,1
 2,C,Seems possible,hashedge_politeness_convokit,1
 2,E,I see what youre thinking but I disagree,Acknowledgement_receptiveness_yeomans,1
 2,E,We get only one chance so we should understand how to split it,Acknowledgement_receptiveness_yeomans,2
