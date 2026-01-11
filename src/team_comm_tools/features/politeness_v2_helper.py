@@ -238,8 +238,6 @@ def wh_is_real_question(tok, sent, auxiliaries, ends_with_question_mark=False):
     if len(sent_tokens) >= 1:
         first_tok = sent_tokens[0]
         if first_tok.text.lower() in auxiliaries and first_tok.text.lower() not in {'what', 'who', 'where', 'when', 'why', 'how', 'which'}:
-            # Sentence starts with auxiliary - this is a Yes/No question
-            # Any WH-words are being used as content, not interrogatives
             return False
     
     # For WH-determiners (both with and without ?), use special logic
@@ -280,10 +278,58 @@ def wh_is_real_question(tok, sent, auxiliaries, ends_with_question_mark=False):
         return False
     
     # For other WH-words (not determiners)
-    # First check for complement clauses (ccomp, xcomp) - these are embedded questions
-    for anc in tok.ancestors:
-        if anc.dep_ in {"ccomp", "xcomp"}:
+    
+    # Special handling for WH-words that are subjects (nsubj, nsubjpass)
+    if tok.dep_ in {"nsubj", "nsubjpass"}:
+        # First check: is this part of a relative clause?
+        has_relcl_ancestor = False
+        for anc in tok.ancestors:
+            if anc.dep_ == "relcl":
+                has_relcl_ancestor = True
+                break
+        
+        if has_relcl_ancestor:
+            # Check if there's a noun before the WH-word (ignoring punctuation)
+            # This is the typical relative clause pattern: "the book, which..."
+            has_noun_before = False
+            for t in sent:
+                if t.i >= tok.i:
+                    break
+                if t.pos_ in {"NOUN", "PROPN"}:
+                    has_noun_before = True
+            
+            # If there's a noun before WH and it has relcl ancestor, it's a real relative clause
+            if has_noun_before:
+                return False
+        
+        # Check if there's actually a complement-taking verb before the WH-word
+        complement_taking_verbs = {
+            'tell', 'ask', 'know', 'wonder', 'understand', 'explain', 
+            'show', 'see', 'remember', 'forget', 'realize', 'figure',
+            'decide', 'consider', 'discover', 'find', 'learn', 'teach'
+        }
+        
+        has_complement_verb_before = False
+        for t in sent:
+            if t.i >= tok.i:
+                break
+            if t.pos_ == "VERB" and t.lemma_ in complement_taking_verbs:
+                has_complement_verb_before = True
+                break
+        
+        # If no complement-taking verb before WH-word, it's a main question
+        if not has_complement_verb_before:
+            # Check for an auxiliary after the WH-word
+            for t in sent:
+                if t.i > tok.i and t.text.lower() in auxiliaries:
+                    return True
             return False
+        # If there IS a complement verb, fall through to normal checks
+        
+        # First check for complement clauses (ccomp, xcomp) - these are embedded questions
+        for anc in tok.ancestors:
+            if anc.dep_ in {"ccomp", "xcomp"}:
+                return False
     
     # Check if WH-word is attached to a verb that takes interrogative complements
     complement_taking_verbs = {
@@ -333,7 +379,8 @@ def wh_is_real_question(tok, sent, auxiliaries, ends_with_question_mark=False):
     if ends_with_question_mark:
         return True
     
-    # For non-? sentences with non-determiner WH-words
+    # For non-? sentences with non-determiner WH-words that are NOT nsubj
+    # (nsubj was already handled above)
     if is_in_subordinate_clause(tok, sent):
         return False
     
@@ -370,7 +417,7 @@ def Question(doc):
         sent_tokens = list(sent)
         if not sent_tokens:
             continue
-            
+        
         # Method 1: Sentences ending with '?'
         if sent_text.endswith('?'):
             wh = False
@@ -397,7 +444,7 @@ def Question(doc):
                     counted_sentences.add(sent.start)
                     found_question = True
                     break
-        
+
         if found_question:
             continue
             
