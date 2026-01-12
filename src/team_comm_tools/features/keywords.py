@@ -1,3 +1,4 @@
+# reference: https://github.com/bbevis/politenessPy/blob/main/keywords.py
 kw = {
     "spacy_neg_only": {
         "Negative_Emotion": [
@@ -7260,7 +7261,34 @@ kw = {
             " sorry ",
             " woops ",
             " whoops ",
-            " oops "
+            " oops ",
+            " apology "
+        ],
+        "Third_Person": [
+            " he ",
+            " him ",
+            " his ",
+            " himself ",
+            " she ",
+            " her ",
+            " hers ",
+            " herself ",
+            " they ",
+            " them ",
+            " their ",
+            " theirs ",
+            " themselves "
+        ],
+        "Contrast_Conjunction": [
+            " but ",
+            " however ",
+            " instead ",
+            " although ",
+            " even though ",
+            " despite ",
+            " and yet ",
+            " nevertheless ",
+            " nonetheless "
         ],
         "Ask_Agency": [
             " do me a favor ",
@@ -7365,7 +7393,6 @@ kw = {
         "Gratitude": [
             " thank ",
             " thanks ",
-            " thank you ",
             " grateful ",
             " gratitude ",
             " cheers "
@@ -14419,25 +14446,47 @@ kw = {
             " cock ",
             " crap ",
             " damn ",
+            " dammit ",
+            " damnit ",
             " dick ",
+            " dickhead ",
+            " dick-head ",
             " dumb ",
+            " dumbass ",
+            " dumb-ass ",
+            " dumb ass ",
             " dyke ",
             " fuck ",
+            " fucking ",
+            " fucker ",
             " goddam ",
+            " goddammit ",
+            " goddamed ",
             " hell ",
+            " horshit ",
             " homo ",
+            " jackass ",
+            " jackass ",
+            " motherfucker ",
+            " mother-fucker ",
+            " motherfucking ",
             " nigger ",
+            " nigra ",
             " piss ",
             " prick ",
             " pussy ",
             " queer ",
             " screw ",
             " shit ",
+            " shite ",
+            " shitting ",
             " sob ",
-            " sonofa ",
             " suck ",
             " sucked ",
-            " sucks "
+            " sucks ",
+            " twat ",
+            " wanker ",
+            " whore "
         ],
         "Truth_Intensifier": [
             " really ",
