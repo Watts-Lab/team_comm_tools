@@ -19,6 +19,7 @@ from team_comm_tools.features.named_entity_recognition_features import *
 # Importing utils
 from .preload_word_lists import *
 from .zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
+from time import perf_counter
 
 # Loading bar
 from tqdm import tqdm
@@ -69,7 +70,8 @@ class ChatLevelFeaturesCalculator:
             message_col: str,
             timestamp_col: str | tuple[str, str],
             timestamp_unit: str,
-            custom_liwc_dictionary: dict
+            custom_liwc_dictionary: dict,
+            logger: logging.Logger
     ) -> None:
 
         self.chat_data = chat_data
@@ -86,6 +88,7 @@ class ChatLevelFeaturesCalculator:
         self.function_words = get_function_words() # load function words exactly once
         self.question_words = get_question_words() # load question words exactly once
         self.first_person = get_first_person_words() # load first person words exactly once
+        self.logger = logger
 
     def calculate_chat_level_features(self, feature_methods: list) -> pd.DataFrame:
         """
@@ -99,7 +102,10 @@ class ChatLevelFeaturesCalculator:
         """
 
         for method in tqdm(feature_methods):
+            start_time = perf_counter()
             method(self)
+            end_time = perf_counter()
+            self.logger.info(f"  - {method.__name__}: {end_time - start_time:.2f} seconds.")
 
         # Return the input dataset with the chat level features appended (as columns)
         return self.chat_data
