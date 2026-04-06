@@ -7,6 +7,7 @@ import re
 import numpy as np
 from pathlib import Path
 from datetime import datetime
+from time import perf_counter
 import itertools
 import warnings
 
@@ -126,7 +127,7 @@ class FeatureBuilder:
             output_file_path_user_level: str = None,
             output_file_path_conv_level: str = None,
             custom_features: list = [],
-            analyze_first_pct: list = [1.0],
+            # analyze_first_pct: list = [1.0],
             turns: bool = False,
             conversation_id_col: str = "conversation_num",
             speaker_id_col: str = "speaker_nickname",
@@ -147,7 +148,13 @@ class FeatureBuilder:
             user_aggregation = True,
             user_methods: list = ['mean', 'max', 'min', 'stdev'],
             user_columns: list = None,
-            use_gpu: bool = False
+            use_gpu: bool = False,
+            corr_thresh: float = 0.95, 
+            min_na_ratio: float = 0.3, 
+            min_zero_ratio: float = 0.9, 
+            min_group_size: int = 2,
+            treat_zero_as_na: bool = True,
+            drop_redundant_columns: bool = False
         ) -> None:
 
         ###### Initialization ######
@@ -157,17 +164,19 @@ class FeatureBuilder:
             output_file_base = re.sub('[^A-Za-z0-9_]', '', output_file_base)
             warnings.warn("WARNING: Special characters detected in output_file_base. These characters have been automatically removed.")
         # Set up logging
-        self.logger = setup_logger(name="feature_builder_logger", log_file_path=f"./{self.output_file_base}/logs/feature_builder.log", level=logging.INFO)
+        self.logger = setup_logger(name="feature_builder_logger", log_file_path=f"./{self.output_file_base}/logs/feature_builder.log")
+        self.summ_logger = setup_logger(name="summary_details_logger", log_file_path=f"./{self.output_file_base}/logs/summary_details.log")
         # Check that input is a dataframe
         if not isinstance(input_df, pd.DataFrame):
             self.logger.error(f"Expected a Pandas DataFrame as input_df, but got {type(df).__name__}")
             raise TypeError(f"Expected a Pandas DataFrame as input_df, but got {type(df).__name__})")
         input_df = input_df.reset_index(drop=True) # reset index to avoid issues with indexing later on
-        
+        print("Initializing Featurization...")
+        self.logger.info("=== Start Initializing FeatureBuilder ===")
         
         ###### Set all parameters ######
-        assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
-        self.first_pct = analyze_first_pct # Set first pct of conversation you want to analyze
+        # assert(all(0 <= x <= 1 for x in analyze_first_pct)) # first, type check that this is a list of numbers between 0 and 1
+        # self.first_pct = analyze_first_pct # Set first pct of conversation you want to analyze
         self.turns = turns
         self.conversation_id_col = conversation_id_col
         self.speaker_id_col = speaker_id_col
@@ -192,6 +201,12 @@ class FeatureBuilder:
         self.user_methods = user_methods
         self.user_columns = user_columns
         self.use_gpu = use_gpu
+        self.corr_thresh = corr_thresh
+        self.min_na_ratio = min_na_ratio
+        self.min_zero_ratio = min_zero_ratio
+        self.min_group_size = min_group_size
+        self.treat_zero_as_na = treat_zero_as_na
+        self.drop_redundant_columns = drop_redundant_columns
         # Defining input and output paths.
         self.chat_data = input_df.copy()
         self.orig_data = input_df.copy()
@@ -244,6 +259,7 @@ class FeatureBuilder:
                 invalid_features.add(feat)
         if invalid_features:
             invalid_features_str = ', '.join(invalid_features)
+            print(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
             self.logger.warning(f"WARNING: Invalid custom features provided. Ignoring `{invalid_features_str}`.")
         # remove named entities if we didn't pass in the column
         if self.ner_training is None:
@@ -412,7 +428,7 @@ class FeatureBuilder:
         self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name        
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, self.use_gpu, message_col = self.vector_colname)
+        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, self.use_gpu, self.vector_colname, self.logger)
 
         if(need_sentence):
             self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')
@@ -426,7 +442,9 @@ class FeatureBuilder:
 
         # Deriving the base conversation level dataframe.
         self.conv_data = self.chat_data[[self.conversation_id_col]].drop_duplicates()
-
+        print("Initialization Complete.")
+        self.logger.info("=== Initialization Complete ===")
+        self.logger.info("")
     
     
     def set_self_conv_data(self) -> None:
@@ -490,15 +508,18 @@ class FeatureBuilder:
         :rtype: None
         """
         # Log start of run
-        dt = datetime.now().astimezone()
-        base = dt.strftime("%A, %B %-d, %Y %-I:%M:%S %p")
-        tz_name = dt.tzname()
-        offset = dt.strftime("%z")
-        offset = offset[:3] + ":" + offset[3:]
-        self.logger.info(f"Team Communication Toolkit FeatureBuilder Run initiated {base} {tz_name}{offset}")
+        start_time = perf_counter()
+        self.logger.info(f"=== Team Communication Toolkit FeatureBuilder Run initiated ===")
+        self.logger.info(f"Featurize started at {datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S %Z')}")
+        # Data file has 100 lines (chats), 5 unique speakers, 4 unique conversations.
+        num_lines = self.chat_data.shape[0]
+        num_speakers = self.chat_data[self.speaker_id_col].nunique()
+        num_conversations = self.chat_data[self.conversation_id_col].nunique()
+        self.logger.info(f"Data file has {num_lines} lines (chats), {num_speakers} unique speakers, {num_conversations} unique conversations.")
         
         # Step 1. Create chat level features.
         print("Chat Level Features ...")
+        self.logger.info("--- Chat Level Features ---")
         self.chat_level_features()
 
         # Things to store before we loop through truncations
@@ -510,50 +531,70 @@ class FeatureBuilder:
         # Step 2.
         # Run the chat-level features once, then produce different summaries based on 
         # user specification.
-        for percentage in self.first_pct: 
+        # for percentage in self.first_pct: 
             # Reset chat, conv, and user objects
-            self.chat_data = self.chat_data_complete
-            self.user_data = self.chat_data[[self.conversation_id_col, self.speaker_id_col]].drop_duplicates()
-            self.set_self_conv_data()
+        self.chat_data = self.chat_data_complete
+        self.user_data = self.chat_data[[self.conversation_id_col, self.speaker_id_col]].drop_duplicates()
+        self.set_self_conv_data()
 
-            print("Generating features for the first " + str(percentage*100) + "% of messages...")
-            self.get_first_pct_of_chat(percentage)
+            # print("Generating features for the first " + str(percentage*100) + "% of messages...")
+            # self.logger.info("Generating features for the first " + str(percentage*100) + "% of messages...")
+            # self.get_first_pct_of_chat(percentage)
             
             # update output paths based on truncation percentage to save in a designated folder
-            if percentage != 1: # special folders for when the percentage is partial
-                self.output_file_path_user_level = re.sub('/output/', '/output/first_' + str(int(percentage*100)) + "/", self.output_file_path_user_level_original)
-                self.output_file_path_chat_level = re.sub('/output/', '/output/first_' + str(int(percentage*100)) + "/", self.output_file_path_chat_level_original)
-                self.output_file_path_conv_level = re.sub('/output/', '/output/first_' + str(int(percentage*100)) + "/", self.output_file_path_conv_level_original)
-            else:
-                self.output_file_path_user_level = self.output_file_path_user_level_original
-                self.output_file_path_chat_level = self.output_file_path_chat_level_original
-                self.output_file_path_conv_level = self.output_file_path_conv_level_original
+            # if percentage != 1: # special folders for when the percentage is partial
+            #     self.output_file_path_user_level = re.sub('/output/', '/output/first_' + str(int(percentage*100)) + "/", self.output_file_path_user_level_original)
+            #     self.output_file_path_chat_level = re.sub('/output/', '/output/first_' + str(int(percentage*100)) + "/", self.output_file_path_chat_level_original)
+            #     self.output_file_path_conv_level = re.sub('/output/', '/output/first_' + str(int(percentage*100)) + "/", self.output_file_path_conv_level_original)
+            # else:
+        self.output_file_path_user_level = self.output_file_path_user_level_original
+        self.output_file_path_chat_level = self.output_file_path_chat_level_original
+        self.output_file_path_conv_level = self.output_file_path_conv_level_original
             
-            # Make it possible to create folders if they don't exist
-            Path(self.output_file_path_user_level).parent.mkdir(parents=True, exist_ok=True)
-            Path(self.output_file_path_chat_level).parent.mkdir(parents=True, exist_ok=True)
-            Path(self.output_file_path_conv_level).parent.mkdir(parents=True, exist_ok=True)
+        # Make it possible to create folders if they don't exist
+        Path(self.output_file_path_user_level).parent.mkdir(parents=True, exist_ok=True)
+        Path(self.output_file_path_chat_level).parent.mkdir(parents=True, exist_ok=True)
+        Path(self.output_file_path_conv_level).parent.mkdir(parents=True, exist_ok=True)
             
-            # Store column names of what we generated, so that the user can easily access them
-            self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
-            if self.custom_liwc_dictionary:
-                self.chat_features += [lexicon_type + "_lexical_wordcount_custom" for lexicon_type in self.custom_liwc_dictionary.keys()]
-            self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
+        # Store column names of what we generated, so that the user can easily access them
+        self.chat_features = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Chat"]))
+        if self.custom_liwc_dictionary:
+            self.chat_features += [lexicon_type + "_lexical_wordcount_custom" for lexicon_type in self.custom_liwc_dictionary.keys()]
+        self.conv_features_base = list(itertools.chain(*[feature_dict[feature]["columns"] for feature in self.feature_names if feature_dict[feature]["level"] == "Conversation"]))
             
-            # Step 3a. Create user level features.
-            print("Generating User Level Features ...")
-            self.user_level_features()
+        # Step 3a. Create user level features.
+        print("Generating User Level Features ...")
+        self.logger.info("--- User Level Features ---")
+        self.user_level_features()
 
-            # Step 3b. Create conversation level features.
-            print("Generating Conversation Level Features ...")
-            self.conv_level_features()
-            self.merge_conv_data_with_original()
-            
-            # Step 4. Write the features into the files defined in the output paths.
-            self.conv_features_all =  [col for col in self.conv_data if col not in list(self.orig_data.columns) + ["conversation_num", self.message_col + "_original", "message_lower_with_punc"]] # save the column names that we generated!
-            print("All Done!")
-            
-            self.save_features()
+        # Step 3b. Create conversation level features.
+        print("Generating Conversation Level Features ...")
+        self.logger.info("--- Conversation Level Features ---")
+        self.conv_level_features()
+        self.merge_conv_data_with_original()
+        
+        # Step 4. Write the features into the files defined in the output paths.
+        self.conv_features_all =  [col for col in self.conv_data if col not in list(self.orig_data.columns) + ["conversation_num", self.message_col + "_original", "message_lower_with_punc"]] # save the column names that we generated!
+        end_time = perf_counter()
+        print("All Done!")
+        self.logger.info(f"=== Featurization Completed in {end_time - start_time:.2f} seconds! ===")
+        self.logger.info("")
+        
+        self.logger.info("=== Feature Output Summary (Please see summary_details.log for all the details) ===")
+        self.logger.info("--- Chat Level ---")
+        chat_data_reduced = self.generate_summary_stats(self.chat_data)
+        if self.drop_redundant_columns:
+            self.chat_data = chat_data_reduced
+        self.logger.info("--- Conversation Level ---")
+        conv_data_reduced = self.generate_summary_stats(self.conv_data)
+        if self.drop_redundant_columns:
+            self.conv_data = conv_data_reduced
+        self.logger.info("--- User Level ---")
+        user_data_reduced = self.generate_summary_stats(self.user_data)
+        if self.drop_redundant_columns:
+            self.user_data = user_data_reduced
+
+        self.save_features()
 
     def preprocess_chat_data(self) -> None:
         """
@@ -649,31 +690,32 @@ class FeatureBuilder:
             message_col = self.message_col,
             timestamp_col = self.timestamp_col,
             timestamp_unit = self.timestamp_unit,
-            custom_liwc_dictionary = self.custom_liwc_dictionary
+            custom_liwc_dictionary = self.custom_liwc_dictionary,
+            logger = self.logger
         )
         # Calling the driver inside this class to create the features.
         self.chat_data = chat_feature_builder.calculate_chat_level_features(self.feature_methods_chat)
         # Remove special characters in column names
         self.chat_data.columns = ["".join(c for c in col if c.isalnum() or c == '_') for col in self.chat_data.columns]
 
-    def get_first_pct_of_chat(self, percentage) -> None:
-        """
-        Truncate each conversation to the first X% of rows.
+    # def get_first_pct_of_chat(self, percentage) -> None:
+    #     """
+    #     Truncate each conversation to the first X% of rows.
 
-        This function groups the chat data by `conversation_num` and retains only 
-        the first X% of rows for each conversation.
+    #     This function groups the chat data by `conversation_num` and retains only 
+    #     the first X% of rows for each conversation.
 
-        :param percentage: Percentage of rows to retain in each conversation
-        :type percentage: float
+    #     :param percentage: Percentage of rows to retain in each conversation
+    #     :type percentage: float
 
-        :return: None
-        :rtype: None
-        """
-        chat_grouped = self.chat_data.groupby(self.conversation_id_col)
-        num_rows_to_retain = pd.DataFrame(np.ceil(chat_grouped.size() * percentage)).reset_index()
-        chat_truncated = pd.DataFrame()
-        for conversation_num, num_rows in num_rows_to_retain.itertuples(index=False):
-            chat_truncated = pd.concat([chat_truncated,chat_grouped.get_group(conversation_num).head(int(num_rows))], ignore_index = True)
+    #     :return: None
+    #     :rtype: None
+    #     """
+    #     chat_grouped = self.chat_data.groupby(self.conversation_id_col)
+    #     num_rows_to_retain = pd.DataFrame(np.ceil(chat_grouped.size() * percentage)).reset_index()
+    #     chat_truncated = pd.DataFrame()
+    #     for conversation_num, num_rows in num_rows_to_retain.itertuples(index=False):
+    #         chat_truncated = pd.concat([chat_truncated,chat_grouped.get_group(conversation_num).head(int(num_rows))], ignore_index = True)
 
     def user_level_features(self) -> None:
         """
@@ -695,7 +737,8 @@ class FeatureBuilder:
             user_aggregation = self.user_aggregation,
             user_methods = self.user_methods,
             user_columns = self.user_columns,
-            chat_features = self.chat_features
+            chat_features = self.chat_features,
+            logger=self.logger
         )
         self.user_data = user_feature_builder.calculate_user_level_features()
         # Remove special characters in column names
@@ -728,6 +771,7 @@ class FeatureBuilder:
             user_methods = self.user_methods,
             user_columns = self.user_columns,
             chat_features = self.chat_features,
+            logger=self.logger
         )
         # Calling the driver inside this class to create the features.
         self.conv_data = conv_feature_builder.calculate_conversation_level_features(self.feature_methods_conv)
@@ -810,3 +854,154 @@ class FeatureBuilder:
             f"Column '{timestamp_col}' contains values that are neither parseable as datetime "
             f"nor convertible to numeric format."
         )
+    
+    def log_column_groups(self, groups, max_groups, max_cols_per_group):
+        total_groups = len(groups)
+        # Clean logger
+        self.logger.info("Found %s correlated feature groups", total_groups)
+        for i, group in enumerate(groups[:max_groups], 1):
+            size = len(group)
+            if size > max_cols_per_group:
+                shown = ", ".join(group[:max_cols_per_group])
+                self.logger.info(
+                    "[Group %02d | size=%d] %s ... (+%d more)",
+                    i, size, shown, size - max_cols_per_group
+                )
+            else:
+                self.logger.info(
+                    "[Group %02d | size=%d] %s",
+                    i, size, ", ".join(group)
+                )
+        if total_groups > max_groups:
+            self.logger.info(
+                "... (%d more groups not shown)",
+                total_groups - max_groups
+            )
+        # Detailed summary logger
+        self.summ_logger.info("Full correlated feature groups output:")
+        for i, group in enumerate(groups, 1):
+            self.summ_logger.info(
+                "[Group %02d | size=%d] %s",
+                i, len(group), ", ".join(group)
+            )
+
+    def keep_one_column_per_group(self, df, groups):
+        """
+        Keep one representative column per group, and keep all columns
+        that are not in any group unchanged.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            Original dataframe.
+        groups : list[list[str]]
+            Groups of similar columns.
+        treat_zero_as_na : bool
+            If True, treat zeros as missing when scoring columns.
+
+        Returns
+        -------
+        kept_columns : list[str]
+            Final list of columns to keep.
+        representative_map : dict
+            Mapping: chosen representative -> other columns in that group.
+        """
+        grouped_cols = set()
+        representative_map = {}
+        kept_group_cols = []
+
+        for group in groups:
+            grouped_cols.update(group)
+
+            def score(col):
+                s = df[col]
+                if self.treat_zero_as_na:
+                    valid_count = ((~s.isna()) & (s != 0)).sum()
+                else:
+                    valid_count = s.notna().sum()
+
+                variance = s.replace(0, pd.NA).dropna().var() if self.treat_zero_as_na else s.dropna().var()
+                variance = 0 if pd.isna(variance) else variance
+
+                return (valid_count, variance)
+
+            best_col = max(group, key=score)
+            kept_group_cols.append(best_col)
+            representative_map[best_col] = [c for c in group if c != best_col]
+
+        ungrouped_cols = [c for c in df.columns if c not in grouped_cols]
+
+        kept_columns = ungrouped_cols + kept_group_cols
+        return kept_columns #, representative_map
+
+    def generate_summary_stats(self, df) -> None:
+        """
+        Docstring for generate_summary_stats
+        
+        :param self: Description
+        """
+        # drop non-numeric columns
+        df_reduced = df.select_dtypes(include=[np.number])
+        df_other = df.select_dtypes(exclude=[np.number])
+
+        # 1. list columns with lots of NAs
+        na_ratio = df_reduced.isna().mean()
+        cols_with_many_nas = na_ratio[na_ratio > self.min_na_ratio].index.tolist()
+        drop_str = " were dropped" if self.drop_redundant_columns else ""
+        self.logger.info(
+            f"{len(cols_with_many_nas)} columns with more than {self.min_na_ratio * 100}% NA's{drop_str}"
+        )
+        self.summ_logger.info(
+            f"Columns with more than {self.min_na_ratio * 100}% NA's{drop_str}:\n"\
+            + "\n".join(" "*30 + f"- {str(col)}" for col in cols_with_many_nas))
+        df_reduced = df_reduced.drop(columns=cols_with_many_nas)
+
+        # 2. list columns with lots of zeros
+        zero_ratio = (df_reduced == 0).mean()
+        cols_with_many_zeros = zero_ratio[zero_ratio > self.min_zero_ratio].index.tolist()
+        self.logger.info(
+            f"{len(cols_with_many_zeros)} columns with more than {self.min_zero_ratio * 100}% zeros{drop_str}"
+        )
+        self.summ_logger.info(
+            f"Columns with more than {self.min_zero_ratio * 100}% zeros{drop_str}:\n"\
+            + "\n".join(" "*30 + f"- {str(col)}" for col in cols_with_many_zeros))
+        df_reduced = df_reduced.drop(columns=cols_with_many_zeros)
+
+        # 3. cluster similar columns
+        if self.treat_zero_as_na:
+            df_reduced = df_reduced.replace(0, np.nan)
+        corr = df_reduced.corr(method="spearman", min_periods=max(10, int(0.05 * len(df_reduced)))).abs()
+        cols = corr.columns.tolist()
+        graph = {col: set() for col in cols}
+        for i in range(len(cols)):
+            for j in range(i + 1, len(cols)):
+                r = corr.iloc[i, j]
+                if pd.notna(r) and r >= self.corr_thresh:
+                    a, b = cols[i], cols[j]
+                    graph[a].add(b)
+                    graph[b].add(a)
+        visited = set()
+        groups = []
+        for col in cols:
+            if col in visited:
+                continue
+            stack = [col]
+            group = []
+            while stack:
+                node = stack.pop()
+                if node in visited:
+                    continue
+                visited.add(node)
+                group.append(node)
+                stack.extend(graph[node] - visited)
+            if len(group) >= self.min_group_size:
+                groups.append(sorted(group))
+        groups.sort(key=lambda g: (-len(g), g))
+        self.log_column_groups(groups, max_groups=10, max_cols_per_group=8)
+
+        kept_columns = self.keep_one_column_per_group(df_reduced, groups)
+        df_reduced = df_reduced[kept_columns]
+        if self.drop_redundant_columns:
+            self.logger.info("For each group of similar columns, one representative with the most valid data and highest variance was retained")
+        df_final = pd.concat([df_other, df_reduced], axis=1)
+        return df_final

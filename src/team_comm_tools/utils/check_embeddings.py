@@ -6,14 +6,13 @@ import pickle
 import warnings
 from tqdm import tqdm
 from pathlib import Path
+from time import perf_counter
 
-import torch
-from sentence_transformers import SentenceTransformer, util
+from torch import cuda, no_grad
+from sentence_transformers import SentenceTransformer
 
-from transformers import AutoTokenizer
-from transformers import AutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, logging
 from scipy.special import softmax
-from transformers import logging
 
 logging.set_verbosity(40) # only log errors
 
@@ -26,7 +25,7 @@ EMOJIS_TO_PRESERVE = {
 
 # Check if embeddings exist
 def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, need_sentence: bool, 
-                     need_sentiment: bool, regenerate_vectors: bool, use_gpu: bool, message_col: str = "message"):
+                     need_sentiment: bool, regenerate_vectors: bool, use_gpu: bool, message_col: str, logger):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
@@ -49,43 +48,71 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
     :type use_gpu: bool
     :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
     :type message_col: str, optional
+    :param logger: Logger for logging messages
+    :type logger: logging.Logger
 
     :return: None
     :rtype: None
     """
     device = "cpu"
     if use_gpu:
-        if torch.cuda.is_available():
+        if cuda.is_available():
             print("Using GPU for embeddings.")
+            logger.info("Using GPU for embeddings.")
             device = "cuda"
         else:
             print("GPU not available, using CPU for embeddings.")
+            logger.info("GPU not available, using CPU for embeddings.")
 
     if (regenerate_vectors or (not os.path.isfile(vect_path))) and need_sentence:
+        logger.info("Generating sentence vectors cache...")
+        start_time = perf_counter()
         generate_vect(chat_data, vect_path, message_col, device)
+        end_time = perf_counter()
+        logger.info(f"Sentence vectors generation completed in {end_time - start_time:.2f} seconds.")
     if (regenerate_vectors or (not os.path.isfile(bert_path))) and need_sentiment:
+        logger.info("Generating BERT vectors cache...")
+        start_time = perf_counter()
         generate_bert(chat_data, bert_path, message_col, device)
+        end_time = perf_counter()
+        logger.info(f"BERT vectors generation completed in {end_time - start_time:.2f} seconds.")
 
     try:
         vector_df = pd.read_csv(vect_path)
         # check whether the given vector and bert data matches length of chat data 
         if len(vector_df) != len(chat_data):
             print("ERROR: The length of the vector data does not match the length of the chat data. Regenerating...")
+            logger.error("The length of the vector data does not match the length of the chat data. Regenerating...")
+            start_time = perf_counter()
             generate_vect(chat_data, vect_path, message_col, device)
+            end_time = perf_counter()
+            logger.info(f"Sentence vectors regeneration completed in {end_time - start_time:.2f} seconds.")
     except FileNotFoundError: # It's OK if we don't have the path, if the sentence vectors are not necessary
         if need_sentence:
+            logger.error("Vector embeddings file not found. Generating new vector embeddings.")
+            start_time = perf_counter()
             generate_vect(chat_data, vect_path, message_col, device)
+            end_time = perf_counter()
+            logger.info(f"Sentence vectors generation completed in {end_time - start_time:.2f} seconds.")
 
     try:
         bert_df = pd.read_csv(bert_path)
         if len(bert_df) != len(chat_data):
             print("ERROR: The length of the sentiment data does not match the length of the chat data. Regenerating...")
+            logger.error("The length of the sentiment data does not match the length of the chat data. Regenerating...")
             # delete the file
+            start_time = perf_counter()
             generate_bert(chat_data, bert_path, message_col, device)
+            end_time = perf_counter()
+            logger.info(f"BERT vectors regeneration completed in {end_time - start_time:.2f} seconds.")
     except FileNotFoundError:
         if need_sentiment: # It's OK if we don't have the path, if the sentiment features are not necessary
+            logger.error("BERT sentiment file not found. Generating new BERT sentiments.")
+            start_time = perf_counter()
             generate_bert(chat_data, bert_path, message_col, device)
-    
+            end_time = perf_counter()
+            logger.info(f"BERT vectors generation completed in {end_time - start_time:.2f} seconds.")
+
     # Get the lexicon pickle(s) if they don't exist
     current_script_directory = Path(__file__).resolve().parent
     LEXICON_PATH_STATIC = current_script_directory.parent/"features/assets/lexicons_dict.pkl"
@@ -448,7 +475,7 @@ def get_sentiment(texts, model_bert, device):
 
     encoded = tokenizer(non_null_non_empty_texts, padding=True, truncation=True, max_length=512, return_tensors='pt')
     encoded = {k: v.to(device) for k, v in encoded.items()}
-    with torch.no_grad():
+    with no_grad():
         output = model_bert(**encoded)
 
     scores = output[0].detach().cpu().numpy()

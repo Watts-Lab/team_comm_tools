@@ -1,7 +1,7 @@
 import re
 import logging
 import pandas as pd
-# import warnings
+import os
 
 EMOJIS = {
     "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)", # 8 emojis from LIWC 2017
@@ -303,7 +303,7 @@ def setup_logger(name: str, log_file_path: str, level: int=logging.INFO):
 
     :param name: The name of the logger.
     :type name: str
-    :param log_file_path: Path to the log file.
+    :param log_file_path: Path to the log file, such as './output/logs/feature_builder.log'.
     :type log_file_path: str
     :param level: Logging level, defaults to logging.INFO. All levels: 0: NOTSET, 10: DEBUG, 20: INFO, 30: WARNING, 40: ERROR, 50: CRITICAL.
     :type level: int, optional
@@ -311,11 +311,20 @@ def setup_logger(name: str, log_file_path: str, level: int=logging.INFO):
     :rtype: logging.Logger
     """
     formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
-    handler = logging.FileHandler(log_file_path)
-    handler.setFormatter(formatter)
-
+    log_dir = os.path.dirname(log_file_path)
+    if log_dir:
+        os.makedirs(log_dir, exist_ok=True)
     logger = logging.getLogger(name)
     logger.setLevel(level)
+    # Prevent “double logging” via parent/root handlers
+    logger.propagate = False
+    abs_path = os.path.abspath(log_file_path)
+    # If a FileHandler for this same file already exists, don’t add another
+    for h in logger.handlers:
+        if isinstance(h, logging.FileHandler) and os.path.abspath(getattr(h, "baseFilename", "")) == abs_path:
+            return logger
+    handler = logging.FileHandler(log_file_path)
+    handler.setFormatter(formatter)
     logger.addHandler(handler)
 
     return logger

@@ -8,6 +8,7 @@ from team_comm_tools.utils.summarize_features import *
 from team_comm_tools.utils.gini_coefficient import *
 from team_comm_tools.utils.preprocess import *
 from fuzzywuzzy import process
+from time import perf_counter
 
 class ConversationLevelFeaturesCalculator:
     """
@@ -57,6 +58,7 @@ class ConversationLevelFeaturesCalculator:
                         user_methods: list,
                         user_columns: list,
                         chat_features: list,
+                        logger
                         ) -> None:
 
         # Initializing variables
@@ -75,6 +77,7 @@ class ConversationLevelFeaturesCalculator:
         self.user_methods = user_methods
         self.user_columns = user_columns
         self.chat_features = chat_features
+        self.logger = logger
 
         def clean_up_aggregation_method_names(aggregation_method_names:list, method_param:str) -> list:
             """
@@ -234,7 +237,10 @@ class ConversationLevelFeaturesCalculator:
         """
 
         for method in feature_methods:
+            start_time = perf_counter()
             method(self)
+            end_time = perf_counter()
+            self.logger.info(f"  - {method.__name__}: {end_time - start_time:.2f} seconds.")
 
         return self.conv_data
 
