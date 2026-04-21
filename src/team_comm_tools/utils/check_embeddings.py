@@ -4,6 +4,7 @@ import re
 import os
 import pickle
 import warnings
+import hashlib
 from tqdm import tqdm
 from pathlib import Path
 
@@ -17,18 +18,93 @@ from transformers import logging
 
 logging.set_verbosity(40) # only log errors
 
-model_vect = SentenceTransformer('all-MiniLM-L6-v2')
+DEFAULT_VECTOR_MODEL_NAME = 'all-MiniLM-L6-v2'
+model_vect = None
 MODEL  = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
-tokenizer = AutoTokenizer.from_pretrained(MODEL)
-model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
+tokenizer = None
+model_bert = None
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 EMOJIS_TO_PRESERVE = {
     "(:", "(;", "):", "/:", ":(", ":)", ":/", ";)"
 } 
 
+
+def get_vector_model():
+    global model_vect
+    if model_vect is None:
+        model_vect = SentenceTransformer(DEFAULT_VECTOR_MODEL_NAME)
+    return model_vect
+
+
+def get_sentiment_model():
+    global tokenizer, model_bert
+    if tokenizer is None:
+        tokenizer = AutoTokenizer.from_pretrained(MODEL)
+    if model_bert is None:
+        model_bert = AutoModelForSequenceClassification.from_pretrained(MODEL)
+    return tokenizer, model_bert
+
+
+def default_vector_encoder(texts):
+    return get_vector_model().encode(texts)
+
+
+def get_embedding_cache_suffix(embedding_fn=None, embedding_backend_id=None, embedding_dim=None):
+    if embedding_fn is None:
+        return ""
+
+    raw_backend_id = embedding_backend_id
+    if not raw_backend_id:
+        callable_name = getattr(embedding_fn, "__qualname__", type(embedding_fn).__qualname__)
+        raw_backend_id = f"{embedding_fn.__module__}.{callable_name}"
+    if embedding_dim is not None:
+        raw_backend_id = f"{raw_backend_id}-dim{embedding_dim}"
+
+    safe_backend_id = re.sub(r"[^A-Za-z0-9]+", "-", raw_backend_id).strip("-").lower()[:48] or "custom"
+    digest = hashlib.sha1(raw_backend_id.encode("utf-8")).hexdigest()[:12]
+    return f"__{safe_backend_id}-{digest}"
+
+
+def build_vector_cache_path(vect_path: str, embedding_fn=None, embedding_backend_id=None, embedding_dim=None) -> str:
+    suffix = get_embedding_cache_suffix(
+        embedding_fn=embedding_fn,
+        embedding_backend_id=embedding_backend_id,
+        embedding_dim=embedding_dim,
+    )
+    if not suffix:
+        return vect_path
+
+    path = Path(vect_path)
+    return str(path.with_name(f"{path.stem}{suffix}{path.suffix}"))
+
+
+def validate_embeddings(embeddings, expected_rows, embedding_dim=None):
+    embeddings = np.asarray(embeddings, dtype=float)
+
+    if embeddings.ndim == 1:
+        if expected_rows != 1:
+            raise ValueError("Custom embedding_fn must return one embedding per input string.")
+        embeddings = embeddings.reshape(1, -1)
+
+    if embeddings.ndim != 2:
+        raise ValueError("Custom embedding_fn must return a 2D array-like object.")
+
+    if embeddings.shape[0] != expected_rows:
+        raise ValueError(
+            "Custom embedding_fn must return the same number of embeddings as the number of input strings."
+        )
+
+    if embedding_dim is not None and embeddings.shape[1] != embedding_dim:
+        raise ValueError(
+            f"Custom embedding_fn returned vectors with dimension {embeddings.shape[1]}, expected {embedding_dim}."
+        )
+
+    return embeddings
+
 # Check if embeddings exist
 def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, need_sentence: bool, 
-                     need_sentiment: bool, regenerate_vectors: bool, message_col: str = "message"):
+                     need_sentiment: bool, regenerate_vectors: bool, message_col: str = "message",
+                     embedding_fn=None, embedding_dim=None):
     """
     Check if embeddings and required lexicons exist, and generate them if they don't.
 
@@ -54,7 +130,13 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
     :rtype: None
     """
     if (regenerate_vectors or (not os.path.isfile(vect_path))) and need_sentence:
-        generate_vect(chat_data, vect_path, message_col)
+        generate_vect(
+            chat_data,
+            vect_path,
+            message_col,
+            embedding_fn=embedding_fn,
+            embedding_dim=embedding_dim,
+        )
     if (regenerate_vectors or (not os.path.isfile(bert_path))) and need_sentiment:
         generate_bert(chat_data, bert_path, message_col)
 
@@ -63,10 +145,22 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
         # check whether the given vector and bert data matches length of chat data 
         if len(vector_df) != len(chat_data):
             print("ERROR: The length of the vector data does not match the length of the chat data. Regenerating...")
-            generate_vect(chat_data, vect_path, message_col)
+            generate_vect(
+                chat_data,
+                vect_path,
+                message_col,
+                embedding_fn=embedding_fn,
+                embedding_dim=embedding_dim,
+            )
     except FileNotFoundError: # It's OK if we don't have the path, if the sentence vectors are not necessary
         if need_sentence:
-            generate_vect(chat_data, vect_path, message_col)
+            generate_vect(
+                chat_data,
+                vect_path,
+                message_col,
+                embedding_fn=embedding_fn,
+                embedding_dim=embedding_dim,
+            )
 
     try:
         bert_df = pd.read_csv(bert_path)
@@ -337,10 +431,16 @@ def str_to_vec(str_vec):
     vector_list = [float(e) for e in str_vec[1:-1].split(',')]
     return np.array(vector_list)
 
-def get_nan_vector():
+def get_nan_vector(embedding_fn=None, embedding_dim=None):
     """
     Get a default value for an empty string (the "NaN vector") and returns it as a 1D np array.
     """
+    if embedding_dim is not None:
+        return np.zeros(embedding_dim, dtype=float)
+
+    if embedding_fn is not None:
+        return validate_embeddings(embedding_fn([""]), expected_rows=1, embedding_dim=embedding_dim)[0]
+
     current_dir = os.path.dirname(__file__)
     nan_vector_file_path = os.path.join(current_dir, '../features/assets/nan_vector.txt')
     nan_vector_file_path = os.path.abspath(nan_vector_file_path)
@@ -348,7 +448,7 @@ def get_nan_vector():
     with open(nan_vector_file_path, "r") as f:
         return str_to_vec(f.read())
 
-def generate_vect(chat_data, output_path, message_col, batch_size = 64):
+def generate_vect(chat_data, output_path, message_col, batch_size = 64, embedding_fn=None, embedding_dim=None):
     """
     Generates sentence vectors for the given chat data and saves them to a CSV file.
 
@@ -364,12 +464,21 @@ def generate_vect(chat_data, output_path, message_col, batch_size = 64):
     :return: None
     :rtype: None
     """
-    print(f"Generating SBERT sentence vectors...")
+    print("Generating sentence vectors...")
 
-    nan_vector = get_nan_vector()
+    encoder = embedding_fn or default_vector_encoder
+    nan_vector = get_nan_vector(embedding_fn=embedding_fn, embedding_dim=embedding_dim)
     empty_to_nan = [text if text and text.strip() else None for text in chat_data[message_col].tolist()]
     non_empty_texts = [text for text in empty_to_nan if text is not None]
-    all_embeddings = [emb for i in tqdm(range(0, len(non_empty_texts), batch_size)) for emb in model_vect.encode(non_empty_texts[i:i + batch_size])]
+    all_embeddings = []
+    for i in tqdm(range(0, len(non_empty_texts), batch_size)):
+        batch = non_empty_texts[i:i + batch_size]
+        batch_embeddings = validate_embeddings(
+            encoder(batch),
+            expected_rows=len(batch),
+            embedding_dim=embedding_dim,
+        )
+        all_embeddings.extend(batch_embeddings)
     embeddings = np.tile(nan_vector, (len(empty_to_nan), 1)) # default embeddings to the NAN vector
     non_empty_index = 0
     for idx, text in enumerate(empty_to_nan):
@@ -422,6 +531,8 @@ def get_sentiment(texts):
     :return: A DataFrame with sentiment scores.
     :rtype: pd.DataFrame
     """
+
+    tokenizer, model_bert = get_sentiment_model()
 
     # Handle and tokenize non-null and non-empty texts
     texts_series = pd.Series(texts)

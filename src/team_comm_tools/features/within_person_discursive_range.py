@@ -5,7 +5,14 @@ import os
 import warnings
 warnings.filterwarnings('ignore') # We get empty slice warnings for short conversations
 
-def get_nan_vector():
+def get_nan_vector(chat_data=None):
+    if chat_data is not None:
+        for value in chat_data["message_embedding"]:
+            if isinstance(value, np.ndarray):
+                return np.zeros(value.shape, dtype=float)
+            if isinstance(value, (list, tuple)):
+                return np.zeros(len(value), dtype=float)
+
     current_dir = os.path.dirname(__file__)
     nan_vector_file_path = os.path.join(current_dir, './assets/nan_vector.txt')
     nan_vector_file_path = os.path.abspath(nan_vector_file_path)
@@ -35,13 +42,13 @@ Returns:
 def get_within_person_disc_range(chat_data, num_chunks, conversation_id_col, speaker_id_col):
 
     # Get nan vector 
-    nan_vector = get_nan_vector()
+    nan_vector = get_nan_vector(chat_data)
 
     #calculate mean vector per speaker per chunk
     mean_vec_speaker_chunks = pd.DataFrame(chat_data.groupby([conversation_id_col, speaker_id_col, 'chunk_num']).message_embedding.apply(np.mean)).unstack('chunk_num').rename(columns={'message_embedding': 'mean_chunk_vec'})
 
     #collapse multi-index
-    mean_vec_speaker_chunks.columns = ["_c".join(col).strip() for col in mean_vec_speaker_chunks.columns.values]
+    mean_vec_speaker_chunks.columns = ["_c".join(str(part) for part in col).strip() for col in mean_vec_speaker_chunks.columns.values]
 
     actual_num_chunks = len(mean_vec_speaker_chunks[2:].columns) # omit the first two, which is conversation_num and speaker_nickname
 
