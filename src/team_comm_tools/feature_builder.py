@@ -9,6 +9,7 @@ from pathlib import Path
 import time
 import itertools
 import warnings
+from collections.abc import Callable
 
 # Imports from feature files and classes
 from team_comm_tools.utils.download_resources import download
@@ -90,6 +91,15 @@ class FeatureBuilder:
     :type ner_cutoff: int
     :param regenerate_vectors: If true, regenerates vector data even if it already exists. Defaults to False.
     :type regenerate_vectors: bool, optional
+    :param embedding_fn: Optional callable that maps a list of messages to a 2D embedding array.
+        Defaults to None, which preserves the built-in sentence-transformers backend.
+    :type embedding_fn: Callable[[list[str]], np.ndarray] | None, optional
+    :param embedding_backend_id: Optional identifier used to keep custom vector caches distinct across
+        embedding backends. Ignored when `embedding_fn` is None.
+    :type embedding_backend_id: str | None, optional
+    :param embedding_dim: Optional embedding dimension for validating custom encoder output and stabilizing
+        custom vector cache keys.
+    :type embedding_dim: int | None, optional
     :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (with 
         capitalization and punctuation removed). Defaults to False.
     :type compute_vectors_from_preprocessed: bool, optional
@@ -137,6 +147,9 @@ class FeatureBuilder:
             ner_training_df: pd.DataFrame = None,
             ner_cutoff: int = 0.9,
             regenerate_vectors: bool = False,
+            embedding_fn: Callable[[list[str]], np.ndarray] | None = None,
+            embedding_backend_id: str | None = None,
+            embedding_dim: int | None = None,
             compute_vectors_from_preprocessed: bool = False,
             custom_liwc_dictionary_path: str = '',
             convo_aggregation = True,
@@ -174,6 +187,9 @@ class FeatureBuilder:
         self.within_task = within_task
         self.ner_cutoff = ner_cutoff
         self.regenerate_vectors = regenerate_vectors
+        self.embedding_fn = embedding_fn
+        self.embedding_backend_id = embedding_backend_id
+        self.embedding_dim = embedding_dim
         self.convo_aggregation = convo_aggregation
         self.convo_methods = convo_methods
         self.convo_columns = convo_columns
@@ -389,10 +405,25 @@ class FeatureBuilder:
             self.output_file_path_user_level = re.sub(r'/user/', r'/output/user/', self.output_file_path_user_level)
 
         # Logic for processing vector cache
-        self.vect_path = vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name        
+        self.vect_path = build_vector_cache_path(
+            vector_directory + "sentence/" + ("turns" if self.turns else "chats") + "/" + base_file_name,
+            embedding_fn=self.embedding_fn,
+            embedding_backend_id=self.embedding_backend_id,
+            embedding_dim=self.embedding_dim,
+        )
         self.bert_path = vector_directory + "sentiment/" + ("turns" if self.turns else "chats") + "/" + base_file_name
 
-        check_embeddings(self.chat_data, self.vect_path, self.bert_path, need_sentence, need_sentiment, self.regenerate_vectors, message_col = self.vector_colname)
+        check_embeddings(
+            self.chat_data,
+            self.vect_path,
+            self.bert_path,
+            need_sentence,
+            need_sentiment,
+            self.regenerate_vectors,
+            message_col=self.vector_colname,
+            embedding_fn=self.embedding_fn,
+            embedding_dim=self.embedding_dim,
+        )
 
         if(need_sentence):
             self.vect_data = pd.read_csv(self.vect_path, encoding='mac_roman')

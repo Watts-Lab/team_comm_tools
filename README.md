@@ -86,6 +86,35 @@ my_feature_builder = FeatureBuilder(
 my_feature_builder.featurize()
 ```
 
+If you already generate embeddings elsewhere in your pipeline, you can supply your own encoder instead of using the default sentence-transformers model:
+
+```python
+import numpy as np
+from openai import OpenAI
+
+client = OpenAI()
+
+def openai_encoder(texts):
+    response = client.embeddings.create(
+        model="text-embedding-3-small",
+        input=texts,
+    )
+    return np.array([item.embedding for item in response.data])
+
+my_feature_builder = FeatureBuilder(
+   input_df = my_pandas_dataframe,
+   conversation_id_col = "conversation_id",
+   speaker_id_col = "speaker_id",
+   message_col = "message",
+   vector_directory = "./vector_data/",
+   embedding_fn = openai_encoder,
+   embedding_backend_id = "openai-text-embedding-3-small",
+   embedding_dim = 1536,
+)
+```
+
+When a custom `embedding_fn` is provided, the package keeps the vector cache separate for that backend and does not initialize the default sentence-transformers model unless it is actually needed.
+
 ### Data Format
 We accept input data in the format of a Pandas DataFrame. Your data needs to have three (3) required input columns and one optional column.
 
