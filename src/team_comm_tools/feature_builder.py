@@ -1,5 +1,3 @@
-# feature_builder.py
-
 # 3rd Party Imports
 import pandas as pd
 pd.options.mode.chained_assignment = None 
@@ -48,9 +46,6 @@ class FeatureBuilder:
         be calculated. Defaults to an empty list (i.e., no additional features beyond the defaults will 
         be computed).
     :type custom_features: list, optional
-    :param analyze_first_pct: Analyze the first X% of the data. This parameter is useful because the 
-        earlier stages of the conversation may be more predictive than the later stages. Defaults to [1.0].
-    :type analyze_first_pct: list(float), optional
     :param turns: If true, collapses multiple "chats"/messages by the same speaker in a row into a 
         single "turn." Defaults to False.
     :type turns: bool, optional
@@ -63,9 +58,9 @@ class FeatureBuilder:
     :param message_col: A string representing the column name that should be selected as the message. 
         Defaults to "message".
     :type message_col: str, optional
-    :param timestamp_col: A string representing the column name that should be selected as the message. 
+    :param timestamp_col: A timestamp column name, or a tuple of (start_timestamp_col, end_timestamp_col).
         Defaults to "timestamp".
-    :type timestamp_col: str, optional
+    :type timestamp_col: str | tuple[str, str], optional
     :param timestamp_unit: A string representing the unit of the timestamp (if the timestamp is numeric). 
         Defaults to 'ms' (milliseconds). Other options (D, s, ms, us, ns) can be found on the Pandas 
         reference: https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html
@@ -76,7 +71,7 @@ class FeatureBuilder:
     :type grouping_keys: list, optional
     :param cumulative_grouping: If true, uses a cumulative way of grouping chats (looking not just within 
         a single ID, but also at what happened before). NOTE: This parameter and the following one 
-        (`within_grouping`) were created in the context of a multi-stage Empirica game (see: 
+        (`within_task`) were created in the context of a multi-stage Empirica game (see: 
         https://github.com/Watts-Lab/multi-task-empirica). Assumes exactly 3 nested columns at different 
         levels: a High, Mid, and Low level; that are temporally nested. Defaults to False.
     :type cumulative_grouping: bool, optional
@@ -88,7 +83,7 @@ class FeatureBuilder:
     :type ner_training_df: pd.DataFrame, optional
     :param ner_cutoff: The cutoff value for the confidence of prediction for each named entity. 
         Defaults to 0.9.
-    :type ner_cutoff: int
+    :type ner_cutoff: float
     :param regenerate_vectors: If true, regenerates vector data even if it already exists. Defaults to False.
     :type regenerate_vectors: bool, optional
     :param compute_vectors_from_preprocessed: If true, computes vectors using preprocessed text (with 
@@ -114,6 +109,24 @@ class FeatureBuilder:
     :type user_columns: list, optional
     :param use_gpu: Specifies whether to use GPU for vert/bert model. Defaults to False.
     :type use_gpu: bool, optional
+    :param corr_thresh: Minimum absolute Spearman correlation used to treat two numeric
+        columns as redundant during summary reduction. Defaults to 0.95.
+    :type corr_thresh: float, optional
+    :param min_na_ratio: Threshold for dropping numeric columns with high missing-value
+        ratio during summary reduction. Defaults to 0.3.
+    :type min_na_ratio: float, optional
+    :param min_zero_ratio: Threshold for dropping numeric columns with high zero ratio
+        during summary reduction. Defaults to 0.9.
+    :type min_zero_ratio: float, optional
+    :param min_group_size: Minimum connected-component size to treat a correlated set
+        of columns as a redundancy group. Defaults to 2.
+    :type min_group_size: int, optional
+    :param treat_zero_as_na: If true, zeros are treated as missing values when computing
+        redundancy metrics and selecting representative columns. Defaults to True.
+    :type treat_zero_as_na: bool, optional
+    :param drop_redundant_columns: If true, chat/user/conversation outputs are reduced to
+        representative numeric columns based on summary statistics. Defaults to False.
+    :type drop_redundant_columns: bool, optional
     :return: The FeatureBuilder writes the generated features to files in the specified paths. The progress 
         will be printed in the terminal, indicating completion with "All Done!".
     :rtype: None
@@ -138,7 +151,7 @@ class FeatureBuilder:
             cumulative_grouping = False, 
             within_task = False,
             ner_training_df: pd.DataFrame = None,
-            ner_cutoff: int = 0.9,
+            ner_cutoff: float = 0.9,
             regenerate_vectors: bool = False,
             compute_vectors_from_preprocessed: bool = False,
             custom_liwc_dictionary_path: str = '',
@@ -149,7 +162,7 @@ class FeatureBuilder:
             user_methods: list = ['mean', 'max', 'min', 'stdev'],
             user_columns: list = None,
             use_gpu: bool = False,
-            corr_thresh: float = 0.95, 
+            corr_thresh: float = 0.9, 
             min_na_ratio: float = 0.3, 
             min_zero_ratio: float = 0.9, 
             min_group_size: int = 2,
@@ -158,7 +171,7 @@ class FeatureBuilder:
         ) -> None:
 
         ###### Initialization ######
-        # Ensure output_file_base is alphanumeric + hyphens
+        # Ensure output_file_base only contains alphanumeric characters and underscores.
         self.output_file_base = re.sub('[^A-Za-z0-9_]', '', output_file_base)
         if self.output_file_base != output_file_base:
             output_file_base = re.sub('[^A-Za-z0-9_]', '', output_file_base)
@@ -511,7 +524,6 @@ class FeatureBuilder:
         start_time = perf_counter()
         self.logger.info(f"=== Team Communication Toolkit FeatureBuilder Run initiated ===")
         self.logger.info(f"Featurize started at {datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S %Z')}")
-        # Data file has 100 lines (chats), 5 unique speakers, 4 unique conversations.
         num_lines = self.chat_data.shape[0]
         num_speakers = self.chat_data[self.speaker_id_col].nunique()
         num_conversations = self.chat_data[self.conversation_id_col].nunique()
@@ -601,13 +613,6 @@ class FeatureBuilder:
         Call all preprocessing modules needed to clean the chat text.
 
         This function groups the chat data as specified, verifies column presence, creates original and lowercased columns, preprocesses text, and optionally processes chat turns.
-
-        :param turns: Whether to preprocess naive turns, defaults to False
-        :type turns: bool, optional
-        :param col: Columns to preprocess, including conversation_id, speaker_id and message, defaults to None
-        :type cumulative_grouping: bool, optional
-        :param within_task: Whether to group within tasks, defaults to False
-        :type within_task: bool, optional
         
         :return: None
         :rtype: None
@@ -794,9 +799,10 @@ class FeatureBuilder:
         """
         Load the custom LIWC dictionary from the provided path.
 
-        This function reads the custom LIWC dictionary from the provided path and returns the dictionary.
+        This function reads the custom LIWC dictionary from the provided path and returns
+        the parsed dictionary. If the path is empty/invalid, returns an empty dict.
 
-        :param custom_liwc_dictionary_path: Path to the custom LIWC dictionary file
+        :param custom_liwc_dictionary_path: Path to the custom LIWC dictionary file.
         :type custom_liwc_dictionary_path: str
 
         :return: Custom LIWC dictionary
@@ -827,7 +833,7 @@ class FeatureBuilder:
         Verifies that a column in a DataFrame is composed of values that can be parsed
         either as datetime or as numeric values suitable for time difference calculations.
 
-        :param timestamp_col: The name of the column to verify
+        :param timestamp_col: The name of the column to verify.
         :type timestamp_col: str
 
         :return: None
@@ -856,8 +862,21 @@ class FeatureBuilder:
         )
     
     def log_column_groups(self, groups, max_groups, max_cols_per_group):
+        """
+        Log correlated feature groups to standard and detailed loggers.
+
+        :param groups: Correlated column groups.
+        :type groups: list[list[str]]
+        :param max_groups: Maximum number of groups to print to the standard logger.
+        :type max_groups: int
+        :param max_cols_per_group: Maximum number of columns shown per group in
+            the standard logger.
+        :type max_cols_per_group: int
+
+        :return: None
+        :rtype: None
+        """
         total_groups = len(groups)
-        # Clean logger
         self.logger.info("Found %s correlated feature groups", total_groups)
         for i, group in enumerate(groups[:max_groups], 1):
             size = len(group)
@@ -877,7 +896,6 @@ class FeatureBuilder:
                 "... (%d more groups not shown)",
                 total_groups - max_groups
             )
-        # Detailed summary logger
         self.summ_logger.info("Full correlated feature groups output:")
         for i, group in enumerate(groups, 1):
             self.summ_logger.info(
@@ -887,24 +905,18 @@ class FeatureBuilder:
 
     def keep_one_column_per_group(self, df, groups):
         """
-        Keep one representative column per group, and keep all columns
-        that are not in any group unchanged.
+        Select one representative column from each correlated group.
 
-        Parameters
-        ----------
-        df : pd.DataFrame
-            Original dataframe.
-        groups : list[list[str]]
-            Groups of similar columns.
-        treat_zero_as_na : bool
-            If True, treat zeros as missing when scoring columns.
+        Non-grouped columns are preserved, and grouped columns are reduced to the
+        best-scoring representative based on valid-count and variance.
 
-        Returns
-        -------
-        kept_columns : list[str]
-            Final list of columns to keep.
-        representative_map : dict
-            Mapping: chosen representative -> other columns in that group.
+        :param df: Original dataframe.
+        :type df: pd.DataFrame
+        :param groups: Groups of similar columns.
+        :type groups: list[list[str]]
+
+        :return: Final list of columns to keep.
+        :rtype: list[str]
         """
         grouped_cols = set()
         representative_map = {}
@@ -932,13 +944,21 @@ class FeatureBuilder:
         ungrouped_cols = [c for c in df.columns if c not in grouped_cols]
 
         kept_columns = ungrouped_cols + kept_group_cols
-        return kept_columns #, representative_map
+        return kept_columns
 
-    def generate_summary_stats(self, df) -> None:
+    def generate_summary_stats(self, df) -> pd.DataFrame:
         """
-        Docstring for generate_summary_stats
-        
-        :param self: Description
+        Log and optionally reduce redundant numeric feature columns.
+
+        The method identifies numeric columns with high missingness and zero rates,
+        discovers highly correlated feature groups, and retains one representative
+        per group. Non-numeric columns are preserved and reattached before return.
+
+        :param df: Input dataframe to summarize and optionally reduce.
+        :type df: pd.DataFrame
+
+        :return: Dataframe with non-numeric columns plus filtered numeric columns.
+        :rtype: pd.DataFrame
         """
         # drop non-numeric columns
         df_reduced = df.select_dtypes(include=[np.number])
