@@ -110,7 +110,7 @@ class FeatureBuilder:
     :param use_gpu: Specifies whether to use GPU for vert/bert model. Defaults to False.
     :type use_gpu: bool, optional
     :param corr_thresh: Minimum absolute Spearman correlation used to treat two numeric
-        columns as redundant during summary reduction. Defaults to 0.95.
+        columns as redundant during summary reduction. Defaults to 0.9.
     :type corr_thresh: float, optional
     :param min_na_ratio: Threshold for dropping numeric columns with high missing-value
         ratio during summary reduction. Defaults to 0.3.
