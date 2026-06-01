@@ -215,88 +215,253 @@ def bare_command(doc):
     return len(bc)
 
 
+def is_in_subordinate_clause(tok, sent):
+    """
+    Check if a token is inside a subordinate clause rather than the main clause.
+    """
+    # Walk up from the token's head (not the token itself)
+    current = tok
+    while current.head != current and current != sent.root:
+        # Check if the HEAD has a subordinate clause dependency
+        if current.head.dep_ in {"advcl", "relcl", "acl", "ccomp", "xcomp"} and current.head != sent.root:
+            # We're attached to something that's a subordinate clause
+            return True
+        current = current.head
+    return False
+
+def wh_is_real_question(tok, sent, auxiliaries, ends_with_question_mark=False):
+    """
+    Returns True if the WH-word token is part of a real main-clause question.
+    """
+    # Check if sentence starts with auxiliary (not WH-word) - indicates Yes/No question
+    sent_tokens = list(sent)
+    if len(sent_tokens) >= 1:
+        first_tok = sent_tokens[0]
+        if first_tok.text.lower() in auxiliaries and first_tok.text.lower() not in {'what', 'who', 'where', 'when', 'why', 'how', 'which'}:
+            return False
+    
+    # For WH-determiners (both with and without ?), use special logic
+    if tok.dep_ == "det":
+        noun = tok.head
+        
+        # Check: is the noun inside a complement clause?
+        current = noun
+        while current.head != current and current != sent.root:
+            if current.dep_ in {"ccomp", "xcomp"}:
+                return False
+            current = current.head
+        
+        # If the noun is a subject (nsubj) and has a relcl ancestor, it's likely a misparsed question
+        if noun.dep_ in {"nsubj", "nsubjpass"}:
+            # This looks like a question with the WH-noun as subject
+            # Check for auxiliary
+            for t in sent:
+                if t.i > noun.i and t.text.lower() in auxiliaries:
+                    return True
+            
+            # If sentence ends with ?, accept it
+            if ends_with_question_mark:
+                return True
+        
+        # For non-subject WH-determiners, check close ancestors for relcl
+        if tok.dep_ == "det" and tok.head.dep_ != "relcl":
+            # Check head and head's head
+            if tok.head.head.dep_ == "relcl" and tok.head.head.i < tok.i:
+                # relcl is before WH-word, likely a real relative clause
+                return False
+        
+        # Check if there's an auxiliary after the WH-word/noun
+        for t in sent:
+            if t.i > noun.i and t.text.lower() in auxiliaries:
+                return True
+        
+        return False
+    
+    # For other WH-words (not determiners)
+    
+    # Special handling for WH-words that are subjects (nsubj, nsubjpass)
+    if tok.dep_ in {"nsubj", "nsubjpass"}:
+        # First check: is this part of a relative clause?
+        has_relcl_ancestor = False
+        for anc in tok.ancestors:
+            if anc.dep_ == "relcl":
+                has_relcl_ancestor = True
+                break
+        
+        if has_relcl_ancestor:
+            # Check if there's a noun before the WH-word (ignoring punctuation)
+            # This is the typical relative clause pattern: "the book, which..."
+            has_noun_before = False
+            for t in sent:
+                if t.i >= tok.i:
+                    break
+                if t.pos_ in {"NOUN", "PROPN"}:
+                    has_noun_before = True
+            
+            # If there's a noun before WH and it has relcl ancestor, it's a real relative clause
+            if has_noun_before:
+                return False
+        
+        # Check if there's actually a complement-taking verb before the WH-word
+        complement_taking_verbs = {
+            'tell', 'ask', 'know', 'wonder', 'understand', 'explain', 
+            'show', 'see', 'remember', 'forget', 'realize', 'figure',
+            'decide', 'consider', 'discover', 'find', 'learn', 'teach'
+        }
+        
+        has_complement_verb_before = False
+        for t in sent:
+            if t.i >= tok.i:
+                break
+            if t.pos_ == "VERB" and t.lemma_ in complement_taking_verbs:
+                has_complement_verb_before = True
+                break
+        
+        # If no complement-taking verb before WH-word, it's a main question
+        if not has_complement_verb_before:
+            # Check for an auxiliary after the WH-word
+            for t in sent:
+                if t.i > tok.i and t.text.lower() in auxiliaries:
+                    return True
+            return False
+        # If there IS a complement verb, fall through to normal checks
+        
+        # First check for complement clauses (ccomp, xcomp) - these are embedded questions
+        for anc in tok.ancestors:
+            if anc.dep_ in {"ccomp", "xcomp"}:
+                return False
+    
+    # Check if WH-word is attached to a verb that takes interrogative complements
+    complement_taking_verbs = {
+        'tell', 'ask', 'know', 'wonder', 'understand', 'explain', 
+        'show', 'see', 'remember', 'forget', 'realize', 'figure',
+        'decide', 'consider', 'discover', 'find', 'learn', 'teach'
+    }
+    
+    if tok.head.pos_ == "VERB" and tok.head.lemma_ in complement_taking_verbs:
+        # Check if there are tokens before this verb (indicating it's not sentence-initial)
+        tokens_before_verb = 0
+        for t in sent:
+            if t.i >= tok.head.i:
+                break
+            if t.pos_ not in {"PUNCT", "INTJ"}:
+                tokens_before_verb += 1
+        
+        # If there are 2+ tokens before the verb, WH is likely embedded
+        if tokens_before_verb >= 2:
+            return False
+    
+    # Check if has relcl ancestor
+    has_relcl_ancestor = False
+    for anc in tok.ancestors:
+        if anc.dep_ == "relcl":
+            has_relcl_ancestor = True
+            break
+    
+    if has_relcl_ancestor:
+        # Check if this is a misparsed main question vs real relative clause
+        # Count substantive tokens before the WH-word
+        substantive_before = 0
+        for t in sent:
+            if t.i >= tok.i:
+                break
+            if t.pos_ not in {"INTJ", "PUNCT", "CCONJ", "DET"}:
+                substantive_before += 1
+        
+        # If fewer than 3 substantive tokens before WH, likely a misparsed main question
+        if substantive_before < 3:
+            pass  # Don't exclude it
+        else:
+            # Likely a real relative clause
+            return False
+    
+    # If the sentence ends with ?, be lenient for non-relcl WH-words
+    if ends_with_question_mark:
+        return True
+    
+    # For non-? sentences with non-determiner WH-words that are NOT nsubj
+    # (nsubj was already handled above)
+    if is_in_subordinate_clause(tok, sent):
+        return False
+    
+    if tok.dep_ not in {"nsubj", "nsubjpass", "csubj", "attr", "ROOT", "dobj", "pobj", "advmod"}:
+        return False
+
+    for t in sent:
+        if not is_in_subordinate_clause(t, sent) and t.text.lower() in auxiliaries:
+            return True
+
+    return False
+
 def Question(doc):
     """
     Counts the number of sentences containing question words and question marks.
-    Reference: https://github.com/bbevis/politenessPy/blob/main/strategy_extractor.py
-    Args:
-        doc (spacy.tokens.Doc): The spaCy Doc object containing the text to be analyzed.
-    Returns:
-        tuple: A tuple containing the counts of Yes/No questions and WH-questions.
     """
-    # POS tags for WH-words like who/what/where
-    search_tags = {'WRB', 'WP', 'WDT'}
-    # WH-words and common auxiliaries that follow them in real questions
-    wh_words = {'what', 'who', 'where', 'when', 'why', 'how', 'which'}
-    wh_followers = {
-        'what': {'are', 'is', 'do', 'does', 'can', 'should', 'might'},
-        'who': {'is', 'are', 'was', 'can', 'should'},
-        'where': {'is', 'are', 'can', 'should'},
-        'when': {'is', 'are', 'can', 'should'},
-        'why': {'is', 'are', 'do', 'does', 'can', 'might', 'would'},
-        'how': {'is', 'are', 'do', 'does', 'can', 'should', 'would'},
-        'which': {'is', 'are', 'was', 'can', 'should'}
+    search_tags = {'WRB', 'WP', 'WDT', 'WP$'}
+    wh_words = {'what', 'who', 'where', 'when', 'why', 'how', 'which', 'whose', 'whom'}
+
+    auxiliaries = {
+        'do', 'does', 'did', 'have', 'has', 'had',
+        'can', 'could', 'will', 'would', 
+        'may', 'might', 'shall', 'should',
+        'is', 'are', 'was', 'were', 'am'
     }
-    # Auxiliaries that typically initiate Yes/No questions
-    yesno_aux = {'do', 'does', 'did', 'have', 'has', 'had',
-                #  'can', 'could', 'will', 'would', 
-                 'may', 'might', 'shall', 'should',
-                 'is', 'are', 'was', 'were', 'am'}
-    # Pronouns that often follow auxiliaries in Yes/No questions
-    pronoun_followers = {'i', 'you', 'we', 'he', 'she', 'they', 'it'}
-    # filler_words = {'ok', 'so', 'well', 'like', 'you know', 'i mean', 'actually', 'basically', 'right', 'just', 'uh', 'um', 'oh', 'hmm', 'like'}
-    
+    pronoun_followers = {'i', 'you', 'we', 'he', 'she', 'they', 'it', 'these', 'those', 'this', 'that'}
+
     wh_count = 0
     yesno_count = 0
     counted_sentences = set()
+    
     for sent in doc.sents:
         sent_text = sent.text.strip()
         sent_tokens = list(sent)
         if not sent_tokens:
             continue
-        # Method 1: Find question sentences by checking for '?' at end
+        
+        # Method 1: Sentences ending with '?'
         if sent_text.endswith('?'):
-            # try to find the first WH-word in the sentence
             wh = False
-            for token in sent_tokens:
-                if token.text.lower() in wh_words and token.tag_ in search_tags and token.dep_ not in {"relcl", "acl"}\
-                and token.i < sent.root.i:
-                    wh = True
-                    break
+            for tok1 in sent_tokens:
+                t1_lower = tok1.text.lower()
+                if t1_lower in wh_words and tok1.tag_ in search_tags:
+                    if wh_is_real_question(tok1, sent, auxiliaries, ends_with_question_mark=True):
+                        wh = True
+                        break
             if wh:
                 wh_count += 1
             else:
-                # Fallback: no WH in the sentence → treat as Yes/No question
                 yesno_count += 1
             counted_sentences.add(sent.start)
             continue
-        # Method 2: For remaining sentences, apply lexical rule-based detection --- Extract tokens and their metadata for fast access
-        for i in range(len(sent_tokens) - 1):
-            tok1 = sent_tokens[i]
-            tok2 = sent_tokens[i + 1]
+        
+        # Method 2: Lexical rule-based detection for sentences without '?'
+        found_question = False
+        for tok1 in sent_tokens:
             t1_lower = tok1.text.lower()
-            t2_lower = tok2.text.lower()
-            if sent.start in counted_sentences:
-                break  # already counted
-            # WH pattern
-            if t1_lower in wh_words and t2_lower in wh_followers.get(t1_lower, set()):
-                wh_count += 1
-                counted_sentences.add(sent.start)
-                break
-            # Yes/No pattern
-            if t1_lower in yesno_aux and t2_lower in pronoun_followers:
+            if t1_lower in wh_words and tok1.tag_ in search_tags:
+                if wh_is_real_question(tok1, sent, auxiliaries, ends_with_question_mark=False):
+                    wh_count += 1
+                    counted_sentences.add(sent.start)
+                    found_question = True
+                    break
+
+        if found_question:
+            continue
+            
+        # Check for Yes/No questions
+        for tok1, tok2 in zip(sent_tokens, sent_tokens[1:] + [None]):
+            t1_lower = tok1.text.lower()
+            t2_lower = tok2.text.lower() if tok2 else None
+            
+            if tok1.i - sent.start > 1:
+                continue
+                
+            if t1_lower in auxiliaries and t2_lower in pronoun_followers:
                 yesno_count += 1
                 counted_sentences.add(sent.start)
                 break
+
     return yesno_count, wh_count
-    # sentences = [str(sent) for sent in doc.sents if '?' in str(sent)]
-    # all_qs = len(sentences)
-    # n = 0
-    # for i in range(len(sentences)):
-    #     whq = [token.tag_ for token in nlp(sentences[i]) if token.tag_ in tags]
-    #     if len(whq) > 0:
-    #         n += 1
-    # return all_qs - n, n
 
 
 def word_start(keywords, doc):
