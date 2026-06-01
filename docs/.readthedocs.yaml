@@ -17,7 +17,11 @@ build:
   jobs:
     pre_install: # Stuff in src/requirements.txt depends on en_core_web_sm, which in turn depends on spacy
       - pip install "numpy<2.0.0" "spacy==3.7.2"
-      - bash -c "python3 -m spacy download en_core_web_sm"
+      # Install the model wheel directly instead of `spacy download`, which
+      # resolves the model version via a runtime compatibility lookup that
+      # can fail and build a malformed (404) URL. en_core_web_sm-3.7.1 is the
+      # release compatible with spacy 3.7.2.
+      - pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
     post_install: # Install NLTK resources after the install step
       - python3 -m nltk.downloader nps_chat
       - python3 -m nltk.downloader punkt
