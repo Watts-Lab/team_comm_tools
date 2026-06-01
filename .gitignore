@@ -58,6 +58,8 @@ examples/vector_data/*
 examples/output/*
 node_modules/
 *.csv
+# but always track test fixture CSVs so they aren't silently dropped
+!tests/data/cleaned_data/*.csv
 *.log
 
 # testing
