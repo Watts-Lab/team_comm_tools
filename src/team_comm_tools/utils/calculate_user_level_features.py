@@ -3,6 +3,7 @@ from team_comm_tools.utils.summarize_features import get_user_sum_dataframe, get
 from team_comm_tools.features.get_user_network import *
 from team_comm_tools.features.user_centroids import *
 from fuzzywuzzy import process
+from time import perf_counter
 
 class UserLevelFeaturesCalculator:
     """
@@ -38,7 +39,8 @@ class UserLevelFeaturesCalculator:
                         user_aggregation: bool,
                         user_methods: list,
                         user_columns: list,
-                        chat_features: list) -> None:
+                        chat_features: list,
+                        logger) -> None:
 
         # Initializing variables
         self.chat_data = chat_data
@@ -49,6 +51,7 @@ class UserLevelFeaturesCalculator:
         self.user_aggregation = user_aggregation
         self.user_methods = user_methods
         self.chat_features = chat_features
+        self.logger = logger
 
         def clean_up_aggregation_method_names(aggregation_method_names:list) -> list:
             """
@@ -152,16 +155,28 @@ class UserLevelFeaturesCalculator:
         """
 
         # Get total counts for features that need to be summed, regardless of what the user specified
+        start_time = perf_counter()
         self.get_user_level_summed_features()
-        
+        end_time = perf_counter()
+        self.logger.info(f"  - user_level_summed_features: {end_time - start_time:.2f} seconds.")
+
         # Get user summary statistics for all features (e.g. mean, min, max, stdev)
+        start_time = perf_counter()
         self.get_user_level_summary_statistics_features()
-        
+        end_time = perf_counter()
+        self.logger.info(f"  - user_level_summary_statistics_features: {end_time - start_time:.2f} seconds.")
+
         # Get 4 discursive features (discursive diversity, variance in DD, incongruent modulation, within-person discursive range)
+        start_time = perf_counter()
         self.get_centroids()
+        end_time = perf_counter()
+        self.logger.info(f"  - user_centroids: {end_time - start_time:.2f} seconds.")
 
         # Get list of other users in a given conversation
+        start_time = perf_counter()
         self.get_user_network()
+        end_time = perf_counter()
+        self.logger.info(f"  - user_network: {end_time - start_time:.2f} seconds.")
 
         return self.user_data
 

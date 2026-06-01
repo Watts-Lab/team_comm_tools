@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Worked Example &mdash; Team Communication Toolkit 0.1.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
@@ -134,7 +134,7 @@
 <section id="importing-the-package">
 <h3>Importing the Package<a class="headerlink" href="#importing-the-package" title="Link to this heading"></a></h3>
 <p>After you import the package and install dependencies, you can then use our tool in your Python script as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">team_comm_tools</span> <span class="kn">import</span> <span class="n">FeatureBuilder</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">team_comm_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">FeatureBuilder</span>
 </pre></div>
 </div>
 <p>Now you have access to the <a class="reference internal" href="feature_builder.html#feature-builder"><span class="std std-ref">feature_builder module</span></a>. This is the main class that you’ll need to interact with the Team Communication Toolkit.</p>
@@ -148,7 +148,7 @@
 <h3>Configuring the FeatureBuilder<a class="headerlink" href="#configuring-the-featurebuilder" title="Link to this heading"></a></h3>
 <p>The FeatureBuilder accepts any Pandas DataFrame as the input, so you can read in data in whatever format you like. For the purposes of this walkthrough, we’ll be using some jury deliberation data from <a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/3411764.3445433?casa_token=d-b5sCdwpNcAAAAA:-U-ePTSSE3rY1_BLXy1-0spFN_i4gOJqy8D0CeXHLAJna5bFRTee9HEnM0TnK_R-g0BOqOn35mU">Hu et al. (2021)</a>.</p>
 <p>We first import Pandas and read in the dataframe:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="n">juries_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./example_data/full_empirical_datasets/jury_conversations_with_outcome_var.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -161,7 +161,8 @@
         <span class="n">grouping_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;batch_num&quot;</span><span class="p">,</span> <span class="s2">&quot;round_num&quot;</span><span class="p">],</span> <span class="c1"># NOTE: This example demonstrates grouping. Use conversation_id_col if you have a single conversation identifier.</span>
         <span class="n">vector_directory</span> <span class="o">=</span> <span class="s2">&quot;./vector_data/&quot;</span><span class="p">,</span>
         <span class="n">output_file_base</span> <span class="o">=</span> <span class="s2">&quot;jury_output&quot;</span><span class="p">,</span>
-        <span class="n">turns</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># NOTE: This defaults to False. Decide whether you want to combine successive &#39;utterances&#39; by the same person as a &#39;turn.&#39;</span>
+        <span class="n">turns</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="c1"># NOTE: This defaults to False. Decide whether you want to combine successive &#39;utterances&#39; by the same person as a &#39;turn.&#39;</span>
+        <span class="n">drop_redundant_columns</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># NOTE: This defaults to False. When True, highly correlated and sparse feature columns are dropped from the output.</span>
 <span class="p">)</span>
 <span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">featurize</span><span class="p">()</span>
 </pre></div>
@@ -327,21 +328,12 @@
 </li>
 </ul>
 </section>
-<section id="analyzing-first-percentage">
-<h5>Analyzing First Percentage (%)<a class="headerlink" href="#analyzing-first-percentage" title="Link to this heading"></a></h5>
-<ul>
-<li><p>The <strong>analyze_first_pct</strong> parameter allows you to “cut off” and separately analyze the first X% of a conversation, in case you wish to separately study different sections of a conversation as it progresses. For example, you may be interested in knowing how the attributes of the first 50% of a conversation differ from the attributes of the entire conversation. Then you can sepcify the following:</p>
-<blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">analyze_first_pct</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
-</pre></div>
+<section id="analyzing-first-percentage-deprecated">
+<h5>Analyzing First Percentage (%) [Deprecated]<a class="headerlink" href="#analyzing-first-percentage-deprecated" title="Link to this heading"></a></h5>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Deprecated as of v.0.1.8.</strong> The <strong>analyze_first_pct</strong> parameter (and its underlying <code class="docutils literal notranslate"><span class="pre">get_first_pct_of_chat</span></code> method) has been removed. To analyze only a portion of a conversation, subset your input dataframe before passing it to the FeatureBuilder.</p>
 </div>
-<ul class="simple">
-<li><p>This will first analyze the first 50% of each conversation, and then analyze the full conversation.</p></li>
-<li><p>By default, we will simply analyze 100% of each conversation.</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
 </section>
 <section id="named-entity-recognition">
 <h5>Named Entity Recognition<a class="headerlink" href="#named-entity-recognition" title="Link to this heading"></a></h5>
@@ -373,8 +365,8 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">user_columns</span></code>: A list specifying which utterance-level attributes to aggregate at the speaker/user level.</p></li>
 </ul>
 <p>The table below summarizes the different types of aggregation, and the ways in which they can be customized:</p>
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Aggregation Overview</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Aggregation Overview</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 16.0%" />
 <col style="width: 12.0%" />
@@ -444,6 +436,44 @@
 <li><p><strong>[NOTE 3]</strong> In addition to aggregating from the utterance (chat) level to the conversation level, we also aggregate from the speaker (user) level to the conversation level, using the same methods specified in <code class="docutils literal notranslate"><span class="pre">convo_methods</span></code> to do so.</p></li>
 </ul>
 </section>
+</section>
+<section id="reducing-redundant-features">
+<span id="id2"></span><h5>Reducing Redundant Features<a class="headerlink" href="#reducing-redundant-features" title="Link to this heading"></a></h5>
+<ul>
+<li><p><strong>New in v.0.1.8.</strong> The FeatureBuilder generates a large number of features, and many of them are highly correlated with one another or are sparsely populated (containing mostly missing or zero values). The following parameters allow the FeatureBuilder to automatically detect groups of redundant features and retain only one representative per group, as well as drop columns that are dominated by missing (NA) or zero values.</p></li>
+<li><p>The <strong>drop_redundant_columns</strong> parameter is the main “switch” controlling this behavior. It defaults to <strong>False</strong>, meaning that no columns are dropped; instead, the FeatureBuilder simply <em>logs</em> which columns it identified as redundant. When set to <strong>True</strong>, the redundant columns are actually removed from the chat-, user-, and conversation-level outputs.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Note that only features generated by the FeatureBuilder are considered. Your original input columns (metadata, outcome variables, and other non-numeric columns) are always preserved untouched.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>The remaining parameters control <em>how</em> redundancy is detected:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>corr_thresh</strong> (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>): the minimum absolute Spearman correlation at which two numeric features are treated as redundant. Features whose correlations meet this threshold are clustered into groups, and one representative (the column with the most valid data and highest variance) is kept from each group.</p></li>
+<li><p><strong>min_group_size</strong> (default <code class="docutils literal notranslate"><span class="pre">2</span></code>): the minimum number of correlated columns required to form a redundancy group.</p></li>
+<li><p><strong>min_na_ratio</strong> (default <code class="docutils literal notranslate"><span class="pre">0.3</span></code>): numeric columns whose fraction of missing (NA) values exceeds this threshold are flagged (and dropped, if <strong>drop_redundant_columns</strong> is <strong>True</strong>).</p></li>
+<li><p><strong>min_zero_ratio</strong> (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>): numeric columns whose fraction of zero values exceeds this threshold are flagged (and dropped, if <strong>drop_redundant_columns</strong> is <strong>True</strong>).</p></li>
+<li><p><strong>treat_zero_as_na</strong> (default <code class="docutils literal notranslate"><span class="pre">True</span></code>): if <strong>True</strong>, zeros are treated as missing values when computing redundancy metrics and selecting the representative column for each group.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Example: dropping correlated features.</strong> To actually drop redundant columns (rather than just logging them), set <strong>drop_redundant_columns = True</strong>. Recall that this parameter <strong>defaults to False</strong>, so you must opt in. The example below keeps only one representative from each group of features correlated at an absolute Spearman correlation of 0.9 or higher:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jury_feature_builder</span> <span class="o">=</span> <span class="n">FeatureBuilder</span><span class="p">(</span>
+        <span class="n">input_df</span> <span class="o">=</span> <span class="n">juries_df</span><span class="p">,</span>
+        <span class="n">grouping_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;batch_num&quot;</span><span class="p">,</span> <span class="s2">&quot;round_num&quot;</span><span class="p">],</span>
+        <span class="n">output_file_base</span> <span class="o">=</span> <span class="s2">&quot;jury_output&quot;</span><span class="p">,</span>
+        <span class="n">drop_redundant_columns</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Defaults to False; set to True to drop redundant columns rather than only logging them.</span>
+        <span class="n">corr_thresh</span> <span class="o">=</span> <span class="mf">0.9</span>               <span class="c1"># Cluster features correlated at &gt;= 0.9 (absolute Spearman) and keep one representative per group.</span>
+<span class="p">)</span>
+<span class="n">jury_feature_builder</span><span class="o">.</span><span class="n">featurize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
 </section>
 <section id="cumulative-grouping">
 <h5>Cumulative Grouping<a class="headerlink" href="#cumulative-grouping" title="Link to this heading"></a></h5>
