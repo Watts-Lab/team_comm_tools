@@ -11,10 +11,11 @@ from time import perf_counter
 from torch import cuda, no_grad
 from sentence_transformers import SentenceTransformer
 
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, logging
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, logging as hf_logging
 from scipy.special import softmax
+import logging
 
-logging.set_verbosity(40) # only log errors
+hf_logging.set_verbosity(40) # only log errors
 
 MODEL  = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
@@ -46,8 +47,8 @@ def check_embeddings(chat_data: pd.DataFrame, vect_path: str, bert_path: str, ne
     :type regenerate_vectors: bool, optional
     :param use_gpu: If true, will use GPU for embeddings if available; otherwise, will use CPU.
     :type use_gpu: bool
-    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
-    :type message_col: str, optional
+    :param message_col: A string representing the column name that should be selected as the message.
+    :type message_col: str
     :param logger: Logger for logging messages
     :type logger: logging.Logger
 
@@ -392,8 +393,8 @@ def generate_vect(chat_data, output_path, message_col, device, batch_size=64):
     :type chat_data: pd.DataFrame
     :param output_path: Path to save the CSV file containing message embeddings.
     :type output_path: str
-    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
-    :type message_col: str, optional
+    :param message_col: A string representing the column name that should be selected as the message.
+    :type message_col: str
     :param device: A string representing the device to use for computation, either "cpu" or "cuda".
     :type device: str
     :param batch_size: The size of each batch for processing sentiment analysis. Defaults to 64.
@@ -430,8 +431,8 @@ def generate_bert(chat_data, output_path, message_col, device, batch_size=64):
     :type chat_data: pd.DataFrame
     :param output_path: Path to save the CSV file containing sentiment scores.
     :type output_path: str
-    :param message_col: A string representing the column name that should be selected as the message. Defaults to "message".
-    :type message_col: str, optional
+    :param message_col: A string representing the column name that should be selected as the message.
+    :type message_col: str
     :param batch_size: The size of each batch for processing sentiment analysis. Defaults to 64.
     :type batch_size: int
     :raises FileNotFoundError: If the output path is invalid.

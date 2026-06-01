@@ -187,8 +187,8 @@ class FeatureBuilder:
         self.summ_logger = setup_logger(name="summary_details_logger", log_file_path=f"./{self.output_file_base}/logs/summary_details.log")
         # Check that input is a dataframe
         if not isinstance(input_df, pd.DataFrame):
-            self.logger.error(f"Expected a Pandas DataFrame as input_df, but got {type(df).__name__}")
-            raise TypeError(f"Expected a Pandas DataFrame as input_df, but got {type(df).__name__})")
+            self.logger.error(f"Expected a Pandas DataFrame as input_df, but got {type(input_df).__name__}")
+            raise TypeError(f"Expected a Pandas DataFrame as input_df, but got {type(input_df).__name__}")
         input_df = input_df.reset_index(drop=True) # reset index to avoid issues with indexing later on
         print("Initializing Featurization...")
         self.logger.info(f"=== Start Initializing FeatureBuilder for {self.file_base_name}.csv ===")
