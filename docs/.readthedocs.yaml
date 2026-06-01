@@ -16,7 +16,7 @@ build:
     # golang: "1.19"
   jobs:
     pre_install: # Stuff in src/requirements.txt depends on en_core_web_sm, which in turn depends on spacy
-      - pip install spacy==3.7.2 
+      - pip install "numpy<2.0.0" "spacy==3.7.2"
       - bash -c "python3 -m spacy download en_core_web_sm"
     post_install: # Install NLTK resources after the install step
       - python3 -m nltk.downloader nps_chat
