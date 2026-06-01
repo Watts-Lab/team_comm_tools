@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Team Communication Toolkit &mdash; Team Communication Toolkit 0.1.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
@@ -102,7 +102,7 @@
 <p><strong>We strongly recommend using a virtual environment in Python to run the package.</strong> We have several specific dependency requirements. One important one is that we are currently only compatible with numpy &lt; 2.0.0 because <a class="reference external" href="https://numpy.org/devdocs/release/2.0.0-notes.html#changes">numpy 2.0.0 and above</a> made significant changes that are not compatible with other dependencies of our package. As those dependencies are updated, we will support later versions of numpy.</p>
 <p><strong>We also strongly recommend that your version of pip is up-to-date (&gt;=24.0).</strong> There have been reports in which users have had trouble downloading dependencies (specifically, the Spacy package) with older versions of pip. If you get an error with downloading <code class="docutils literal notranslate"><span class="pre">en_core_web_sm</span></code>, we recommend updating pip.</p>
 <p>After you import the package and install dependencies, you can then use our tool in your Python script as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">team_comm_tools</span> <span class="kn">import</span> <span class="n">FeatureBuilder</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">team_comm_tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">FeatureBuilder</span>
 </pre></div>
 </div>
 <p><em>Note</em>: PyPI treats hyphens and underscores equally, so “pip install team_comm_tools” and “pip install team-comm-tools” are equivalent. However, Python does NOT treat them equally, and <strong>you should use underscores when you import the package, like this: from team_comm_tools import FeatureBuilder</strong>.</p>

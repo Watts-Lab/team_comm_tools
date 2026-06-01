@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>preprocess module &mdash; Team Communication Toolkit 0.1.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
@@ -65,6 +65,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.preprocess_text"><code class="docutils literal notranslate"><span class="pre">preprocess_text()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.preprocess_text_lowercase_but_retain_punctuation"><code class="docutils literal notranslate"><span class="pre">preprocess_text_lowercase_but_retain_punctuation()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.remove_unhashable_cols"><code class="docutils literal notranslate"><span class="pre">remove_unhashable_cols()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.preprocess.setup_logger"><code class="docutils literal notranslate"><span class="pre">setup_logger()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="summarize_features.html">summarize_features module</a></li>
@@ -292,6 +293,27 @@ Otherwise, remove those columns from the DataFrame and print a warning message.<
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ValueError</strong> – if a required column contains unhashable types</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.preprocess.setup_logger">
+<span class="sig-prename descclassname"><span class="pre">utils.preprocess.</span></span><span class="sig-name descname"><span class="pre">setup_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.preprocess.setup_logger" title="Link to this definition"></a></dt>
+<dd><p>Set up a logger</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the logger.</p></li>
+<li><p><strong>log_file_path</strong> (<em>str</em>) – Path to the log file, such as ‘./output/logs/feature_builder.log’.</p></li>
+<li><p><strong>level</strong> (<em>int</em><em>, </em><em>optional</em>) – Logging level, defaults to logging.INFO. All levels: 0: NOTSET, 10: DEBUG, 20: INFO, 30: WARNING, 40: ERROR, 50: CRITICAL.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configured logger.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>logging.Logger</p>
 </dd>
 </dl>
 </dd></dl>

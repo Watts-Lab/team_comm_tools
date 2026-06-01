@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>politeness_v2_helper module &mdash; Team Communication Toolkit 0.1.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
@@ -134,16 +134,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="features.politeness_v2_helper.Question">
 <span class="sig-prename descclassname"><span class="pre">features.politeness_v2_helper.</span></span><span class="sig-name descname"><span class="pre">Question</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#features.politeness_v2_helper.Question" title="Link to this definition"></a></dt>
-<dd><p>Counts the number of sentences containing question words and question marks.</p>
+<dd><p>Counts the number of sentences containing question words and question marks.
+Reference: <a class="reference external" href="https://github.com/bbevis/politenessPy/blob/main/strategy_extractor.py">https://github.com/bbevis/politenessPy/blob/main/strategy_extractor.py</a>
+:param doc: The spaCy Doc object containing the text to be analyzed.
+:type doc: spacy.tokens.Doc</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>doc</strong> (<em>spacy.tokens.Doc</em>) – The spaCy Doc object containing the text to be analyzed.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing the counts of Yes/No questions and WH-questions.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tuple containing the counts of Yes/No questions and WH-questions.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>

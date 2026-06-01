@@ -82,25 +82,23 @@ Customizable Parameters
 
 Here are some parameters that can be customized. For more details, refer to the :ref:`examples` and :ref:`feature_builder`.
 
-1. ``analyze_first_pct``: Analyze only the first portion (X% of utterances) of a conversation.
+1. ``turns``: Combine successive messages by the same individual into a single "turn."
 
-2. ``turns``: Combine successive messages by the same individual into a single "turn."
+2. ``cumulative_grouping`` and ``within_task``: Perform nested grouping, analyzing "sub-conversations" within a larger conversation together.
 
-3. ``cumulative_grouping`` and ``within_task``: Perform nested grouping, analyzing "sub-conversations" within a larger conversation together.
+3. ``ner_training_df`` and ``ner_cutoff``: Measure the number of named entities in each utterance (see :ref:`named_entity_recognition`).
 
-4. ``ner_training_df`` and ``ner_cutoff``: Measure the number of named entities in each utterance (see :ref:`named_entity_recognition`).
+4. ``regenerate_vectors``: Force-regenerate vector data even if it already exists.
 
-5. ``regenerate_vectors``: Force-regenerate vector data even if it already exists.
+5. ``use_gpu``: If set to True and a GPU is available, the package will generate sentence vectors (SBERT) and RoBERTa sentiments using the GPU. Defaults to False (which means the package will only use the CPU).
 
-6. ``use_gpu``: If set to True and a GPU is available, the package will generate sentence vectors (SBERT) and RoBERTa sentiments using the GPU. Defaults to False (which means the package will only use the CPU).
+6. ``compute_vectors_from_preprocessed``: Computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation), and this parameter now defaults to False.
 
-7. ``compute_vectors_from_preprocessed``: Computes vectors using preprocessed text (that is, with capitalization and punctuation removed). This was the default behavior for v.0.1.3 and earlier, but we now default to computing metrics on the unpreprocessed text (which INCLUDES capitalization and punctuation), and this parameter now defaults to False.
+7. ``custom_liwc_dictionary_path``: Allows the user to "bring their own" LIWC dictionary, and thereby access more recent versions of the LIWC features. Our default version of LIWC is 2007, but users can obtain more recent versions of the lexicon by contacting `Ryan Boyd <https://www.ryanboyd.io/>`_ and `Jamie Pennebaker <https://liberalarts.utexas.edu/psychology/faculty/pennebak>`_. For more information on using the custom LIWC dictionary, please see :ref:`liwc`.
 
-8. ``custom_liwc_dictionary_path``: Allows the user to "bring their own" LIWC dictionary, and thereby access more recent versions of the LIWC features. Our default version of LIWC is 2007, but users can obtain more recent versions of the lexicon by contacting `Ryan Boyd <https://www.ryanboyd.io/>`_ and `Jamie Pennebaker <https://liberalarts.utexas.edu/psychology/faculty/pennebak>`_. For more information on using the custom LIWC dictionary, please see :ref:`liwc`.
+8. **Custom Aggregation of Utterance (Chat)-Level Attributes** (``convo_aggregation``, ``convo_methods``, ``convo_columns``, ``user_aggregation``, ``user_methods``, and ``user_columns``): Customize the ways in which attributes at a lower level of analysis (for example, the number of words in a given message) get aggregated to a higher level of analysis (for example, the total number of words in an entire conversation.) See the Worked Example (:ref:`custom_aggregation`) for details.
 
-9. **Custom Aggregation of Utterance (Chat)-Level Attributes** (``convo_aggregation``, ``convo_methods``, ``convo_columns``, ``user_aggregation``, ``user_methods``, and ``user_columns``): Customize the ways in which attributes at a lower level of analysis (for example, the number of words in a given message) get aggregated to a higher level of analysis (for example, the total number of words in an entire conversation.) See the Worked Example (:ref:`custom_aggregation`) for details.
-
-Example Usage:
+Custom Aggregation Example Usage:
 
 .. code-block:: python
 
@@ -115,3 +113,14 @@ To turn off aggregation, set the following parameters to ``False``. By default, 
 
      convo_aggregation = False
      user_aggregation = False
+
+9. **Reducing Redundant Features** (``drop_redundant_columns``, ``corr_thresh``, ``min_na_ratio``, ``min_zero_ratio``, ``min_group_size``, and ``treat_zero_as_na``): **New in v.0.1.8.** The FeatureBuilder can automatically detect groups of highly correlated features and retain only one representative per group, as well as drop columns with too many missing (NA) or zero values. See the Worked Example (:ref:`reducing_redundant_features`) for details.
+
+Reducing Redundant Features Example Usage:
+
+.. code-block:: python
+
+     # By default, drop_redundant_columns is False, so redundant columns are only logged, not removed.
+     # Set it to True to actually drop them from the output.
+     drop_redundant_columns = True
+     corr_thresh = 0.9    # Treat features correlated at >= 0.9 (absolute Spearman) as redundant.
