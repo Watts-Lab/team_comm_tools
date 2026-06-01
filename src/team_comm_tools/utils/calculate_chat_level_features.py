@@ -20,6 +20,7 @@ from team_comm_tools.features.named_entity_recognition_features import *
 from .preload_word_lists import *
 from .zscore_chats_and_conversation import get_zscore_across_all_chats, get_zscore_across_all_conversations
 from time import perf_counter
+import logging
 
 # Loading bar
 from tqdm import tqdm
