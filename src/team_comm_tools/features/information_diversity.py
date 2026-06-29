@@ -1,20 +1,13 @@
-import pandas as pd
 import numpy as np
 import math
-import nltk
 from nltk.corpus import stopwords
-from nltk import tokenize
 stopword = list(stopwords.words('english'))
 
-from nltk.stem import WordNetLemmatizer  
-from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-from pprint import pprint
 from scipy.spatial.distance import cosine
 
 import gensim.corpora as corpora
-from gensim.models import CoherenceModel
-from gensim.utils import simple_preprocess
 from gensim.models.ldamodel import LdaModel
 
 def get_info_diversity(df, conversation_id_col, message_col):
@@ -79,11 +72,17 @@ def preprocessing(data):
 
 def calculate_ID_score(doc_topics, num_topics):
         """
-        Computes info diversity score as suggested in Reidl & Woolley (2017); determines a topic vector 
-        for every message using an LDA Model, computes a mean topic vector across all messages, and measures the average 
-        cosine similarity between the message vectors and the mean vector.
+        Computes info diversity score as suggested in Reidl & Woolley (2017); determines a topic vector
+        for every message using an LDA Model, computes a mean topic vector across all messages, and measures the average
+        squared cosine distance (dissimilarity) between the message vectors and the mean vector. Higher values indicate
+        a higher level of topical diversity.
 
-        Source: https://www.circlelytics.com/wp-content/uploads/2022/05/Riedl-Woolley-2017-Teams-vs-Crowds-A-field-test-of-the-realitive-contribution-of-incentives-member-abilities.pdf
+        Implements Eq. (1) of Riedl & Woolley (2017): ID = sum((1 - cos(d_j, M))^2) / N, where cos(d_j, M) is the cosine
+        similarity between message vector d_j and the mean topic vector M. Note that scipy's cosine() already returns the
+        cosine distance (1 - similarity), so it maps directly onto the (1 - cos(d_j, M)) term and must NOT be subtracted
+        from 1 again (doing so would yield similarity, inverting the metric).
+
+        Source: https://ssrn.com/abstract=2384068
 
         Args:
             doc_topics (list): the list of topic vectors from the team's chat messages that comes from the LDA model.
@@ -102,6 +101,6 @@ def calculate_ID_score(doc_topics, num_topics):
         topic_matrix = np.array(topic_matrix)
 
         mean_topic_vector = np.mean(topic_matrix, axis=0)
-        squared_cosine_distances = [(1 - cosine(doc, mean_topic_vector))**2 for doc in topic_matrix]
+        squared_cosine_distances = [cosine(doc, mean_topic_vector)**2 for doc in topic_matrix]
         score = np.sum(squared_cosine_distances) / len(squared_cosine_distances)
         return score
