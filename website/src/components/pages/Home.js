@@ -25,6 +25,18 @@ function Home() {
                     and Python package that aims to make it easier for social scientists to explore text-based conversational data.
                 </p>
 
+                <div className='cta-container'>
+                    <a
+                        className='cta-button'
+                        href='https://pypi.org/project/team-comm-tools/'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                    >
+                        <span className='cta-label'>Download Our Python Package</span>
+                        <span className='cta-sublabel'>pip install team_comm_tools &middot; available on PyPI</span>
+                    </a>
+                </div>
+
                 <h1 className='home-subheaders'>
                     Our Goal: Demystify the Science of Conversations.
                 </h1>
@@ -50,28 +62,6 @@ function Home() {
                 <p>
                     To learn more about our research, please visit the <Link to="/Research">Research</Link> page.
                 </p>
-
-                <h1 className='home-subheaders'>
-                    Seven Basic Categories of Conversations
-                </h1>
-                <p> Our toolkit is rooted in systematic review of the conversational literature, in which we identify seven basic
-                    categories of conversational attributes:
-                </p>
-                <br />
-                <div className='bullet-points'>
-                    <ol>
-                        <li> <strong> Quantity </strong> (or how much you say); </li>
-                        <li> <strong> Pace </strong> (or the timing of when you say it); </li>
-                        <li> <strong> Content </strong> (or what you say); </li>
-                        <li> <strong> Engagement </strong> (or how you react to others); </li>
-                        <li> <strong> Equality </strong> (or who is doing the talking); </li>
-                        <li> <strong> Emotion </strong> (the valence of what you say); and </li>
-                        <li> <strong> Variance </strong> (or the similarities and differences between what people say).</li>
-                    </ol>
-                </div>
-                <br />
-                <br />
-                <p> Thinking about conversations along these dimensions can help researchers think about the different attributes that they can consider. </p>
 
                 <h1 className='home-subheaders'>
                     Download our Python Package!

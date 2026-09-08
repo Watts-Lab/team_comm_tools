@@ -50,14 +50,14 @@ body {
 
 .background-container {
   display: flex;
-  height: 80vh;
+  height: 55vh;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  background-position: center top 30%;
+  background-position: center top;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url("/public/team_convo.png");
+  background-image: url("/public/team_convo_cropped.png");
   /* opacity: 0.4; */
   color: #011954;
   font-size: 50px;
@@ -276,6 +276,59 @@ table th {
   white-space: normal; 
 }
 
+/* Research page: tighten the space between the page header and the CTA button.
+   The shared header rule centers the title in a 35vh band, leaving a large gap below it. */
+.research {
+  height: 20vh;
+}
+
+.research + .cta-container {
+  margin-top: 0;
+}
+
+/* Giant call-to-action buttons (PyPI download, Read the Paper) */
+.cta-container {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 10px 0;
+}
+
+.cta-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 700px;
+  padding: 32px 40px;
+  background-color: #011954;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(1, 25, 84, 0.25);
+  transition: all 0.2s ease-out;
+}
+
+.cta-button:hover,
+.cta-button:focus {
+  background-color: #0a2f8a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(1, 25, 84, 0.35);
+}
+
+.cta-label {
+  font-size: 2.2em;
+  font-weight: bold;
+  line-height: 1.15;
+}
+
+.cta-sublabel {
+  font-size: 1.1em;
+  opacity: 0.85;
+}
+
 @media (max-width: 1200px) {
 
   .current,
@@ -285,6 +338,18 @@ table th {
 }
 
 @media (max-width: 800px) {
+
+  .cta-button {
+    padding: 26px 24px;
+  }
+
+  .cta-label {
+    font-size: 1.8em;
+  }
+
+  .cta-sublabel {
+    font-size: 1em;
+  }
 
   .current,
   .alumni {
@@ -345,6 +410,24 @@ table th {
 }
 
 @media (max-width: 480px) {
+
+  .cta-container {
+    margin: 30px 0 10px 0;
+  }
+
+  .cta-button {
+    padding: 22px 18px;
+    border-radius: 10px;
+  }
+
+  .cta-label {
+    font-size: 1.45em;
+  }
+
+  .cta-sublabel {
+    font-size: 0.9em;
+  }
+
 
   .home-body,
   .team-container,

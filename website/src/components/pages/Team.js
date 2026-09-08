@@ -3,32 +3,17 @@ import '../../App.css';
 
 const current = [
   {
-    name: 'Shruti Agarwal',
-    image: `${process.env.PUBLIC_URL}/shruti.png`
-  },
-  {
-    name: 'Priya DCosta',
-    image: `${process.env.PUBLIC_URL}/priya.png`
-  },
-  {
-    name: 'Pradnaya Pathak',
-    image: `${process.env.PUBLIC_URL}/pradnaya.png`
-  },
-  {
-    name: 'Yashveer Singh Sohi',
-    image: `${process.env.PUBLIC_URL}/yashveer.png`
-  },
-  {
     name: 'Yuxuan Zhang',
+    title: 'Data Scientist',
     image: `${process.env.PUBLIC_URL}/yuxuan.jpg`
-  },
-  {
-    name: 'Amy Zheng',
-    image: `${process.env.PUBLIC_URL}/amy.png`
   }
 ];
 
-const alumni = [
+const contributors = [
+  {
+    name: 'Shruti Agarwal',
+    image: `${process.env.PUBLIC_URL}/shruti.png`
+  },
   {
     name: 'Yuluan Cao',
     image: `${process.env.PUBLIC_URL}/yuluan.jpg`
@@ -38,12 +23,28 @@ const alumni = [
     image: `${process.env.PUBLIC_URL}/gina.jfif`
   },
   {
+    name: 'Priya DCosta',
+    image: `${process.env.PUBLIC_URL}/priya.png`
+  },
+  {
     name: 'Nikhil Kumar',
     image: `${process.env.PUBLIC_URL}/nikhil.png`
   },
   {
+    name: 'Pradnaya Pathak',
+    image: `${process.env.PUBLIC_URL}/pradnaya.png`
+  },
+  {
     name: 'Evan Rowbotham',
     image: `${process.env.PUBLIC_URL}/evan.png`
+  },
+  {
+    name: 'Yashveer Singh Sohi',
+    image: `${process.env.PUBLIC_URL}/yashveer.png`
+  },
+  {
+    name: 'Amy Zheng',
+    image: `${process.env.PUBLIC_URL}/amy.png`
   },
   {
     name: 'Eric Zhong',
@@ -72,56 +73,29 @@ function Team() {
         <div className='emily-member'>
           <h2> Xinlan Emily Hu </h2>
           <h4> Project Lead </h4>
-          <h3> PhD Student at the University of Pennsylvania</h3>
+          <h3> Postdoctoral Associate at MIT</h3>
         </div>
       </div>
 
       <h1 class="team-headers"> Current Members </h1>
       <div className="current">
-        {current.map((member, index) => {
-          let title = 'Undergraduate Student, UPenn';
-          if (member.name === 'Yuxuan Zhang') {
-            title = 'Data Scientist';
-          }
-          else if (member.name === 'Priya DCosta') {
-            title = 'Graduate Alumna, UPenn';
-          }
-          else if (member.name === 'Yashveer Singh Sohi') {
-            title = 'Graduate Alumnus, UPenn';
-          }
-
-          return (<div key={index} className='current-member'>
+        {current.map((member, index) => (
+          <div key={index} className='current-member'>
             <img src={member.image} alt={member.name} className="current-image" />
             <h2>{member.name}</h2>
-            <h3> {title} </h3>
+            <h3> {member.title} </h3>
           </div>
-          );
-        })}
+        ))}
       </div>
 
-      <h1 class="team-headers"> Alumni </h1>
+      <h1 class="team-headers"> Package Contributors </h1>
       <div className="alumni">
-        {alumni.map((member, index) => {
-          let title = 'Undergraduate Student, UPenn';
-          if (member.name === 'Yuluan Cao') {
-            title = 'Graduate Student, UPenn';
-          }
-          else if (member.name === 'Eric Zhong') {
-            title = 'Undergraduate Student, Cornell';
-          }
-          else if (member.name === 'Evan Rowbotham') {
-            title = 'Undergraduate Student, NYU';
-          }
-          else if (member.name === 'Gina Chen') {
-            title = 'Data Scientist';
-          }
-          return (<div key={index} className='alumni-member'>
+        {contributors.map((member, index) => (
+          <div key={index} className='alumni-member'>
             <img src={member.image} alt={member.name} className="alumni-image" />
             <h2>{member.name}</h2>
-            <h3> {title} </h3>
           </div>
-          );
-        })}
+        ))}
       </div>
     </div>
   );
